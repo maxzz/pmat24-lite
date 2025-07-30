@@ -1,10 +1,9 @@
-import { type Getter, type Setter } from "jotai";
 import { type FormOptionsState } from "./9-types";
 import { type RowInputStateAtoms, type RowInputState } from "@/ui";
 import { FormIdx } from "@/store/manifest";
 import { VerifyError } from "../../9-types";
 
-export function getVerifyErrors(atoms: FormOptionsState.AllAtoms, formIdx: FormIdx, get: Getter, set: Setter): VerifyError[] {
+export function getVerifyErrors(atoms: FormOptionsState.AllAtoms, formIdx: FormIdx, { get }: GetOnly): VerifyError[] {
     const { p1General, p2Detect, p3Auth, p4QL, p5Icon } = atoms;
 
     const toValidate: RowInputStateAtoms =

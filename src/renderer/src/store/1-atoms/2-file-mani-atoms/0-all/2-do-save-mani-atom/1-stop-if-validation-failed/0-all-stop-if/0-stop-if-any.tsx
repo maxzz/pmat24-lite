@@ -1,6 +1,5 @@
-import { type GetSet } from "@/utils";
-import { toast } from "sonner";
 import { appSettings } from "@/store/9-ui-state";
+import { toast } from "sonner";
 import { FormIdx } from "@/store/manifest";
 import { type ManiAtoms, type VerifyError } from "../../../../9-types";
 import { normalFormsVerifyErrors } from "./1-normal-verify-errors";
@@ -33,7 +32,11 @@ function showValidationErrors({ fromTab, verifyErrors }: { fromTab: string | und
 
     const messages = verifyErrors.map(
         (err, idx) => {
-            return <div key={idx}>{err.error}</div>;
+            return (
+                <div key={idx}>
+                    {err.error}
+                </div>
+            );
         }
     );
 

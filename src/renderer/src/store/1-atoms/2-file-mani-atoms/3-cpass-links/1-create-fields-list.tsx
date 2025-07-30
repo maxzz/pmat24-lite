@@ -1,4 +1,4 @@
-import { type Atom, type Getter, atom } from "jotai";
+import { type Atom, atom } from "jotai";
 import { FormIdx } from "@/store/manifest";
 import { type FieldRowCtx, type MFormCnt, type NFormCnt } from "../9-types";
 
@@ -19,7 +19,7 @@ export function createFormFieldsAtom(normal: NFormCnt | undefined, manual: MForm
                         }
                     )
                     .filter(Boolean);
-                //printFields(fields, formIdx, get);
+                //printFields(fields, formIdx, { get });
             }
             return fields || [];
         }
@@ -27,7 +27,7 @@ export function createFormFieldsAtom(normal: NFormCnt | undefined, manual: MForm
     return rv;
 }
 
-function printFields(fields: FieldRowCtx[], formIdx: FormIdx, get: Getter) {
+function printFields(fields: FieldRowCtx[], formIdx: FormIdx, { get }: GetOnly) {
     console.log(
         `%c👀 Cretate.Form.Fields %c${!formIdx ? 'login (or cpass at create time)' : 'cpass'}`,
         'font-size:0.5rem',

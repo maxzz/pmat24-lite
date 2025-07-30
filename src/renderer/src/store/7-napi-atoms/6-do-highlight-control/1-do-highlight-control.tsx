@@ -1,4 +1,4 @@
-import { type Setter, atom } from "jotai";
+import { atom } from "jotai";
 import { debounce } from "@/utils";
 import { FormIdx } from "@/store/manifest";
 import { hasMain, R2MInvokes } from "@/xternal-to-main";

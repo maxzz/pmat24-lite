@@ -1,4 +1,4 @@
-import { atom, type Getter, type Setter } from "jotai";
+import { atom } from "jotai";
 import { errorToString } from "@/utils";
 import { hasMain, invokeMainTyped } from "@/xternal-to-main";
 import { debugSettings } from "@/store/9-ui-state";
@@ -14,18 +14,19 @@ export const doGetWindowManiAtom = atom(
         if (napiLock.locked('mani')) {
             return;
         }
+        const getset = { get, set };
 
         if (hasMain()) {
-            await doLiveMani(params, get, set);
+            await doLiveMani(params, getset);
         } else {
-            await doTestMani(params, get, set);
+            await doTestMani(params, getset);
         }
 
         napiLock.unlock();
     }
 );
 
-async function doLiveMani(params: ManifestForWindowCreatorParams, get: Getter, set: Setter) {
+async function doLiveMani(params: ManifestForWindowCreatorParams, { get, set }: GetSet) {
     try {
         if (!params.hwnd) {
             throw new Error('No hwnd');
@@ -51,7 +52,7 @@ async function doLiveMani(params: ManifestForWindowCreatorParams, get: Getter, s
     }
 }
 
-async function doTestMani(params: ManifestForWindowCreatorParams, get: Getter, set: Setter) {
+async function doTestMani(params: ManifestForWindowCreatorParams, { get, set }: GetSet) {
     const mani = await set(doLoadFakeManiAtom, debugSettings.testCreate.mani);
     set(maniXmlStrAtom, mani);
 }

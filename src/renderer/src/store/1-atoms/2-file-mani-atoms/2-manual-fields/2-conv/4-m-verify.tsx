@@ -1,11 +1,9 @@
-import { type PrimitiveAtom, type Getter, type Setter } from "jotai";
 import { FormIdx } from "@/store/manifest";
 import { type MFormCnt, type VerifyError } from "../../9-types";
 import { type ManualFieldState } from "../9-types";
 import { getAllAtomValuesForValidate, getChunkValuesForValidate, type RowInputStateUuid } from "./4-m-verify-state-access";
 
-export function getFormVerifyErrors(cnt: MFormCnt, formIdx: FormIdx, get: Getter, set: Setter): VerifyError[] {
-
+export function getFormVerifyErrors(cnt: MFormCnt, formIdx: FormIdx, { get, set }: GetSet): VerifyError[] {
     const tab = formIdx === FormIdx.login ? 'login' : 'cpass';
 
     const chunks = get(cnt.chunksAtom);
@@ -16,7 +14,7 @@ export function getFormVerifyErrors(cnt: MFormCnt, formIdx: FormIdx, get: Getter
 
     const toValidate: RowInputStateUuid[] = getAllAtomValuesForValidate(chunks, get);
 
-    const involvedChunkNumbers = new Map<PrimitiveAtom<boolean>, number>();
+    const involvedChunkNumbers = new Map<PA<boolean>, number>();
 
     const rv: VerifyError[] = toValidate
         .map(
@@ -54,7 +52,7 @@ function hasFieldChunk(chunks: ManualFieldState.Ctx[]): boolean {
 }
 
 //TODO: this was for initial validation, but not need anymore
-export function isChunkInvalid(chunk: ManualFieldState.Ctx, get: Getter, set: Setter): boolean {
+export function isChunkInvalid(chunk: ManualFieldState.Ctx, { get }: GetOnly): boolean {
     const toValidate: RowInputStateUuid[] = getChunkValuesForValidate(chunk, get);
 
     const err = toValidate.some(

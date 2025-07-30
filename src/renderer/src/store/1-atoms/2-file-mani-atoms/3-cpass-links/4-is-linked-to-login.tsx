@@ -18,11 +18,11 @@ const isLinkedToLoginAtom = atom(
             return false;
         }
 
-        const rIndexUuidItem = getAllFormsFields_byFileUsCtx(fileUsCtx, get)
+        const rIndexUuidItem = getAllFormsFields_byFileUsCtx(fileUsCtx, { get })
             .login
             .filter((loginField) => get(loginField.typeAtom) === FieldTyp.psw)
             .find((loginField) => loginField.metaField.uuid === thisUuid);
-            
+
         return !!rIndexUuidItem;
     }
 );

@@ -1,8 +1,6 @@
 import { atom, type Getter, type PrimitiveAtom, type SetStateAction, type Setter, type WritableAtom } from "jotai";
 
-// version: 04.03.24, 05.07.24, 09.02.24, 07.04.25, 07.29.25
-
-export type GetSet = { get: Getter; set: Setter; };
+// version: 04.03.24, 05.07.24, 09.02.24, 07.04.25
 
 export type OnValueChangeParams<Value = any> = { get: Getter; set: Setter; nextValue: Value; };
 export type OnValueChange<Value> = ({ get, set, nextValue }: OnValueChangeParams<Value>) => void;

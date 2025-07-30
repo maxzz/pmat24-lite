@@ -1,4 +1,4 @@
-import { atom, type Getter, type Setter } from "jotai";
+import { atom } from "jotai";
 import { appSettings } from "@/store/9-ui-state";
 import { type FileUs } from "@/store/store-types";
 import { rootDir } from "../../../1-files";
@@ -11,7 +11,7 @@ export const doClearFcRootAtom = atom(
     null,
     (get, set) => {
         if (appSettings.files.shownManis.fcAllowed) { // If fcAllowed is changed then app reboot required
-            assignFcRoot(undefined, get, set);
+            assignFcRoot(undefined, { set });
         }
     }
 );
@@ -23,7 +23,7 @@ export const doAddFcToLoadedAtom = atom(
             return;
         }
 
-        const newRootFc = assignFcRoot(fileUsItems, get, set);
+        const newRootFc = assignFcRoot(fileUsItems, { set });
         if (newRootFc) {
             fileUsItems.push(newRootFc);
         }
@@ -34,7 +34,7 @@ export const doAddFcToLoadedAtom = atom(
  * Assign root field catalog from fileUsItems.
  * If the root field catalog is not among fileUsItems, it will be created and returned.
  */
-function assignFcRoot(fileUs: FileUs[] | undefined, get: Getter, set: Setter): FileUs | undefined {
+function assignFcRoot(fileUs: FileUs[] | undefined, { set }: SetOnly): FileUs | undefined {
     let rv: FileUs | undefined;
 
     if (fileUs) {

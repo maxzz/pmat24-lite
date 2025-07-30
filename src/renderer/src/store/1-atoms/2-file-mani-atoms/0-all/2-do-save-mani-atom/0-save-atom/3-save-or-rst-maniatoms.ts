@@ -1,4 +1,4 @@
-import { type Getter, type Setter, atom } from "jotai";
+import { atom } from "jotai";
 import { type FileUsAtom, type FileUs, disposeFileUsManiAtoms, createManiAtoms, createParsedSrc, printDisposeManiAtomsAtom, fileUsChanges } from "@/store";
 
 /**
@@ -14,11 +14,11 @@ export const updateManiAtomsAfterSaveOrResetAtom = atom(null,
             return;
         }
 
-        updateManiAtomsAfterSaveOrReset(fileUsAtom, fileUs, resetToPrev, get, set);
+        updateManiAtomsAfterSaveOrReset(fileUsAtom, fileUs, resetToPrev, { get, set });
     }
 );
 
-function updateManiAtomsAfterSaveOrReset(fileUsAtom: FileUsAtom, fileUs: FileUs, resetToPrev: boolean, get: Getter, set: Setter) {
+function updateManiAtomsAfterSaveOrReset(fileUsAtom: FileUsAtom, fileUs: FileUs, resetToPrev: boolean, { get, set }: GetSet) {
     const cpassChanged = fileUsChanges.hasCpassChange({ fileUs });
 
     if (!resetToPrev || cpassChanged) {
@@ -39,7 +39,7 @@ function updateManiAtomsAfterSaveOrReset(fileUsAtom: FileUsAtom, fileUs: FileUs,
 
     set(fileUs.maniAtomsAtom, newManiAtoms);
 
-    printDisposeManiAtomsAtom(fileUs.maniAtomsAtom, get, set);
+    printDisposeManiAtomsAtom(fileUs.maniAtomsAtom);
     console.log('%cdisposeFileUsManiAtoms temp not disposing', 'color: magenta');
     //disposeFileUsManiAtoms(savedManiAtoms); // after new atom set dispose old one
 }

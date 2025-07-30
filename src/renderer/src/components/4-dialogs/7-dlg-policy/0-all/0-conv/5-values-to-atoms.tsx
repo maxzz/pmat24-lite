@@ -1,7 +1,6 @@
-import { type Getter, type Setter } from "jotai";
 import { type PolicyDlgTypes } from "./9-types";
 
-export function valuesToAtoms(values: PolicyDlgTypes.ForAtoms, atoms: PolicyDlgTypes.ForAtomsAtomized, get: Getter, set: Setter): void {
+export function valuesToAtoms(values: PolicyDlgTypes.ForAtoms, atoms: PolicyDlgTypes.ForAtomsAtomized, { set }: SetOnly): void {
     set(atoms.enabledAtom, values.enabled);
     set(atoms.constrainSetAtom, values.constrainSet);
     set(atoms.constrainSet0Atom, values.constrainSet0);

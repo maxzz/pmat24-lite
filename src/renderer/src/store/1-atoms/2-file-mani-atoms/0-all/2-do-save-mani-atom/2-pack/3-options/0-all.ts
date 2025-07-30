@@ -3,14 +3,14 @@ import { type FormOptionsState, FormOptionsConv } from "../../../../4-options";
 import { type PackManifestDataParams } from "../9-types";
 
 export function packFormOptions(optionsAtoms: FormOptionsState.AllAtoms, formIdx: FormIdx, packParams: PackManifestDataParams) {
-    const { get, set } = packParams;
-    const detectionAndOptionsRow = FormOptionsConv.fromAtoms(optionsAtoms, get, set);
+    const detectionAndOptionsRow = FormOptionsConv.fromAtoms(optionsAtoms, packParams.getset);
 
     const rv = {
         detection: detectionForMani(detectionAndOptionsRow),
         options: optionsForMani(detectionAndOptionsRow, formIdx),
     };
     // console.log('options', JSON.stringify(rv, null, 2).replace(/"names_ext":\s".*",/, '"names_ext": "...",'));
+    
     return rv;
 }
 

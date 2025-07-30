@@ -7,10 +7,11 @@ import { useEffect, useState } from "react";
 export const setUrlsEditorDataAtom = atom(
     null,
     (get, set, { options, o, how, opt, url }: { options: FormOptionsState.AllAtoms, o?: string; how?: Matching.How; opt?: Matching.Options; url?: string; }) => {
-        const detect = options.p2Detect
+        const getset = { get, set };
+        const detect = options.p2Detect;
 
         if (o !== undefined) {
-            setAtomRowInputState(detect.ourlAtom, o, get, set);
+            setAtomRowInputState(detect.ourlAtom, o, getset);
         }
 
         if (how !== undefined || opt !== undefined || url !== undefined) {
@@ -21,7 +22,7 @@ export const setUrlsEditorDataAtom = atom(
                 set(options.howAtom, how);
 
                 if (how === Matching.How.undef) {
-                    setAtomRowInputState(detect.rurlAtom, get(detect.ourlAtom).data, get, set);
+                    setAtomRowInputState(detect.rurlAtom, get(detect.ourlAtom).data, getset);
                 }
             }
             if (opt !== undefined) {
@@ -30,10 +31,10 @@ export const setUrlsEditorDataAtom = atom(
             }
             if (url !== undefined) {
                 current.url = url;
-                setAtomRowInputState(detect.rurlAtom, url, get, set);
+                setAtomRowInputState(detect.rurlAtom, url, getset);
             }
 
-            setAtomRowInputState(detect.murlAtom, Matching.stringifyRawMatchData(current, get(detect.ourlAtom).data), get, set);
+            setAtomRowInputState(detect.murlAtom, Matching.stringifyRawMatchData(current, get(detect.ourlAtom).data), getset);
         }
     }
 );

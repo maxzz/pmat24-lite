@@ -1,4 +1,4 @@
-import { atom, type Getter, type Setter } from "jotai";
+import { atom } from "jotai";
 import { errorToString } from "@/utils";
 import { hasMain, invokeMainTyped } from "@/xternal-to-main";
 import { type WindowIconGetterResult } from "@shared/ipc-types";
@@ -20,15 +20,18 @@ export const doGetWindowIconAtom = atom(
         }
 
         if (!napiLock.locked('icon')) {
+            const getset = { get, set };
+
             hasMain()
-                ? await doLiveIcon(hwnd, get, set)
-                : await doTestIcon(hwnd, get, set);
+                ? await doLiveIcon(hwnd, getset)
+                : await doTestIcon(hwnd, getset);
+
             napiLock.unlock();
         }
     }
 );
 
-async function doLiveIcon(hwnd: string, get: Getter, set: Setter) {
+async function doLiveIcon(hwnd: string, { get, set }: GetSet) {
     try {
         const cached = iconsCache.get(hwnd);
 
@@ -52,7 +55,7 @@ async function doLiveIcon(hwnd: string, get: Getter, set: Setter) {
                 set(sawIconAtom, image);
             }
 
-            printToCreateTestData(get);
+            printToCreateTestData({ get });
         }
 
         stateNapiAccess.buildError = '';
@@ -70,7 +73,7 @@ export function clearIconsCache() { // Clear icons cache on monitor dialog close
     iconsCache.clear();
 }
 
-async function doTestIcon(hwnd: string, get: Getter, set: Setter) {
+async function doTestIcon(hwnd: string, { get, set }: GetSet) {
     // if (lastTestCreateHwnd === debugSettings.testCreate.hwnd) {
     //     return;
     // }
@@ -100,7 +103,7 @@ const doClearSawIconAtom = atom(
 
 // Utilities. Print hwnd and icon in format that can be used in tests.
 
-function printToCreateTestData(get: Getter) {
+function printToCreateTestData({ get }: GetOnly) {
     const testHwnd = get(sawHandleAtom);
     const testIcon = JSON.parse(get(sawIconStrAtom) || '{}') as WindowIconGetterResult;
     const final = {

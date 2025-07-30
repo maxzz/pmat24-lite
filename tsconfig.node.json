@@ -27,6 +27,7 @@
 
         "src/shell/preload/index.ts",
         "src/renderer/src/vite-typescript/**/*",
+        //"src/renderer/src/vite-typescript/jotai-types.d.ts",
 
         "src/renderer/src/xternal-to-main/**/*",
         "src/renderer/src/store/**/*",

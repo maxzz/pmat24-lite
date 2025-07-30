@@ -1,4 +1,4 @@
-import { type Getter, type Setter, atom } from "jotai";
+import { atom } from "jotai";
 import { type RowInputStateAtom } from "@/ui";
 import { type FileUsAtom, type FileUs } from "@/store/store-types";
 import { type NewManiContentType } from "./9-types";
@@ -10,16 +10,18 @@ class NewManiContent implements NewManiContentType {
     newFileUsAtomAtom = atom<FileUsAtom | undefined>(undefined);
     maniForCpassAtom: FileUsAtom | undefined = undefined;
 
-    init(get: Getter, set: Setter) {
+    init(getset: GetSet) {
+        const { get, set } = getset;
+
         this.maniXmlStrAtom = atom<string | undefined>(undefined);
-        //printNewManiCtxInit(get);
+        //printNewManiCtxInit(getset);
         if (get(this.newFileUsAtomAtom)) {
             throw new Error('newFileUsAtomAtom should be undefined'); // The previuos operation should clean up the newFileUsAtomAtom. If atom is taken then it's not disposed from there.
         }
         set(this.newFileUsAtomAtom, undefined);
     }
 
-    disposeActive(get: Getter, set: Setter) {
+    disposeActive({ get, set }: GetSet) {
         const atomToAtom = get(newManiContent.newFileUsAtomAtom);
         set(newManiContent.newFileUsAtomAtom, undefined);
         atomToAtom && set(doDisposeFileUsAtomAtom, atomToAtom); // The previuos operation will clean up the fileUsAtom if it was saved otherwise it will be undefined.
@@ -28,7 +30,7 @@ class NewManiContent implements NewManiContentType {
 
 export const newManiContent = new NewManiContent();
 
-export const doInitNewManiContentAtom = atom(null, (get, set) => newManiContent.init(get, set));
+export const doInitNewManiContentAtom = atom(null, (get, set) => newManiContent.init({ get, set }));
 
 /**
  * New manifest fileUs atom.
@@ -52,7 +54,7 @@ export const newManiDispNameAtom = atom<RowInputStateAtom | undefined>(
     },
 );
 
-function printNewManiCtxInit(get: Getter) {
+function printNewManiCtxInit({ get }: GetSet) {
     const newAtom = get(newManiContent.newFileUsAtomAtom);
     const atomStr = newAtom ? newAtom.toString() : null;
     console.groupCollapsed(
@@ -65,7 +67,7 @@ function printNewManiCtxInit(get: Getter) {
     console.groupEnd();
 }
 
-function printNewManiCtx(get: Getter) {
+function printNewManiCtx({ get }: GetSet) {
     const newAtom = get(newManiContent.newFileUsAtomAtom);
     const atomStr = newAtom ? newAtom.toString() : null;
     console.groupCollapsed(

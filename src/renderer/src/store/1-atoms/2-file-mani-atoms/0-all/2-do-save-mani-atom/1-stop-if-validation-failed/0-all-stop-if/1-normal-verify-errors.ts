@@ -1,4 +1,3 @@
-import { type GetSet } from "@/utils";
 import { type ManiAtoms, type FieldRowCtx, type VerifyError } from "../../../../9-types";
 
 export function normalFormsVerifyErrors([login, cpass]: ManiAtoms, getset: GetSet): VerifyError[] | undefined {

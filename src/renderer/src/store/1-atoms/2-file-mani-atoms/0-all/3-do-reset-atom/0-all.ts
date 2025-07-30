@@ -1,4 +1,4 @@
-import { type Getter, type Setter, atom } from "jotai";
+import { atom } from "jotai";
 import { toast } from "sonner";
 import { type FileUs, type FileUsAtom } from "@/store/store-types";
 import { fileUsChanges } from "../../9-types";
@@ -21,19 +21,19 @@ export const doResetOrDiscardOneAtom = atom(null,
         }
 
         if (fileUs.fceAtomsForFcFile) {
-            resetFieldCatalog(fileUsAtom, fileUs, get, set);
+            resetFieldCatalog(fileUsAtom, fileUs, { get, set });
         } else {
-            resetManifestTake2(fileUsAtom, fileUs, get, set);
+            resetManifestTake2(fileUsAtom, fileUs, { set });
         }
     }
 );
 
-function resetManifestTake2(fileUsAtom: FileUsAtom, fileUs: FileUs, get: Getter, set: Setter) {
+function resetManifestTake2(fileUsAtom: FileUsAtom, fileUs: FileUs, { set }: SetOnly) {
     set(updateManiAtomsAfterSaveOrResetAtom, { fileUsAtom, resetToPrev: true });
     fileUsChanges.setUnchanged({ fileUs });
 }
 
-function resetManifestTake1(fileUsAtom: FileUsAtom, fileUs: FileUs, get: Getter, set: Setter) {
+function resetManifestTake1(fileUsAtom: FileUsAtom, fileUs: FileUs, { get, set }: GetSet) {
     const maniAtoms = get(fileUs.maniAtomsAtom);
     if (maniAtoms) {
         resetManifest({ fileUs, fileUsAtom, maniAtoms, get, set });
@@ -41,7 +41,7 @@ function resetManifestTake1(fileUsAtom: FileUsAtom, fileUs: FileUs, get: Getter,
     }
 }
 
-function resetFieldCatalog(fileUsAtom: FileUsAtom, fileUs: FileUs, get: Getter, set: Setter) {
+function resetFieldCatalog(fileUsAtom: FileUsAtom, fileUs: FileUs, getset: GetSet) {
     toast.info('Resetting field catalog is not a good idea. Do it only if you know what you are doing.');
     /*
     // Good but deprecated (see notes inside resetFc()):

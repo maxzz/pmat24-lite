@@ -1,4 +1,4 @@
-import { type Atom, type Getter, type Setter } from "jotai";
+import { type Atom } from "jotai";
 import { type FileUs, type FileUsAtom } from "@/store/store-types";
 import { type FormIdx } from "@/store/manifest";
 import { type SubmitFieldTypes, type NormalField } from "../1-normal-fields";
@@ -129,7 +129,7 @@ export function getAllFormsFieldsAtoms(maniAtoms: ManiAtoms): AllFormsFieldsAtom
     };
 }
 
-export function getAllFormsFields_byManiAtoms(maniAtoms: ManiAtoms, get: Getter): AllFormsFields {
+export function getAllFormsFields_byManiAtoms(maniAtoms: ManiAtoms, { get }: GetOnly): AllFormsFields {
     const { loginAtom, cpassAtom } = getAllFormsFieldsAtoms(maniAtoms);
     return {
         login: get(loginAtom),
@@ -137,9 +137,9 @@ export function getAllFormsFields_byManiAtoms(maniAtoms: ManiAtoms, get: Getter)
     };
 }
 
-export function getAllFormsFields_byFileUsCtx(fileUsCtx: FileUsCtx, get: Getter): AllFormsFields {
-    const maniAtoms = safeManiAtoms(get(fileUsCtx.fileUs.maniAtomsAtom));
-    return getAllFormsFields_byManiAtoms(maniAtoms, get);
+export function getAllFormsFields_byFileUsCtx(fileUsCtx: FileUsCtx, getOnly: GetOnly): AllFormsFields {
+    const maniAtoms = safeManiAtoms(getOnly.get(fileUsCtx.fileUs.maniAtomsAtom));
+    return getAllFormsFields_byManiAtoms(maniAtoms, getOnly);
 }
 
 // Guards

@@ -24,7 +24,7 @@ export const doTriggerRightPanelSelectedAtom = atom(
     (get, set, { newAtom }: { newAtom: FileUsAtom | undefined; }): void => {
         set(doPreloadManiAtomsAtom, newAtom);
         set(rightPanelAtomAtom, newAtom);
-        printFileUsAtomLinks(rightPanelAtomAtom, get);
+        printFileUsAtomLinks(rightPanelAtomAtom, { get });
     }
 );
 

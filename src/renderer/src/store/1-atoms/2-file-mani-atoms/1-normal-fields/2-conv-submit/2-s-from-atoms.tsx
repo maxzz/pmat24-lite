@@ -1,7 +1,6 @@
-import { type Getter, type Setter } from "jotai";
 import { type SubmitFieldTypes } from "./9-types";
 
-export function fromAtoms(atoms: SubmitFieldTypes.Ctx, get: Getter, set: Setter): SubmitFieldTypes.ForAtoms {
+export function fromAtoms(atoms: SubmitFieldTypes.Ctx, { get }: GetSet): SubmitFieldTypes.ForAtoms {
     const { buttonNameItemsAtom, selectedAtom, doSubmitAtom, isSubmitTypeUndefinedAtom } = atoms;
 
     const rv = {
@@ -10,6 +9,6 @@ export function fromAtoms(atoms: SubmitFieldTypes.Ctx, get: Getter, set: Setter)
         doSubmit: get(doSubmitAtom),
         isSubmitTypeUndefined: get(isSubmitTypeUndefinedAtom),
     };
-    
+
     return rv;
 }

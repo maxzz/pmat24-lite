@@ -4,7 +4,7 @@ import { ManualFieldConv } from "../../../2-conv";
 
 const editorDataForAtom = atom(
     (get) => (ctx: ManualFieldState.Ctx) => {
-        const rv = ManualFieldConv.fromAtom(ctx, get);
+        const rv = ManualFieldConv.fromAtom(ctx, { get });
         return rv;
     }
 );

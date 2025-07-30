@@ -1,9 +1,8 @@
-import { type Getter, type PrimitiveAtom } from "jotai";
 import { type FileUsAtom } from "@/store/store-types";
 import { getAllFormsFields_byManiAtoms, type FieldRowCtx, type ManiAtoms } from "../2-file-mani-atoms/9-types";
 import { type Mani } from "@/store/manifest";
 
-export function printFileUsAtomLinks(atm: PrimitiveAtom<FileUsAtom | undefined>, get: Getter, label: string = 'rightPanelAtomAtom') {
+export function printFileUsAtomLinks(atm: PA<FileUsAtom | undefined>, { get }: GetOnly, label: string = 'rightPanelAtomAtom') {
     const thisAtom = get(atm);
     const thisAtomStr = thisAtom ? thisAtom.toString() : null;
 
@@ -21,7 +20,7 @@ export function printFileUsAtomLinks(atm: PrimitiveAtom<FileUsAtom | undefined>,
     const fileUs = thisAtom && get(thisAtom);
     const maniAtoms = fileUs && get(fileUs.maniAtomsAtom);
     if (maniAtoms) {
-        printManiAtoms(maniAtoms, get);
+        printManiAtoms(maniAtoms, { get });
     } else {
         console.log(`%cNo fileUs(${fileUs}) or maniAtoms(${maniAtoms})`, 'color: red');
     }
@@ -29,13 +28,13 @@ export function printFileUsAtomLinks(atm: PrimitiveAtom<FileUsAtom | undefined>,
     console.groupEnd();
 }
 
-function printManiAtoms(maniAtoms: ManiAtoms, get: Getter) {
-    const { login, cpass } = getAllFormsFields_byManiAtoms(maniAtoms, get);
-    printFormFields(login, get);
-    printFormFields(cpass, get);
+function printManiAtoms(maniAtoms: ManiAtoms, getOnly: GetOnly) {
+    const { login, cpass } = getAllFormsFields_byManiAtoms(maniAtoms, getOnly);
+    printFormFields(login, getOnly);
+    printFormFields(cpass, getOnly);
 }
 
-function printFormFields(fields: FieldRowCtx[], get: Getter) {
+function printFormFields(fields: FieldRowCtx[], { get }: GetOnly) {
     const colors: string[] = [];
     const lines: string[] = [];
 
@@ -46,10 +45,10 @@ function printFormFields(fields: FieldRowCtx[], get: Getter) {
             const rfieldValue = get(field.rfieldAtom);
             const rfield = rfieldValue === 'in' ? ' in' : rfieldValue === 'out' ? ' out' : '   ';
             const other = `rfieldUuid:${get(field.rfieldUuidAtom)} rfield:'${rfield}'`;
-            
+
             const memOnlyFromAtm = memOnlyToString(field.memOnlyAtom ? get(field.memOnlyAtom) : undefined);
             const memOnlyFromFld = memOnlyToString(field.metaField.mani.memOnly);
-            
+
             lines.push(`%c    '${fieldStr}'\n%c        this.meta.uuid: %c${field.metaField.uuid}%c ${other}\n%c        fromAtm:${memOnlyFromAtm}\n%c        fromFld:${memOnlyFromFld}`);
             colors.push(
                 'font-size:0.65rem; color: black',

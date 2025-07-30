@@ -1,4 +1,3 @@
-import { type Getter, type Setter } from "jotai";
 import { type OnValueChange, atomWithCallback } from "@/utils";
 import { type RowInputState, type RowInputStateAtom } from "./9-types";
 
@@ -57,7 +56,7 @@ export function resetRowInputState(state: RowInputState, value: string): RowInpu
     return rv;
 }
 
-export function setAtomRowInputState(stateAtom: RowInputStateAtom, value: RowInputState['data'], get: Getter, set: Setter) {
+export function setAtomRowInputState(stateAtom: RowInputStateAtom, value: RowInputState['data'], { get, set }: GetSet) {
     const state = get(stateAtom);
     const newState: RowInputState = {
         ...state,

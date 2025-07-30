@@ -1,4 +1,3 @@
-import { type Getter, type Setter } from "jotai";
 import { type FileUs, type FileUsAtom } from "@/store/store-types";
 import { type FceItemValue } from "@/store/1-atoms/4-field-catalogs";
 

@@ -1,4 +1,4 @@
-import { atom, type Getter, type Setter } from "jotai";
+import { atom } from "jotai";
 import { type MFormCnt } from "@/store/1-atoms/2-file-mani-atoms";
 import { kbdToIndex } from "./b-kbd-to-index";
 
@@ -8,7 +8,7 @@ import { kbdToIndex } from "./b-kbd-to-index";
 export const doSelectIdxAtom = atom(
     null,
     (get, set, cnt: MFormCnt, idx: number) => {
-        deselectCurrent(cnt, get, set);
+        deselectCurrent(cnt, {get, set});
 
         const chunks = get(cnt.chunksAtom);
 
@@ -27,7 +27,7 @@ export const doSetSelectItemValueAtom = atom(
     (get, set, cnt: MFormCnt, idx: number, value: boolean | ((v: boolean) => boolean)) => {
         const currentIdx = get(cnt.selectedIdxStoreAtom);
         if (currentIdx !== idx) {
-            deselectCurrent(cnt, get, set);
+            deselectCurrent(cnt, { get, set });
         }
 
         const chunks = get(cnt.chunksAtom);
@@ -44,7 +44,7 @@ export const doSetSelectItemValueAtom = atom(
 /**
  * deselect current item
  */
-export function deselectCurrent(cnt: MFormCnt, get: Getter, set: Setter) {
+export function deselectCurrent(cnt: MFormCnt, { get, set }: GetSet) {
     const currentIdx = get(cnt.selectedIdxStoreAtom);
     const chunks = get(cnt.chunksAtom);
 

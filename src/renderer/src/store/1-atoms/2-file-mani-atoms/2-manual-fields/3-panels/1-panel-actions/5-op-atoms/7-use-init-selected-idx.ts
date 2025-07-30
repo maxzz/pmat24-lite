@@ -1,6 +1,5 @@
 import { useCallback } from "react";
 import { useAtomCallback } from "jotai/utils";
-import { type Getter, type Setter } from "jotai";
 import { type MFormCnt } from "@/store/1-atoms/2-file-mani-atoms";
 import { doSetSelectItemValueAtom } from "./1-select-atoms";
 

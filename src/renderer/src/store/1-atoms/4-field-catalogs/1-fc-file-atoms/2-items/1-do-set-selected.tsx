@@ -1,4 +1,4 @@
-import { type Atom, atom, type Getter, type Setter } from "jotai";
+import { type Atom, atom } from "jotai";
 import { type FceItem, type FceCtx } from "../../9-types";
 import { createEmptyValueLife } from "@/store/manifest";
 import { FieldTyp } from "@/store/manifest";
@@ -12,7 +12,7 @@ export const doSelectIdxFcAtom = atom(
 
         const previousIdx = get(fceCtx.selectedIdxStoreAtom);
         if (previousIdx !== idx) {
-            deselectPreviousIdx(fceCtx, get, set);
+            deselectPreviousIdx(fceCtx, { get, set });
         }
 
         const shownItems = get(fceCtx.shownAtom);
@@ -22,7 +22,7 @@ export const doSelectIdxFcAtom = atom(
             newItem.editor[fceCtx.isPicker ? 'isSelectedInPicker' : 'isSelectedInView'] = true;
             set(fceCtx.selectedIdxStoreAtom, idx);
             set(fceCtx.selectedItemAtom, newItem);
-            setSelectedProps({ fceCtx, selectedItem: newItem, get, set });
+            setSelectedProps({ fceCtx, selectedItem: newItem, setOnly: { set } });
         }
 
         if (doubleClick) {
@@ -36,7 +36,7 @@ export const doSelectIdxFcAtom = atom(
 /**
  * Deselect current idx
  */
-function deselectPreviousIdx(fceCtx: FceCtx, get: Getter, set: Setter) {
+function deselectPreviousIdx(fceCtx: FceCtx, { get, set }: GetSet) {
     const currentIdx = get(fceCtx.selectedIdxStoreAtom);
     const shownItems = get(fceCtx.shownAtom);
 
@@ -52,7 +52,7 @@ function deselectPreviousIdx(fceCtx: FceCtx, get: Getter, set: Setter) {
  */
 const emptyValueLife = createEmptyValueLife({ fType: FieldTyp.edit }); // This should not be changed since UI will be hidden
 
-function setSelectedProps({ fceCtx, selectedItem, get, set }: { fceCtx: FceCtx; selectedItem: FceItem | undefined; get: Getter; set: Setter; }) {
+function setSelectedProps({ fceCtx, selectedItem, setOnly: { set } }: { fceCtx: FceCtx; selectedItem: FceItem | undefined; setOnly: SetOnly; }) {
     const { dispNameAtom: nameAtom, ownernoteAtom/*, valueLifeAtom*/ } = fceCtx.fcePropAtoms;
 
     set(nameAtom, selectedItem?.fieldValue.displayname || '');
@@ -86,10 +86,10 @@ export const doSetInitSelectedItemAtom = atom(null,
         let idx: number | undefined;
 
         if (openMainDlg || !dbid) {
-            idx = shownItems.findIndex(item => (item.editor[fceCtx.isPicker ? 'isSelectedInPicker' : 'isSelectedInView']))
+            idx = shownItems.findIndex(item => (item.editor[fceCtx.isPicker ? 'isSelectedInPicker' : 'isSelectedInView']));
         } else {
             idx = shownItems.findIndex(item => item.fieldValue.dbname === dbid);
-            
+
             shownItems.forEach((item) => item.editor.isSelectedInPicker = false); // deselect all
         }
 

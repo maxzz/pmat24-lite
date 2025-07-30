@@ -1,5 +1,4 @@
-import { type Getter, type Setter } from "jotai";
-import { type CatalogFile, type ConvertToXmlStringResult, type FileMani, type Mani, convertToXmlString, createGuid, filterOneLevelEmptyValues, showError, toManiFileFormat } from "@/store/manifest";
+import { type Mani, type FileMani, type CatalogFile, type ConvertToXmlStringResult, convertToXmlString, createGuid, filterOneLevelEmptyValues, showError, toManiFileFormat } from "@/store/manifest";
 import { type FileUs, type FileUsAtom } from "@/store/store-types";
 import { type FceAtoms } from "@/store/1-atoms/4-field-catalogs";
 import { type ManiAtoms } from "../../../9-types";
@@ -13,13 +12,13 @@ import { printTestManifest } from "./8-save-utils";
  * @param validate - validation is ommited when we get xml after cpass created
  * @returns xml string or undefined if validation failed
  */
-export async function fileUsToXmlString(fileUsAtom: FileUsAtom, validate: boolean, get: Getter, set: Setter): Promise<string | undefined> {
-    const fileUs = get(fileUsAtom);
+export async function fileUsToXmlString(fileUsAtom: FileUsAtom, validate: boolean, getset: GetSet): Promise<string | undefined> {
+    const fileUs = getset.get(fileUsAtom);
 
     let res: ConvertToXmlStringResult | undefined =
         fileUs.fceAtomsForFcFile
-            ? getFcContentText(fileUs.fceAtomsForFcFile, validate, get, set)
-            : await getManiContentText(fileUs, fileUsAtom, get(fileUs.maniAtomsAtom), validate, get, set);
+            ? getFcContentText(fileUs.fceAtomsForFcFile, validate, getset)
+            : await getManiContentText(fileUs, fileUsAtom, getset.get(fileUs.maniAtomsAtom), validate, getset);
     if (!res) {
         return;
     }
@@ -34,18 +33,18 @@ export async function fileUsToXmlString(fileUsAtom: FileUsAtom, validate: boolea
     return xml;
 }
 
-async function getManiContentText(fileUs: FileUs, fileUsAtom: FileUsAtom, maniAtoms: ManiAtoms | null, validate: boolean, get: Getter, set: Setter): Promise<ConvertToXmlStringResult | undefined> {
+async function getManiContentText(fileUs: FileUs, fileUsAtom: FileUsAtom, maniAtoms: ManiAtoms | null, validate: boolean, getset: GetSet): Promise<ConvertToXmlStringResult | undefined> {
     if (!maniAtoms) {
         throw new Error('No maniAtoms');
     }
 
     // Check name before putting all to xml.
 
-    const maniNameAtom = set(getManiDispNameAtomAtom, fileUsAtom);
-    const maniName = maniNameAtom && get(maniNameAtom).data;
+    const maniNameAtom = getset.set(getManiDispNameAtomAtom, fileUsAtom);
+    const maniName = maniNameAtom && getset.get(maniNameAtom).data;
     const cofirmNameOption = false; //TODO: add it to options dialog
     if (validate && !maniName || cofirmNameOption) { // If we save content for change password form then we need to confirm name
-        const okManiName = await set(doManiNameDlgAtom, fileUsAtom);
+        const okManiName = await getset.set(doManiNameDlgAtom, fileUsAtom);
         if (!okManiName) {
             return;
         }
@@ -53,7 +52,7 @@ async function getManiContentText(fileUs: FileUs, fileUsAtom: FileUsAtom, maniAt
 
     // Validation
 
-    if (validate && stopIfInvalidAny(maniAtoms, { get, set })) {
+    if (validate && stopIfInvalidAny(maniAtoms, getset)) {
         return;
     }
 
@@ -61,7 +60,7 @@ async function getManiContentText(fileUs: FileUs, fileUsAtom: FileUsAtom, maniAt
 
     const newMani: Partial<Mani.Manifest> = { forms: [], };
 
-    packManifest({ fileUs, maniAtoms, newMani, get, set });
+    packManifest({ fileUs, maniAtoms, newMani, getset });
 
     const root: FileMani.Manifest = toManiFileFormat(newMani);
     const rv = convertToXmlString({ mani: root });
@@ -70,7 +69,7 @@ async function getManiContentText(fileUs: FileUs, fileUsAtom: FileUsAtom, maniAt
     return rv;
 }
 
-function getFcContentText(fceAtoms: FceAtoms, validate: boolean, get: Getter, set: Setter): ConvertToXmlStringResult | undefined {
+function getFcContentText(fceAtoms: FceAtoms, validate: boolean, { get }: GetSet): ConvertToXmlStringResult | undefined {
     const aboutId = get(fceAtoms.aboutAtom);
     const items = get(fceAtoms.allAtom);
 

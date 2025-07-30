@@ -1,7 +1,6 @@
-import { type Getter, type Setter } from "jotai";
 import { type PolicyDlgTypes } from "./9-types";
 
-export function fromAtoms(ctx: PolicyDlgTypes.PolicyUiCtx, get: Getter, set: Setter): PolicyDlgTypes.ForAtoms {
+export function fromAtoms(ctx: PolicyDlgTypes.PolicyUiCtx, { get }: GetOnly): PolicyDlgTypes.ForAtoms {
     const rv: PolicyDlgTypes.ForAtoms = {
         enabled: get(ctx.enabledAtom),
         constrainSet: get(ctx.constrainSetAtom),

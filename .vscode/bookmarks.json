@@ -64,7 +64,7 @@
 			"path": "src/renderer/src/store/1-atoms/2-file-mani-atoms/0-all/2-do-save-mani-atom/0-save-atom/1-do-save-one.tsx",
 			"bookmarks": [
 				{
-					"line": 55,
+					"line": 56,
 					"column": 12,
 					"label": "updateManiAtomsAfterSaveOrResetAtom"
 				}

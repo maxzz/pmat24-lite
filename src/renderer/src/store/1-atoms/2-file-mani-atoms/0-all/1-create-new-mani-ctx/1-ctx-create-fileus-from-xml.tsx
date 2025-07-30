@@ -1,4 +1,4 @@
-import { type Getter, type Setter, type PrimitiveAtom as PA, atom } from "jotai";
+import { atom } from "jotai";
 import { errorToString } from "@/utils";
 import { type FileUs, type FileUsAtom } from "@/store/store-types";
 import { fileUsChanges } from "../../9-types";
@@ -18,7 +18,8 @@ import { fileUsToXmlString } from "../2-do-save-mani-atom/0-save-atom/7-fileus-t
  * Create new manifest inside newManiContent atoms and allow to move to the next page.
  * @returns true if move to the next page is allowed
  */
-export async function createFileUsFromNewXml({ params: { hwnd, manual }, showProgressAtom, get, set }: MoveFromAppsToNextPageParams): Promise<boolean> {
+export async function createFileUsFromNewXml({ params: { hwnd, manual }, showProgressAtom, getset }: MoveFromAppsToNextPageParams): Promise<boolean> {
+    const { get, set } = getset;
 
     // 0. Claen up the context before parsing
     set(doInitNewManiContentAtom);
@@ -69,7 +70,7 @@ export async function createFileUsFromNewXml({ params: { hwnd, manual }, showPro
 
             fileUsChanges.setCpass({ fileUs: fileUs_ForCpass }, true);
 
-            const xml = await fileUsToXmlString(fileUsAtom_ForCpass, false, get, set); //printXmlManiFile(xml);
+            const xml = await fileUsToXmlString(fileUsAtom_ForCpass, false, getset); //printXmlManiFile(xml);
             set(fileUs_ForCpass.rawCpassAtom, xml);
 
             //TODO: tweak xml, now or later on save?
@@ -79,7 +80,7 @@ export async function createFileUsFromNewXml({ params: { hwnd, manual }, showPro
 
         set(newManiContent.newFileUsAtomAtom, fileUs_ForCpass ? undefined : newFileUsAtom);
 
-        printNewFileUsCreated(newFileUsAtom, get);
+        printNewFileUsCreated(newFileUsAtom, getset);
         return true;
     } catch (error) {
         set(doInitNewManiContentAtom);
@@ -94,13 +95,12 @@ export async function createFileUsFromNewXml({ params: { hwnd, manual }, showPro
 type MoveFromAppsToNextPageParams = {
     params: Omit<ManifestForWindowCreatorParams, 'wantXml' | 'passwordChange'>;
     showProgressAtom?: PA<boolean>; // show controls scan progress atom
-    get: Getter;
-    set: Setter;
+    getset: GetSet;
 };
 
 // Utilities
 
-function printNewFileUsCreated(fileUsAtom: FileUsAtom | undefined, get: Getter) {
+function printNewFileUsCreated(fileUsAtom: FileUsAtom | undefined, { get }: GetSet) {
     const atomStr = fileUsAtom ? fileUsAtom.toString() : 'null';
     const fileUs = fileUsAtom ? get(fileUsAtom) : null;
     const maniAtomsAtom = fileUs?.maniAtomsAtom;

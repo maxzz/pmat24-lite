@@ -1,4 +1,4 @@
-import { atom, type Getter, type Setter } from "jotai";
+import { atom } from "jotai";
 import { proxy } from "valtio";
 import { toast } from "sonner";
 import { uuid } from "../../manifest";
@@ -35,17 +35,19 @@ export const doSetScreenshotsAtom = atom(
 
         width = width || defaultScreenshotWidth;
 
+        const setOnly = { set };
+
         if (hasMain()) {
-            await doLiveScreenshots(width, set);
+            await doLiveScreenshots(width, setOnly);
         } else {
-            await doTestScreenshots(get, set);
+            await doTestScreenshots(setOnly);
         }
 
         napiLock.unlock();
     }
 );
 
-async function doLiveScreenshots(width: number, set: Setter) {
+async function doLiveScreenshots(width: number, { set }: SetOnly) {
     try {
         // 1. get all tlw infos and hwnds
         const infos: TlwInfo[] = await asyncGetTlwInfos();
@@ -125,7 +127,7 @@ function correlateScreenshotsOrder(tlwInfos: TlwInfo[], screenshots: TlwScreensh
 //     }
 // }
 
-async function doTestScreenshots(get: Getter, set: Setter) {
+async function doTestScreenshots({ set }: SetOnly) {
     const screen = debugSettings.testCreate.screen;
     const screenshots = await set(doLoadFakeScreensAtom, screen);
     set(allScreenshotAtom, addScreenshotsExtra(screenshots));

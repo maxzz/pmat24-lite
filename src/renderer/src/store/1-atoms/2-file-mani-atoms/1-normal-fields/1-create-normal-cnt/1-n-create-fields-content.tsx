@@ -1,4 +1,4 @@
-import { type Getter, type Setter, atom } from "jotai";
+import { atom } from "jotai";
 import { type OnValueChangeAny, debounce } from "@/utils";
 import { type Meta, convFieldForEditor, FieldTyp } from "@/store/manifest";
 import { type FileUsCtx, type OnChangeProps, fileUsChanges, type FieldRowCtx, safeManiAtomsFromFileUsCtx, safeByContext } from "../../9-types";
@@ -20,7 +20,7 @@ export namespace NormalFieldsState {
 function createNormalAtomsForRow(field: Meta.Field, fieldIdx: number, fileUsCtx: FileUsCtx): FieldRowCtx {
     const debouncedOnChangeWithScope = debounce(onChangeWithScope);
 
-    function onChange({ get, set }: { get: Getter, set: Setter; }) {
+    function onChange({ get, set }: GetSet) {
         debouncedOnChangeWithScope(fieldIdx, { fileUsCtx, get, set });
     }
 
@@ -49,7 +49,7 @@ function onChangeWithScope(fieldIdx: number, { fileUsCtx, get, set }: OnChangePr
 
     const rowCtx: FieldRowCtx = nFormCtx.rowCtxs[fieldIdx];
 
-    const fromUi = NormalFieldConv.fromAtoms(rowCtx, get, set);
+    const fromUi = NormalFieldConv.fromAtoms(rowCtx, { get });
     const changed = !NormalFieldConv.areTheSame(fromUi, rowCtx.fromFile);
     const changes = fileUsChanges.set(fileUsCtx, changed, `${fileUsCtx.formIdx ? 'c' : 'l'}-f-${fieldIdx}`);
 

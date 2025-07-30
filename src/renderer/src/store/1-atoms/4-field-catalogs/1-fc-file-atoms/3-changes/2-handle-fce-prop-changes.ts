@@ -1,4 +1,3 @@
-import { type Getter, type Setter } from "jotai";
 import { type ValueLife, sameValueLife, valueAs2Str } from "@/store/manifest";
 import { type FceItem } from "../../9-types";
 import { type FcePropChangesProps } from "./1-prop-changes-atom";

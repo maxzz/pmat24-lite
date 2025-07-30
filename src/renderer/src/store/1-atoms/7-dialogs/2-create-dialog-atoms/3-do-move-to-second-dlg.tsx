@@ -1,4 +1,4 @@
-import { type Getter, type Setter, atom } from "jotai";
+import { atom } from "jotai";
 import { delay, doAddNextToastIdAtom } from "@/utils";
 import { toast } from "sonner";
 import { addToTotalManis, appSettings } from "../../../9-ui-state";
@@ -20,6 +20,8 @@ import { setSizeNormal_SawMonitorAtom } from "./0-ctx/8-saw-monitor-size";
 export const doMoveToSecondDlgAtom = atom(
     null,
     async (get, set, { cancel }: { cancel: boolean; }): Promise<void> => {
+        const getset = { get, set };
+
         if (cancel) {
             R2MCalls.showHideWindow(false); //TODO: do we need to hide and show? we don't use it below.
             set(close_SawMonitorAtom);
@@ -39,7 +41,7 @@ export const doMoveToSecondDlgAtom = atom(
 
         set(stopMonitorTimerAtom);
 
-        const created = await createFileUsFromNewXml({ params: { hwnd, manual: get(checkboxCreateManualModeAtom), }, showProgressAtom, get, set, });
+        const created = await createFileUsFromNewXml({ params: { hwnd, manual: get(checkboxCreateManualModeAtom), }, showProgressAtom, getset });
         if (!created) {
             set(startMonitorTimerAtom);
             return;
@@ -70,7 +72,7 @@ export const doMoveToSecondDlgAtom = atom(
         if (!inlineEditor) {
             const endedByOk = await asyncExecuteNewManiDlg(set); //TODO: fields highlight should be done differently for dialog editor (if we need it at all)
             if (!endedByOk) {
-                newManiContent.disposeActive(get, set);
+                newManiContent.disposeActive(getset);
                 set(close_NewManiDlgAtom);
                 return;
             }
@@ -88,8 +90,8 @@ export const doMoveToSecondDlgAtom = atom(
             makingCpass ? fileUsChanges.setCpass({ fileUs }, true) : fileUsChanges.setNewLogin({ fileUs });
         }
 
-        setHighlightAtoms({ fileUs, makingCpass, get, set });
-        addToFilesTree({ fileUsAtom: newFileUsAtomAtom, fileUs, makingCpass, get, set });
+        setHighlightAtoms({ fileUs, makingCpass, getset });
+        addToFilesTree({ fileUsAtom: newFileUsAtomAtom, fileUs, makingCpass, getset });
         setManiActiveTab(makingCpass ? 'cpass' : 'login');
 
         set(newManiContent.newFileUsAtomAtom, undefined); // preserve the new fileUsAtom from be disposed by newManiContent.init();
@@ -113,7 +115,7 @@ function initFileUsFname({ fileUs, makingCpass }: { fileUs: FileUs; makingCpass:
     });
 }
 
-function addToFilesTree({ fileUsAtom, fileUs, makingCpass, get, set }: { fileUsAtom: FileUsAtom; fileUs: FileUs; makingCpass: boolean; get: Getter; set: Setter; }): void {
+function addToFilesTree({ fileUsAtom, fileUs, makingCpass, getset: { get, set } }: { fileUsAtom: FileUsAtom; fileUs: FileUs; makingCpass: boolean; getset: GetSet; }): void {
     if (makingCpass) {
         return;
     }
@@ -126,7 +128,7 @@ function addToFilesTree({ fileUsAtom, fileUs, makingCpass, get, set }: { fileUsA
     notificationNewSaved(fileUs);
 }
 
-function setHighlightAtoms({ fileUs, makingCpass, get, set }: { fileUs: FileUs; makingCpass: boolean; get: Getter; set: Setter; }): void {
+function setHighlightAtoms({ fileUs, makingCpass, getset: { get, set } }: { fileUs: FileUs; makingCpass: boolean; getset: GetSet; }): void {
     const hwnd = get(sawHandleAtom);
     if (makingCpass) {
         set(fileUs.hwndCpassAtom, hwnd);

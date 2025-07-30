@@ -7,14 +7,13 @@ export type EditorFieldAndMeta = {
     editField: EditorField.Members;
 };
 
-export function getNormalFieldValues(nFormCnt: NFormCnt, packParams: PackManifestDataParams): EditorFieldAndMeta[] {
-    const { get, set } = packParams;
+export function getNormalFieldValues(nFormCnt: NFormCnt, { getset }: PackManifestDataParams): EditorFieldAndMeta[] {
 
     const rv = nFormCnt.rowCtxs.map(
         (rowCtx: FieldRowCtx) => {
-            const fromAtomValues: EditorField.ForAtoms = NormalFieldConv.fromAtoms(rowCtx, get, set);
+            const fromAtomValues: EditorField.ForAtoms = NormalFieldConv.fromAtoms(rowCtx, getset);
             const maniValues: EditorField.Members = NormalFieldConv.forMani(fromAtomValues);
-            
+
             const rv: EditorFieldAndMeta = {
                 metaField: rowCtx.metaField,
                 editField: maniValues,

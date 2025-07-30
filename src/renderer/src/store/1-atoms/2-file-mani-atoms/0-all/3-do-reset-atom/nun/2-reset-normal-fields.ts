@@ -5,15 +5,14 @@ import { NormalFieldConv, SubmitConv, type SubmitFieldTypes } from "../../../1-n
 
 export function resetNormalFieldsAndSubmit(nFormCnt: NFormCnt, fileUsCtx: FileUsCtx, ctx: ResetManifestCtx) {
     const { rowCtxs, submitCtx } = nFormCnt;
-    const { get, set } = ctx;
 
     rowCtxs.forEach(
         (rowCtx) => {
             const values: EditorField.ForAtoms = rowCtx.fromFile;
-            NormalFieldConv.valuesToAtoms(values, rowCtx, get, set);
+            NormalFieldConv.valuesToAtoms(values, rowCtx, ctx);
         }
     );
 
     const submitValues: SubmitFieldTypes.ForAtoms = submitCtx.fromFile;
-    SubmitConv.valuesToAtoms(submitValues, submitCtx, get, set);
+    SubmitConv.valuesToAtoms(submitValues, submitCtx, ctx);
 }

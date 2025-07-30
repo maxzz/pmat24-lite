@@ -1,4 +1,4 @@
-import { Getter, PrimitiveAtom, Setter, atom } from "jotai";
+import { atom } from "jotai";
 import { Mani } from "@/store/manifest";
 import { PolicyDlgConv, type PolicyDlgTypes } from "./0-conv";
 import { toast } from "sonner";
@@ -6,9 +6,9 @@ import { doUpdateExplanationAtom } from "./1-util-atoms";
 
 type DoClosePolicyDlgAtomCtx = {
     dlgUiCtx: PolicyDlgTypes.PolicyUiCtx;
-    policiesAtom: PrimitiveAtom<Mani.FieldPolicy>;
-    openAtom: PrimitiveAtom<boolean>;
-    toastIdAtom: PrimitiveAtom<string | number | undefined>;
+    policiesAtom: PA<Mani.FieldPolicy>;
+    openAtom: PA<boolean>;
+    toastIdAtom: PA<string | number | undefined>;
     byOkButton: boolean;
 };
 
@@ -22,12 +22,12 @@ export const doClosePolicyDlgAtom = atom(null,
         }
 
         if (!byOkButton) {
-            resetOnCancelClose(ctx, get, set);
+            resetOnCancelClose(ctx, { get, set });
             set(openAtom, false);
             return;
         }
 
-        const state = PolicyDlgConv.fromAtoms(dlgUiCtx, get, set);
+        const state = PolicyDlgConv.fromAtoms(dlgUiCtx, { get });
 
         const isCustom = state.isCustom;
         if (isCustom && !state.custom) {
@@ -63,7 +63,7 @@ export const doClosePolicyDlgAtom = atom(null,
     }
 );
 
-function resetOnCancelClose({ dlgUiCtx, policiesAtom, toastIdAtom }: DoClosePolicyDlgAtomCtx, get: Getter, set: Setter) {
+function resetOnCancelClose({ dlgUiCtx, policiesAtom, toastIdAtom }: DoClosePolicyDlgAtomCtx, { get, set }: GetSet) {
     const toastId = get(toastIdAtom);
     toastId && toast.dismiss(toastId);
 
@@ -72,7 +72,7 @@ function resetOnCancelClose({ dlgUiCtx, policiesAtom, toastIdAtom }: DoClosePoli
     // Reset to original values local atoms
     const values: PolicyDlgTypes.ForAtoms = PolicyDlgConv.forAtoms(dlgUiCtx.original);
     values.errorText = '';
-    PolicyDlgConv.valuesToAtoms(values, dlgUiCtx, get, set);
+    PolicyDlgConv.valuesToAtoms(values, dlgUiCtx, { set });
 
     set(doUpdateExplanationAtom, { dlgUiCtx: dlgUiCtx, custom: values.custom });
 

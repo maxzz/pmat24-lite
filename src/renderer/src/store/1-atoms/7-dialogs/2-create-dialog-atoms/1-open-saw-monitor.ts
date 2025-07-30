@@ -1,4 +1,4 @@
-import { type Setter, atom } from "jotai";
+import { atom } from "jotai";
 import { FormIdx } from "@/store/manifest";
 import { clearIconsCache } from "@/store/7-napi-atoms";
 import { sureRootDir } from "../../1-files";

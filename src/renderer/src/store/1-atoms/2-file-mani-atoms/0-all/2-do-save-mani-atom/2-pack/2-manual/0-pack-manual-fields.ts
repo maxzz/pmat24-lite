@@ -4,10 +4,10 @@ import { ManualFieldConv, NormalFieldConv, type MFormCnt } from "@/store/1-atoms
 import { mergeToManiField } from "../1-normal";
 
 export function packManualFields(mFormCnt: MFormCnt, formIdx: FormIdx, packParams: PackManifestDataParams): Mani.Field[] {
-    const { get } = packParams;
+    const { getset } = packParams;
 
-    const chunks = get(mFormCnt.chunksAtom);
-    const scriptItems = ManualFieldConv.fromAtoms(chunks, get);
+    const chunks = getset.get(mFormCnt.chunksAtom);
+    const scriptItems = ManualFieldConv.fromAtoms(chunks, getset);
 
     const chunkAndSns: EditorDataForOneAndSn[] = stringifyFromEditor(scriptItems);
 

@@ -1,4 +1,4 @@
-import { type Getter, atom } from "jotai";
+import { atom } from "jotai";
 import { type FileContent } from "@shared/ipc-types";
 import { type FileUsAtom } from "@/store/store-types";
 import { fileUsChanges } from "../../../9-types";
@@ -7,6 +7,7 @@ import { fileUsToXmlString } from "./7-fileus-to-xml-string";
 import { updateManiAtomsAfterSaveOrResetAtom } from "./3-save-or-rst-maniatoms";
 import { saveToFileSystem } from "./7-save-to-file-system";
 import { debugTestFilename, notificationSaveError } from "./8-save-utils";
+//import { printXmlManiFile } from "./8-save-utils";
 
 /**
  * newFilename - filename without path.
@@ -25,7 +26,7 @@ export const doSaveOneAtom = atom(
 
         // 1. Create xml to be saved
 
-        const xml = await fileUsToXmlString(fileUsAtom, true, get, set); //printXmlManiFile(xml);
+        const xml = await fileUsToXmlString(fileUsAtom, true, { get, set }); //printXmlManiFile(xml);
         if (!xml) {
             return false;
         }
@@ -58,7 +59,7 @@ export const doSaveOneAtom = atom(
     }
 );
 
-function printFilesAtom(title: string, files: FileUsAtom[], get: Getter, fileCnt?: FileContent) {
+function printFilesAtom(title: string, files: FileUsAtom[], { get }: GetSet, fileCnt?: FileContent) {
     console.log(title, files.length, fileCnt ? { fileCnt } : '');
     files.forEach(
         (fileUsAtom) => {

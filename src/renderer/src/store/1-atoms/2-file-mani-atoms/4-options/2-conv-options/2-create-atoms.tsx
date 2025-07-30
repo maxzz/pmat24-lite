@@ -1,4 +1,4 @@
-import { atom, type Getter, type Setter } from "jotai";
+import { atom } from "jotai";
 import { atomWithCallback } from "@/utils";
 import { type FormOptionsState } from "./9-types";
 import { type OnChangeValueWithUpdateName, createAtomForCheck, createAtomForInput, resetRowInputState, validateManifestName, validateNonEmpty, validateNonEmptyWithMessage, validateNumber } from "@/ui";
@@ -23,11 +23,11 @@ export function createAtoms(initialState: FormOptionsState.ForAtoms, onChange: O
             captionAtom: createAtomForInput(p2Detect.caption, onChange('caption'), { validate: validateNonEmptyWithMessage('Value cannot be empty. The screen cannot be detected if the window caption is empty.') }), // validateNonEmpty just for testing purposes of error state
             variablecaptionAtom: createAtomForInput(p2Detect.variablecaption, onChange('variablecaption')),
             monitorAtom: createAtomForCheck(p2Detect.monitor, onChange('monitor')),
-            
+
             ourlAtom: createAtomForInput(p2Detect.ourl, onChange('ourl')),
             murlAtom: createAtomForInput(p2Detect.murl, onChange('murl')),
             rurlAtom: createAtomForInput(initialHOU.url, onChange('rurl'), { validate: validateNonEmptyWithMessage('Value cannot be empty.') }),
-            
+
             webCheckUrlAtom: createAtomForCheck(p2Detect.webCheckUrl, onChange('web_checkurl')),
 
             dlg_tabAtom: createAtomForInput(p2Detect.dlg_tab, onChange('dlg_tab')),
@@ -67,7 +67,7 @@ export function createAtoms(initialState: FormOptionsState.ForAtoms, onChange: O
     return rv;
 }
 
-export function valuesToAtoms(values: FormOptionsState.ForAtoms, atoms: FormOptionsState.AllAtoms, get: Getter, set: Setter) {
+export function valuesToAtoms(values: FormOptionsState.ForAtoms, atoms: FormOptionsState.AllAtoms, { set }: SetOnly) {
     const { p1General, p2Detect, p3Auth, p4QL, p5Icon } = values;
 
     set(atoms.p1General.nameAtom,        /**/(v) => resetRowInputState(v, p1General.name));

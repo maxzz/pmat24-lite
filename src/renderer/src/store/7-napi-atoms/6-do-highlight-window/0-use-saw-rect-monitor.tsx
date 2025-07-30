@@ -1,5 +1,5 @@
 import { useCallback, useEffect } from "react";
-import { type Getter, type Setter, atom, useSetAtom } from "jotai";
+import { atom, useSetAtom } from "jotai";
 import { compareRect } from "@/utils";
 import { hasMain, invokeMainTyped } from "@/xternal-to-main";
 import { type GetTargetWindowResult, type WindowHighlighterParams } from "@shared/ipc-types";

@@ -1,4 +1,4 @@
-import { type Setter, atom } from "jotai";
+import { atom } from "jotai";
 
 export const dataToOpen_NewManiDlgAtom = atom((get) => get(_isDlgOpenAtom));
 export const close_NewManiDlgAtom = atom(() => null, (get, set) => set(_isDlgOpenAtom, undefined));

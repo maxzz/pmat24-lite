@@ -1,4 +1,4 @@
-import { type Getter, type Setter, atom } from "jotai";
+import { atom } from "jotai";
 import { discardValues, discardValuesDeep } from "@/utils";
 import { type FileUsAtom, type ManiAtomsAtom } from "@/store/store-types";
 import { type ManiAtoms, type AnyFormCtx, type FceCtx, filesAtom } from "@/store/1-atoms";
@@ -22,7 +22,7 @@ export const doDisposeAllFilesAtomAtom = atom(
 export const doDisposeFileUsAtomAtom = atom(
     null,
     (get, set, fileUsAtom: FileUsAtom | undefined) => {
-        //printDisposeFileUsAtom(fileUsAtom, get, set);
+        //printDisposeFileUsAtom(fileUsAtom, { get });
 
         if (!fileUsAtom) {
             return;
@@ -68,7 +68,7 @@ export function disposeFceCtx(fceCtx: FceCtx | undefined | null) {
     discardValues(fceCtx);
 }
 
-function printDisposeFileUsAtom(fileUsAtom: FileUsAtom | undefined, get: Getter, set: Setter) {
+function printDisposeFileUsAtom(fileUsAtom: FileUsAtom | undefined, { get }: GetOnly) {
     const fileUs = fileUsAtom ? get(fileUsAtom) : undefined;
     const fileUsStr = fileUsAtom ? fileUsAtom.toString() : 'null';
     const maniStr = fileUs?.maniAtomsAtom ? fileUs.maniAtomsAtom.toString() : 'null';
@@ -84,7 +84,7 @@ function printDisposeFileUsAtom(fileUsAtom: FileUsAtom | undefined, get: Getter,
     console.groupEnd();
 }
 
-export function printDisposeManiAtomsAtom(maniAtomsAtom: ManiAtomsAtom | undefined, get: Getter, set: Setter) {
+export function printDisposeManiAtomsAtom(maniAtomsAtom: ManiAtomsAtom | undefined) {
     const atomStr = maniAtomsAtom ? maniAtomsAtom.toString() : 'null';
     console.groupCollapsed(
         `%c🏀 dispose maniAtomsAtom:%c ${atomStr}%c`,

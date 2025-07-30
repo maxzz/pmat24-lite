@@ -1,4 +1,4 @@
-import { type Getter, type Setter, atom } from "jotai";
+import { atom } from "jotai";
 import { atomWithCallback, debounce } from "@/utils";
 import { type EditorDataForOne, parseForEditor } from "@/store/manifest";
 import { type MFormCnt, type FileUsCtx, type OnChangeProps, fileUsChanges, safeByContext, safeManiAtomsFromFileUsCtx } from "../../9-types";
@@ -85,13 +85,13 @@ function onChangeWithScope(updateName: string, nextValue: ManualFieldState.Ctx |
     let changed: boolean | undefined;
 
     if (nextValue.type === 'fld') {
-        const fromUi = NormalFieldConv.fromAtoms(nextValue.rowCtx, get, set);
+        const fromUi = NormalFieldConv.fromAtoms(nextValue.rowCtx, { get });
         changed = !NormalFieldConv.areTheSame(fromUi, nextValue.rowCtx.fromFile);
     } else {
-        const fromUi = ManualFieldConv.fromAtom(nextValue, get);
+        const fromUi = ManualFieldConv.fromAtom(nextValue, { get });
         changed = !ManualFieldConv.areTheSame(fromUi, nextValue.original);
 
-        set(nextValue.hasErrorAtom, ManualFieldConv.isChunkInvalid(nextValue, get, set));
+        set(nextValue.hasErrorAtom, ManualFieldConv.isChunkInvalid(nextValue, { get }));
     }
 
     fileUsChanges.set(fileUsCtx, changed, `${fileUsCtx.formIdx ? 'c' : 'l'}-manual-${updateName}`);

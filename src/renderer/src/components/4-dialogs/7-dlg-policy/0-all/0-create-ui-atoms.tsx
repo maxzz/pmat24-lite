@@ -1,4 +1,3 @@
-import { type Getter, type Setter } from "jotai";
 import { type OnValueChangeAny, debounce } from "@/utils";
 import { type Mani } from "@/store/manifest";
 import { PolicyDlgConv, type PolicyDlgTypes } from "./0-conv";
@@ -10,7 +9,7 @@ export function createUiAtoms(policies: Mani.FieldPolicy, onChange: OnValueChang
     const parser = new PolicyParser();
 
     //console.log('%cDlg. useMemo to Policy.createUiAtoms', 'color: #f0f', { policies });
-    
+
     const rv: PolicyDlgTypes.PolicyUiCtx = {
         ...dlgUiAtoms,
         original: policies,
@@ -22,7 +21,7 @@ export function createUiAtoms(policies: Mani.FieldPolicy, onChange: OnValueChang
 }
 
 function onChangeWithScope(dlgUiAtoms: PolicyDlgTypes.PolicyUiCtx, get: Getter, set: Setter) {
-    const dlgUi = PolicyDlgConv.fromAtoms(dlgUiAtoms, get, set);
+    const dlgUi = PolicyDlgConv.fromAtoms(dlgUiAtoms, { get });
     const changed = !PolicyDlgConv.areTheSame(dlgUi, dlgUiAtoms.fromFile);
     dlgUiAtoms.changed = changed;
 }

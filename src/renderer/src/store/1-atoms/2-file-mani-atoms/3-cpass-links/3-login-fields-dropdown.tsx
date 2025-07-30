@@ -1,4 +1,4 @@
-import { type Getter, atom } from "jotai";
+import { atom } from "jotai";
 import { type OptionTextValue, FieldTyp, FormIdx } from "@/store/manifest";
 import { type FieldRowCtx, type FileUsCtx, getAllFormsFields_byFileUsCtx } from "../9-types";
 
@@ -7,9 +7,9 @@ import { type FieldRowCtx, type FileUsCtx, getAllFormsFields_byFileUsCtx } from 
 export const buildLoginFieldsDropdownAtom = atom(
     null,
     (get, set, rowCtx: FieldRowCtx, fileUsCtx: FileUsCtx): OptionTextValue[] => {
-        const loginFields = getAllFormsFields_byFileUsCtx(fileUsCtx, get).login;
+        const loginFields = getAllFormsFields_byFileUsCtx(fileUsCtx, { get }).login;
         const loginPasswords = loginFields.filter((field) => get(field.typeAtom) === FieldTyp.psw);
-        //printFields(rowCtx, loginPasswords, fileUsCtx.formIdx, get);
+        //printFields(rowCtx, loginPasswords, fileUsCtx.formIdx, { get });
 
         const rv = loginPasswords.map<OptionTextValue>((field) => ([get(field.labelAtom), `${field.metaField.uuid}`]));
 
@@ -23,13 +23,13 @@ export const buildLoginFieldsDropdownAtom = atom(
     }
 );
 
-function printFields(rowCtx: FieldRowCtx, fields: FieldRowCtx[] | undefined, formIdx: FormIdx, get: Getter) {
+function printFields(rowCtx: FieldRowCtx, fields: FieldRowCtx[] | undefined, formIdx: FormIdx, { get }: GetOnly) {
     if (!fields) {
         return;
     }
     console.log(`Form ${formIdx}:`);
     const rindexUuid = get(rowCtx.rfieldUuidAtom);
-    
+
     const all = fields.map((field) => `\n  label:${get(field.labelAtom)}, uuid:${field.metaField.uuid}, dbid:${get(field.dbnameAtom)}`).join('') || '[]';
     console.log(`  for uuid:"${rindexUuid}" login fields:`, all);
 }

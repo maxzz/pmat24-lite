@@ -3,11 +3,9 @@ import { type PackManifestDataParams } from "../9-types";
 import { type SubmitFieldTypes, SubmitConv } from "../../../../1-normal-fields";
 
 export function getNormalSubmitValues(cnt: NFormCnt, packParams: PackManifestDataParams): SubmitFieldTypes.ForAtoms {
-    const { get, set } = packParams;
-
     // 1. Submits
 
-    const submits = SubmitConv.fromAtoms(cnt.submitCtx, get, set);
+    const submits = SubmitConv.fromAtoms(cnt.submitCtx, packParams.getset);
 
     //console.log('submits', JSON.stringify(submits.buttonNameItems.map( (submit) => ({ name: submit.name, uuid: submit.metaField?.uuid, }) ), null, 2));
 

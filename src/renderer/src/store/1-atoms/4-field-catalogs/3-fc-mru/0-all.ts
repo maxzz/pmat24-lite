@@ -1,4 +1,4 @@
-import { atom, type Getter, type Setter } from "jotai";
+import { atom } from "jotai";
 import { FieldTyp } from "@/store/manifest";
 import { type FceItem } from "../9-types";
 import { getRootFceAtoms, hasRootFceAtoms } from "../1-fc-file-atoms";
@@ -9,7 +9,7 @@ export const emptyMruAtom = atom<FceItem[]>([]); // This is used for fields that
 
 export const mruSize = 7;
 
-function buildMruList(mru: FceItem[], doPsw: boolean, get: Getter, set: Setter): FceItem[] {
+function buildMruList(mru: FceItem[], doPsw: boolean, { get }: GetOnly): FceItem[] {
     const fType = doPsw ? FieldTyp.psw : FieldTyp.edit;
 
     const rv = mru
@@ -29,9 +29,11 @@ export const doInitMruAtom = atom(null,
         }
 
         const all = get(getRootFceAtoms().allAtom);
+        const getOnly = { get };
 
-        const txtItems = buildMruList(all, false, get, set);
-        const pswItems = buildMruList(all, true, get, set);
+        const txtItems = buildMruList(all, false, getOnly);
+        const pswItems = buildMruList(all, true, getOnly);
+
         set(txtMruAtom, txtItems);
         set(pswMruAtom, pswItems);
 

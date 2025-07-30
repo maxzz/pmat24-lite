@@ -1,4 +1,4 @@
-import { type Getter, atom } from "jotai";
+import { atom } from "jotai";
 import { type FileUsAtom } from "@/store/store-types";
 import { filesAtom } from "../0-files-atom";
 import { isAnyMatchedCap, isAnyMatchedCls, isAnyWeb, isAnyWhy, isAnyEmpty, isAnyManual } from "@/store/manifest";

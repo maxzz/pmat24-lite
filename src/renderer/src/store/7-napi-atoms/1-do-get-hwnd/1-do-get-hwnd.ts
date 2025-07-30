@@ -1,4 +1,4 @@
-import { type Getter, type Setter, atom } from "jotai";
+import { atom } from "jotai";
 import { atomAndUseListener, errorToString } from "@/utils";
 import { hasMain, invokeMainTyped } from "@/xternal-to-main";
 import { type GetTargetWindowResult } from "@shared/ipc-types";
@@ -14,17 +14,18 @@ export const doGetTargetHwndAtom = atom(
     null,
     async (get, set): Promise<void> => {
         if (!napiLock.locked('hwnd')) {
+            const getset = { get, set };
 
             hasMain()
-                ? await doLiveHwnd(get, set)
-                : await doTestHwnd(get, set);
+                ? await doLiveHwnd(getset)
+                : await doTestHwnd(getset);
 
             napiLock.unlock();
         }
     }
 );
 
-async function doLiveHwnd(get: Getter, set: Setter) {
+async function doLiveHwnd({ get, set }: GetSet) {
     try {
         const res = await invokeMainTyped({ type: 'r2mi:get-target-hwnd' });
 
@@ -45,7 +46,7 @@ async function doLiveHwnd(get: Getter, set: Setter) {
     }
 }
 
-async function doTestHwnd(get: Getter, set: Setter) {
+async function doTestHwnd({ get, set }: GetSet) {
     // if (prevHwnd === debugSettings.testCreate.hwnd) {
     //     return;
     // }
