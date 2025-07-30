@@ -9,7 +9,7 @@ import { showBuildErrorReason, showMessage } from "./2-ctx-create-messages";
 import { doInitNewManiContentAtom, newManiContent } from "./0-ctx-content";
 import { createManiAtoms } from "../0-create-mani-ctx-atoms";
 import { createFileUsFromFileContent } from "../../../1-files";
-import { doSetInitialRelationsAtom } from "../../3-cpass-links";
+import { doSetInitialRelationsAtom } from "../../4-cpass-to-login-links";
 import { fileUsToXmlString } from "../2-do-save-mani-atom/0-save-atom/7-fileus-to-xml-string";
 //import { printXmlManiFile } from "../2-do-save-mani-atom/0-save-atom/8-save-utils";
 //import { printNewMani } from "./2-ctx-create-messages";

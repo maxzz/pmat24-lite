@@ -4,7 +4,7 @@ import { type FileUs, type FileUsAtom } from "@/store/store-types";
 import { type MFormCnt, type NFormCnt, type FileUsCtx, type AnyFormCtx, type ManiAtoms, safeByContext, lFieldsIdx, cFieldsIdx } from "../../9-types";
 import { NormalModeState } from "../../1-normal-fields";
 import { ManualFieldsState } from "../../2-manual-fields";
-import { createFormFieldsAtom } from "../../3-cpass-links";
+import { createFormFieldsAtom } from "../../4-cpass-to-login-links";
 import { OptionsState } from "../../4-options";
 
 /**

@@ -81,7 +81,7 @@
 			]
 		},
 		{
-			"path": "src/renderer/src/store/1-atoms/2-file-mani-atoms/2-manual-fields/2-conv/1-m-create-atoms.tsx",
+			"path": "src/renderer/src/store/1-atoms/2-file-mani-atoms/2-manual-fields/2-conv-manual/1-m-create-atoms.tsx",
 			"bookmarks": [
 				{
 					"line": 8,

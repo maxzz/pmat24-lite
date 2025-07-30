@@ -1,6 +1,6 @@
 import { atom } from "jotai";
 import { ManualFieldState } from "../../../9-types";
-import { ManualFieldConv } from "../../../2-conv";
+import { ManualFieldConv } from "../../../2-conv-manual";
 
 const editorDataForAtom = atom(
     (get) => (ctx: ManualFieldState.Ctx) => {

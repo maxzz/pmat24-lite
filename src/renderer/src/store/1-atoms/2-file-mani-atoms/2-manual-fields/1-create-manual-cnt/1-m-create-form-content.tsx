@@ -2,9 +2,9 @@ import { atom } from "jotai";
 import { atomWithCallback, debounce } from "@/utils";
 import { type EditorDataForOne, parseForEditor } from "@/store/manifest";
 import { type MFormCnt, type FileUsCtx, type OnChangeProps, fileUsChanges, safeByContext, safeManiAtomsFromFileUsCtx } from "../../9-types";
-import { type ManualFieldState, ManualFieldConv } from "../2-conv";
+import { type ManualFieldState, ManualFieldConv } from "../2-conv-manual";
 import { NormalFieldConv } from "../../1-normal-fields";
-import { createManualAtom } from "../2-conv/1-m-create-atoms";
+import { createManualAtom } from "../2-conv-manual/1-m-create-atoms";
 
 export namespace ManualFieldsState {
 
