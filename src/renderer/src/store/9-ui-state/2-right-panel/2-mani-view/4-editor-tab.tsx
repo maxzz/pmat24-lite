@@ -1,7 +1,9 @@
+import { type ManiTabValue } from "@/store/1-atoms/2-file-mani-atoms/9-types";
+
 export type ManiEditorState = {
-    activeTab: string;      // 'tab0' | 'tab1' | 'tab3'
-    openTestArea: boolean;  // Is the test area open
-    nToGenerate: number;    // Number of passwords to generate
+    activeTab: ManiTabValue;                // 'options' | 'login' | 'cpass'
+    openTestArea: boolean;                  // Is the test area open
+    nToGenerate: number;                    // Number of passwords to generate
 };
 
 export const defaultManiEditorState: ManiEditorState = {

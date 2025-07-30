@@ -1,7 +1,7 @@
 import { appSettings } from "@/store/9-ui-state";
 import { toast } from "sonner";
 import { FormIdx } from "@/store/manifest";
-import { type ManiAtoms, type VerifyError } from "../../../9-types";
+import { type ManiAtoms, type ManiTabValue, type VerifyError } from "../../../9-types";
 import { normalFormVerifyErrors } from "./1-normal-verify-errors";
 import { manualFormVerifyErrors } from "./2-manual-verify-errors";
 import { optionsFormVerifyErrors } from "./3-options-verify-errors";
@@ -11,11 +11,27 @@ export function stopIfInvalidAny(maniAtoms: ManiAtoms, getset: GetSet): boolean 
         ? undefined
         : [{ error: 'Login form is missing', tab: 'options' }];
 
-    const errors: VerifyError[] | undefined =
-        maniItself ||
-        getOptionsErrors(maniAtoms, getset) ||
-        getLoginErrors(maniAtoms, getset) ||
-        getCpassErrors(maniAtoms, getset);
+    type Fn = (maniAtoms: ManiAtoms, getset: GetSet) => VerifyError[] | undefined;
+    const order = new Map<ManiTabValue, Fn>([['options', getOptionsErrors], ['login', getLoginErrors], ['cpass', getCpassErrors]]);
+    const currentTab = appSettings.right.mani.activeTab;
+
+    let errors: VerifyError[] | undefined = order[currentTab]?.(maniAtoms, getset);
+    if (!errors?.length) {
+        order.delete(currentTab);
+
+        for (const [tab, fn] of order) {
+            errors = fn(maniAtoms, getset);
+            if (errors) {
+                break;
+            }
+        }
+    }
+
+    // const errors: VerifyError[] | undefined =
+    //     maniItself ||
+    //     getOptionsErrors(maniAtoms, getset) ||
+    //     getLoginErrors(maniAtoms, getset) ||
+    //     getCpassErrors(maniAtoms, getset);
 
     if (!errors?.length) {
         return false;
@@ -46,7 +62,7 @@ function getCpassErrors(maniAtoms: ManiAtoms, getset: GetSet): VerifyError[] | u
     return errors;
 }
 
-function showValidationErrors({ fromTab, verifyErrors }: { fromTab: string | undefined; verifyErrors: VerifyError[]; }): void {
+function showValidationErrors({ fromTab, verifyErrors }: { fromTab: ManiTabValue | undefined; verifyErrors: VerifyError[]; }): void {
     if (fromTab) {
         appSettings.right.mani.activeTab = fromTab;
     }

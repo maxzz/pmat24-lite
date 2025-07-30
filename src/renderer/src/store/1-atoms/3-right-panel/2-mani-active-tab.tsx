@@ -1,7 +1,6 @@
 import { FormIdx } from "@/store/manifest";
 import { appSettings } from "../../9-ui-state";
-
-export type ManiTabValue = 'options' | 'login' | 'cpass';
+import { type ManiTabValue } from "../2-file-mani-atoms/9-types";
 
 export const maniTabValue: Record<ManiTabValue, ManiTabValue> = {
     options: 'options',
