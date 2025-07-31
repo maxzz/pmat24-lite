@@ -5,8 +5,8 @@ import { AppGlobals } from "../4-dialogs";
 import { useBeforeUnload } from "./2-before-unload";
 
 export function App(): JSX.Element {
-    useBeforeUnload();
-    
+    // useBeforeUnload();
+
     return (<>
         <UISymbolDefs />
         {/* <SpyAllIcons includeSvgSymbols /> */}
