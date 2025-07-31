@@ -7,8 +7,7 @@ import { manualFormVerifyErrors } from "./2-manual-verify-errors";
 import { optionsFormVerifyErrors } from "./3-options-verify-errors";
 
 export function stopIfInvalidAny(maniAtoms: ManiAtoms, getset: GetSet): boolean | undefined {
-    type Fn = (maniAtoms: ManiAtoms, getset: GetSet) => VerifyError[] | undefined;
-    const order = new Map<ManiTabValue, Fn>([['options', getOptionsErrors], ['login', getLoginErrors], ['cpass', getCpassErrors]]);
+    const order = new Map<ManiTabValue, ValidationFn>(defaultValidationOrder);
     const currentTab = appSettings.right.mani.activeTab;
 
     let errors: VerifyError[] | undefined = order[currentTab]?.(maniAtoms, getset); // Start validation from the current tab and then the rest.
@@ -29,21 +28,21 @@ export function stopIfInvalidAny(maniAtoms: ManiAtoms, getset: GetSet): boolean 
     }
 }
 
-function getOptionsErrors(maniAtoms: ManiAtoms, getset: GetSet): VerifyError[] | undefined {
+function getErrorsFromOptions(maniAtoms: ManiAtoms, getset: GetSet): VerifyError[] | undefined {
     const errors =
         optionsFormVerifyErrors(maniAtoms, FormIdx.login, getset) ||
         optionsFormVerifyErrors(maniAtoms, FormIdx.cpass, getset);
     return errors;
 }
 
-function getLoginErrors(maniAtoms: ManiAtoms, getset: GetSet): VerifyError[] | undefined {
+function getErrorsFromLogin(maniAtoms: ManiAtoms, getset: GetSet): VerifyError[] | undefined {
     const errors =
         normalFormVerifyErrors(maniAtoms, FormIdx.login, getset) ||
         manualFormVerifyErrors(maniAtoms, FormIdx.login, getset);
     return errors;
 }
 
-function getCpassErrors(maniAtoms: ManiAtoms, getset: GetSet): VerifyError[] | undefined {
+function getErrorsFromCpass(maniAtoms: ManiAtoms, getset: GetSet): VerifyError[] | undefined {
     const errors =
         normalFormVerifyErrors(maniAtoms, FormIdx.cpass, getset) ||
         manualFormVerifyErrors(maniAtoms, FormIdx.cpass, getset);
@@ -67,6 +66,14 @@ function showValidationErrors({ fromTab, verifyErrors }: { fromTab: ManiTabValue
 
     toast.error(<div className="flex flex-col">{messages}</div>);
 };
+
+type ValidationFn = (maniAtoms: ManiAtoms, getset: GetSet) => VerifyError[] | undefined;
+
+const defaultValidationOrder: Array<[ManiTabValue, ValidationFn]> = [
+    ['login', getErrorsFromLogin],
+    ['cpass', getErrorsFromCpass],
+    ['options', getErrorsFromOptions],
+];
 
 //TODO: manual validation: activate row
 //TODO: manual validation: activate initial row
