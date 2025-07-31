@@ -1,12 +1,13 @@
 import { atom } from "jotai";
-import { type FileContent } from "@shared/ipc-types";
-import { type FileUsAtom } from "@/store/store-types";
+import { type FileContent, WebFsItem, pmExtensionMani } from "@shared/ipc-types";
+import { type FileUs, type FileUsAtom } from "@/store/store-types";
 import { fileUsChanges } from "../../../9-types";
-import { filesAtom } from "@/store/1-atoms/1-files";
+import { filesAtom, rootDir } from "../../../../1-files";
 import { fileUsToXmlString } from "./7-fileus-to-xml-string";
 import { updateManiAtomsAfterSaveOrResetAtom } from "./3-save-or-rst-maniatoms";
 import { saveToFileSystem } from "./7-save-to-file-system";
 import { debugTestFilename, notificationSaveError } from "./8-save-utils";
+import { createGuid } from "@/store/manifest";
 //import { printXmlManiFile } from "./8-save-utils";
 
 /**
@@ -16,7 +17,7 @@ import { debugTestFilename, notificationSaveError } from "./8-save-utils";
  */
 export const doSaveOneAtom = atom(
     null,
-    async (get, set, fileUsAtom: FileUsAtom, newFilename?: string): Promise<boolean> => {
+    async (get, set, { fileUsAtom, newFilename }: { fileUsAtom: FileUsAtom, newFilename?: string; }): Promise<boolean> => {
         const fileUs = get(fileUsAtom);
 
         const changed = fileUsChanges.hasAny({ fileUs }) || fileUs.fileCnt.newFile;
@@ -58,6 +59,21 @@ export const doSaveOneAtom = atom(
         return true;
     }
 );
+
+export function initFileUsFname({ fileUs, makingCpass }: { fileUs: FileUs; makingCpass: boolean; }): void {
+    if (makingCpass) {
+        return;
+    }
+
+    fileUs.fileCnt.fname = `${createGuid()}.${pmExtensionMani}`;
+    fileUs.fileCnt.fpath = rootDir.fpath;
+
+    fileUs.fileCnt.webFsItem = new WebFsItem({
+        handle: undefined,
+        parent: rootDir.handle,
+        legacyPath: rootDir.fpath,
+    });
+}
 
 function printFilesAtom(title: string, files: FileUsAtom[], { get }: GetSet, fileCnt?: FileContent) {
     console.log(title, files.length, fileCnt ? { fileCnt } : '');

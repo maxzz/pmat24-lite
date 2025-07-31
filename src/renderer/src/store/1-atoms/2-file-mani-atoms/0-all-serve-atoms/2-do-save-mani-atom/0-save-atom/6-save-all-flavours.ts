@@ -11,7 +11,7 @@ export const doSaveRightPanelFileAtom = atom(null,
             return;
         }
 
-        set(doSaveOneAtom, fileUsAtom);
+        set(doSaveOneAtom, { fileUsAtom });
     }
 );
 
@@ -21,7 +21,7 @@ export const doSaveAllAtom = atom(null,
 
         files.forEach(
             (fileUsAtom) => {
-                set(doSaveOneAtom, fileUsAtom);
+                set(doSaveOneAtom, { fileUsAtom });
             }
         );
     }
@@ -32,6 +32,6 @@ export const doSaveAsAtom = atom(null,
         //TODO: get new filename
         const newFilename = 'newFilename';
 
-        set(doSaveOneAtom, fileUsAtom, newFilename);
+        set(doSaveOneAtom, { fileUsAtom, newFilename });
     }
 );

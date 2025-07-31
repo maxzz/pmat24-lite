@@ -3,19 +3,15 @@ import { delay, doAddNextToastIdAtom } from "@/utils";
 import { toast } from "sonner";
 import { addToTotalManis, appSettings } from "../../../9-ui-state";
 import { R2MCalls } from "@/xternal-to-main";
-import { createGuid } from "@/store/manifest";
 import { type FileUs, type FileUsAtom } from "@/store/store-types";
-import { pmExtensionMani, WebFsItem } from "@shared/ipc-types";
-import { filesAtom, rootDir } from "../../1-files";
+import { filesAtom } from "../../1-files";
 import { setManiActiveTab } from "../../3-right-panel";
 import { doSelectFileUsTreeAtom } from "@/components/2-main/1-left/2-files-list";
-import { doClearSawHandleAtom, sawHandleAtom, setBuildState } from "@/store/7-napi-atoms";
-import { createFileUsFromNewXml, doSaveOneAtom, fileUsChanges, newManiContent, notificationNewSaved } from "@/store/1-atoms/2-file-mani-atoms";
+import { createFileUsFromNewXml, doSaveOneAtom, fileUsChanges, initFileUsFname, newManiContent, notificationNewSaved } from "../../2-file-mani-atoms";
+import { doClearSawHandleAtom, sawHandleAtom, setBuildState } from "../../../7-napi-atoms";
+import { checkboxCreateManualModeAtom, setSizeNormal_SawMonitorAtom, showProgressAtom, startMonitorTimerAtom, stopMonitorTimerAtom } from "./0-ctx";
 import { close_SawMonitorAtom } from "./1-open-saw-monitor";
 import { asyncExecuteNewManiDlg, close_NewManiDlgAtom } from "./2-open-new-mani-dlg";
-import { checkboxCreateManualModeAtom, showProgressAtom } from "./0-ctx/0-all-atoms";
-import { startMonitorTimerAtom, stopMonitorTimerAtom } from "./0-ctx/7-do-monitoring";
-import { setSizeNormal_SawMonitorAtom } from "./0-ctx/8-saw-monitor-size";
 
 export const doMoveToSecondDlgAtom = atom(
     null,
@@ -79,7 +75,7 @@ export const doMoveToSecondDlgAtom = atom(
 
             initFileUsFname({ fileUs, makingCpass: false });
 
-            const saved = await set(doSaveOneAtom, newFileUsAtomAtom);
+            const saved = await set(doSaveOneAtom, {fileUsAtom: newFileUsAtomAtom});
             if (!saved) {
                 return;
             }
@@ -99,21 +95,6 @@ export const doMoveToSecondDlgAtom = atom(
         printAtomSaved(newFileUsAtomAtom);
     }
 );
-
-function initFileUsFname({ fileUs, makingCpass }: { fileUs: FileUs; makingCpass: boolean; }): void {
-    if (makingCpass) {
-        return;
-    }
-
-    fileUs.fileCnt.fname = `${createGuid()}.${pmExtensionMani}`;
-    fileUs.fileCnt.fpath = rootDir.fpath;
-
-    fileUs.fileCnt.webFsItem = new WebFsItem({
-        handle: undefined,
-        parent: rootDir.handle,
-        legacyPath: rootDir.fpath,
-    });
-}
 
 function addToFilesTree({ fileUsAtom, fileUs, makingCpass, getset: { get, set } }: { fileUsAtom: FileUsAtom; fileUs: FileUs; makingCpass: boolean; getset: GetSet; }): void {
     if (makingCpass) {

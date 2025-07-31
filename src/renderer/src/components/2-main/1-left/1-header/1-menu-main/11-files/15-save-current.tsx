@@ -10,7 +10,7 @@ export function MenuItem_SaveCurrent() {
     const doSaveOne = useSetAtom(doSaveOneAtom);
 
     return (<>
-        <DropdownMenuItem onClick={() => fileUsAtom && doSaveOne(fileUsAtom)} disabled={!fileUsAtom}>
+        <DropdownMenuItem onClick={() => fileUsAtom && doSaveOne({ fileUsAtom })} disabled={!fileUsAtom}>
             Save
             <DropdownMenuShortcut className={menuShortcutClasses}>{appShortcuts.saveOne.text}</DropdownMenuShortcut>
         </DropdownMenuItem>

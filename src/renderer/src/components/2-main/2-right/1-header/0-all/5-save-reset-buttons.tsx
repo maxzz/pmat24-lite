@@ -4,7 +4,7 @@ import { doResetOrDiscardOneAtom, doSaveOneAtom } from "@/store/1-atoms/2-file-m
 import { Button } from "@/ui";
 import { FileUs, FileUsAtom } from "@/store/store-types";
 
-export function SaveResetButtons({ fileUs, fileUsAtom }: { fileUs: FileUs; fileUsAtom: FileUsAtom }) {
+export function SaveResetButtons({ fileUs, fileUsAtom }: { fileUs: FileUs; fileUsAtom: FileUsAtom; }) {
     const doSaveOne = useSetAtom(doSaveOneAtom);
     const doReset = useSetAtom(doResetOrDiscardOneAtom);
 
@@ -20,7 +20,7 @@ export function SaveResetButtons({ fileUs, fileUsAtom }: { fileUs: FileUs; fileU
             {isNewFile ? 'Discard' : 'Reset'}
         </Button>
 
-        <Button className={saveButtonClasses} title="Save file changes" onClick={() => doSaveOne(fileUsAtom)}>
+        <Button className={saveButtonClasses} title="Save file changes" onClick={() => doSaveOne({ fileUsAtom })}>
             Save
         </Button>
     </>);
