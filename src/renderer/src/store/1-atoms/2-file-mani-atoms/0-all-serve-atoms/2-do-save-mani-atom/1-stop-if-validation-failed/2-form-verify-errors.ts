@@ -1,30 +1,25 @@
 import { FormIdx } from "@/store/manifest";
 import { type ManiAtoms, type VerifyError } from "../../../9-types";
+import { FormOptionsConv } from "../../../3-options";
 import { normalFormVerifyErrors } from "./3-1-normal-verify-errors";
 import { manualFormVerifyErrors } from "./3-2-manual-verify-errors";
-import { FormOptionsConv } from "../../../3-options";
 
 export function getErrorsFromLogin(maniAtoms: ManiAtoms, getset: GetSet): VerifyError[] | undefined {
-    let errors =
-        normalFormVerifyErrors(maniAtoms, FormIdx.login, getset) ||
-        manualFormVerifyErrors(maniAtoms, FormIdx.login, getset);
-
-    if (!errors?.length) {
-        const optionsAtoms = maniAtoms[FormIdx.login]?.options;
-        errors = optionsAtoms && FormOptionsConv.getOptionsInFormVerifyErrors(optionsAtoms, FormIdx.login, getset);
-    }
-
-    return errors;
+    return getErrorsFromForm(maniAtoms, FormIdx.login, getset);
 }
 
 export function getErrorsFromCpass(maniAtoms: ManiAtoms, getset: GetSet): VerifyError[] | undefined {
+    return getErrorsFromForm(maniAtoms, FormIdx.cpass, getset);
+}
+
+function getErrorsFromForm(maniAtoms: ManiAtoms, formIdx: FormIdx, getset: GetSet): VerifyError[] | undefined {
     let errors =
-        normalFormVerifyErrors(maniAtoms, FormIdx.cpass, getset) ||
-        manualFormVerifyErrors(maniAtoms, FormIdx.cpass, getset);
+        normalFormVerifyErrors(maniAtoms, formIdx, getset) ||
+        manualFormVerifyErrors(maniAtoms, formIdx, getset);
 
     if (!errors?.length) {
-        const optionsAtoms = maniAtoms[FormIdx.cpass]?.options;
-        errors = optionsAtoms && FormOptionsConv.getOptionsInFormVerifyErrors(optionsAtoms, FormIdx.cpass, getset);
+        const optionsAtoms = maniAtoms[formIdx]?.options;
+        errors = optionsAtoms && FormOptionsConv.getOptionsInFormVerifyErrors(optionsAtoms, formIdx, getset);
     }
 
     return errors;
