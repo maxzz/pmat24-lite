@@ -1,17 +1,3 @@
-import { type JSX } from "react";
-import { UISymbolDefs } from "@ui/icons";
-import { AppGlobals } from "./components/4-dialogs";
-import { AppContent } from "./components";
-
-export function App(): JSX.Element {
-    return (<>
-        <UISymbolDefs />
-        {/* <SpyAllIcons includeSvgSymbols /> */}
-        <AppContent />
-        <AppGlobals />
-    </>);
-}
-
 //TODO: add version request from main and DpAgent
 //TODO: beforeunload handler to save changed files
 

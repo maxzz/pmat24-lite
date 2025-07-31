@@ -11,10 +11,10 @@
 			]
 		},
 		{
-			"path": "src/renderer/src/App.tsx",
+			"path": "src/renderer/src/components/0-all-app/8-nun-todos.ts",
 			"bookmarks": [
 				{
-					"line": 167,
+					"line": 153,
 					"column": 10,
 					"label": "Todos"
 				}
