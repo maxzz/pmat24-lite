@@ -66,7 +66,7 @@ export default defineConfig({
 });
 
 function manualChunks(id: string) { //https://rollupjs.org/configuration-options/#output-manualchunks
-    // if (id.includes("react-dom")) {
+    // if (id.includes("react-dom")) { //https://github.com/Krishnagopal-Sinha/better-nothing-glyph-composer/blob/main/vite.config.ts
     //     return "vendor-dom";
     // }
     
