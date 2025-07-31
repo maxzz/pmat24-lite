@@ -16,11 +16,12 @@ export function useBeforeUnload(): void {
 
                 // event.preventDefault();
                 // // Chrome requires returnValue to be set for the dialog to appear
-                event.returnValue = '';
+                // event.returnValue = '';
 
-                const message = "Are you sure you want to leave?";
-                // // (event || window.event).returnValue = message;
-                return message;
+                // const message = "Are you sure you want to leave?";
+                // // // (event || window.event).returnValue = message;
+                // return message;
+                return '';
 
                 //event.preventDefault();
                 // return ''; //https://github.com/Krishnagopal-Sinha/better-nothing-glyph-composer/blob/main/src/App.tsx#L28
