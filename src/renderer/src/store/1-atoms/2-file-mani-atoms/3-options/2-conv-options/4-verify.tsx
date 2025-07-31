@@ -11,6 +11,11 @@ export function getVerifyErrors(atoms: FormOptionsState.AllAtoms, formIdx: FormI
             ? { ...p1General, ...p2Detect, ...p3Auth, ...p4QL, ...p5Icon }
             : { ...p2Detect, ...p3Auth, ...p4QL, ...p5Icon };
 
+    const rv: VerifyError[] = validateRowInputStateAtoms(toValidate, { get });
+    return rv;
+}
+
+export function validateRowInputStateAtoms(toValidate: RowInputStateAtoms, { get }: GetOnly): VerifyError[] {
     const rv: VerifyError[] = Object.entries(toValidate)
         .map(
             ([key, atom]) => {
