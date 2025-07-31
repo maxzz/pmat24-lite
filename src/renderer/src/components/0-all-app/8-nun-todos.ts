@@ -168,3 +168,36 @@
 //07.09.25
 //TODO: add visual feedback for linked password field in password change form - done
 //TODO: add menu item to link password change passwords to login form. If more then one password in login form then show warning or show select dialog
+
+//07.31.25
+/*
+	'navigation'
+		//https://developer.mozilla.org/en-US/docs/Web/API/Navigation 'Navigation'
+			//https://developer.mozilla.org/en-US/docs/Web/API/Navigation/navigate_event 'Navigation: navigate event'
+				//https://github.com/WICG/navigation-api#appendix-types-of-navigations
+            //https://caniuse.com/?search=navigation
+            //https://html.spec.whatwg.org/multipage/nav-history-apis.html#navigation-api w3c
+		
+		//https://developer.chrome.com/docs/web-platform/navigation-api
+        navigation.addEventListener('navigate', navigateEvent => {
+            if (shouldNotIntercept(navigateEvent)) return;
+            const url = new URL(navigateEvent.destination.url);
+
+            if (url.pathname.startsWith('/articles/')) {
+                navigateEvent.intercept({
+                    async handler() {
+                        // The URL has already changed, so quickly show a placeholder.
+                        renderArticlePagePlaceholder();
+                        
+                        // Then fetch the real data.
+                        const articleContent = await getArticleContent(url.pathname);
+                        renderArticlePage(articleContent);
+                    },
+                });
+            }
+        });
+
+		//G: 'where is navigation api typescript'
+			//https://github.com/WICG/navigation-api <- typescript; 'npm install -D @types/dom-navigation'
+				//https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/dom-navigation
+ */
