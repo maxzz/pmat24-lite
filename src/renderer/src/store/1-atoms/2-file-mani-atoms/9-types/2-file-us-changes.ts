@@ -57,19 +57,19 @@ function hasCpassChange({ fileUs }: { fileUs: FileUs; }): boolean {
     return hasChange({ fileUs }, 'cpass');
 }
 
+// Notify main process about changes
+
+subscribe(allFileUsChanges,
+    () => {
+        if (hasMain()) { // We have to check if main is available at module load time (mainApi is not initialized yet).
+            R2MCalls.setModifiedFilesState(allFileUsChanges.size > 0);
+        }
+    }
+);
+
 // Utilities
 
 function printChanges(fileUs: FileUs) {
     const changes: ChangesSet = fileUs.fileCnt.changesSet;
     console.log('🚼 File Changes:', JSON.stringify([...changes.keys()]));
 }
-
-//
-
-subscribe(allFileUsChanges, () => {
-    if (!hasMain()) {
-        return;
-    }
-    console.log('🚼 File Changes:', JSON.stringify([...allFileUsChanges.keys()]));
-    R2MCalls.setModifiedFilesState(allFileUsChanges.size > 0);
-});
