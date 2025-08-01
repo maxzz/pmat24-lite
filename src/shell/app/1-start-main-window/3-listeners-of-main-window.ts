@@ -3,7 +3,7 @@ import { iniFileOptions } from "./8-ini-file-options";
 import { electronState, sessionState } from "@shell/2-electron-globals";
 import { mainToRenderer } from "../../xternal-to-renderer";
 import { setSawModeOnMain } from "../../xternal-to-renderer/2-commands-in-main";
-import { type AppWindow } from "./0-app-window";
+import { type AppWindow } from "./8-app-window-instance";
 
 export function setMainWindowListeners(appWindow: AppWindow) {
     if (!appWindow.wnd) {

@@ -1,4 +1,4 @@
-import { app, BrowserWindow } from "electron";
+import { type BrowserWindow } from "electron";
 
 export const appWindow = {
     get wnd() {

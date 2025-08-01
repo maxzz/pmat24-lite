@@ -1,6 +1,6 @@
 import { app, BrowserWindow, ipcMain } from "electron";
 import { electronApp, optimizer } from "@electron-toolkit/utils";
-import { appWindow, connect_ListenersForCallFromRenderer, createMainWindow } from "../1-start-main-window";
+import { appWindow, connect_ListenersForCallFromRenderer, initMainWindow, setMainWindowListeners } from "../1-start-main-window";
 import { iniFileOptions } from "@shell/1-start-main-window/8-ini-file-options";
 
 // This method will be called when Electron has finished initialization and is ready to create browser windows.
@@ -52,5 +52,10 @@ app.whenReady().then(
 
 // In this file you can include the rest of your app"s specific main process
 // code. You can also put them in separate files and require them here.
+
+function createMainWindow(): void {
+    appWindow.wnd = initMainWindow();
+    setMainWindowListeners(appWindow);
+}
 
 connect_ListenersForCallFromRenderer();
