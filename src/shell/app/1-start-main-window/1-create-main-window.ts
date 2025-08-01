@@ -3,7 +3,7 @@ import { BrowserWindow, app, dialog, shell } from "electron";
 import { is } from "@electron-toolkit/utils";
 import { loadIniFileOptions, saveIniFileOptions } from "./8-ini-file-options";
 import icon from "../../../../resources/icon.png?asset"; // This is only for linux
-import { electronState } from "@shell/2-electron-globals";
+import { electronState, sessionState } from "@shell/2-electron-globals";
 import { mainToRenderer } from "../../xternal-to-renderer";
 import { setSawModeOnMain } from "../../xternal-to-renderer/2-commands-in-main";
 
@@ -59,9 +59,8 @@ export async function createMainWindow() {
 
             event.preventDefault();
 
-
             //  Check for unsaved changes or other conditions
-            const hasUnsavedChanges = true; // Replace with your actual condition
+            const hasUnsavedChanges = sessionState.modifiedFiles;
 
             if (hasUnsavedChanges) {
                 const choice = await dialog.showMessageBox(winApp, {
@@ -78,6 +77,8 @@ export async function createMainWindow() {
                 } else if (choice.response === 1) { // Discard & Close
                     winApp.destroy();
                 }
+
+                //TODO: send it to renderer and get reply (reset sessionState.modifiedFiles) and then close
             } else {
                 winApp.destroy(); // No unsaved changes, close normally
             }

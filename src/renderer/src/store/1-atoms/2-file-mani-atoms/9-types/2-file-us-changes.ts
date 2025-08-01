@@ -1,6 +1,8 @@
 import { proxySet } from "valtio/utils";
 import { type ChangesSet } from "@shared/ipc-types";
 import { type FileUs } from "@/store/store-types";
+import { subscribe } from "valtio";
+import { hasMain, R2MCalls } from "@/xternal-to-main";
 
 // All files changes. It is important to show that some files have changes due to tree view scrolling.
 
@@ -61,3 +63,13 @@ function printChanges(fileUs: FileUs) {
     const changes: ChangesSet = fileUs.fileCnt.changesSet;
     console.log('🚼 File Changes:', JSON.stringify([...changes.keys()]));
 }
+
+//
+
+subscribe(allFileUsChanges, () => {
+    if (!hasMain()) {
+        return;
+    }
+    console.log('🚼 File Changes:', JSON.stringify([...allFileUsChanges.keys()]));
+    R2MCalls.setModifiedFilesState(allFileUsChanges.size > 0);
+});
