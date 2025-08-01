@@ -62,6 +62,7 @@ export async function createMainWindow() {
             //  Check for unsaved changes or other conditions
             const hasUnsavedChanges = sessionState.modifiedFiles;
 
+            /*
             if (hasUnsavedChanges) {
                 const choice = await dialog.showMessageBox(winApp, {
                     type: 'question',
@@ -82,6 +83,7 @@ export async function createMainWindow() {
             } else {
                 winApp.destroy(); // No unsaved changes, close normally
             }
+            */
         }
     });
 

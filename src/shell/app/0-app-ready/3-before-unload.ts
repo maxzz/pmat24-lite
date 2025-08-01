@@ -1,4 +1,4 @@
-
+/*
 window.addEventListener('beforeunload',
     (event) => {
         // Check if there are unsaved changes or if you want to prompt the user for any other reason
@@ -30,6 +30,7 @@ window.addEventListener('beforeunload',
         }
     }
 );
+*/
 
 /*
 // In main.js (Main Process)
