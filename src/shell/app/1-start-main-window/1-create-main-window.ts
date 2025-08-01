@@ -1,19 +1,15 @@
 import { join } from "path";
-import { BrowserWindow, app, dialog, shell } from "electron";
+import { BrowserWindow, shell } from "electron";
 import { is } from "@electron-toolkit/utils";
-import { type IniOptions, loadIniFileOptions, saveIniFileOptions } from "./8-ini-file-options";
+import { iniFileOptions, loadIniFileOptions, saveIniFileOptions } from "./8-ini-file-options";
 import icon from "../../../../resources/icon.png?asset"; // This is only for linux
 import { electronState, sessionState } from "@shell/2-electron-globals";
 import { mainToRenderer } from "../../xternal-to-renderer";
 import { setSawModeOnMain } from "../../xternal-to-renderer/2-commands-in-main";
 import { appWindow } from "./0-app-window";
 
-const preloadPath = join(__dirname, "../preload/index.js");
-
-let iniFileOptions: IniOptions | undefined;
-
 export function createMainWindow(): void {
-    const iniFileOptions = loadIniFileOptions();
+    iniFileOptions.options = loadIniFileOptions();
 
     appWindow.wnd = makeMainWindow();
 
@@ -21,7 +17,7 @@ export function createMainWindow(): void {
         if (!appWindow.wnd) {
             return;
         }
-        if (iniFileOptions?.devTools && !appWindow.wnd.webContents.isDevToolsOpened()) {
+        if (iniFileOptions.options?.devTools && !appWindow.wnd.webContents.isDevToolsOpened()) {
             appWindow.wnd.webContents.toggleDevTools();
         }
         appWindow.wnd.show();
@@ -53,9 +49,11 @@ export function createMainWindow(): void {
     });
 }
 
+const preloadPath = join(__dirname, "../preload/index.js");
+
 function makeMainWindow(): BrowserWindow {
     const rv = new BrowserWindow({
-        ...(iniFileOptions?.bounds),
+        ...(iniFileOptions.options?.bounds),
         minWidth: 200,                  //TODO: this should be set after window created with count on zoomFactor
         minHeight: 140,                 //TODO: this should be set after window created with count on zoomFactor
         //frame: false,                   // OK to turn off caption bar with close button and window drag controls, but we are not ready for this yet

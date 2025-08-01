@@ -29,3 +29,14 @@ export function saveIniFileOptions(win: BrowserWindow) {
 }
 
 const INI_FNAME = path.join(app.getPath('userData'), "pmat24-lite-init.json"); // c:\users\maxzz\appdata\roaming\electron-react24\pmat24-lite-init.json
+
+export const iniFileOptions = {
+    get options() {
+        return _options;
+    },
+    set options(value: IniOptions | undefined) {
+        _options = value;
+    }
+};
+
+let _options: IniOptions | undefined = undefined;
