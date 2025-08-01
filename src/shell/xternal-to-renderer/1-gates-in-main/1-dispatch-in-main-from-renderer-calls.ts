@@ -1,6 +1,6 @@
 import { Notification } from "electron";
 import { type R2M } from "@shared/ipc-types";
-import { electronState } from "@shell/2-electron-globals";
+import { electronState, sessionState } from "@shell/2-electron-globals";
 import { mainToRenderer } from "./3-send-in-main-to-renderer";
 import { winApp } from "@shell/1-start-main-window/1-create-main-window";
 import { dndAction, getElectronModulePaths } from "../7-napi-calls";
@@ -41,6 +41,13 @@ export async function callFromRendererInMain(data: R2M.AllCalls): Promise<void> 
 
         case 'r2m:set-saw-position': {
             setSawPositionOnMain(winApp, data.position);
+            break;
+        }
+
+        // set modified files state
+
+        case 'r2m:set-modified-files-state': {
+            sessionState.modifiedFiles = data.modified;
             break;
         }
 

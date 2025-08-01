@@ -29,6 +29,13 @@ export namespace R2M { // Main from Renderer
         position: number;              // 0 center, 1 top-left, 2 top-right, 3 bottom-left, 4 bottom-right
     };
 
+    // modified files state
+
+    export type SetModifiedFilesState = {
+        type: 'r2m:set-modified-files-state';
+        modified: boolean;
+    };
+
     // napi
 
     export type NapiOptions = {
@@ -78,6 +85,7 @@ export namespace R2M { // Main from Renderer
         | DarkMode
         | NotifyMessage
         | SetSawPosition
+        | SetModifiedFilesState
 
         | SetNapiOptions
         | CancelDetection
@@ -96,6 +104,7 @@ export namespace R2MParams {
     export type DarkMode = Omit<R2M.DarkMode, 'type'>;
     export type NotifyMessage = Omit<R2M.NotifyMessage, 'type'>;
     export type SetSawPosition = Omit<R2M.SetSawPosition, 'type'>;
+    export type SetModifiedFilesState = Omit<R2M.SetModifiedFilesState, 'type'>;
     export type SetNapiOptions = Omit<R2M.SetNapiOptions, 'type'>;
     export type CancelDetection = Omit<R2M.CancelDetection, 'type'>;
     export type SetSawMode = Omit<R2M.SetSawMode, 'type'>;

@@ -1,4 +1,3 @@
-
 import { type R2MParams } from "@shared/ipc-types";
 import { sendToMainTyped } from "../3-to-main-apis";
 
@@ -26,6 +25,10 @@ export namespace R2MCalls {
 
     export function setSawPosition(params: R2MParams.SetSawPosition): void {
         sendToMainTyped({ type: 'r2m:set-saw-position', ...params });
+    }
+
+    export function setModifiedFilesState(modified: boolean): void {
+        sendToMainTyped({ type: 'r2m:set-modified-files-state', modified });
     }
 
     // napi
@@ -59,4 +62,5 @@ export namespace R2MCalls {
     export function startTestFromMain(): void {
         sendToMainTyped({ type: 'r2m:test' });
     }
-}
+
+} //namespace R2MCalls

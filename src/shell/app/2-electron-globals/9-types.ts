@@ -9,3 +9,13 @@ export const electronState: ElectronState = {
     cancelDetection: false,
     sawModeIsOn: false,
 }
+
+//
+
+export type SessionState = {
+    modifiedFiles: boolean;
+};
+
+export const sessionState: SessionState = {
+    modifiedFiles: false,
+};
