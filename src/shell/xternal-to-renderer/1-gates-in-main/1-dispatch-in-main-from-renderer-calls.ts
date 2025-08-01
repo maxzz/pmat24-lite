@@ -2,7 +2,7 @@ import { app, Notification } from "electron";
 import { type R2M } from "@shared/ipc-types";
 import { electronState, sessionState } from "@shell/2-electron-globals";
 import { mainToRenderer } from "./3-send-in-main-to-renderer";
-import { winApp } from "@shell/1-start-main-window/1-create-main-window";
+import { appWindow } from "@shell/1-start-main-window";
 import { dndAction, getElectronModulePaths } from "../7-napi-calls";
 import { openFileDialogAndReply, setSawModeOnMain, setSawPositionOnMain } from "../2-commands-in-main";
 
@@ -11,11 +11,11 @@ export async function callFromRendererInMain(data: R2M.AllCalls): Promise<void> 
         case 'r2m:menu:command': {
             switch (data.what) {
                 case 'exit': {
-                    winApp?.close();
+                    appWindow.wnd?.close();
                     break;
                 }
                 case 'open-dev-tools': {
-                    winApp?.webContents.openDevTools();
+                    appWindow.wnd?.webContents.openDevTools();
                     break;
                 }
             }
@@ -23,7 +23,7 @@ export async function callFromRendererInMain(data: R2M.AllCalls): Promise<void> 
         }
 
         case 'r2m:file:load-manifests-dialog': { // will reply with 'm2r:loaded-files'
-            openFileDialogAndReply(winApp, { openDirs: data.openDirs });
+            openFileDialogAndReply(appWindow.wnd, { openDirs: data.openDirs });
             break;
         }
 
@@ -40,7 +40,7 @@ export async function callFromRendererInMain(data: R2M.AllCalls): Promise<void> 
         }
 
         case 'r2m:set-saw-position': {
-            setSawPositionOnMain(winApp, data.position);
+            setSawPositionOnMain(appWindow.wnd, data.position);
             break;
         }
 
@@ -68,12 +68,12 @@ export async function callFromRendererInMain(data: R2M.AllCalls): Promise<void> 
         }
 
         case 'r2m:set-saw-mode': {
-            setSawModeOnMain(winApp, data);
+            setSawModeOnMain(appWindow.wnd, data);
             break;
         }
 
         case 'r2m:show-hide-window': {
-            data.showHide ? winApp?.show() : winApp?.hide();
+            data.showHide ? appWindow.wnd?.show() : appWindow.wnd?.hide();
             break;
         }
 
@@ -85,7 +85,7 @@ export async function callFromRendererInMain(data: R2M.AllCalls): Promise<void> 
         // tests
 
         case 'r2m:file:load-test-manifests': {
-            openFileDialogAndReply(winApp);
+            openFileDialogAndReply(appWindow.wnd);
             // const loadedFiles = await mainStore.loadTestManifests();
             // mainToRenderer({ type: 'm2r:loaded-files', filesCnt: loadedFiles });
             break;

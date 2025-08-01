@@ -6,64 +6,51 @@ import icon from "../../../../resources/icon.png?asset"; // This is only for lin
 import { electronState, sessionState } from "@shell/2-electron-globals";
 import { mainToRenderer } from "../../xternal-to-renderer";
 import { setSawModeOnMain } from "../../xternal-to-renderer/2-commands-in-main";
+import { appWindow } from "./0-app-window";
 
 const preloadPath = join(__dirname, "../preload/index.js");
-
-export let winApp: BrowserWindow | null;
 
 let iniFileOptions: IniOptions | undefined;
 
 export function createMainWindow(): void {
     const iniFileOptions = loadIniFileOptions();
 
-    winApp = makeMainWindow();
+    appWindow.wnd = makeMainWindow();
 
-    winApp.on('ready-to-show', () => {
-        if (iniFileOptions?.devTools && !winApp?.webContents.isDevToolsOpened()) {
-            winApp?.webContents.toggleDevTools();
+    appWindow.wnd.on('ready-to-show', () => {
+        if (!appWindow.wnd) {
+            return;
         }
-        winApp?.show();
+        if (iniFileOptions?.devTools && !appWindow.wnd.webContents.isDevToolsOpened()) {
+            appWindow.wnd.webContents.toggleDevTools();
+        }
+        appWindow.wnd.show();
     });
 
-    winApp.on('close', async (event: Electron.Event) => {
+    appWindow.wnd.on('close', async (event: Electron.Event) => {
         if (electronState.sawModeIsOn) {
             event.preventDefault();
-            setSawModeOnMain(winApp, { setOn: false, position: 0 });
+            setSawModeOnMain(appWindow.wnd, { setOn: false, position: 0 });
             mainToRenderer({ type: 'm2r:saw-mode-canceled' });
         } else {
-            if (!winApp) {
+            if (!appWindow.wnd) {
                 return;
             }
-            saveIniFileOptions(winApp);
+            saveIniFileOptions(appWindow.wnd);
 
             if (sessionState.modifiedFiles) {
                 event.preventDefault();
                 mainToRenderer({ type: 'm2r:ask-close-from-main-with-changes' });
             } else {
-                winApp.destroy(); // No unsaved changes, close normally
+                appWindow.wnd.destroy(); // No unsaved changes, close normally
             }
         }
     });
 
-    winApp.webContents.setWindowOpenHandler((details) => {
+    appWindow.wnd.webContents.setWindowOpenHandler((details) => {
         shell.openExternal(details.url);
         return { action: 'deny' };
     });
-}
-
-export function connect_MainWindowListeners() {
-
-    // Quit when all windows are closed, except on macOS. There, it's common
-    // for applications and their menu bar to stay active until the user quits
-    // explicitly with Cmd + Q.
-    app.on('window-all-closed',
-        () => {
-            winApp = null;
-            if (process.platform !== 'darwin') {
-                app.quit();
-            }
-        }
-    );
 }
 
 function makeMainWindow(): BrowserWindow {
