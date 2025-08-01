@@ -1,5 +1,5 @@
 import { join } from "path";
-import { BrowserWindow, app, shell } from "electron";
+import { BrowserWindow, app, dialog, shell } from "electron";
 import { is } from "@electron-toolkit/utils";
 import { loadIniFileOptions, saveIniFileOptions } from "./8-ini-file-options";
 import icon from "../../../../resources/icon.png?asset"; // This is only for linux
@@ -46,14 +46,42 @@ export async function createMainWindow() {
         winApp?.show();
     });
 
-    winApp.on('close', (e: Electron.Event) => {
+    winApp.on('close', async (event: Electron.Event) => {
         if (electronState.sawModeIsOn) {
-            e.preventDefault();
+            event.preventDefault();
             setSawModeOnMain(winApp, { setOn: false, position: 0 });
             mainToRenderer({ type: 'm2r:saw-mode-canceled' });
-            return;
+        } else {
+            if (!winApp) {
+                return;
+            }
+            saveIniFileOptions(winApp);
+
+            event.preventDefault();
+
+
+            //  Check for unsaved changes or other conditions
+            const hasUnsavedChanges = true; // Replace with your actual condition
+
+            if (hasUnsavedChanges) {
+                const choice = await dialog.showMessageBox(winApp, {
+                    type: 'question',
+                    buttons: ['Save & Close', 'Discard & Close', 'Cancel'],
+                    title: 'Confirm Close',
+                    message: 'You have unsaved changes. Do you want to save them before closing?',
+                });
+
+                if (choice.response === 0) { // Save & Close
+                    //  Perform save operation (e.g., send IPC message to renderer to save)
+                    //  Then close the window:
+                    winApp.destroy();
+                } else if (choice.response === 1) { // Discard & Close
+                    winApp.destroy();
+                }
+            } else {
+                winApp.destroy(); // No unsaved changes, close normally
+            }
         }
-        winApp && !electronState.sawModeIsOn && saveIniFileOptions(winApp);
     });
 
     winApp.webContents.setWindowOpenHandler((details) => {
