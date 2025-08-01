@@ -13,9 +13,9 @@ export const electronState: ElectronState = {
 //
 
 export type SessionState = {
-    modifiedFiles: boolean;
+    hasChanges: boolean;
 };
 
 export const sessionState: SessionState = {
-    modifiedFiles: false,
+    hasChanges: false,
 };

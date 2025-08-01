@@ -47,7 +47,7 @@ export async function callFromRendererInMain(data: R2M.AllCalls): Promise<void> 
         // set modified files state
 
         case 'r2m:set-modified-files-state': {
-            sessionState.modifiedFiles = data.modified;
+            sessionState.hasChanges = data.modified;
             break;
         }
 

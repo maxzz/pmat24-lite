@@ -24,21 +24,22 @@ export function createMainWindow(): void {
     });
 
     appWindow.wnd.on('close', async (event: Electron.Event) => {
+        if (!appWindow.wnd) {
+            return;
+        }
+
         if (electronState.sawModeIsOn) {
             event.preventDefault();
             setSawModeOnMain(appWindow.wnd, { setOn: false, position: 0 });
             mainToRenderer({ type: 'm2r:saw-mode-canceled' });
         } else {
-            if (!appWindow.wnd) {
-                return;
-            }
             iniFileOptions.save(appWindow.wnd);
 
-            if (sessionState.modifiedFiles) {
+            if (sessionState.hasChanges) {
                 event.preventDefault();
                 mainToRenderer({ type: 'm2r:ask-close-from-main-with-changes' });
             } else {
-                appWindow.wnd.destroy(); // No unsaved changes, close normally
+                appWindow.wnd.destroy();
             }
         }
     });
