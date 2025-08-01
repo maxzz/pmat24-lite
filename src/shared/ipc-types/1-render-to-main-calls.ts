@@ -36,6 +36,10 @@ export namespace R2M { // Main from Renderer
         modified: boolean;
     };
 
+    export type CloseWithoutChangesCheck = {
+        type: 'r2m:close-without-changes-check';
+    };
+
     // napi
 
     export type NapiOptions = {
@@ -86,6 +90,7 @@ export namespace R2M { // Main from Renderer
         | NotifyMessage
         | SetSawPosition
         | SetModifiedFilesState
+        | CloseWithoutChangesCheck
 
         | SetNapiOptions
         | CancelDetection
@@ -105,6 +110,7 @@ export namespace R2MParams {
     export type NotifyMessage = Omit<R2M.NotifyMessage, 'type'>;
     export type SetSawPosition = Omit<R2M.SetSawPosition, 'type'>;
     export type SetModifiedFilesState = Omit<R2M.SetModifiedFilesState, 'type'>;
+    export type CloseWithoutChangesCheck = Omit<R2M.CloseWithoutChangesCheck, 'type'>;
     export type SetNapiOptions = Omit<R2M.SetNapiOptions, 'type'>;
     export type CancelDetection = Omit<R2M.CancelDetection, 'type'>;
     export type SetSawMode = Omit<R2M.SetSawMode, 'type'>;

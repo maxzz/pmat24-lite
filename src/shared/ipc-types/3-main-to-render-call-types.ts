@@ -50,6 +50,12 @@ export namespace M2R { // Main to Renderer
         body: string;
     };
 
+    // close sequence
+
+    export type AskCloseFromMainWithChanges = {
+        type: 'm2r:ask-close-from-main-with-changes';
+    };
+
     export type AllTypes =
         | OpenedFiles
 
@@ -62,5 +68,7 @@ export namespace M2R { // Main to Renderer
         
         | FailedRawContent
         | LogMainToRenderer
+
+        | AskCloseFromMainWithChanges
         ;
 }

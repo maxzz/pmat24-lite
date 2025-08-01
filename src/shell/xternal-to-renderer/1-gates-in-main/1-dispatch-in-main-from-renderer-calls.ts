@@ -1,4 +1,4 @@
-import { Notification } from "electron";
+import { app, Notification } from "electron";
 import { type R2M } from "@shared/ipc-types";
 import { electronState, sessionState } from "@shell/2-electron-globals";
 import { mainToRenderer } from "./3-send-in-main-to-renderer";
@@ -48,6 +48,11 @@ export async function callFromRendererInMain(data: R2M.AllCalls): Promise<void> 
 
         case 'r2m:set-modified-files-state': {
             sessionState.modifiedFiles = data.modified;
+            break;
+        }
+
+        case 'r2m:close-without-changes-check': {
+            app.quit();
             break;
         }
 

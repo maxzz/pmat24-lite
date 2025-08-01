@@ -57,10 +57,15 @@ export async function createMainWindow() {
             }
             saveIniFileOptions(winApp);
 
-            event.preventDefault();
-
             //  Check for unsaved changes or other conditions
             const hasUnsavedChanges = sessionState.modifiedFiles;
+
+            if (hasUnsavedChanges) {
+                event.preventDefault();
+                mainToRenderer({ type: 'm2r:ask-close-from-main-with-changes' });
+            } else {
+                winApp.destroy(); // No unsaved changes, close normally
+            }
 
             /*
             if (hasUnsavedChanges) {

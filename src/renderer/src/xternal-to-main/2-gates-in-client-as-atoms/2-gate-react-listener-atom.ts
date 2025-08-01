@@ -35,6 +35,13 @@ export const doFromMainAtom = atom(
                 break;
             }
 
+            // close sequence
+
+            case 'm2r:ask-close-from-main-with-changes': {
+                console.log('m2r:ask-close-from-main-with-changes');
+                break;
+            }
+
             // napi
 
             case 'm2r:detection-progress': {
