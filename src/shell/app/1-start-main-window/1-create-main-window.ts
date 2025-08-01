@@ -1,15 +1,15 @@
 import { join } from "path";
 import { BrowserWindow, shell } from "electron";
 import { is } from "@electron-toolkit/utils";
-import { iniFileOptions, loadIniFileOptions, saveIniFileOptions } from "./8-ini-file-options";
 import icon from "../../../../resources/icon.png?asset"; // This is only for linux
+import { iniFileOptions } from "./8-ini-file-options";
 import { electronState, sessionState } from "@shell/2-electron-globals";
 import { mainToRenderer } from "../../xternal-to-renderer";
 import { setSawModeOnMain } from "../../xternal-to-renderer/2-commands-in-main";
 import { appWindow } from "./0-app-window";
 
 export function createMainWindow(): void {
-    iniFileOptions.options = loadIniFileOptions();
+    iniFileOptions.load();
 
     appWindow.wnd = makeMainWindow();
 
@@ -32,7 +32,7 @@ export function createMainWindow(): void {
             if (!appWindow.wnd) {
                 return;
             }
-            saveIniFileOptions(appWindow.wnd);
+            iniFileOptions.save(appWindow.wnd);
 
             if (sessionState.modifiedFiles) {
                 event.preventDefault();

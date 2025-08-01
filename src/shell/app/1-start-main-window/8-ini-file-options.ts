@@ -36,6 +36,12 @@ export const iniFileOptions = {
     },
     set options(value: IniOptions | undefined) {
         _options = value;
+    },
+    load() {
+        _options = loadIniFileOptions();
+    },
+    save(appWindow: BrowserWindow | null) {
+        appWindow && saveIniFileOptions(appWindow);
     }
 };
 
