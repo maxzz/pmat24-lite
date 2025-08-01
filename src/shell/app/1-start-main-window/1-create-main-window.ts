@@ -1,7 +1,7 @@
 import { join } from "path";
 import { BrowserWindow, app, dialog, shell } from "electron";
 import { is } from "@electron-toolkit/utils";
-import { loadIniFileOptions, saveIniFileOptions } from "./8-ini-file-options";
+import { type IniOptions, loadIniFileOptions, saveIniFileOptions } from "./8-ini-file-options";
 import icon from "../../../../resources/icon.png?asset"; // This is only for linux
 import { electronState, sessionState } from "@shell/2-electron-globals";
 import { mainToRenderer } from "../../xternal-to-renderer";
@@ -11,11 +11,10 @@ const preloadPath = join(__dirname, "../preload/index.js");
 
 export let winApp: BrowserWindow | null;
 
-export async function createMainWindow() {
-    const iniFileOptions = loadIniFileOptions();
+let iniFileOptions: IniOptions | undefined;
 
-    // Create the browser window.
-    winApp = new BrowserWindow({
+function makeMainWindow(): BrowserWindow {
+    const rv = new BrowserWindow({
         ...(iniFileOptions?.bounds),
         minWidth: 200,                  //TODO: this should be set after window created with count on zoomFactor
         minHeight: 140,                 //TODO: this should be set after window created with count on zoomFactor
@@ -34,10 +33,18 @@ export async function createMainWindow() {
     const ELECTRON_RENDERER_URL = process.env['ELECTRON_RENDERER_URL'];
 
     if (is.dev && ELECTRON_RENDERER_URL) {
-        winApp.loadURL(ELECTRON_RENDERER_URL);
+        rv.loadURL(ELECTRON_RENDERER_URL);
     } else {
-        winApp.loadFile(join(__dirname, '../renderer/index.html'));
+        rv.loadFile(join(__dirname, '../renderer/index.html'));
     }
+    
+    return rv;
+}
+
+export function createMainWindow(): void {
+    const iniFileOptions = loadIniFileOptions();
+
+    winApp = makeMainWindow();
 
     winApp.on('ready-to-show', () => {
         if (iniFileOptions?.devTools && !winApp?.webContents.isDevToolsOpened()) {
@@ -57,38 +64,12 @@ export async function createMainWindow() {
             }
             saveIniFileOptions(winApp);
 
-            //  Check for unsaved changes or other conditions
-            const hasUnsavedChanges = sessionState.modifiedFiles;
-
-            if (hasUnsavedChanges) {
+            if (sessionState.modifiedFiles) {
                 event.preventDefault();
                 mainToRenderer({ type: 'm2r:ask-close-from-main-with-changes' });
             } else {
                 winApp.destroy(); // No unsaved changes, close normally
             }
-
-            /*
-            if (hasUnsavedChanges) {
-                const choice = await dialog.showMessageBox(winApp, {
-                    type: 'question',
-                    buttons: ['Save & Close', 'Discard & Close', 'Cancel'],
-                    title: 'Confirm Close',
-                    message: 'You have unsaved changes. Do you want to save them before closing?',
-                });
-
-                if (choice.response === 0) { // Save & Close
-                    //  Perform save operation (e.g., send IPC message to renderer to save)
-                    //  Then close the window:
-                    winApp.destroy();
-                } else if (choice.response === 1) { // Discard & Close
-                    winApp.destroy();
-                }
-
-                //TODO: send it to renderer and get reply (reset sessionState.modifiedFiles) and then close
-            } else {
-                winApp.destroy(); // No unsaved changes, close normally
-            }
-            */
         }
     });
 
