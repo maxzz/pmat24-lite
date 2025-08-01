@@ -1,6 +1,7 @@
 import { app, BrowserWindow, ipcMain } from "electron";
 import { electronApp, optimizer } from "@electron-toolkit/utils";
 import { appWindow, connect_ListenersForCallFromRenderer, createMainWindow } from "../1-start-main-window";
+import { iniFileOptions } from "@shell/1-start-main-window/8-ini-file-options";
 
 // This method will be called when Electron has finished initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
@@ -21,6 +22,7 @@ app.whenReady().then(
         // IPC test
         // ipcMain.on('ping', () => console.log('pong'));
 
+        iniFileOptions.load();
         createMainWindow();
 
         app.on('activate',

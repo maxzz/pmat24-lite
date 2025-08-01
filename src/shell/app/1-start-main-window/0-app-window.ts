@@ -1,4 +1,4 @@
-import { BrowserWindow } from "electron";
+import { app, BrowserWindow } from "electron";
 
 export const appWindow = {
     get wnd() {
@@ -10,3 +10,5 @@ export const appWindow = {
 };
 
 let _winApp: BrowserWindow | null = null;
+
+export type AppWindow = typeof appWindow;
