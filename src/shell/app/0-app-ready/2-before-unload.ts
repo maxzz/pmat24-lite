@@ -30,3 +30,45 @@ window.addEventListener('beforeunload',
         }
     }
 );
+
+/*
+// In main.js (Main Process)
+const { app, BrowserWindow, dialog } = require('electron');
+
+let mainWindow;
+
+app.on('ready', () => {
+  mainWindow = new BrowserWindow({
+    // ... your window options
+  });
+
+  mainWindow.on('close', async (event) => {
+    // Prevent immediate close
+    event.preventDefault();
+
+    //  Check for unsaved changes or other conditions
+    const hasUnsavedChanges = true; // Replace with your actual condition
+
+    if (hasUnsavedChanges) {
+      const choice = await dialog.showMessageBox(mainWindow, {
+        type: 'question',
+        buttons: ['Save & Close', 'Discard & Close', 'Cancel'],
+        title: 'Confirm Close',
+        message: 'You have unsaved changes. Do you want to save them before closing?',
+      });
+
+      if (choice.response === 0) { // Save & Close
+        //  Perform save operation (e.g., send IPC message to renderer to save)
+        //  Then close the window:
+        mainWindow.destroy(); 
+      } else if (choice.response === 1) { // Discard & Close
+        mainWindow.destroy(); 
+      }
+    } else {
+      mainWindow.destroy(); // No unsaved changes, close normally
+    }
+  });
+
+  // ... rest of your main process code
+});
+*/
