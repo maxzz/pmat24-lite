@@ -28,8 +28,8 @@ export const confirmDeleteScriptActionsMessages: ConfirmationMessages = {
 };
 
 export const confirmQuitMessages: ConfirmationMessages = {
-    title: 'You have unsaved changes. Do you want to discard them and quit?',
-    message: 'Are you sure you want to quit? You have unsaved changes.',
+    title: 'Discard changes and quit?', // 'You have unsaved changes. Do you want to discard them and quit?'
+    message: 'You have unsaved changes. Are you sure you want to quit?',
     buttonOk: 'Discard and Quit',
     buttonCancel: 'Cancel',
     isDafaultOk: false,

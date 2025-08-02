@@ -1,6 +1,6 @@
 import { atom } from "jotai";
 
-export type ConfirmationMessages = {
+export type ConfirmationMessages = {            //TODO: instead of fixed number of buttons we should use buttons: [string, value][] in order to support more than 2 buttons
     title: string;
     message: string;
     buttonOk: string,
