@@ -27,6 +27,14 @@ export const confirmDeleteScriptActionsMessages: ConfirmationMessages = {
     isDafaultOk: false,
 };
 
+export const confirmQuitMessages: ConfirmationMessages = {
+    title: 'You have unsaved changes. Do you want to discard them and quit?',
+    message: 'Are you sure you want to quit? You have unsaved changes.',
+    buttonOk: 'Discard and Quit',
+    buttonCancel: 'Cancel',
+    isDafaultOk: false,
+};
+
 /**
  * We need to confirm removing item from the MRU list.
  * MRU item maybe not available now, but it will be available later.

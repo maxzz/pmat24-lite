@@ -3,7 +3,7 @@ import { toast } from "sonner";
 import { type FileUs, type FileUsAtom } from "@/store/store-types";
 import { fileUsChanges } from "../../9-types";
 import { updateManiAtomsAfterSaveOrResetAtom } from "../2-do-save-mani-atom/0-save-atom";
-import { doDeleteFileUsAtom } from "../4-do-delete-reveal-atoms";
+import { doDeleteFileUsAtom } from "../4-do-delete-reveal-quit-atoms";
 import { resetManifest } from "./nun/1-reset-manifest";
 //import { resetFc } from "./nun/5-reset-fc";
 
