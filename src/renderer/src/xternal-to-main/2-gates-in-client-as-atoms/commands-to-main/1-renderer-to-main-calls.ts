@@ -31,6 +31,10 @@ export namespace R2MCalls {
         sendToMainTyped({ type: 'r2m:set-modified-files-state', modified });
     }
 
+    export function closeWithoutChangesCheck(): void {
+        sendToMainTyped({ type: 'r2m:close-without-changes-check' });
+    }
+
     // napi
 
     export function setNapiOptions(params: R2MParams.SetNapiOptions): void {
