@@ -31,8 +31,8 @@ export namespace R2MCalls {
         sendToMainTyped({ type: 'r2m:set-modified-files-state', modified });
     }
 
-    export function closeWithoutChangesCheck(): void {
-        sendToMainTyped({ type: 'r2m:close-without-changes-check' });
+    export function closeAppFromRenderer(): void {
+        sendToMainTyped({ type: 'r2m:close-app-from-renderer-check' });
     }
 
     // napi

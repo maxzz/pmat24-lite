@@ -51,8 +51,8 @@ export async function callFromRendererInMain(data: R2M.AllCalls): Promise<void> 
             break;
         }
 
-        case 'r2m:close-without-changes-check': {
-            app.quit(); //TODO: this is still call close, so we may use destroy instead
+        case 'r2m:close-app-from-renderer-check': {
+            app.quit(); // This will trigger close event vs. appWindow.wnd.destroy()
             break;
         }
 
