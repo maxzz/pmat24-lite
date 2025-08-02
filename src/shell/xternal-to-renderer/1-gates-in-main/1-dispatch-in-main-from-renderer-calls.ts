@@ -52,7 +52,7 @@ export async function callFromRendererInMain(data: R2M.AllCalls): Promise<void> 
         }
 
         case 'r2m:close-without-changes-check': {
-            app.quit();
+            app.quit(); //TODO: this is still call close, so we may use destroy instead
             break;
         }
 

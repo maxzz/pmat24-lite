@@ -8,7 +8,9 @@ export const doQuitFromMainAtom = atom(null,
         if (!ok) {
             return;
         }
+        R2MCalls.setModifiedFilesState(false);
 
+        //TODO: need to reset changes to avoid loop
         R2MCalls.closeWithoutChangesCheck();
     }
 );
