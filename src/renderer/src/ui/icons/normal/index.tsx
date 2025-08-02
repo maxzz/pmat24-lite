@@ -11,7 +11,11 @@ export * from "./22-filter";
 export * from "./24-refresh";
 export * from "./25-sliders";
 export * from "./26-broken-img";
+
 export * from "./27-dnd-target";
+export * from "./27-microscope";
+export * from "./27-not-in-use";
+export * from "./27-stop-circle";
 
 export * from "./editor-manual-fields";
 export * from "./editor-swap-popup";
