@@ -28,6 +28,7 @@ export function setMainWindowListeners(appWindow: AppWindow) {
 
         if (electronState.sawModeIsOn) {
             event.preventDefault();
+            
             setSawModeOnMain(appWindow.wnd, { setOn: false, position: 0 });
             mainToRenderer({ type: 'm2r:saw-mode-canceled' });
         } else {

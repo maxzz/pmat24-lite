@@ -201,3 +201,7 @@
 			//https://github.com/WICG/navigation-api <- typescript; 'npm install -D @types/dom-navigation'
 				//https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/dom-navigation
  */
+
+//08.02.25
+//TODO: show incon stop
+//TODO: add option to show confirm on exit (only for dev)
