@@ -1,9 +1,9 @@
 import { shell } from "electron";
 import { iniFileOptions } from "./8-ini-file-options";
 import { electronState, sessionState } from "@shell/2-electron-globals";
+import { type AppWindow } from "./8-app-window-instance";
 import { mainToRenderer } from "../../xternal-to-renderer";
 import { setSawModeOnMain } from "../../xternal-to-renderer/2-commands-in-main";
-import { type AppWindow } from "./8-app-window-instance";
 
 export function setMainWindowListeners(appWindow: AppWindow) {
     if (!appWindow.wnd) {
@@ -28,7 +28,7 @@ export function setMainWindowListeners(appWindow: AppWindow) {
 
         if (electronState.sawModeIsOn) {
             event.preventDefault();
-            
+
             setSawModeOnMain(appWindow.wnd, { setOn: false, position: 0 });
             mainToRenderer({ type: 'm2r:saw-mode-canceled' });
         } else {

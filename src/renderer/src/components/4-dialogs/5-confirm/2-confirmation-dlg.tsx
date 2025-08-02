@@ -20,7 +20,10 @@ export function ConfirmDeleteFileDialog() {
     return (
         <Dialog open={!!confirmData} onOpenChange={() => onDlgClose(false)}>
             <DialogTitleHeader title={confirmData.ui.title} className={contentClasses} onDlgClose={onDlgClose}>
-                <DialogBody confirmDialogOpen={confirmData} onDlgClose={onDlgClose} />
+                <DialogBody
+                    confirmDialogOpen={confirmData}
+                    onDlgClose={onDlgClose}
+                />
             </DialogTitleHeader>
         </Dialog>
     );
@@ -29,10 +32,16 @@ export function ConfirmDeleteFileDialog() {
 const contentClasses = "p-0 !w-72 rounded-lg max-w-sm data-[state=open]:[animation-duration:200ms]";
 
 function DialogBody({ confirmDialogOpen, onDlgClose }: { confirmDialogOpen: ConfirmationData; onDlgClose: (ok: boolean) => void; }) {
-    const { ui: { message, buttonOk, buttonCancel, isDafaultOk }, resolve } = confirmDialogOpen;
+    const {
+        ui:
+        { icon, message, buttonOk, buttonCancel, isDafaultOk },
+        resolve,
+    } = confirmDialogOpen;
+
     return (
         <div className="px-4">
-            <DialogDescription className="pt-1 pb-1 text-xs">
+            <DialogDescription className="pt-1 pb-1 text-xs flex items-center gap-x-2">
+                {icon}
                 {message}
             </DialogDescription>
 

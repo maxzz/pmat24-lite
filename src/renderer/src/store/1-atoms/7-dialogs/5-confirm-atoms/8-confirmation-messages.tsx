@@ -1,4 +1,5 @@
 import { atom } from "jotai";
+import { IconStopCircle } from "@/ui/icons";
 import { type ConfirmationMessages, doAsyncConfirmDialogAtom } from "./2-confirm-delete-atoms";
 import { removeFromDirsMru } from "../../1-files/0-files-atom/4-mru-dirs";
 import { type PmatFolder } from "../../1-files";
@@ -29,6 +30,7 @@ export const confirmDeleteScriptActionsMessages: ConfirmationMessages = {
 
 export const confirmQuitMessages: ConfirmationMessages = {
     title: 'Discard changes and quit?', // 'You have unsaved changes. Do you want to discard them and quit?'
+    icon: <IconStopCircle className="size-12 text-red-500" />,
     message: 'You have unsaved changes. Are you sure you want to quit?',
     buttonOk: 'Discard and Quit',
     buttonCancel: 'Cancel',

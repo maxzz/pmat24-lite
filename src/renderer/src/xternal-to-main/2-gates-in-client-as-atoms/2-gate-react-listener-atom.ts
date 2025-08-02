@@ -39,7 +39,7 @@ export const doFromMainAtom = atom(
             // close sequence
 
             case 'm2r:ask-close-from-main-with-changes': {
-                console.log('m2r:ask-close-from-main-with-changes');
+                // console.log('m2r:ask-close-from-main-with-changes');
                 set(doQuitFromMainAtom);
                 break;
             }

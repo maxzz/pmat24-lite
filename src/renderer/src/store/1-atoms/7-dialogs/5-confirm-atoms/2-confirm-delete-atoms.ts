@@ -1,7 +1,9 @@
+import { type ReactNode } from "react";
 import { atom } from "jotai";
 
 export type ConfirmationMessages = {            //TODO: instead of fixed number of buttons we should use buttons: [string, value][] in order to support more than 2 buttons
     title: string;
+    icon?: ReactNode;                           // icon to show on the left side of of message
     message: string;
     buttonOk: string,
     buttonCancel: string,
