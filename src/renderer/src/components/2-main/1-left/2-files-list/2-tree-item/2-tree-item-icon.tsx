@@ -27,8 +27,12 @@ export function TreeItemIconWithAttention({ IconToRender, name, fileUs, iconClas
 
     return (
         <TreeItemTooltip
-            trigger={Body}
-            body={<TooltipBody fileUs={fileUs} fileIndex={fileIndex} />}
+            trigger={
+                Body
+            }
+            body={(
+                <TooltipBody fileUs={fileUs} fileIndex={fileIndex} />
+            )}
         />
     );
 }
