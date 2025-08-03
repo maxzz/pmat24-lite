@@ -18,20 +18,31 @@ export function TreeItemName({ fileUs, item }: { fileUs: FileUs; item: TreeFileI
     const displayText = getTreeItemDisplayText(fileUs, appSettings.files.itemsState, chooseName);
 
     return (<>
-        <div className="relative">
+        <div className="relative w-full">
             {hasChanges && (
                 <SymbolFire className="absolute -left-4 -top-1/3 flex-none mr-0.5 size-3 text-red-500" colorize />
-                // <SymbolFire className={"flex-none mr-0.5 size-3 text-red-500 " + fireColorClasses} />
             )}
 
-            <div className={classNames("truncate", hasChanges && "text-orange-500 1font-semibold")} title={title}>
+            <div className={classNames("truncate", hasChanges && "text-orange-600")} title={title}>
                 {displayText}
             </div>
         </div>
 
-        <IconMicroscope className="absolute size-3 right-5 text-muted-foreground" title="This file is in test mode" />
-        <IconNotInUse className="absolute size-3 right-1 text-muted-foreground" title="This file is not in use for production" />
+        <StateIcons fileUs={fileUs} />
     </>);
 }
 
-// const fireColorClasses = "[--fill-a:#ea580c] [--fill-b:#fff7ed]";
+function StateIcons({ fileUs }: { fileUs: FileUs; }) {
+    const isInUse = useAtomValue(fileUs.maniInUseAtom);
+    const isTest = useAtomValue(fileUs.maniInTestAtom);
+
+    return (<>
+        {isInUse && (
+            <IconMicroscope className="absolute size-3 right-5 text-muted-foreground" title="This file is in test mode" />
+        )}
+
+        {isTest && (
+            <IconNotInUse className="absolute size-3 right-1 text-muted-foreground" title="This file is not in use for production" />
+        )}
+    </>);
+}
