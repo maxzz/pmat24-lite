@@ -205,3 +205,6 @@
 //08.02.25
 //TODO: show incon stop - done
 //TODO: add option to show confirm on exit (only for dev) - done
+
+//08.03.25
+//TODO: getFileListIconEnums() Some unknown icon (so far as web icon since no forms means exclude for web) if manifest without forms

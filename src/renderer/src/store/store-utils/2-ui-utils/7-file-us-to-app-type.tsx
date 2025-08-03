@@ -16,32 +16,21 @@ export function getFileListIconEnums(fileUs: FileUs, uiOptShowIeWarnIcon: boolea
 
     const rv: IconEnumWithWarning[] = [];
     if (!meta) {
-        return rv; //TODO: should we provide some unknown icon?
+        return [{ iconEnum: FormIconEnum.web, warn: true, }]; // Some unknown icon (so far as web icon since no forms means exclude for web) if manifest without forms
     }
 
     const [loginForm, cpassForm] = meta;
+    const warn = isAnyWhy(meta); // We show warning icon for manifest with any form with warning
 
     if (loginForm) {
-        const iconEnum = getFormIconEnum({
-            isWeb: isFormWeb(loginForm),
-            isIe: isFormIe6(loginForm),
-            isManual: isFormManual(loginForm),
-            uiOptShowIeWarnIcon,
-        });
-        rv.push({ iconEnum, warn: isAnyWhy(meta), });
+        const iconEnum = getFormIconEnum({ isWeb: isFormWeb(loginForm), isIe: isFormIe6(loginForm), isManual: isFormManual(loginForm), uiOptShowIeWarnIcon, });
+        rv.push({ iconEnum, warn, });
     }
 
     if (cpassForm) {
-        const iconEnum = getFormIconEnum({
-            isWeb: isFormWeb(cpassForm),
-            isIe: isFormIe6(cpassForm),
-            isManual: isFormManual(cpassForm),
-            uiOptShowIeWarnIcon,
-        });
-        rv.push({ iconEnum, warn: isAnyWhy(meta), });
+        const iconEnum = getFormIconEnum({ isWeb: isFormWeb(cpassForm), isIe: isFormIe6(cpassForm), isManual: isFormManual(cpassForm), uiOptShowIeWarnIcon, });
+        rv.push({ iconEnum, warn, });
     }
-
-    //
 
     return rv;
 }

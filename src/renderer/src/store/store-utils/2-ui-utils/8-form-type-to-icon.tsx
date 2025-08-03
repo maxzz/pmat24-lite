@@ -16,8 +16,8 @@ export const enum FormIconEnum {
 type IconsTable = Record<FormIconEnum, { Icon: TreenIconComponent, normalClasses: string, warningClasses: string; }>;
 
 const normalClasses = "text-muted-foreground";
-const warningClasses = "text-red-500 fill-red-300 opacity-75";
-const warningIeClasses = "text-red-500 fill-red-300 opacity-75 [--dot-center-color:#ff1b1b]";
+const warningClasses = "text-red-500 fill-red-50 dark:fill-red-900 opacity-75";
+const warningIeClasses = "text-red-500 fill-red-50 dark:fill-red-900 opacity-75 [--dot-center-color:#ff1b1b]";
 
 const components: IconsTable = {
     [FormIconEnum.web]: { Icon: SymbolAppWebChrome, /**/ normalClasses, warningClasses, },
@@ -47,8 +47,8 @@ export function formTypeToIcon(props: IconEnumWithWarning[]): TreenIconComponent
         const classesCpass = warn2 ? warning2 : norm2;
 
         return (
-            <div className="relative size-4 w-5">
-                <IconLogin className={classNames("absolute top-0 left-0", classesLogin, className)} {...rest} />
+            <div className="relative h-4 w-6">
+                <IconLogin className={classNames("absolute top-0 left-0 size-4", classesLogin, className)} {...rest} />
                 <IconCpass className={classNames("absolute top-2 left-2 !size-2.5 !fill-muted", classesCpass, className)} />
             </div>
         );

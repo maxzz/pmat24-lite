@@ -1,7 +1,7 @@
 import { useAtomValue } from "jotai";
 import { useSnapshot } from "valtio";
 import { classNames } from "@/utils";
-import { IconMicroscope, IconNotInUse, SymbolFire } from "@/ui/icons";
+import { IconMicroscope, IconNotInUse } from "@/ui/icons";
 import { appSettings, getTreeItemDisplayText } from "@/store";
 import { type FileUs } from "@/store/store-types";
 import { type TreeFileItemWState } from "../0-all/2-tree-action-atoms";
@@ -18,14 +18,8 @@ export function TreeItemName({ fileUs, item }: { fileUs: FileUs; item: TreeFileI
     const displayText = getTreeItemDisplayText(fileUs, appSettings.files.itemsState, chooseName);
 
     return (<>
-        <div className="relative">
-            {hasChanges && (
-                <SymbolFire className="absolute -left-4 -top-1/3 flex-none mr-0.5 size-3 text-red-500" colorize />
-            )}
-
-            <div className={classNames("truncate", hasChanges && "text-orange-600")} title={title}>
-                {displayText}
-            </div>
+        <div className={classNames("truncate", hasChanges && "text-orange-600")} title={title}>
+            {displayText}
         </div>
 
         <StateIcons fileUs={fileUs} />
