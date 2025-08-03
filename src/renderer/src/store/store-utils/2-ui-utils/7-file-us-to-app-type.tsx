@@ -11,44 +11,34 @@ export function getFileListIconEnums(fileUs: FileUs, uiOptShowIeWarnIcon: boolea
     const { stats, meta } = fileUs.parsedSrc;
 
     if (stats.isFCat) {
-        return [{
-            iconEnum: FormIconEnum.cat,
-            warn: false,
-        }];
+        return [{ iconEnum: FormIconEnum.cat, warn: false, }];
     }
 
     const rv: IconEnumWithWarning[] = [];
+    if (!meta) {
+        return rv; //TODO: should we provide some unknown icon?
+    }
 
-    // 1. Login form
+    const [loginForm, cpassForm] = meta;
 
-    const iconEnum = getFormIconEnum({
-        isWeb: isFormWeb(meta?.[0]),
-        isIe: isFormIe6(meta?.[0]),
-        isManual: isFormManual(meta?.[0]),
-        uiOptShowIeWarnIcon,
-    });
-    const hasBailOut = isAnyWhy(meta);
-
-    rv.push({
-        iconEnum,
-        warn: hasBailOut,
-    });
-
-    // 2. CPass form
-
-    if (meta?.[1]) {
+    if (loginForm) {
         const iconEnum = getFormIconEnum({
-            isWeb: isFormWeb(meta?.[1]),
-            isIe: isFormIe6(meta?.[1]),
-            isManual: isFormManual(meta?.[1]),
+            isWeb: isFormWeb(loginForm),
+            isIe: isFormIe6(loginForm),
+            isManual: isFormManual(loginForm),
             uiOptShowIeWarnIcon,
         });
-        const hasBailOut = isAnyWhy(meta);
+        rv.push({ iconEnum, warn: isAnyWhy(meta), });
+    }
 
-        rv.push({
-            iconEnum,
-            warn: hasBailOut,
+    if (cpassForm) {
+        const iconEnum = getFormIconEnum({
+            isWeb: isFormWeb(cpassForm),
+            isIe: isFormIe6(cpassForm),
+            isManual: isFormManual(cpassForm),
+            uiOptShowIeWarnIcon,
         });
+        rv.push({ iconEnum, warn: isAnyWhy(meta), });
     }
 
     //
