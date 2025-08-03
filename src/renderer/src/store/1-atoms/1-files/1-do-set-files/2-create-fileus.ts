@@ -29,6 +29,9 @@ export function createFileUsFromFileContent(fileContent: FileContent, maniForCpa
         rawCpassAtom: atom<string | undefined>(undefined),
         hwndLoginAtom: maniForCpass?.hwndLoginAtom || atom<HighlightHwnd>(undefined),
         hwndCpassAtom: maniForCpass?.hwndCpassAtom || atom<HighlightHwnd>(undefined),
+
+        maniInUseAtom: atom<boolean>(false), //TODO: initialize
+        maniInTestAtom: atom<boolean>(false), //TODO: initialize
     };
 
     return rv;
