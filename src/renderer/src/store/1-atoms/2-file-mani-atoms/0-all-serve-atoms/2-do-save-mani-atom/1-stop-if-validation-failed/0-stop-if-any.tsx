@@ -37,6 +37,7 @@ const defaultValidationOrder: Array<[ManiTabValue, ValidationFn]> = [
 function showValidationErrors({ fromTab, verifyErrors }: { fromTab: ManiTabValue | undefined; verifyErrors: VerifyError[]; }): void {
     if (fromTab) {
         appSettings.right.mani.activeTab = fromTab;
+        //TODO: navigate to field where error is: open options group or select manual mode row
     }
 
     const messages = verifyErrors.map(

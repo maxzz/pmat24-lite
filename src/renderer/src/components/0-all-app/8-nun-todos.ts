@@ -203,5 +203,5 @@
  */
 
 //08.02.25
-//TODO: show incon stop
-//TODO: add option to show confirm on exit (only for dev)
+//TODO: show incon stop - done
+//TODO: add option to show confirm on exit (only for dev) - done
