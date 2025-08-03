@@ -5,13 +5,16 @@ import { useSnapshot } from "valtio";
 
 export function useBeforeUnload(): void {
     const { confirmExit } = useSnapshot(appSettings.appUi.uiAdvanced);
-    if (hasMain() || !confirmExit) {
+    if (hasMain()) {
         return;
     }
 
     // const once = useRef(false); // OK but will subscribe only once and unsubscribe twice
     useEffect(
         () => {
+            if (!confirmExit) {
+                return;
+            }
             // if (once.current) { return; } once.current = true;
 
             const handleBeforeUnload = (event: BeforeUnloadEvent) => {
@@ -29,6 +32,6 @@ export function useBeforeUnload(): void {
             return () => {
                 controller.abort();
             };
-        }, []
+        }, [confirmExit]
     );
 }
