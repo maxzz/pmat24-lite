@@ -18,13 +18,15 @@ export function TreeItemName({ fileUs, item }: { fileUs: FileUs; item: TreeFileI
     const displayText = getTreeItemDisplayText(fileUs, appSettings.files.itemsState, chooseName);
 
     return (<>
-        {hasChanges && (
-            // <SymbolFire className="flex-none mr-0.5 size-3" colorize />
-            <SymbolFire className={"flex-none mr-0.5 size-3 text-red-500 " + fireColorClasses} />
-        )}
+        <div className="relative">
+            {hasChanges && (
+                <SymbolFire className="absolute -left-4 -top-1/3 flex-none mr-0.5 size-3 text-red-500" colorize />
+                // <SymbolFire className={"flex-none mr-0.5 size-3 text-red-500 " + fireColorClasses} />
+            )}
 
-        <div className={classNames("truncate", hasChanges && "text-orange-500 1font-semibold")} title={title}>
-            {displayText}
+            <div className={classNames("truncate", hasChanges && "text-orange-500 1font-semibold")} title={title}>
+                {displayText}
+            </div>
         </div>
 
         <IconMicroscope className="absolute size-3 right-5 text-muted-foreground" title="This file is in test mode" />
@@ -32,4 +34,4 @@ export function TreeItemName({ fileUs, item }: { fileUs: FileUs; item: TreeFileI
     </>);
 }
 
-const fireColorClasses = "[--fill-a:#ea580c] [--fill-b:#fff7ed]";
+// const fireColorClasses = "[--fill-a:#ea580c] [--fill-b:#fff7ed]";
