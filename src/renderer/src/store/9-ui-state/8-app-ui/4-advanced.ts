@@ -11,6 +11,7 @@ export type UiAdvancedState = {     // Advanced UI settings
     noNewManiDlg: boolean;          // Do not show new manifest in external dialog, and add it to the tree immediately like cpass
     useTreeCtxMenu: boolean;        // Use context menu for tree items
     blockGlobalCtxMenu: boolean;    // Block global context menu
+    confirmExit: boolean;           // Confirm exit with changes (for development only); show confirmation if true
 };
 
 export const defaultCreateDelay = 0;
@@ -28,6 +29,7 @@ export const defaultUiAdvancedState: UiAdvancedState = {
     noNewManiDlg: true,
     useTreeCtxMenu: true,
     blockGlobalCtxMenu: true,
+    confirmExit: true,
 };
 
 /*

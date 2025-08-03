@@ -5,7 +5,7 @@ import { Checkbox, Label } from "@/ui";
 import { rowClasses, SectionTitle } from "./8-shared-classes";
 
 export function AdvancedSettings() {
-    const { allowHandleFiles, noNewManiDlg, useTreeCtxMenu, blockGlobalCtxMenu, showFieldCatalog, showUiHeader, saveWDebugExt } = useSnapshot(appSettings.appUi.uiAdvanced);
+    const { allowHandleFiles, noNewManiDlg, useTreeCtxMenu, blockGlobalCtxMenu, showFieldCatalog, showUiHeader, saveWDebugExt, confirmExit } = useSnapshot(appSettings.appUi.uiAdvanced);
     const liveUiAdvanced = appSettings.appUi.uiAdvanced;
 
     const { allowWelcome } = useSnapshot(appSettings.appUi.uiGeneral);
@@ -26,7 +26,7 @@ export function AdvancedSettings() {
         <SectionTitle title="Hidden from the end user debug only">
             <div className="py-1 grid grid-cols-[auto,auto] gap-2 grid-flow-dense">
 
-                {/* 1 */}
+                {/* 1st column */}
 
                 <Label className={classNames("col-start-1", rowClasses)}>
                     <Checkbox checked={showUiHeader} onCheckedChange={(v) => liveUiAdvanced.showUiHeader = !!v} />
@@ -58,7 +58,12 @@ export function AdvancedSettings() {
                     Block global context menu
                 </Label>
 
-                {/* 2 */}
+                <Label className={classNames("col-start-1", rowClasses)}>
+                    <Checkbox checked={confirmExit} onCheckedChange={(v) => liveUiAdvanced.confirmExit = !!v} />
+                    Confirm exit with changes
+                </Label>
+
+                {/* 2nd column */}
 
                 <Label className={classNames("col-start-2", rowClasses)}>
                     <Checkbox checked={allowWelcome} onCheckedChange={(v) => liveGeneral.allowWelcome = !!v} />
@@ -80,8 +85,8 @@ export function AdvancedSettings() {
                     Show field catalog files
                 </Label>
 
-                {/* 3 */}
-                <div className="col-start-1 col-span-2 text-[.65rem] leading-3 text-foreground/50 flex gap-2">
+                {/* 3 - row for zoom */}
+                <div className="pt-4 col-start-1 col-span-2 text-[.65rem] leading-3 text-foreground/50 flex gap-2">
                     <div className="">zoom:</div>
                     <div><span className="font-semibold">-</span>   <span className="px-1 bg-muted/40 border-border border rounded">ctrl+minus</span>     </div>
                     <div><span className="font-semibold">100</span> <span className="px-1 bg-muted/40 border-border border rounded">ctrl+0</span>         </div>
