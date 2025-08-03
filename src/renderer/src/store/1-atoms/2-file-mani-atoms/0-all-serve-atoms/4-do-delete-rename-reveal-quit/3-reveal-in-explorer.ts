@@ -2,7 +2,8 @@ import { atom } from "jotai";
 import { type FileUsAtom } from "@/store/store-types";
 import { hasMain, invokeMainTyped } from "@/xternal-to-main";
 
-export const doRevealInExplorerAtom = atom(null,
+export const doRevealInExplorerAtom = atom(
+    null,
     async (get, set, fileUsAtom: FileUsAtom) => {
 
         if (!hasMain()) {
@@ -26,7 +27,8 @@ export const doRevealInExplorerAtom = atom(null,
     }
 );
 
-export const doGetFileUsPathAtom = atom(null,
+export const doGetFileUsPathAtom = atom(
+    null,
     (get, set, fileUsAtom: FileUsAtom): { fpath: string; fname: string; } | undefined => {
         const fileUs = fileUsAtom && get(fileUsAtom);
         const fpath = fileUs?.fileCnt.fpath || '';

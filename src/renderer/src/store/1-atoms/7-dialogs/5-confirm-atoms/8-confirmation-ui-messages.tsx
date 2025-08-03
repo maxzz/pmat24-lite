@@ -1,10 +1,10 @@
 import { atom } from "jotai";
 import { IconStopCircle } from "@/ui/icons";
-import { type ConfirmationMessages, doAsyncConfirmDialogAtom } from "./2-confirm-delete-atoms";
+import { type ConfirmationUi, doAsyncConfirmDialogAtom } from "./9-types-confirm";
 import { removeFromDirsMru } from "../../1-files/0-files-atom/4-mru-dirs";
 import { type PmatFolder } from "../../1-files";
 
-export const confirmDeleteMessages: ConfirmationMessages = {
+export const confirmDeleteMessages: ConfirmationUi = {
     title: 'Delete file?',
     message: 'Are you sure you want to delete the manifest file?',
     buttonOk: 'Delete',
@@ -12,7 +12,7 @@ export const confirmDeleteMessages: ConfirmationMessages = {
     isDafaultOk: false,
 };
 
-export const confirmDeleteCpassMessages: ConfirmationMessages = {
+export const confirmDeleteCpassMessages: ConfirmationUi = {
     title: 'Delete password change form?',
     message: 'Are you sure you want to delete the password change form?',
     buttonOk: 'Delete',
@@ -20,7 +20,7 @@ export const confirmDeleteCpassMessages: ConfirmationMessages = {
     isDafaultOk: false,
 };
 
-export const confirmDeleteScriptActionsMessages: ConfirmationMessages = {
+export const confirmDeleteScriptActionsMessages: ConfirmationUi = {
     title: 'Delete all actions?',
     message: 'Are you sure you want to delete all actions?',
     buttonOk: 'Delete',
@@ -28,7 +28,7 @@ export const confirmDeleteScriptActionsMessages: ConfirmationMessages = {
     isDafaultOk: false,
 };
 
-export const confirmQuitMessages: ConfirmationMessages = {
+export const confirmQuitMessages: ConfirmationUi = {
     title: 'Discard changes and quit?', // 'You have unsaved changes. Do you want to discard them and quit?'
     icon: <IconStopCircle className="size-12 text-red-500" />,
     message: 'You have unsaved changes. Are you sure you want to quit?',
@@ -41,7 +41,7 @@ export const confirmQuitMessages: ConfirmationMessages = {
  * We need to confirm removing item from the MRU list.
  * MRU item maybe not available now, but it will be available later.
  */
-export const confirmRemoveFromMruMessages: ConfirmationMessages = {
+export const confirmRemoveFromMruMessages: ConfirmationUi = {
     title: 'Folder does not exist',
     message: 'Do you want to remove this name from the most recently used list?',
     buttonOk: 'Remove',

@@ -32,11 +32,7 @@ export function ConfirmDeleteFileDialog() {
 const contentClasses = "p-0 !w-72 rounded-lg max-w-sm data-[state=open]:[animation-duration:200ms]";
 
 function DialogBody({ confirmDialogOpen, onDlgClose }: { confirmDialogOpen: ConfirmationData; onDlgClose: (ok: boolean) => void; }) {
-    const {
-        ui:
-        { icon, message, buttonOk, buttonCancel, isDafaultOk },
-        resolve,
-    } = confirmDialogOpen;
+    const { ui: { icon, message, buttonOk, buttonCancel, isDafaultOk }, } = confirmDialogOpen;
 
     return (
         <div className="px-4">
