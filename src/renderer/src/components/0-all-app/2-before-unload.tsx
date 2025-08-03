@@ -1,9 +1,11 @@
 import { useEffect } from "react";
 import { hasMain } from "@/xternal-to-main";
-import { allFileUsChanges } from "@/store";
+import { allFileUsChanges, appSettings } from "@/store";
+import { useSnapshot } from "valtio";
 
 export function useBeforeUnload(): void {
-    if (hasMain()) {
+    const { confirmExit } = useSnapshot(appSettings.appUi.uiAdvanced);
+    if (hasMain() || !confirmExit) {
         return;
     }
 
