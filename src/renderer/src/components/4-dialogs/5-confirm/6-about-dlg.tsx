@@ -10,8 +10,7 @@ import { type ProductInfo, type GeneralInfoResult } from "@shared/ipc-types";
 export const doAboutDialogAtom = atom(null,
     async (get, set) => {
         const json = await asyncGetAboutInfo(); // console.log('about.info:', json);
-        const message = FormattedJson({ json });
-        const ui = { ...aboutMessages, message };
+        const ui = { ...aboutMessages, message: FormattedJson({ json }) };
         await set(doAsyncConfirmDialogAtom, ui);
     }
 );
@@ -24,40 +23,49 @@ function FormattedJson({ json }: { json: string; }) {
         products.unshift({ product: 'Password Manager Admin Tool', version: import.meta.env.VITE_PMAT_VERSION || 'None' });
         if (products.length === 1) {
             products.push({ product: 'No other products installed', version: '' });
+        } else {
+            products.sort((a, b) => a.product.localeCompare(b.product));
         }
-        products.sort((a, b) => a.product.localeCompare(b.product));
 
         const copyright = copy.replaceAll('�', '©').split('/');
 
-        return (
-            <div className="w-full text-xs grid gap-4">
-                <div>
-                    <div className="mb-1 1font-semibold">
-                        Installed products:
-                    </div>
-                    <Products products={products} />
-                </div>
-
-                <div>
-                    <div className="mb-1 1font-semibold">
-                        GPO templates path
-                    </div>
-                    <GpoTempatesPath templatePath={templatePath} />
-                </div>
-
-                <div className="text-[0.65rem] grid">
-                    {copyright.map((line, index) => (<div className="text-center" key={index}>{line}</div>))}
-                </div>
-            </div>
-        );
+        return <AboutBody products={products} templatePath={templatePath} copyright={copyright} />; // This will be rendered since it is a React component
     } catch (error) {
-        return (
-            <div className="text-xs flex items-center gap-x-2">
-                <AlertOctagon className="size-6 text-red-500" />
-                Cannot get information about installed applications
-            </div>
-        );
+        return <AboutError />;
     }
+}
+
+function AboutBody({ products, templatePath, copyright }: { products: ProductInfo[]; templatePath: string; copyright: string[]; }) {
+    return (
+        <div className="w-full text-xs grid gap-4">
+            <div>
+                <div className="mb-1 1font-semibold">
+                    Installed products:
+                </div>
+                <Products products={products} />
+            </div>
+
+            <div>
+                <div className="mb-1 1font-semibold">
+                    GPO templates path
+                </div>
+                <GpoTempatesPath templatePath={templatePath} />
+            </div>
+
+            <div className="text-[0.65rem] grid">
+                {copyright.map((line, index) => (<div className="text-center" key={index}>{line}</div>))}
+            </div>
+        </div>
+    );
+}
+
+function AboutError() {
+    return (
+        <div className="text-xs flex items-center gap-x-2">
+            <AlertOctagon className="size-6 text-red-500" />
+            Cannot get information about installed applications
+        </div>
+    );
 }
 
 function Products({ products }: { products: ProductInfo[]; }) {
