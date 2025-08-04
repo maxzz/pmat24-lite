@@ -30,8 +30,8 @@ export function createFileUsFromFileContent(fileContent: FileContent, maniForCpa
         hwndLoginAtom: maniForCpass?.hwndLoginAtom || atom<HighlightHwnd>(undefined),
         hwndCpassAtom: maniForCpass?.hwndCpassAtom || atom<HighlightHwnd>(undefined),
 
-        maniInUseAtom: atom<boolean>(false), //TODO: initialize
-        maniInTestAtom: atom<boolean>(false), //TODO: initialize
+        maniInUseAtom: atom<boolean>(false), //TODO: initialize; not in use if sub-folder is B/C
+        maniInTestAtom: atom<boolean>(false), //TODO: initialize; in test mode if sub-folder is C
     };
 
     return rv;
