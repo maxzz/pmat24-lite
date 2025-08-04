@@ -1,3 +1,5 @@
+import { useSnapshot } from "valtio";
+import { debugSettings } from "@/store";
 import { DropdownMenuSeparator } from "@/ui/shadcn/dropdown-menu";
 import {
     MenuItems_OpenFiles,
@@ -14,10 +16,11 @@ import { MenuItem_Options } from "../20-options";
 import { MenuItem_FilterFiles } from "../1-filter-files";
 import { MenuItem_About, MenuItem_GeneralInfo, MenuItem_ReloadCache, MenuItem_TestPingPong } from "../22-more";
 import { hasMain } from "@/xternal-to-main";
-//import { MenuItem_CloseFolder } from "../2-close-folder";
+//import { MenuItem_CloseFolder } from "../2-close-folder";~
 //import { PreferencesSubMenu } from "./2-nun-preferences-sub-munu";
 
 export function FilesMainMenuBody() {
+    const { debugAccess } = useSnapshot(debugSettings.debugOnly);
     return (<>
         <MenuItems_OpenFiles />
         {/* <MenuItem_CloseFolder /> */}
@@ -43,12 +46,13 @@ export function FilesMainMenuBody() {
 
         <DropdownMenuSeparator />
 
-        {hasMain() && <MenuItem_About />}
+        <MenuItem_About />
 
-        {/* TODO: show them only if non-production build */}
-        {hasMain() && <MenuItem_GeneralInfo />}
-        {hasMain() && <MenuItem_ReloadCache />}
-        {hasMain() && <MenuItem_TestPingPong />}
+        {debugAccess && hasMain() && (<>
+            <MenuItem_GeneralInfo />
+            <MenuItem_ReloadCache />
+            <MenuItem_TestPingPong />
+        </>)}
 
         <MenuItem_FileExit />
     </>);

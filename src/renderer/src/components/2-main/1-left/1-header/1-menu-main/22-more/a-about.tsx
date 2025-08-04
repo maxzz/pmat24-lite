@@ -1,6 +1,6 @@
 import { useSetAtom } from "jotai";
 import { DropdownMenuItem } from "@/ui";
-import { doAboutDialogAtom } from "@/store/1-atoms/2-file-mani-atoms/0-all-serve-atoms";
+import { doAboutDialogAtom } from "@/components/4-dialogs/5-confirm";
 
 export function MenuItem_About() {
     const doGetGeneralInfo = useSetAtom(doAboutDialogAtom);
