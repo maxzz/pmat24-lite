@@ -6,6 +6,8 @@ export const doAboutDialogAtom = atom(null,
     async (get, set) => {
         const rv = await set(doGetGeneralInfoAtom);
 
+        const message = JSON.stringify(JSON.parse(rv), null, 4);
+
         const ui = {...aboutMessages, message: rv};
         await set(doAsyncConfirmDialogAtom, ui);
     }
