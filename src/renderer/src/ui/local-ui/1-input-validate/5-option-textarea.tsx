@@ -52,7 +52,7 @@ export function OptionAsTextarea({ stateAtom, className, onValueStateChange, onB
     );
 }
 
-const optionInputClasses = "\
+export const optionInputClasses = "\
 px-2 py-1 min-h-7 w-full resize-none \
 \
 text-mani-foreground font-normal bg-mani-background \

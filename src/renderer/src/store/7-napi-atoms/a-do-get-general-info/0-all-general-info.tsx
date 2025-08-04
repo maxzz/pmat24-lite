@@ -6,11 +6,8 @@ export const doGetGeneralInfoAtom = atom(
     null,
     async (get, set): Promise<string> => {
         try {
-            const data = await invokeMainTyped({ type: 'r2mi:get-general-info' });
-            if (data) {
-                console.log('general.info:', data);
-            }
-            return data;
+            const rv = await invokeMainTyped({ type: 'r2mi:get-general-info' }); // JSON.parse(rv) as GeneralInfoResult
+            return rv;
         } catch (error) {
             toast.error(`Cannot get general info: ${error}`);
             return '';
