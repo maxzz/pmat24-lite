@@ -2,6 +2,7 @@ import { useAtom } from "jotai";
 import { Button, Dialog, DialogDescription, DialogFooter } from "@/ui/shadcn";
 import { type ConfirmationData, doOpenConfirmDialogAtom } from "@/store";
 import { DialogTitleHeader } from "./3-dialog-title-header";
+import { classNames } from "@/utils";
 
 export function ConfirmDeleteFileDialog() {
     const [confirmData, doCloseDialog] = useAtom(doOpenConfirmDialogAtom);
@@ -41,14 +42,16 @@ function DialogBody({ confirmDialogOpen, onDlgClose }: { confirmDialogOpen: Conf
                 {message}
             </DialogDescription>
 
-            <DialogFooter className="py-4 flex-row justify-end gap-2">
+            <DialogFooter className={classNames("py-4 flex-row gap-2", buttonCancel ? "justify-end" : "justify-center")}>
                 <Button variant={isDafaultOk ? 'default' : 'outline'} onClick={() => onDlgClose(true)}>
                     {buttonOk}
                 </Button>
 
-                <Button variant={isDafaultOk ? 'outline' : 'default'} onClick={() => onDlgClose(false)}>
-                    {buttonCancel}
-                </Button>
+                {buttonCancel && (
+                    <Button variant={isDafaultOk ? 'outline' : 'default'} onClick={() => onDlgClose(false)}>
+                        {buttonCancel}
+                    </Button>
+                )}
             </DialogFooter>
         </div>
     );

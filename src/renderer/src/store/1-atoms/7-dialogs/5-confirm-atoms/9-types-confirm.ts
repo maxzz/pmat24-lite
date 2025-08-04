@@ -3,11 +3,11 @@ import { atom } from "jotai";
 
 export type ConfirmationUi = {                  //TODO: instead of fixed number of buttons we should use buttons: [string, value][] in order to support more than 2 buttons
     title: string;
-    icon?: ReactNode;                           // icon to show on the left side of of message
+    icon?: ReactNode;                           // Icon to show on the left side of of message
     message: string;
     buttonOk: string,
-    buttonCancel: string,
-    isDafaultOk: boolean;                       // if true then buttonOk is default otherwise buttonCancel
+    buttonCancel?: string,                      // If not defined then buttonCancel is not shown and buttonOk is centered; this is for single close button
+    isDafaultOk: boolean;                       // If true then buttonOk is default otherwise buttonCancel
 };
 
 export type ConfirmationData = {
