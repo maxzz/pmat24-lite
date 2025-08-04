@@ -10,13 +10,17 @@ An Electron application with React and TypeScript
 
 ## notes
 
-From pmac project:
+### From pmac project:
 ```ts
 export type ArgsFolder = {
     rootFolder: string; // This group root folder
     fnames: string[];   // fnames are relative to the rootFolder wo/ the rootFolder but w/ possible sub-folders: A(InUse), B(NotInUse), and C(NotInUseTest).
 };
 ```
+
+### PMAT build version
+The version for electron-node build is defined in the file [./.env](./.env)
+The version for web build is defined in the file [./src/renderer/.env](./src/renderer/.env)
 
 ## resources 
 

@@ -5,7 +5,7 @@ import { inputRingClasses, optionInputClasses } from "@/ui/local-ui";
 import { AlertOctagon } from "lucide-react";
 import { aboutMessages, doAsyncConfirmDialogAtom } from "@/store/1-atoms/7-dialogs";
 import { asyncGetAboutInfo } from "@/store/7-napi-atoms";
-import { type GeneralInfoResult } from "@shared/ipc-types";
+import { type ProductInfo, type GeneralInfoResult } from "@shared/ipc-types";
 
 export const doAboutDialogAtom = atom(null,
     async (get, set) => {
@@ -19,22 +19,23 @@ export const doAboutDialogAtom = atom(null,
 function FormattedJson({ json }: { json: string; }) {
     try {
         const obj = JSON.parse(json) as GeneralInfoResult;
-        let { products, templatePath = '', copy = '' } = obj;
+        let { products = [], templatePath = '', copy = '' } = obj;
+
+        products.unshift({ product: 'Password Manager Admin Tool', version: import.meta.env.VITE_PMAT_VERSION || 'None' });
+        if (products.length === 1) {
+            products.push({ product: 'No other products installed', version: '' });
+        }
+        products.sort((a, b) => a.product.localeCompare(b.product));
+
         const copyright = copy.replaceAll('�', '©').split('/');
+
         return (
             <div className="w-full text-xs grid gap-4">
                 <div>
                     <div className="mb-1 1font-semibold">
                         Installed products:
                     </div>
-                    {products
-                        ? (products.map(({ product, version }) => (
-                            <div key={product}> {product}: version {version} </div>
-                        )))
-                        : (
-                            <div className="text-center">No products installed</div>
-                        )
-                    }
+                    <Products products={products} />
                 </div>
 
                 <div>
@@ -57,6 +58,16 @@ function FormattedJson({ json }: { json: string; }) {
             </div>
         );
     }
+}
+
+function Products({ products }: { products: ProductInfo[]; }) {
+    return (<>
+        {products.map(
+            ({ product, version }) => (
+                <div key={product}> {product}{version ? ': version' : ''} {version} </div>
+            ))
+        }
+    </>);
 }
 
 function GpoTempatesPath({ templatePath }: { templatePath: string; }) {
