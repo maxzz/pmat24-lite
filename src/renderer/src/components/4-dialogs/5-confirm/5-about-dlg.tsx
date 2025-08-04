@@ -20,7 +20,7 @@ const defAbount = "{\"curVer\": \"2160128\",\"apiVer\":\"2250613\",\"templatePat
 
 function FormattedJson({ json }: { json: string; }) {
     try {
-        const rvObj = JSON.parse(json);
+        const rvObj = JSON.parse('');
         const rv = (
             <div className="text-xs">
                 <div className="whitespace-pre">
@@ -33,7 +33,7 @@ function FormattedJson({ json }: { json: string; }) {
         return (
             <div className="text-xs flex items-center gap-x-2">
                 <AlertOctagon className="size-6 text-red-500" />
-                Cannot get about information
+                Cannot get information about installed applications
             </div>
         );
     }

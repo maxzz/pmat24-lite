@@ -208,3 +208,7 @@
 
 //08.03.25
 //TODO: getFileListIconEnums() Some unknown icon (so far as web icon since no forms means exclude for web) if manifest without forms
+//TODO: Icon for about dialog
+//TODO: move file change indicator to symbols
+//TODO: HID logo make height taller
+//TODO: theme switch in options dialog
