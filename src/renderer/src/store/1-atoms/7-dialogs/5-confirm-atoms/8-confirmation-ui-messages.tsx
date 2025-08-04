@@ -37,6 +37,14 @@ export const confirmQuitMessages: ConfirmationUi = {
     isDafaultOk: false,
 };
 
+export const aboutMessages: ConfirmationUi = {
+    title: 'About PMAT',
+    message: 'PMAT is developed by the PMAT team.',
+    buttonOk: 'OK',
+    buttonCancel: undefined,
+    isDafaultOk: true,
+};
+
 /**
  * We need to confirm removing item from the MRU list.
  * MRU item maybe not available now, but it will be available later.
