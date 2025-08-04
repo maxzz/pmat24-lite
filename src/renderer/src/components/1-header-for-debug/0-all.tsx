@@ -15,7 +15,6 @@ import { TestAboutDialog } from "./6-about-dlg";
 // import { TestPolicyIcons } from "./8-3-test-policy-icons";
 
 export function SectionHeader() {
-
     const { fcAllowed } = useSnapshot(appSettings.files.shownManis);
 
     const { showUiHeader } = useSnapshot(appSettings.appUi.uiAdvanced);
@@ -44,8 +43,7 @@ export function SectionHeader() {
                 <TestDeleteFile />
                 <TestDeleteCpass />
 
-                <TestAboutDialog />
-
+                {/* <TestAboutDialog /> */}
                 {/* <TestManiName /> */}
 
                 {/* <div className="w-full flex items-center gap-2">

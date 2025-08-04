@@ -3,7 +3,7 @@ import { classNames } from "@/utils";
 import { Button } from "@/ui";
 import { Check } from "../../9-constrols";
 import { type PolicyDlgTypes } from "../0-conv";
-import { DialogTitleHeader } from "../../../5-confirm/3-dialog-title-header";
+import { DialogTitleHeader } from "../../../5-confirm/8-dialog-title-header";
 import { SectionRuleTypes } from "../../2-complexity";
 import { SectionHistory } from "../../3-history";
 import { SectionGenerationBy } from "../../4-generate-by";

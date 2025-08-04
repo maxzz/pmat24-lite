@@ -1,8 +1,8 @@
 import { useAtom } from "jotai";
-import { Button, Dialog, DialogDescription, DialogFooter } from "@/ui/shadcn";
-import { type ConfirmationData, doOpenConfirmDialogAtom } from "@/store";
-import { DialogTitleHeader } from "./3-dialog-title-header";
 import { classNames } from "@/utils";
+import { Button, Dialog, DialogFooter } from "@/ui/shadcn";
+import { type ConfirmationData, doOpenConfirmDialogAtom } from "@/store";
+import { DialogTitleHeader } from "./8-dialog-title-header";
 
 export function ConfirmDeleteFileDialog() {
     const [confirmData, doCloseDialog] = useAtom(doOpenConfirmDialogAtom);
