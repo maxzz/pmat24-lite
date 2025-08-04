@@ -37,10 +37,10 @@ function DialogBody({ confirmDialogOpen, onDlgClose }: { confirmDialogOpen: Conf
 
     return (
         <div className="px-4">
-            <DialogDescription className="pt-1 pb-1 text-xs flex items-center gap-x-2">
+            <div className="pt-1 pb-1 text-xs flex items-center gap-x-2">
                 {icon}
                 {message}
-            </DialogDescription>
+            </div>
 
             <DialogFooter className={classNames("py-4 flex-row gap-2", buttonCancel ? "justify-end" : "!justify-center")}>
                 <Button variant={isDafaultOk ? 'default' : 'outline'} onClick={() => onDlgClose(true)}>
