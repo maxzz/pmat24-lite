@@ -13,7 +13,7 @@ export type OptionRowInputProps<T> = InputHTMLAttributes<HTMLInputElement> & {
 export function OptionRowInput<T extends PrimitiveAtom<string | number>>({ label, accessAtom, className, ...rest }: OptionRowInputProps<T>) {
     const [value, setValue] = useAtom(accessAtom);
     return (<>
-        <div className="">
+        <div>
             {label}
         </div>
 
@@ -29,7 +29,7 @@ export function OptionRowInput<T extends PrimitiveAtom<string | number>>({ label
 export function OptionRowCheck<T extends PrimitiveAtom<boolean>>({ label, accessAtom, className, ...rest }: OptionRowInputProps<T>) {
     const [value, setValue] = useAtom(accessAtom);
     return (<>
-        <div className="">
+        <div>
             {label}
         </div>
 

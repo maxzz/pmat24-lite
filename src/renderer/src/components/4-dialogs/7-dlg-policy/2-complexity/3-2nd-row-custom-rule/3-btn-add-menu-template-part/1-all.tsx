@@ -23,7 +23,7 @@ export function ButtonMenuAddTemplatePart({ dlgUiCtx }: { dlgUiCtx: PolicyDlgTyp
             <DropdownMenu>
                 <MenuAddTrigger />
 
-                <DropdownMenuContent align="start" className="">
+                <DropdownMenuContent align="start">
                     {menuItems.map((item, idx) => (
                         <MenuItem label={item.label} onSelect={() => applyRule(idx)} key={idx} />
                     ))}

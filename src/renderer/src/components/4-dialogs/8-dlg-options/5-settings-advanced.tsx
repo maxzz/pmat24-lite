@@ -87,7 +87,7 @@ export function AdvancedSettings() {
 
                 {/* 3 - row for zoom */}
                 <div className="pt-4 col-start-1 col-span-2 text-[.65rem] leading-3 text-foreground/50 flex gap-2">
-                    <div className="">zoom:</div>
+                    <div>zoom:</div>
                     <div><span className="font-semibold">-</span>   <span className="px-1 bg-muted/40 border-border border rounded">ctrl+minus</span>     </div>
                     <div><span className="font-semibold">100</span> <span className="px-1 bg-muted/40 border-border border rounded">ctrl+0</span>         </div>
                     <div><span className="font-semibold">+</span>   <span className="px-1 bg-muted/40 border-border border rounded">ctrl+shift+plus</span></div>

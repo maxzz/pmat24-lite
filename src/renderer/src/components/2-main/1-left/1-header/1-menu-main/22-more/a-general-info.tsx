@@ -1,11 +1,9 @@
-import { useSetAtom } from "jotai";
 import { DropdownMenuItem } from "@/ui";
-import { doGetGeneralInfoAtom } from "@/store/7-napi-atoms";
+import { asyncGetAboutInfo } from "@/store/7-napi-atoms";
 
 export function MenuItem_GeneralInfo() {
-    const doGetGeneralInfo = useSetAtom(doGetGeneralInfoAtom);
     return (<>
-        <DropdownMenuItem onClick={() => doGetGeneralInfo()}>
+        <DropdownMenuItem onClick={() => asyncGetAboutInfo()}>
             General Info
         </DropdownMenuItem>
     </>);

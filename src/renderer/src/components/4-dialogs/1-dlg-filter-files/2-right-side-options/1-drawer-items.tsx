@@ -16,7 +16,7 @@ export function DrawerItems() {
         <div className="w-max grid grid-cols-[auto_minmax(0,1fr)]">
             {drawerItems.map(
                 (item) => (<Fragment key={item.key}>
-                    {/* <div className=""> */}
+                    {/* <div> */}
                     {/* <SymbolDot className={popupContentDotClasses} /> */}
                     <span className={popupContentTextClasses}>{item.key}:</span>
                     {/* </div> */}

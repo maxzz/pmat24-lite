@@ -15,7 +15,7 @@ export function CustomRuleSection({ dlgUiCtx }: { dlgUiCtx: PolicyDlgTypes.Polic
         <div>
             <div className={classNames("flex items-center gap-2", !isCustom && "invisible pointer-events-none")}>
                 <div className="w-full space-y-1">
-                    <div className="">
+                    <div>
                         Custom rule
                     </div>
 
