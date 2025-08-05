@@ -35,7 +35,16 @@ export function sortResult(sortBy: SortBy, order: Order, result: FileUsAtom[], g
     }
 }
 
-export function sortPredicate_RightAfterLoad(a: FileUs, b: FileUs): number { // Sort by name (from a to z, ie. ascending) and reindex w/ new field catalog index
+export function sortFileUsItemsInPlaceAndSetIndices(items: FileUs[]) {
+    items.sort(sortPredicate_RightAfterLoadByFname);
+    items.forEach(
+        (fileUs, idx) => fileUs.fileCnt.idx = idx
+    );
+    //TODO: and now apply real filer? do we need to sort before set indices (it will be filesystem order)?
+    //printSorted(items);
+}
+
+function sortPredicate_RightAfterLoadByFname(a: FileUs, b: FileUs): number { // Sort by name (from a to z, ie. ascending) and reindex w/ new field catalog index
     if (a.parsedSrc.fcat && !b.parsedSrc.fcat) {
         return 1;
     }
@@ -45,4 +54,11 @@ export function sortPredicate_RightAfterLoad(a: FileUs, b: FileUs): number { // 
     }
 
     return a.fileCnt.fname.localeCompare(b.fileCnt.fname);
+}
+
+function printSorted(items: FileUs[]) {
+    console.log('sortedFileUsItems',
+        JSON.stringify(items.map(
+            (item, idx) => `${`${idx}`.padStart(2, ' ')} ${`${item.fileCnt.idx}`.padStart(2, ' ')} ${item.fileCnt.fname}`
+        ), null, 2));
 }

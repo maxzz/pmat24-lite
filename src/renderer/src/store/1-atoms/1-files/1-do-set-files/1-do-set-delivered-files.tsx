@@ -7,7 +7,7 @@ import { type PmatFolder, filesAtom, isRootDirEmpty, setRootDir } from "../0-fil
 import { doAddFcToLoadedAtom, doClearFcRootAtom, doInitFileUsLinksToFcAtom } from "../../4-field-catalogs";
 import { addToTotalManis, appSettings, busyIndicator, clearTotalManis } from "@/store/9-ui-state";
 import { doDisposeAllFilesAtomAtom } from "@/store/store-utils";
-import { sortPredicate_RightAfterLoad } from "../3-tree-files";
+import { sortFileUsItemsInPlaceAndSetIndices } from "../3-tree-files";
 import { allFileUsChanges } from "../../2-file-mani-atoms";
 import { rightPanelAtomAtom } from "../../3-right-panel";
 import { createFileUsFromFileContent } from "./2-create-fileus";
@@ -89,15 +89,16 @@ export const doSetDeliveredFilesAtom = atom(
             );
 
         const { fileUsItems, unsupported } = filterUnsupportedFiles(initializedFileUsItems);
-        sortFileUsItemsInPlace(fileUsItems);
+        sortFileUsItemsInPlaceAndSetIndices(fileUsItems);
 
         set(doAddFcToLoadedAtom, { fileUsItems, runningClearFiles });
-        showUnsupportedFilesMsg(unsupported);
         
         const fileUsAtoms = fileUsItems.map((fileUs) => atom(fileUs));
         set(filesAtom, fileUsAtoms);
 
         set(doInitFileUsLinksToFcAtom, { fileUsAtoms, runningClearFiles });
+        
+        showUnsupportedFilesMsg(unsupported);
 
         busyIndicator.msg = '';
     }
@@ -119,31 +120,6 @@ function filterUnsupportedFiles(initializedFileUsItems: FileUs[]): { fileUsItems
         }
         return !notUs;
     }
-}
-
-function sortFileUsItemsInPlace(items: FileUs[]) {
-    items.sort(sortPredicate_RightAfterLoad);
-    items.forEach(
-        (fileUs, idx) => fileUs.fileCnt.idx = idx
-    );
-    //printSorted(items);
-}
-
-function printDelivered(deliveredFileContents: FileContent[]) {
-    console.log(`%cDelivered ${deliveredFileContents.length} files`, 'color: magenta');
-
-    deliveredFileContents.forEach(
-        (fc) => {
-            console.log(`    %cfpath: "${fc.fpath}" %cfname: ${fc.fname}`, 'color: tan', 'color: gray', { fileContent: fc });
-        }
-    );
-}
-
-function printSorted(items: FileUs[]) {
-    console.log('sortedFileUsItems',
-        JSON.stringify(items.map(
-            (item, idx) => `${`${idx}`.padStart(2, ' ')} ${`${item.fileCnt.idx}`.padStart(2, ' ')} ${item.fileCnt.fname}`
-        ), null, 2));
 }
 
 function showUnsupportedFilesMsg(unsupported: FileUs[]) {
@@ -174,6 +150,16 @@ function showUnsupportedFilesMsg(unsupported: FileUs[]) {
         // TODO: add details popup dialog
         // action: { label: 'Details', onClick: () => { console.log('Unsupported files:', unsupported); }, }
     });
+}
+
+function printDelivered(deliveredFileContents: FileContent[]) {
+    console.log(`%cDelivered ${deliveredFileContents.length} files`, 'color: magenta');
+
+    deliveredFileContents.forEach(
+        (fc) => {
+            console.log(`    %cfpath: "${fc.fpath}" %cfname: ${fc.fname}`, 'color: tan', 'color: gray', { fileContent: fc });
+        }
+    );
 }
 
 //03.21.25
