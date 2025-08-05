@@ -85,29 +85,26 @@ function removeMruListItem(items: PmatFolder[], folder: PmatFolder): boolean {
  */
 export function initializeMru(hasMainReal: boolean) {
     //showStack('initializeMru hasMainReal', hasMainReal);
+    if (hasMainReal) {
+        return;
+    }
 
-    clearMruFromLocalStorage(hasMainReal);         // For non electron app clear MRU list from localStorage
-    initializeMruIndexDB(hasMainReal);             // Intentionally call async wo/ await
+    clearMruFromLocalStorage();         // For non electron app clear MRU list from localStorage
+    initializeMruIndexDB();             // Intentionally call async wo/ await
 
-    /**
-     * For non electron app clear MRU list from localStorage. The list will be loaded from indexDB with FileSystemDirectoryHandles.
-     */
-    function clearMruFromLocalStorage(hasMainReal: boolean) {
-        if (hasMainReal) {
-            return;
-        }
-        appSettings.appUi.mru.folders = []; // list will be loaded from indexDB with FileSystemDirectoryHandles
+    function clearMruFromLocalStorage() {
+        // For non electron app clear MRU list from localStorage.
+        appSettings.appUi.mru.folders = []; // The list will be loaded from indexDB with FileSystemDirectoryHandles.
     }
 
     /**
-     * No need to subscribe for electron. electron has no directory handles.
-     * 
+     * For non electron app subscribe, for electron no need to subscribe. electron has no directory handles.
      * MRU list
      * https://developer.chrome.com/docs/capabilities/web-apis/file-system-access 'Storing file handles or directory handles in IndexedDB'
      *      https://filehandle-directoryhandle-indexeddb.glitch.me 'File Handle or Directory Handle in IndexedDB'
      *          https://github.com/jakearchibald/idb-keyval
      */
-    async function initializeMruIndexDB(hasMainReal: boolean) {
+    async function initializeMruIndexDB() {
         if (hasMainReal) {
             return;
         }
