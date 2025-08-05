@@ -23,7 +23,6 @@ export function DialogFilterBody({ setIsOpen }: { setIsOpen: (v: boolean) => voi
 
     return (
         <div className="text-xs grid gap-4">
-
             <div className="relative">
                 <IconSearch className="absolute left-3 top-1/2 -translate-y-1/2 p-px size-4" />
 
@@ -38,14 +37,12 @@ export function DialogFilterBody({ setIsOpen }: { setIsOpen: (v: boolean) => voi
             </div>
 
             <div className="grid grid-cols-[1fr_auto] gap-4">
-
                 <div className="flex flex-col gap-0.5">
                     <div className="font-bold">Filter result</div>
                     <FilteredFilesList />
                 </div>
 
                 <div className="flex flex-col gap-4">
-
                     <div className="flex flex-col gap-0.5">
                         <div className="font-bold">Sort options</div>
                         <CheckAscending />

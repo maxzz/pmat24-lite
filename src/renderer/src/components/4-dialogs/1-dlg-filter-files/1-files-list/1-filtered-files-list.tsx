@@ -1,7 +1,7 @@
 import { useAtomValue } from "jotai";
+import { ScrollArea } from "@/ui";
 import { type TreenIconComponent } from "@/ui/shadcn/tree";
 import { type TreeFileItem, getTreeItemDisplayText, treeFilesAtom, appSettings } from "@/store";
-import { ScrollArea } from "@/ui";
 import { castTreeItemToFileUs } from "@/components/2-main/1-left/2-files-list";
 
 /**
