@@ -1,10 +1,9 @@
-import { useAtom, useAtomValue } from "jotai";
-import { useSnapshot } from "valtio";
+import { useAtom } from "jotai";
 import { DropdownMenuCheckboxItem } from "@/ui/shadcn";
-import { type AnyFormCtx, appSettings } from "@/store";
+import { type FileUsCtx } from "@/store";
 
-export function MenuItem_InTestMode({ formCtx }: { formCtx: AnyFormCtx; }) {
-    const [isInTestMode, setInTestMode] = useAtom(formCtx.fileUsCtx.fileUs.maniInTestAtom);
+export function MenuItem_InTestMode({ fileUsCtx }: { fileUsCtx: FileUsCtx; }) {
+    const [isInTestMode, setInTestMode] = useAtom(fileUsCtx.fileUs.maniInTestAtom);
 
     return (<>
         <DropdownMenuCheckboxItem
@@ -16,8 +15,8 @@ export function MenuItem_InTestMode({ formCtx }: { formCtx: AnyFormCtx; }) {
     </>);
 }
 
-export function MenuItem_InUseMode({ formCtx }: { formCtx: AnyFormCtx; }) {
-    const [isInUseMode, setInUseMode] = useAtom(formCtx.fileUsCtx.fileUs.maniInUseAtom);
+export function MenuItem_InUseMode({ fileUsCtx }: { fileUsCtx: FileUsCtx; }) {
+    const [isInUseMode, setInUseMode] = useAtom(fileUsCtx.fileUs.maniInUseAtom);
 
     return (<>
         <DropdownMenuCheckboxItem

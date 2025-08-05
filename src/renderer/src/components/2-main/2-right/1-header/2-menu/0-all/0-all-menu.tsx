@@ -3,7 +3,7 @@ import { useAtomValue } from "jotai";
 import { Button } from "@/ui/shadcn";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuTrigger } from "@/ui/shadcn/dropdown-menu";
 import { IconMenuHamburger5 } from "@/ui/icons";
-import { type FileUs, appSettings, fileUsOfRightPanelAtom, maniAtomsOfRightPanelAtom, RightPanelViewType } from "@/store";
+import { appSettings, fileUsOfRightPanelAtom, maniAtomsOfRightPanelAtom, RightPanelViewType } from "@/store";
 import { R_PanelMenuMani } from "../1-menu-mani";
 import { R_PanelMenuFc } from "../2-menu-fc";
 import { R_PanelMenuXml } from "../3-menu-xml";
