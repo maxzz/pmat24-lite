@@ -207,9 +207,10 @@
 //TODO: add option to show confirm on exit (only for dev) - done
 
 //08.03.25
-//TODO: getFileListIconEnums() Some unknown icon (so far as web icon since no forms means exclude for web) if manifest without forms
-//TODO: Icon for about dialog
-//TODO: move file change indicator to symbols
-//TODO: HID logo make height taller
+//TODO: Icon for about dialog - no need for now
+//TODO: getFileListIconEnums() Some unknown icon (so far as web icon since no forms means exclude for web) if manifest without forms - no need for now
+//TODO: move file change indicator to symbols - done already
+//TODO: HID logo make height taller - kind of done but need update the image itself
 //TODO: theme switch in options dialog
 //TODO: get rid of lucide-icons
+//TODO: truncate MRU menu items if they are too long and they are too long

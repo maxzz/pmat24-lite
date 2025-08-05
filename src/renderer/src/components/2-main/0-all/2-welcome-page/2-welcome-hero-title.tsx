@@ -1,16 +1,8 @@
 import { TextHoverEffect } from "@/ui";
 
-const titleStyle = {
-    color: 'black',
-    WebkitTextFillColor: 'transparent',
-    WebkitTextStroke: '0.1px hsl(var(--foreground))',
-    WebkitFontSmoothing: 'antialiased',
-};
-
 export function WelcomeHeroTitle({ allowHandleFiles }: { allowHandleFiles: boolean; }) {
     return (<>
         <div className="text-2xl font-extrabold opacity-30 scale-y-125 select-none" style={titleStyle}>
-            {/* Password Manager Admin Tool */}
             Welcome to the Password Manager Admin Tool
         </div>
 
@@ -21,7 +13,15 @@ export function WelcomeHeroTitle({ allowHandleFiles }: { allowHandleFiles: boole
         <div className="text-xs text-balance select-none">
             {allowHandleFiles
                 ? "Open the file or folder containing the manifest files to start working with the application."
-                : "Open the folder containing the manifest files to start working with the application."}
+                : "Open the folder containing the manifest files to start working with the application."
+            }
         </div>
     </>);
 }
+
+const titleStyle = {
+    color: 'black',
+    WebkitTextFillColor: 'transparent',
+    WebkitTextStroke: '0.1px hsl(var(--foreground))',
+    WebkitFontSmoothing: 'antialiased',
+};

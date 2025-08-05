@@ -6,8 +6,9 @@ import { OpenButtons } from "./3-open-buttons";
 import { RecentFilesList } from "./5-recent-files-list";
 import { HIDLogoAnimation } from "./6-hid-logo-animation";
 import { DontShowNext } from "./nun/27-nun-dont-show-next";
-// import { ListViewDemo } from "@/ui/local-ui/nun/ai-listview/0-list-view-demo4";
-import { StarTest } from "./nun/1-star-test";
+//import { ListViewDemo } from "@/ui/local-ui/nun/ai-listview/0-list-view-demo4";
+//import { StarTest } from "./nun/1-star-test";
+import { IconHIDWFrame } from "@/ui/icons";
 
 /**
  * Don't use AnimatePresence and exit animation.
@@ -28,8 +29,8 @@ export function WelcomePage() {
                     initial={{ opacity: 0, scale: 0.7 }}
                     animate={{ opacity: 1, scale: 1 }}
                 >
-                    <HIDLogoAnimation className="row-start-1 absolute right-0.5 top-1 p-1.5 w-12" />
-
+                    <HIDLogoAnimation className="row-start-1 absolute right-4 -top-2 p-1.5 w-12" />
+                    {/* <IconHIDWFrame /> */}
                     <div className="row-start-2 relative size-full">
                         <CenterPart />
                     </div>
