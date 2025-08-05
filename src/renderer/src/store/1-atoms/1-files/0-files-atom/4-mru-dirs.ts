@@ -110,7 +110,7 @@ export function initializeMru(hasMainReal: boolean) {
         }
 
         const folders = await get<PmatFolder[]>('pmat25-mru-web') || [];
-        appSettings.appUi.mru.folders = folders.map(ref);
+        appSettings.appUi.mru.folders = folders.filter(item => item.fpath).map(ref); // filter out empty folders, somehow we had rpath instead of fpath and set items as valtio refs
 
         subscribe(appSettings.appUi.mru, () => {
             const snapFoloders = snapshot(appSettings.appUi.mru).folders as PmatFolder[];
