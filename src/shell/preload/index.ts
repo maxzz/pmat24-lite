@@ -37,8 +37,10 @@ const api: TmApi = {
 
 if (process.contextIsolated) { // It should be true always from now on.
     try {
+        showStackPreload('Expose tmApi:', api);
         contextBridge.exposeInMainWorld('electron', electronAPI);
         contextBridge.exposeInMainWorld('tmApi', api);
+        showStackPreload('Exposed tmApi:', api);
     } catch (error) {
         console.error(error);
     }
@@ -47,4 +49,10 @@ if (process.contextIsolated) { // It should be true always from now on.
     window.electron = electronAPI;
     // @ts-ignore (define in dts)
     window.tmApi = api;
+}
+
+function showStackPreload(...rest: any[]) {
+    console.groupCollapsed(...rest);
+    console.trace();
+    console.groupEnd();
 }

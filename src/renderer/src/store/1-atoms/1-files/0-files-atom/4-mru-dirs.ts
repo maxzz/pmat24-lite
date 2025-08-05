@@ -1,7 +1,6 @@
 import { ref, snapshot, subscribe } from "valtio";
-import { errorToString, toUnix } from "@/utils";
+import { errorToString, showStack, toUnix } from "@/utils";
 import { get, set } from "idb-keyval";
-import { hasMain } from "@/xternal-to-main";
 import { appSettings } from "../../../9-ui-state";
 import { type PmatFolder } from "./9-types";
 import { isPmatFolderEmpty } from "@/store";
@@ -18,7 +17,7 @@ export function addToDirsMru(folder: PmatFolder) {
 export function removeFromDirsMru(folder: PmatFolder) {
     try {
         removeMruListItem(appSettings.appUi.mru.folders, folder);
-        printMruList(appSettings.appUi.mru.folders);
+        //printMruList(appSettings.appUi.mru.folders);
     } catch (error) {
         console.error(errorToString(error));
     }
@@ -32,6 +31,8 @@ function updateMruList(items: PmatFolder[], folder: PmatFolder): boolean {
     if (isPmatFolderEmpty(folder)) {
         return false;
     }
+
+    folder = { ...folder }; // copy because it can be ref and as result frozen
 
     folder.fpath = toUnix(folder.fpath).toLowerCase(); // normalize fpath
 
@@ -82,9 +83,12 @@ function removeMruListItem(items: PmatFolder[], folder: PmatFolder): boolean {
  * This is critical to initializeMruIndexDB() that will convert appSettings.files.mru.folders to valtio refs.
  * Do nothing just load module first and the rest will be done inside module load.
  */
-export function initializeMru() {
-    clearMruFromLocalStorage();     // For non electron app clear MRU list from localStorage
-    initializeMruIndexDB();         // Intentionally call async wo/ await
+export function initializeMru(hasMainReal: boolean) {
+    showStack('initializeMru hasMainReal', hasMainReal);
+
+    clearMruFromLocalStorage(hasMainReal);         // For non electron app clear MRU list from localStorage
+    // setTimeout(() => initializeMruIndexDB(), 500);
+    initializeMruIndexDB(hasMainReal); // Intentionally call async wo/ await
 }
 
 /**
@@ -95,17 +99,18 @@ export function initializeMru() {
  *      https://filehandle-directoryhandle-indexeddb.glitch.me 'File Handle or Directory Handle in IndexedDB'
  *          https://github.com/jakearchibald/idb-keyval
  */
-async function initializeMruIndexDB() {
-    if (hasMain()) {
+async function initializeMruIndexDB(hasMainReal: boolean) {
+    if (hasMainReal) {
         return;
     }
+    showStack('initializeMruIndexDB HasMain:', hasMainReal);
 
     const folders = await get<PmatFolder[]>('pmat25-mru-web') || [];
     appSettings.appUi.mru.folders = folders.map(ref);
 
     subscribe(appSettings.appUi.mru, () => {
         const snapFoloders = snapshot(appSettings.appUi.mru).folders as PmatFolder[];
-        //printMruList(snapFoloders);
+        printMruList(snapFoloders);
         set('pmat25-mru-web', snapFoloders);
     });
 }
@@ -114,10 +119,11 @@ async function initializeMruIndexDB() {
  * For non electron app clear MRU list from localStorage. The list will be loaded from indexDB with FileSystemDirectoryHandles.
  * @returns 
  */
-function clearMruFromLocalStorage() {
-    if (!hasMain()) {
-        appSettings.appUi.mru.folders = []; // list will be loaded from indexDB with FileSystemDirectoryHandles
+function clearMruFromLocalStorage(hasMainReal: boolean) {
+    if (hasMainReal) {
+        return;
     }
+    appSettings.appUi.mru.folders = []; // list will be loaded from indexDB with FileSystemDirectoryHandles
 }
 
 // Utilities

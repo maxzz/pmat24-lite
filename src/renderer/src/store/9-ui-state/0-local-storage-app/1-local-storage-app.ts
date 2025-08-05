@@ -1,6 +1,7 @@
 import { proxy, subscribe } from "valtio";
 import { atomWithProxy } from "jotai-valtio";
 import { debounce, mergeConfigRecursively, themeApplyMode } from "@/utils";
+import { hasMain } from "@/xternal-to-main";
 import { initializeMru } from "@/store/1-atoms/1-files";
 import { type FileListSettings, defaultFileListSettings } from "../1-files-list";
 import { type RightPanelSettings, defaultRightPanelSettings } from "../2-right-panel";
@@ -42,10 +43,10 @@ function initialSettings(): AppSettings {
 // MRU
 
 function initializeAsyncSettings() {
-    initializeMru();
+    initializeMru(hasMain());
 }
 
-initializeAsyncSettings();
+setTimeout(() => initializeAsyncSettings(), 100); // expose APIs are not available yet, so wait for expose
 
 // Apply theme changes
 

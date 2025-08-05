@@ -212,3 +212,4 @@
 //TODO: move file change indicator to symbols
 //TODO: HID logo make height taller
 //TODO: theme switch in options dialog
+//TODO: get rid of lucide-icons
