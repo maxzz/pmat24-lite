@@ -26,4 +26,4 @@ export function SaveResetButtons({ fileUs, fileUsAtom }: { fileUs: FileUs; fileU
     </>);
 }
 
-const saveButtonClasses = "text-background bg-orange-400 hover:bg-orange-500 active:scale-[.97]";
+const saveButtonClasses = "text-background bg-orange-600 dark:bg-orange-400 hover:bg-orange-500 active:scale-[.97]";
