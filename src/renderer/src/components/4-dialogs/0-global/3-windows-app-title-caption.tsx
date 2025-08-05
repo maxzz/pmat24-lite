@@ -1,8 +1,8 @@
+import { useEffect } from "react";
 import { useSnapshot } from "valtio";
 import { appMainTitle } from "@/store";
-import { useEffect } from "react";
 
-export function AppMainTitle() {
+export function WindowsAppTitleCaption() {
     const { title } = useSnapshot(appMainTitle);
 
     useEffect(
