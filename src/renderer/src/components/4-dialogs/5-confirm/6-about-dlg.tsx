@@ -3,7 +3,7 @@ import { classNames } from "@/utils";
 import { Textarea } from "@/ui/shadcn";
 import { inputRingClasses, optionInputClasses } from "@/ui/local-ui";
 import { AlertOctagon } from "lucide-react";
-import { aboutMessages, doAsyncConfirmDialogAtom } from "@/store/1-atoms/7-dialogs";
+import { aboutMessages, doAsyncExecuteConfirmDialogAtom } from "@/store/1-atoms/7-dialogs";
 import { asyncGetAboutInfo } from "@/store/7-napi-atoms";
 import { type ProductInfo, type GeneralInfoResult } from "@shared/ipc-types";
 
@@ -11,7 +11,7 @@ export const doAboutDialogAtom = atom(null,
     async (get, set) => {
         const json = await asyncGetAboutInfo(); // console.log('about.info:', json);
         const ui = { ...aboutMessages, message: FormattedJson({ json }) };
-        await set(doAsyncConfirmDialogAtom, ui);
+        await set(doAsyncExecuteConfirmDialogAtom, ui);
     }
 );
 

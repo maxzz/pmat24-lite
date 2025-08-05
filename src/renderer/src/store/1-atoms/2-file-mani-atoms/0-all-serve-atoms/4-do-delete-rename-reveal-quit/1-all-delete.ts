@@ -8,7 +8,7 @@ import { removeFromTotalManis } from "@/store/9-ui-state";
 import { fileUsChanges, type ManiAtoms } from "../../9-types";
 import { filesAtom, rootDir } from "@/store/1-atoms/1-files";
 import { doDisposeFileUsAtomAtom } from "@/store/store-utils";
-import { confirmDeleteCpassMessages, confirmDeleteMessages, doAsyncConfirmDialogAtom } from "@/store/1-atoms/7-dialogs";
+import { confirmDeleteCpassMessages, confirmDeleteMessages, doAsyncExecuteConfirmDialogAtom } from "@/store/1-atoms/7-dialogs";
 import { rightPanelAtomAtom, setManiActiveTab } from "@/store/1-atoms/3-right-panel";
 
 export const doDeleteFileUsAtom = atom(null,
@@ -26,7 +26,7 @@ export const doDeleteFileUsAtom = atom(null,
         }
 
         // 2. confirm delete
-        const ok = await set(doAsyncConfirmDialogAtom, confirmDeleteMessages);
+        const ok = await set(doAsyncExecuteConfirmDialogAtom, confirmDeleteMessages);
         if (!ok) {
             return;
         }
@@ -94,7 +94,7 @@ export const doDeleteCpassFromFileUsAtom = atom(null,
             return;
         }
 
-        const ok = await set(doAsyncConfirmDialogAtom, confirmDeleteCpassMessages);
+        const ok = await set(doAsyncExecuteConfirmDialogAtom, confirmDeleteCpassMessages);
         if (!ok) {
             return;
         }

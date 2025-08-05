@@ -1,6 +1,6 @@
 import { atom } from "jotai";
 import { IconStopCircle } from "@/ui/icons";
-import { type ConfirmationUi, doAsyncConfirmDialogAtom } from "./9-types-confirm";
+import { type ConfirmationUi, doAsyncExecuteConfirmDialogAtom } from "./9-types-confirm";
 import { removeFromDirsMru } from "../../1-files/0-files-atom/4-mru-dirs";
 import { type PmatFolder } from "../../1-files";
 
@@ -59,7 +59,7 @@ export const confirmRemoveFromMruMessages: ConfirmationUi = {
 
 export const asyncUdpateMruAtom = atom(null,
     async (get, set, folder: PmatFolder) => {
-        const ok = await set(doAsyncConfirmDialogAtom, confirmRemoveFromMruMessages);
+        const ok = await set(doAsyncExecuteConfirmDialogAtom, confirmRemoveFromMruMessages);
         if (ok) {
             removeFromDirsMru(folder);
         }

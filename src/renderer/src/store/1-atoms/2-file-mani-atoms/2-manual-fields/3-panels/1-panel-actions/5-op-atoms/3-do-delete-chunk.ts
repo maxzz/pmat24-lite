@@ -1,6 +1,6 @@
 import { atom } from "jotai";
 import { type MFormCnt } from "@/store/1-atoms/2-file-mani-atoms/9-types";
-import { confirmDeleteScriptActionsMessages, doAsyncConfirmDialogAtom } from "@/store/1-atoms/7-dialogs";
+import { confirmDeleteScriptActionsMessages, doAsyncExecuteConfirmDialogAtom } from "@/store/1-atoms/7-dialogs";
 import { doSelectIdxAtom } from "./1-select-atoms";
 
 export const doDeleteChunkAtom = atom(
@@ -20,7 +20,7 @@ export const doDeleteChunkAtom = atom(
 export const doDeleteAllChunksAtom = atom(
     null,
     async (get, set, cnt: MFormCnt) => {
-        const ok = await set(doAsyncConfirmDialogAtom, confirmDeleteScriptActionsMessages);
+        const ok = await set(doAsyncExecuteConfirmDialogAtom, confirmDeleteScriptActionsMessages);
         if (!ok) {
             return;
         }

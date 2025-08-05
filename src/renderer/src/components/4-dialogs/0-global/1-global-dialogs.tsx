@@ -6,7 +6,7 @@ import { AppMainTitle } from "./3-app-main-title";
 import { OpenFilesPersistentInput } from "@/components/2-main/1-left/1-header/1-menu-main/11-files";
 import { DialogCreateManiV1SecondPage, DialogCreateManiV1, DialogCreateManiV2, DialogCreateManiV3Saw, DialogSawMonitor } from "../2-dlg-create-login";
 import { FceDialog } from "../4-dlg-field-catalog";
-import { ConfirmDeleteFileDialog, ManiNameDialog } from "../5-confirm";
+import { ConfirmationDialog, ManiNameDialog } from "../5-confirm";
 import { AppOptionsDialog } from "../8-dlg-options";
 
 export function AppGlobals() {
@@ -18,7 +18,7 @@ export function AppGlobals() {
         <AppOptionsDialog />
         <ManiCreateDialogs />
         <FceDialog />
-        <ConfirmDeleteFileDialog />
+        <ConfirmationDialog />
         <ManiNameDialog />
 
         {/* Global shortcuts */}

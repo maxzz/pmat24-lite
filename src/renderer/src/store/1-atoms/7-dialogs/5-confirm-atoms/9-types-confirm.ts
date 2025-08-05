@@ -15,12 +15,12 @@ export type ConfirmationData = {
     resolve: (ok: boolean) => void;             // ok or cancel
 };
 
-export const doOpenConfirmDialogAtom = atom<ConfirmationData | undefined>(undefined);
+export const isOpenConfirmDialogAtom = atom<ConfirmationData | undefined>(undefined);
 
-export const doAsyncConfirmDialogAtom = atom(
+export const doAsyncExecuteConfirmDialogAtom = atom(
     null,
     async (get, set, ui: ConfirmationUi): Promise<boolean> => {
-        const ok = await (new Promise<boolean>((resolve) => set(doOpenConfirmDialogAtom, { ui, resolve })));
+        const ok = await (new Promise<boolean>((resolve) => set(isOpenConfirmDialogAtom, { ui, resolve })));
         return ok;
     }
 );
