@@ -77,9 +77,7 @@ export const doSetDeliveredFilesAtom = atom(
             clearFiles = true;
         }
 
-        const unsupported: FileUs[] = [];
-
-        const fileUsItems: FileUs[] = deliveredFileContents
+        const initializedFileUsItems: FileUs[] = deliveredFileContents
             .filter((file) => file.size)
             .map(
                 (deliveredFileContent: FileContent) => {
@@ -87,8 +85,10 @@ export const doSetDeliveredFilesAtom = atom(
                     addToTotalManis(newFileUs);
                     return newFileUs;
                 }
-            )
-            .filter(filterUnsupportedFiles);
+            );
+
+        const unsupported: FileUs[] = [];
+        const fileUsItems: FileUs[] = initializedFileUsItems.filter(filterUnsupportedFiles);
 
         set(doAddFcToLoadedAtom, { fileUsItems, clearFiles });
 
