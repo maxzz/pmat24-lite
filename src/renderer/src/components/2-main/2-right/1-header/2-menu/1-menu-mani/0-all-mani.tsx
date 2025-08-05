@@ -10,8 +10,15 @@ import { MenuItem_InTestMode, MenuItem_InUseMode } from "./3-state-actions";
 
 export function R_PanelMenuMani({ maniAtoms }: { maniAtoms: ManiAtoms; }) {
     const { activeTab } = useSnapshot(appSettings.right.mani);
-    const formIdx = maniAtiveTabToFormIdx(activeTab);
 
+    if (activeTab === 'options') {
+        return (<>
+            {/* <MenuItem_More /> */}
+            <MenuItem_ShowXML />
+        </>);
+    }
+
+    const formIdx = maniAtiveTabToFormIdx(activeTab);
     const formCtx = formIdx !== undefined && maniAtoms[formIdx];
     if (!formCtx) {
         return <NoMenu />;
@@ -24,7 +31,6 @@ export function R_PanelMenuMani({ maniAtoms }: { maniAtoms: ManiAtoms; }) {
             <MenuItem_InTestMode formCtx={formCtx} />
             <MenuItem_InUseMode formCtx={formCtx} />
             <MenuItem_ShowXML />
-            {/* <MenuItem_More /> */}
         </>);
     }
 
@@ -36,7 +42,6 @@ export function R_PanelMenuMani({ maniAtoms }: { maniAtoms: ManiAtoms; }) {
             <MenuItem_InTestMode formCtx={formCtx} />
             <MenuItem_InUseMode formCtx={formCtx} />
             <MenuItem_ShowXML />
-            {/* <MenuItem_More /> */}
         </>);
     }
 
