@@ -87,43 +87,40 @@ export function initializeMru(hasMainReal: boolean) {
     //showStack('initializeMru hasMainReal', hasMainReal);
 
     clearMruFromLocalStorage(hasMainReal);         // For non electron app clear MRU list from localStorage
-    // setTimeout(() => initializeMruIndexDB(), 500);
-    initializeMruIndexDB(hasMainReal); // Intentionally call async wo/ await
-}
+    initializeMruIndexDB(hasMainReal);             // Intentionally call async wo/ await
 
-/**
- * No need to subscribe for electron. electron has no directory handles.
- * 
- * MRU list
- * https://developer.chrome.com/docs/capabilities/web-apis/file-system-access 'Storing file handles or directory handles in IndexedDB'
- *      https://filehandle-directoryhandle-indexeddb.glitch.me 'File Handle or Directory Handle in IndexedDB'
- *          https://github.com/jakearchibald/idb-keyval
- */
-async function initializeMruIndexDB(hasMainReal: boolean) {
-    if (hasMainReal) {
-        return;
+    /**
+     * For non electron app clear MRU list from localStorage. The list will be loaded from indexDB with FileSystemDirectoryHandles.
+     */
+    function clearMruFromLocalStorage(hasMainReal: boolean) {
+        if (hasMainReal) {
+            return;
+        }
+        appSettings.appUi.mru.folders = []; // list will be loaded from indexDB with FileSystemDirectoryHandles
     }
-    //showStack('initializeMruIndexDB HasMain:', hasMainReal);
 
-    const folders = await get<PmatFolder[]>('pmat25-mru-web') || [];
-    appSettings.appUi.mru.folders = folders.map(ref);
+    /**
+     * No need to subscribe for electron. electron has no directory handles.
+     * 
+     * MRU list
+     * https://developer.chrome.com/docs/capabilities/web-apis/file-system-access 'Storing file handles or directory handles in IndexedDB'
+     *      https://filehandle-directoryhandle-indexeddb.glitch.me 'File Handle or Directory Handle in IndexedDB'
+     *          https://github.com/jakearchibald/idb-keyval
+     */
+    async function initializeMruIndexDB(hasMainReal: boolean) {
+        if (hasMainReal) {
+            return;
+        }
 
-    subscribe(appSettings.appUi.mru, () => {
-        const snapFoloders = snapshot(appSettings.appUi.mru).folders as PmatFolder[];
-        //printMruList(snapFoloders);
-        set('pmat25-mru-web', snapFoloders);
-    });
-}
+        const folders = await get<PmatFolder[]>('pmat25-mru-web') || [];
+        appSettings.appUi.mru.folders = folders.map(ref);
 
-/**
- * For non electron app clear MRU list from localStorage. The list will be loaded from indexDB with FileSystemDirectoryHandles.
- * @returns 
- */
-function clearMruFromLocalStorage(hasMainReal: boolean) {
-    if (hasMainReal) {
-        return;
+        subscribe(appSettings.appUi.mru, () => {
+            const snapFoloders = snapshot(appSettings.appUi.mru).folders as PmatFolder[];
+            //printMruList(snapFoloders);
+            set('pmat25-mru-web', snapFoloders);
+        });
     }
-    appSettings.appUi.mru.folders = []; // list will be loaded from indexDB with FileSystemDirectoryHandles
 }
 
 // Utilities
