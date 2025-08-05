@@ -18,8 +18,8 @@ export const doClearFcRootAtom = atom(
 
 export const doAddFcToLoadedAtom = atom(
     null,
-    (get, set, { fileUsItems, clearFiles }: { fileUsItems: FileUs[]; clearFiles: boolean; }) => {
-        if (clearFiles || !appSettings.files.shownManis.fcAllowed) { // Don't create field catalog if we clear files.
+    (get, set, { fileUsItems, runningClearFiles }: { fileUsItems: FileUs[]; runningClearFiles: boolean; }) => {
+        if (runningClearFiles || !appSettings.files.shownManis.fcAllowed) { // Don't create field catalog if we clear files.
             return;
         }
 

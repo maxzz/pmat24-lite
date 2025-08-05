@@ -54,7 +54,7 @@ export const doSetDeliveredFilesAtom = atom(
     async (get, set, { root, deliveredFileContents }: SetDeliveredFiles) => {
         //printDelivered(deliveredFileContents);
 
-        let clearFiles = typeof deliveredFileContents === 'undefined';
+        let runningClearFiles = typeof deliveredFileContents === 'undefined';
         deliveredFileContents = deliveredFileContents || [];
 
         if (deliveredFileContents.length > 100) {   // Allow fast cleaning, no files, no delay
@@ -72,9 +72,9 @@ export const doSetDeliveredFilesAtom = atom(
         clearTotalManis();
 
         if (isRootDirEmpty()) { // block multiple files or folders
-            !clearFiles && toast.warning('Opening multiple files or folders is not allowed. Drag and drop one folder.');
+            !runningClearFiles && toast.warning('Opening multiple files or folders is not allowed. Drag and drop one folder.');
             deliveredFileContents = [];
-            clearFiles = true;
+            runningClearFiles = true;
         }
 
         const initializedFileUsItems: FileUs[] = deliveredFileContents
@@ -87,32 +87,38 @@ export const doSetDeliveredFilesAtom = atom(
                 }
             );
 
-        const unsupported: FileUs[] = [];
-        const fileUsItems: FileUs[] = initializedFileUsItems.filter(filterUnsupportedFiles);
-
-        set(doAddFcToLoadedAtom, { fileUsItems, clearFiles });
-
+        const { fileUsItems, unsupported } = filterUnsupportedFiles(initializedFileUsItems);
         sortFileUsItemsInPlace(fileUsItems);
 
+        set(doAddFcToLoadedAtom, { fileUsItems, runningClearFiles });
         showUnsupportedFilesMsg(unsupported);
-
+        
         const fileUsAtoms = fileUsItems.map((fileUs) => atom(fileUs));
         set(filesAtom, fileUsAtoms);
 
-        set(doInitFileUsLinksToFcAtom, { fileUsAtoms, clearFiles });
+        set(doInitFileUsLinksToFcAtom, { fileUsAtoms, runningClearFiles });
 
         busyIndicator.msg = '';
-
-        function filterUnsupportedFiles(fileUs: FileUs) {
-            const notUs = fileUs.fileCnt.failed || fileUs.fileCnt.notOur || (!fileUs.parsedSrc.mani && !fileUs.parsedSrc.fcat);
-            if (notUs) {
-                fileUs.fileCnt.failed && console.error(fileUs.fileCnt.rawLoaded);
-                unsupported.push(fileUs);
-            }
-            return !notUs;
-        }
     }
 );
+
+function filterUnsupportedFiles(initializedFileUsItems: FileUs[]): { fileUsItems: FileUs[]; unsupported: FileUs[]; } {
+    const { fcAllowed } = appSettings.files.shownManis;
+
+    const unsupported: FileUs[] = [];
+    const fileUsItems: FileUs[] = initializedFileUsItems.filter(filterUnsupportedFiles);
+
+    return { fileUsItems, unsupported };
+
+    function filterUnsupportedFiles(fileUs: FileUs) {
+        const notUs = fileUs.fileCnt.failed || fileUs.fileCnt.notOur || (!fileUs.parsedSrc.mani && !fileUs.parsedSrc.fcat) || (!fcAllowed && fileUs.parsedSrc.stats.isFCat);
+        if (notUs) {
+            fileUs.fileCnt.failed && console.error(fileUs.fileCnt.rawLoaded);
+            unsupported.push(fileUs);
+        }
+        return !notUs;
+    }
+}
 
 function sortFileUsItemsInPlace(items: FileUs[]) {
     items.sort( // Sort by name (from a to z, ie. ascending) and reindex w/ new field catalog index
@@ -128,8 +134,6 @@ function sortFileUsItemsInPlace(items: FileUs[]) {
     );
     //printSorted(items);
 }
-
-//appSettings.files.shownManis.fcAllowed;
 
 function printDelivered(deliveredFileContents: FileContent[]) {
     console.log(`%cDelivered ${deliveredFileContents.length} files`, 'color: magenta');

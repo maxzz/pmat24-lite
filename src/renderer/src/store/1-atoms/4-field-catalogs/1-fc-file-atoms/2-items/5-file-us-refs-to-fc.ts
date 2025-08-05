@@ -14,8 +14,8 @@ type FceItemsMap = Map<string, FceItem>; // dbname -> fceItem
  * Create maniAtoms for fileUs if needed and then assign field catalog refs to maniAtoms
  */
 export const doInitFileUsLinksToFcAtom = atom(null,
-    (get, set, { fileUsAtoms, clearFiles }: { fileUsAtoms: FileUsAtom[]; clearFiles: boolean; }) => {
-        if (!fileUsAtoms.length || clearFiles || !appSettings.files.shownManis.fcAllowed) { // Don't create field catalog if we clear files. //TODO: should we clear field catalog links if it was created?
+    (get, set, { fileUsAtoms, runningClearFiles }: { fileUsAtoms: FileUsAtom[]; runningClearFiles: boolean; }) => {
+        if (!fileUsAtoms.length || runningClearFiles || !appSettings.files.shownManis.fcAllowed) { // Don't create field catalog if we clear files. //TODO: should we clear field catalog links if it was created?
             return;
         }
 
