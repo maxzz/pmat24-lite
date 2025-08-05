@@ -88,16 +88,7 @@ export const doSetDeliveredFilesAtom = atom(
                     return newFileUs;
                 }
             )
-            .filter(
-                (fileUs) => {
-                    const notUs = fileUs.fileCnt.failed || fileUs.fileCnt.notOur || (!fileUs.parsedSrc.mani && !fileUs.parsedSrc.fcat);
-                    if (notUs) {
-                        fileUs.fileCnt.failed && console.error(fileUs.fileCnt.rawLoaded);
-                        unsupported.push(fileUs);
-                    }
-                    return !notUs;
-                }
-            );
+            .filter(filterUnsupportedFiles);
 
         set(doAddFcToLoadedAtom, { fileUsItems, clearFiles });
 
@@ -111,6 +102,15 @@ export const doSetDeliveredFilesAtom = atom(
         set(doInitFileUsLinksToFcAtom, { fileUsAtoms, clearFiles });
 
         busyIndicator.msg = '';
+
+        function filterUnsupportedFiles(fileUs: FileUs) {
+            const notUs = fileUs.fileCnt.failed || fileUs.fileCnt.notOur || (!fileUs.parsedSrc.mani && !fileUs.parsedSrc.fcat);
+            if (notUs) {
+                fileUs.fileCnt.failed && console.error(fileUs.fileCnt.rawLoaded);
+                unsupported.push(fileUs);
+            }
+            return !notUs;
+        }
     }
 );
 
@@ -128,6 +128,8 @@ function sortFileUsItemsInPlace(items: FileUs[]) {
     );
     //printSorted(items);
 }
+
+//appSettings.files.shownManis.fcAllowed;
 
 function printDelivered(deliveredFileContents: FileContent[]) {
     console.log(`%cDelivered ${deliveredFileContents.length} files`, 'color: magenta');
