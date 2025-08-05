@@ -1,6 +1,6 @@
 import { FileUs, type FileUsAtom, Order, SortBy } from "@/store/store-types";
 
-export function sortResult(sortBy: SortBy, order: Order, result: FileUsAtom[], get: Getter) {
+export function sortResultInPlace(result: FileUsAtom[], sortBy: SortBy, order: Order, get: Getter) {
 
     if (sortBy === SortBy.url) {
         result.sort(compareDomain_AtoZ);
@@ -40,7 +40,7 @@ export function sortFileUsItemsInPlaceAndSetIndices(items: FileUs[]) {
     items.forEach(
         (fileUs, idx) => fileUs.fileCnt.idx = idx
     );
-    //TODO: and now apply real filer? do we need to sort before set indices (it will be filesystem order)?
+    //TODO: and now apply real filer? do we need to sort before set indices (it will be filesystem order)? I think no. It is done in the get atom filteredAtom.
     //printSorted(items);
 }
 

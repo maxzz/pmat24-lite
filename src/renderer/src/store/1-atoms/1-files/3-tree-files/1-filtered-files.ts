@@ -2,10 +2,10 @@ import { atom } from "jotai";
 import { type FileUsAtom } from "@/store/store-types";
 import { filesAtom } from "../0-files-atom";
 import { isAnyMatchedCap, isAnyMatchedCls, isAnyWeb, isAnyWhy, isAnyEmpty, isAnyManual } from "@/store/manifest";
+import { optionsAppUiProxyAtom, optionsFilesProxyAtom } from "@/store";
 import { createRegexByFilter, useFileUsByFilter } from "@/store/store-utils";
 import { searchFilterData } from "../../../9-ui-state/04-filters-search";
-import { optionsAppUiProxyAtom, optionsFilesProxyAtom } from "@/store";
-import { sortResult } from "./2-filtered-sort";
+import { sortResultInPlace } from "./2-filtered-sort";
 
 /**
  * We don't filter items by filename, but by manifest content only.
@@ -61,7 +61,7 @@ export const filteredAtom = atom<FileUsAtom[]>(
 
         // 2. Sort
 
-        sortResult(sortBy, order, rv, get);
+        sortResultInPlace(rv, sortBy, order, get);
 
         return rv;
     }
