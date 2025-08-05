@@ -4,11 +4,12 @@ import { toast } from "sonner";
 import { type FileUs } from "@/store/store-types";
 import { type FileContent } from "@shared/ipc-types";
 import { type PmatFolder, filesAtom, isRootDirEmpty, setRootDir } from "../0-files-atom";
+import { doAddFcToLoadedAtom, doClearFcRootAtom, doInitFileUsLinksToFcAtom } from "../../4-field-catalogs";
 import { addToTotalManis, appSettings, busyIndicator, clearTotalManis } from "@/store/9-ui-state";
 import { doDisposeAllFilesAtomAtom } from "@/store/store-utils";
+import { sortPredicate_RightAfterLoad } from "../3-tree-files";
 import { allFileUsChanges } from "../../2-file-mani-atoms";
 import { rightPanelAtomAtom } from "../../3-right-panel";
-import { doAddFcToLoadedAtom, doClearFcRootAtom, doInitFileUsLinksToFcAtom } from "../../4-field-catalogs";
 import { createFileUsFromFileContent } from "./2-create-fileus";
 
 export type SetDeliveredFiles = {
@@ -121,14 +122,7 @@ function filterUnsupportedFiles(initializedFileUsItems: FileUs[]): { fileUsItems
 }
 
 function sortFileUsItemsInPlace(items: FileUs[]) {
-    items.sort( // Sort by name (from a to z, ie. ascending) and reindex w/ new field catalog index
-        (a, b) => {
-            if (a.parsedSrc.fcat && !b.parsedSrc.fcat) return 1;
-            if (!a.parsedSrc.fcat && b.parsedSrc.fcat) return -1;
-
-            return a.fileCnt.fname.localeCompare(b.fileCnt.fname);
-        }
-    );
+    items.sort(sortPredicate_RightAfterLoad);
     items.forEach(
         (fileUs, idx) => fileUs.fileCnt.idx = idx
     );
