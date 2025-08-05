@@ -37,10 +37,10 @@ const api: TmApi = {
 
 if (process.contextIsolated) { // It should be true always from now on.
     try {
-        showStackPreload('Expose tmApi:', api);
+        //showStackPreload('Expose tmApi:', api);
         contextBridge.exposeInMainWorld('electron', electronAPI);
         contextBridge.exposeInMainWorld('tmApi', api);
-        showStackPreload('Exposed tmApi:', api);
+        //showStackPreload('Exposed tmApi:', api);
     } catch (error) {
         console.error(error);
     }

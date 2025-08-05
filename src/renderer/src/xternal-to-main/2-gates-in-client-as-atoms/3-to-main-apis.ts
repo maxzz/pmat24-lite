@@ -7,7 +7,7 @@ import { showStack } from "@/utils";
 export var mainApi: TmApi | undefined = typeof tmApi !== 'undefined' ? tmApi : undefined;
 
 export function hasMain(): boolean {
-    showStack('hasMain():', mainApi);
+    //showStack('hasMain():', mainApi);
     return !!mainApi;
 }
 

@@ -84,7 +84,7 @@ function removeMruListItem(items: PmatFolder[], folder: PmatFolder): boolean {
  * Do nothing just load module first and the rest will be done inside module load.
  */
 export function initializeMru(hasMainReal: boolean) {
-    showStack('initializeMru hasMainReal', hasMainReal);
+    //showStack('initializeMru hasMainReal', hasMainReal);
 
     clearMruFromLocalStorage(hasMainReal);         // For non electron app clear MRU list from localStorage
     // setTimeout(() => initializeMruIndexDB(), 500);
@@ -103,14 +103,14 @@ async function initializeMruIndexDB(hasMainReal: boolean) {
     if (hasMainReal) {
         return;
     }
-    showStack('initializeMruIndexDB HasMain:', hasMainReal);
+    //showStack('initializeMruIndexDB HasMain:', hasMainReal);
 
     const folders = await get<PmatFolder[]>('pmat25-mru-web') || [];
     appSettings.appUi.mru.folders = folders.map(ref);
 
     subscribe(appSettings.appUi.mru, () => {
         const snapFoloders = snapshot(appSettings.appUi.mru).folders as PmatFolder[];
-        printMruList(snapFoloders);
+        //printMruList(snapFoloders);
         set('pmat25-mru-web', snapFoloders);
     });
 }

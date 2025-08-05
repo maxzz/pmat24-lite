@@ -46,7 +46,7 @@ function initializeAsyncSettings() {
     initializeMru(hasMain());
 }
 
-setTimeout(() => initializeAsyncSettings(), 100); // expose APIs are not available yet, so wait for expose
+setTimeout(() => initializeAsyncSettings(), 100); // expose APIs are not available yet, so wait for expose; see contextBridge.exposeInMainWorld
 
 // Apply theme changes
 
