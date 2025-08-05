@@ -26,3 +26,11 @@ export function errorFromSubstring(error: unknown): string {
     const { message, submessage } = errorSubstring(error);
     return submessage || message;
 }
+
+// Trace with stack
+
+export function showStack(...rest: any[]) {
+    console.groupCollapsed(...rest);
+    console.trace();
+    console.groupEnd();
+}
