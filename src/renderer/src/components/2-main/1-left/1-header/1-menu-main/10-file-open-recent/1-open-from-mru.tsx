@@ -13,7 +13,7 @@ export function MenuItem_OpenRecent() {
             </DropdownMenuSubTrigger>
 
             <DropdownMenuPortal>
-                <DropdownMenuSubContent className="text-xs">
+                <DropdownMenuSubContent className="text-xs max-w-48 flex flex-col">
 
                     {!folders.length
                         ? (
@@ -42,7 +42,7 @@ function MenuItem_MruItem({ folder }: { folder: PmatFolder; }) {
     const short = filenameWithoutPath(folder.fpath);
     const doSetFilesFrom_MruFolder = useSetAtom(doSetFilesFrom_MruFolder_Atom);
     return (
-        <DropdownMenuItem title={folder.fpath} onClick={() => doSetFilesFrom_MruFolder({ folder })}>
+        <DropdownMenuItem className="block flex-1 min-w-0 truncate" title={folder.fpath} onClick={() => doSetFilesFrom_MruFolder({ folder })}>
             {short}
         </DropdownMenuItem>
     );
@@ -55,3 +55,5 @@ function MenuItem_ClearMru({ disabled }: { disabled: boolean; }) {
         </DropdownMenuItem>
     );
 }
+
+//Try folder icon as well
