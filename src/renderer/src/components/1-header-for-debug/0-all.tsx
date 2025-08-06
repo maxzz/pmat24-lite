@@ -51,7 +51,7 @@ export function SectionHeader() {
                 </div> */}
             </div>
 
-            <ThemeSwitch className="self-start" />
+            <ThemeSwitch heightClasses="h-7" />
         </div>
     );
 }

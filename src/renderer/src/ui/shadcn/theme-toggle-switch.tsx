@@ -7,7 +7,7 @@ import { Button } from "./button";
 import { IconDark, IconLight, IconSystem } from "../icons/normal";
 import { ChevronDown, CheckIcon } from "lucide-react";
 
-export function ThemeSwitch({className, ...rest}: ComponentPropsWithoutRef<"div">) {
+export function ThemeSwitch({ className, heightClasses = "h-6", ...rest }: ComponentPropsWithoutRef<"div"> & { heightClasses?: string; }) {
     const { theme: snapTheme } = useSnapshot(appSettings).appUi;
     const isDark = snapTheme === "dark";
     const isSystem = snapTheme === "system";
@@ -18,7 +18,7 @@ export function ThemeSwitch({className, ...rest}: ComponentPropsWithoutRef<"div"
                 variant="ghost"
                 size="xs"
                 tabIndex={-1}
-                className="py-0 border-y border-l border-input rounded-r-none"
+                className={classNames(heightClasses, "py-0 border-y border-l border-input rounded-r-none")}
                 onClick={() => appSettings.appUi.theme = appSettings.appUi.theme === 'dark' ? 'light' : 'dark'}
             >
                 {isSystem && <IconSystem className="size-4" />}
@@ -28,7 +28,7 @@ export function ThemeSwitch({className, ...rest}: ComponentPropsWithoutRef<"div"
 
             <DropdownMenu>
                 <DropdownMenuTrigger asChild>
-                    <Button variant="ghost" size="xs" className="px-1 py-0 border border-input rounded-l-none focus-visible:ring-0">
+                    <Button variant="ghost" size="xs" className={classNames(heightClasses, "px-1 py-0 border border-input rounded-l-none focus-visible:ring-0")}>
                         <ChevronDown className="size-3" />
                     </Button>
                 </DropdownMenuTrigger>

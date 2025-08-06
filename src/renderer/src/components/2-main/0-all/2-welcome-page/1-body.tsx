@@ -8,7 +8,7 @@ import { HIDLogoAnimation } from "./6-hid-logo-animation";
 import { DontShowNext } from "./nun/27-nun-dont-show-next";
 //import { ListViewDemo } from "@/ui/local-ui/nun/ai-listview/0-list-view-demo4";
 //import { StarTest } from "./nun/1-star-test";
-import { IconHIDWFrame } from "@/ui/icons";
+//import { IconHIDWFrame } from "@/ui/icons";
 
 /**
  * Don't use AnimatePresence and exit animation.
@@ -16,7 +16,6 @@ import { IconHIDWFrame } from "@/ui/icons";
  * @returns 
  */
 export function WelcomePage() {
-
     const { showWelcome, showWelcomeCheck } = useSnapshot(appSettings.appUi.uiGeneral);
     const { fpath } = useSnapshot(rootDir);
     const showWelcomePage = showWelcome && !fpath.length;
@@ -31,12 +30,15 @@ export function WelcomePage() {
                 >
                     <HIDLogoAnimation className="row-start-1 absolute right-4 -top-2 p-1.5 w-12" />
                     {/* <IconHIDWFrame /> */}
+
                     <div className="row-start-2 relative size-full">
                         <CenterPart />
                     </div>
 
                     <div className="row-start-3 absolute inset-0">
-                        <Recent />
+                        <div className="p-2 size-full grid grid-cols-[1fr,auto,1fr]">
+                            <RecentFilesList className="col-start-2 place-self-end" />
+                        </div>
 
                         {showWelcomeCheck && (
                             <DontShowNext className="absolute left-0 bottom-0 p-2" />
@@ -60,14 +62,3 @@ function CenterPart() {
         </div>
     </>);
 }
-
-function Recent() {
-    return (<>
-        <div className="p-2 size-full grid grid-cols-[1fr,auto,1fr]">
-            <div className="col-start-2 place-self-end">
-                <RecentFilesList />
-            </div>
-        </div>
-    </>);
-}
-

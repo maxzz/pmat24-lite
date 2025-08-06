@@ -62,8 +62,8 @@ export function UiUxSettings() {
 
         <div className={subClasses}>
             <div className={rowClasses}>
-                Theme
-                <ThemeSwitch className="self-start" />
+                Color Theme
+                <ThemeSwitch />
             </div>
         </div>
     </>

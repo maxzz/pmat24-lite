@@ -2,9 +2,11 @@ import { type ComponentPropsWithoutRef } from "react";
 import { useSetAtom } from "jotai";
 import { useSnapshot } from "valtio";
 import { motion } from "motion/react";
-import { filenameWithoutPath } from "@/utils";
+import { classNames, filenameWithoutPath } from "@/utils";
 import { Button } from "@/ui";
 import { type PmatFolder, appSettings, doSetFilesFrom_MruFolder_Atom } from "@/store";
+import { IconTrash } from "@/ui/icons";
+import { IconFolderClosed } from "@/ui/icons/normal/temp2";
 
 export function RecentFilesList({ className, ...rest }: ComponentPropsWithoutRef<typeof motion.div>) {
     const { folders } = useSnapshot(appSettings.appUi.mru);
@@ -12,15 +14,13 @@ export function RecentFilesList({ className, ...rest }: ComponentPropsWithoutRef
     return (<>
         {hasRecent && (
             <motion.div
-                className="text-xs space-y-1"
+                className={classNames("text-xs space-y-1", className)}
                 initial={{ opacity: 0, scale: 0.9 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.2 }}
                 {...rest}
             >
-                <div>
-                    Recent
-                </div>
+                Recent Folders
 
                 <div className="p-1 min-w-56 bg-white/70 dark:bg-black/20 1bg-foreground/5 border border-foreground/10 rounded-md flex flex-col items-start">
                     {folders.map(
@@ -39,6 +39,7 @@ function FolderItem({ folder }: { folder: PmatFolder; }) {
     const doSetFilesFrom_MruFolder = useSetAtom(doSetFilesFrom_MruFolder_Atom);
     return (
         <Button variant="ghost" className="justify-start w-full h-6 text-xs" title={folder.fpath} onClick={() => doSetFilesFrom_MruFolder({ folder })}>
+            <IconFolderClosed className="mr-1 size-4" />
             {short}
         </Button>
     );
