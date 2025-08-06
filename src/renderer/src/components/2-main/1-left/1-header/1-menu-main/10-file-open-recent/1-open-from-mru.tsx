@@ -3,6 +3,8 @@ import { useSnapshot } from "valtio";
 import { filenameWithoutPath } from "@/utils";
 import { DropdownMenuItem, DropdownMenuPortal, DropdownMenuSeparator, DropdownMenuSub, DropdownMenuSubContent, DropdownMenuSubTrigger } from "@/ui/shadcn/dropdown-menu";
 import { type PmatFolder, appSettings, doSetFilesFrom_MruFolder_Atom } from "@/store";
+import { IconFolderClosed } from "@/ui/icons/normal/temp2";
+import { IconTrash } from "@/ui/icons";
 
 export function MenuItem_OpenRecent() {
     const { folders } = useSnapshot(appSettings.appUi.mru);
@@ -13,7 +15,7 @@ export function MenuItem_OpenRecent() {
             </DropdownMenuSubTrigger>
 
             <DropdownMenuPortal>
-                <DropdownMenuSubContent className="text-xs max-w-48 flex flex-col">
+                <DropdownMenuSubContent className="text-xs max-w-56 text-foreground">
 
                     {!folders.length
                         ? (
@@ -42,8 +44,9 @@ function MenuItem_MruItem({ folder }: { folder: PmatFolder; }) {
     const short = filenameWithoutPath(folder.fpath);
     const doSetFilesFrom_MruFolder = useSetAtom(doSetFilesFrom_MruFolder_Atom);
     return (
-        <DropdownMenuItem className="block flex-1 min-w-0 truncate" title={folder.fpath} onClick={() => doSetFilesFrom_MruFolder({ folder })}>
-            {short}
+        <DropdownMenuItem className="gap-1" title={folder.fpath} onClick={() => doSetFilesFrom_MruFolder({ folder })}>
+            <IconFolderClosed className="shrink-0 size-4" />
+            <div className="truncate">{short}</div>
         </DropdownMenuItem>
     );
 }
@@ -51,9 +54,8 @@ function MenuItem_MruItem({ folder }: { folder: PmatFolder; }) {
 function MenuItem_ClearMru({ disabled }: { disabled: boolean; }) {
     return (
         <DropdownMenuItem disabled={disabled} onClick={() => appSettings.appUi.mru.folders = []}>
+            <IconTrash className="mr-1 size-4" />
             Clear Recently Opened
         </DropdownMenuItem>
     );
 }
-
-//Try folder icon as well
