@@ -13,7 +13,6 @@ import { DontShowNext } from "./nun/27-nun-dont-show-next";
 /**
  * Don't use AnimatePresence and exit animation.
  * This page should go away immediately otherwise tree item selection will be blocked for some time.
- * @returns 
  */
 export function WelcomePage() {
     const { showWelcome, showWelcomeCheck } = useSnapshot(appSettings.appUi.uiGeneral);

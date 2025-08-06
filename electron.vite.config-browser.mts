@@ -19,6 +19,10 @@ export default defineConfig((): UserConfig => { // https://vitejs.dev/config
         publicDir: absPath('public'),
         // build: { rollupOptions: { input: absPath('src/renderer/index.html'), }, },
 
+        build: {
+            rollupOptions: { output: { manualChunks, } }, // minify: false,
+        },
+
         resolve: {
             alias: {
                 "@shared": absPath('src/shared'),
@@ -40,10 +44,6 @@ export default defineConfig((): UserConfig => { // https://vitejs.dev/config
                 brotliSize: true,
             }) as PluginOption,
         ],
-
-        build: {
-            rollupOptions: { output: { manualChunks, } }, // minify: false,
-        },
 
         server: { port: 3000, },
     };

@@ -16,12 +16,19 @@ export function getMainOptionsVerifyErrors(atoms: FormOptionsState.AllAtoms, for
 }
 
 export function getOptionsInFormVerifyErrors(atoms: FormOptionsState.AllAtoms, formIdx: FormIdx, getset: GetSet): VerifyError[] {
-    const { p2Detect, p5Icon } = atoms;
+    const { p2Detect, p5Icon, isWebAtom } = atoms;
 
     const toValidate: RowInputStateAtoms =
         formIdx === FormIdx.login
             ? { ...p2Detect, ...p5Icon, }
             : { ...p2Detect, ...p5Icon, };
+
+    const isWeb = getset.get(isWebAtom);
+    if (isWeb) {
+        delete toValidate.captionAtom;
+    } else {
+        delete toValidate.rurlAtom;
+    }
 
     const rv: VerifyError[] = validateRowInputStateAtoms(toValidate, formIdx === FormIdx.login ? 'login' : 'cpass', getset);
     return rv;
