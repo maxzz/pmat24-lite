@@ -16,6 +16,7 @@ export function validateRowInputStateAtoms(toValidate: RowInputStateAtoms, maniT
                             ? {
                                 error: error,
                                 tab: maniTabValue,
+                                atomName: key,
                             }
                             : undefined;
                     return rv;
