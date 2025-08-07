@@ -1,5 +1,6 @@
 import { useAtom } from "jotai";
 import { DropdownMenuCheckboxItem } from "@/ui/shadcn";
+import { modeTextInTest, modeTextInUse } from "../../../2-file-mani/2-form-options";
 import { type FileUsCtx } from "@/store";
 
 export function MenuItems_State({ fileUsCtx }: { fileUsCtx: FileUsCtx; }) {
@@ -17,7 +18,7 @@ function MenuItem_InUseMode({ fileUsCtx }: { fileUsCtx: FileUsCtx; }) {
             checked={isInUseMode}
             onCheckedChange={(checked) => setInUseMode(checked)}
         >
-            The manifest is in production
+            {modeTextInUse}
         </DropdownMenuCheckboxItem>
     );
 }
@@ -30,7 +31,7 @@ function MenuItem_InTestMode({ fileUsCtx }: { fileUsCtx: FileUsCtx; }) {
             checked={isInTestMode}
             onCheckedChange={(checked) => setInTestMode(checked)}
         >
-            Test Mode
+            {modeTextInTest}
         </DropdownMenuCheckboxItem>
     );
 }
