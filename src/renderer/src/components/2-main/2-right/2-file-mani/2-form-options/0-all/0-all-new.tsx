@@ -75,13 +75,8 @@ function Input_InTestMode({ fileUsCtx }: { fileUsCtx: FileUsCtx; }) {
     const [isInTestMode, setInTestMode] = useAtom(fileUsCtx.fileUs.maniInTestAtom);
 
     return (<>
-    <Switch className="mt-2" checked={isInTestMode} onCheckedChange={(checked) => setInTestMode(checked)}></Switch>
-        <Button
-            // checked={isInTestMode}
-            // onClick={(checked) => setInTestMode(checked)}
-        >
-            In Test Mode
-        </Button>
+        <div className="">In Test Mode</div>
+        <Switch className="mt-2" checked={isInTestMode} onCheckedChange={(checked) => setInTestMode(checked)}></Switch>
     </>);
 }
 
@@ -89,14 +84,8 @@ function Input_InUseMode({ fileUsCtx }: { fileUsCtx: FileUsCtx; }) {
     const [isInUseMode, setInUseMode] = useAtom(fileUsCtx.fileUs.maniInUseAtom);
 
     return (<>
+        <div className="">In Use Mode</div>
         <Switch className="mt-2" checked={isInUseMode} onCheckedChange={(checked) => setInUseMode(checked)}></Switch>
-
-        <Button
-            // checked={isInUseMode}
-            // onClick={(checked) => setInUseMode(checked)}
-        >
-            In Use Mode
-        </Button>
     </>);
 }
 
