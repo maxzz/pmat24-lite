@@ -24,7 +24,7 @@
 			"path": "src/renderer/src/store/1-atoms/2-file-mani-atoms/2-manual-fields/9-types/2-manual-field-state.tsx",
 			"bookmarks": [
 				{
-					"line": 6,
+					"line": 5,
 					"column": 27,
 					"label": "type ManualFieldState.CtxExtra"
 				}
