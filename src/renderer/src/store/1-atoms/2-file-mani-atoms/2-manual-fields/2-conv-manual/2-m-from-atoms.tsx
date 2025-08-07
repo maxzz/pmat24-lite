@@ -1,7 +1,12 @@
 import { type EditorDataForDly, type EditorDataForFld, type EditorDataForKbd, type EditorDataForPos, type EditorDataForOne, type EditorField } from "@/store/manifest";
 import { type ManualFieldState } from "../9-types";
 import { NormalFieldConv } from "../../1-normal-fields";
-import { getKbdChunkValues, getPosChunkValues, getDlyChunkValues } from "./4-m-verify-state-access";
+import { type RowInputState } from "@/ui/local-ui/1-input-validate";
+
+export function fromAtoms(scriptItems: ManualFieldState.Ctx[], getset: GetSet): EditorDataForOne[] {
+    const chunks = scriptItems.map((scriptItem) => fromAtom(scriptItem, getset));
+    return chunks;
+}
 
 export function fromAtom(scriptItemCtx: ManualFieldState.Ctx, getset: GetOnly): EditorDataForOne {
     const { get } = getset;
@@ -49,7 +54,36 @@ export function fromAtom(scriptItemCtx: ManualFieldState.Ctx, getset: GetOnly): 
     }
 }
 
-export function fromAtoms(scriptItems: ManualFieldState.Ctx[], getset: GetSet): EditorDataForOne[] {
-    const chunks = scriptItems.map((scriptItem) => fromAtom(scriptItem, getset));
-    return chunks;
+// Per chunk access
+
+type EditorValues<T> = {
+    [key in keyof T]: RowInputState;
+};
+
+export function getKbdChunkValues(atoms: ManualFieldState.CtxKbd, get: Getter): EditorValues<Omit<EditorDataForKbd, 'type'>> {
+    const rv = {
+        char: get(atoms.charAtom),
+        repeat: get(atoms.repeatAtom),
+        shift: get(atoms.shiftAtom),
+        ctrl: get(atoms.ctrlAtom),
+        alt: get(atoms.altAtom),
+    };
+    return rv;
+}
+
+export function getPosChunkValues(atoms: ManualFieldState.CtxPos, get: Getter): EditorValues<Omit<EditorDataForPos, 'type'>> {
+    const rv = {
+        x: get(atoms.xAtom),
+        y: get(atoms.yAtom),
+        units: get(atoms.unitsAtom),
+        res: get(atoms.resAtom),
+    };
+    return rv;
+}
+
+export function getDlyChunkValues(atoms: ManualFieldState.CtxDly, get: Getter): EditorValues<Omit<EditorDataForDly, 'type'>> {
+    const rv = {
+        n: get(atoms.nAtom),
+    };
+    return rv;
 }
