@@ -1,5 +1,5 @@
 import { type MouseEvent } from "react";
-import { SectionHeader } from "../1-header-for-debug";
+import { DebugMainHeader } from "../1-header-for-debug";
 import { SectionMain } from "../2-main";
 import { SectionFooter } from "../3-footer";
 import { appSettings } from "@/store";
@@ -7,7 +7,7 @@ import { appSettings } from "@/store";
 export function AppContent() {
     return (<>
         <div className={topClasses} onContextMenu={preventContextMenu}>
-            <SectionHeader />
+            <DebugMainHeader />
             <SectionMain />
             <SectionFooter />
         </div>
