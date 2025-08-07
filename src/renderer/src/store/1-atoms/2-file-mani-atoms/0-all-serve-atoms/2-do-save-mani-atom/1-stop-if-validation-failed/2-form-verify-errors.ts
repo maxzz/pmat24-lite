@@ -19,7 +19,7 @@ function getErrorsFromForm(maniAtoms: ManiAtoms, formIdx: FormIdx, getset: GetSe
 
     if (!errors?.length) {
         const optionsAtoms = maniAtoms[formIdx]?.options;
-        errors = optionsAtoms && FormOptionsConv.getOptionsInFormVerifyErrors(optionsAtoms, formIdx, getset);
+        errors = optionsAtoms && FormOptionsConv.getOptionsVerifyErrors_OfForm(optionsAtoms, formIdx, getset);
     }
 
     return errors;

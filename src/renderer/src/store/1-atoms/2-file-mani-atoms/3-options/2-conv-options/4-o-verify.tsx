@@ -3,7 +3,7 @@ import { FormIdx } from "@/store/manifest";
 import { type VerifyError } from "../../9-types";
 import { type FormOptionsState } from "./9-types";
 
-export function getMainOptionsVerifyErrors(atoms: FormOptionsState.AllAtoms, formIdx: FormIdx, getset: GetSet): VerifyError[] {
+export function getOptionsVerifyErrors_OfMain(atoms: FormOptionsState.AllAtoms, formIdx: FormIdx, getset: GetSet): VerifyError[] {
     const { p1General, p3Auth, p4QL } = atoms;
 
     const toValidate: RowInputStateAtoms =
@@ -15,7 +15,7 @@ export function getMainOptionsVerifyErrors(atoms: FormOptionsState.AllAtoms, for
     return rv;
 }
 
-export function getOptionsInFormVerifyErrors(atoms: FormOptionsState.AllAtoms, formIdx: FormIdx, getset: GetSet): VerifyError[] {
+export function getOptionsVerifyErrors_OfForm(atoms: FormOptionsState.AllAtoms, formIdx: FormIdx, getset: GetSet): VerifyError[] {
     const toValidate: RowInputStateAtoms = getFormAtomsToValidate(atoms, formIdx, getset);
     const rv: VerifyError[] = validateRowInputStateAtoms(toValidate, formIdx === FormIdx.login ? 'login' : 'cpass', getset);
     return rv;
@@ -29,7 +29,7 @@ function getFormAtomsToValidate(atoms: FormOptionsState.AllAtoms, formIdx: FormI
             ? { ...p2Detect, ...p5Icon, }
             : { ...p2Detect, ...p5Icon, };
 
-    const isWeb = get(isWebAtom);
+    const isWeb = get(isWebAtom); // Exclude atom with validation that are not appropriate depending on the form
     if (isWeb) {
         delete toValidate.captionAtom;
     } else {

@@ -15,7 +15,7 @@ function optionsFormVerifyErrors(maniAtoms: ManiAtoms, formIdx: FormIdx, getset:
     const formCtx = maniAtoms[formIdx];
 
     if (formCtx) {
-        const errors = FormOptionsConv.getMainOptionsVerifyErrors(formCtx.options, formIdx, getset);
+        const errors = FormOptionsConv.getOptionsVerifyErrors_OfMain(formCtx.options, formIdx, getset);
         if (errors.length) {
             rv.push(...errors);
         }
