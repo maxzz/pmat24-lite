@@ -3,7 +3,7 @@ import { type FileUs } from "@/store/store-types";
 import { type FileUsCtx, type OFormProps } from "@/store/1-atoms/2-file-mani-atoms";
 import { ExtPolicySelect } from "../9-controls";
 import { ChildrenWithLabel2Cols, InputWithTitle2Cols } from "@/ui/local-ui";
-import { Button } from "@/ui/shadcn";
+import { Button, Switch } from "@/ui/shadcn";
 
 export function ManiEditorAllOptions({ fileUs }: { fileUs: FileUs; }) {
     const maniAtoms = useAtomValue(fileUs.maniAtomsAtom);
@@ -75,6 +75,7 @@ function Input_InTestMode({ fileUsCtx }: { fileUsCtx: FileUsCtx; }) {
     const [isInTestMode, setInTestMode] = useAtom(fileUsCtx.fileUs.maniInTestAtom);
 
     return (<>
+    <Switch className="mt-2" checked={isInTestMode} onCheckedChange={(checked) => setInTestMode(checked)}></Switch>
         <Button
             // checked={isInTestMode}
             // onClick={(checked) => setInTestMode(checked)}
@@ -88,6 +89,8 @@ function Input_InUseMode({ fileUsCtx }: { fileUsCtx: FileUsCtx; }) {
     const [isInUseMode, setInUseMode] = useAtom(fileUsCtx.fileUs.maniInUseAtom);
 
     return (<>
+        <Switch className="mt-2" checked={isInUseMode} onCheckedChange={(checked) => setInUseMode(checked)}></Switch>
+
         <Button
             // checked={isInUseMode}
             // onClick={(checked) => setInUseMode(checked)}
