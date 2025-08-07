@@ -31,11 +31,11 @@ function StateIcons({ fileUs }: { fileUs: FileUs; }) {
     const isTest = useAtomValue(fileUs.maniInTestAtom);
 
     return (<>
-        {isInUse && (
+        {isTest && (
             <IconMicroscope className="absolute size-3 right-5 text-muted-foreground" title="This file is in test mode" />
         )}
 
-        {isTest && (
+        {!isInUse && (
             <IconNotInUse className="absolute size-3 right-1 text-muted-foreground" title="This file is not in use for production" />
         )}
     </>);

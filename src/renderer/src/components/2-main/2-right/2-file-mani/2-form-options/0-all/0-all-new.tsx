@@ -66,8 +66,8 @@ function GroupFormLogin({ oFormProps }: { oFormProps: OFormProps; }) {
         {/* <BlockWrap_Detection_Button ctx={oFormProps} /> */}
         {/* <BlockWrap_IconPosition ctx={oFormProps} /> */}
 
-        <Input_InTestMode fileUsCtx={oFormProps.oAllAtoms.fileUsCtx} />
         <Input_InUseMode fileUsCtx={oFormProps.oAllAtoms.fileUsCtx} />
+        <Input_InTestMode fileUsCtx={oFormProps.oAllAtoms.fileUsCtx} />
     </>);
 }
 
@@ -75,8 +75,8 @@ function Input_InUseMode({ fileUsCtx }: { fileUsCtx: FileUsCtx; }) {
     const [isInUseMode, setInUseMode] = useAtom(fileUsCtx.fileUs.maniInUseAtom);
 
     return (<>
-    <ChildrenWithLabel2Cols label="In Use Mode">    
-        <Switch className="" checked={isInUseMode} onCheckedChange={(checked) => setInUseMode(checked)}></Switch>
+        <ChildrenWithLabel2Cols label="The manifest is in production">
+            <Switch className={toggleClasses} checked={isInUseMode} onCheckedChange={(checked) => setInUseMode(checked)}></Switch>
         </ChildrenWithLabel2Cols>
     </>);
 }
@@ -85,11 +85,13 @@ function Input_InTestMode({ fileUsCtx }: { fileUsCtx: FileUsCtx; }) {
     const [isInTestMode, setInTestMode] = useAtom(fileUsCtx.fileUs.maniInTestAtom);
 
     return (<>
-        <ChildrenWithLabel2Cols label="In Test Mode">
-            <Switch className="" checked={isInTestMode} onCheckedChange={(checked) => setInTestMode(checked)}></Switch>
+        <ChildrenWithLabel2Cols label="Test mode">
+            <Switch className={toggleClasses} checked={isInTestMode} onCheckedChange={(checked) => setInTestMode(checked)}></Switch>
         </ChildrenWithLabel2Cols>
     </>);
 }
+
+const toggleClasses = "data-[state=checked]:bg-primary/20 dark:data-[state=checked]:bg-primary/40";
 
 // function GroupFormCpass({ oFormProps }: { oFormProps: OFormProps; }) {
 //     return (<>
