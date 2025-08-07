@@ -2,7 +2,7 @@ import { atom, useAtom, useSetAtom } from "jotai";
 import { useSnapshot } from "valtio";
 import { appSettings } from "@/store";
 import { type OFormProps } from "@/store/1-atoms/2-file-mani-atoms";
-import { Block4_ScreenDetection } from "./2-4-screen-detection";
+import { Block4_ScreenDetection } from "./2-nun-4-screen-detection";
 import { OptionsSubSectionTitle, UiAccordion } from "../9-controls";
 import * as D from "@/ui/shadcn/dialog";
 import { Button, ScrollArea } from "@/ui";
