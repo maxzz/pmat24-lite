@@ -1,8 +1,7 @@
 import { FormIdx } from "@/store/manifest";
 import { type MFormCnt, type VerifyError } from "../../9-types";
 import { type ManualFieldState } from "../9-types";
-import { type RowInputState } from "@/ui/local-ui/1-input-validate";
-import { getDlyChunkValues, getKbdChunkValues, getPosChunkValues } from "./2-m-from-atoms";
+import { getChunkRawInputStatesForValidate, RowInputStateUuid } from "./2-m-from-atoms";
 
 export function getFormVerifyErrors(cnt: MFormCnt, formIdx: FormIdx, { get, set }: GetSet): VerifyError[] {
     const tab = formIdx === FormIdx.login ? 'login' : 'cpass';
@@ -42,39 +41,6 @@ export function getFormVerifyErrors(cnt: MFormCnt, formIdx: FormIdx, { get, set 
     );
 
     return rv;
-}
-
-type RowInputStateUuid =
-    & RowInputState
-    & {
-        uuid: number;
-        rowIdx: number; // to report validation error
-        chunk: ManualFieldState.Ctx;
-    };
-
-function getChunkRawInputStatesForValidate(chunk: ManualFieldState.Ctx, rowIdx: number, get: Getter): RowInputStateUuid[] {
-    const rv: RowInputState[] = [];
-    switch (chunk.type) {
-        case "kbd": {
-            const { char, repeat, shift, ctrl, alt } = getKbdChunkValues(chunk, get);
-            rv.push(char, repeat, shift, ctrl, alt);
-            break;
-        }
-        case "pos": {
-            const { x, y, units, res } = getPosChunkValues(chunk, get);
-            rv.push(x, y, units, res);
-            break;
-        }
-        case "dly": {
-            const { n } = getDlyChunkValues(chunk, get);
-            rv.push(n);
-            break;
-        }
-        case "fld": {
-            break;
-        }
-    }
-    return rv.map((item) => ({ ...item, uuid: chunk.uid5, rowIdx, chunk }));
 }
 
 function getAllAtomValuesForValidate(chunks: ManualFieldState.Ctx[], get: Getter): RowInputStateUuid[] {

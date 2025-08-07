@@ -1,7 +1,7 @@
 import { type EditorDataForDly, type EditorDataForFld, type EditorDataForKbd, type EditorDataForPos, type EditorDataForOne, type EditorField } from "@/store/manifest";
 import { type ManualFieldState } from "../9-types";
-import { NormalFieldConv } from "../../1-normal-fields";
 import { type RowInputState } from "@/ui/local-ui/1-input-validate";
+import { NormalFieldConv } from "../../1-normal-fields";
 
 export function fromAtoms(scriptItems: ManualFieldState.Ctx[], getset: GetSet): EditorDataForOne[] {
     const chunks = scriptItems.map((scriptItem) => fromAtom(scriptItem, getset));
@@ -54,13 +54,48 @@ export function fromAtom(scriptItemCtx: ManualFieldState.Ctx, getset: GetOnly): 
     }
 }
 
+// Get raw input states for validation
+
+export type RowInputStateUuid =
+    & RowInputState
+    & {
+        uuid: number;
+        rowIdx: number; // to report validation error
+        chunk: ManualFieldState.Ctx;
+    };
+
+export function getChunkRawInputStatesForValidate(chunk: ManualFieldState.Ctx, rowIdx: number, get: Getter): RowInputStateUuid[] {
+    const rv: RowInputState[] = [];
+    switch (chunk.type) {
+        case "kbd": {
+            const { char, repeat, shift, ctrl, alt } = getKbdChunkValues(chunk, get);
+            rv.push(char, repeat, shift, ctrl, alt);
+            break;
+        }
+        case "pos": {
+            const { x, y, units, res } = getPosChunkValues(chunk, get);
+            rv.push(x, y, units, res);
+            break;
+        }
+        case "dly": {
+            const { n } = getDlyChunkValues(chunk, get);
+            rv.push(n);
+            break;
+        }
+        case "fld": {
+            break;
+        }
+    }
+    return rv.map((item) => ({ ...item, uuid: chunk.uid5, rowIdx, chunk }));
+}
+
 // Per chunk access
 
 type EditorValues<T> = {
     [key in keyof T]: RowInputState;
 };
 
-export function getKbdChunkValues(atoms: ManualFieldState.CtxKbd, get: Getter): EditorValues<Omit<EditorDataForKbd, 'type'>> {
+function getKbdChunkValues(atoms: ManualFieldState.CtxKbd, get: Getter): EditorValues<Omit<EditorDataForKbd, 'type'>> {
     const rv = {
         char: get(atoms.charAtom),
         repeat: get(atoms.repeatAtom),
@@ -71,7 +106,7 @@ export function getKbdChunkValues(atoms: ManualFieldState.CtxKbd, get: Getter): 
     return rv;
 }
 
-export function getPosChunkValues(atoms: ManualFieldState.CtxPos, get: Getter): EditorValues<Omit<EditorDataForPos, 'type'>> {
+function getPosChunkValues(atoms: ManualFieldState.CtxPos, get: Getter): EditorValues<Omit<EditorDataForPos, 'type'>> {
     const rv = {
         x: get(atoms.xAtom),
         y: get(atoms.yAtom),
@@ -81,7 +116,7 @@ export function getPosChunkValues(atoms: ManualFieldState.CtxPos, get: Getter): 
     return rv;
 }
 
-export function getDlyChunkValues(atoms: ManualFieldState.CtxDly, get: Getter): EditorValues<Omit<EditorDataForDly, 'type'>> {
+function getDlyChunkValues(atoms: ManualFieldState.CtxDly, get: Getter): EditorValues<Omit<EditorDataForDly, 'type'>> {
     const rv = {
         n: get(atoms.nAtom),
     };
