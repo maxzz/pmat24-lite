@@ -7,7 +7,7 @@ export function MenuItem_DeleteCurrent() {
     const doDeleteFileUs = useSetAtom(doDeleteFileUsAtom);
     return (
         <DropdownMenuItem disabled={!currentAtom} onClick={() => currentAtom && doDeleteFileUs(currentAtom)}>
-            Delete...
+            Delete Manifest...
         </DropdownMenuItem>
     );
 }

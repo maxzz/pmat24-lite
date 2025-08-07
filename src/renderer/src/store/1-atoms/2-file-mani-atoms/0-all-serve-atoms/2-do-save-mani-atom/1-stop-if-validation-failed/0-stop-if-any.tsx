@@ -1,18 +1,19 @@
-import { appSettings } from "@/store/9-ui-state";
 import { toast } from "sonner";
+import { appSettings } from "@/store/9-ui-state";
 import { type ManiAtoms, type ManiTabValue, type VerifyError } from "../../../9-types";
 import { getErrorsFromOptions } from "./1-options-verify-errors";
 import { getErrorsFromCpass, getErrorsFromLogin } from "./2-form-verify-errors";
 
 export function stopIfInvalidAny(maniAtoms: ManiAtoms, getset: GetSet): boolean | undefined {
-    const order = new Map<ManiTabValue, ValidationFn>(defaultValidationOrder);
+    const checkOrder = new Map<ManiTabValue, ValidationFn>(defaultValidationOrder);
     const currentTab = appSettings.right.mani.activeTab;
 
-    let errors: VerifyError[] | undefined = order[currentTab]?.(maniAtoms, getset); // Start validation from the current tab and then the rest.
-    if (!errors?.length) {
-        order.delete(currentTab);
+    let errors: VerifyError[] | undefined = checkOrder[currentTab]?.(maniAtoms, getset); // Start validation from the current tab and then the rest.
 
-        for (const [tab, fn] of order) {
+    if (!errors?.length) {
+        checkOrder.delete(currentTab);
+
+        for (const [tab, fn] of checkOrder) {
             errors = fn(maniAtoms, getset);
             if (errors?.length) {
                 break;
@@ -21,7 +22,7 @@ export function stopIfInvalidAny(maniAtoms: ManiAtoms, getset: GetSet): boolean 
     }
 
     if (errors?.length) {
-        showValidationErrors({ fromTab: errors[0].tab, verifyErrors: errors });
+        showValidationErrors(errors);
         return true;
     }
 }
@@ -34,11 +35,21 @@ const defaultValidationOrder: Array<[ManiTabValue, ValidationFn]> = [
     ['options', getErrorsFromOptions],
 ];
 
-function showValidationErrors({ fromTab, verifyErrors }: { fromTab: ManiTabValue | undefined; verifyErrors: VerifyError[]; }): void {
-    if (fromTab) {
-        appSettings.right.mani.activeTab = fromTab;
+// Show validation errors
+
+function showValidationErrors(verifyErrors: VerifyError[]): void {
+
+    const firstError = verifyErrors[0];
+    const { tab, groupName, atomName, rowIdx, actionUuid } = firstError;
+
+    if (tab) {
+        appSettings.right.mani.activeTab = tab;
+        console.log('showValidationErrors: firstError', firstError);
+
         //TODO: navigate to field where error is: open options group or select manual mode row
     }
+
+    // 2. Prepare toastmessages
 
     const messages = verifyErrors.map(
         (err, idx) => {
