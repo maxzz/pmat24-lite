@@ -36,6 +36,7 @@ export function R_PanelMenuMani({ maniAtoms }: { maniAtoms: ManiAtoms; }) {
             <MenuItem_Cpass maniAtoms={maniAtoms} fileUsCtx={formCtx.fileUsCtx} />
             <DropdownMenuSeparator />
             <MenuItems_State fileUsCtx={formCtx.fileUsCtx} />
+            <DropdownMenuSeparator />
             <MenuItem_ShowXML />
         </>);
     }
@@ -47,6 +48,7 @@ export function R_PanelMenuMani({ maniAtoms }: { maniAtoms: ManiAtoms; }) {
             <MenuItem_Cpass maniAtoms={maniAtoms} fileUsCtx={formCtx.fileUsCtx} />
             <DropdownMenuSeparator />
             <MenuItems_State fileUsCtx={formCtx.fileUsCtx} />
+            <DropdownMenuSeparator />
             <MenuItem_ShowXML />
         </>);
     }
@@ -59,6 +61,7 @@ export function R_PanelMenuMani({ maniAtoms }: { maniAtoms: ManiAtoms; }) {
             <MenuItem_Cpass maniAtoms={maniAtoms} fileUsCtx={formCtx.fileUsCtx} />
             <DropdownMenuSeparator />
             <MenuItems_State fileUsCtx={formCtx.fileUsCtx} />
+            <DropdownMenuSeparator />
             <MenuItem_ShowXML />
         </>);
     }
