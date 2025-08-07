@@ -15,15 +15,15 @@ export function getFormVerifyErrors(cnt: MFormCnt, formIdx: FormIdx, { get, set 
 
     const toValidate: RowInputStateUuid[] = chunks.map((chunk, idx) => getChunkRawInputStatesForValidate(chunk, idx, get)).flat();
 
-    const chunksToSetError = new Map<PA<boolean>, number>();
+    const chunksToSetErrorMap = new Map<PA<boolean>, number>();
 
     const rv: VerifyError[] = toValidate
         .map(
             (chunkRow: RowInputStateUuid) => {
                 const error = chunkRow.validate?.(chunkRow.data);
                 if (error) {
-                    const chunkNum = chunksToSetError.get(chunkRow.chunk.hasErrorAtom);
-                    chunksToSetError.set(chunkRow.chunk.hasErrorAtom, chunkNum === undefined ? 1 : chunkNum + 1);
+                    const chunkNum = chunksToSetErrorMap.get(chunkRow.chunk.hasErrorAtom);
+                    chunksToSetErrorMap.set(chunkRow.chunk.hasErrorAtom, chunkNum === undefined ? 1 : chunkNum + 1);
                 }
 
                 const rv: VerifyError | undefined = !error ? undefined : { error, tab, actionUuid: chunkRow.uuid, rowIdx: chunkRow.rowIdx, };
@@ -31,11 +31,7 @@ export function getFormVerifyErrors(cnt: MFormCnt, formIdx: FormIdx, { get, set 
             }
         ).filter(Boolean);
 
-    chunksToSetError.forEach(
-        (num, errorAtom) => {
-            set(errorAtom, true);
-        }
-    );
+    chunksToSetErrorMap.forEach((num: number, errorAtom: PA<boolean>) => set(errorAtom, true));
 
     return rv;
 }
