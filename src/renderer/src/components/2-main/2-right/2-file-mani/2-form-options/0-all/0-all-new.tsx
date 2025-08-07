@@ -2,7 +2,7 @@ import { useAtom, useAtomValue } from "jotai";
 import { type FileUs } from "@/store/store-types";
 import { type FileUsCtx, type OFormProps } from "@/store/1-atoms/2-file-mani-atoms";
 import { ExtPolicySelect } from "../9-controls";
-import { ChildrenWithLabel2Cols, InputWithTitle2Cols } from "@/ui/local-ui";
+import { ChildrenWithLabel2Cols, FormRowChildren, InputWithTitle2Cols } from "@/ui/local-ui";
 import { Button, Switch } from "@/ui/shadcn";
 
 export function ManiEditorAllOptions({ fileUs }: { fileUs: FileUs; }) {
@@ -71,21 +71,23 @@ function GroupFormLogin({ oFormProps }: { oFormProps: OFormProps; }) {
     </>);
 }
 
-function Input_InTestMode({ fileUsCtx }: { fileUsCtx: FileUsCtx; }) {
-    const [isInTestMode, setInTestMode] = useAtom(fileUsCtx.fileUs.maniInTestAtom);
-
-    return (<>
-        <div className="">In Test Mode</div>
-        <Switch className="mt-2" checked={isInTestMode} onCheckedChange={(checked) => setInTestMode(checked)}></Switch>
-    </>);
-}
-
 function Input_InUseMode({ fileUsCtx }: { fileUsCtx: FileUsCtx; }) {
     const [isInUseMode, setInUseMode] = useAtom(fileUsCtx.fileUs.maniInUseAtom);
 
     return (<>
-        <div className="">In Use Mode</div>
-        <Switch className="mt-2" checked={isInUseMode} onCheckedChange={(checked) => setInUseMode(checked)}></Switch>
+    <ChildrenWithLabel2Cols label="In Use Mode">    
+        <Switch className="" checked={isInUseMode} onCheckedChange={(checked) => setInUseMode(checked)}></Switch>
+        </ChildrenWithLabel2Cols>
+    </>);
+}
+
+function Input_InTestMode({ fileUsCtx }: { fileUsCtx: FileUsCtx; }) {
+    const [isInTestMode, setInTestMode] = useAtom(fileUsCtx.fileUs.maniInTestAtom);
+
+    return (<>
+        <ChildrenWithLabel2Cols label="In Test Mode">
+            <Switch className="" checked={isInTestMode} onCheckedChange={(checked) => setInTestMode(checked)}></Switch>
+        </ChildrenWithLabel2Cols>
     </>);
 }
 
