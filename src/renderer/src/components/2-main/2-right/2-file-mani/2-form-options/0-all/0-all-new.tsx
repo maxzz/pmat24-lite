@@ -1,8 +1,9 @@
-import { useAtomValue } from "jotai";
+import { useAtom, useAtomValue } from "jotai";
 import { type FileUs } from "@/store/store-types";
-import { type OFormProps } from "@/store/1-atoms/2-file-mani-atoms";
+import { type FileUsCtx, type OFormProps } from "@/store/1-atoms/2-file-mani-atoms";
 import { ExtPolicySelect } from "../9-controls";
 import { ChildrenWithLabel2Cols, InputWithTitle2Cols } from "@/ui/local-ui";
+import { Button } from "@/ui/shadcn";
 
 export function ManiEditorAllOptions({ fileUs }: { fileUs: FileUs; }) {
     const maniAtoms = useAtomValue(fileUs.maniAtomsAtom);
@@ -64,6 +65,35 @@ function GroupFormLogin({ oFormProps }: { oFormProps: OFormProps; }) {
         {/* <BlockWrap_Detection ctx={oFormProps} /> */}
         {/* <BlockWrap_Detection_Button ctx={oFormProps} /> */}
         {/* <BlockWrap_IconPosition ctx={oFormProps} /> */}
+
+        <Input_InTestMode fileUsCtx={oFormProps.oAllAtoms.fileUsCtx} />
+        <Input_InUseMode fileUsCtx={oFormProps.oAllAtoms.fileUsCtx} />
+    </>);
+}
+
+function Input_InTestMode({ fileUsCtx }: { fileUsCtx: FileUsCtx; }) {
+    const [isInTestMode, setInTestMode] = useAtom(fileUsCtx.fileUs.maniInTestAtom);
+
+    return (<>
+        <Button
+            // checked={isInTestMode}
+            // onClick={(checked) => setInTestMode(checked)}
+        >
+            In Test Mode
+        </Button>
+    </>);
+}
+
+function Input_InUseMode({ fileUsCtx }: { fileUsCtx: FileUsCtx; }) {
+    const [isInUseMode, setInUseMode] = useAtom(fileUsCtx.fileUs.maniInUseAtom);
+
+    return (<>
+        <Button
+            // checked={isInUseMode}
+            // onClick={(checked) => setInUseMode(checked)}
+        >
+            In Use Mode
+        </Button>
     </>);
 }
 
@@ -79,45 +109,3 @@ function GroupFormLogin({ oFormProps }: { oFormProps: OFormProps; }) {
 // }
 
 //TODO: Do we need to show fields: window caption and classname if they don't have sense for web, but created w/ IE?
-
-
-
-
-
-
-
-
-/*
-export function MenuItems_State({ fileUsCtx }: { fileUsCtx: FileUsCtx; }) {
-    return (<>
-        <MenuItem_InTestMode fileUsCtx={fileUsCtx} />
-        <MenuItem_InUseMode fileUsCtx={fileUsCtx} />
-    </>);
-}
-
-function MenuItem_InTestMode({ fileUsCtx }: { fileUsCtx: FileUsCtx; }) {
-    const [isInTestMode, setInTestMode] = useAtom(fileUsCtx.fileUs.maniInTestAtom);
-
-    return (<>
-        <DropdownMenuCheckboxItem
-            checked={isInTestMode}
-            onCheckedChange={(checked) => setInTestMode(checked)}
-        >
-            In Test Mode
-        </DropdownMenuCheckboxItem>
-    </>);
-}
-
-function MenuItem_InUseMode({ fileUsCtx }: { fileUsCtx: FileUsCtx; }) {
-    const [isInUseMode, setInUseMode] = useAtom(fileUsCtx.fileUs.maniInUseAtom);
-
-    return (<>
-        <DropdownMenuCheckboxItem
-            checked={isInUseMode}
-            onCheckedChange={(checked) => setInUseMode(checked)}
-        >
-            In Use Mode
-        </DropdownMenuCheckboxItem>
-    </>);
-}
-*/
