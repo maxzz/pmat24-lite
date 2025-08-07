@@ -9,7 +9,8 @@ export function getFormVerifyErrors(cnt: MFormCnt, formIdx: FormIdx, { get, set 
 
     const chunks = get(cnt.chunksAtom);
 
-    if (!hasFieldChunk(chunks)) {
+    const hasAtLeastOneFieldChunk = chunks.some((chunk) => chunk.type === 'fld');
+    if (!hasAtLeastOneFieldChunk) {
         return [{ error: 'The action list must contain at least one "Field" action.', tab }]; //TODO: it's better to dissmis this error when the user adds a field
     }
 
@@ -43,29 +44,6 @@ export function getFormVerifyErrors(cnt: MFormCnt, formIdx: FormIdx, { get, set 
     return rv;
 }
 
-function hasFieldChunk(chunks: ManualFieldState.Ctx[]): boolean {
-    const rv = chunks.some(
-        (chunk) => {
-            return chunk.type === 'fld';
-        }
-    );
-    return rv;
-}
-
-//TODO: this was for initial validation, but not need anymore
-export function isChunkInvalid(chunk: ManualFieldState.Ctx, { get }: GetOnly): boolean {
-    const toValidate: RowInputStateUuid[] = getChunkValuesForValidate(chunk, get);
-
-    const err = toValidate.some(
-        (item) => {
-            const error = item.validate?.(item.data);
-            return error;
-        }
-    );
-
-    return err;
-}
-
 type RowInputStateUuid = RowInputState & { uuid: number; chunk: ManualFieldState.Ctx; };
 
 function getChunkValuesForValidate(chunk: ManualFieldState.Ctx, get: Getter): RowInputStateUuid[] {
@@ -94,6 +72,20 @@ function getChunkValuesForValidate(chunk: ManualFieldState.Ctx, get: Getter): Ro
 }
 
 function getAllAtomValuesForValidate(chunks: ManualFieldState.Ctx[], get: Getter): RowInputStateUuid[] {
-    const rv = chunks.map((chunk) => getChunkValuesForValidate(chunk, get));
-    return rv.flat();
+    const rv = chunks.map((chunk) => getChunkValuesForValidate(chunk, get)).flat();
+    return rv;
+}
+
+//TODO: this was for initial validation, but not need anymore
+export function isChunkInvalid(chunk: ManualFieldState.Ctx, { get }: GetOnly): boolean {
+    const toValidate: RowInputStateUuid[] = getChunkValuesForValidate(chunk, get);
+
+    const err = toValidate.some(
+        (item) => {
+            const error = item.validate?.(item.data);
+            return error;
+        }
+    );
+
+    return err;
 }
