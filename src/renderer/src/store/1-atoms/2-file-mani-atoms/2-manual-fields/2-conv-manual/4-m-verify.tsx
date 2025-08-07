@@ -1,7 +1,7 @@
 import { FormIdx } from "@/store/manifest";
 import { type MFormCnt, type VerifyError } from "../../9-types";
 import { type ManualFieldState } from "../9-types";
-import { type RowInputStateUuid, getChunkRawInputStatesForValidate  } from "./2-m-from-atoms";
+import { type RowInputStateUuid, getChunkRawInputStatesForValidate } from "./2-m-from-atoms";
 
 export function getFormVerifyErrors(cnt: MFormCnt, formIdx: FormIdx, { get, set }: GetSet): VerifyError[] {
     const tab = formIdx === FormIdx.login ? 'login' : 'cpass';
@@ -19,17 +19,14 @@ export function getFormVerifyErrors(cnt: MFormCnt, formIdx: FormIdx, { get, set 
 
     const rv: VerifyError[] = toValidate
         .map(
-            (item) => {
-                const atomValue: RowInputStateUuid = item;
-                const actionUuid = atomValue.uuid;
-                const error = atomValue.validate?.(atomValue.data);
-
+            (chunkRow: RowInputStateUuid) => {
+                const error = chunkRow.validate?.(chunkRow.data);
                 if (error) {
-                    const chunkNum = involvedChunkNumbers.get(atomValue.chunk.hasErrorAtom);
-                    involvedChunkNumbers.set(atomValue.chunk.hasErrorAtom, chunkNum === undefined ? 1 : chunkNum + 1);
+                    const chunkNum = involvedChunkNumbers.get(chunkRow.chunk.hasErrorAtom);
+                    involvedChunkNumbers.set(chunkRow.chunk.hasErrorAtom, chunkNum === undefined ? 1 : chunkNum + 1);
                 }
 
-                const rv: VerifyError | undefined = error ? { error, tab, actionUuid } : undefined;
+                const rv: VerifyError | undefined = !error ? undefined : { error, tab, actionUuid: chunkRow.uuid, rowIdx: chunkRow.rowIdx, };
                 return rv;
             }
         ).filter(Boolean);
