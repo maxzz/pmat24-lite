@@ -1,7 +1,7 @@
 import { FormIdx } from "@/store/manifest";
 import { type MFormCnt, type VerifyError } from "../../9-types";
 import { type ManualFieldState } from "../9-types";
-import { getChunkRawInputStatesForValidate, RowInputStateUuid } from "./2-m-from-atoms";
+import { type RowInputStateUuid, getChunkRawInputStatesForValidate  } from "./2-m-from-atoms";
 
 export function getFormVerifyErrors(cnt: MFormCnt, formIdx: FormIdx, { get, set }: GetSet): VerifyError[] {
     const tab = formIdx === FormIdx.login ? 'login' : 'cpass';
@@ -13,7 +13,7 @@ export function getFormVerifyErrors(cnt: MFormCnt, formIdx: FormIdx, { get, set 
         return [{ error: 'The action list must contain at least one "Field" action.', tab }]; //TODO: it's better to dissmis this error when the user adds a field
     }
 
-    const toValidate: RowInputStateUuid[] = getAllAtomValuesForValidate(chunks, get);
+    const toValidate: RowInputStateUuid[] = chunks.map((chunk, idx) => getChunkRawInputStatesForValidate(chunk, idx, get)).flat();
 
     const involvedChunkNumbers = new Map<PA<boolean>, number>();
 
@@ -40,11 +40,6 @@ export function getFormVerifyErrors(cnt: MFormCnt, formIdx: FormIdx, { get, set 
         }
     );
 
-    return rv;
-}
-
-function getAllAtomValuesForValidate(chunks: ManualFieldState.Ctx[], get: Getter): RowInputStateUuid[] {
-    const rv = chunks.map((chunk, idx) => getChunkRawInputStatesForValidate(chunk, idx, get)).flat();
     return rv;
 }
 
