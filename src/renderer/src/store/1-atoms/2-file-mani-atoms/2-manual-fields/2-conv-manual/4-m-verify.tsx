@@ -44,9 +44,15 @@ export function getFormVerifyErrors(cnt: MFormCnt, formIdx: FormIdx, { get, set 
     return rv;
 }
 
-type RowInputStateUuid = RowInputState & { uuid: number; chunk: ManualFieldState.Ctx; };
+type RowInputStateUuid =
+    & RowInputState
+    & {
+        uuid: number;
+        rowIdx: number; // to report validation error
+        chunk: ManualFieldState.Ctx;
+    };
 
-function getChunkRawInputStatesForValidate(chunk: ManualFieldState.Ctx, get: Getter): RowInputStateUuid[] {
+function getChunkRawInputStatesForValidate(chunk: ManualFieldState.Ctx, rowIdx: number, get: Getter): RowInputStateUuid[] {
     const rv: RowInputState[] = [];
     switch (chunk.type) {
         case "kbd": {
@@ -68,17 +74,17 @@ function getChunkRawInputStatesForValidate(chunk: ManualFieldState.Ctx, get: Get
             break;
         }
     }
-    return rv.map((item) => ({ ...item, uuid: chunk.uid5, chunk }));
+    return rv.map((item) => ({ ...item, uuid: chunk.uid5, rowIdx, chunk }));
 }
 
 function getAllAtomValuesForValidate(chunks: ManualFieldState.Ctx[], get: Getter): RowInputStateUuid[] {
-    const rv = chunks.map((chunk) => getChunkRawInputStatesForValidate(chunk, get)).flat();
+    const rv = chunks.map((chunk, idx) => getChunkRawInputStatesForValidate(chunk, idx, get)).flat();
     return rv;
 }
 
 //TODO: this was for initial validation, but not need anymore
 export function isChunkInvalid(chunk: ManualFieldState.Ctx, { get }: GetOnly): boolean {
-    const toValidate: RowInputStateUuid[] = getChunkRawInputStatesForValidate(chunk, get);
+    const toValidate: RowInputStateUuid[] = getChunkRawInputStatesForValidate(chunk, 0, get); // rowIdx is not important here
 
     const error = toValidate.some((item) => item.validate?.(item.data));
     return error;
