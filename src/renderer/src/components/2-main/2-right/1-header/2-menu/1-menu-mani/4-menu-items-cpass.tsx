@@ -1,0 +1,41 @@
+import { useSetAtom } from "jotai";
+import { DropdownMenuItem } from "@/ui/shadcn";
+import { FormIdx } from "@/store/manifest";
+import { type ManiAtoms, type FileUsCtx, doDeleteCpassFromFileUsAtom, open_SawMonitorForCpassAtom } from "@/store";
+
+export function MenuItem_Cpass({ maniAtoms, fileUsCtx }: { maniAtoms: ManiAtoms; fileUsCtx: FileUsCtx; }) {
+    const formCtx = maniAtoms[FormIdx.cpass];
+
+    return (<>
+        {formCtx
+            ? <MenuItem_DeleteCpass maniAtoms={maniAtoms} fileUsCtx={fileUsCtx} />
+            : <MenuItem_CreateCpass maniAtoms={maniAtoms} fileUsCtx={fileUsCtx} />
+        }
+    </>);
+}
+
+function MenuItem_CreateCpass({ maniAtoms, fileUsCtx }: { maniAtoms: ManiAtoms; fileUsCtx: FileUsCtx; }) {
+    const openDlg = useSetAtom(open_SawMonitorForCpassAtom);
+
+    return (<>
+        <DropdownMenuItem
+            className="ml-6"
+            onClick={openDlg}
+        >
+            Create Password Change...
+        </DropdownMenuItem>
+    </>);
+}
+
+function MenuItem_DeleteCpass({ maniAtoms, fileUsCtx }: { maniAtoms: ManiAtoms; fileUsCtx: FileUsCtx; }) {
+    const doDeleteCpassFromFileUs = useSetAtom(doDeleteCpassFromFileUsAtom);
+
+    return (<>
+        <DropdownMenuItem
+            className="ml-6"
+            onClick={() => doDeleteCpassFromFileUs(fileUsCtx.fileUsAtom)}
+        >
+            Delete Password Change...
+        </DropdownMenuItem>
+    </>);
+}
