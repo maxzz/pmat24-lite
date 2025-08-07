@@ -3,11 +3,6 @@ import { type ManualFieldState } from "../9-types";
 import { type RowInputState } from "@/ui/local-ui/1-input-validate";
 import { NormalFieldConv } from "../../1-normal-fields";
 
-export function fromAtoms(scriptItems: ManualFieldState.Ctx[], getset: GetSet): EditorDataForOne[] {
-    const chunks = scriptItems.map((scriptItem) => fromAtom(scriptItem, getset));
-    return chunks;
-}
-
 export function fromAtom(scriptItemCtx: ManualFieldState.Ctx, getset: GetOnly): EditorDataForOne {
     const { get } = getset;
     switch (scriptItemCtx.type) {

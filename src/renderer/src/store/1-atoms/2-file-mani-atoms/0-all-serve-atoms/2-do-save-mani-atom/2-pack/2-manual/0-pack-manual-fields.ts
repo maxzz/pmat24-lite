@@ -7,7 +7,7 @@ export function packManualFields(mFormCnt: MFormCnt, formIdx: FormIdx, packParam
     const { getset } = packParams;
 
     const chunks = getset.get(mFormCnt.chunksAtom);
-    const scriptItems = ManualFieldConv.fromAtoms(chunks, getset);
+    const scriptItems = chunks.map((scriptItem) => ManualFieldConv.fromAtom(scriptItem, getset));
 
     const chunkAndSns: EditorDataForOneAndSn[] = stringifyFromEditor(scriptItems);
 
