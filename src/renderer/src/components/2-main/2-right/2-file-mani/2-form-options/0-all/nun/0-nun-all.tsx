@@ -1,7 +1,7 @@
 import { useAtomValue } from "jotai";
 import { type FileUs } from "@/store/store-types";
 import { type OFormProps } from "@/store/1-atoms/2-file-mani-atoms";
-import { SectionTitle } from "../9-controls";
+import { SectionTitle } from "../../9-controls";
 import { BlockWrap_Detection, BlockWrap_IconPosition, BlockWrap_Auth, BlockWrap_Quicklink, GroupManiGeneral } from "./1-nun-all-block-wraps";
 import { BlockWrap_Detection_Button } from "./2-nun-4-screen-detection-btn";
 
