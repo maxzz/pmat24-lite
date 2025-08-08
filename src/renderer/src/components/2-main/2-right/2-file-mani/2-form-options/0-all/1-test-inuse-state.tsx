@@ -18,7 +18,7 @@ function Input_InUseMode({ fileUsCtx }: { fileUsCtx: FileUsCtx; }) {
 
     return (<>
         <ChildrenWithLabel2Cols label={modeTextInUse}>
-            <Switch className={toggleClasses} checked={!notInUse} onCheckedChange={(checked) => doSetInUse(fileUsCtx, !checked)}></Switch>
+            <Switch className={toggleClasses} checked={!notInUse} onCheckedChange={(checked) => doSetInUse({ fileUsCtx, isOn: !checked })}></Switch>
         </ChildrenWithLabel2Cols>
     </>);
 }
@@ -29,7 +29,7 @@ function Input_InTestMode({ fileUsCtx }: { fileUsCtx: FileUsCtx; }) {
 
     return (<>
         <ChildrenWithLabel2Cols label={modeTextInTest}>
-            <Switch className={toggleClasses} checked={isInTestMode} onCheckedChange={(checked) => doSetInTest(fileUsCtx, checked)}></Switch>
+            <Switch className={toggleClasses} checked={isInTestMode} onCheckedChange={(checked) => doSetInTest({ fileUsCtx, isOn: checked })}></Switch>
         </ChildrenWithLabel2Cols>
     </>);
 }

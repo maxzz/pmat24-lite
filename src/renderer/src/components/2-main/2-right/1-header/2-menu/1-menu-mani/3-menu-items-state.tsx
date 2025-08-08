@@ -18,7 +18,7 @@ function MenuItem_InUseMode({ fileUsCtx }: { fileUsCtx: FileUsCtx; }) {
     return (
         <DropdownMenuCheckboxItem
             checked={!notInUse}
-            onCheckedChange={(checked) => doSetInUse(fileUsCtx, !checked)}
+            onCheckedChange={(checked) => doSetInUse({ fileUsCtx, isOn: !checked })}
         >
             {modeTextInUse}
         </DropdownMenuCheckboxItem>
@@ -32,7 +32,7 @@ function MenuItem_InTestMode({ fileUsCtx }: { fileUsCtx: FileUsCtx; }) {
     return (
         <DropdownMenuCheckboxItem
             checked={isInTestMode}
-            onCheckedChange={(checked) => doSetInTest(fileUsCtx, checked)}
+            onCheckedChange={(checked) => doSetInTest({ fileUsCtx, isOn: checked })}
         >
             {modeTextInTest}
         </DropdownMenuCheckboxItem>
