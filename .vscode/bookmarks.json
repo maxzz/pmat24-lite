@@ -51,36 +51,6 @@
 			]
 		},
 		{
-			"path": "src/renderer/src/store/1-atoms/2-file-mani-atoms/0-all/1-create-new-mani-ctx/1-ctx-create-fileus-from-xml.tsx",
-			"bookmarks": [
-				{
-					"line": 20,
-					"column": 31,
-					"label": "createFileUsFromNewXml()"
-				}
-			]
-		},
-		{
-			"path": "src/renderer/src/store/1-atoms/2-file-mani-atoms/0-all/2-do-save-mani-atom/0-save-atom/1-do-save-one.tsx",
-			"bookmarks": [
-				{
-					"line": 56,
-					"column": 12,
-					"label": "updateManiAtomsAfterSaveOrResetAtom"
-				}
-			]
-		},
-		{
-			"path": "src/renderer/src/store/1-atoms/2-file-mani-atoms/0-all/0-create-mani-ctx-atoms/0-create-mani-atoms.ts",
-			"bookmarks": [
-				{
-					"line": 18,
-					"column": 31,
-					"label": "createManiAtoms()"
-				}
-			]
-		},
-		{
 			"path": "src/renderer/src/store/1-atoms/2-file-mani-atoms/2-manual-fields/2-conv-manual/1-m-create-atoms.tsx",
 			"bookmarks": [
 				{

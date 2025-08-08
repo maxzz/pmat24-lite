@@ -5,11 +5,11 @@ const reSplit = /(?:\\|\/)/; // '/'
 /**
  * Given an array of strings, return an array of arrays, containing the
  * strings split at the given separator
- * @param {!Array<!string>} a
+ * @param {!Array<!string>} arr
  * @param {string} sep
  * @returns {!Array<!Array<string>>}
  */
-const splitStrings = (a, sep = reSplit) => a.map(i => i.split(sep));
+const splitStrings = (arr: string[], sep: string | RegExp = reSplit): string[][] => arr.map(i => i.split(sep));
 
 /**
  * Given an index number, return a function that takes an array and returns the
@@ -24,10 +24,10 @@ const elAt = (idx) => a => a[idx];
  * Example:
  * [['a', 'b', 'c'], ['A', 'B', 'C'], [1, 2, 3]] ->
  * [['a', 'A', 1], ['b', 'B', 2], ['c', 'C', 3]]
- * @param {!Array<!Array<*>>} a
+ * @param {!Array<!Array<*>>} arr
  * @return {!Array<!Array<*>>}
  */
-const rotate = (a) => a[0].map((e, idx) => a.map(elAt(idx)));
+const rotate = (arr: any[][]): any[][] => arr[0].map((e, idx) => arr.map(elAt(idx)));
 
 /**
  * Checks of all the elements in the array are the same.
@@ -36,7 +36,7 @@ const rotate = (a) => a[0].map((e, idx) => a.map(elAt(idx)));
  */
 const allElementsEqual = (arr) => arr.every(e => e === arr[0]);
 
-export function commonPath(input, sep = reSplit) {
+export function commonPath(input: string[], sep: string | RegExp = reSplit): string {
     return rotate(splitStrings(input, sep))
         .filter(allElementsEqual)
         .map(elAt(0))
@@ -71,7 +71,7 @@ const cdpInput4 = [
     'C:/C:home/user1\\tmp\\coven/members',
 ];
 
-export function test() {
+export function testCommonPath() {
     console.log(`Common path 1 is: ${commonPath(cdpInput1)}`); // Common path 1 is: /home/user1/tmp
     console.log(`Common path 2 is: ${commonPath(cdpInput2)}`); // Common path 2 is: 
     console.log(`Common path 3 is: ${commonPath(cdpInput3)}`); // Common path 3 is: home/user1/tmp

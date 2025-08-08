@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from "react"; // GAI: react global double shortcut key component
+import React, { useState, useEffect, useCallback } from "react"; // GAI: react global double shortcut keyboard keys component
 
 export const DoubleKeyShortcut = ({ keys, onMatch, timeout = 1000 }: { keys: string[]; onMatch: () => void; timeout?: number; }) => {
     const [pressedKeys, setPressedKeys] = useState<string[]>([]);
