@@ -4,7 +4,7 @@ import { type FileUs, type ManiAtomsAtom, type HighlightHwnd } from "@/store/sto
 import { type ManiAtoms } from "../../2-file-mani-atoms";
 import { finalizeFileContent } from "@/store/store-utils";
 import { createParsedSrc } from "./4-create-parsed-src";
-import { createInUseTestAtoms } from "./7-create-inuse-test";
+import { createTestInUseAtoms } from "./7-create-inuse-test";
 
 /**
  * @param maniForCpass - fileUs for create password change; used for parse xml and create new fileUs
@@ -31,7 +31,7 @@ export function createFileUsFromFileContent(fileContent: FileContent, maniForCpa
         hwndLoginAtom: maniForCpass?.hwndLoginAtom || atom<HighlightHwnd>(undefined),
         hwndCpassAtom: maniForCpass?.hwndCpassAtom || atom<HighlightHwnd>(undefined),
 
-        ...createInUseTestAtoms(fileCnt),
+        ...createTestInUseAtoms(fileCnt),
     };
 
     return rv;

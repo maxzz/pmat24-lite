@@ -6,7 +6,7 @@ import { NoMenu } from "../0-all/1-no-menu";
 import { MenuItem_ShowXML } from "../7-show-xml";
 import { MenuItem_Manual_ClearScriptActions, MenuItem_Manual_CreateDefaultScriptActions } from "./2-manual-actions-list";
 import { MenuItem_Normal_ShowTextFields } from "./1-normal-w32-show-text-fields";
-import { MenuItems_State } from "./3-menu-items-state";
+import { MenuItems_State } from "./3-menu-items-test-inuse";
 import { MenuItem_Cpass } from "./4-menu-items-cpass";
 //import { MenuItem_More } from "../8-more";
 

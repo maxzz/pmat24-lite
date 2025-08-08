@@ -109,6 +109,56 @@
 					"label": "doDisposeFileUsAtomAtom"
 				}
 			]
+		},
+		{
+			"path": "src/renderer/src/components/2-main/2-right/1-header/2-menu/1-menu-mani/3-menu-items-test-inuse.tsx",
+			"bookmarks": [
+				{
+					"line": 6,
+					"column": 24,
+					"label": "test-inuse menu"
+				}
+			]
+		},
+		{
+			"path": "src/renderer/src/components/2-main/2-right/2-file-mani/2-form-options/0-all/1-panel-test-inuse-state.tsx",
+			"bookmarks": [
+				{
+					"line": 7,
+					"column": 18,
+					"label": "test-inuse panel"
+				}
+			]
+		},
+		{
+			"path": "src/renderer/src/components/2-main/1-left/2-files-list/2-tree-item/5-tree-item-name.tsx",
+			"bookmarks": [
+				{
+					"line": 29,
+					"column": 10,
+					"label": "test-inuse tree icons"
+				}
+			]
+		},
+		{
+			"path": "src/renderer/src/components/2-main/2-right/2-file-mani/2-form-options/5-do-inuse-test/0-all.ts",
+			"bookmarks": [
+				{
+					"line": 3,
+					"column": 22,
+					"label": "test-inuse atoms"
+				}
+			]
+		},
+		{
+			"path": "src/renderer/src/store/1-atoms/1-files/1-do-set-files/7-create-inuse-test.tsx",
+			"bookmarks": [
+				{
+					"line": 4,
+					"column": 31,
+					"label": "test-inuse create atoms"
+				}
+			]
 		}
 	]
 }

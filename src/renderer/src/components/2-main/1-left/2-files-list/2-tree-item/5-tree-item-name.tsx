@@ -23,11 +23,11 @@ export function TreeItemName({ fileUs, item }: { fileUs: FileUs; item: TreeFileI
             {displayText}
         </div>
 
-        <StateIcons fileUs={fileUs} />
+        <TestInUseIcons fileUs={fileUs} />
     </>);
 }
 
-function StateIcons({ fileUs }: { fileUs: FileUs; }) {
+function TestInUseIcons({ fileUs }: { fileUs: FileUs; }) {
     const isInUse = useAtomValue(fileUs.maniInUseAtom);
     const isTest = useAtomValue(fileUs.maniInTestAtom);
 

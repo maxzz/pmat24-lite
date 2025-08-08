@@ -7,7 +7,7 @@ import { type FceItem, type FceAtoms, type FceItemEditor, defaultFcName, type Fc
 import { type CatalogFile, createFceItemMeta } from "@/store/manifest";
 import { type ManiAtoms, catalogItemInFileToFceItemValue } from "../../../2-file-mani-atoms";
 import { createManiAtomsWithPrintAtom, createParsedSrcForEmptyFce } from "@/store/1-atoms/1-files";
-import { createInUseTestAtoms } from "@/store/1-atoms/1-files/1-do-set-files/7-create-inuse-test";
+import { createTestInUseAtoms } from "@/store/1-atoms/1-files/1-do-set-files/7-create-inuse-test";
 import { finalizeFileContent } from "@/store/store-utils";
 import { createFceCtx } from "./3-create-fce-ctx";
 
@@ -34,7 +34,7 @@ export function createFileUsForNewFc(): FileUs {
         hwndLoginAtom: atom<HighlightHwnd>(undefined),
         hwndCpassAtom: atom<HighlightHwnd>(undefined),
 
-        ...createInUseTestAtoms(fileCnt),
+        ...createTestInUseAtoms(fileCnt),
     };
 
     rv.fceAtomsForFcFile = createFceAtoms({ fileUs: rv, desc: undefined, items: undefined });

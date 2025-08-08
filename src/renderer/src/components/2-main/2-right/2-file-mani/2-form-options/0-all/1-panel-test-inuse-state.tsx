@@ -5,7 +5,7 @@ import { modeTextInTest, modeTextInUse } from "./8-test-in-use-names";
 import { type OFormProps, type FileUsCtx } from "@/store/1-atoms/2-file-mani-atoms";
 import { doSetInTestAtom, doSetInUseAtom } from "../5-do-inuse-test";
 
-export function TestInUseState({ oFormProps }: { oFormProps: OFormProps; }) {
+export function PanelTestInUse({ oFormProps }: { oFormProps: OFormProps; }) {
     return (<>
         <Input_InUseMode fileUsCtx={oFormProps.oAllAtoms.fileUsCtx} />
         <Input_InTestMode fileUsCtx={oFormProps.oAllAtoms.fileUsCtx} />
