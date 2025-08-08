@@ -3,7 +3,7 @@ import { ChildrenWithLabel2Cols, InputWithTitle2Cols } from "@/ui/local-ui";
 import { type FileUs } from "@/store/store-types";
 import { type OFormProps } from "@/store/1-atoms/2-file-mani-atoms";
 import { ExtPolicySelect } from "../9-controls";
-import { TestInUseState } from "./1-test-inuse-state";
+import { TestInUseState } from "./1-panel-test-inuse-state";
 
 export function ManiEditorAllOptions({ fileUs }: { fileUs: FileUs; }) {
     const maniAtoms = useAtomValue(fileUs.maniAtomsAtom);

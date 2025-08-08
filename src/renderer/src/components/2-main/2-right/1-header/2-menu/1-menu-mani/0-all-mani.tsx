@@ -22,6 +22,10 @@ export function R_PanelMenuMani({ maniAtoms }: { maniAtoms: ManiAtoms; }) {
         if (loginFormCtx) {
             return (<>
                 <MenuItem_Cpass maniAtoms={maniAtoms} fileUsCtx={loginFormCtx.fileUsCtx} />
+                <DropdownMenuSeparator />
+                <MenuItems_State fileUsCtx={loginFormCtx.fileUsCtx} />
+                <DropdownMenuSeparator />
+                <MenuItem_ShowXML />
             </>);
         }
 
