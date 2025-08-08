@@ -12,13 +12,13 @@ export function MenuItems_State({ fileUsCtx }: { fileUsCtx: FileUsCtx; }) {
 }
 
 function MenuItem_InUseMode({ fileUsCtx }: { fileUsCtx: FileUsCtx; }) {
-    const isInUseMode = useAtomValue(fileUsCtx.fileUs.maniInUseAtom);
+    const notInUse = useAtomValue(fileUsCtx.fileUs.maniInUseAtom);
     const doSetInUse = useSetAtom(doSetInUseAtom);
 
     return (
         <DropdownMenuCheckboxItem
-            checked={isInUseMode}
-            onCheckedChange={(checked) => doSetInUse(fileUsCtx, checked)}
+            checked={!notInUse}
+            onCheckedChange={(checked) => doSetInUse(fileUsCtx, !checked)}
         >
             {modeTextInUse}
         </DropdownMenuCheckboxItem>

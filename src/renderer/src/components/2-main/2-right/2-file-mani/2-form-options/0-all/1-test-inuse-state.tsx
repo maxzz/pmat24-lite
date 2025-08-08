@@ -13,12 +13,12 @@ export function TestInUseState({ oFormProps }: { oFormProps: OFormProps; }) {
 }
 
 function Input_InUseMode({ fileUsCtx }: { fileUsCtx: FileUsCtx; }) {
-    const isInUseMode = useAtomValue(fileUsCtx.fileUs.maniInUseAtom);
+    const notInUse = useAtomValue(fileUsCtx.fileUs.maniInUseAtom);
     const doSetInUse = useSetAtom(doSetInUseAtom);
 
     return (<>
         <ChildrenWithLabel2Cols label={modeTextInUse}>
-            <Switch className={toggleClasses} checked={isInUseMode} onCheckedChange={(checked) => doSetInUse(fileUsCtx, checked)}></Switch>
+            <Switch className={toggleClasses} checked={!notInUse} onCheckedChange={(checked) => doSetInUse(fileUsCtx, !checked)}></Switch>
         </ChildrenWithLabel2Cols>
     </>);
 }
