@@ -8,8 +8,8 @@ import { Block2_Authentication } from "./2-nun-2-authentication";
 import { Block3_QL } from "./2-nun-3-QL";
 import { Block4_ScreenDetection } from "./2-nun-4-screen-detection";
 import { Block5_PMIcon } from "./2-nun-5-pm-icon";
-import { ButtonSliders, OptionsSubSectionTitle, UiAccordion } from "../../9-controls";
-import { UiAccordion2 } from "../../9-controls/nun/ui-accordion2";
+import { ButtonSliders, OptionsSubSectionTitle, UiAccordion } from "../9-controls";
+import { UiAccordion2 } from "../9-controls/nun/ui-accordion2";
 import { ChildrenWithLabel2Cols, InputOrCheckWithErrorMsg } from "@/ui/local-ui";
 
 export function GroupManiGeneral({ oFormProps }: { oFormProps: OFormProps; }) {
