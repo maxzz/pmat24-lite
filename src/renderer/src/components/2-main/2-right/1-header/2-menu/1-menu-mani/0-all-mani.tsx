@@ -1,6 +1,6 @@
 import { useSnapshot } from "valtio";
 import { FormIdx } from "@/store/manifest";
-import { type ManiAtoms, appSettings, isManualForm, isNormalForm, maniAtiveTabToFormIdx } from "@/store";
+import { type FileUsCtx, type ManiAtoms, appSettings, isManualForm, isNormalForm, maniAtiveTabToFormIdx } from "@/store";
 import { DropdownMenuSeparator } from "@/ui/shadcn/dropdown-menu";
 import { NoMenu } from "../0-all/1-no-menu";
 import { MenuItem_ShowXML } from "../7-show-xml";
@@ -21,27 +21,15 @@ export function R_PanelMenuMani({ maniAtoms }: { maniAtoms: ManiAtoms; }) {
         const loginFormCtx = maniAtoms[FormIdx.login];
         if (loginFormCtx) {
             return (<>
-                <MenuItem_Cpass maniAtoms={maniAtoms} fileUsCtx={loginFormCtx.fileUsCtx} />
-                <DropdownMenuSeparator />
-                <MenuItems_State fileUsCtx={loginFormCtx.fileUsCtx} />
-                <DropdownMenuSeparator />
-                <MenuItem_ShowXML />
+                <CommonMenuItems maniAtoms={maniAtoms} fileUsCtx={loginFormCtx.fileUsCtx} />
             </>);
         }
-
-        return (<>
-            <NoMenu />
-        </>);
+        return <NoMenu />;
     }
 
     if (isOptionsTabOpen) {
         return (<>
-            {/* <MenuItem_More /> */}
-            <MenuItem_Cpass maniAtoms={maniAtoms} fileUsCtx={formCtx.fileUsCtx} />
-            <DropdownMenuSeparator />
-            <MenuItems_State fileUsCtx={formCtx.fileUsCtx} />
-            <DropdownMenuSeparator />
-            <MenuItem_ShowXML />
+            <CommonMenuItems maniAtoms={maniAtoms} fileUsCtx={formCtx.fileUsCtx} />
         </>);
     }
 
@@ -49,11 +37,7 @@ export function R_PanelMenuMani({ maniAtoms }: { maniAtoms: ManiAtoms; }) {
         return (<>
             <MenuItem_Normal_ShowTextFields formCtx={formCtx} />
             <DropdownMenuSeparator />
-            <MenuItem_Cpass maniAtoms={maniAtoms} fileUsCtx={formCtx.fileUsCtx} />
-            <DropdownMenuSeparator />
-            <MenuItems_State fileUsCtx={formCtx.fileUsCtx} />
-            <DropdownMenuSeparator />
-            <MenuItem_ShowXML />
+            <CommonMenuItems maniAtoms={maniAtoms} fileUsCtx={formCtx.fileUsCtx} />
         </>);
     }
 
@@ -62,13 +46,20 @@ export function R_PanelMenuMani({ maniAtoms }: { maniAtoms: ManiAtoms; }) {
             <MenuItem_Manual_CreateDefaultScriptActions formCtx={formCtx} />
             <MenuItem_Manual_ClearScriptActions formCtx={formCtx} />
             <DropdownMenuSeparator />
-            <MenuItem_Cpass maniAtoms={maniAtoms} fileUsCtx={formCtx.fileUsCtx} />
-            <DropdownMenuSeparator />
-            <MenuItems_State fileUsCtx={formCtx.fileUsCtx} />
-            <DropdownMenuSeparator />
-            <MenuItem_ShowXML />
+            <CommonMenuItems maniAtoms={maniAtoms} fileUsCtx={formCtx.fileUsCtx} />
         </>);
     }
 
     return <NoMenu />;
+}
+
+function CommonMenuItems({ maniAtoms, fileUsCtx }: { maniAtoms: ManiAtoms; fileUsCtx: FileUsCtx; }) {
+    return (<>
+        <MenuItem_Cpass maniAtoms={maniAtoms} fileUsCtx={fileUsCtx} />
+        <DropdownMenuSeparator />
+        <MenuItems_State fileUsCtx={fileUsCtx} />
+        <DropdownMenuSeparator />
+        <MenuItem_ShowXML />
+        {/* <MenuItem_More /> */}
+    </>);
 }
