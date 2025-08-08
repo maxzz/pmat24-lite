@@ -1,7 +1,7 @@
 import { useAtom, useAtomValue } from "jotai";
 import { ChildrenWithLabel2Cols, InputWithTitle2Cols } from "@/ui/local-ui";
 import { Switch } from "@/ui/shadcn";
-import { modeTextInTest, modeTextInUse } from "./1-test-in-use-names";
+import { modeTextInTest, modeTextInUse } from "./8-test-in-use-names";
 import { type FileUs } from "@/store/store-types";
 import { type FileUsCtx, type OFormProps } from "@/store/1-atoms/2-file-mani-atoms";
 import { ExtPolicySelect } from "../9-controls";
