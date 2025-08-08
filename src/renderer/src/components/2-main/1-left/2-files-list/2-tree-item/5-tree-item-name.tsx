@@ -2,7 +2,7 @@ import { useAtomValue } from "jotai";
 import { useSnapshot } from "valtio";
 import { classNames } from "@/utils";
 import { IconMicroscope, IconNotInUse } from "@/ui/icons";
-import { modeTextInTest, modeTextInUse } from "@/components/2-main/2-right/2-file-mani/2-form-options";
+import { modeTextInTest, modeTextNotInUse } from "@/components/2-main/2-right/2-file-mani/2-form-options";
 import { appSettings, getTreeItemDisplayText } from "@/store";
 import { type FileUs } from "@/store/store-types";
 import { type TreeFileItemWState } from "../0-all/2-tree-action-atoms";
@@ -37,7 +37,7 @@ function StateIcons({ fileUs }: { fileUs: FileUs; }) {
         )}
 
         {!isInUse && (
-            <IconNotInUse className="absolute size-3 right-1 text-muted-foreground" title={modeTextInUse} />
+            <IconNotInUse className="absolute size-3 right-1 text-muted-foreground" title={modeTextNotInUse} />
         )}
     </>);
 }
