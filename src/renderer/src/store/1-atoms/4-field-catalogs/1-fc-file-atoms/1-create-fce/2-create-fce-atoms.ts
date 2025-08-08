@@ -32,7 +32,7 @@ export function createFileUsForNewFc(): FileUs {
         hwndLoginAtom: atom<HighlightHwnd>(undefined),
         hwndCpassAtom: atom<HighlightHwnd>(undefined),
 
-        maniInUseAtom: atom<boolean>(false),
+        maniInUseAtom: atom<boolean>(true),
         maniInTestAtom: atom<boolean>(false),
     };
 

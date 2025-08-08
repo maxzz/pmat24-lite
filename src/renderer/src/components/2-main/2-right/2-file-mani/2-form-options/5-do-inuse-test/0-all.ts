@@ -3,14 +3,14 @@ import { type FileUsCtx } from "@/store/1-atoms/2-file-mani-atoms/9-types";
 
 export const doSetInUseAtom = atom(
     null,
-    (get, set, { fileUsCtx, isOn }: { fileUsCtx: FileUsCtx, isOn: boolean; }) => {
-        set(fileUsCtx.fileUs.maniInUseAtom, isOn);
+    (get, set, { fileUsCtx, inUse }: { fileUsCtx: FileUsCtx, inUse: boolean; }) => {
+        set(fileUsCtx.fileUs.maniInUseAtom, inUse);
     },
 );
 
 export const doSetInTestAtom = atom(
     null,
-    (get, set, { fileUsCtx, isOn }: { fileUsCtx: FileUsCtx, isOn: boolean; }) => {
-        set(fileUsCtx.fileUs.maniInTestAtom, isOn);
+    (get, set, { fileUsCtx, inTest }: { fileUsCtx: FileUsCtx, inTest: boolean; }) => {
+        set(fileUsCtx.fileUs.maniInTestAtom, inTest);
     },
 );

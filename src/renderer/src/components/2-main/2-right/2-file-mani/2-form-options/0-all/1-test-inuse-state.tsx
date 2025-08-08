@@ -13,12 +13,12 @@ export function TestInUseState({ oFormProps }: { oFormProps: OFormProps; }) {
 }
 
 function Input_InUseMode({ fileUsCtx }: { fileUsCtx: FileUsCtx; }) {
-    const notInUse = useAtomValue(fileUsCtx.fileUs.maniInUseAtom);
+    const notInUse = !useAtomValue(fileUsCtx.fileUs.maniInUseAtom);
     const doSetInUse = useSetAtom(doSetInUseAtom);
 
     return (<>
         <ChildrenWithLabel2Cols label={modeTextInUse}>
-            <Switch className={toggleClasses} checked={!notInUse} onCheckedChange={(checked) => doSetInUse({ fileUsCtx, isOn: !checked })}></Switch>
+            <Switch className={toggleClasses} checked={notInUse} onCheckedChange={(checked) => doSetInUse({ fileUsCtx, inUse: !checked })}></Switch>
         </ChildrenWithLabel2Cols>
     </>);
 }
@@ -29,7 +29,7 @@ function Input_InTestMode({ fileUsCtx }: { fileUsCtx: FileUsCtx; }) {
 
     return (<>
         <ChildrenWithLabel2Cols label={modeTextInTest}>
-            <Switch className={toggleClasses} checked={isInTestMode} onCheckedChange={(checked) => doSetInTest({ fileUsCtx, isOn: checked })}></Switch>
+            <Switch className={toggleClasses} checked={isInTestMode} onCheckedChange={(checked) => doSetInTest({ fileUsCtx, inTest: checked })}></Switch>
         </ChildrenWithLabel2Cols>
     </>);
 }
