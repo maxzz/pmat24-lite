@@ -4,6 +4,7 @@ import { type FileUs, type ManiAtomsAtom, type HighlightHwnd } from "@/store/sto
 import { type ManiAtoms } from "../../2-file-mani-atoms";
 import { finalizeFileContent } from "@/store/store-utils";
 import { createParsedSrc } from "./4-create-parsed-src";
+import { createInUseTestAtoms } from "./7-create-inuse-test";
 
 /**
  * @param maniForCpass - fileUs for create password change; used for parse xml and create new fileUs
@@ -19,8 +20,8 @@ export function createFileUsFromFileContent(fileContent: FileContent, maniForCpa
             isGroupAtom: atom<boolean>(false),
             isCurrentAtom: atom<boolean>(false),
         },
-        maniAtomsAtom: createManiAtomsWithPrintAtom(null), // Debug version
-        //maniAtomsAtom: atom<ManiAtoms | null>(null), // Non-debug version
+        //maniAtomsAtom: createManiAtomsWithPrintAtom(null), // Debug version
+        maniAtomsAtom: atom<ManiAtoms | null>(null),         // Non-debug version
 
         fceAtomsForFcFile: undefined,   // will be assigned later when all files are loaded
         fceAtomsRefForMani: undefined,  // will be assigned later when all files are loaded
@@ -30,8 +31,7 @@ export function createFileUsFromFileContent(fileContent: FileContent, maniForCpa
         hwndLoginAtom: maniForCpass?.hwndLoginAtom || atom<HighlightHwnd>(undefined),
         hwndCpassAtom: maniForCpass?.hwndCpassAtom || atom<HighlightHwnd>(undefined),
 
-        maniInUseAtom: atom<boolean>(true), //TODO: initialize; not in use if sub-folder is B/C
-        maniInTestAtom: atom<boolean>(false), //TODO: initialize; in test mode if sub-folder is C
+        ...createInUseTestAtoms(fileCnt),
     };
 
     return rv;

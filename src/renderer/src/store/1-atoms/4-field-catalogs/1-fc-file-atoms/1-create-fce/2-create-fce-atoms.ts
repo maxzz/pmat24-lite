@@ -5,9 +5,10 @@ import { type FileUs, type HighlightHwnd } from "@/store/store-types";
 import { type FileContent } from "@shared/ipc-types";
 import { type FceItem, type FceAtoms, type FceItemEditor, defaultFcName, type FceItemValue, type FceDlgIn } from "../../9-types";
 import { type CatalogFile, createFceItemMeta } from "@/store/manifest";
-import { finalizeFileContent } from "@/store/store-utils";
+import { type ManiAtoms, catalogItemInFileToFceItemValue } from "../../../2-file-mani-atoms";
 import { createManiAtomsWithPrintAtom, createParsedSrcForEmptyFce } from "@/store/1-atoms/1-files";
-import { catalogItemInFileToFceItemValue } from "../../../2-file-mani-atoms";
+import { createInUseTestAtoms } from "@/store/1-atoms/1-files/1-do-set-files/7-create-inuse-test";
+import { finalizeFileContent } from "@/store/store-utils";
 import { createFceCtx } from "./3-create-fce-ctx";
 
 export function createFileUsForNewFc(): FileUs {
@@ -22,7 +23,8 @@ export function createFileUsForNewFc(): FileUs {
             isGroupAtom: atom<boolean>(false),
             isCurrentAtom: atom<boolean>(false),
         },
-        maniAtomsAtom: createManiAtomsWithPrintAtom(null),
+        //maniAtomsAtom: createManiAtomsWithPrintAtom(null), // Debug version
+        maniAtomsAtom: atom<ManiAtoms | null>(null),         // Non-debug version
 
         fceAtomsForFcFile: undefined,
         fceAtomsRefForMani: undefined,
@@ -32,8 +34,7 @@ export function createFileUsForNewFc(): FileUs {
         hwndLoginAtom: atom<HighlightHwnd>(undefined),
         hwndCpassAtom: atom<HighlightHwnd>(undefined),
 
-        maniInUseAtom: atom<boolean>(true),
-        maniInTestAtom: atom<boolean>(false),
+        ...createInUseTestAtoms(fileCnt),
     };
 
     rv.fceAtomsForFcFile = createFceAtoms({ fileUs: rv, desc: undefined, items: undefined });
