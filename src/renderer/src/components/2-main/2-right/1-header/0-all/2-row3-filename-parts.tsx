@@ -1,20 +1,10 @@
-type ParsedFnameParams = {
+type Row3FnamePartsParams = {
     fname: string;
     fpath: string;
     large?: boolean;
 };
 
-const partClasses = {
-    container: /**/ "text-[0.7rem] truncate", //text-primary-300/80
-    sm:        /**/ "font-sans text-[0.6rem] opacity-50",
-    xs:        /**/ "opacity-20",
-    lg:        /**/ "px-px text-[0.7rem] text-foreground opacity-50 border-b border-dotted border-primary-500",
-    l2:        /**/ "px-1 text-[.7rem] font-bold text-foreground opacity-70", // large for ManiInfoTooltip
-};
-
-const reFilenameMatch = /^\{([0-9A-Za-z]{3,3})(.*)([0-9A-Za-z]{3,3})\}\.dpm$/; //TODO: handle '{guid} + extra.dpm' filenames
-
-export function Row3FnameParts({ fname, fpath, large }: ParsedFnameParams) {
+export function Row3FnameParts({ fname, fpath, large }: Row3FnamePartsParams) {
     const { container, sm, xs, lg: large1, l2: large2 } = partClasses;
 
     const location = `Folder: ${fpath}`;
@@ -43,6 +33,16 @@ export function Row3FnameParts({ fname, fpath, large }: ParsedFnameParams) {
         </div>
     );
 }
+
+const reFilenameMatch = /^\{([0-9A-Za-z]{3,3})(.*)([0-9A-Za-z]{3,3})\}\.dpm$/; //TODO: handle '{guid} + extra.dpm' filenames
+
+const partClasses = {
+    container: /**/ "text-[0.7rem] truncate", //text-primary-300/80
+    sm:        /**/ "font-sans text-[0.6rem] opacity-50",
+    xs:        /**/ "opacity-20",
+    lg:        /**/ "px-px text-[0.7rem] text-foreground opacity-50 border-b border-dotted border-primary-500",
+    l2:        /**/ "px-1 text-[.7rem] font-bold text-foreground opacity-70", // large for ManiInfoTooltip
+};
 
 //TODO: add tooltip with filename path - done
     // const location = `Folder: ${fpath.length > 40 ? `${fpath.substring(0, 40)}...` : fpath}`; 

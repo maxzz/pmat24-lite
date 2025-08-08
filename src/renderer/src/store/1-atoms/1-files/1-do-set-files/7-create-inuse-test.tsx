@@ -8,13 +8,13 @@ export function createTestInUseAtoms(fileCnt: FileContent): Pick<FileUs, 'maniIn
 
     console.log(`createInUseTestAtoms: fpath: "${fileCnt.fpath}" fname: "${fileCnt.fname}"`);
 
-    // if (fileCnt.unid === 'B' || fileCnt.unid === 'C') {
-    //     set(maniInUseAtom, false);
-    //     set(maniInTestAtom, true);
+    // const goodForFc = !fileUs.parsedSrc.stats.isFCat && fileUs.fileCnt.fpath.toLowerCase().match(RegExp(`^${rootPath}(?:[/\\][a-c])*$`));
+    // if (goodForFc) {
+    //     fileUs.fceAtomsRefForMani = rootFc.fceAtomsForFcFile;
     // }
 
-    return { 
+    return {
         maniInUseAtom: atom<boolean>(maniInUse),
         maniInTestAtom: atom<boolean>(maniInTest),
-     };
+    };
 }
