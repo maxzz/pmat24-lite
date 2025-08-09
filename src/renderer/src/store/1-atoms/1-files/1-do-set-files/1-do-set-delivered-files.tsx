@@ -11,6 +11,7 @@ import { sortFileUsItemsInPlaceAndSetIndices } from "../3-tree-files";
 import { allFileUsChanges } from "../../2-file-mani-atoms";
 import { rightPanelAtomAtom } from "../../3-right-panel";
 import { createFileUsFromFileContent } from "./3-create-fileus";
+import { initLocalCacheTestInUseAtoms, initTestInUseAtoms } from "./7-create-inuse-test";
 
 export type SetDeliveredFiles = {
     deliveredFileContents: FileContent[] | undefined;
@@ -92,12 +93,15 @@ export const doSetDeliveredFilesAtom = atom(
         sortFileUsItemsInPlaceAndSetIndices(fileUsItems);
 
         set(doAddFcToLoadedAtom, { fileUsItems, runningClearFiles });
-        
+
         const fileUsAtoms = fileUsItems.map((fileUs) => atom(fileUs));
+        initTestInUseAtoms(fileUsAtoms, { get, set });
+        initLocalCacheTestInUseAtoms(fileUsAtoms, { get, set });
+
         set(filesAtom, fileUsAtoms);
 
         set(doInitFileUsLinksToFcAtom, { fileUsAtoms, runningClearFiles });
-        
+
         showUnsupportedFilesMsg(unsupported);
 
         busyIndicator.msg = '';

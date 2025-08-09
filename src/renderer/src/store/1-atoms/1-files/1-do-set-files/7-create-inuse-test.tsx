@@ -29,7 +29,7 @@ export function initTestInUseAtoms(fileUsAtoms: FileUsAtom[], getset: GetSet) {
             const fpath = fileUs.fileCnt.fpath.toLowerCase();
             const m = fpath.match(rootPath);
 
-            console.log(`initTestInUseAtoms: fpath: "${fileUs.fileCnt.fpath}" fname: "${fileUs.fileCnt.fname}"`, m);
+            console.log(`initTestInUseAtoms: fpath: "${fileUs.fileCnt.fpath}" fname: "${fileUs.fileCnt.fname}"`, matchTestInUseRegex(rootDir.fpath, fpath));
 
             // const maniInUse = fileUs.maniInUseAtom.get();
             // const maniInTest = fileUs.maniInTestAtom.get();
