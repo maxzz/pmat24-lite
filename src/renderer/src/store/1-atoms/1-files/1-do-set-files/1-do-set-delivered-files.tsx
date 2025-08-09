@@ -10,7 +10,7 @@ import { doDisposeAllFilesAtomAtom } from "@/store/store-utils";
 import { sortFileUsItemsInPlaceAndSetIndices } from "../3-tree-files";
 import { allFileUsChanges } from "../../2-file-mani-atoms";
 import { rightPanelAtomAtom } from "../../3-right-panel";
-import { createFileUsFromFileContent } from "./2-create-fileus";
+import { createFileUsFromFileContent } from "./3-create-fileus";
 
 export type SetDeliveredFiles = {
     deliveredFileContents: FileContent[] | undefined;

@@ -3,7 +3,7 @@ import { type FileContent } from "@shared/ipc-types";
 import { type FileUs, type ManiAtomsAtom, type HighlightHwnd } from "@/store/store-types";
 import { type ManiAtoms } from "../../2-file-mani-atoms";
 import { finalizeFileContent } from "@/store/store-utils";
-import { createParsedSrc } from "./4-create-parsed-src";
+import { createParsedSrc } from "./2-create-parsed-src";
 import { createTestInUseAtoms } from "./7-create-inuse-test";
 
 /**
