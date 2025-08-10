@@ -1,5 +1,5 @@
 import { proxy, ref } from "valtio";
-import { filenameWithoutPath } from "@/utils";
+import { filenameWithoutPath, pathWithoutFilename } from "@/utils";
 import { hasMain } from "@/xternal-to-main";
 import { type PmatFolder } from "./9-types";
 import { addToDirsMru } from "./4-mru-dirs";
@@ -71,7 +71,7 @@ export function sureRootDir(): string {
 const testInUseRegex = /\/([a-c])$/i;
 
 export function getTestInUse(fpath: string): { inUse: boolean; inTest: boolean; notUs: boolean; } {
-    const m = fpath.toLocaleLowerCase().match(/([\//])([a-c])$/i);
+    const last = pathWithoutFilename(fpath).toLocaleLowerCase();
     if (m === null) {
         console.log(`getTestInUse: fpath: "${fpath}" m:`, m);
         return { inUse: true, inTest: false, notUs: false };
