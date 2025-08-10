@@ -67,6 +67,9 @@ export function sureRootDir(): string {
 //     maniInTest: boolean;                                // Is manifest file in test mode
 // }
 
+//TODO: regex to match subfolder a | b | c | empty
+const testInUseRegex = /\/([a-c])$/i;
+
 export function makeTestInUseRegex(rootPath: string): RegExp {
     return RegExp(`^${rootPath.toLowerCase()}(?:[\//]([a-c]))?$`, 'i');
 }
@@ -76,18 +79,19 @@ export function matchTestInUseRegex(rootPath: string, fpath: string): 'a' | 'b' 
     return m ? m[1] as 'a' | 'b' | 'c' : undefined;
 }
 
-export function getTestInUse(fpath: string): { maniInUse: boolean; maniInTest: boolean; } {
+export function getTestInUse(fpath: string): { inUse: boolean; inTest: boolean; notUs: boolean; } {
     const root = rootDir.fpath.toLowerCase();
-    const m = fpath.toLocaleLowerCase().match(RegExp(`^${root}(?:[/\\][a-c])*$`, 'i'));
+    const m = fpath.toLocaleLowerCase().match(RegExp(`^${root}(?:[/\\]([a-c]))?$`, 'i'));
     if (m === null) {
         console.log(`getTestInUse: fpath: "${fpath}" sub:`, m);
-        return { maniInUse: false, maniInTest: false };
+        return { inUse: false, inTest: false, notUs: true };
     }
-    const matchSub = !!m.length;
+    const matchSub = m.length > 1; // m[0] is the whole match
     const rv = {
-        maniInUse: !matchSub || m[1] === 'a',
-        maniInTest: matchSub ? m[1] === 'c' : false,
+        inUse: !matchSub || m[1] === 'a',
+        inTest: matchSub ? m[1] === 'c' : false,
+        notUs: false,
     };
-    console.log(`getTestInUse: fpath: "${fpath}" rv:`, rv);
+    console.log(`getTestInUse: fpath: "${fpath}" rv:`, rv, m);
     return rv;
 }
