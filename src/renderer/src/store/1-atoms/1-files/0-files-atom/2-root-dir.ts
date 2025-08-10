@@ -67,19 +67,22 @@ export function sureRootDir(): string {
 //     maniInTest: boolean;                                // Is manifest file in test mode
 // }
 
-// function makeTestInUseRegex(rootPath: string): RegExp {
-//     return RegExp(`^${rootPath.toLowerCase()}(?:[\//]([a-c]))?$`, 'i');
-// }
+export function makeTestInUseRegex(rootPath: string): RegExp {
+    return RegExp(`^${rootPath.toLowerCase()}(?:[\//]([a-c]))?$`, 'i');
+}
 
-// function matchTestInUseRegex(rootPath: string, fpath: string): 'a' | 'b' | 'c' | undefined {
-//     const m = fpath.match(makeTestInUseRegex(rootPath));
-//     return m ? m[1] as 'a' | 'b' | 'c' : undefined;
-// }
+export function matchTestInUseRegex(rootPath: string, fpath: string): 'a' | 'b' | 'c' | undefined {
+    const m = fpath.match(makeTestInUseRegex(rootPath));
+    return m ? m[1] as 'a' | 'b' | 'c' : undefined;
+}
 
 export function getTestInUse(fpath: string): { maniInUse: boolean; maniInTest: boolean; } {
-    const sub = fpath.toLowerCase().match(RegExp(`^${rootDir.fpath}(?:[/\\][a-c])*$`));
-    return {
-        maniInUse: !sub,
+    const root = rootDir.fpath.toLowerCase();
+    const sub = fpath.match(RegExp(`^${root}(?:[/\\][a-c])*$`, 'i'));
+    const rv = {
+        maniInUse: sub ? sub[1] === undefined : false,
         maniInTest: sub ? sub[1] === 'c' : false,
     };
+    console.log(`getTestInUse: fpath: "${fpath}" rv:`, rv);
+    return rv;
 }
