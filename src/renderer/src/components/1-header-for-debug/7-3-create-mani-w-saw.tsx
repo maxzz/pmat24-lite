@@ -1,7 +1,8 @@
 import { useAtomValue, useSetAtom } from "jotai";
 import { useSnapshot } from "valtio";
 import { Button } from "@/ui";
-import { allowedToCreateCpassAtom, open_SawMonitorAtom, open_SawMonitorForCpassAtom, rootDir } from "@/store";
+import { allowedToCreateCpassAtom, open_SawMonitorAtom, open_SawMonitorForCpassAtom } from "@/store/1-atoms/7-dialogs";
+import { rootDir } from "@/store/1-atoms/1-files/0-files-atom/2-root-dir";
 
 export function TestCreateWithSaw() {
     const openDlg = useSetAtom(open_SawMonitorAtom);
