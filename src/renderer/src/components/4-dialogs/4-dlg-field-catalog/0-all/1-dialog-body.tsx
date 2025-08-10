@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useSetAtom } from "jotai";
-import { doSetInitSelectedItemAtom, type FceCtx } from "@/store";
+import { type FceCtx, doSetInitSelectedItemAtom } from "@/store/1-atoms/4-field-catalogs";
 import { Header } from "./3-header";
 import { FieldCatalogToolbar } from "../2-toolbar";
 import { RightPanelGuard, SelectedItemPropsBody } from "../4-selected-item-props";

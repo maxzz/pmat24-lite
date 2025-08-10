@@ -1,10 +1,10 @@
 import { type ComponentPropsWithoutRef, forwardRef, type ElementRef, type ReactNode } from "react";
 import { useAtomValue, useSetAtom } from "jotai";
+import { classNames, cn } from "@/utils";
 import * as D from "@/ui/shadcn/dialog";
-import { doCancelFceDlgAtom, fceDlgTriggerAtom } from "@/store";
+import { doCancelFceDlgAtom, fceDlgTriggerAtom } from "@/store/1-atoms/4-field-catalogs";
 import { FceDialogBodySelector } from "./1-dialog-body";
 import { overlayClasses } from "../../1-dlg-filter-files";
-import { classNames, cn } from "@/utils";
 import { AnimatePresence, motion, MotionConfig } from "motion/react";
 import { DialogPortalProps } from "@radix-ui/react-dialog";
 

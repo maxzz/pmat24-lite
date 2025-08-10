@@ -1,8 +1,8 @@
 import { useEffect, useRef, type HTMLAttributes } from "react";
 import { useAtom, useAtomValue, useSetAtom } from "jotai";
-import { doSelectIdxFcAtom, type FceCtx } from "@/store";
-import { FldCatItemRow, rowParentActiveClasses } from "./2-fld-cat-item-row";
 import { classNames } from "@/utils";
+import { type FceCtx, doSelectIdxFcAtom } from "@/store/1-atoms/4-field-catalogs";
+import { FldCatItemRow, rowParentActiveClasses } from "./2-fld-cat-item-row";
 
 type FldCatItemsGridProps = HTMLAttributes<HTMLDivElement> & {
     fceCtx: FceCtx;

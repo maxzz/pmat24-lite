@@ -1,9 +1,9 @@
 import { type HTMLAttributes, type ReactNode, useCallback, useEffect, useRef } from "react";
 import { useAtom, useSetAtom } from "jotai";
+import { classNames } from "@/utils";
 import useResizeObserver from "use-resize-observer";
 import { ScrollArea } from "@/ui/shadcn";
-import { classNames } from "@/utils";
-import { doScrollToItemAtom, type FceCtx } from "@/store";
+import { type FceCtx, doScrollToItemAtom } from "@/store/1-atoms/4-field-catalogs";
 import { FldCatItemsBody } from "./1-body";
 
 export function FldCatItemsGrid(props: { fceCtx: FceCtx; } & HTMLAttributes<HTMLDivElement>) {

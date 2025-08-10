@@ -1,11 +1,11 @@
 import { type InputHTMLAttributes, useCallback, useEffect, useState } from "react";
 import { atom, type PrimitiveAtom, useAtom, useAtomValue, useSetAtom } from "jotai";
-import { Mani, FieldTyp, type ValueLife } from "@/store/manifest";
-import { type FieldRowCtx, type FileUsCtx } from "@/store/1-atoms/2-file-mani-atoms";
-import { type FceItem, type FceDlgIn, type FceDlgOut, doOpenFceDlgAtom, creteOutBoxAtom, useFcItemsWithMru } from "@/store";
-import { inputRingClasses } from "@/ui";
-import { InputSelectUi } from "./1-dropdown";
 import { classNames } from "@/utils";
+import { Mani, FieldTyp, type ValueLife } from "@/store/manifest";
+import { inputRingClasses } from "@/ui";
+import { type FieldRowCtx, type FileUsCtx } from "@/store/1-atoms/2-file-mani-atoms";
+import { type FceItem, type FceDlgIn, type FceDlgOut, doOpenFceDlgAtom, creteOutBoxAtom, useFcItemsWithMru } from "@/store/1-atoms/4-field-catalogs";
+import { InputSelectUi } from "./1-dropdown";
 
 const selectClasses = "\
 px-2 py-1 w-full h-7 text-xs \

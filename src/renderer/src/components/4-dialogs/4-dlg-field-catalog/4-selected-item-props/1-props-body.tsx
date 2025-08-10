@@ -1,10 +1,10 @@
+import { useMemo } from "react";
 import { useAtomValue } from "jotai";
-import { type FceCtx } from "@/store";
+import { classNames } from "@/utils";
 import { FieldTyp } from "@/store/manifest";
+import { type FceCtx } from "@/store/1-atoms/4-field-catalogs";
 import { PropText, PropValue, PropTextarea, NewLabel } from "./8-inputs";
 import { ViewOfSelectedIndex, ViewOfSelectedId } from "./7-view-of-selected";
-import { classNames } from "@/utils";
-import { useMemo } from "react";
 
 const itemClasses = "pt-2 flex flex-col disabled:opacity-25 disabled:pointer-events-none";
 const disabledClasses = "opacity-0 pointer-events-none cursor-not-allowed";

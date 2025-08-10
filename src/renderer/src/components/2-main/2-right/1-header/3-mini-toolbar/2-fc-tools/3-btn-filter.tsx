@@ -1,10 +1,10 @@
+import { useEffect, useRef, useState } from "react";
 import { useAtom } from "jotai";
-import { type FceCtx } from "@/store";
+import { classNames } from "@/utils";
+import { AnimatePresence, motion } from "motion/react";
 import { Button } from "@/ui";
 import { IconClose, IconFilter } from "@/ui/icons";
-import { classNames } from "@/utils";
-import { useEffect, useRef, useState } from "react";
-import { AnimatePresence, motion } from "motion/react";
+import { type FceCtx } from "@/store/1-atoms/4-field-catalogs";
 
 const inputClasses = "w-full px-2 h-7 text-xs bg-mani-background border-border border rounded-md";
 

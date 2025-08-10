@@ -1,9 +1,9 @@
 import { type HTMLAttributes } from "react";
 import { useSnapshot } from "valtio";
-import { FieldTyp } from "@/store/manifest";
-import { type FceCtx, type FceItem } from "@/store";
-import { fieldIcons } from "@/store/manifest/manifest-field-icons";
 import { classNames } from "@/utils";
+import { FieldTyp } from "@/store/manifest";
+import { fieldIcons } from "@/store/manifest/manifest-field-icons";
+import { type FceCtx, type FceItem } from "@/store/1-atoms/4-field-catalogs";
 
 type FldCatItemProps = HTMLAttributes<HTMLDivElement> & {
     idx: number;

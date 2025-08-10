@@ -1,11 +1,10 @@
 import { useState } from "react";
-import { type FceCtx } from "@/store";
+import { useSetAtom } from "jotai";
 import { Button } from "@/ui/shadcn";
+import { FieldTyp } from "@/store/manifest";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/ui/shadcn/dropdown-menu";
 import { IconAdd } from "@/ui/icons";
-import { doAddItemAtom } from "@/store/1-atoms/4-field-catalogs";
-import { useSetAtom } from "jotai";
-import { FieldTyp } from "pm-manifest";
+import { type FceCtx, doAddItemAtom } from "@/store/1-atoms/4-field-catalogs";
 
 export function Button_AddItem({ fceCtx }: { fceCtx: FceCtx; }) {
     const [menuOpen, setMenuOpen] = useState<boolean>(false);
