@@ -5,7 +5,7 @@ import * as D from "@/ui/shadcn/dialog";
 import { Button } from "@/ui";
 import { Cross2Icon } from "@radix-ui/react-icons";
 import { hasMain } from "@/xternal-to-main";
-import { doOpenCreateManiAtom } from "@/store";
+import { doOpenCreateManiAtom } from "@/store/1-atoms/7-dialogs";
 import { LeftPanelProgress } from "../../8-create-ui";
 import { WizardButtons } from "../../3-wizard-buttons";
 import { DebugButtonsForScreenshots } from "../../../8-test-buttons";
