@@ -3,7 +3,8 @@ import { useSnapshot } from "valtio";
 import { doDissmissNextToastsAtom } from "@/utils";
 import { Label, RadioGroup, RadioGroupItem } from "@/ui";
 import { testHwnd, TestHwndEnum } from "@/store/7-napi-atoms";
-import { debugSettings, doUpdateHwndAndIconAtom } from "@/store";
+import { doUpdateHwndAndIconAtom } from "@/store/1-atoms/7-dialogs";
+import { debugSettings } from "@/store/9-ui-state";
 import { labelClasses, DelayInput } from "./8-utils";
 
 export function RowHwns() {
