@@ -4,7 +4,8 @@ import { useSnapshot } from "valtio";
 import { AnimatePresence, motion } from "motion/react";
 import { classNames } from "@/utils";
 import { Button, ImageHolder } from "@/ui";
-import { stateNapiBuildMani, napiLock, sawHandleAtom, sawHandleCaptionAtom, sawIconAtom, showProgressAtom } from "@/store";
+import { stateNapiBuildMani, napiLock, sawHandleAtom, sawHandleCaptionAtom, sawIconAtom} from "@/store";
+import { showProgressAtom } from "@/store/1-atoms/7-dialogs";
 import { Spinner } from "@/ui/icons";
 import { CornerSelector } from "./3-corner-selector";
 
