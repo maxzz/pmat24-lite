@@ -6,7 +6,7 @@ import { appSettings } from "@/store/9-ui-state";
 import { rightPanelAtomGetterAtom } from "@/store/1-atoms/3-right-panel";
 import { ContextMenu, ContextMenuContent, ContextMenuItem, ContextMenuTrigger } from "@/ui/shadcn";
 import { toast } from "sonner";
-import { doDeleteFileUsAtom, doRevealInExplorerAtom, doManiNameDlgAtom, doGetFileUsPathAtom } from "@/store/1-atoms/2-file-mani-atoms";
+import { doDeleteFileUsAtom, doRevealInExplorerAtom, doManiNameDlgAtom, doGetFileUsPathAtom } from "@/store/1-atoms/2-file-mani-atoms/0-all-serve-atoms";
 
 export function FilesTreeViewContextMenu({ children }: { children: ReactNode; }) {
     const { useTreeCtxMenu } = useSnapshot(appSettings.appUi.uiAdvanced);

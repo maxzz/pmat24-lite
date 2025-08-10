@@ -2,7 +2,7 @@ import { atom } from "jotai";
 import { FormIdx } from "@/store/manifest";
 import { clearIconsCache } from "@/store/7-napi-atoms";
 import { sureRootDir } from "../../1-files";
-import { newManiContent } from "../../2-file-mani-atoms";
+import { newManiContent } from "../../2-file-mani-atoms/0-all-serve-atoms";
 import { rightPanelAtomAtom } from "../../3-right-panel";
 import { checkboxCreateManualModeAtom, setSizeSmall_SawMonitorAtom, startMonitorTimerAtom, stopMonitorTimerAtom } from "./0-ctx";
 

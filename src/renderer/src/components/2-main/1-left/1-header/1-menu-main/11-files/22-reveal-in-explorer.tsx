@@ -3,7 +3,7 @@ import { DropdownMenuItem } from "@/ui";
 import { toast } from "sonner";
 import { hasMain } from "@/xternal-to-main";
 import { rightPanelAtomAtom } from "@/store/1-atoms/3-right-panel";
-import { doGetFileUsPathAtom, doRevealInExplorerAtom } from "@/store/1-atoms/2-file-mani-atoms";
+import { doGetFileUsPathAtom, doRevealInExplorerAtom } from "@/store/1-atoms/2-file-mani-atoms/0-all-serve-atoms";
 
 export function MenuItem_RevealInExplorerCurrent() {
 

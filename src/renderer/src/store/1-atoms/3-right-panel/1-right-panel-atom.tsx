@@ -1,7 +1,8 @@
 import { atom } from "jotai";
 import { FormIdx } from "@/store/manifest";
 import { type FileUs, type FileUsAtom } from "@/store/store-types";
-import { type ManiAtoms, createManiAtoms } from "../2-file-mani-atoms";
+import { type ManiAtoms } from "../2-file-mani-atoms/9-types";
+import { createManiAtoms } from "../2-file-mani-atoms/0-all-serve-atoms";
 import { printFileUsAtomLinks } from "./8-print-fileus-atom-links";
 
 export const rightPanelAtomAtom = atom<FileUsAtom | undefined>(undefined);

@@ -1,7 +1,7 @@
 import { useAtomValue, useSetAtom } from "jotai";
 import { DropdownMenuItem } from "@/ui";
 import { rightPanelAtomAtom } from "@/store/1-atoms/3-right-panel";
-import { doDeleteFileUsAtom } from "@/store/1-atoms/2-file-mani-atoms";
+import { doDeleteFileUsAtom } from "@/store/1-atoms/2-file-mani-atoms/0-all-serve-atoms";
 
 export function MenuItem_DeleteCurrent() {
     const currentAtom = useAtomValue(rightPanelAtomAtom);
