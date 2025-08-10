@@ -1,6 +1,6 @@
 import { type HTMLAttributes } from "react";
 import { useAtomValue } from "jotai";
-import { rightPanelAtomAtom } from "@/store";
+import { rightPanelAtomAtom } from "@/store/1-atoms/3-right-panel";
 import { FcViewBody } from "./1-cat-body";
 
 export function Body_Cat(props: HTMLAttributes<HTMLDivElement>) {

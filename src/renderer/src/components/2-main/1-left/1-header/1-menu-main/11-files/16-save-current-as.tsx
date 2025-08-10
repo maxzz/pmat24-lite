@@ -1,6 +1,6 @@
 import { useAtomValue, useSetAtom } from "jotai";
 import { DropdownMenuItem } from "@/ui";
-import { rightPanelAtomAtom } from "@/store";
+import { rightPanelAtomAtom } from "@/store/1-atoms/3-right-panel";
 import { doSaveAsAtom } from "@/store/1-atoms/2-file-mani-atoms";
 
 export function MenuItem_SaveCurrentAs() {
