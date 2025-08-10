@@ -21,17 +21,17 @@ export function createTestInUseAtoms(fileCnt: FileContent): Pick<FileUs, 'maniIn
 }
 
 export function initTestInUseAtoms(fileUsAtoms: FileUsAtom[], {get, set}: GetSet) {
-    const rootPath = makeTestInUseRegex(rootDir.fpath);
+    // const rootPath = makeTestInUseRegex(rootDir.fpath);
 
     fileUsAtoms.forEach(
         (fileUsAtom) => {
             const fileUs = get(fileUsAtom);
-            const fpath = fileUs.fileCnt.fpath.toLowerCase();
-            const m = fpath.match(rootPath);
+            // const fpath = fileUs.fileCnt.fpath.toLowerCase();
+            // const m = fpath.match(rootPath);
 
-            console.log(`initTestInUseAtoms: fpath: "${fileUs.fileCnt.fpath}" fname: "${fileUs.fileCnt.fname}"`, matchTestInUseRegex(rootDir.fpath, fpath));
+            // console.log(`initTestInUseAtoms: fpath: "${fileUs.fileCnt.fpath}" fname: "${fileUs.fileCnt.fname}"`, matchTestInUseRegex(rootDir.fpath, fpath));
 
-            const { maniInUse, maniInTest } = getTestInUse(fpath);
+            const { maniInUse, maniInTest } = getTestInUse(fileUs.fileCnt.fpath);
             set(fileUs.maniInUseAtom, maniInUse);
             set(fileUs.maniInTestAtom, maniInTest);
         }
