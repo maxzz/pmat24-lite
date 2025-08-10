@@ -78,10 +78,15 @@ export function matchTestInUseRegex(rootPath: string, fpath: string): 'a' | 'b' 
 
 export function getTestInUse(fpath: string): { maniInUse: boolean; maniInTest: boolean; } {
     const root = rootDir.fpath.toLowerCase();
-    const sub = fpath.toLocaleLowerCase().match(RegExp(`^${root}(?:[/\\][a-c])*$`, 'i'));
+    const m = fpath.toLocaleLowerCase().match(RegExp(`^${root}(?:[/\\][a-c])*$`, 'i'));
+    if (m === null) {
+        console.log(`getTestInUse: fpath: "${fpath}" sub:`, m);
+        return { maniInUse: false, maniInTest: false };
+    }
+    const matchSub = !!m.length;
     const rv = {
-        maniInUse: sub ? sub[1] === undefined : false,
-        maniInTest: sub ? sub[1] === 'c' : false,
+        maniInUse: !matchSub || m[1] === 'a',
+        maniInTest: matchSub ? m[1] === 'c' : false,
     };
     console.log(`getTestInUse: fpath: "${fpath}" rv:`, rv);
     return rv;
