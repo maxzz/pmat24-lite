@@ -78,7 +78,7 @@ export function matchTestInUseRegex(rootPath: string, fpath: string): 'a' | 'b' 
 
 export function getTestInUse(fpath: string): { maniInUse: boolean; maniInTest: boolean; } {
     const root = rootDir.fpath.toLowerCase();
-    const sub = fpath.match(RegExp(`^${root}(?:[/\\][a-c])*$`, 'i'));
+    const sub = fpath.toLocaleLowerCase().match(RegExp(`^${root}(?:[/\\][a-c])*$`, 'i'));
     const rv = {
         maniInUse: sub ? sub[1] === undefined : false,
         maniInTest: sub ? sub[1] === 'c' : false,
