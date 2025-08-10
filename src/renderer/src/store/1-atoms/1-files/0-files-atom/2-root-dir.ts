@@ -70,21 +70,11 @@ export function sureRootDir(): string {
 //TODO: regex to match subfolder a | b | c | empty
 const testInUseRegex = /\/([a-c])$/i;
 
-export function makeTestInUseRegex(rootPath: string): RegExp {
-    return RegExp(`^${rootPath.toLowerCase()}(?:[\//]([a-c]))?$`, 'i');
-}
-
-export function matchTestInUseRegex(rootPath: string, fpath: string): 'a' | 'b' | 'c' | undefined {
-    const m = fpath.match(makeTestInUseRegex(rootPath));
-    return m ? m[1] as 'a' | 'b' | 'c' : undefined;
-}
-
 export function getTestInUse(fpath: string): { inUse: boolean; inTest: boolean; notUs: boolean; } {
-    const root = rootDir.fpath.toLowerCase();
-    const m = fpath.toLocaleLowerCase().match(RegExp(`^${root}(?:[/\\]([a-c]))?$`, 'i'));
+    const m = fpath.toLocaleLowerCase().match(/\/([a-c])$/i);
     if (m === null) {
-        console.log(`getTestInUse: fpath: "${fpath}" sub:`, m);
-        return { inUse: false, inTest: false, notUs: true };
+        console.log(`getTestInUse: fpath: "${fpath}" m:`, m);
+        return { inUse: true, inTest: false, notUs: false };
     }
     const matchSub = m.length > 1; // m[0] is the whole match
     const rv = {
