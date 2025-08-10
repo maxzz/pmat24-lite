@@ -4,7 +4,9 @@ import { classNames } from "@/utils";
 import { motion } from "motion/react";
 import { IconDndTarget } from "@/ui/icons";
 import { FormIdx } from "@/store/manifest";
-import { type FileUsCtx, type ManualFieldState, type HighlightHwnd, dndActionInitAtom, dndActionAtom, stateNapiPosTracker } from "@/store";
+import { dndActionInitAtom, dndActionAtom, stateNapiPosTracker } from "@/store/7-napi-atoms";
+import { type HighlightHwnd } from "@/store/store-types";
+import { type FileUsCtx, type ManualFieldState } from "@/store/1-atoms/2-file-mani-atoms";
 import { useStateNapiPosTracker } from "./2-picker-dnd-inputs";
 
 export function NewInputXY({ item, fileUsCtx }: { item: ManualFieldState.CtxPos; fileUsCtx: FileUsCtx; }) {

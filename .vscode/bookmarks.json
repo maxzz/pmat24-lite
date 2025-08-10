@@ -74,7 +74,7 @@
 			"path": "src/renderer/src/store/store-utils/1-file-system-utils/8-dispose-file-us.ts",
 			"bookmarks": [
 				{
-					"line": 21,
+					"line": 22,
 					"column": 36,
 					"label": "doDisposeFileUsAtomAtom"
 				}

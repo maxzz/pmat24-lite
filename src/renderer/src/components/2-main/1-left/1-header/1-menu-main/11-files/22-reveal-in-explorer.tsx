@@ -1,8 +1,9 @@
 import { useAtomValue, useSetAtom } from "jotai";
-import { toast } from "sonner";
-import { doGetFileUsPathAtom, doRevealInExplorerAtom, rightPanelAtomAtom } from "@/store";
 import { DropdownMenuItem } from "@/ui";
+import { toast } from "sonner";
 import { hasMain } from "@/xternal-to-main";
+import { rightPanelAtomAtom } from "@/store/1-atoms/3-right-panel";
+import { doGetFileUsPathAtom, doRevealInExplorerAtom } from "@/store/1-atoms/2-file-mani-atoms";
 
 export function MenuItem_RevealInExplorerCurrent() {
 

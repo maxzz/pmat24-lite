@@ -1,7 +1,8 @@
 import { useAtomValue } from "jotai";
 import { useSnapshot } from "valtio";
 import { DropdownMenuCheckboxItem } from "@/ui/shadcn";
-import { type NFormCtx, appSettings } from "@/store";
+import { appSettings } from "@/store/9-ui-state";
+import { type NFormCtx } from "@/store/1-atoms/2-file-mani-atoms";
 
 export function MenuItem_Normal_ShowTextFields({ formCtx }: { formCtx: NFormCtx; }) {
     const isNormalForm = formCtx.normal; //TODO: This is always true by context

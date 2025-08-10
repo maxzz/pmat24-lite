@@ -1,6 +1,7 @@
 import { useAtomValue, useSetAtom } from "jotai";
 import { Button } from "@/ui";
-import { doDeleteCpassFromFileUsAtom, doDeleteFileUsAtom, getCpassFileUsAtom, rightPanelAtomAtom } from "@/store";
+import { getCpassFileUsAtom, rightPanelAtomAtom } from "@/store/1-atoms/3-right-panel";
+import { doDeleteCpassFromFileUsAtom, doDeleteFileUsAtom } from "@/store/1-atoms/2-file-mani-atoms";
 
 export function TestDeleteFile() {
     const currentAtom = useAtomValue(rightPanelAtomAtom);

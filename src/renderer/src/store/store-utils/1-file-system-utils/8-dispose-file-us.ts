@@ -1,7 +1,8 @@
 import { atom } from "jotai";
 import { discardValues, discardValuesDeep } from "@/utils";
 import { type FileUsAtom, type ManiAtomsAtom } from "@/store/store-types";
-import { type ManiAtoms, type AnyFormCtx, type FceCtx, filesAtom } from "@/store/1-atoms";
+import { type ManiAtoms, type AnyFormCtx } from "@/store/1-atoms/2-file-mani-atoms";
+import { type FceCtx, filesAtom } from "@/store/1-atoms";
 
 /**
  * Discard all array of FileUs atom

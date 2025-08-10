@@ -1,8 +1,9 @@
 import { useAtomValue } from "jotai";
 import { useSnapshot } from "valtio";
-import { appSettings, newManiContent } from "@/store";
 import { Button, ScrollArea } from "@/ui/shadcn";
 import { Copy } from "lucide-react";
+import { appSettings } from "@/store/9-ui-state";
+import { newManiContent } from "@/store/1-atoms/2-file-mani-atoms";
 
 export function NewManiContentRawXmlBody() {
 

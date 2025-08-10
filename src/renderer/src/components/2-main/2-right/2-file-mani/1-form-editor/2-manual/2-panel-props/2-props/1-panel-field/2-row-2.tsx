@@ -2,8 +2,10 @@ import { useAtomValue } from "jotai";
 import { useSnapshot } from "valtio";
 import { classNames } from "@/utils";
 import { FieldTyp, FormIdx } from "@/store/manifest";
+import { appSettings } from "@/store/9-ui-state";
 import { type FileUsCtx, type ManualFieldState } from "@/store/1-atoms/2-file-mani-atoms";
-import { type FieldRowCtx, type FceItem, useIsLinkedToLogin, appSettings } from "@/store";
+import { type FieldRowCtx, useIsLinkedToLogin } from "@/store/1-atoms/2-file-mani-atoms";
+import { type FceItem } from "@/store/1-atoms/4-field-catalogs";
 import { InputLabel } from "../8-props-ui";
 import { Case_LinkToLoginForm, Column6_Policy, Case_ValueForLinked, Column4_Value, Column5_Catalog } from "../../../../1-normal/1-fields";
 

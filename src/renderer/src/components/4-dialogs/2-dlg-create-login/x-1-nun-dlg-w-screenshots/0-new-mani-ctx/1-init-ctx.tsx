@@ -1,8 +1,8 @@
 import { atom } from "jotai";
-import { type NewManiCtx } from "./0-ctx";
-import { doInitNewManiContentAtom } from "@/store";
-import { wizardFirstPage } from "./8-step-items-data";
 import { allScreenshotAtom, defaultScreenshotWidth, doSetScreenshotsAtom } from "@/store/7-napi-atoms";
+import { doInitNewManiContentAtom } from "@/store/1-atoms/2-file-mani-atoms";
+import { type NewManiCtx } from "./0-ctx";
+import { wizardFirstPage } from "./8-step-items-data";
 
 export function create_DoInitNewManiCtxAtom() {
     return atom(

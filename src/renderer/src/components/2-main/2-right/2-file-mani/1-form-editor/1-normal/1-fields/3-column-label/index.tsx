@@ -1,7 +1,8 @@
 import { type InputHTMLAttributes } from "react";
 import { type PrimitiveAtom, useAtom, useAtomValue, useSetAtom } from "jotai";
 import { classNames, turnOffAutoComplete } from "@/utils";
-import { type FieldHighlightCtx, doHighlightControlAtom } from "@/store";
+import { doHighlightControlAtom } from "@/store/7-napi-atoms";
+import { type FieldHighlightCtx } from "@/store/1-atoms/2-file-mani-atoms";
 
 type Column3_LabelProps = InputHTMLAttributes<HTMLInputElement> & {
     useItAtom: PrimitiveAtom<boolean>;
