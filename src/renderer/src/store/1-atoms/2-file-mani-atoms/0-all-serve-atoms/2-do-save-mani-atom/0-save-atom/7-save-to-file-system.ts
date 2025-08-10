@@ -1,6 +1,6 @@
 import { fileSave } from "browser-fs-access";
 import { type FileUs } from "@/store/store-types";
-import { rootDir } from "@/store";
+import { rootDir } from "@/store/1-atoms/1-files";
 import { invokeMainTyped } from "@/xternal-to-main";
 import { errorToString } from "@/utils";
 

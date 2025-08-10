@@ -1,11 +1,12 @@
 import { useSnapshot } from "valtio";
 import { motion, MotionConfig } from "motion/react";
-import { appSettings, rootDir } from "@/store";
+import { appSettings } from "@/store/9-ui-state";
 import { WelcomeHeroTitle } from "./2-welcome-hero-title";
 import { OpenButtons } from "./3-open-buttons";
 import { RecentFilesList } from "./5-recent-files-list";
 import { HIDLogoAnimation } from "./6-hid-logo-animation";
 import { DontShowNext } from "./nun/27-nun-dont-show-next";
+import { rootDir } from "@/store/1-atoms/1-files/0-files-atom";
 //import { ListViewDemo } from "@/ui/local-ui/nun/ai-listview/0-list-view-demo4";
 //import { StarTest } from "./nun/1-star-test";
 //import { IconHIDWFrame } from "@/ui/icons";

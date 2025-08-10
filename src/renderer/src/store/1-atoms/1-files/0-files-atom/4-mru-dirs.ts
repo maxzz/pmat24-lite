@@ -3,7 +3,7 @@ import { errorToString, showStack, toUnix } from "@/utils";
 import { get, set } from "idb-keyval";
 import { appSettings } from "../../../9-ui-state";
 import { type PmatFolder } from "./9-types";
-import { isPmatFolderEmpty } from "@/store";
+import { isPmatFolderEmpty } from "@/store/1-atoms/1-files/0-files-atom";
 
 export function addToDirsMru(folder: PmatFolder) {
     try {

@@ -1,9 +1,9 @@
 import { useSetAtom } from "jotai";
 import { useSnapshot } from "valtio";
 import { DropdownMenuItem, DropdownMenuShortcut, menuShortcutClasses } from "@/ui";
+import { rootDir } from "@/store/1-atoms/1-files";
 import { open_SawMonitorAtom } from "@/store/1-atoms/7-dialogs";
 import { appShortcuts } from "@/components/4-dialogs/0-global";
-import { rootDir } from "@/store";
 
 export function MenuItem_CreateMani() {
     const openDlg = useSetAtom(open_SawMonitorAtom);

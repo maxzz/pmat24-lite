@@ -1,12 +1,12 @@
 import { useAtom, useAtomValue } from "jotai";
-import * as D from "@/ui/shadcn";
+import { classNames } from "@/utils";
+import * as D from "@/ui/shadcn/dialog";
 import { Button } from "@/ui/shadcn";
 import { IconFilter } from "@/ui/icons";
-import { isFilterActiveAtom } from "@/store";
+import { isFilterActiveAtom } from "@/store/1-atoms/1-files/3-tree-files";
 import { filterDialogOpenAtom } from "@/store/1-atoms/7-dialogs";
 import { appShortcuts } from "../../0-global/2-global-shortcuts";
 import { DialogFilterBody } from "./2-body";
-import { classNames } from "@/utils";
 
 export function FilterFilesDialogTrigger() {
 

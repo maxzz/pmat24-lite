@@ -1,6 +1,7 @@
 import { useAtomValue } from "jotai";
 import { useSnapshot } from "valtio";
-import { appSettings, filesAtom, rootDir, searchFilterData, totalManis } from "@/store";
+import { appSettings, searchFilterData, totalManis } from "@/store/9-ui-state";
+import { filesAtom, rootDir } from "@/store/1-atoms/1-files";
 
 export function LoadedCounter() {
 

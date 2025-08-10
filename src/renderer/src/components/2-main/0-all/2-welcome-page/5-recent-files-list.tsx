@@ -4,9 +4,10 @@ import { useSnapshot } from "valtio";
 import { motion } from "motion/react";
 import { classNames, filenameWithoutPath } from "@/utils";
 import { Button } from "@/ui";
-import { type PmatFolder, appSettings, doSetFilesFrom_MruFolder_Atom } from "@/store";
 import { IconTrash } from "@/ui/icons";
 import { IconFolderClosed } from "@/ui/icons/normal/temp2";
+import { appSettings } from "@/store/9-ui-state";
+import { type PmatFolder, doSetFilesFrom_MruFolder_Atom } from "@/store/1-atoms/1-files";
 
 export function RecentFilesList({ className, ...rest }: ComponentPropsWithoutRef<typeof motion.div>) {
     const { folders } = useSnapshot(appSettings.appUi.mru);

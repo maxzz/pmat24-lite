@@ -2,9 +2,10 @@ import { useSetAtom } from "jotai";
 import { useSnapshot } from "valtio";
 import { filenameWithoutPath } from "@/utils";
 import { DropdownMenuItem, DropdownMenuPortal, DropdownMenuSeparator, DropdownMenuSub, DropdownMenuSubContent, DropdownMenuSubTrigger } from "@/ui/shadcn/dropdown-menu";
-import { type PmatFolder, appSettings, doSetFilesFrom_MruFolder_Atom } from "@/store";
 import { IconFolderClosed } from "@/ui/icons/normal/temp2";
 import { IconTrash } from "@/ui/icons";
+import { appSettings } from "@/store/9-ui-state";
+import { type PmatFolder, doSetFilesFrom_MruFolder_Atom } from "@/store/1-atoms/1-files";
 
 export function MenuItem_OpenRecent() {
     const { folders } = useSnapshot(appSettings.appUi.mru);
