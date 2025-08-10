@@ -71,16 +71,17 @@ export function sureRootDir(): string {
 const testInUseRegex = /\/([a-c])$/i;
 
 export function getTestInUse(fpath: string): { inUse: boolean; inTest: boolean; notUs: boolean; } {
-    const m = fpath.toLocaleLowerCase().match(/\/([a-c])$/i);
+    const m = fpath.toLocaleLowerCase().match(/([\//])([a-c])$/i);
     if (m === null) {
         console.log(`getTestInUse: fpath: "${fpath}" m:`, m);
         return { inUse: true, inTest: false, notUs: false };
     }
-    const matchSub = m.length > 1; // m[0] is the whole match
+    const hasSlash = m[1] === '/';
+    const hasSub = m.length > 2; // m[0] is the whole match
     const rv = {
-        inUse: !matchSub || m[1] === 'a',
-        inTest: matchSub ? m[1] === 'c' : false,
-        notUs: false,
+        inUse: !hasSub || m[2] === 'a',
+        inTest: hasSub ? m[2] === 'c' : false,
+        notUs: hasSlash && !hasSub,
     };
     console.log(`getTestInUse: fpath: "${fpath}" rv:`, rv, m);
     return rv;
