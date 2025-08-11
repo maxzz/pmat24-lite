@@ -19,7 +19,7 @@ export function TreeItemName({ fileUs, item }: { fileUs: FileUs; item: TreeFileI
     const displayText = getTreeItemDisplayText(fileUs, appSettings.files.itemsState, chooseName);
 
     return (<>
-        <div className={classNames("truncate", hasChanges && "text-orange-600")} title={title}>
+        <div className={classNames("mr-4 truncate", hasChanges && "text-orange-600")} title={title}>
             {displayText}
         </div>
 
@@ -28,16 +28,16 @@ export function TreeItemName({ fileUs, item }: { fileUs: FileUs; item: TreeFileI
 }
 
 function TestInUseIcons({ fileUs }: { fileUs: FileUs; }) {
-    // const isInUse = useAtomValue(fileUs.maniInUseAtom);
     const isTest = useAtomValue(fileUs.maniInTestAtom);
+    // const isInUse = useAtomValue(fileUs.maniInUseAtom);
 
     return (<>
         {isTest && (
-            <IconMicroscope className="absolute size-3 right-5 text-muted-foreground" title={modeTextInTest} />
+            <IconMicroscope className="absolute right-1 size-3 text-muted-foreground" title={modeTextInTest} />
         )}
 
         {/* {!isInUse && (
-            <IconNotInUse className="absolute size-3 right-1 text-muted-foreground" title={modeTextNotInUse} />
+            <IconNotInUse className="absolute right-1 size-3 text-muted-foreground" title={modeTextNotInUse} />
         )} */}
     </>);
 }
