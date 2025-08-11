@@ -9,7 +9,7 @@ import { Row2_Explanation } from "./2-row2-2-file-explanation";
 import { Row3_FnameParts } from "./2-row3-filename-parts";
 import { SaveResetButtons } from "./5-save-reset-buttons";
 import { R_PanelMenu } from "../2-menu";
-import { ToolbarSelector } from "../3-mini-toolbar/0-all";
+import { ToolbarCodeSelector } from "../3-mini-toolbar/0-all";
 
 export function R_PanelHeaderBody() {
     const fileUsAtom = useAtomValue(rightPanelAtomAtom);
@@ -39,7 +39,7 @@ function HeaderContent({ fileUs, fileUsAtom }: { fileUs: FileUs; fileUsAtom: Fil
 
                 <Row1_ManiChooseName fileUs={fileUs} />
 
-                <div className=" 1absolute 1right-0 1top-0.5 flex items-center gap-2">
+                <div className="flex items-center gap-2">
                     <SaveResetButtons fileUs={fileUs} fileUsAtom={fileUsAtom} />
                     <R_PanelMenu />
                 </div>
@@ -54,9 +54,9 @@ function HeaderContent({ fileUs, fileUsAtom }: { fileUs: FileUs; fileUsAtom: Fil
                 <Row3_FnameParts fname={fileUs.fileCnt.fname} fpath={fileUs.fileCnt.fpath} />
                 {/* </div> */}
 
-                <div className="1absolute 1right-1 1bottom-0.5 flex items-center gap-1">
-                    <ToolbarSelector fileUs={fileUs} />
-                </div>
+                {/* <div className="flex items-center gap-1"> */}
+                    <ToolbarCodeSelector fileUs={fileUs} />
+                {/* </div> */}
             </div>
         </div>
     );

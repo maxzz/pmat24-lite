@@ -1,11 +1,10 @@
 import { useSnapshot } from "valtio";
+import { classNames } from "@/utils";
 import { appSettings, RightPanelViewType } from "@/store";
 import { Button } from "@/ui";
 import { SymbolCode } from "@/ui/icons";
-import { classNames } from "@/utils";
 
 export function ButtonQuickXml() {
-
     const { activeView } = useSnapshot(appSettings).right;
     const { showQuickXml } = useSnapshot(appSettings.appUi.uiGeneral);
 
@@ -20,7 +19,7 @@ export function ButtonQuickXml() {
     }
 
     return (
-        <Button variant="ghost" className={classNames("-mx-1", isXml && "bg-muted")} onClick={chageView}>
+        <Button variant="ghost" className={classNames("-mx-1", isXml && "bg-muted")} tabIndex={-1} onClick={chageView}>
             <SymbolCode className="size-4 fill-current" />
         </Button>
     );
