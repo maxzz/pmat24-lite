@@ -6,6 +6,7 @@ import { FormIdx, isAnyWhy } from "@/store/manifest";
 import { TreeItemTooltip } from "./3-tree-item-tooltip-wrap";
 import { TooltipBody } from "./4-tree-item-tooltip-body";
 import { SymbolFire } from "@/ui/icons";
+import { appSettings } from "@/store/9-ui-state";
 
 type FileIconAttentionProps = {
     fileUs: FileUs;
@@ -15,19 +16,22 @@ type FileIconAttentionProps = {
 };
 
 export function TreeItemIconWithAttention({ IconToRender, name, fileUs, iconClasses }: FileIconAttentionProps) {
+    const { showCpassMarker } = useSnapshot(appSettings.files.itemsState);
+    const maniAtoms = useAtomValue(fileUs.maniAtomsAtom);
+    const hasCpass = showCpassMarker && (maniAtoms ? maniAtoms?.[FormIdx.cpass] : fileUs.parsedSrc.meta?.[FormIdx.cpass]); // maniAtoms created when item selected so use meta data if not selected
+
     const hasChanges = !!useSnapshot(fileUs.fileCnt.changesSet).size;
     const hasBailOut = isAnyWhy(fileUs.parsedSrc.meta);
     const fileIndex = fileUs.fileCnt.idx + 1;
-    // const hasCpass = useAtomValue(fileUs.maniAtomsAtom)?.[FormIdx.cpass]; // This is good and we need option for that, but we cannot show it before maniAtoms created
 
     const IconBody = (<>
         {IconToRender && (
             <div className="relative">
                 <IconToRender className={iconClasses} aria-hidden="true" />
 
-                {/* {hasCpass && (
+                {hasCpass && (
                     <div className="absolute right-1 top-0 size-1 bg-foreground/30 dark:bg-foreground/50 rounded" title="with password change"></div>
-                )} */}
+                )}
 
                 {hasChanges && (
                     <SymbolFire className="absolute right-0 -top-1 size-3 text-red-500" colorize />

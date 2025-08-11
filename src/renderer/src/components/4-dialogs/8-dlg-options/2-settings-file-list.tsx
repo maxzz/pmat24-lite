@@ -31,6 +31,11 @@ export function FileListSettings() {
             </Label>
 
             <Label className={rowClasses}>
+                <Checkbox checked={snapItems.showCpassMarker} onCheckedChange={(v) => liveItems.showCpassMarker = !!v} />
+                Show Password Change marker on tree items
+            </Label>
+
+            <Label className={rowClasses}>
                 <Checkbox checked={snapItems.selectAsTrigger} onCheckedChange={(v) => liveItems.selectAsTrigger = !!v} />
                 Select the same file will deselect it
             </Label>
