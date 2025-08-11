@@ -32,7 +32,7 @@ export function setRootDir(folder: PmatFolder | undefined): void {
     } else {
         appMainTitle.title = folder.fpath;
     }
-    
+
     addToDirsMru(folder);
 }
 
@@ -63,21 +63,19 @@ export function sureRootDir(): string {
 // Subfolder detection utilities
 
 export function getTestInUse(fpath: string): { inUse: boolean; inTest: boolean; notUs: boolean; } {
+    fpath = normalizeFpath(fpath);
+    
     if (fpath === rootDir.fpath) {
-        console.log(`getTestInUse: fpath: "${fpath}" rv:`, { inUse: true, inTest: false, notUs: false });
+        //console.log(`%cgetTestInUse: fpath: "${fpath}":`, "color: green", { inUse: true, inTest: false, notUs: false });
         return { inUse: true, inTest: false, notUs: false };
     }
 
     const m = fpath.toLocaleLowerCase().match(/[\//]([a-c])$/i);
     if (m === null) {
-        console.log(`getTestInUse: fpath: "${fpath}" rv:`, { inUse: false, inTest: false, notUs: true });
+        //console.log(`%cgetTestInUse: fpath: "${fpath}":`, "color: blue", { inUse: false, inTest: false, notUs: true });
         return { inUse: false, inTest: false, notUs: true };
     }
-    const rv = {
-        inUse: m[1] === 'a',
-        inTest: m[1] === 'c',
-        notUs: false,
-    };
-    console.log(`getTestInUse: fpath: "${fpath}" rv:`, rv, m);
-    return rv;
+
+    //console.log(`%cgetTestInUse: fpath: "${fpath}":`, "color: orange", { inUse: m[1] === 'a', inTest: m[1] === 'c', notUs: false });
+    return { inUse: m[1] === 'a', inTest: m[1] === 'c', notUs: false, };
 }
