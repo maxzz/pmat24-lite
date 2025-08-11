@@ -32,4 +32,4 @@ function FcName({ fileUs }: { fileUs: FileUs; }) {
     );
 }
 
-const rowClasses = "pl-1 h-4 text-xs font-semibold";
+const rowClasses = "mr-7 pl-1 h-4 text-xs font-semibold truncate";
