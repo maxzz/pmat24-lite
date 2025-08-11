@@ -38,7 +38,7 @@ export function R_PanelMenuMani({ maniAtoms }: { maniAtoms: ManiAtoms; }) {
     if (isNormalForm(formCtx)) {
         return (<>
             <MenuItem_Normal_ShowTextFields formCtx={formCtx} />
-            <DropdownMenuSeparator />
+            {/* <DropdownMenuSeparator /> */} {/* This is double separator MenuItem_Normal_ShowTextFields is hidden */}
             <CommonMenuItems maniAtoms={maniAtoms} fileUsCtx={formCtx.fileUsCtx} />
         </>);
     }
