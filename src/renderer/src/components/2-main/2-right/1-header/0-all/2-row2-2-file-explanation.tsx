@@ -11,7 +11,7 @@ export function Row2_Explanation({ fileUs }: { fileUs: FileUs; }) {
                 ? 'Manually defined login for a Windows application'
                 : 'Login for a Windows application';
         return (
-            <span className="1shrink 1min-w-0 truncate">
+            <span className="truncate">
                 {title}
             </span>
         );
@@ -22,24 +22,14 @@ export function Row2_Explanation({ fileUs }: { fileUs: FileUs; }) {
     const showCpassUrl = cpassUrl && cpassUrl !== loginUrl;
 
     return (
-        <div className="flex items-center">
-            <ManiUrlParts url={loginUrl} domain={domain} />
+        <div className="min-w-0 flex items-center gap-1">
+            <span className="truncate">
+                The login is defined for
+            </span>
 
-            {showCpassUrl && (
-                <DomainAndOpenIcon url={cpassUrl} title="Open the password change site" />
-            )}
-        </div>
-    );
-}
-
-function ManiUrlParts({ url, domain }: { url: string | undefined; domain: string; }) {
-    return (
-        <div className="flex items-center gap-1">
-            The login is defined for {' '}
-
-            {url
+            {loginUrl
                 ? (
-                    <DomainAndOpenIcon domain={domain} url={url} title="Open the login site" />
+                    <DomainAndOpenIcon domain={domain} url={loginUrl} title="Open the login site" />
                 )
                 : (
                     <div className={ManiUrlPartsClasses}>
@@ -47,6 +37,10 @@ function ManiUrlParts({ url, domain }: { url: string | undefined; domain: string
                     </div>
                 )
             }
+
+            {showCpassUrl && (
+                <DomainAndOpenIcon url={cpassUrl} title="Open the password change site" />
+            )}
         </div>
     );
 }

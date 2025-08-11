@@ -19,7 +19,7 @@ export function ButtonQuickXml() {
     }
 
     return (
-        <Button variant="ghost" className={classNames("-mx-1", isXml && "bg-muted")} tabIndex={-1} onClick={chageView}>
+        <Button variant="ghost" className={classNames(isXml && "bg-muted")} tabIndex={-1} onClick={chageView}>
             <SymbolCode className="size-4 fill-current" />
         </Button>
     );

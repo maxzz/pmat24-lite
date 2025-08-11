@@ -32,34 +32,25 @@ export function R_PanelHeaderBody() {
 
 function HeaderContent({ fileUs, fileUsAtom }: { fileUs: FileUs; fileUsAtom: FileUsAtom; }) {
     return (
-        <div className={classNames(panelHeaderClasses, "relative max-w-4xl xl:border-r border-border", headerGridClasses)}>
-            {/* <div className="py-1 text-muted-foreground space-y-1.5 cursor-default"> */}
-
-            <div className="col-span-full flex items-center justify-between">
-
+        <div className={classNames(panelHeaderClasses, "max-w-4xl xl:border-r border-border grid")}>
+            <div className="min-w-0 flex items-center justify-between">
                 <Row1_ManiChooseName fileUs={fileUs} />
 
-                <div className="flex items-center gap-2">
+                <div className="flex-none flex items-center gap-1">
                     <SaveResetButtons fileUs={fileUs} fileUsAtom={fileUsAtom} />
                     <R_PanelMenu />
                 </div>
             </div>
 
-            <div className="col-span-full flex items-center gap-1.5">
+            <div className="min-w-0 flex items-center gap-1.5">
                 <Row2_AppIcons fileUs={fileUs} />
                 <Row2_Explanation fileUs={fileUs} />
             </div>
 
-            <div className="col-span-full flex items-center justify-between">
+            <div className="min-w-0 flex items-center justify-between">
                 <Row3_FnameParts fname={fileUs.fileCnt.fname} fpath={fileUs.fileCnt.fpath} />
-                {/* </div> */}
-
-                {/* <div className="flex items-center gap-1"> */}
-                    <ToolbarCodeSelector fileUs={fileUs} />
-                {/* </div> */}
+                <ToolbarCodeSelector fileUs={fileUs} />
             </div>
         </div>
     );
 }
-
-const headerGridClasses = "grid grid-cols-[1fr,auto]";
