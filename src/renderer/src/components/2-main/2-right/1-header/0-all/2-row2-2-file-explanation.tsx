@@ -19,13 +19,13 @@ export function Row2_Explanation({ fileUs }: { fileUs: FileUs; }) {
 
     const loginUrl = meta?.[0]?.mani?.detection?.web_ourl || domain; // open domain in browser if url is not defined
     const cpassUrl = meta?.[1]?.mani?.detection?.web_ourl;
-    const showCpass = cpassUrl && cpassUrl !== loginUrl;
+    const showCpassUrl = cpassUrl && cpassUrl !== loginUrl;
 
     return (
         <div className="flex items-center">
             <ManiUrlParts url={loginUrl} domain={domain} />
 
-            {showCpass && (
+            {showCpassUrl && (
                 <DomainAndOpenIcon url={cpassUrl} title="Open the password change site" />
             )}
         </div>

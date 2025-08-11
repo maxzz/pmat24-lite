@@ -1,4 +1,5 @@
 import { useAtomValue } from "jotai";
+import { classNames } from "@/utils";
 import { rightPanelAtomAtom, fileUsOfRightPanelAtom } from "@/store/1-atoms/3-right-panel";
 import { type FileUs, type FileUsAtom } from "@/store/store-types";
 import { panelHeaderClasses } from "../../../1-left/1-header/0-all-header";
@@ -11,7 +12,6 @@ import { R_PanelMenu } from "../2-menu";
 import { ToolbarSelector } from "../3-mini-toolbar/0-all";
 
 export function R_PanelHeaderBody() {
-
     const fileUsAtom = useAtomValue(rightPanelAtomAtom);
     const fileUs = useAtomValue(fileUsOfRightPanelAtom);
 
@@ -26,34 +26,40 @@ export function R_PanelHeaderBody() {
     }
 
     return (
-        <div className={panelHeaderClasses}>
-            <div className={"relative max-w-4xl xl:border-r border-border"}>
-                <HeaderContent fileUs={fileUs} fileUsAtom={fileUsAtom} />
+        <HeaderContent fileUs={fileUs} fileUsAtom={fileUsAtom} />
+    );
+}
+
+function HeaderContent({ fileUs, fileUsAtom }: { fileUs: FileUs; fileUsAtom: FileUsAtom; }) {
+    return (
+        <div className={classNames(panelHeaderClasses, "relative max-w-4xl xl:border-r border-border", headerGridClasses)}>
+            {/* <div className="py-1 text-muted-foreground space-y-1.5 cursor-default"> */}
+
+            <div className="col-span-full flex items-center justify-between">
+
+                <Row1_ManiChooseName fileUs={fileUs} />
+
+                <div className=" 1absolute 1right-0 1top-0.5 flex items-center gap-2">
+                    <SaveResetButtons fileUs={fileUs} fileUsAtom={fileUsAtom} />
+                    <R_PanelMenu />
+                </div>
+            </div>
+
+            <div className="col-span-full flex items-center gap-1.5">
+                <Row2_AppIcons fileUs={fileUs} />
+                <Row2_Explanation fileUs={fileUs} />
+            </div>
+
+            <div className="col-span-full flex items-center justify-between">
+                <Row3_FnameParts fname={fileUs.fileCnt.fname} fpath={fileUs.fileCnt.fpath} />
+                {/* </div> */}
+
+                <div className="1absolute 1right-1 1bottom-0.5 flex items-center gap-1">
+                    <ToolbarSelector fileUs={fileUs} />
+                </div>
             </div>
         </div>
     );
 }
 
-function HeaderContent({ fileUs, fileUsAtom }: { fileUs: FileUs; fileUsAtom: FileUsAtom; }) {
-    return (<>
-        <div className="py-1 text-muted-foreground space-y-1.5 cursor-default">
-            <Row1_ManiChooseName fileUs={fileUs} />
-
-            <div className="flex items-center gap-1.5">
-                <Row2_AppIcons fileUs={fileUs} />
-                <Row2_Explanation fileUs={fileUs} />
-            </div>
-
-            <Row3_FnameParts fname={fileUs.fileCnt.fname} fpath={fileUs.fileCnt.fpath} />
-        </div>
-
-        <div className=" absolute right-0 top-0.5 flex items-center gap-2">
-            <SaveResetButtons fileUs={fileUs} fileUsAtom={fileUsAtom} />
-            <R_PanelMenu />
-        </div>
-
-        <div className=" absolute right-1 bottom-0.5 flex items-center gap-1">
-            <ToolbarSelector fileUs={fileUs} />
-        </div>
-    </>);
-}
+const headerGridClasses = "grid grid-cols-[1fr,auto]";
