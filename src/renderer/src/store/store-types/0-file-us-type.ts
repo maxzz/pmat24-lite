@@ -55,3 +55,5 @@ export type FileUsAtom = PA<FileUs>;
 export type ManiAtomsAtom = PA<ManiAtoms | null>;
 export type ManiAtomsSureAtom = PA<ManiAtoms>;          // Already checked not null at the level above if not null and ready to use wo/ checking null
 export type HighlightHwnd = TlwInfo | null | undefined;
+
+//TODO: have only one option inTest without inUse

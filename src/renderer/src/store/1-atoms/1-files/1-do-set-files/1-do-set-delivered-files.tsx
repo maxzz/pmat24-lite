@@ -11,7 +11,7 @@ import { sortFileUsItemsInPlaceAndSetIndices } from "../3-tree-files";
 import { allFileUsChanges } from "../../2-file-mani-atoms";
 import { rightPanelAtomAtom } from "../../3-right-panel";
 import { createFileUsFromFileContent } from "./3-create-fileus";
-import { initLocalCacheTestInUseAtoms } from "./7-create-inuse-test";
+import { initLocalCacheTestInUseAtoms } from "./7-create-test-inuse";
 
 export type SetDeliveredFiles = {
     deliveredFileContents: FileContent[] | undefined;

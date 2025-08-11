@@ -1,7 +1,8 @@
-import { type Atom, atom } from "jotai";
+import { atom } from "jotai";
+import { hasMain } from "@/xternal-to-main";
 import { type FileContent } from "@shared/ipc-types";
 import { type FileUsAtom, type FileUs } from "@/store/store-types";
-import { getTestInUse, rootDir, sureRootDir } from "../0-files-atom/2-root-dir";
+import { getTestInUse } from "../0-files-atom/2-root-dir";
 
 export function createTestInUseAtoms(fileCnt: FileContent): Pick<FileUs, 'maniInUseAtom' | 'maniInTestAtom'> {
     const { inUse, inTest } = getTestInUse(fileCnt.fpath);
@@ -11,20 +12,15 @@ export function createTestInUseAtoms(fileCnt: FileContent): Pick<FileUs, 'maniIn
     };
 }
 
-// export function initTestInUseAtoms(fileUsAtoms: FileUsAtom[], {get, set}: GetSet) {
-//     fileUsAtoms.forEach(
-//         (fileUsAtom) => {
-//             const fileUs = get(fileUsAtom);
-//             const fpath = fileUs.fileCnt.fpath.toLowerCase();
-
-//             const { inUse, inTest } = getTestInUse(fpath);
-//             set(fileUs.maniInUseAtom, inUse);
-//             set(fileUs.maniInTestAtom, inTest);
-//         }
-//     );
-// }
-
 export async function initLocalCacheTestInUseAtoms(fileUsAtoms: FileUsAtom[], getset: GetSet) {
+    if (!hasMain()) {
+        return;
+    }
+
+    // copy to local cache
+    
+    // TBD: make it in main process
+
     const promises = fileUsAtoms.map(
         async (fileUsAtom) => {
             const fileUs = getset.get(fileUsAtom);
@@ -36,5 +32,6 @@ export async function initLocalCacheTestInUseAtoms(fileUsAtoms: FileUsAtom[], ge
             }
         }
     );
+
     await Promise.all(promises);
 }
