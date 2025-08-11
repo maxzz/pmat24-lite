@@ -1,5 +1,5 @@
 import { proxy, ref } from "valtio";
-import { filenameWithoutPath, pathWithoutFilename } from "@/utils";
+import { filenameWithoutPath } from "@/utils";
 import { hasMain } from "@/xternal-to-main";
 import { type PmatFolder } from "./9-types";
 import { addToDirsMru } from "./4-mru-dirs";
@@ -67,21 +67,24 @@ export function sureRootDir(): string {
 //     maniInTest: boolean;                                // Is manifest file in test mode
 // }
 
-//TODO: regex to match subfolder a | b | c | empty
-const testInUseRegex = /\/([a-c])$/i;
+//TODO: regex to match subfolder name | empty
+const testInUseRegex = /\\*.[\/](.*)$/i;
 
 export function getTestInUse(fpath: string): { inUse: boolean; inTest: boolean; notUs: boolean; } {
-    const last = pathWithoutFilename(fpath).toLocaleLowerCase();
-    if (m === null) {
-        console.log(`getTestInUse: fpath: "${fpath}" m:`, m);
+    if (fpath === rootDir.fpath) {
+        console.log(`getTestInUse: fpath: "${fpath}" rv:`, { inUse: true, inTest: false, notUs: false });
         return { inUse: true, inTest: false, notUs: false };
     }
-    const hasSlash = m[1] === '/';
-    const hasSub = m.length > 2; // m[0] is the whole match
+
+    const m = fpath.toLocaleLowerCase().match(/[\//]([a-c])$/i);
+    if (m === null) {
+        console.log(`getTestInUse: fpath: "${fpath}" rv:`, { inUse: false, inTest: false, notUs: true });
+        return { inUse: false, inTest: false, notUs: true };
+    }
     const rv = {
-        inUse: !hasSub || m[2] === 'a',
-        inTest: hasSub ? m[2] === 'c' : false,
-        notUs: hasSlash && !hasSub,
+        inUse: m[1] === 'a',
+        inTest: m[1] === 'c',
+        notUs: false,
     };
     console.log(`getTestInUse: fpath: "${fpath}" rv:`, rv, m);
     return rv;
