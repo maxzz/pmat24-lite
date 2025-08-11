@@ -4,6 +4,7 @@ import { hasMain } from "@/xternal-to-main";
 import { type PmatFolder } from "./9-types";
 import { addToDirsMru } from "./4-mru-dirs";
 import { appMainTitle } from "../../../9-ui-state";
+import { FileContent } from "@shared/ipc-types";
 
 export const rootDir: PmatFolder = proxy<PmatFolder>({
     fpath: '',
@@ -64,13 +65,13 @@ export function sureRootDir(): string {
 
 export function getTestInUse(fpath: string): { inUse: boolean; inTest: boolean; notUs: boolean; } {
     fpath = normalizeFpath(fpath);
-    
+
     if (fpath === rootDir.fpath) {
         //console.log(`%cgetTestInUse: fpath: "${fpath}":`, "color: green", { inUse: true, inTest: false, notUs: false });
         return { inUse: true, inTest: false, notUs: false };
     }
 
-    const m = fpath.toLocaleLowerCase().match(/[\//]([a-c])$/i);
+    const m = fpath.match(/[\//]([a-c])$/i);
     if (m === null) {
         //console.log(`%cgetTestInUse: fpath: "${fpath}":`, "color: blue", { inUse: false, inTest: false, notUs: true });
         return { inUse: false, inTest: false, notUs: true };
@@ -78,4 +79,12 @@ export function getTestInUse(fpath: string): { inUse: boolean; inTest: boolean; 
 
     //console.log(`%cgetTestInUse: fpath: "${fpath}":`, "color: orange", { inUse: m[1] === 'a', inTest: m[1] === 'c', notUs: false });
     return { inUse: m[1] === 'a', inTest: m[1] === 'c', notUs: false, };
+}
+
+export function isPmatFileToLoad(fileCnt: FileContent): boolean {
+    // if (!fileCnt.fname.toLowerCase().endsWith('.dpm')) {
+    //     return false;
+    // }
+    const { inUse, inTest, notUs } = getTestInUse(fileCnt.fpath);
+    return inUse || inTest;
 }

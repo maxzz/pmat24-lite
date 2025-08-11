@@ -3,7 +3,7 @@ import { delay } from "@/utils";
 import { toast } from "sonner";
 import { type FileUs } from "@/store/store-types";
 import { type FileContent } from "@shared/ipc-types";
-import { type PmatFolder, filesAtom, isRootDirEmpty, setRootDir } from "../0-files-atom";
+import { type PmatFolder, filesAtom, isPmatFileToLoad, isRootDirEmpty, setRootDir } from "../0-files-atom";
 import { doAddFcToLoadedAtom, doClearFcRootAtom, doInitFileUsLinksToFcAtom } from "../../4-field-catalogs";
 import { addToTotalManis, appSettings, busyIndicator, clearTotalManis } from "@/store/9-ui-state";
 import { doDisposeAllFilesAtomAtom } from "@/store/store-utils";
@@ -81,6 +81,7 @@ export const doSetDeliveredFilesAtom = atom(
 
         const initializedFileUsItems: FileUs[] = deliveredFileContents
             .filter((file) => file.size)
+            .filter(isPmatFileToLoad)
             .map(
                 (deliveredFileContent: FileContent) => {
                     const newFileUs = createFileUsFromFileContent(deliveredFileContent);
