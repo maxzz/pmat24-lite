@@ -1,5 +1,5 @@
 import { ref, snapshot, subscribe } from "valtio";
-import { errorToString, showStack, toUnix } from "@/utils";
+import { errorToString, normalizeFpath, showStack, toUnix } from "@/utils";
 import { get, set } from "idb-keyval";
 import { appSettings } from "../../../9-ui-state";
 import { type PmatFolder } from "./9-types";
@@ -65,7 +65,7 @@ function removeMruListItem(items: PmatFolder[], folder: PmatFolder): boolean {
         return false;
     }
 
-    folder.fpath = toUnix(folder.fpath).toLowerCase(); // normalize fpath
+    folder.fpath = normalizeFpath(folder.fpath);
 
     const idx = items.findIndex((item) => item.fpath === folder.fpath);
     if (idx >= 0) {

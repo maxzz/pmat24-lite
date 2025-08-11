@@ -1,5 +1,5 @@
 import { proxy, ref } from "valtio";
-import { filenameWithoutPath } from "@/utils";
+import { filenameWithoutPath, normalizeFpath } from "@/utils";
 import { hasMain } from "@/xternal-to-main";
 import { type PmatFolder } from "./9-types";
 import { addToDirsMru } from "./4-mru-dirs";
@@ -23,7 +23,7 @@ export function setRootDir(folder: PmatFolder | undefined): void {
 
     const { fpath: rpath, handle, fromMain } = folder;
 
-    rootDir.fpath = rpath;
+    rootDir.fpath = normalizeFpath(rpath);
     rootDir.handle = handle ? ref(handle) : undefined;
     rootDir.fromMain = fromMain;
 
@@ -61,14 +61,6 @@ export function sureRootDir(): string {
 }
 
 // Subfolder detection utilities
-
-// export type TestInUse = {
-//     maniInUse: boolean;                                 // Is manifest file in use for production; from pmac: sub-folders: A(InUse), B(NotInUse), and C(NotInUseTest).
-//     maniInTest: boolean;                                // Is manifest file in test mode
-// }
-
-//TODO: regex to match subfolder name | empty
-const testInUseRegex = /\\*.[\/](.*)$/i;
 
 export function getTestInUse(fpath: string): { inUse: boolean; inTest: boolean; notUs: boolean; } {
     if (fpath === rootDir.fpath) {
