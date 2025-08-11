@@ -82,9 +82,9 @@ export function getTestInUse(fpath: string): { inUse: boolean; inTest: boolean; 
 }
 
 export function isPmatFileToLoad(fileCnt: FileContent): boolean {
-    // if (!fileCnt.fname.toLowerCase().endsWith('.dpm')) {
-    //     return false;
-    // }
-    const { inUse, inTest, notUs } = getTestInUse(fileCnt.fpath);
+    const { inUse, inTest } = getTestInUse(fileCnt.fpath);
     return inUse || inTest;
 }
+
+// see also src/renderer/src/components/2-main/2-right/1-header/0-all/2-row3-filename-parts.tsx:
+//      const reFilenameMatch = /^\{([0-9A-Za-z]{3,3})(.*)([0-9A-Za-z]{3,3})\}\.dpm$/; //TODO: handle '{guid} + extra.dpm' filenames
