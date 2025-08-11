@@ -1,8 +1,8 @@
 import { useAtomValue } from "jotai";
 import { useSnapshot } from "valtio";
 import { classNames } from "@/utils";
-import { IconMicroscope, IconNotInUse } from "@/ui/icons";
-import { modeTextInTest, modeTextNotInUse } from "@/components/2-main/2-right/2-file-mani/2-form-options";
+import { IconMicroscope } from "@/ui/icons";
+import { modeTextInTest } from "@/components/2-main/2-right/2-file-mani/2-form-options";
 import { appSettings, getTreeItemDisplayText } from "@/store";
 import { type FileUs } from "@/store/store-types";
 import { type TreeFileItemWState } from "../0-all/2-tree-action-atoms";
@@ -28,7 +28,7 @@ export function TreeItemName({ fileUs, item }: { fileUs: FileUs; item: TreeFileI
 }
 
 function TestInUseIcons({ fileUs }: { fileUs: FileUs; }) {
-    const isInUse = useAtomValue(fileUs.maniInUseAtom);
+    // const isInUse = useAtomValue(fileUs.maniInUseAtom);
     const isTest = useAtomValue(fileUs.maniInTestAtom);
 
     return (<>
@@ -36,8 +36,8 @@ function TestInUseIcons({ fileUs }: { fileUs: FileUs; }) {
             <IconMicroscope className="absolute size-3 right-5 text-muted-foreground" title={modeTextInTest} />
         )}
 
-        {!isInUse && (
+        {/* {!isInUse && (
             <IconNotInUse className="absolute size-3 right-1 text-muted-foreground" title={modeTextNotInUse} />
-        )}
+        )} */}
     </>);
 }

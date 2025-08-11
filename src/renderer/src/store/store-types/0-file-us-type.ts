@@ -47,8 +47,8 @@ export type FileUs = {
     hwndLoginAtom: PA<HighlightHwnd>;                   // Windows window handle to highlight window field. Available when file is created before save, but can be acquired later. When manifest created it has type GetTargetWindowResult (i.e. with process and isBrowser).
     hwndCpassAtom: PA<HighlightHwnd>;                   // Login and Cpass can have different hwnd when created at the same time (or even multiple files created at the same time).
 
-    maniInUseAtom: PA<boolean>;                         // Is manifest file in use for production; from pmac: sub-folders: A(InUse), B(NotInUse), and C(NotInUseTest).
-    maniInTestAtom: PA<boolean>;                        // Is manifest file in test mode
+    //maniInUseAtom: PA<boolean>;                       // Is manifest file in use for production; from pmac: sub-folders: A(InUse), B(NotInUse), and C(NotInUseTest).
+    maniInTestAtom: PA<boolean>;                        // Is manifest file in test mode; we don't use B so mani is in use or is in test mode only.
 };
 
 export type FileUsAtom = PA<FileUs>;

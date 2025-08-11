@@ -1,27 +1,27 @@
 import { useAtomValue, useSetAtom } from "jotai";
 import { ChildrenWithLabel2Cols } from "@/ui/local-ui";
 import { Switch } from "@/ui/shadcn";
-import { modeTextInTest, modeTextInUse } from "./8-test-in-use-names";
+import { modeTextInTest } from "./8-test-in-use-names";
 import { type OFormProps, type FileUsCtx } from "@/store/1-atoms/2-file-mani-atoms";
-import { doSetInTestAtom, doSetInUseAtom } from "../5-do-inuse-test";
+import { doSetInTestAtom } from "../5-do-inuse-test";
 
 export function PanelTestInUse({ oFormProps }: { oFormProps: OFormProps; }) {
     return (<>
-        <Input_InUseMode fileUsCtx={oFormProps.oAllAtoms.fileUsCtx} />
+        {/* <Input_InUseMode fileUsCtx={oFormProps.oAllAtoms.fileUsCtx} /> */}
         <Input_InTestMode fileUsCtx={oFormProps.oAllAtoms.fileUsCtx} />
     </>);
 }
 
-function Input_InUseMode({ fileUsCtx }: { fileUsCtx: FileUsCtx; }) {
-    const notInUse = !useAtomValue(fileUsCtx.fileUs.maniInUseAtom);
-    const doSetInUse = useSetAtom(doSetInUseAtom);
+// function Input_InUseMode({ fileUsCtx }: { fileUsCtx: FileUsCtx; }) {
+//     const notInUse = !useAtomValue(fileUsCtx.fileUs.maniInUseAtom);
+//     const doSetInUse = useSetAtom(doSetInUseAtom);
 
-    return (<>
-        <ChildrenWithLabel2Cols label={modeTextInUse}>
-            <Switch className={toggleClasses} checked={notInUse} onCheckedChange={(checked) => doSetInUse({ fileUsCtx, inUse: !checked })}></Switch>
-        </ChildrenWithLabel2Cols>
-    </>);
-}
+//     return (<>
+//         <ChildrenWithLabel2Cols label={modeTextInUse}>
+//             <Switch className={toggleClasses} checked={notInUse} onCheckedChange={(checked) => doSetInUse({ fileUsCtx, inUse: !checked })}></Switch>
+//         </ChildrenWithLabel2Cols>
+//     </>);
+// }
 
 function Input_InTestMode({ fileUsCtx }: { fileUsCtx: FileUsCtx; }) {
     const isInTestMode = useAtomValue(fileUsCtx.fileUs.maniInTestAtom);

@@ -4,10 +4,10 @@ import { type FileContent } from "@shared/ipc-types";
 import { type FileUsAtom, type FileUs } from "@/store/store-types";
 import { getTestInUse } from "./5-test-inuse";
 
-export function createTestInUseAtoms(fileCnt: FileContent): Pick<FileUs, 'maniInUseAtom' | 'maniInTestAtom'> {
+export function createTestInUseAtoms(fileCnt: FileContent): Pick<FileUs, 'maniInTestAtom'> {
     const { inUse, inTest } = getTestInUse(fileCnt.fpath);
     return {
-        maniInUseAtom: atom<boolean>(inUse),
+        // maniInUseAtom: atom<boolean>(inUse),
         maniInTestAtom: atom<boolean>(inTest),
     };
 }
