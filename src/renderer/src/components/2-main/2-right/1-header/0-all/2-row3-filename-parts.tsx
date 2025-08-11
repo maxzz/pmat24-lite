@@ -4,7 +4,7 @@ type Row3FnamePartsParams = {
     large?: boolean;
 };
 
-export function Row3FnameParts({ fname, fpath, large }: Row3FnamePartsParams) {
+export function Row3_FnameParts({ fname, fpath, large }: Row3FnamePartsParams) {
     const { container, sm, xs, lg: large1, l2: large2 } = partClasses;
 
     const location = `Folder: ${fpath}`;

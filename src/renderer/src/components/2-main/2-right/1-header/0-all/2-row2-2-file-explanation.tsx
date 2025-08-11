@@ -2,12 +2,12 @@ import { FileUs } from "@/store/store-types";
 import { isAnyManual } from "@/store/manifest";
 import { SymbolOpenLink } from "@/ui/icons";
 
-export function Row2Explanation({ fileUs }: { fileUs: FileUs; }) {
+export function Row2_Explanation({ fileUs }: { fileUs: FileUs; }) {
+    const { stats: { loginFormDomain: domain }, meta } = fileUs.parsedSrc;
 
-    const domain = fileUs.parsedSrc.stats.loginFormDomain;
     if (!domain) {
         const title =
-            isAnyManual(fileUs.parsedSrc.meta)
+            isAnyManual(meta)
                 ? 'Manually defined login for a Windows application'
                 : 'Login for a Windows application';
         return (
@@ -17,8 +17,8 @@ export function Row2Explanation({ fileUs }: { fileUs: FileUs; }) {
         );
     }
 
-    const loginUrl = fileUs.parsedSrc.meta?.[0]?.mani?.detection?.web_ourl || domain; // open domain in browser if url is not defined
-    const cpassUrl = fileUs.parsedSrc.meta?.[1]?.mani?.detection?.web_ourl;
+    const loginUrl = meta?.[0]?.mani?.detection?.web_ourl || domain; // open domain in browser if url is not defined
+    const cpassUrl = meta?.[1]?.mani?.detection?.web_ourl;
     const showCpass = cpassUrl && cpassUrl !== loginUrl;
 
     return (
@@ -31,14 +31,6 @@ export function Row2Explanation({ fileUs }: { fileUs: FileUs; }) {
         </div>
     );
 }
-
-const ManiUrlPartsClasses = "\
-text-foreground \
-opacity-70 \
-hover:opacity-100 \
-hover:text-foreground \
-underline \
-underline-offset-2";
 
 function ManiUrlParts({ url, domain }: { url: string | undefined; domain: string; }) {
     return (
@@ -59,14 +51,6 @@ function ManiUrlParts({ url, domain }: { url: string | undefined; domain: string
     );
 }
 
-const DomainAndOpenIconClasses = "\
-text-foreground \
-hover:text-foreground \
-hover:opacity-100 \
-opacity-70 \
-underline underline-offset-2 \
-flex items-center gap-1";
-
 function DomainAndOpenIcon({ domain, url, title }: { domain?: string; url: string | undefined; title: string; }) {
     return (
         <a href={url} className={DomainAndOpenIconClasses} target="_blank" rel="noreferrer noopener" title={title}>
@@ -75,3 +59,19 @@ function DomainAndOpenIcon({ domain, url, title }: { domain?: string; url: strin
         </a>
     );
 }
+
+const ManiUrlPartsClasses = "\
+text-foreground \
+opacity-70 \
+hover:opacity-100 \
+hover:text-foreground \
+underline \
+underline-offset-2";
+
+const DomainAndOpenIconClasses = "\
+text-foreground \
+hover:text-foreground \
+hover:opacity-100 \
+opacity-70 \
+underline underline-offset-2 \
+flex items-center gap-1";

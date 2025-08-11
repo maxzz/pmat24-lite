@@ -3,7 +3,7 @@ import { FileUs } from "@/store/store-types";
 import { getRightHeaderIcons } from "@/store/store-utils";
 import { useSnapshot } from "valtio";
 
-export function Row2AppIcons({ fileUs }: { fileUs: FileUs; }) {
+export function Row2_AppIcons({ fileUs }: { fileUs: FileUs; }) {
     const showIeWranIcon = useSnapshot(appSettings).files.itemsState.showIeMarker;
 
     const Icons = getRightHeaderIcons(fileUs, showIeWranIcon);

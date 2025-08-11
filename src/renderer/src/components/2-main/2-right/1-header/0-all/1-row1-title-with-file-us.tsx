@@ -1,7 +1,7 @@
 import { useAtomValue } from "jotai";
 import { type FileUs } from "@/store/store-types";
 
-export function Row1ChooseName({ fileUs }: { fileUs: FileUs; }) {
+export function Row1_ManiChooseName({ fileUs }: { fileUs: FileUs; }) {
     return (<>
         {fileUs.parsedSrc.stats.isFCat
             ? <FcName fileUs={fileUs} />
