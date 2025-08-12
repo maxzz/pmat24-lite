@@ -30,7 +30,7 @@ export function TreeItemIconWithAttention({ IconToRender, name, fileUs, iconClas
                 <IconToRender className={iconClasses} aria-hidden="true" />
 
                 {hasCpass && (
-                    <div className="absolute right-1 top-0 size-1 bg-foreground/30 dark:bg-foreground/50 rounded" title="with password change"></div>
+                    <div className="absolute right-1 top-0 text-[6px] leading-[6px] text-foreground dark:text-foreground flex items-start" title="Login with password change">2</div>
                 )}
 
                 {hasChanges && (
