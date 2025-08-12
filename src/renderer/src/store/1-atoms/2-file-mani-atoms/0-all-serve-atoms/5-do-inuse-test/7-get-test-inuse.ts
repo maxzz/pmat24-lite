@@ -1,6 +1,6 @@
 import { normalizeFpath } from "@/utils";
 import { type FileContent } from "@shared/ipc-types";
-import { rootDir } from "../0-files-atom/2-root-dir";
+import { rootDir } from "../../../1-files/0-files-atom/2-root-dir";
 
 // Subfolder detection utilities
 

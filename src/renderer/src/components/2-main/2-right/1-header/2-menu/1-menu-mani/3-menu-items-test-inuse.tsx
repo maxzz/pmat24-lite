@@ -2,7 +2,7 @@ import { useAtomValue, useSetAtom } from "jotai";
 import { DropdownMenuCheckboxItem } from "@/ui/shadcn";
 import { type FileUsCtx } from "@/store/1-atoms/2-file-mani-atoms";
 import { modeTextInTest } from "../../../2-file-mani/2-form-options";
-import { doSetInTestAtom } from "../../../2-file-mani/2-form-options/5-do-inuse-test";
+import { doSetInTestAtom } from "@/store/1-atoms/2-file-mani-atoms/0-all-serve-atoms/5-do-inuse-test";
 
 export function MenuItems_State({ fileUsCtx }: { fileUsCtx: FileUsCtx; }) {
     return (<>

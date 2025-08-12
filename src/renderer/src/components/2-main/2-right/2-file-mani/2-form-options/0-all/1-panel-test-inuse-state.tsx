@@ -3,7 +3,7 @@ import { ChildrenWithLabel2Cols } from "@/ui/local-ui";
 import { Switch } from "@/ui/shadcn";
 import { modeTextInTest } from "./8-test-in-use-names";
 import { type OFormProps, type FileUsCtx } from "@/store/1-atoms/2-file-mani-atoms";
-import { doSetInTestAtom } from "../5-do-inuse-test";
+import { doSetInTestAtom } from "@/store/1-atoms/2-file-mani-atoms/0-all-serve-atoms/5-do-inuse-test";
 
 export function PanelTestInUse({ oFormProps }: { oFormProps: OFormProps; }) {
     return (<>
