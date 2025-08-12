@@ -36,7 +36,7 @@ export function DetectionContent_Web({ oFormProps }: { oFormProps: OFormProps; }
                     stateAtom={rurlAtom}
                     readOnly={disabled}
                     asTextarea
-                    onClick={() => disabled && toast.info('This input is disabled because "How to match URL" is set as the source URL.')}
+                    onClick={() => disabled && toast.info('This input is disabled because "How to match URL" is set "As original URL".')}
                 />
 
                 {showExample && (<>

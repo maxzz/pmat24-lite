@@ -4,7 +4,7 @@ import { toast } from "sonner";
 import { type FileUs } from "@/store/store-types";
 import { type FileContent } from "@shared/ipc-types";
 import { type PmatFolder, filesAtom, isRootDirEmpty, setRootDir } from "../0-files-atom";
-import { isPmatFileToLoad } from "./5-test-inuse";
+import { isPmatFileToLoad } from "./7-get-test-inuse";
 import { doAddFcToLoadedAtom, doClearFcRootAtom, doInitFileUsLinksToFcAtom } from "../../4-field-catalogs";
 import { addToTotalManis, appSettings, busyIndicator, clearTotalManis } from "@/store/9-ui-state";
 import { doDisposeAllFilesAtomAtom } from "@/store/store-utils";
@@ -12,7 +12,7 @@ import { sortFileUsItemsInPlaceAndSetIndices } from "../3-tree-files";
 import { allFileUsChanges } from "../../2-file-mani-atoms";
 import { rightPanelAtomAtom } from "../../3-right-panel";
 import { createFileUsFromFileContent } from "./3-create-fileus";
-import { initLocalCacheTestInUseAtoms } from "./7-create-test-inuse";
+import { initLocalCacheTestInUseAtoms } from "./4-create-test-inuse";
 
 export type SetDeliveredFiles = {
     deliveredFileContents: FileContent[] | undefined;
