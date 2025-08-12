@@ -1,10 +1,10 @@
 import { atom } from "jotai";
 import { type M2R } from "../../../../shared/ipc-types";
-import { doSetDeliveredFilesAtom } from "@/store/1-atoms/1-files";
 import { stateNapiBuildMani, stateNapiAccess, stateNapiPosTracker } from "@/store/7-napi-atoms";
+import { doSetDeliveredFilesAtom } from "@/store/1-atoms/1-files";
+import { doQuitFromMainAtom } from "@/store/1-atoms/0-serve-atoms";
 import { cancelSizeSmall_SawMonitorAtom } from "@/store/1-atoms/7-dialogs";
 import { finalizeFileContent, getRootFromFpath } from "./commands-to-main";
-import { doQuitFromMainAtom } from "@/store/1-atoms/0-all-serve-atoms";
 
 export const doFromMainAtom = atom(
     null,

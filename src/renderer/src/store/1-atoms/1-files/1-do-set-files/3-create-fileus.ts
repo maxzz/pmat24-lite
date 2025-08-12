@@ -4,7 +4,7 @@ import { type FileUs, type ManiAtomsAtom, type HighlightHwnd } from "@/store/sto
 import { type ManiAtoms } from "../../2-file-mani-atoms";
 import { finalizeFileContent } from "@/store/store-utils";
 import { createParsedSrc } from "./2-create-parsed-src";
-import { createTestInUseAtoms } from "../../0-all-serve-atoms/5-do-inuse-test";
+import { createTestInUseAtoms } from "../../0-serve-atoms/5-do-inuse-test";
 
 /**
  * @param maniForCpass - fileUs for create password change; used for parse xml and create new fileUs

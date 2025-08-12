@@ -3,7 +3,7 @@ import { useSnapshot } from "valtio";
 import { classNames } from "@/utils";
 import { ScrollArea } from "@/ui/shadcn";
 import { appSettings } from "@/store/9-ui-state";
-import { newManiFileUsAtom } from "@/store/1-atoms/0-all-serve-atoms";
+import { newManiFileUsAtom } from "@/store/1-atoms/0-serve-atoms";
 import { ManiEditorFormSelector } from "@/components/2-main/2-right/2-file-mani/1-form-editor";
 import { ManiEditorAllOptions } from "@/components/2-main/2-right/2-file-mani/2-form-options";
 import { printManiBodyFileUsAtom } from "@/components/2-main/2-right/2-file-mani";
