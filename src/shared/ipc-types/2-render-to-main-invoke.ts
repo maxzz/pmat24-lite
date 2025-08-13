@@ -121,6 +121,11 @@ export namespace R2MInvoke { // Main from Renderer invoke and get result
         files: TestInUseFile[];
     };
 
+    export type TestInUseQuit = {              // Test in use (Tiu) runs when app quits
+        type: 'r2mi:test-in-use-quit';
+        files: TestInUseFile[];
+    };
+
     export type AllInvokes =
         | DoLoadfiles
         // | DoLoadfiles2/* | DoLoadfiles3*/
@@ -146,6 +151,7 @@ export namespace R2MInvoke { // Main from Renderer invoke and get result
 
         | TestInUseStart
         | TestInUseUpdate
+        | TestInUseQuit
         ;
 
     type EmptyOkOrError = string | undefined;
@@ -223,6 +229,9 @@ export namespace R2MInvoke { // Main from Renderer invoke and get result
         : T extends TestInUseUpdate          //'r2mi:test-in-use-update'
         ? string                             // as TestInUseResultItem[]
 
+        : T extends TestInUseQuit            //'r2mi:test-in-use-quit'
+        ? string                             // as TestInUseResultItem[]
+
         : never;
 
 } //namespace R2MInvoke
@@ -246,4 +255,5 @@ export namespace R2MInvokeParams {
     export type GetWindowExtras = Omit<R2MInvoke.GetWindowExtras, 'type'>;
     export type TestInUseStart = Omit<R2MInvoke.TestInUseStart, 'type'>;
     export type TestInUseUpdate = Omit<R2MInvoke.TestInUseUpdate, 'type'>;
+    export type TestInUseQuit = Omit<R2MInvoke.TestInUseQuit, 'type'>;
 }
