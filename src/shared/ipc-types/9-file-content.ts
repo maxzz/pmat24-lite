@@ -3,7 +3,7 @@ export type FileContent = {
     idx: number;                        // index in the loaded list wo/ counting on filters, i.e. absolute index
 
     fname: string;                      // basename as filename w/ extension but wo/ path
-    fpath: string;                      // FileSystem path without filename (if file fromMain then path is real and w/ Windows backslashes)
+    fpath: string;                      // FileSystem path without filename (if file fromMain then path is real and w/ Windows backslashes) for web path is relative with root folder included
     fmodi: number;                      // file.lastModified
     size: number;                       // file size
     rawLoaded: string;                  // file content as it was loaded or error message

@@ -215,3 +215,6 @@
 //TODO: theme switch in options dialog - done
 
 //TODO: get rid of lucide-icons
+
+//08.13.25
+//TODO: add filter to show only manifests in test mode
