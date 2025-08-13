@@ -1,7 +1,7 @@
 import fs from "fs";
 import path from "path";
-import { type R2MInvoke } from "@shared/ipc-types";
 import { errorToString } from "@shell/3-utils-main";
+import { type R2MInvoke } from "@shared/ipc-types";
 
 /**
  * Save file from renderer in the main process.

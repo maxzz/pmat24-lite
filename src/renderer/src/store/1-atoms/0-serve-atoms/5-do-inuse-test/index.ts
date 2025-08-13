@@ -1,3 +1,3 @@
-export * from "./0-all";
-export * from "./4-create-test-inuse";
-export * from "./7-get-test-inuse";
+export * from "./2-do-set-in-test";
+export * from "./1-create-in-test-in-use";
+export * from "./7-get-in-test-in-use";

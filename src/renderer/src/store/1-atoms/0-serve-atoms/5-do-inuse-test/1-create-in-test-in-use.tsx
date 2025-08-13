@@ -2,10 +2,10 @@ import { atom } from "jotai";
 import { hasMain } from "@/xternal-to-main";
 import { type FileContent } from "@shared/ipc-types";
 import { type FileUsAtom, type FileUs } from "@/store/store-types";
-import { getTestInUse } from "./7-get-test-inuse";
+import { getInTestInUse } from "./7-get-in-test-in-use";
 
 export function createTestInUseAtoms(fileCnt: FileContent): Pick<FileUs, 'maniInTestAtom'> {
-    const { inTest } = getTestInUse(fileCnt.fpath);
+    const { inTest } = getInTestInUse(fileCnt.fpath);
     return {
         // maniInUseAtom: atom<boolean>(inUse),
         maniInTestAtom: atom<boolean>(inTest),
