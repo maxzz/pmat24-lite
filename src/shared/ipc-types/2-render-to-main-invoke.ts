@@ -154,7 +154,7 @@ export namespace R2MInvoke { // Main from Renderer invoke and get result
         | TestInUseQuit
         ;
 
-    type EmptyOkOrError = string | undefined;
+    export type EmptyOkOrError = string | undefined;
 
     export type InvokeResult<T extends R2MInvoke.AllInvokes> =
         T extends DoLoadfiles                //'r2mi:load-files'
@@ -230,7 +230,7 @@ export namespace R2MInvoke { // Main from Renderer invoke and get result
         ? string                             // as TestInUseResultItem[]
 
         : T extends TestInUseQuit            //'r2mi:test-in-use-quit'
-        ? string                             // as TestInUseResultItem[]
+        ? EmptyOkOrError                     // as TestInUseResultItem[]
 
         : never;
 

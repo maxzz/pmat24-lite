@@ -1,4 +1,5 @@
 import { type TestInUseFile } from "@shared/ipc-types/9-test-inuse";
+import { type R2MInvoke } from "@shared/ipc-types";
 import { deleteFolder, getCacheFolder, listFiles } from "./8-os-utils";
 
 export async function testInUseStart(files: TestInUseFile[]): Promise<string> {
@@ -27,7 +28,7 @@ export async function testInUseUpdate(files: TestInUseFile[]): Promise<string> {
     return Promise.resolve(files.map(file => file.fullfname).join('\n'));
 }
 
-export async function testInUseQuit(): Promise<string> {
+export async function testInUseQuit(): Promise<R2MInvoke.EmptyOkOrError> {
     const cacheFolder = getCacheFolder();
     const rv = await deleteFolder(cacheFolder) || '';
     return rv;
