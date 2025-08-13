@@ -19,35 +19,11 @@ export async function testInUseStart(files: TestInUseFile[]): Promise<string> {
 
 export async function testInUseUpdate(files: TestInUseFile[]): Promise<string> {
 
-    for (const file of files) {
-
-        const cacheFolder = getCacheInTestFolder();
-        const fullName = `${cacheFolder}/${file.fullfname}`;
-
-        if (file.inTest) {
-            if (!file.rawCnt) {
-                throw new Error(`\nTest in use: file "${file.fullfname}" is in test mode but rawCnt is not set.`);
-            }
-            await fs.writeFile(fullName, file.rawCnt, 'utf8'); // Overwrites by default
-
-            //throw new Error(`\nTest in use: file "${file.fullfname}" is in test mode but saving failed.`);
-
-        } else {
-            const stats = await fs.stat(file.fullfname);
-            if (stats.isFile()) {
-                await fs.rm(`${cacheFolder}/${file.fullfname}`, { force: true });
-            }
-        }
-
+    for await (const file of files) {
+        await setFileTestInUse(file);
     }
 
     return Promise.resolve(files.map(file => file.fullfname).join('\n'));
-}
-
-export async function testInUseQuit(): Promise<R2MInvoke.EmptyOkOrError> {
-    const cacheFolder = getCacheFolder();
-    const rv = await deleteFolder(cacheFolder) || '';
-    return rv;
 }
 
 async function setFileTestInUse(file: TestInUseFile): Promise<TestInUseResultItem | undefined> {
@@ -74,6 +50,11 @@ async function setFileTestInUse(file: TestInUseFile): Promise<TestInUseResultIte
             unid: file.unid,
             error: `Error setting file "${file.fullfname}" in test mode. Error is: "${errorToString(err)}"`,
         };
-
     }
+}
+
+export async function testInUseQuit(): Promise<R2MInvoke.EmptyOkOrError> {
+    const cacheFolder = getCacheFolder();
+    const rv = await deleteFolder(cacheFolder) || '';
+    return rv;
 }

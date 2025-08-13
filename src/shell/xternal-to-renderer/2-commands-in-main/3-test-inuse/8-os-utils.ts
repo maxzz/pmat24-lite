@@ -23,7 +23,7 @@ export async function listFiles(cacheFolder: string): Promise<string[]> {
     try {
         const files = await fs.readdir(cacheFolder); // Returns an array of filenames
 
-        for (const file of files) {
+        for await (const file of files) {
             const fullname = `${cacheFolder}/${file}`;
             const stats = await fs.stat(fullname);
             if (stats.isFile()) {
