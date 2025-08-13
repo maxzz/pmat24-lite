@@ -1,5 +1,6 @@
 import { type ManifestForWindowCreatorParams, type GetTlwScreenshotsParams, type Rect4, type WindowHighlighterParams, type DragAndDropParams, type OkIfEmptyString, type PerformCommandParams } from "../../shell/xternal-to-renderer/7-napi-calls/pmat-plugin-types-export";
 import { type MainFileContent } from "./9-file-content";
+import { type TestInUseFile } from "./9-test-inuse";
 
 export namespace R2MInvoke { // Main from Renderer invoke and get result
 
@@ -110,18 +111,6 @@ export namespace R2MInvoke { // Main from Renderer invoke and get result
 
     // test in use
 
-    export type TestInUseFile = {               // Test in use (Tiu) file
-        fullfname: string;                      // Full path to the file and filename
-        unid: number;                           // Unique ID of the file (per session)
-        inTest: boolean;                        // What to do with the file: put in 'c' or remove it from 'c'
-        rawCnt: string | undefined;             // Raw content of the file if inTest is true
-    };
-
-    export type TestInUseResult = {             // Test in use (Tiu) result
-        unid: number;                           // Unique ID of the file (per session)
-        error: string | undefined;              // Error message if any
-    };
-
     export type TestInUseStart = {
         type: 'r2mi:test-in-use-start';
         files: TestInUseFile[];
@@ -149,6 +138,8 @@ export namespace R2MInvoke { // Main from Renderer invoke and get result
         
         | GeneralInfo
         | PerformCommand
+
+        | TestInUseStart
         ;
 
     type EmptyOkOrError = string | undefined;
@@ -220,6 +211,9 @@ export namespace R2MInvoke { // Main from Renderer invoke and get result
         : T extends PerformCommand           //'r2mi:perform-command'
         ? string
 
+        : T extends TestInUseStart           //'r2mi:test-in-use-start'
+        ? string                             // as TestInUseResultItem[]
+
         : never;
 
 } //namespace R2MInvoke
@@ -241,4 +235,5 @@ export namespace R2MInvokeParams {
     export type HighlightField = Omit<R2MInvoke.HighlightField, 'type'>;
     export type HighlightTarget = Omit<R2MInvoke.HighlightTarget, 'type'>;
     export type GetWindowExtras = Omit<R2MInvoke.GetWindowExtras, 'type'>;
+    export type TestInUseStart = Omit<R2MInvoke.TestInUseStart, 'type'>;
 }
