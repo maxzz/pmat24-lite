@@ -35,6 +35,7 @@ async function setFileTestInUse(file: TestInUseFile): Promise<TestInUseResultIte
             if (!file.rawCnt) {
                 throw new Error(`\nTest in use: file "${file.fullfname}" is in test mode but rawCnt is not set.`);
             }
+            await fs.mkdir(cacheFolder, { recursive: true });
             await fs.writeFile(fullName, file.rawCnt, 'utf8'); // Overwrites by default
 
             //throw new Error(`\nTest in use: file "${file.fullfname}" is in test mode but saving failed.`);
