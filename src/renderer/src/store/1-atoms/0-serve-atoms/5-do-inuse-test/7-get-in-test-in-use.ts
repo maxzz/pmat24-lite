@@ -23,7 +23,7 @@ export function getInTestInUse(fpath: string): { inTest: boolean; inUse: boolean
 
 export function isPmatFileToLoad(fileCnt: FileContent): boolean {
     const { inUse, inTest } = getInTestInUse(fileCnt.fpath);
-    printInTestInUse(fileCnt, inUse, inTest);
+    //printInTestInUse(fileCnt, inUse, inTest);
     return inUse || inTest;
 }
 
