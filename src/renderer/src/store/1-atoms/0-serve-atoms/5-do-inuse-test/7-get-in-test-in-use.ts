@@ -8,7 +8,6 @@ export function getInTestInUse(fpath: string): { inTest: boolean; inUse: boolean
     fpath = normalizeFpath(fpath);
 
     if (fpath === rootDir.fpath) {
-        // console.log(`%cgetTestInUse: fpath: "${fpath}":`, "color: green", { inUse: true, inTest: false, });
         return { inTest: false, inUse: true, };
     }
 
@@ -16,11 +15,9 @@ export function getInTestInUse(fpath: string): { inTest: boolean; inUse: boolean
 
     const m = fpath.match(regex);
     if (m === null) {
-        // console.log(`%cgetTestInUse: fpath: "${fpath}":`, "color: blue", { inUse: false, inTest: false, });
         return { inTest: false, inUse: false, }; // if not matched suffix then it's not our subfolder
     }
 
-    // console.log(`%cgetTestInUse: fpath: "${fpath}":`, "color: orange", { inUse: m[1] === 'a', inTest: m[1] === 'c', });
     return { inTest: m[1] === 'c', inUse: m[1] === 'a', };
 }
 
@@ -31,13 +28,21 @@ export function isPmatFileToLoad(fileCnt: FileContent): boolean {
 }
 
 function printInTestInUse(fileCnt: FileContent, inUse: boolean, inTest: boolean) {
-    const color =
+    const colorPath =
         inUse
             ? 'color: green'
             : inTest
                 ? 'color: orange'
                 : 'color: blue';
-    console.log(`%c"${fileCnt.fpath}%c/${fileCnt.fname}":`, color, 'color: gray', { inUse, inTest, });
+    console.log(
+        `%cinUse:%c${inUse ? ' true' : 'false'} %cinTest:%c${inTest ? ' true' : 'false'} %c"${fileCnt.fpath}%c/${fileCnt.fname}":`,
+        'color: gray; font-size: 0.65rem',
+        '',
+        'color: gray; font-size: 0.65rem',
+        '',
+        colorPath,
+        'color: gray; font-size: 0.65rem',
+    );
 }
 
 // see also src/renderer/src/components/2-main/2-right/1-header/0-all/2-row3-filename-parts.tsx:
