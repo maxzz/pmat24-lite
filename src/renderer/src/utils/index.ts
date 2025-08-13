@@ -11,6 +11,7 @@ export * from "./error-to-string";
 export * from "./image-to-blob";
 export * from "./numbers";
 export * from "./os-utils";
+export * from "./os-utils-windows-unix";
 export * from "./prepend-url-path";
 export * from "./round-int";
 export * from "./base64-to-buffer";

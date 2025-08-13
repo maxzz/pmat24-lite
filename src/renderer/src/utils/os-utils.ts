@@ -1,3 +1,5 @@
+import { toUnix } from "./os-utils-windows-unix";
+
 // v.08.10.25
 
 export function returnFileSize(number: number): string {
@@ -75,22 +77,7 @@ export function filenameWithoutPath(path: string | undefined): string {
 }
 
 // -----------------------------
-// slashes back and forward
-
-export function toUnix(fileName: string | undefined): string {
-    const double = /\/\//;
-    let res: string = (fileName || '').replace(/\\/g, '/');
-    while (res.match(double)) {
-        res = res.replace(double, '/');
-    }
-    return res;
-}
-
-export function toWindows(fileName: string | undefined): string {
-    let res: string = (fileName || '').replace(/\//g, '/');
-    res = res.replace(/\//g, '\\');
-    return res;
-}
+// normalize fpath
 
 export function normalizeFpath(fpath: string | undefined): string {
     return toUnix(fpath).toLowerCase();
