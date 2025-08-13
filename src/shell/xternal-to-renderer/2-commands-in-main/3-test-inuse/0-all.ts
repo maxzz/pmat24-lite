@@ -35,6 +35,7 @@ export async function testInUseQuit(): Promise<string> {
 
     const files = await listFiles(cacheFolder);
 
+    //TODO: we can remove cache folder itself
 
     return Promise.resolve('');
 }
