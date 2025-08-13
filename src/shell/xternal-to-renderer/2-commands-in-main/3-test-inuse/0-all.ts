@@ -1,5 +1,5 @@
 import { type TestInUseFile } from "@shared/ipc-types/9-test-inuse";
-import { getCacheFolder, listFiles } from "./8-os-utils";
+import { deleteFolder, getCacheFolder, listFiles } from "./8-os-utils";
 
 export async function testInUseStart(files: TestInUseFile[]): Promise<string> {
 
@@ -28,14 +28,7 @@ export async function testInUseUpdate(files: TestInUseFile[]): Promise<string> {
 }
 
 export async function testInUseQuit(): Promise<string> {
-
-    // get folder 'c' location enum all files in it and delete them
-
     const cacheFolder = getCacheFolder();
-
-    const files = await listFiles(cacheFolder);
-
-    //TODO: we can remove cache folder itself
-
-    return Promise.resolve('');
+    const rv = await deleteFolder(cacheFolder) || '';
+    return rv;
 }

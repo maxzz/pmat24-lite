@@ -1,4 +1,5 @@
 import { promises as fs } from "fs";
+import { errorToString } from "@shell/3-utils-main";
 
 // names
 
@@ -39,10 +40,10 @@ export async function listFiles(cacheFolder: string): Promise<string[]> {
 
 // delete folder
 
-export async function deleteFolder(cacheFolder: string): Promise<void> {
+export async function deleteFolder(cacheFolder: string): Promise<string | undefined> {
     try {
         await fs.rm(cacheFolder, { recursive: true, force: true });
     } catch (err) {
-        console.error(`Error deleting folder: "${cacheFolder}"`, err);
+        return `Error deleting folder: "${cacheFolder}" ${errorToString(err)}`;
     }
 }
