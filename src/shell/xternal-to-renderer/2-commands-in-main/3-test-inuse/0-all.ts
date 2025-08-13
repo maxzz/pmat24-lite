@@ -1,6 +1,7 @@
+import { promises as fs } from "fs";
 import { type TestInUseFile } from "@shared/ipc-types/9-test-inuse";
 import { type R2MInvoke } from "@shared/ipc-types";
-import { deleteFolder, getCacheFolder, listFiles } from "./8-os-utils";
+import { deleteFolder, getCacheFolder, getCacheInTestFolder, listFiles } from "./8-os-utils";
 
 export async function testInUseStart(files: TestInUseFile[]): Promise<string> {
 
@@ -18,11 +19,25 @@ export async function testInUseStart(files: TestInUseFile[]): Promise<string> {
 export async function testInUseUpdate(files: TestInUseFile[]): Promise<string> {
 
     for (const file of files) {
+
+        const cacheFolder = getCacheInTestFolder();
+        const fullName = `${cacheFolder}/${file.fullfname}`;
+
         if (file.inTest) {
-            console.log(`\nTest in use: file "${file.fullfname}" is in test mode.`);
+            if (!file.rawCnt) {
+                throw new Error(`\nTest in use: file "${file.fullfname}" is in test mode but rawCnt is not set.`);
+            }
+            await fs.writeFile(fullName, file.rawCnt, 'utf8'); // Overwrites by default
+
+            //throw new Error(`\nTest in use: file "${file.fullfname}" is in test mode but saving failed.`);
+
         } else {
-            console.log(`\nTest in use: file "${file.fullfname}" is not in test mode.`);
+            const stats = await fs.stat(file.fullfname);
+            if (stats.isFile()) {
+                await fs.rm(`${cacheFolder}/${file.fullfname}`, { force: true });
+            }
         }
+        
     }
 
     return Promise.resolve(files.map(file => file.fullfname).join('\n'));
