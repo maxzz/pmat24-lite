@@ -111,8 +111,13 @@ export namespace R2MInvoke { // Main from Renderer invoke and get result
 
     // test in use
 
-    export type TestInUseStart = {
+    export type TestInUseStart = {             // Test in use (Tiu) runs when app starts
         type: 'r2mi:test-in-use-start';
+        files: TestInUseFile[];
+    };
+
+    export type TestInUseUpdate = {            // Test in use (Tiu) runs when need to change inTest status (as usual single file)
+        type: 'r2mi:test-in-use-update';
         files: TestInUseFile[];
     };
 
@@ -140,6 +145,7 @@ export namespace R2MInvoke { // Main from Renderer invoke and get result
         | PerformCommand
 
         | TestInUseStart
+        | TestInUseUpdate
         ;
 
     type EmptyOkOrError = string | undefined;
@@ -214,6 +220,9 @@ export namespace R2MInvoke { // Main from Renderer invoke and get result
         : T extends TestInUseStart           //'r2mi:test-in-use-start'
         ? string                             // as TestInUseResultItem[]
 
+        : T extends TestInUseUpdate          //'r2mi:test-in-use-update'
+        ? string                             // as TestInUseResultItem[]
+
         : never;
 
 } //namespace R2MInvoke
@@ -236,4 +245,5 @@ export namespace R2MInvokeParams {
     export type HighlightTarget = Omit<R2MInvoke.HighlightTarget, 'type'>;
     export type GetWindowExtras = Omit<R2MInvoke.GetWindowExtras, 'type'>;
     export type TestInUseStart = Omit<R2MInvoke.TestInUseStart, 'type'>;
+    export type TestInUseUpdate = Omit<R2MInvoke.TestInUseUpdate, 'type'>;
 }
