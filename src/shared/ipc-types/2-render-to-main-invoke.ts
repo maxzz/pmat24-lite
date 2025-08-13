@@ -1,5 +1,5 @@
 import { type ManifestForWindowCreatorParams, type GetTlwScreenshotsParams, type Rect4, type WindowHighlighterParams, type DragAndDropParams, type OkIfEmptyString, type PerformCommandParams } from "../../shell/xternal-to-renderer/7-napi-calls/pmat-plugin-types-export";
-import { type MainFileContent } from "../ipc-types";
+import { type MainFileContent } from "./9-file-content";
 
 export namespace R2MInvoke { // Main from Renderer invoke and get result
 
@@ -106,6 +106,25 @@ export namespace R2MInvoke { // Main from Renderer invoke and get result
     export type PerformCommand = {
         type: 'r2mi:perform-command';
         params: PerformCommandParams;
+    };
+
+    // test in use
+
+    export type TestInUseFile = {               // Test in use (Tiu) file
+        fullfname: string;                      // Full path to the file and filename
+        unid: number;                           // Unique ID of the file (per session)
+        inTest: boolean;                        // What to do with the file: put in 'c' or remove it from 'c'
+        rawCnt: string | undefined;             // Raw content of the file if inTest is true
+    };
+
+    export type TestInUseResult = {             // Test in use (Tiu) result
+        unid: number;                           // Unique ID of the file (per session)
+        error: string | undefined;              // Error message if any
+    };
+
+    export type TestInUseStart = {
+        type: 'r2mi:test-in-use-start';
+        files: TestInUseFile[];
     };
 
     export type AllInvokes =
