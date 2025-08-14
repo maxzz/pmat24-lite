@@ -3,9 +3,10 @@ import { type TestInUseParams_Start, type TestInUseParams_Set, type TestInUseRes
 import { invokeMainTyped } from "@/xternal-to-main";
 import { getInTestInUse } from "@/store/1-atoms/0-serve-atoms/5-do-inuse-test";
 
-export async function inTest_Start(file: FileUsAtom[], getset: GetSet) {
+export async function inTest_Start(fileUsAtoms: FileUsAtom[], getset: GetSet) {
     const files: TestInUseParams_Start[] = [];
-    file.forEach(
+
+    fileUsAtoms.forEach(
         (fileUsAtom) => {
             const fileUs = getset.get(fileUsAtom);
             const inTest = getInTestInUse(fileUs.fileCnt.fpath);
@@ -19,6 +20,10 @@ export async function inTest_Start(file: FileUsAtom[], getset: GetSet) {
             }
         }
     );
+
+    if (!files.length) {
+        return;
+    }
 
     const res = await invokeMainTyped({ type: 'r2mi:test-in-use-start', files });
     if (res) {

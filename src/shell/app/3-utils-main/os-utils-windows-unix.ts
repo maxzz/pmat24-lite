@@ -15,6 +15,10 @@ export function toWindows(fileName: string | undefined): string {
     return res;
 }
 
+export function normalizeFpath(fpath: string | undefined): string {
+    return toUnix(fpath).toLowerCase();
+}
+
 export function filenameForRegex(filename: string | undefined): string {
     return (filename || '').replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 }

@@ -1,10 +1,10 @@
 import { atom } from "jotai";
+import { finalizeFileContent } from "@/store/store-utils";
 import { type FileContent } from "@shared/ipc-types";
 import { type FileUs, type ManiAtomsAtom, type HighlightHwnd } from "@/store/store-types";
 import { type ManiAtoms } from "../../2-file-mani-atoms";
-import { finalizeFileContent } from "@/store/store-utils";
 import { createParsedSrc } from "./2-create-parsed-src";
-import { createTestInUseAtoms } from "../../0-serve-atoms/5-do-inuse-test";
+import { getInTestInUse } from "../../0-serve-atoms/5-do-inuse-test";
 
 /**
  * @param maniForCpass - fileUs for create password change; used for parse xml and create new fileUs
@@ -35,6 +35,14 @@ export function createFileUsFromFileContent(fileContent: FileContent, maniForCpa
     };
 
     return rv;
+}
+
+export function createTestInUseAtoms(fileCnt: FileContent): Pick<FileUs, 'maniInTestAtom'> {
+    const { inTest } = getInTestInUse(fileCnt.fpath);
+    return {
+        // maniInUseAtom: atom<boolean>(inUse),
+        maniInTestAtom: atom<boolean>(inTest),
+    };
 }
 
 // Utilities for printing

@@ -24,11 +24,6 @@ export async function moveByInTestFileSystem(fileUs: FileUs, inTest: boolean, ge
         //TODO: check that we run not from the cache folder
 
         fileCnt.fpath = newPath; //TODO: update fileCnt: path and handle. Should it be reactive?
-
-        //TODO: update cache
-
-        await asyncReloadCache();
-
     } else {
         return 'Not yet implemented';
         // return await moveFromWeb({ fileUs, content, inTest });

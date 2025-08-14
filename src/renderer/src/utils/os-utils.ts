@@ -77,12 +77,5 @@ export function filenameWithoutPath(path: string | undefined): string {
 }
 
 // -----------------------------
-// normalize fpath
-
-export function normalizeFpath(fpath: string | undefined): string {
-    return toUnix(fpath).toLowerCase();
-}
-
-// -----------------------------
 
 //TODO: https://github.com/sindresorhus/unused-filename for `file.txt` → `file (1).txt`

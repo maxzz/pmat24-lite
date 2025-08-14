@@ -1,5 +1,5 @@
 import { promises as fs } from "fs";
-import { errorToString } from "@shell/3-utils-main";
+import { errorToString, normalizeFpath } from "@shell/3-utils-main";
 
 // names
 
@@ -8,7 +8,7 @@ export function getCacheFolder(): string {
     if (!LOCALAPPDATA) {
         throw new Error('LOCALAPPDATA is not set');
     }
-    return `${LOCALAPPDATA}/digitalpersona/ots/dp_wkg_admin`;
+    return normalizeFpath(`${LOCALAPPDATA}/digitalpersona/ots/dp_wkg_admin`);
 }
 
 export function getCacheInTestFolder(): string {

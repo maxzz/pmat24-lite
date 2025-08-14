@@ -7,8 +7,8 @@ import { type FceItem, type FceAtoms, type FceItemEditor, defaultFcName, type Fc
 import { type CatalogFile, createFceItemMeta } from "@/store/manifest";
 import { type ManiAtoms } from "../../../2-file-mani-atoms/9-types";
 import { catalogItemInFileToFceItemValue } from "@/store/1-atoms/0-serve-atoms";
-import { createManiAtomsWithPrintAtom, createParsedSrcForEmptyFce } from "@/store/1-atoms/1-files";
-import { createTestInUseAtoms } from "@/store/1-atoms/0-serve-atoms/5-do-inuse-test";
+import { createParsedSrcForEmptyFce, createTestInUseAtoms } from "@/store/1-atoms/1-files/1-do-set-files";
+
 import { finalizeFileContent } from "@/store/store-utils";
 import { createFceCtx } from "./3-create-fce-ctx";
 

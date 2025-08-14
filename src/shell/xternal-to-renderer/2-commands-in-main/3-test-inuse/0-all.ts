@@ -4,32 +4,32 @@ import { type R2MInvoke } from "@shared/ipc-types";
 import { deleteFolder, getCacheFolder, getCacheInTestFolder, listFiles } from "./8-os-utils";
 import { errorToString } from "@shell/3-utils-main";
 
-export async function testInUseInMain_Start(files: TestInUseParams_Start[]): Promise<string> {
+export async function testInUseInMain_Start(files: TestInUseParams_Start[]): Promise<string> { // 'r2mi:test-in-use-start'
     const rv: (TestInUseResultItem | undefined)[] = [];
 
     for await (const file of files) {
         const res = await setFileTestInUse(file, true);
-        rv.push(res);
+        res && rv.push(res);
     }
 
-    return JSON.stringify(rv);
+    return rv.length ? JSON.stringify(rv) : '';
 }
 
-export async function testInUseInMain_Set(files: TestInUseParams_Set[]): Promise<string> {
+export async function testInUseInMain_Set(files: TestInUseParams_Set[]): Promise<string> { // 'r2mi:test-in-use-set'
     const rv: (TestInUseResultItem | undefined)[] = [];
 
     for await (const file of files) {
         const res = await setFileTestInUse(file, file.inTest);
-        rv.push(res);
+        res && rv.push(res);
     }
 
-    return JSON.stringify(rv);
+    return rv.length ? JSON.stringify(rv) : '';
 }
 
 async function setFileTestInUse(file: TestInUseParams_Start, inTest: boolean): Promise<TestInUseResultItem | undefined> {
     const cacheFolder = getCacheInTestFolder();
     const fullName = `${cacheFolder}/${file.shortfname}`;
-    
+
     try {
         if (inTest) {
             if (!file.rawCnt) {
@@ -52,7 +52,7 @@ async function setFileTestInUse(file: TestInUseParams_Start, inTest: boolean): P
     }
 }
 
-export async function testInUseInMain_Quit(): Promise<R2MInvoke.EmptyOkOrError> {
+export async function testInUseInMain_Quit(): Promise<R2MInvoke.EmptyOkOrError> { // 'r2mi:test-in-use-quit'
     const cacheFolder = getCacheFolder();
     const rv = await deleteFolder(cacheFolder) || '';
     return rv;
