@@ -116,9 +116,9 @@ export namespace R2MInvoke { // Main from Renderer invoke and get result
         files: TestInUseParams_Start[];
     };
 
-    export type TestInUse_Set = {            // Test in use (Tiu) runs when need to change inTest status (as usual single file)
+    export type TestInUse_Set = {               // Test in use (Tiu) runs when need to change inTest status (as usual single file)
         type: 'r2mi:test-in-use-set';
-        files: TestInUseParams_Set[];
+        files: TestInUseParams_Set[];           // Usually it is done for single file. Just in case if UI will have command to set all files to test mode.
     };
 
     export type TestInUse_Quit = {              // Test in use (Tiu) runs when app quits

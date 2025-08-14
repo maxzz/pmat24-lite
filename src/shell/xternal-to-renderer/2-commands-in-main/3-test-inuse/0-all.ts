@@ -7,15 +7,16 @@ import { errorToString } from "@shell/3-utils-main";
 export async function testInUseInMain_Start(files: TestInUseParams_Start[]): Promise<string> {
     const rv: (TestInUseResultItem | undefined)[] = [];
 
-    for (const file of files) {
-        console.log(`\nTest in use: file "${file.shortfname}" is in test mode.`);
+    for await (const file of files) {
+        //TODO: save to cache
+        console.log(`\nTestInUse: cannot put "${file.shortfname}" in test mode.`);
     }
 
     return JSON.stringify(rv);
     // return Promise.resolve(files.map(file => file.shortfname).join('\n'));
 }
 
-export async function testInUseInMain_Update(files: TestInUseParams_Set[]): Promise<string> {
+export async function testInUseInMain_Set(files: TestInUseParams_Set[]): Promise<string> {
     const rv: (TestInUseResultItem | undefined)[] = [];
 
     for await (const file of files) {
@@ -34,13 +35,11 @@ async function setFileTestInUse(file: TestInUseParams_Set): Promise<TestInUseRes
 
         if (file.inTest) {
             if (!file.rawCnt) {
-                throw new Error(`\nTest in use: file "${file.shortfname}" is in test mode but rawCnt is not set.`);
+                throw new Error(`\nTestInUse: "${file.shortfname}" wo/ content.`);
             }
+
             await fs.mkdir(cacheFolder, { recursive: true });
             await fs.writeFile(fullName, file.rawCnt, 'utf8'); // Overwrites by default
-
-            //throw new Error(`\nTest in use: file "${file.shortfname}" is in test mode but saving failed.`);
-
         } else {
             const stats = await fs.stat(file.shortfname);
             if (stats.isFile()) {
@@ -50,7 +49,7 @@ async function setFileTestInUse(file: TestInUseParams_Set): Promise<TestInUseRes
     } catch (err) {
         return {
             unid: file.unid,
-            error: `Error setting file "${file.shortfname}" in test mode. Error is: "${errorToString(err)}"`,
+            error: `Cannot set "${file.shortfname}" in test mode = ${file.inTest}. Error is: "${errorToString(err)}"`,
         };
     }
 }
