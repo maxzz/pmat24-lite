@@ -1,13 +1,13 @@
-import { useSetAtom } from "jotai";
 import { DropdownMenuItem } from "@/ui";
-import { doPerformCommandAtom } from "@/store/7-napi-atoms";
+import { asyncReloadCache } from "@/store/7-napi-atoms";
 
 export function MenuItem_ReloadCache() {
-    const doPerformCommand = useSetAtom(doPerformCommandAtom);
-
+    
     async function onClick() {
-        const res = await doPerformCommand({ command: 'reloadCache' });
-        console.log('perform.command.res:', res);
+        const res = await asyncReloadCache();
+        if (res) {
+            console.error('perform.command.res:', res);
+        }
     }
 
     return (<>
