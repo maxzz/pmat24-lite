@@ -1,4 +1,5 @@
 import { fileSave } from "browser-fs-access";
+import { type R2MInvoke } from "@shared/ipc-types";
 import { type FileUs } from "@/store/store-types";
 import { rootDir } from "@/store/1-atoms/1-files";
 import { invokeMainTyped } from "@/xternal-to-main";
@@ -10,7 +11,7 @@ import { invokeMainTyped } from "@/xternal-to-main";
  * @param fileName - filename wo/ path
  * @returns error message or empty string
  */
-export async function moveByInTestFileSystem(fileUs: FileUs, inTest: boolean, getset: GetSet): Promise<string | undefined> {
+export async function moveByInTestFileSystem(fileUs: FileUs, inTest: boolean, getset: GetSet): Promise<R2MInvoke.EmptyOkOrError | undefined> {
     const fileCnt = fileUs.fileCnt;
     const content = fileCnt.rawLoaded;
 
@@ -27,7 +28,7 @@ export async function moveByInTestFileSystem(fileUs: FileUs, inTest: boolean, ge
     }
 }
 
-async function moveFromMain({ oldFullName, newFullName, content }: { oldFullName: string; newFullName: string; content: string; }): Promise<string | undefined> {
+async function moveFromMain({ oldFullName, newFullName, content }: { oldFullName: string; newFullName: string; content: string; }): Promise<R2MInvoke.EmptyOkOrError | undefined> {
     let emptyOkOrError = await invokeMainTyped({ type: 'r2mi:save-file', fileName: newFullName, content });
 
     if (!emptyOkOrError) {
@@ -37,7 +38,7 @@ async function moveFromMain({ oldFullName, newFullName, content }: { oldFullName
     return emptyOkOrError;
 }
 
-async function moveFromWeb({ fileUs, content, inTest }: { fileUs: FileUs; content: string; inTest: boolean; }): Promise<string | undefined> {
+async function moveFromWeb({ fileUs, content, inTest }: { fileUs: FileUs; content: string; inTest: boolean; }): Promise<R2MInvoke.EmptyOkOrError | undefined> {
     const fileCnt = fileUs.fileCnt;
     const fileName = fileCnt.fname; //TODO: this is wromg, temp
 
@@ -62,3 +63,5 @@ async function moveFromWeb({ fileUs, content, inTest }: { fileUs: FileUs; conten
 
     return undefined;
 }
+
+//TODO: web save to new, delete old, and update fileCnt: path and handle
