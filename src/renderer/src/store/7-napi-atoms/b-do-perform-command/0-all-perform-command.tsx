@@ -1,21 +1,21 @@
 import { atom } from "jotai";
 import { hasMain, invokeMainTyped } from "@/xternal-to-main";
-import { type PerformCommandParams } from "@shared/ipc-types";
+import { type R2MInvoke, type PerformCommandParams } from "@shared/ipc-types";
 
 export const doPerformCommandAtom = atom(
     null,
-    async (get, set, params: PerformCommandParams): Promise<string> => {
+    async (get, set, params: PerformCommandParams): Promise<R2MInvoke.EmptyOkOrError> => {
         const rv = await performCommand(params);
         return rv;
     }
 );
 
-export async function performCommand_ReloadCache(): Promise<string> {
+export async function asyncReloadCache(): Promise<R2MInvoke.EmptyOkOrError> {
     const rv = await performCommand({ command: 'reloadCache' });
     return rv;
 }
 
-async function performCommand(params: PerformCommandParams): Promise<string> {
+async function performCommand(params: PerformCommandParams): Promise<R2MInvoke.EmptyOkOrError> {
     if (!hasMain()) {
         return '';
     }
