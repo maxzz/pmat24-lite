@@ -23,7 +23,7 @@ export async function moveByInTestFileSystem(fileUs: FileUs, inTest: boolean, ge
 
         return await moveFromMain({ oldFullName, newFullName, content });
     } else {
-        return await moveFromWeb({ fileUs, content, fileName: fileCnt.fname }); //TODO: this is wromg, temp
+        return await moveFromWeb({ fileUs, content, inTest });
     }
 }
 
@@ -37,8 +37,9 @@ async function moveFromMain({ oldFullName, newFullName, content }: { oldFullName
     return emptyOkOrError;
 }
 
-async function moveFromWeb({ fileUs, content, fileName }: { fileUs: FileUs; content: string; fileName: string; }): Promise<string | undefined> {
+async function moveFromWeb({ fileUs, content, inTest }: { fileUs: FileUs; content: string; inTest: boolean; }): Promise<string | undefined> {
     const fileCnt = fileUs.fileCnt;
+    const fileName = fileCnt.fname; //TODO: this is wromg, temp
 
     const webFsItem = fileCnt.webFsItem;
     if (!webFsItem) {
