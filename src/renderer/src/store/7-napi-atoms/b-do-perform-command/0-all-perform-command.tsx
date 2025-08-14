@@ -19,9 +19,9 @@ async function performCommand(params: PerformCommandParams): Promise<R2MInvoke.E
     if (!hasMain()) {
         return '';
     }
-    const data = await invokeMainTyped({ type: 'r2mi:perform-command', params });
-    if (data) {
-        console.log('perform.command.data:', data);
+    const error = await invokeMainTyped({ type: 'r2mi:perform-command', params });
+    if (error) {
+        console.log('perform.command.error:', error);
     }
-    return data;
+    return error;
 }

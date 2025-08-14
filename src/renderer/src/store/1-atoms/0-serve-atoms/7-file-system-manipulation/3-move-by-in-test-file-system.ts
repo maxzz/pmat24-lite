@@ -1,8 +1,9 @@
 import { fileSave } from "browser-fs-access";
-import { type R2MInvoke } from "@shared/ipc-types";
 import { type FileUs } from "@/store/store-types";
-import { rootDir } from "@/store/1-atoms/1-files";
+import { type R2MInvoke } from "@shared/ipc-types";
 import { invokeMainTyped } from "@/xternal-to-main";
+import { asyncReloadCache } from "@/store/7-napi-atoms";
+import { rootDir } from "@/store/1-atoms/1-files";
 
 /**
  * Save file to the file system.
@@ -16,13 +17,24 @@ export async function moveByInTestFileSystem(fileUs: FileUs, inTest: boolean, ge
     const content = fileCnt.rawLoaded;
 
     if (fileUs.fileCnt.fromMain) {
-        const oldPath = fileCnt.fname;
+        const oldPath = fileCnt.fpath;
         const newPath = inTest ? `${fileCnt.fpath}/c` : rootDir.fpath;
 
         const oldFullName = `${oldPath}/${fileCnt.fname}`;
         const newFullName = `${newPath}/${fileCnt.fname}`;
 
-        return await moveFromMain({ oldFullName, newFullName, content });
+        let emptyOkOrError = await moveFromMain({ oldFullName, newFullName, content });
+        if (emptyOkOrError) {
+            return emptyOkOrError;
+        }
+
+        //TODO: update fileCnt: path and handle
+        //TODO: check that we run not from the cache folder
+
+        fileCnt.fpath = newPath;
+
+        await asyncReloadCache();
+
     } else {
         return 'Not yet implemented';
         // return await moveFromWeb({ fileUs, content, inTest });
