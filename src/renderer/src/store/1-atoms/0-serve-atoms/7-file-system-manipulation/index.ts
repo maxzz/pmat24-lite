@@ -1,2 +1,2 @@
-export * from "./7-save-to-file-system";
-export * from "./1-all-delete";
+export * from "./1-save-to-file-system";
+export * from "./2-delete-from-file-system";
