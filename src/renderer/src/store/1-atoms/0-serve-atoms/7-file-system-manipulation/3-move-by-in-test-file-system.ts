@@ -28,10 +28,12 @@ export async function moveByInTestFileSystem(fileUs: FileUs, inTest: boolean, ge
             return emptyOkOrError;
         }
 
-        //TODO: update fileCnt: path and handle
+        //TODO: update fileCnt: path and handle. Should it be reactive?
         //TODO: check that we run not from the cache folder
 
         fileCnt.fpath = newPath;
+
+        //TODO: update cache
 
         await asyncReloadCache();
 

@@ -2,7 +2,7 @@ import { type R2MInvoke } from "@shared/ipc-types";
 import { getTargetHwnd, getWindowIcon, getWindowControls, getWindowMani, getTlwInfos, getTlwScreenshots, highlightControl, highlightWindow, getWindowExtras, dndActionInit, getGeneralInfo, performCommand } from "../7-napi-calls";
 import { loadWin32FilesContent } from "../2-commands-in-main/2-files/8-load-win32-files";
 import { existsFileInMain, deleteFileInMain, generateUniqueFilename, revealInExplorer, saveFileInMain } from "../2-commands-in-main/2-files";
-import { testInUseQuit, testInUseStart, testInUseUpdate } from "../2-commands-in-main/3-test-inuse";
+import { testInUse_Quit, testInUse_Start, testInUse_Update } from "../2-commands-in-main/3-test-inuse";
 
 // export async function invokeFromRendererInMain<TInvoke extends R2MInvoke.AllInvokes>(data: TInvoke): Promise<R2MInvoke.InvokeResult<TInvoke>> {
 export async function invokeFromRendererInMain(data: R2MInvoke.AllInvokes): Promise<any> {
@@ -100,15 +100,15 @@ export async function invokeFromRendererInMain(data: R2MInvoke.AllInvokes): Prom
         // test in use
 
         case 'r2mi:test-in-use-start': {
-            const rv: R2MInvoke.InvokeResult<R2MInvoke.TestInUseStart> = await testInUseStart(data.files);
+            const rv: R2MInvoke.InvokeResult<R2MInvoke.TestInUseStart> = await testInUse_Start(data.files);
             return rv;
         }
         case 'r2mi:test-in-use-update': {
-            const rv: R2MInvoke.InvokeResult<R2MInvoke.TestInUseUpdate> = await testInUseUpdate(data.files);
+            const rv: R2MInvoke.InvokeResult<R2MInvoke.TestInUseUpdate> = await testInUse_Update(data.files);
             return rv;
         }
         case 'r2mi:test-in-use-quit': {
-            const rv: R2MInvoke.InvokeResult<R2MInvoke.TestInUseQuit> = await testInUseQuit();
+            const rv: R2MInvoke.InvokeResult<R2MInvoke.TestInUseQuit> = await testInUse_Quit();
             return rv;
         }
 

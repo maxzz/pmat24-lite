@@ -1,6 +1,6 @@
 import { type ManifestForWindowCreatorParams, type GetTlwScreenshotsParams, type Rect4, type WindowHighlighterParams, type DragAndDropParams, type OkIfEmptyString, type PerformCommandParams } from "../../shell/xternal-to-renderer/7-napi-calls/pmat-plugin-types-export";
 import { type MainFileContent } from "./9-file-content";
-import { type TestInUseFile } from "./9-test-inuse";
+import { type TestInUseParams_Start, type TestInUseParams_Set, type TestInUseResultItem } from "./9-test-inuse";
 
 export namespace R2MInvoke { // Main from Renderer invoke and get result
 
@@ -113,17 +113,16 @@ export namespace R2MInvoke { // Main from Renderer invoke and get result
 
     export type TestInUseStart = {             // Test in use (Tiu) runs when app starts
         type: 'r2mi:test-in-use-start';
-        files: TestInUseFile[];
+        files: TestInUseParams_Start[];
     };
 
     export type TestInUseUpdate = {            // Test in use (Tiu) runs when need to change inTest status (as usual single file)
         type: 'r2mi:test-in-use-update';
-        files: TestInUseFile[];
+        files: TestInUseParams_Set[];
     };
 
     export type TestInUseQuit = {              // Test in use (Tiu) runs when app quits
         type: 'r2mi:test-in-use-quit';
-        files: TestInUseFile[];
     };
 
     export type AllInvokes =
