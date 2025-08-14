@@ -24,7 +24,8 @@ export async function moveByInTestFileSystem(fileUs: FileUs, inTest: boolean, ge
 
         return await moveFromMain({ oldFullName, newFullName, content });
     } else {
-        return await moveFromWeb({ fileUs, content, inTest });
+        return 'Not yet implemented';
+        // return await moveFromWeb({ fileUs, content, inTest });
     }
 }
 
