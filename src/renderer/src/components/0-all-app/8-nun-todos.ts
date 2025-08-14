@@ -219,3 +219,4 @@
 //08.13.25
 //TODO: add filter to show only manifests in test mode
 //TODO: tree row extend to the end so scrollbar will overlap it, and inTest icon move to end of the row (but count on scrollbar width)
+//TODO: modify when manifest was created and modified

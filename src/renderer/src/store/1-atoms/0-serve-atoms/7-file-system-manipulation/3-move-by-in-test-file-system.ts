@@ -1,8 +1,8 @@
+import { errorToString } from "@/utils";
 import { fileSave } from "browser-fs-access";
 import { type FileUs } from "@/store/store-types";
 import { rootDir } from "@/store/1-atoms/1-files";
 import { invokeMainTyped } from "@/xternal-to-main";
-import { errorToString } from "@/utils";
 
 /**
  * Save file to the file system.
@@ -11,7 +11,7 @@ import { errorToString } from "@/utils";
  * @param fileName - filename wo/ path
  * @returns error message or empty string
  */
-export async function moveByInTestFileSystem(fileUs: FileUs, content: string, fileName: string): Promise<string | undefined> {
+export async function moveByInTestFileSystem(fileUs: FileUs, content: string, fileName: string, inTest: boolean, getset: GetSet): Promise<string | undefined> {
     try {
         if (fileUs.fileCnt.fromMain) {
             return await saveFromMain({ fileName: `${fileUs.fileCnt.fpath}/${fileName}`, content });
