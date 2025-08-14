@@ -1,4 +1,4 @@
-import { FieldPath, type MPath, type RoleStateNames, getRoleStateNames } from "@/store/manifest";
+import { type MPath, type RoleStateNames, FieldPath, getRoleStateNames } from "@/store/manifest";
 import { type Rect4 } from "@shared/ipc-types";
 
 export function getRoleAndStates(p4a: MPath.p4a[] | undefined): RoleStateNames | undefined {

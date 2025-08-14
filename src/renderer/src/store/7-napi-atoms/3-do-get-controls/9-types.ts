@@ -1,4 +1,4 @@
-import { type Meta, type RoleStateNames } from "pm-manifest";
+import { type Meta, type RoleStateNames } from "@/store/manifest";
 import { type Rect4, type EngineControl, type WindowControlsCollectFinalAfterParse } from "@shared/ipc-types";
 
 export type EngineControlMeta = {

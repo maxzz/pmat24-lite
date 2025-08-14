@@ -32,6 +32,7 @@
         "src/renderer/src/xternal-to-main/**/*",
         "src/renderer/src/store/**/*",
         "src/renderer/src/components/**/*",
+        "src/renderer/src/utils/**/*",
         "src/renderer/src/ui/**/*",
 
         "src/shell/xternal-to-renderer/index.ts",
