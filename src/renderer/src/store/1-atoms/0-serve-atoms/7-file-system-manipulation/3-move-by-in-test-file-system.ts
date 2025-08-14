@@ -11,7 +11,7 @@ import { errorToString } from "@/utils";
  * @param fileName - filename wo/ path
  * @returns error message or empty string
  */
-export async function saveToFileSystem(fileUs: FileUs, content: string, fileName: string): Promise<string | undefined> {
+export async function moveByInTestFileSystem(fileUs: FileUs, content: string, fileName: string): Promise<string | undefined> {
     try {
         if (fileUs.fileCnt.fromMain) {
             return await saveFromMain({ fileName: `${fileUs.fileCnt.fpath}/${fileName}`, content });
