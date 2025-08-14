@@ -41,7 +41,7 @@ async function setFileTestInUse(file: TestInUseParams_Start, inTest: boolean): P
         } else {
             const stats = await fs.stat(fullName);
             if (stats.isFile()) {
-                await fs.rm(`${cacheFolder}/${fullName}`, { force: true });
+                await fs.rm(fullName, { force: true });
             }
         }
     } catch (err) {

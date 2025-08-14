@@ -43,3 +43,5 @@ export const doSetManiInTestAtom = atom(
 //TODO: when file is deleted then we need to clear it from inUse cache
 //TODO: when file is saved then we need to set/update it to inUse cache
 //TODO: we need to connect quit to clear inUse cache
+
+//TODO: show inTest toast and next to toggle message when failed to move file
