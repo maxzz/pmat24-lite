@@ -1,15 +1,14 @@
 import { atom } from "jotai";
-import { errorToString } from "@/utils";
 import { toast } from "sonner";
 import { FormIdx, rebuildMetaFormsWithoutCpassForm } from "@/store/manifest";
-import { hasMain, invokeMainTyped } from "@/xternal-to-main";
-import { type FileUs, type FileUsAtom } from "@/store/store-types";
+import { type FileUsAtom } from "@/store/store-types";
 import { removeFromTotalManis } from "@/store/9-ui-state";
 import { fileUsChanges, type ManiAtoms } from "@/store/1-atoms/2-file-mani-atoms/9-types";
-import { filesAtom, rootDir } from "@/store/1-atoms/1-files";
+import { filesAtom } from "@/store/1-atoms/1-files";
 import { doDisposeFileUsAtomAtom } from "@/store/store-utils";
 import { confirmDeleteCpassMessages, confirmDeleteMessages, doAsyncExecuteConfirmDialogAtom } from "@/store/1-atoms/7-dialogs";
 import { rightPanelAtomAtom, setManiActiveTab } from "@/store/1-atoms/3-right-panel";
+import { deleteFileFromFileSystem } from "../7-file-system-manipulation";
 
 export const doDeleteFileUsAtom = atom(null,
     async (get, set, fileUsAtom: FileUsAtom) => {
@@ -56,30 +55,6 @@ export const doDeleteFileUsAtom = atom(null,
         set(doDisposeFileUsAtomAtom, fileUsAtom);
     }
 );
-
-async function deleteFileFromFileSystem(fileUs: FileUs): Promise<string | undefined> {
-    if (fileUs.fileCnt.newFile) { // new file is not saved to file system yet
-        return undefined;
-    }
-    try {
-        if (hasMain()) {
-            const fullName = `${fileUs.fileCnt.fpath}/${fileUs.fileCnt.fname}`;
-            const res = await invokeMainTyped({ type: 'r2mi:delete-file', fileName: fullName });
-            if (res) {
-                console.error('Delete error', res);
-            }
-        } else {
-            if (!rootDir.handle) {
-                console.error('No rootDir.handle');
-                return;
-            }
-            await rootDir.handle.removeEntry(fileUs.fileCnt.fname);
-        }
-    } catch (error) {
-        console.error('Delete error', error);
-        return errorToString(error);
-    }
-}
 
 export const doDeleteCpassFromFileUsAtom = atom(null,
     async (get, set, fileUsAtom: FileUsAtom) => {
