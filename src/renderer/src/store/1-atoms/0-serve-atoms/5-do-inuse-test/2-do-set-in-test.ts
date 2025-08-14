@@ -4,7 +4,7 @@ import { toast } from "sonner";
 import { type FileUsCtx, fileUsChanges } from "@/store/1-atoms/2-file-mani-atoms/9-types";
 import { moveByInTestFileSystem } from "../7-file-system-manipulation";
 
-export const doSetInTestAtom = atom(
+export const doSetManiInTestAtom = atom(
     null,
     (get, set, { fileUsCtx, inTest }: { fileUsCtx: FileUsCtx, inTest: boolean; }) => {
         const fileUs = fileUsCtx.fileUs;
@@ -29,7 +29,7 @@ export const doSetInTestAtom = atom(
     },
 );
 
-// export const doSetInUseAtom = atom(
+// export const doSetManiInUseAtom = atom(
 //     null,
 //     (get, set, { fileUsCtx, inUse }: { fileUsCtx: FileUsCtx, inUse: boolean; }) => {
 //         set(fileUsCtx.fileUs.maniInUseAtom, inUse);

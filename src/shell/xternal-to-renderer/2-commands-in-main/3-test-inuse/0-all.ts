@@ -8,16 +8,11 @@ export async function testInUseInMain_Start(files: TestInUseParams_Start[]): Pro
     const rv: (TestInUseResultItem | undefined)[] = [];
 
     for await (const file of files) {
-        //TODO: save to cache
-
         const res = await setFileTestInUse(file, true);
         rv.push(res);
-
-        //console.log(`\nTestInUse: cannot put "${file.shortfname}" in test mode`);
     }
 
     return JSON.stringify(rv);
-    // return Promise.resolve(files.map(file => file.shortfname).join('\n'));
 }
 
 export async function testInUseInMain_Set(files: TestInUseParams_Set[]): Promise<string> {
@@ -29,14 +24,13 @@ export async function testInUseInMain_Set(files: TestInUseParams_Set[]): Promise
     }
 
     return JSON.stringify(rv);
-    //return Promise.resolve(files.map(file => file.shortfname).join('\n'));
 }
 
 async function setFileTestInUse(file: TestInUseParams_Start, inTest: boolean): Promise<TestInUseResultItem | undefined> {
+    const cacheFolder = getCacheInTestFolder();
+    const fullName = `${cacheFolder}/${file.shortfname}`;
+    
     try {
-        const cacheFolder = getCacheInTestFolder();
-        const fullName = `${cacheFolder}/${file.shortfname}`;
-
         if (inTest) {
             if (!file.rawCnt) {
                 throw new Error(`\nTestInUse: "${file.shortfname}" wo/ content`);
@@ -45,15 +39,15 @@ async function setFileTestInUse(file: TestInUseParams_Start, inTest: boolean): P
             await fs.mkdir(cacheFolder, { recursive: true });
             await fs.writeFile(fullName, file.rawCnt, 'utf8'); // Overwrites by default
         } else {
-            const stats = await fs.stat(file.shortfname);
+            const stats = await fs.stat(fullName);
             if (stats.isFile()) {
-                await fs.rm(`${cacheFolder}/${file.shortfname}`, { force: true });
+                await fs.rm(`${cacheFolder}/${fullName}`, { force: true });
             }
         }
     } catch (err) {
         return {
             unid: file.unid,
-            error: `Cannot set "${file.shortfname}" in test mode(=${inTest}). Error is: "${errorToString(err)}"`,
+            error: `Cannot set "${fullName}" in test mode(=${inTest}). Error is: "${errorToString(err)}"`,
         };
     }
 }

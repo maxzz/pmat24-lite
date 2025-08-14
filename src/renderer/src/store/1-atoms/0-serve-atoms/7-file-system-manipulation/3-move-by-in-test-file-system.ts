@@ -5,13 +5,6 @@ import { invokeMainTyped } from "@/xternal-to-main";
 import { asyncReloadCache } from "@/store/7-napi-atoms";
 import { rootDir } from "@/store/1-atoms/1-files";
 
-/**
- * Save file to the file system.
- * @param fileUs - fileUs
- * @param content - file content
- * @param fileName - filename wo/ path
- * @returns error message or empty string
- */
 export async function moveByInTestFileSystem(fileUs: FileUs, inTest: boolean, getset: GetSet): Promise<R2MInvoke.EmptyOkOrError | undefined> {
     const fileCnt = fileUs.fileCnt;
     const content = fileCnt.rawLoaded;
@@ -27,11 +20,10 @@ export async function moveByInTestFileSystem(fileUs: FileUs, inTest: boolean, ge
         if (emptyOkOrError) {
             return emptyOkOrError;
         }
-
-        //TODO: update fileCnt: path and handle. Should it be reactive?
+        
         //TODO: check that we run not from the cache folder
 
-        fileCnt.fpath = newPath;
+        fileCnt.fpath = newPath; //TODO: update fileCnt: path and handle. Should it be reactive?
 
         //TODO: update cache
 
