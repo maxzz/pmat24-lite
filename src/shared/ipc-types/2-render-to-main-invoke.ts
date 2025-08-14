@@ -111,17 +111,17 @@ export namespace R2MInvoke { // Main from Renderer invoke and get result
 
     // test in use
 
-    export type TestInUseStart = {             // Test in use (Tiu) runs when app starts
+    export type TestInUse_Start = {             // Test in use (Tiu) runs when app starts
         type: 'r2mi:test-in-use-start';
         files: TestInUseParams_Start[];
     };
 
-    export type TestInUseUpdate = {            // Test in use (Tiu) runs when need to change inTest status (as usual single file)
-        type: 'r2mi:test-in-use-update';
+    export type TestInUse_Set = {            // Test in use (Tiu) runs when need to change inTest status (as usual single file)
+        type: 'r2mi:test-in-use-set';
         files: TestInUseParams_Set[];
     };
 
-    export type TestInUseQuit = {              // Test in use (Tiu) runs when app quits
+    export type TestInUse_Quit = {              // Test in use (Tiu) runs when app quits
         type: 'r2mi:test-in-use-quit';
     };
 
@@ -148,9 +148,9 @@ export namespace R2MInvoke { // Main from Renderer invoke and get result
         | GeneralInfo
         | PerformCommand
 
-        | TestInUseStart
-        | TestInUseUpdate
-        | TestInUseQuit
+        | TestInUse_Start
+        | TestInUse_Set
+        | TestInUse_Quit
         ;
 
     export type EmptyOkOrError = string | undefined;
@@ -222,13 +222,13 @@ export namespace R2MInvoke { // Main from Renderer invoke and get result
         : T extends PerformCommand           //'r2mi:perform-command'
         ? string
 
-        : T extends TestInUseStart           //'r2mi:test-in-use-start'
+        : T extends TestInUse_Start          //'r2mi:test-in-use-start'
         ? string                             // as TestInUseResultItem[]
 
-        : T extends TestInUseUpdate          //'r2mi:test-in-use-update'
+        : T extends TestInUse_Set            //'r2mi:test-in-use-set'
         ? string                             // as TestInUseResultItem[]
 
-        : T extends TestInUseQuit            //'r2mi:test-in-use-quit'
+        : T extends TestInUse_Quit           //'r2mi:test-in-use-quit'
         ? EmptyOkOrError                     // as TestInUseResultItem[]
 
         : never;
@@ -252,7 +252,7 @@ export namespace R2MInvokeParams {
     export type HighlightField = Omit<R2MInvoke.HighlightField, 'type'>;
     export type HighlightTarget = Omit<R2MInvoke.HighlightTarget, 'type'>;
     export type GetWindowExtras = Omit<R2MInvoke.GetWindowExtras, 'type'>;
-    export type TestInUseStart = Omit<R2MInvoke.TestInUseStart, 'type'>;
-    export type TestInUseUpdate = Omit<R2MInvoke.TestInUseUpdate, 'type'>;
-    export type TestInUseQuit = Omit<R2MInvoke.TestInUseQuit, 'type'>;
+    export type TestInUseStart = Omit<R2MInvoke.TestInUse_Start, 'type'>;
+    export type TestInUseUpdate = Omit<R2MInvoke.TestInUse_Set, 'type'>;
+    export type TestInUseQuit = Omit<R2MInvoke.TestInUse_Quit, 'type'>;
 }

@@ -4,17 +4,18 @@ import { type R2MInvoke } from "@shared/ipc-types";
 import { deleteFolder, getCacheFolder, getCacheInTestFolder, listFiles } from "./8-os-utils";
 import { errorToString } from "@shell/3-utils-main";
 
-export async function testInUse_Start(files: TestInUseParams_Start[]): Promise<TestInUseResultItem | undefined> {
+export async function testInUseInMain_Start(files: TestInUseParams_Start[]): Promise<string> {
+    const rv: (TestInUseResultItem | undefined)[] = [];
 
     for (const file of files) {
         console.log(`\nTest in use: file "${file.shortfname}" is in test mode.`);
     }
 
-    return undefined;
+    return JSON.stringify(rv);
     // return Promise.resolve(files.map(file => file.shortfname).join('\n'));
 }
 
-export async function testInUse_Update(files: TestInUseParams_Set[]): Promise<string> {
+export async function testInUseInMain_Update(files: TestInUseParams_Set[]): Promise<string> {
     const rv: (TestInUseResultItem | undefined)[] = [];
 
     for await (const file of files) {
@@ -54,7 +55,7 @@ async function setFileTestInUse(file: TestInUseParams_Set): Promise<TestInUseRes
     }
 }
 
-export async function testInUse_Quit(): Promise<R2MInvoke.EmptyOkOrError> {
+export async function testInUseInMain_Quit(): Promise<R2MInvoke.EmptyOkOrError> {
     const cacheFolder = getCacheFolder();
     const rv = await deleteFolder(cacheFolder) || '';
     return rv;
