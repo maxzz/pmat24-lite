@@ -11,24 +11,28 @@ import { invokeMainTyped } from "@/xternal-to-main";
  * @param fileName - filename wo/ path
  * @returns error message or empty string
  */
-export async function moveByInTestFileSystem(fileUs: FileUs, content: string, fileName: string, inTest: boolean, getset: GetSet): Promise<string | undefined> {
+export async function moveByInTestFileSystem(fileUs: FileUs, inTest: boolean, getset: GetSet): Promise<string | undefined> {
     try {
+        const fileCnt = fileUs.fileCnt;
+        const content = fileCnt.rawLoaded;
+        const fileName = fileCnt.fname;
+
         if (fileUs.fileCnt.fromMain) {
-            return await saveFromMain({ fileName: `${fileUs.fileCnt.fpath}/${fileName}`, content });
+            return await moveFromMain({ fileName: `${fileUs.fileCnt.fpath}/${fileName}`, content });
         } else {
-            return await saveFromWeb({ fileUs, content, fileName });
+            return await moveFromWeb({ fileUs, content, fileName });
         }
     } catch (error) {
         return errorToString(error);
     }
 }
 
-async function saveFromMain({ fileName, content }: { fileName: string; content: string; }): Promise<string | undefined> {
+async function moveFromMain({ fileName, content }: { fileName: string; content: string; }): Promise<string | undefined> {
     const emptyOkOrError = await invokeMainTyped({ type: 'r2mi:save-file', fileName, content });
     return emptyOkOrError;
 }
 
-async function saveFromWeb({ fileUs, content, fileName }: { fileUs: FileUs; content: string; fileName: string; }): Promise<string | undefined> {
+async function moveFromWeb({ fileUs, content, fileName }: { fileUs: FileUs; content: string; fileName: string; }): Promise<string | undefined> {
     const fileCnt = fileUs.fileCnt;
     const webFsItem = fileCnt.webFsItem;
     if (!webFsItem) {
