@@ -1,4 +1,3 @@
-import { errorToString } from "@/utils";
 import { fileSave } from "browser-fs-access";
 import { type FileUs } from "@/store/store-types";
 import { rootDir } from "@/store/1-atoms/1-files";
@@ -12,28 +11,35 @@ import { invokeMainTyped } from "@/xternal-to-main";
  * @returns error message or empty string
  */
 export async function moveByInTestFileSystem(fileUs: FileUs, inTest: boolean, getset: GetSet): Promise<string | undefined> {
-    try {
-        const fileCnt = fileUs.fileCnt;
-        const content = fileCnt.rawLoaded;
-        const fileName = fileCnt.fname;
+    const fileCnt = fileUs.fileCnt;
+    const content = fileCnt.rawLoaded;
 
-        if (fileUs.fileCnt.fromMain) {
-            return await moveFromMain({ fileName: `${fileUs.fileCnt.fpath}/${fileName}`, content });
-        } else {
-            return await moveFromWeb({ fileUs, content, fileName });
-        }
-    } catch (error) {
-        return errorToString(error);
+    if (fileUs.fileCnt.fromMain) {
+        const oldPath = fileCnt.fname;
+        const newPath = inTest ? `${fileCnt.fpath}/c` : rootDir.fpath;
+
+        const oldFullName = `${oldPath}/${fileCnt.fname}`;
+        const newFullName = `${newPath}/${fileCnt.fname}`;
+
+        return await moveFromMain({ oldFullName, newFullName, content });
+    } else {
+        return await moveFromWeb({ fileUs, content, fileName: fileCnt.fname }); //TODO: this is wromg, temp
     }
 }
 
-async function moveFromMain({ fileName, content }: { fileName: string; content: string; }): Promise<string | undefined> {
-    const emptyOkOrError = await invokeMainTyped({ type: 'r2mi:save-file', fileName, content });
+async function moveFromMain({ oldFullName, newFullName, content }: { oldFullName: string; newFullName: string; content: string; }): Promise<string | undefined> {
+    let emptyOkOrError = await invokeMainTyped({ type: 'r2mi:save-file', fileName: newFullName, content });
+
+    if (!emptyOkOrError) {
+        emptyOkOrError = await invokeMainTyped({ type: 'r2mi:delete-file', fileName: oldFullName });
+    }
+
     return emptyOkOrError;
 }
 
 async function moveFromWeb({ fileUs, content, fileName }: { fileUs: FileUs; content: string; fileName: string; }): Promise<string | undefined> {
     const fileCnt = fileUs.fileCnt;
+
     const webFsItem = fileCnt.webFsItem;
     if (!webFsItem) {
         return 'Cannot save wo/ webFsItem';

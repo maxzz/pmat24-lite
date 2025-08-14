@@ -9,9 +9,9 @@ export const doSetInTestAtom = atom(
     (get, set, { fileUsCtx, inTest }: { fileUsCtx: FileUsCtx, inTest: boolean; }) => {
         const fileUs = fileUsCtx.fileUs;
 
-        if (fileUsChanges.hasAny({ fileUs })) {
-            set(fileUsCtx.fileUs.maniInTestAtom, inTest);
-            return; // Nothing to do before file saved
+        if (fileUsChanges.hasAny({ fileUs })) { // Nothing to do before file saved
+            set(fileUs.maniInTestAtom, inTest);
+            return;
         }
 
         const inTestNow = get(fileUs.maniInTestAtom);
@@ -22,7 +22,7 @@ export const doSetInTestAtom = atom(
         try {
             moveByInTestFileSystem(fileUs, inTest, { get, set });
 
-            set(fileUsCtx.fileUs.maniInTestAtom, inTest); // Update inTest only if file moved
+            set(fileUs.maniInTestAtom, inTest); // Update inTest only if file moved
         } catch (error) {
             toast.error(`Error setting test mode: ${errorToString(error)}`);
         }
