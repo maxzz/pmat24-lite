@@ -9,7 +9,11 @@ export async function testInUseInMain_Start(files: TestInUseParams_Start[]): Pro
 
     for await (const file of files) {
         //TODO: save to cache
-        console.log(`\nTestInUse: cannot put "${file.shortfname}" in test mode.`);
+
+        const res = await setFileTestInUse(file, true);
+        rv.push(res);
+
+        //console.log(`\nTestInUse: cannot put "${file.shortfname}" in test mode`);
     }
 
     return JSON.stringify(rv);
@@ -20,7 +24,7 @@ export async function testInUseInMain_Set(files: TestInUseParams_Set[]): Promise
     const rv: (TestInUseResultItem | undefined)[] = [];
 
     for await (const file of files) {
-        const res = await setFileTestInUse(file);
+        const res = await setFileTestInUse(file, file.inTest);
         rv.push(res);
     }
 
@@ -28,14 +32,14 @@ export async function testInUseInMain_Set(files: TestInUseParams_Set[]): Promise
     //return Promise.resolve(files.map(file => file.shortfname).join('\n'));
 }
 
-async function setFileTestInUse(file: TestInUseParams_Set): Promise<TestInUseResultItem | undefined> {
+async function setFileTestInUse(file: TestInUseParams_Start, inTest: boolean): Promise<TestInUseResultItem | undefined> {
     try {
         const cacheFolder = getCacheInTestFolder();
         const fullName = `${cacheFolder}/${file.shortfname}`;
 
-        if (file.inTest) {
+        if (inTest) {
             if (!file.rawCnt) {
-                throw new Error(`\nTestInUse: "${file.shortfname}" wo/ content.`);
+                throw new Error(`\nTestInUse: "${file.shortfname}" wo/ content`);
             }
 
             await fs.mkdir(cacheFolder, { recursive: true });
@@ -49,7 +53,7 @@ async function setFileTestInUse(file: TestInUseParams_Set): Promise<TestInUseRes
     } catch (err) {
         return {
             unid: file.unid,
-            error: `Cannot set "${file.shortfname}" in test mode = ${file.inTest}. Error is: "${errorToString(err)}"`,
+            error: `Cannot set "${file.shortfname}" in test mode(=${inTest}). Error is: "${errorToString(err)}"`,
         };
     }
 }
