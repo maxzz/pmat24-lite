@@ -16,7 +16,7 @@ export async function moveByInTestFileSystem(fileUs: FileUs, content: string, fi
         if (fileUs.fileCnt.fromMain) {
             return await saveFromMain({ fileName: `${fileUs.fileCnt.fpath}/${fileName}`, content });
         } else {
-            return await saveFromWeb(fileUs, content, fileName);
+            return await saveFromWeb({ fileUs, content, fileName });
         }
     } catch (error) {
         return errorToString(error);
@@ -28,17 +28,18 @@ async function saveFromMain({ fileName, content }: { fileName: string; content: 
     return emptyOkOrError;
 }
 
-async function saveFromWeb(fileUs: FileUs, content: string, fileName: string): Promise<string | undefined> {
-    const webFsItem = fileUs.fileCnt.webFsItem;
+async function saveFromWeb({ fileUs, content, fileName }: { fileUs: FileUs; content: string; fileName: string; }): Promise<string | undefined> {
+    const fileCnt = fileUs.fileCnt;
+    const webFsItem = fileCnt.webFsItem;
     if (!webFsItem) {
         return 'Cannot save wo/ webFsItem';
     }
 
-    const needRename = fileName !== fileUs.fileCnt.fname;
+    const needRename = fileName !== fileCnt.fname;
     let handle = webFsItem.handle?.kind === 'file' ? webFsItem.handle : null;
     // let deletePrevName = needRename && handle;
 
-    if (needRename || fileUs.fileCnt.newFile) {
+    if (needRename || fileCnt.newFile) {
         handle = rootDir.handle ? await rootDir.handle.getFileHandle(fileName, { create: true }) : null;
     }
 
@@ -50,4 +51,3 @@ async function saveFromWeb(fileUs: FileUs, content: string, fileName: string): P
 
     return undefined;
 }
-
