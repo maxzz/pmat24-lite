@@ -25,7 +25,7 @@ export const doSetManiInTestAtom = atom(
 
             set(fileUs.maniInTestAtom, inTest); // Update inTest only if file moved
 
-            await inTest_Set(fileUs, inTest);
+            await inTest_Set({ fileUs, inTest, deleteFile: false });
         } catch (error) {
             toast.error(`Error setting test mode: ${errorToString(error)}`);
         }

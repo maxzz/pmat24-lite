@@ -42,7 +42,10 @@ export async function listFiles(cacheFolder: string): Promise<string[]> {
 
 export async function deleteFolder(cacheFolder: string): Promise<string | undefined> {
     try {
-        await fs.rm(cacheFolder, { recursive: true, force: true });
+        const stats = await fs.stat(cacheFolder);
+        if (stats.isDirectory()) {
+            await fs.rm(cacheFolder, { recursive: true, force: true });
+        }
     } catch (err) {
         return `Error deleting folder: "${cacheFolder}" ${errorToString(err)}`;
     }

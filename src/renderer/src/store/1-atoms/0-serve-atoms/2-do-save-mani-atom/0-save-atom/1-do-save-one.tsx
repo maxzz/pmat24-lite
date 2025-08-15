@@ -63,7 +63,7 @@ export const doSaveOneAtom = atom(
 );
 
 async function updateCacheIfInTest({ fileUs, getset: { get, set } }: { fileUs: FileUs; getset: GetSet; }) {
-    await inTest_Set(fileUs, get(fileUs.maniInTestAtom)); // Manifest in cache should be updated or deleted
+    await inTest_Set({ fileUs, inTest: get(fileUs.maniInTestAtom), deleteFile: false }); // Manifest in cache should be updated or deleted
 }
 
 function printFilesAtom(title: string, files: FileUsAtom[], { get }: GetSet, fileCnt?: FileContent) {

@@ -4,6 +4,7 @@ import { electronState, sessionState } from "@shell/2-electron-globals";
 import { type AppWindow } from "./8-app-window-instance";
 import { mainToRenderer } from "../../xternal-to-renderer";
 import { setSawModeOnMain } from "../../xternal-to-renderer/2-commands-in-main";
+import { testInUseInMain_QuitWithReload } from "../../xternal-to-renderer/2-commands-in-main/3-test-inuse";
 
 export function setMainWindowListeners(appWindow: AppWindow) {
     if (!appWindow.wnd) {
@@ -34,11 +35,13 @@ export function setMainWindowListeners(appWindow: AppWindow) {
         } else {
             iniFileOptions.save(appWindow.wnd);
 
+            event.preventDefault();
+
             if (sessionState.hasChanges) {
-                event.preventDefault();
                 mainToRenderer({ type: 'm2r:ask-close-from-main-with-changes' });
             } else {
-                appWindow.wnd.destroy();
+                await testInUseInMain_QuitWithReload();
+                setTimeout(() => appWindow.wnd!.destroy(), 100);
             }
         }
     });

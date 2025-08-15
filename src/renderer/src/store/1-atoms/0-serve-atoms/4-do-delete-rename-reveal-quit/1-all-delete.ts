@@ -9,6 +9,7 @@ import { doDisposeFileUsAtomAtom } from "@/store/store-utils";
 import { confirmDeleteCpassMessages, confirmDeleteMessages, doAsyncExecuteConfirmDialogAtom } from "@/store/1-atoms/7-dialogs";
 import { rightPanelAtomAtom, setManiActiveTab } from "@/store/1-atoms/3-right-panel";
 import { deleteFileFromFileSystem } from "../7-file-system-manipulation";
+import { inTest_Set } from "@/store/7-napi-atoms";
 
 export const doDeleteFileUsAtom = atom(null,
     async (get, set, fileUsAtom: FileUsAtom) => {
@@ -35,6 +36,10 @@ export const doDeleteFileUsAtom = atom(null,
         if (res) {
             toast.error(`Cannot delete file: ${res}`);
             return;
+        }
+
+        if (get(fileUs.maniInTestAtom)) {
+            await inTest_Set({ fileUs, inTest: false, deleteFile: true });
         }
 
         // 4.1. clear right panel

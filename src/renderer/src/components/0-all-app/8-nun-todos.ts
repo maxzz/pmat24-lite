@@ -220,3 +220,8 @@
 //TODO: add filter to show only manifests in test mode
 //TODO: tree row extend to the end so scrollbar will overlap it, and inTest icon move to end of the row (but count on scrollbar width)
 //TODO: modify when manifest was created and modified
+
+//08.14.25
+//TODO: update cache when in test mode file deleted - done
+//TODO: there is no warning when leaving the app with unsaved changes for web
+//TODO: cannot open empty folder w/ empty subfolder 'c'

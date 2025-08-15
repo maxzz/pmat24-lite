@@ -20,6 +20,7 @@ export type TestInUseParams_Set = {        // Test in use (Tiu) params for opera
     unid: number;                           // Unique ID of the file (per session) to report error
     rawCnt: string | undefined;             // Raw content of the file if inTest is true
     inTest: boolean;                        // What to do with the file: put in 'c' or remove it from 'c'
+    deleteFile: boolean;                    // When manifest deleted then we need to delete file from cache
 };
 
 export type TestInUseResultItem = {         // Test in use (Tiu) result
