@@ -1,7 +1,7 @@
 import { atom } from "jotai";
 import { errorToString } from "@/utils";
 import { toast } from "sonner";
-import { asyncReloadCache, inTest_Set } from "@/store/7-napi-atoms";
+import { inTest_Set } from "@/store/7-napi-atoms";
 import { type FileUsCtx, fileUsChanges } from "@/store/1-atoms/2-file-mani-atoms/9-types";
 import { moveByInTestFileSystem } from "../7-file-system-manipulation";
 
@@ -26,7 +26,6 @@ export const doSetManiInTestAtom = atom(
             set(fileUs.maniInTestAtom, inTest); // Update inTest only if file moved
 
             await inTest_Set(fileUs, inTest);
-            await asyncReloadCache();
         } catch (error) {
             toast.error(`Error setting test mode: ${errorToString(error)}`);
         }
