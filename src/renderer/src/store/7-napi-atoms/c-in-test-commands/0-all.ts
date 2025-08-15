@@ -10,7 +10,7 @@ export async function inTest_Start(fileUsAtoms: FileUsAtom[], getset: GetSet) {
     fileUsAtoms.forEach(
         (fileUsAtom) => {
             const fileUs = getset.get(fileUsAtom);
-            const inTest = getInTestInUse(fileUs.fileCnt.fpath);
+            const { inTest } = getInTestInUse(fileUs.fileCnt.fpath);
             if (inTest) {
                 const inUseFile: TestInUseParams_Start = {
                     shortfname: fileUs.fileCnt.fname,
@@ -58,3 +58,5 @@ export async function inTest_Quit() {
 
     await asyncReloadCache();
 }
+
+//TODO: handle result errors
