@@ -1,4 +1,4 @@
-import type { ManualFieldState } from "@/store/1-file-mani-atoms";
+import type { ManualFieldState } from "@/store/2-file-mani-atoms";
 import { toNumberWDefault1, pluralWord } from "@/utils";
 import { useAtomValue } from "jotai";
 import { detailKbdClasses } from "./8-classes";

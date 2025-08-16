@@ -1,6 +1,6 @@
 import { useAtomValue, useSetAtom } from "jotai";
 import { FieldTyp, FormIdx } from "@/store/manifest";
-import { type FieldRowCtx, type FileUsCtx } from "@/store/1-file-mani-atoms";
+import { type FieldRowCtx, type FileUsCtx } from "@/store/2-file-mani-atoms";
 import { Column6_Policy } from "./1-col-policy";
 import { Case_LinkToLoginForm } from "./7-col-link-to-cpass";
 

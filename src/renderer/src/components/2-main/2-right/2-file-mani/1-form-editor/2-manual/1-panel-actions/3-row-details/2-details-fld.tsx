@@ -1,7 +1,7 @@
 import { useAtomValue } from "jotai";
 import { classNames } from "@/utils";
 import { FieldTyp } from "@/store/manifest";
-import { type MFormProps, type ManualFieldState, useIsLinkedToLogin } from "@/store/1-file-mani-atoms";
+import { type MFormProps, type ManualFieldState, useIsLinkedToLogin } from "@/store/2-file-mani-atoms";
 import { detailKbdClasses } from "./8-classes";
 
 export function DetailsFld({ item, mFormProps }: { item: ManualFieldState.CtxFld; mFormProps: MFormProps; }) {

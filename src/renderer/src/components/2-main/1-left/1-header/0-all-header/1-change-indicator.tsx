@@ -1,5 +1,5 @@
 import { useSnapshot } from "valtio";
-import { allFileUsChanges } from "@/store/1-file-mani-atoms";
+import { allFileUsChanges } from "@/store/2-file-mani-atoms";
 import { SymbolFire } from "@/ui/icons";
 
 export function ChangeIndicator() {

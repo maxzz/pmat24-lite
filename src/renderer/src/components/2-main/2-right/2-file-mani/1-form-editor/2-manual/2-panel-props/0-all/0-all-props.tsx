@@ -1,6 +1,6 @@
 import { type HTMLAttributes } from "react";
 import { useAtomValue } from "jotai";
-import { type MFormProps } from "@/store/1-file-mani-atoms";
+import { type MFormProps } from "@/store/2-file-mani-atoms";
 import { PanelPropsTitle } from "./1-panel-props-title";
 import { ScriptItemPropsEditorSelector } from "../2-props";
 import { focusWithinClasses } from "../../8-manual-shared-styles";

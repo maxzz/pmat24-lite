@@ -6,7 +6,7 @@ import { IconDndTarget } from "@/ui/icons";
 import { FormIdx } from "@/store/manifest";
 import { dndActionInitAtom, dndActionAtom, stateNapiPosTracker } from "@/store/7-napi-atoms";
 import { type HighlightHwnd } from "@/store/store-types";
-import { type FileUsCtx, type ManualFieldState } from "@/store/1-file-mani-atoms";
+import { type FileUsCtx, type ManualFieldState } from "@/store/2-file-mani-atoms";
 import { useStateNapiPosTracker } from "./2-picker-dnd-inputs";
 
 export function NewInputXY({ item, fileUsCtx }: { item: ManualFieldState.CtxPos; fileUsCtx: FileUsCtx; }) {

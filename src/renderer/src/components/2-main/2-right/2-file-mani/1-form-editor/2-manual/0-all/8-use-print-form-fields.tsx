@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { atom, useAtomValue, useSetAtom } from "jotai";
 import { FormIdx } from "@/store/manifest";
-import { type ManiAtoms, type FieldRowCtx, getAllFormsFieldsAtoms  } from "@/store/1-file-mani-atoms";
+import { type ManiAtoms, type FieldRowCtx, getAllFormsFieldsAtoms  } from "@/store/2-file-mani-atoms";
 
 export function usePrintFormFields({ maniAtoms, formIdx }: { maniAtoms: ManiAtoms; formIdx: FormIdx; }) {
     const { loginAtom, cpassAtom } = getAllFormsFieldsAtoms(maniAtoms);

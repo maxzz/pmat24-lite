@@ -5,7 +5,7 @@ import { type FileUs, type HighlightHwnd } from "@/store/store-types";
 import { type FileContent } from "@shared/ipc-types";
 import { type FceItem, type FceAtoms, type FceItemEditor, defaultFcName, type FceItemValue, type FceDlgIn } from "../../9-types";
 import { type CatalogFile, createFceItemMeta } from "@/store/manifest";
-import { type ManiAtoms } from "@/store/1-file-mani-atoms/9-types";
+import { type ManiAtoms } from "@/store/2-file-mani-atoms/9-types";
 import { catalogItemInFileToFceItemValue } from "@/store/0-serve-atoms";
 import { createParsedSrcForEmptyFce, createTestInUseAtoms } from "@/store/1-atoms/1-files/1-do-set-files";
 

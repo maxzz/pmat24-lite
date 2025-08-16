@@ -7,7 +7,7 @@ import { addToTotalManis, appSettings } from "../../9-ui-state";
 import { pmExtensionMani, WebFsItem } from "@shared/ipc-types";
 import { filesAtom, rootDir } from "../../1-atoms/1-files";
 import { type FileUs, type FileUsAtom } from "../../store-types";
-import { fileUsChanges } from "../../1-file-mani-atoms/9-types";
+import { fileUsChanges } from "../../2-file-mani-atoms/9-types";
 import { setManiActiveTab } from "../../1-atoms/3-right-panel";
 import { doSelectFileUsTreeAtom } from "@/components/2-main/1-left/2-files-list";
 import { createFileUsFromNewXml, doSaveOneAtom, newManiContent, notificationNewSaved } from "@/store/0-serve-atoms";

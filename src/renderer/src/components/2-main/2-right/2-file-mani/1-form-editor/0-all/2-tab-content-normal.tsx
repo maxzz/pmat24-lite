@@ -1,6 +1,6 @@
 import { type ComponentPropsWithoutRef } from "react";
 import { classNames } from "@/utils";
-import { type NFormProps } from "@/store/1-file-mani-atoms";
+import { type NFormProps } from "@/store/2-file-mani-atoms";
 import { FieldsList, InFormBlockSubmit } from "../1-normal";
 import { InFormBlockOptions } from "../../2-form-options";
 

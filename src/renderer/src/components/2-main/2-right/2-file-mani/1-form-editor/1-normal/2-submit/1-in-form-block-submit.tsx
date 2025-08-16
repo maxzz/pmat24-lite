@@ -1,5 +1,5 @@
 import { useAtomValue, useAtom } from "jotai";
-import { type NFormProps } from "@/store/1-file-mani-atoms";
+import { type NFormProps } from "@/store/2-file-mani-atoms";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/ui/shadcn/select";
 
 export function InFormBlockSubmit({ nFormProps }: { nFormProps: NFormProps; }) {

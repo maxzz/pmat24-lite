@@ -2,7 +2,7 @@ import { useState } from "react";
 import { atom, useAtomValue } from "jotai";
 import { useSnapshot } from "valtio";
 import { appSettings } from "@/store";
-import { type OFormProps } from "@/store/1-file-mani-atoms";
+import { type OFormProps } from "@/store/2-file-mani-atoms";
 import { Block1_General } from "./2-nun-1-general";
 import { Block2_Authentication } from "./2-nun-2-authentication";
 import { Block3_QL } from "./2-nun-3-QL";

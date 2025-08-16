@@ -1,7 +1,7 @@
 import { type ComponentType, forwardRef, type ForwardRefExoticComponent, type Ref, type RefAttributes, type HTMLAttributes } from "react";
 import { useAtomValue } from "jotai";
 import { motion, type MotionProps } from "motion/react";
-import { type MFormProps, type ManualFieldState } from "@/store/1-file-mani-atoms";
+import { type MFormProps, type ManualFieldState } from "@/store/2-file-mani-atoms";
 import { type PopupMenuItemState, RowMenuButton } from "./5-row-popup-menu";
 import { RowColumnDetails, RowColumnIcon, rowColumnActionName } from "../3-row-details";
 import { classNames } from "@/utils";

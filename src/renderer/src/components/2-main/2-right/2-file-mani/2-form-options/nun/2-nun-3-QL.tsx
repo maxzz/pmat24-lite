@@ -1,4 +1,4 @@
-import { type OptionsState } from "@/store/1-file-mani-atoms";
+import { type OptionsState } from "@/store/2-file-mani-atoms";
 import { InputWithTitle2Cols } from "@/ui/local-ui";
 
 export function Block3_QL({ atoms }: { atoms: OptionsState.Atoms; }) {

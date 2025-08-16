@@ -3,7 +3,7 @@ import { toast } from "sonner";
 import { FormIdx, rebuildMetaFormsWithoutCpassForm } from "@/store/manifest";
 import { type FileUsAtom } from "@/store/store-types";
 import { removeFromTotalManis } from "@/store/9-ui-state";
-import { fileUsChanges, type ManiAtoms } from "@/store/1-file-mani-atoms/9-types";
+import { fileUsChanges, type ManiAtoms } from "@/store/2-file-mani-atoms/9-types";
 import { filesAtom } from "@/store/1-atoms/1-files";
 import { doDisposeFileUsAtomAtom } from "@/store/store-utils";
 import { confirmDeleteCpassMessages, confirmDeleteMessages, doAsyncExecuteConfirmDialogAtom } from "@/store/4-dialogs-atoms";

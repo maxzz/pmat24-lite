@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { useSnapshot } from "valtio";
 import { hasMain } from "@/xternal-to-main";
 import { appSettings } from "@/store/9-ui-state";
-import { allFileUsChanges } from "@/store/1-file-mani-atoms";
+import { allFileUsChanges } from "@/store/2-file-mani-atoms";
 
 export function useBeforeUnload(): void {
     const { confirmExit } = useSnapshot(appSettings.appUi.uiAdvanced);

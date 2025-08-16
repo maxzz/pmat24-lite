@@ -1,6 +1,6 @@
 import { stringifyFromEditor, type FormIdx, type Mani, type EditorDataForOneAndSn, type EditorField, fieldTyp4Str, mergeSn } from "@/store/manifest";
 import { type PackManifestDataParams } from "../9-types";
-import { ManualFieldConv, NormalFieldConv, type MFormCnt } from "@/store/1-file-mani-atoms";
+import { ManualFieldConv, NormalFieldConv, type MFormCnt } from "@/store/2-file-mani-atoms";
 import { mergeToManiField } from "../1-normal";
 
 export function packManualFields(mFormCnt: MFormCnt, formIdx: FormIdx, packParams: PackManifestDataParams): Mani.Field[] {

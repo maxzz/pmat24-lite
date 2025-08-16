@@ -1,7 +1,7 @@
 import { type Getter } from "jotai";
 import { type Meta } from "@/store/manifest";
 import { type Rect4, type R2MInvokeParams } from "@shared/ipc-types";
-import { type FieldHighlightCtx } from "../../1-file-mani-atoms/9-types";
+import { type FieldHighlightCtx } from "../../2-file-mani-atoms/9-types";
 
 export function getHighlightFieldParams(hwnd: string, isBrowser: boolean, { nFieldCtx, mFieldCtx }: FieldHighlightCtx, get: Getter): R2MInvokeParams.HighlightField | undefined {
     if (nFieldCtx) {

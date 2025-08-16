@@ -10,7 +10,7 @@ import { doAddFcToLoadedAtom, doClearFcRootAtom, doInitFileUsLinksToFcAtom } fro
 import { addToTotalManis, appSettings, busyIndicator, clearTotalManis } from "@/store/9-ui-state";
 import { doDisposeAllFilesAtomAtom } from "@/store/store-utils";
 import { sortFileUsItemsInPlaceAndSetIndices } from "../3-tree-files";
-import { allFileUsChanges } from "@/store/1-file-mani-atoms";
+import { allFileUsChanges } from "@/store/2-file-mani-atoms";
 import { rightPanelAtomAtom } from "../../3-right-panel";
 import { createFileUsFromFileContent } from "./3-create-fileus";
 

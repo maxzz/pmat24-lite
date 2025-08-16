@@ -1,5 +1,5 @@
 import { type FileUsAtom } from "@/store/store-types";
-import { getAllFormsFields_byManiAtoms, type FieldRowCtx, type ManiAtoms } from "@/store/1-file-mani-atoms/9-types";
+import { getAllFormsFields_byManiAtoms, type FieldRowCtx, type ManiAtoms } from "@/store/2-file-mani-atoms/9-types";
 import { type Mani } from "@/store/manifest";
 
 export function printFileUsAtomLinks(atm: PA<FileUsAtom | undefined>, { get }: GetOnly, label: string = 'rightPanelAtomAtom') {

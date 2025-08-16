@@ -1,6 +1,6 @@
 import { useAtom } from "jotai";
 import { type OptionTextValue } from "@/store/manifest";
-import { type FieldRowCtx } from "@/store/1-file-mani-atoms";
+import { type FieldRowCtx } from "@/store/2-file-mani-atoms";
 import { InputSelectUi } from "@/ui";
 
 export function Case_ValueForLinked({ rowCtx }: { rowCtx: FieldRowCtx; }) {

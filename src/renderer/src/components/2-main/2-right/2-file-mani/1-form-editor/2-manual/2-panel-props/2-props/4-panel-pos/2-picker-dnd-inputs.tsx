@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useSetAtom } from "jotai";
 import { subscribe } from "valtio";
-import { type ManualFieldState } from "@/store/1-file-mani-atoms";
+import { type ManualFieldState } from "@/store/2-file-mani-atoms";
 import { stateNapiPosTracker } from "@/store";
 
 export function useStateNapiPosTracker(item: ManualFieldState.CtxPos) {

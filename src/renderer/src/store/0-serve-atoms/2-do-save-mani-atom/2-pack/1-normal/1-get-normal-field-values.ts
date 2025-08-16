@@ -1,6 +1,6 @@
 import { type EditorField, type Meta } from "@/store/manifest";
 import { type PackManifestDataParams } from "../9-types";
-import { type NFormCnt, type FieldRowCtx, NormalFieldConv } from "@/store/1-file-mani-atoms";
+import { type NFormCnt, type FieldRowCtx, NormalFieldConv } from "@/store/2-file-mani-atoms";
 
 export type EditorFieldAndMeta = {
     metaField: Meta.Field;

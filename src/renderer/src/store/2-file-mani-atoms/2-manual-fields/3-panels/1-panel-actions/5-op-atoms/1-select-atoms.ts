@@ -1,5 +1,5 @@
 import { atom } from "jotai";
-import { type MFormCnt } from "@/store/1-file-mani-atoms";
+import { type MFormCnt } from "@/store/2-file-mani-atoms";
 import { kbdToIndex } from "./b-kbd-to-index";
 
 /**

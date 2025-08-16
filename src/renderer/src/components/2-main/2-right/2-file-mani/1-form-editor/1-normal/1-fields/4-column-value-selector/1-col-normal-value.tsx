@@ -7,7 +7,7 @@ import { DropdownValue } from "./2-dropdown-value";
 import { inputRingClasses } from "@/ui/local-ui";
 import { isKeyToClearDefault } from "../8-fields-shared-ui";
 import { doHighlightControlAtom } from "@/store/7-napi-atoms";
-import { type FieldHighlightCtx } from "@/store/1-file-mani-atoms";
+import { type FieldHighlightCtx } from "@/store/2-file-mani-atoms";
 
 type Column4_ValueProps = ComponentPropsWithoutRef<'input'> & {
     useItAtom: PrimitiveAtom<boolean>;

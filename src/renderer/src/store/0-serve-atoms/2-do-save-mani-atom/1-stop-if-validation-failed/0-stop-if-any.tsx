@@ -1,6 +1,6 @@
 import { toast } from "sonner";
 import { appSettings } from "@/store/9-ui-state";
-import { type ManiAtoms, type ManiTabValue, type VerifyError } from "@/store/1-file-mani-atoms/9-types";
+import { type ManiAtoms, type ManiTabValue, type VerifyError } from "@/store/2-file-mani-atoms/9-types";
 import { getErrorsFromOptions } from "./1-options-verify-errors";
 import { getErrorsFromCpass, getErrorsFromLogin } from "./2-form-verify-errors";
 

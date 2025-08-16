@@ -2,7 +2,7 @@ import { useAtomValue } from "jotai";
 import { classNames } from "@/utils";
 import { toast } from "sonner";
 import { Matching } from "@/store/manifest";
-import { type OFormProps } from "@/store/1-file-mani-atoms";
+import { type OFormProps } from "@/store/2-file-mani-atoms";
 import { AccordionWithTrigger } from "@/ui/motion-primitives";
 import { InputWithTitle2Rows } from "@/ui/local-ui";
 import { useIsShowExample } from "./5-9-set-atoms";

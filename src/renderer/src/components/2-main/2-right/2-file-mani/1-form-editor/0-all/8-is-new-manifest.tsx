@@ -1,4 +1,4 @@
-import { type NFormProps, type MFormProps } from "@/store/1-file-mani-atoms";
+import { type NFormProps, type MFormProps } from "@/store/2-file-mani-atoms";
 
 /**
  * Limit height for new manifests to show manifest options otherwise

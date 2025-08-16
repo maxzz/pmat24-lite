@@ -1,4 +1,4 @@
-import { type ManiAtoms } from "@/store/1-file-mani-atoms/9-types";
+import { type ManiAtoms } from "@/store/2-file-mani-atoms/9-types";
 import { type FileUs, type FileUsAtom } from "@/store/store-types";
 
 export type ResetManifestCtx = {

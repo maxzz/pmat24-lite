@@ -1,6 +1,6 @@
 import { type ComponentPropsWithoutRef } from "react";
 import { classNames, useAtomEffect } from "@/utils";
-import { type MFormProps } from "@/store/1-file-mani-atoms";
+import { type MFormProps } from "@/store/2-file-mani-atoms";
 import { ManualPanelActions } from "../1-panel-actions";
 import { ManualPanelProps } from "../2-panel-props";
 import { isManualManifestNew } from "../../0-all";

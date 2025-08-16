@@ -1,4 +1,4 @@
-import { type ManiTabValue } from "@/store/1-file-mani-atoms/9-types";
+import { type ManiTabValue } from "@/store/2-file-mani-atoms/9-types";
 
 export type ManiEditorState = {
     activeTab: ManiTabValue;                // 'options' | 'login' | 'cpass'
