@@ -20,6 +20,6 @@ export const defaultUiGeneralState: UiGeneralState = {
     showWelcomeCheck: false,
     allowWelcome: false,
     notifyNewFile: true,
-    notifyAlienfiles: true,
+    notifyAlienfiles: false,
     sawPosition: 0,
 };

@@ -21,7 +21,7 @@ export function ResizableABPanels() {
     return (
         <ResizablePanelGroup direction="horizontal" className="w-full" autoSaveId="main" storage={panelsStorage}>
 
-            <ResizablePanel ref={refA} collapsible defaultSize={25}>
+            <ResizablePanel ref={refA} collapsible defaultSize={33}>
                 <PanelA />
             </ResizablePanel>
 
