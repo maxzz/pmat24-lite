@@ -2,7 +2,7 @@ import { useSetAtom } from "jotai";
 import { useSnapshot } from "valtio";
 import { Button } from "@/ui";
 import { type FileUs, type FileUsAtom } from "@/store/store-types";
-import { doSaveOneAtom } from "@/store/0-serve-atoms/2-do-save-mani-atom";
+import { doSaveOneAtom } from "@/store/0-serve-atoms/3-do-save-mani-atom";
 import { doResetOrDiscardOneAtom } from "@/store/0-serve-atoms/4-do-reset-atom";
 
 export function SaveResetButtons({ fileUs, fileUsAtom }: { fileUs: FileUs; fileUsAtom: FileUsAtom; }) {
