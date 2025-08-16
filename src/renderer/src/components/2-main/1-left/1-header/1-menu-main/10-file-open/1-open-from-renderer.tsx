@@ -2,7 +2,7 @@ import { type ChangeEvent } from "react";
 import { useSetAtom } from "jotai";
 import { hasMain } from "@/xternal-to-main";
 import { DropdownMenuItem, InputFileAsDlg } from "@/ui";
-import { doSetFilesFrom_LegacyDlg_Atom, doSetFilesFrom_ModernDlg_Atom, isFsSupported } from "@/store/1-files-atoms";
+import { doSetFilesFrom_LegacyDlg_Atom, doSetFilesFrom_ModernDlg_Atom, isFsSupported } from "@/store/0-serve-atoms/2-do-load-files";
 
 const IdOpenFiles = 'tm-dlg-open-files';
 const IdOpenFolders = 'tm-dlg-open-folders';

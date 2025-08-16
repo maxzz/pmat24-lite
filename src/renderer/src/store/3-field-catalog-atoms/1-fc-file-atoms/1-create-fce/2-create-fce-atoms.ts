@@ -1,14 +1,13 @@
 import { atom } from "jotai";
 import { proxy } from "valtio";
-import { rootDir } from "@/store/1-files-atoms/0-files-atom";
-import { type FileUs, type HighlightHwnd } from "@/store/store-types";
 import { type FileContent } from "@shared/ipc-types";
-import { type FceItem, type FceAtoms, type FceItemEditor, defaultFcName, type FceItemValue, type FceDlgIn } from "../../9-types";
+import { type FileUs, type HighlightHwnd } from "@/store/store-types";
 import { type CatalogFile, createFceItemMeta } from "@/store/manifest";
 import { type ManiAtoms } from "@/store/2-file-mani-atoms/9-types";
-import { catalogItemInFileToFceItemValue } from "@/store/0-serve-atoms";
-import { createParsedSrcForEmptyFce, createTestInUseAtoms } from "@/store/1-files-atoms/1-do-set-files";
-
+import { type FceItem, type FceAtoms, type FceItemEditor, defaultFcName, type FceItemValue, type FceDlgIn } from "../../9-types";
+import { rootDir } from "@/store/1-files-atoms/0-files-atom";
+import { catalogItemInFileToFceItemValue } from "@/store/0-serve-atoms/3-do-save-mani-atom";
+import { createParsedSrcForEmptyFce, createTestInUseAtoms } from "@/store/0-serve-atoms/1-do-set-files";
 import { finalizeFileContent } from "@/store/store-utils";
 import { createFceCtx } from "./3-create-fce-ctx";
 

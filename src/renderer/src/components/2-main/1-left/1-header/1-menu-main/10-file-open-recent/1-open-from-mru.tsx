@@ -5,7 +5,8 @@ import { DropdownMenuItem, DropdownMenuPortal, DropdownMenuSeparator, DropdownMe
 import { IconFolderClosed } from "@/ui/icons/normal/temp2";
 import { IconTrash } from "@/ui/icons";
 import { appSettings } from "@/store/9-ui-state";
-import { type PmatFolder, doSetFilesFrom_MruFolder_Atom } from "@/store/1-files-atoms";
+import { type PmatFolder } from "@/store/1-files-atoms/0-files-atom";
+import { doSetFilesFrom_MruFolder_Atom } from "@/store/0-serve-atoms/2-do-load-files";
 
 export function MenuItem_OpenRecent() {
     const { folders } = useSnapshot(appSettings.appUi.mru);

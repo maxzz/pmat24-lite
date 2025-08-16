@@ -8,7 +8,7 @@ import { createNewFileContent } from "@/store/store-utils";
 import { showBuildErrorReason, showMessage } from "./2-ctx-create-messages";
 import { doInitNewManiContentAtom, newManiContent } from "./0-ctx-content";
 import { createManiAtoms } from "../0-create-mani-ctx-atoms";
-import { createFileUsFromFileContent } from "@/store/1-files-atoms/1-do-set-files";
+import { createFileUsFromFileContent } from "@/store/0-serve-atoms/1-do-set-files";
 import { doSetInitialRelationsAtom } from "@/store/2-file-mani-atoms";
 import { fileUsToXmlString } from "../../3-do-save-mani-atom/0-save-atom/7-fileus-to-xml-string";
 //import { printXmlManiFile } from "../3-do-save-mani-atom/0-save-atom/8-save-utils";

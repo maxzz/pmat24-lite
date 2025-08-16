@@ -1,5 +1,5 @@
 import { atom } from "jotai";
-import { doSetDeliveredFilesAtom } from "../1-do-set-files";
+import { doSetDeliveredFilesAtom } from "@/store/0-serve-atoms/1-do-set-files";
 import { undefinedPmatFolder } from "@/store/1-files-atoms/0-files-atom";
 
 export const doCloseRootDirAtom = atom(
