@@ -2,7 +2,7 @@ import { useSetAtom } from "jotai";
 import { useSnapshot } from "valtio";
 import { DropdownMenuItem, DropdownMenuShortcut, menuShortcutClasses } from "@/ui";
 import { open_SawMonitorAtom } from "@/store/4-dialogs-atoms";
-import { rootDir } from "@/store/1-files-atom";
+import { rootDir } from "@/store/5-files";
 import { appShortcuts } from "@/components/4-dialogs/0-global";
 
 export function MenuItem_CreateMani() {

@@ -3,7 +3,7 @@ import { discardValues, discardValuesDeep } from "@/utils";
 import { type FileUsAtom, type ManiAtomsAtom } from "@/store/store-types";
 import { type ManiAtoms, type AnyFormCtx } from "@/store/2-file-mani-atoms";
 import { type FceCtx } from "@/store/3-field-catalog-atoms";
-import { filesAtom } from "@/store/1-files-atom";
+import { filesAtom } from "@/store/5-files";
 
 /**
  * Discard all array of FileUs atom

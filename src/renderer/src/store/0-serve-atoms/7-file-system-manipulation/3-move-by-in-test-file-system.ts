@@ -3,7 +3,7 @@ import { type FileUs } from "@/store/store-types";
 import { type R2MInvoke } from "@shared/ipc-types";
 import { invokeMainTyped } from "@/xternal-to-main";
 import { asyncReloadCache } from "@/store/7-napi-atoms";
-import { rootDir } from "@/store/1-files-atom";
+import { rootDir } from "@/store/5-files";
 
 export async function moveByInTestFileSystem(fileUs: FileUs, inTest: boolean, getset: GetSet): Promise<R2MInvoke.EmptyOkOrError | undefined> {
     const fileCnt = fileUs.fileCnt;

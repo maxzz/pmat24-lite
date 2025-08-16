@@ -2,7 +2,7 @@ import { atom } from "jotai";
 import { asyncVerifyPermission, errorToString } from "@/utils";
 import { hasMain, invokeMainTyped } from "@/xternal-to-main";
 import { type FileContent } from "@shared/ipc-types";
-import { type PmatFolder } from "@/store/1-files-atom";
+import { type PmatFolder } from "@/store/5-files";
 import { filerDirectoryHandles, findShortestPathInFnames } from "@/store/store-utils";
 import { doSetDeliveredFilesAtom } from "../../1-do-set-files";
 import { openDirectoryHandle, openModernHandlesDlg, type OpenModernHandlesDlgResult } from "../1-modern-handles";

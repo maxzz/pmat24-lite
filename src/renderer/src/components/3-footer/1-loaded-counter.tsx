@@ -1,7 +1,7 @@
 import { useAtomValue } from "jotai";
 import { useSnapshot } from "valtio";
 import { appSettings, searchFilterData, totalManis } from "@/store/9-ui-state";
-import { filesAtom, rootDir } from "@/store/1-files-atom";
+import { filesAtom, rootDir } from "@/store/5-files";
 
 export function LoadedCounter() {
     const files = useAtomValue(filesAtom);

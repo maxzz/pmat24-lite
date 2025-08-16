@@ -1,6 +1,6 @@
 import { invokeLoadFiles } from "@/xternal-to-main";
 import { pmAllowedToOpenExt } from "@shared/ipc-types";
-import { PmatFolder } from "@/store/1-files-atom";
+import { PmatFolder } from "@/store/5-files";
 import { type SetDeliveredFiles } from "../../1-do-set-files";
 
 export async function createFileContents_FromMru_Main(folder: PmatFolder): Promise<SetDeliveredFiles | undefined> {

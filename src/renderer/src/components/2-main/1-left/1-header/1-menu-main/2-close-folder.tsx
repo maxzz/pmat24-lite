@@ -1,5 +1,5 @@
 import { useSetAtom } from "jotai";
-import { doCloseRootDirAtom } from "@/store/1-files-atom";
+import { doCloseRootDirAtom } from "@/store/5-files";
 import { DropdownMenuItem } from "@/ui/shadcn";
 
 /**

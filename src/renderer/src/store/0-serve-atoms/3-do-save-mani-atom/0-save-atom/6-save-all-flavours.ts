@@ -1,7 +1,7 @@
 import { atom } from "jotai";
 import { type FileUsAtom } from "@/store/store-types";
 import { rightPanelAtomAtom } from "@/store/5-right-panel";
-import { filesAtom } from "@/store/1-files-atom";
+import { filesAtom } from "@/store/5-files";
 import { doSaveOneAtom } from "./1-do-save-one";
 
 export const doSaveRightPanelFileAtom = atom(null,

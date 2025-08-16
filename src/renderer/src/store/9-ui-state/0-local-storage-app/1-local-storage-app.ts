@@ -2,7 +2,7 @@ import { proxy, subscribe } from "valtio";
 import { atomWithProxy } from "jotai-valtio";
 import { debounce, mergeConfigRecursively, themeApplyMode } from "@/utils";
 import { hasMain } from "@/xternal-to-main";
-import { initializeMru } from "@/store/1-files-atom";
+import { initializeMru } from "@/store/5-files";
 import { type FileListSettings, defaultFileListSettings } from "../1-files-list";
 import { type RightPanelSettings, defaultRightPanelSettings } from "../2-right-panel";
 import { type AppUISettings, defaultAppUISettings } from "../8-app-ui";
