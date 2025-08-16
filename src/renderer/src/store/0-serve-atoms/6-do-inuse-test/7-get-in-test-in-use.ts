@@ -1,6 +1,6 @@
 import { filenameForRegex, normalizeFpath } from "@/utils";
 import { type FileContent } from "@shared/ipc-types";
-import { rootDir } from "@/store/5-files";
+import { rootDir } from "@/store/5-1-files";
 
 // Subfolder detection utilities
 

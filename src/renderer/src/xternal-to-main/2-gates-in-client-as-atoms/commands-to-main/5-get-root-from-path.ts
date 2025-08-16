@@ -1,4 +1,4 @@
-import { type PmatFolder } from "@/store/5-files";
+import { type PmatFolder } from "@/store/5-1-files";
 import { findShortestPathInFnames } from "@/store/store-utils/1-file-system-utils";
 
 export function getRootFromFpath({ files, fromMain }: { files: { fpath: string; }[]; fromMain: boolean; }): PmatFolder {

@@ -3,7 +3,7 @@ import { delay } from "@/utils";
 import { toast } from "sonner";
 import { type FileUs } from "@/store/store-types";
 import { type FileContent } from "@shared/ipc-types";
-import { type PmatFolder, filesAtom, isRootDirEmpty, setRootDir } from "@/store/5-files";
+import { type PmatFolder, filesAtom, isRootDirEmpty, setRootDir } from "@/store/5-1-files";
 import { inTest_Start } from "@/store/7-napi-atoms";
 import { isPmatFileToLoad } from "@/store/0-serve-atoms/6-do-inuse-test";
 import { doAddFcToLoadedAtom, doClearFcRootAtom, doInitFileUsLinksToFcAtom } from "@/store/3-field-catalog-atoms";

@@ -1,7 +1,7 @@
 import { useSetAtom } from "jotai";
 import { useSnapshot } from "valtio";
 import { Button } from "@/ui";
-import { doCloseRootDirAtom, rootDir } from "@/store/5-files";
+import { doCloseRootDirAtom, rootDir } from "@/store/5-1-files";
 
 export function TestCloseFolder() {
     const doClearFileContent = useSetAtom(doCloseRootDirAtom);
