@@ -3,7 +3,7 @@ import { clamp, doAddNextToastIdAtom, doDissmissNextToastsAtom } from "@/utils";
 import { toast } from "sonner";
 import { stateNapiAccess } from "@/store/7-napi-atoms";
 import { createFileUsFromNewXml, newManiContent } from "@/store/1-atoms/0-serve-atoms";
-import { checkboxCreateManualModeAtom } from "@/store/1-atoms/7-dialogs/2-create-dialog-atoms";
+import { checkboxCreateManualModeAtom } from "@/store/4-dialogs/2-create-dialog-atoms";
 import { appSelectedAppAtom } from "./4-selected-app";
 import { WizardPage, wizardFirstPage, wizardLastPage } from "./8-step-items-data";
 import { newManiCtx } from "./0-ctx";

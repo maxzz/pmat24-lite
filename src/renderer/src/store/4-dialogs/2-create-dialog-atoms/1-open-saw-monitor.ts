@@ -1,9 +1,9 @@
 import { atom } from "jotai";
 import { FormIdx } from "@/store/manifest";
 import { clearIconsCache } from "@/store/7-napi-atoms";
-import { sureRootDir } from "../../1-files";
 import { newManiContent } from "@/store/1-atoms/0-serve-atoms";
-import { rightPanelAtomAtom } from "../../3-right-panel";
+import { sureRootDir } from "../../1-atoms/1-files";
+import { rightPanelAtomAtom } from "../../1-atoms/3-right-panel";
 import { checkboxCreateManualModeAtom, setSizeSmall_SawMonitorAtom, startMonitorTimerAtom, stopMonitorTimerAtom } from "./0-ctx";
 
 export const isOpen_SawMonitorAtom = atom((get) => get(_sawMonitorOpenAtom));

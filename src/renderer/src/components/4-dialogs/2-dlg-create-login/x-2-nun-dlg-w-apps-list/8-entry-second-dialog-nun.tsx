@@ -1,5 +1,5 @@
 import { useAtom } from "jotai";
-import { SecondPage, doOpenCreateDialogSecondAtom } from "@/store/1-atoms/7-dialogs";
+import { SecondPage, doOpenCreateDialogSecondAtom } from "@/store/4-dialogs";
 import * as D from "@/ui/shadcn/dialog";
 
 export function DialogCreateManiV1SecondPage() {

@@ -1,6 +1,6 @@
 import { useSetAtom } from "jotai";
 import { DropdownMenuItem, DropdownMenuShortcut } from "@/ui/shadcn";
-import { filterDialogOpenAtom } from "@/store/1-atoms/7-dialogs";
+import { filterDialogOpenAtom } from "@/store/4-dialogs";
 import { appShortcuts } from "@/components/4-dialogs/0-global";
 import { menuShortcutClasses } from "@/ui/local-ui";
 

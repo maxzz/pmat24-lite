@@ -1,7 +1,8 @@
 import { type HTMLAttributes, useState } from "react";
 import { atom, useAtomValue, useSetAtom } from "jotai";
 import { classNames } from "@/utils";
-import { type FieldRowCtx, PolicyAction, getPolicyExplanation, getPolicyBtnText } from "@/store/1-atoms/2-file-mani-atoms";
+import { type FieldRowCtx } from "@/store/1-atoms/2-file-mani-atoms";
+import { PolicyAction, getPolicyExplanation, getPolicyBtnText } from "@/store/4-dialogs";
 import { Button } from "@/ui";
 import { PolicyEditorDlg } from "@/components/4-dialogs";
 

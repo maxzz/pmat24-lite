@@ -3,7 +3,7 @@ import { classNames, useDissmissNextToasts } from "@/utils";
 import * as D from "@/ui/shadcn/dialog";
 import { Button } from "@/ui";
 import { Cross2Icon } from "@radix-ui/react-icons";
-import { type NewManiDlgData, dataToOpen_NewManiDlgAtom } from "@/store/1-atoms/7-dialogs";
+import { type NewManiDlgData, dataToOpen_NewManiDlgAtom } from "@/store/4-dialogs";
 import { NewManiContentEditorSelector } from "../../2-mani-content-editor";
 import { SawPageHeader } from "./2-saw-page-header";
 import { ManiLoginNameGuarded } from "./3-mani-login-name";

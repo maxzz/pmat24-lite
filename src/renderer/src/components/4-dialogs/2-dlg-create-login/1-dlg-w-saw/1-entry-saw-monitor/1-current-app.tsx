@@ -5,7 +5,7 @@ import { AnimatePresence, motion } from "motion/react";
 import { classNames } from "@/utils";
 import { Button, ImageHolder } from "@/ui";
 import { stateNapiBuildMani, napiLock, sawHandleAtom, sawHandleCaptionAtom, sawIconAtom} from "@/store";
-import { showProgressAtom } from "@/store/1-atoms/7-dialogs";
+import { showProgressAtom } from "@/store/4-dialogs";
 import { Spinner } from "@/ui/icons";
 import { CornerSelector } from "./3-corner-selector";
 

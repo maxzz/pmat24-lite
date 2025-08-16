@@ -1,6 +1,6 @@
 import { useSetAtom } from "jotai";
 import { Button } from "@/ui";
-import { doOpenCreateDialogAtom } from "@/store/1-atoms/7-dialogs";
+import { doOpenCreateDialogAtom } from "@/store/4-dialogs";
 
 export function TestCreateManiWithAppsList() {
     const doOpenCreateDialog = useSetAtom(doOpenCreateDialogAtom);

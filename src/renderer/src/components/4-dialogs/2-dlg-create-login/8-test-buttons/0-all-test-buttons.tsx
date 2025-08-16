@@ -2,7 +2,7 @@ import { type ComponentPropsWithoutRef } from "react";
 import { useSetAtom } from "jotai";
 import { useSnapshot } from "valtio";
 import { classNames, doDissmissNextToastsAtom } from "@/utils";
-import { doUpdateHwndAndIconAtom } from "@/store/1-atoms/7-dialogs";
+import { doUpdateHwndAndIconAtom } from "@/store/4-dialogs";
 import { debugSettings } from "@/store/9-ui-state";
 import { Checkbox } from "@/ui";
 import { RowHwns } from "./1-row-hwnds";
