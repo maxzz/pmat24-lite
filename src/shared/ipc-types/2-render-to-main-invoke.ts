@@ -121,7 +121,7 @@ export namespace R2MInvoke { // Main from Renderer invoke and get result
         files: TestInUseParams_Set[];           // Usually it is done for single file. Just in case if UI will have command to set all files to test mode.
     };
 
-    export type TestInUse_DeleteDir = {         // Test in use (Tiu) delete test cache folder
+    export type TestInUse_DeleteDir = {         // Test in use (Tiu) delete test cache folder and send reloadCache command
         type: 'r2mi:test-in-use-delete-dir';
     };
 

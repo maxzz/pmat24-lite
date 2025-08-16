@@ -9,7 +9,7 @@ import { doDisposeFileUsAtomAtom } from "@/store/store-utils";
 import { confirmDeleteCpassMessages, confirmDeleteMessages, doAsyncExecuteConfirmDialogAtom } from "@/store/4-dialogs-atoms";
 import { rightPanelAtomAtom, setManiActiveTab } from "@/store/5-3-right-panel";
 import { deleteFileFromFileSystem } from "../7-file-system-manipulation";
-import { inTest_Set } from "@/store/7-napi-atoms";
+import { inTest_Set } from "@/store/0-serve-atoms/6-do-inuse-test";
 
 export const doDeleteFileUsAtom = atom(null,
     async (get, set, fileUsAtom: FileUsAtom) => {

@@ -1,17 +1,16 @@
 import { atom } from "jotai";
 import { delay } from "@/utils";
 import { toast } from "sonner";
-import { type FileUs } from "@/store/store-types";
-import { type FileContent } from "@shared/ipc-types";
-import { type PmatFolder, filesAtom, isRootDirEmpty, setRootDir } from "@/store/5-1-files";
-import { inTest_Start } from "@/store/7-napi-atoms";
-import { isPmatFileToLoad } from "@/store/0-serve-atoms/6-do-inuse-test";
-import { doAddFcToLoadedAtom, doClearFcRootAtom, doInitFileUsLinksToFcAtom } from "@/store/3-field-catalog-atoms";
 import { addToTotalManis, appSettings, busyIndicator, clearTotalManis } from "@/store/9-ui-state";
 import { doDisposeAllFilesAtomAtom } from "@/store/store-utils";
-import { sortFileUsItemsInPlaceAndSetIndices } from "@/store/5-2-tree-files";
+import { type FileUs } from "@/store/store-types";
+import { type FileContent } from "@shared/ipc-types";
 import { allFileUsChanges } from "@/store/2-file-mani-atoms";
+import { type PmatFolder, filesAtom, isRootDirEmpty, setRootDir } from "@/store/5-1-files";
+import { sortFileUsItemsInPlaceAndSetIndices } from "@/store/5-2-tree-files";
 import { rightPanelAtomAtom } from "@/store/5-3-right-panel";
+import { isPmatFileToLoad, inTest_Start } from "@/store/0-serve-atoms/6-do-inuse-test";
+import { doAddFcToLoadedAtom, doClearFcRootAtom, doInitFileUsLinksToFcAtom } from "@/store/3-field-catalog-atoms";
 import { createFileUsFromFileContent } from "./3-create-fileus";
 
 export type SetDeliveredFiles = {

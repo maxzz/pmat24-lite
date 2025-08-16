@@ -11,6 +11,5 @@ export * from "./8-create-mani-tests-w-fetch";
 export * from "./9-napi-build-state";
 export * from "./a-do-get-general-info";
 export * from "./b-do-perform-command";
-export * from "./c-in-test-commands";
 
 // Abbreviations: SAW - Second Active Window
