@@ -1,8 +1,8 @@
 import { type ValueLife, sameValueLife, valueAs2Str } from "@/store/manifest";
+import { ConsoleStyles } from "@/utils";
 import { type FceItem } from "../../9-types";
 import { type FcePropChangesProps } from "./1-prop-changes-atom";
 import { fileUsChanges } from "@/store/2-file-mani-atoms";
-import { ConsoleStyles } from "@/utils";
 
 export function handleFcePropChanges(selectedItem: FceItem, ctx: FcePropChangesProps, get: Getter, set: Setter) {
     if (ctx.fceCtx.inData?.openItemPickerDlg) {

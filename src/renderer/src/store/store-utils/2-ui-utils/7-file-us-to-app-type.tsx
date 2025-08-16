@@ -1,4 +1,4 @@
-import { type FileUs } from "../../store-types";
+import { type FileUs } from "@/store/store-types";
 import { isAnyWhy, isFormWeb, isFormIe6, isFormManual } from "@/store/manifest";
 import { FormIconEnum } from "./8-form-type-to-icon";
 

@@ -1,7 +1,7 @@
 import { atom } from "jotai";
-import { type FceCtx } from "../../9-types";
-import { type ValueLife } from "@/store/manifest";
 import { debounce } from "@/utils";
+import { type ValueLife } from "@/store/manifest";
+import { type FceCtx } from "../../9-types";
 import { handleFcePropChanges } from "./2-handle-fce-prop-changes";
 
 export type FcePropChangesProps = {

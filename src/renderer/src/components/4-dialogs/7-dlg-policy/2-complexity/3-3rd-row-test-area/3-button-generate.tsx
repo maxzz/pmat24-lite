@@ -2,7 +2,7 @@ import { useState } from "react";
 import { atom, useSetAtom } from "jotai";
 import { useSnapshot } from "valtio";
 import { Button } from "@/ui";
-import { appSettings } from "@/store";
+import { appSettings } from "@/store/9-ui-state";
 import { type PolicyDlgTypes, doGeneratePswAtom, doGenNPasswordsAtom } from "../../0-all";
 import { ButtonGeneratedList } from "./7-generate-list/1-all";
 
