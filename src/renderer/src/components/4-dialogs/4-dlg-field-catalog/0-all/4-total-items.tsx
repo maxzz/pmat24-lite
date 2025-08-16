@@ -1,5 +1,5 @@
 import { useAtomValue } from "jotai";
-import type { FceCtx } from "@/store/1-atoms/4-field-catalogs";
+import type { FceCtx } from "@/store/3-field-catalog-atoms";
 
 export function TotalItems({ fceCtx }: { fceCtx: FceCtx; }) {
     const totalItems = useAtomValue(fceCtx.fceAtoms.allAtom).length;

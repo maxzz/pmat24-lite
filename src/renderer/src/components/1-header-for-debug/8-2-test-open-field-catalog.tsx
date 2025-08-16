@@ -2,7 +2,7 @@ import { useState } from "react";
 import { atom, useSetAtom } from "jotai";
 import { useSnapshot } from "valtio";
 import { appSettings } from "@/store/9-ui-state";
-import { type FceDlgIn, type FceDlgOut, doOpenFceDlgAtom, hasRootFceAtoms } from "@/store/1-atoms/4-field-catalogs";
+import { type FceDlgIn, type FceDlgOut, doOpenFceDlgAtom, hasRootFceAtoms } from "@/store/3-field-catalog-atoms";
 import { Button } from "@/ui";
 import { toast } from "sonner";
 

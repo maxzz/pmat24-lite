@@ -1,7 +1,7 @@
 import { atom } from "jotai";
 import { appSettings } from "@/store/9-ui-state";
 import { type FileUs } from "@/store/store-types";
-import { rootDir } from "../../../1-files";
+import { rootDir } from "@/store/1-atoms/1-files";
 import { defaultFcName } from "../../9-types";
 import { doInitMruAtom } from "../../3-fc-mru";
 import { setRootFcFileUs } from "./0-root-fce";

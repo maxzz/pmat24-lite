@@ -2,7 +2,7 @@ import { useMemo } from "react";
 import { useAtomValue } from "jotai";
 import { FieldTyp } from "@/store/manifest";
 import { type OptionTextValue2 } from "@/components/2-main/2-right/2-file-mani/1-form-editor/1-normal/1-fields/5-column-catalog/1-dropdown";
-import { type FceItem, pswMruAtom, txtMruAtom, mruSize, emptyMruAtom, printFceItems } from "@/store/1-atoms/4-field-catalogs";
+import { type FceItem, pswMruAtom, txtMruAtom, mruSize, emptyMruAtom, printFceItems } from "@/store/3-field-catalog-atoms";
 
 /**
  * List item can be string or object with key and fceItem or key and string

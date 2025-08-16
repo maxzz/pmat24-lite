@@ -1,5 +1,5 @@
 import { classNames } from "@/utils";
-import { type FceCtx } from "@/store/1-atoms/4-field-catalogs";
+import { type FceCtx } from "@/store/3-field-catalog-atoms";
 import { PanelMenu_Fc } from "./1-menu-fc";
 import { Button_AddItem, Button_DeleteItem } from "../../../2-main/2-right/1-header/3-mini-toolbar/2-fc-tools";
 import { ShowPropsTrigger } from "./6-btn-show-poprs.trigger";

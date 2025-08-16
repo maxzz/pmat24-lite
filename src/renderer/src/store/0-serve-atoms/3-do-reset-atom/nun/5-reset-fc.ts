@@ -1,5 +1,5 @@
 import { type FileUs, type FileUsAtom } from "@/store/store-types";
-import { type FceItemValue } from "@/store/1-atoms/4-field-catalogs";
+import { type FceItemValue } from "@/store/3-field-catalog-atoms";
 
 // Notes:
 // The reset operation is not a good idea for the main field catalog:

@@ -1,7 +1,7 @@
 import { useAtomValue } from "jotai";
 import { classNames } from "@/utils";
 import { AnimatePresence, motion, MotionConfig, type Transition } from "motion/react";
-import { type FceCtx, showPropsAtom } from "@/store/1-atoms/4-field-catalogs";
+import { type FceCtx, showPropsAtom } from "@/store/3-field-catalog-atoms";
 import { SelectedItemPropsBody } from "./1-props-body";
 
 type RightPanelGuardProps = {

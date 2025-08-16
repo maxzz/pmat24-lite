@@ -1,5 +1,5 @@
 import { useAtomValue } from "jotai";
-import { type FceCtx } from "@/store/1-atoms/4-field-catalogs";
+import { type FceCtx } from "@/store/3-field-catalog-atoms";
 
 const ixsClasses = "\
 absolute top-1 right-1.5 p-1 h-4 aspect-square text-xs \

@@ -1,6 +1,6 @@
 import { type Mani, type FileMani, type CatalogFile, type ConvertToXmlStringResult, convertToXmlString, createGuid, filterOneLevelEmptyValues, showError, toManiFileFormat } from "@/store/manifest";
 import { type FileUs, type FileUsAtom  } from "@/store/store-types";
-import { type FceAtoms } from "@/store/1-atoms/4-field-catalogs";
+import { type FceAtoms } from "@/store/3-field-catalog-atoms";
 import { type ManiAtoms } from "@/store/2-file-mani-atoms/9-types";
 import { getManiDispNameAtomAtom } from "@/store/2-file-mani-atoms/3-options";
 import { doManiNameDlgAtom } from "../../4-do-delete-rename-reveal-quit";
