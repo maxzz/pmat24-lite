@@ -1,6 +1,6 @@
 import { useSnapshot } from "valtio";
-import { appSettings } from "@/store";
 import { classNames } from "@/utils";
+import { appSettings } from "@/store/9-ui-state";
 
 export function TableHeader({ isPasswordForm }: { isPasswordForm: boolean; }) {
     const { fcAllowed } = useSnapshot(appSettings.files.shownManis);

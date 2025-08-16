@@ -1,7 +1,7 @@
 import { type ComponentPropsWithoutRef } from "react";
 import { useSnapshot } from "valtio";
 import { classNames } from "@/utils";
-import { appSettings } from "@/store";
+import { appSettings } from "@/store/9-ui-state";
 import { R2MCalls } from "@/xternal-to-main";
 
 export function CornerSelector({ className }: { className?: string; }) {

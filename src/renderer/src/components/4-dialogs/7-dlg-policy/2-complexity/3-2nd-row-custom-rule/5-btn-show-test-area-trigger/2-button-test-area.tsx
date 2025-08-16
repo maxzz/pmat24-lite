@@ -2,7 +2,7 @@ import { useSnapshot } from "valtio";
 import { Button } from "@/ui";
 import { SymbolChevronDown } from "@/ui/icons";
 import { classNames } from "@/utils";
-import { appSettings } from "@/store";
+import { appSettings } from "@/store/9-ui-state";
 import { inlineButtonClasses } from "../8-inline-styles";
 
 export function ButtonTestArea() {

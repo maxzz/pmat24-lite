@@ -1,7 +1,7 @@
 import { useSetAtom } from "jotai";
 import { useSnapshot } from "valtio";
 import { doDissmissNextToastsAtom } from "@/utils";
-import { debugSettings } from "@/store";
+import { debugSettings } from "@/store/9-ui-state";
 import { Label, RadioGroup, RadioGroupItem } from "@/ui";
 import { defaultScreenshotWidth, doSetScreenshotsAtom, testScreen, type TestScreenEnum } from "@/store/7-napi-atoms";
 import { labelClasses, DelayInput } from "./8-utils";

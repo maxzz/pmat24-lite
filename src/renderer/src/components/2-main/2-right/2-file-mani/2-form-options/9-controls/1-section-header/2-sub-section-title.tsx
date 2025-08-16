@@ -4,7 +4,7 @@ import { classNames } from "@/utils";
 import { FormIdx } from "@/store/manifest";
 import { SymbolChevronDown } from "@/ui/icons";
 import { Button } from "@/ui";
-import { appSettings } from "@/store";
+import { appSettings } from "@/store/9-ui-state";
 // import { SlidersButton } from "../3-sliders-button";
 
 // const sectionClasses0 = "\

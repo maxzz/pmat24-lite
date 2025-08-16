@@ -1,5 +1,5 @@
 import { useSnapshot } from "valtio";
-import { appSettings } from "@/store";
+import { appSettings } from "@/store/9-ui-state";
 import { Input, Label } from "@/ui";
 import { rowClasses } from "./8-shared-classes";
 

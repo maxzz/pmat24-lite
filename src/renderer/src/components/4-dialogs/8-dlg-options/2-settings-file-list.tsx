@@ -1,6 +1,6 @@
 import { useSnapshot } from "valtio";
 import { classNames } from "@/utils";
-import { appSettings } from "@/store";
+import { appSettings } from "@/store/9-ui-state";
 import { Checkbox, Label } from "@/ui";
 import { subClasses, rowClasses } from "./8-shared-classes";
 

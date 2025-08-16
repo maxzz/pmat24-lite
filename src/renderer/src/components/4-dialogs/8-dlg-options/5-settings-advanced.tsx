@@ -1,7 +1,7 @@
 import { useSnapshot } from "valtio";
 import { classNames } from "@/utils";
-import { appSettings, debugSettings } from "@/store";
 import { Checkbox, Label } from "@/ui";
+import { appSettings, debugSettings } from "@/store/9-ui-state";
 import { rowClasses, SectionTitle } from "./8-shared-classes";
 
 export function AdvancedSettings() {

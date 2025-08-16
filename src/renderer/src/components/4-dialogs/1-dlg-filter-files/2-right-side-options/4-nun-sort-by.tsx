@@ -1,5 +1,5 @@
 import { useSnapshot } from "valtio";
-import { appSettings } from "@/store";
+import { appSettings } from "@/store/9-ui-state";
 import { Checkbox, Label } from "@ui/shadcn";
 import { Order } from "@/store/store-types";
 

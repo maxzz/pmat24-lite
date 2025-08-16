@@ -1,5 +1,5 @@
 import { useSnapshot } from "valtio";
-import { appSettings } from "@/store";
+import { appSettings } from "@/store/9-ui-state";
 
 export function SectionTitle({ label }: { label: string; }) {
     const showOptOnRight = useSnapshot(appSettings.appUi.uiGeneral).showOptOnRight;

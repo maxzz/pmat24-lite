@@ -1,5 +1,5 @@
 import { useSnapshot } from "valtio";
-import { appSettings } from "@/store";
+import { appSettings } from "@/store/9-ui-state";
 import { Order } from "@/store/store-types";
 import { Dropdown5, SelectNameValueItem } from "@/ui";
 

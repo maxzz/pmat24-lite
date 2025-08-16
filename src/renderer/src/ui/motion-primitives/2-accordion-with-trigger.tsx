@@ -4,7 +4,7 @@ import { classNames } from "@/utils";
 import { Accordion, AccordionItem, AccordionContent, useAccordion, AccordionItemAugmentedProps } from "./1-accordion"; //https://motion-primitives.com/docs/accordion
 import { Button } from "../shadcn";
 import { SymbolChevronDown } from "../icons";
-import { appSettings } from "@/store";
+import { appSettings } from "@/store/9-ui-state";
 
 type AccordionWithTriggerProps = {
     triggerText: ReactNode;

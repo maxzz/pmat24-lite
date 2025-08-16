@@ -1,6 +1,6 @@
 import { type ComponentPropsWithoutRef } from "react";
 import { useSnapshot } from "valtio";
-import { appSettings } from "@/store";
+import { appSettings } from "@/store/9-ui-state";
 import { classNames, type ThemeMode } from "@/utils";
 import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuItem } from "./dropdown-menu";
 import { Button } from "./button";

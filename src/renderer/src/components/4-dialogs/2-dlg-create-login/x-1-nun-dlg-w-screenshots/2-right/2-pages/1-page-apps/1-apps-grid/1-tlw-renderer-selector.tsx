@@ -1,6 +1,6 @@
 import { type ComponentProps } from "react";
-import { type TlwScreenshotInfo } from "@/store";
 import { type TlwError } from "@shared/ipc-types";
+import { type TlwScreenshotInfo } from "@/store/7-napi-atoms";
 import { IconBrokenImage } from "@/ui/icons";
 import { TwlRenderImage } from "./2-tlw-render-image";
 

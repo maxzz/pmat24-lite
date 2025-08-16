@@ -1,5 +1,5 @@
 import { useSnapshot } from "valtio";
-import { debugSettings } from "@/store";
+import { debugSettings } from "@/store/9-ui-state";
 import { NewManiContentBody } from "./1-new-mani-mani-body";
 import { NewManiContentRawXmlBody } from "./2-new-mani-xml-body";
 

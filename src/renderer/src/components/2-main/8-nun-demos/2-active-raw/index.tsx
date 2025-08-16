@@ -1,7 +1,7 @@
 import { useAtomValue } from "jotai";
 import { useSnapshot } from "valtio";
 import { classNames } from "@/utils";
-import { stateNapiBuildMani, sawHandleAtom } from "@/store";
+import { sawHandleAtom, stateNapiBuildMani } from "@/store/7-napi-atoms";
 
 export function SawHwndPropsGrid() {
     const sawHandle = useAtomValue(sawHandleAtom);

@@ -1,7 +1,7 @@
 import { atom } from "jotai";
 import { type DataItemCore, type DataItemNavigation } from "@/ui/shadcn/tree";
 import { type FileUsAtom } from "@/store/store-types";
-import { optionsFilesProxyAtom } from "@/store";
+import { optionsFilesProxyAtom } from "@/store/9-ui-state";
 import { formTypeToIcon, getFileListIconEnums } from "@/store/store-utils";
 import { filteredAtom } from "./1-filtered-files";
 

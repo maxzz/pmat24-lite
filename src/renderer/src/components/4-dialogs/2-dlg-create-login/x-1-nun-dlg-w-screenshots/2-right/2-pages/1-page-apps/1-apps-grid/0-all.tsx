@@ -1,8 +1,8 @@
 import { type ComponentProps } from "react";
 import { useAtomValue } from "jotai";
-import { allScreenshotAtom } from "@/store";
-import { TlwRendererSelector } from "./1-tlw-renderer-selector";
 import { classNames } from "@/utils";
+import { allScreenshotAtom } from "@/store/7-napi-atoms";
+import { TlwRendererSelector } from "./1-tlw-renderer-selector";
 
 export function AppsGrid({ className, ...rest }: ComponentProps<"div">) {
     const items = useAtomValue(allScreenshotAtom);

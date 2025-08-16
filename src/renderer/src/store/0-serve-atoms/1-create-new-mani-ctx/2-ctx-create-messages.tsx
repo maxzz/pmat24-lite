@@ -1,7 +1,7 @@
 import { type Setter } from "jotai";
 import { doAddNextToastIdAtom } from "@/utils";
 import { toast } from "sonner";
-import { stateNapiAccess, setBuildState, splitTypedError, typedErrorToString, type TypedError } from "@/store";
+import { stateNapiAccess, setBuildState, splitTypedError, typedErrorToString, type TypedError } from "@/store/7-napi-atoms";
 
 export function showMessage({ set, message, isError }: { set: Setter; message: string; isError?: boolean; }) {
     set(doAddNextToastIdAtom, toast[isError ? 'error' : 'info'](message, { position: "top-center" }));

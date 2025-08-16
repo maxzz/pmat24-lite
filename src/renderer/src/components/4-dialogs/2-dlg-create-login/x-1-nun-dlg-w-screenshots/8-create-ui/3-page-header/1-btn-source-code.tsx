@@ -1,7 +1,7 @@
 import { useSnapshot } from "valtio";
-import { debugSettings } from "@/store";
 import { Button } from "@/ui";
 import { SymbolCode } from "@/ui/icons";
+import { debugSettings } from "@/store/9-ui-state";
 
 export function ButtonSourceCode() {
     const { showCreateSrcCodeBtn, showCreateSrcCode } = useSnapshot(debugSettings.debugOnly);

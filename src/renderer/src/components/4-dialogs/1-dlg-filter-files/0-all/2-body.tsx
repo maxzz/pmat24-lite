@@ -1,8 +1,8 @@
 import { type KeyboardEvent } from "react";
 import { useAtom } from "jotai";
-import { searchFilterData } from "@/store";
 import { Input } from "@/ui";
 import { IconSearch } from "@/ui/icons";
+import { searchFilterData } from "@/store/9-ui-state";
 import { FilteredFilesList } from "../1-files-list";
 import { CheckAscending, DrawerItems } from "../2-right-side-options";
 

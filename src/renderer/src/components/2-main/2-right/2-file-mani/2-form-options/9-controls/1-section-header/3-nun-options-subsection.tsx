@@ -1,6 +1,6 @@
 import { type ReactNode } from "react";
 import { useSnapshot } from "valtio";
-import { appSettings } from "@/store";
+import { appSettings } from "@/store/9-ui-state";
 import { FormIdx } from "@/store/manifest";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger, } from "@/ui/shadcn/accordion";
 

@@ -1,6 +1,6 @@
 import { atom, useAtom, useSetAtom } from "jotai";
 import { useSnapshot } from "valtio";
-import { appSettings } from "@/store";
+import { appSettings } from "@/store/9-ui-state";
 import { type OFormProps } from "@/store/2-file-mani-atoms";
 import { Block4_ScreenDetection } from "./2-nun-4-screen-detection";
 import { OptionsSubSectionTitle, UiAccordion } from "../9-controls";

@@ -1,5 +1,5 @@
 import { useSnapshot } from "valtio";
-import { appSettings } from "@/store";
+import { appSettings } from "@/store/9-ui-state";
 import { BusyIndicator } from "./2-busy-indicator";
 import { LoadedCounter } from "./1-loaded-counter";
 
