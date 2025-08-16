@@ -1,6 +1,6 @@
 import { useCallback, useEffect } from "react";
 import { useSetAtom } from "jotai";
-import { isRootDirEmpty } from "@/store/1-atoms/1-files";
+import { isRootDirEmpty } from "@/store/1-files-atoms";
 import { debugSettings } from "@/store/9-ui-state";
 import { doSaveRightPanelFileAtom, doSaveAllAtom } from "@/store/0-serve-atoms";
 import { doOpenOptionsDialogAtom, open_SawMonitorAtom, filterDialogOpenAtom } from "@/store/4-dialogs-atoms";

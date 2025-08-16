@@ -3,7 +3,7 @@ import { ScrollArea } from "@/ui";
 import { appSettings } from "@/store/9-ui-state";
 import { getTreeItemDisplayText } from "@/store/store-utils/2-ui-utils";
 import { type TreenIconComponent } from "@/ui/shadcn/tree";
-import { type TreeFileItem, treeFilesAtom } from "@/store/1-atoms/1-files";
+import { type TreeFileItem, treeFilesAtom } from "@/store/1-files-atoms";
 import { castTreeItemToFileUs } from "@/components/2-main/1-left/2-files-list";
 
 /**

@@ -7,7 +7,7 @@ import { Button } from "@/ui";
 import { IconTrash } from "@/ui/icons";
 import { IconFolderClosed } from "@/ui/icons/normal/temp2";
 import { appSettings } from "@/store/9-ui-state";
-import { type PmatFolder, doSetFilesFrom_MruFolder_Atom } from "@/store/1-atoms/1-files";
+import { type PmatFolder, doSetFilesFrom_MruFolder_Atom } from "@/store/1-files-atoms";
 
 export function RecentFilesList({ className, ...rest }: ComponentPropsWithoutRef<typeof motion.div>) {
     const { folders } = useSnapshot(appSettings.appUi.mru);

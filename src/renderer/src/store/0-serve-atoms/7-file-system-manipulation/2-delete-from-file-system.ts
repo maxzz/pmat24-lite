@@ -1,7 +1,7 @@
 import { errorToString } from "@/utils";
 import { hasMain, invokeMainTyped } from "@/xternal-to-main";
 import { type FileUs } from "@/store/store-types";
-import { rootDir } from "@/store/1-atoms/1-files";
+import { rootDir } from "@/store/1-files-atoms";
 
 export async function deleteFileFromFileSystem(fileUs: FileUs): Promise<string | undefined> {
     if (fileUs.fileCnt.newFile) { // new file is not saved to file system yet

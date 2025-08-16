@@ -2,7 +2,7 @@ import { atom } from "jotai";
 import { type FileContent } from "@shared/ipc-types";
 import { type FileUs, type FileUsAtom } from "@/store/store-types";
 import { fileUsChanges } from "@/store/2-file-mani-atoms/9-types";
-import { filesAtom } from "@/store/1-atoms/1-files/0-files-atom";
+import { filesAtom } from "@/store/1-files-atoms/0-files-atom";
 import { fileUsToXmlString } from "./7-fileus-to-xml-string";
 import { updateManiAtomsAfterSaveOrResetAtom } from "./3-save-or-rst-maniatoms";
 import { saveToFileSystem } from "../../7-file-system-manipulation";

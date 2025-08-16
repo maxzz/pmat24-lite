@@ -3,7 +3,7 @@ import { filenameWithoutPath, normalizeFpath } from "@/utils";
 import { hasMain } from "@/xternal-to-main";
 import { type PmatFolder } from "./9-types";
 import { addToDirsMru } from "./4-mru-dirs";
-import { appMainTitle } from "../../../9-ui-state";
+import { appMainTitle } from "@/store/9-ui-state";
 
 export const rootDir: PmatFolder = proxy<PmatFolder>({
     fpath: '',

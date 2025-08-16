@@ -1,5 +1,5 @@
 import { OnAppMount, WorldToReactListener } from "@/xternal-to-main";
-import { doSetFilesFrom_Dnd_Atom } from "@/store/1-atoms/1-files";
+import { doSetFilesFrom_Dnd_Atom } from "@/store/1-files-atoms";
 import { DropItDoc, Toaster } from "@/ui";
 import { AppGlobalShortcuts } from "./2-global-shortcuts";
 import { WindowsAppTitleCaption } from "./3-windows-app-title-caption";

@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { atom, type PrimitiveAtom, useAtomValue, useSetAtom } from "jotai";
-import { type DoSetFilesFrom_Dnd_Atom } from "@/store/1-atoms/1-files";
+import { type DoSetFilesFrom_Dnd_Atom } from "@/store/1-files-atoms";
 
 export function DropItDoc({ doSetFilesFromDropAtom }: { doSetFilesFromDropAtom: DoSetFilesFrom_Dnd_Atom; }) {
     const [activeAtom] = useState(() => atom(false));

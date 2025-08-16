@@ -1,8 +1,7 @@
 import { atom } from "jotai";
 import { IconStopCircle } from "@/ui/icons";
 import { type ConfirmationUi, doAsyncExecuteConfirmDialogAtom } from "./9-types-confirm";
-import { removeFromDirsMru } from "../../1-atoms/1-files/0-files-atom/4-mru-dirs";
-import { type PmatFolder } from "../../1-atoms/1-files";
+import { type PmatFolder, removeFromDirsMru } from "@/store/1-files-atoms";
 
 export const confirmDeleteMessages: ConfirmationUi = {
     title: 'Delete file?',

@@ -4,7 +4,7 @@ import { filesAtom } from "../0-files-atom";
 import { isAnyMatchedCap, isAnyMatchedCls, isAnyWeb, isAnyWhy, isAnyEmpty, isAnyManual } from "@/store/manifest";
 import { optionsAppUiProxyAtom, optionsFilesProxyAtom } from "@/store";
 import { createRegexByFilter, useFileUsByFilter } from "@/store/store-utils";
-import { searchFilterData } from "../../../9-ui-state/04-filters-search";
+import { searchFilterData } from "@/store/9-ui-state/04-filters-search";
 import { sortResultInPlace } from "./2-filtered-sort";
 
 /**

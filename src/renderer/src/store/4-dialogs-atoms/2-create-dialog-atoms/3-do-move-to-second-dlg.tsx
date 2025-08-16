@@ -5,7 +5,7 @@ import { toast } from "sonner";
 import { R2MCalls } from "@/xternal-to-main";
 import { addToTotalManis, appSettings } from "../../9-ui-state";
 import { pmExtensionMani, WebFsItem } from "@shared/ipc-types";
-import { filesAtom, rootDir } from "../../1-atoms/1-files";
+import { filesAtom, rootDir } from "@/store/1-files-atoms";
 import { type FileUs, type FileUsAtom } from "../../store-types";
 import { fileUsChanges } from "../../2-file-mani-atoms/9-types";
 import { setManiActiveTab } from "../../1-atoms/3-right-panel";

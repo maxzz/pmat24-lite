@@ -1,7 +1,7 @@
 import { atom } from "jotai";
 import { type M2R } from "../../../../shared/ipc-types";
 import { stateNapiBuildMani, stateNapiAccess, stateNapiPosTracker } from "@/store/7-napi-atoms";
-import { doSetDeliveredFilesAtom } from "@/store/1-atoms/1-files";
+import { doSetDeliveredFilesAtom } from "@/store/1-files-atoms";
 import { doQuitFromMainAtom } from "@/store/0-serve-atoms";
 import { cancelSizeSmall_SawMonitorAtom } from "@/store/4-dialogs-atoms";
 import { finalizeFileContent, getRootFromFpath } from "./commands-to-main";
