@@ -2,7 +2,7 @@ import { useAtom } from "jotai";
 import * as D from "@/ui/shadcn/dialog";
 import { Button, ScrollArea } from "@/ui";
 import { overlayClasses } from "../1-dlg-filter-files";
-import { doOpenOptionsDialogAtom } from "@/store/4-dialogs";
+import { doOpenOptionsDialogAtom } from "@/store/4-dialogs-atoms";
 import { FileListSettings } from "./2-settings-file-list";
 import { UiUxSettings } from "./3-settings-ux-ui";
 import { DialogPasswordPolicy } from "./4-settings-psw-policy";

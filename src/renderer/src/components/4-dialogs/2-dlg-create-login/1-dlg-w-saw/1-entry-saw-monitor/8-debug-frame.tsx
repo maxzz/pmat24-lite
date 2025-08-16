@@ -4,7 +4,7 @@ import { classNames } from "@/utils";
 import { Button } from "@/ui";
 import { Cross2Icon } from "@radix-ui/react-icons";
 import { hasMain } from "@/xternal-to-main";
-import { doMoveToSecondDlgAtom } from "@/store/4-dialogs";
+import { doMoveToSecondDlgAtom } from "@/store/4-dialogs-atoms";
 import { DebugButtonsForSaw } from "../../8-test-buttons";
 
 export function DebugFrame({ className, children, ...rest }: ComponentPropsWithoutRef<'div'>) {

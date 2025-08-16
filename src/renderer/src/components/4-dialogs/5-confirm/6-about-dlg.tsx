@@ -3,7 +3,7 @@ import { classNames } from "@/utils";
 import { Textarea } from "@/ui/shadcn";
 import { inputRingClasses, optionInputClasses } from "@/ui/local-ui";
 import { AlertOctagon } from "lucide-react";
-import { aboutMessages, doAsyncExecuteConfirmDialogAtom } from "@/store/4-dialogs";
+import { aboutMessages, doAsyncExecuteConfirmDialogAtom } from "@/store/4-dialogs-atoms";
 import { asyncGetAboutInfo } from "@/store/7-napi-atoms";
 import { type ProductInfo, type GeneralInfoResult } from "@shared/ipc-types";
 

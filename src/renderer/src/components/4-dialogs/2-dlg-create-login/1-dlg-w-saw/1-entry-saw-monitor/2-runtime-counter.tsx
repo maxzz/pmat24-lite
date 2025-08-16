@@ -1,4 +1,4 @@
-import { secondsCounterAtom } from "@/store/4-dialogs";
+import { secondsCounterAtom } from "@/store/4-dialogs-atoms";
 import { useAtomValue } from "jotai";
 import type { ComponentPropsWithoutRef } from "react";
 

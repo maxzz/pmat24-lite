@@ -11,7 +11,7 @@ import { createFileContents_FromMru_Main } from "./2-filecnt-from-main-mru";
 import { createFileContents_WebAfterDlgOpen } from "./4-filecnt-from-web-dlg";
 import { createFileContents_WebAfterDnd } from "./3-filecnt-from-web-dnd";
 import { printFiles } from "./9-types";
-import { asyncUdpateMruAtom } from "@/store/4-dialogs";
+import { asyncUdpateMruAtom } from "@/store/4-dialogs-atoms";
 
 export type DoSetFilesFrom_Dnd_Atom = typeof doSetFilesFrom_Dnd_Atom;
 

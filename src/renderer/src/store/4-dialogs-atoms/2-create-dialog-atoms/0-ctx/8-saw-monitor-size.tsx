@@ -1,7 +1,7 @@
 import { type PrimitiveAtom, atom } from "jotai";
 import { appSettings } from "@/store/9-ui-state";
 import { hasMain, R2MCalls } from "@/xternal-to-main";
-import { close_SawMonitorAtom } from "@/store/4-dialogs";
+import { close_SawMonitorAtom } from "@/store/4-dialogs-atoms";
 
 // doCancelSawModeByMainAtom is called from main (gate-react-listener-atom.ts) to cancel the Saw mode.
 

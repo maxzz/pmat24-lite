@@ -3,7 +3,7 @@ import { useSetAtom } from "jotai";
 import { classNames } from "@/utils";
 import { FormIdx } from "@/store/manifest";
 import { Button } from "@/ui";
-import { open_SawMonitorForCpassAtom } from "@/store/4-dialogs";
+import { open_SawMonitorForCpassAtom } from "@/store/4-dialogs-atoms";
 
 export function TabContent_NoForm({ formIdx, className, ...rest }: { formIdx: FormIdx; } & ComponentPropsWithoutRef<'div'>) {
     const isCpass = formIdx === FormIdx.cpass;

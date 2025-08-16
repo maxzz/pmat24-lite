@@ -6,7 +6,7 @@ import { removeFromTotalManis } from "@/store/9-ui-state";
 import { fileUsChanges, type ManiAtoms } from "@/store/1-atoms/2-file-mani-atoms/9-types";
 import { filesAtom } from "@/store/1-atoms/1-files";
 import { doDisposeFileUsAtomAtom } from "@/store/store-utils";
-import { confirmDeleteCpassMessages, confirmDeleteMessages, doAsyncExecuteConfirmDialogAtom } from "@/store/4-dialogs";
+import { confirmDeleteCpassMessages, confirmDeleteMessages, doAsyncExecuteConfirmDialogAtom } from "@/store/4-dialogs-atoms";
 import { rightPanelAtomAtom, setManiActiveTab } from "@/store/1-atoms/3-right-panel";
 import { deleteFileFromFileSystem } from "../7-file-system-manipulation";
 import { inTest_Set } from "@/store/7-napi-atoms";
