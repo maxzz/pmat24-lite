@@ -3,7 +3,7 @@ import { classNames } from "@/utils";
 import * as D from "@/ui/shadcn/dialog";
 import { Button } from "@/ui/shadcn";
 import { IconFilter } from "@/ui/icons";
-import { isFilterActiveAtom } from "@/store/5-tree-files";
+import { isFilterActiveAtom } from "@/store/5-2-tree-files";
 import { filterDialogOpenAtom } from "@/store/4-dialogs-atoms";
 import { appShortcuts } from "../../0-global/2-global-shortcuts";
 import { DialogFilterBody } from "./2-body";
