@@ -1,6 +1,6 @@
 import { atom } from "jotai";
 import { type FileUsAtom } from "@/store/store-types";
-import { filesAtom } from "@/store/1-files-atoms/0-files-atom";
+import { filesAtom } from "@/store/1-files-atom";
 import { isAnyMatchedCap, isAnyMatchedCls, isAnyWeb, isAnyWhy, isAnyEmpty, isAnyManual } from "@/store/manifest";
 import { optionsAppUiProxyAtom, optionsFilesProxyAtom } from "@/store/9-ui-state";
 import { createRegexByFilter, useFileUsByFilter } from "@/store/store-utils";

@@ -4,7 +4,7 @@ import { FormIdx, rebuildMetaFormsWithoutCpassForm } from "@/store/manifest";
 import { type FileUsAtom } from "@/store/store-types";
 import { removeFromTotalManis } from "@/store/9-ui-state";
 import { fileUsChanges, type ManiAtoms } from "@/store/2-file-mani-atoms/9-types";
-import { filesAtom } from "@/store/1-files-atoms";
+import { filesAtom } from "@/store/1-files-atom";
 import { doDisposeFileUsAtomAtom } from "@/store/store-utils";
 import { confirmDeleteCpassMessages, confirmDeleteMessages, doAsyncExecuteConfirmDialogAtom } from "@/store/4-dialogs-atoms";
 import { rightPanelAtomAtom, setManiActiveTab } from "@/store/5-right-panel";

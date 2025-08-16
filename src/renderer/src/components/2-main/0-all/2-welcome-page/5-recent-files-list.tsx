@@ -7,7 +7,7 @@ import { Button } from "@/ui";
 import { IconTrash } from "@/ui/icons";
 import { IconFolderClosed } from "@/ui/icons/normal/temp2";
 import { appSettings } from "@/store/9-ui-state";
-import { type PmatFolder } from "@/store/1-files-atoms/0-files-atom";
+import { type PmatFolder } from "@/store/1-files-atom";
 import { doSetFilesFrom_MruFolder_Atom } from "@/store/0-serve-atoms/2-do-load-files";
 
 export function RecentFilesList({ className, ...rest }: ComponentPropsWithoutRef<typeof motion.div>) {

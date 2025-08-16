@@ -1,7 +1,7 @@
 import { errorToString } from "@/utils";
 import { fileSave } from "browser-fs-access";
 import { type FileUs } from "@/store/store-types";
-import { rootDir } from "@/store/1-files-atoms";
+import { rootDir } from "@/store/1-files-atom";
 import { invokeMainTyped } from "@/xternal-to-main";
 
 /**
