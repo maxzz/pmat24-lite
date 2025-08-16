@@ -11,7 +11,7 @@ import { addToTotalManis, appSettings, busyIndicator, clearTotalManis } from "@/
 import { doDisposeAllFilesAtomAtom } from "@/store/store-utils";
 import { sortFileUsItemsInPlaceAndSetIndices } from "@/store/5-2-tree-files";
 import { allFileUsChanges } from "@/store/2-file-mani-atoms";
-import { rightPanelAtomAtom } from "@/store/5-right-panel";
+import { rightPanelAtomAtom } from "@/store/5-3-right-panel";
 import { createFileUsFromFileContent } from "./3-create-fileus";
 
 export type SetDeliveredFiles = {

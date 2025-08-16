@@ -1,6 +1,6 @@
 import { useAtomValue, useSetAtom } from "jotai";
 import { DropdownMenuItem } from "@/ui";
-import { rightPanelAtomAtom } from "@/store/5-right-panel";
+import { rightPanelAtomAtom } from "@/store/5-3-right-panel";
 import { doDeleteFileUsAtom } from "@/store/0-serve-atoms";
 
 export function MenuItem_DeleteCurrent() {

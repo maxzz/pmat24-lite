@@ -1,6 +1,6 @@
 import { useAtomValue, useSetAtom } from "jotai";
 import { Button } from "@/ui";
-import { rightPanelAtomAtom } from "@/store/5-right-panel";
+import { rightPanelAtomAtom } from "@/store/5-3-right-panel";
 import { doManiNameDlgAtom } from "@/store/0-serve-atoms";
 
 export function TestManiName() {

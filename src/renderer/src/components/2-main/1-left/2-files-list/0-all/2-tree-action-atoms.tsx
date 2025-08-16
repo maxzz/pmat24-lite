@@ -1,7 +1,7 @@
 import { atom } from "jotai";
 import { proxy } from "valtio";
 import { optionsFilesProxyAtom } from "@/store/9-ui-state";
-import { doTriggerRightPanelSelectedAtom, rightPanelAtomAtom } from "@/store/5-right-panel";
+import { doTriggerRightPanelSelectedAtom, rightPanelAtomAtom } from "@/store/5-3-right-panel";
 import { type TreeState, type DataItemWState, type ItemState, type DataItemNavigation, type DataItemCore, duplicateTree, walkItems, doTreeItemSelect } from "@/ui/shadcn/tree";
 import { type FileUsAtom } from "@/store/store-types";
 import { type TreeFileItem, treeFilesAtom } from "@/store/5-2-tree-files";

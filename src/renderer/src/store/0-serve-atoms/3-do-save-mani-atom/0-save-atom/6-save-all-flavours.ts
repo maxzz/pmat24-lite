@@ -1,6 +1,6 @@
 import { atom } from "jotai";
 import { type FileUsAtom } from "@/store/store-types";
-import { rightPanelAtomAtom } from "@/store/5-right-panel";
+import { rightPanelAtomAtom } from "@/store/5-3-right-panel";
 import { filesAtom } from "@/store/5-1-files";
 import { doSaveOneAtom } from "./1-do-save-one";
 

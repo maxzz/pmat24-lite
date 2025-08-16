@@ -1,7 +1,7 @@
 import { useSnapshot } from "valtio";
 import { FormIdx } from "@/store/manifest";
 import { appSettings } from "@/store/9-ui-state";
-import { maniAtiveTabToFormIdx } from "@/store/5-right-panel";
+import { maniAtiveTabToFormIdx } from "@/store/5-3-right-panel";
 import { type FileUsCtx, type ManiAtoms, isManualForm, isNormalForm } from "@/store/2-file-mani-atoms";
 import { DropdownMenuSeparator } from "@/ui/shadcn/dropdown-menu";
 import { NoMenu } from "../0-all/1-no-menu";
