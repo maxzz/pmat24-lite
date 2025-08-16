@@ -2,7 +2,7 @@ import { atom } from "jotai";
 import { errorToString } from "@/utils";
 import { toast } from "sonner";
 import { inTest_Set } from "@/store/7-napi-atoms";
-import { type FileUsCtx, fileUsChanges } from "@/store/1-atoms/2-file-mani-atoms/9-types";
+import { type FileUsCtx, fileUsChanges } from "@/store/1-file-mani-atoms/9-types";
 import { moveByInTestFileSystem } from "../7-file-system-manipulation";
 
 export const doSetManiInTestAtom = atom(

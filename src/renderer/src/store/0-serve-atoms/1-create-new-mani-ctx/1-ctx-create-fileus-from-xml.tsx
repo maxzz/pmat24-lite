@@ -1,7 +1,7 @@
 import { atom } from "jotai";
 import { errorToString } from "@/utils";
 import { type FileUs, type FileUsAtom } from "@/store/store-types";
-import { fileUsChanges } from "@/store/1-atoms/2-file-mani-atoms/9-types";
+import { fileUsChanges } from "@/store/1-file-mani-atoms/9-types";
 import { type ManifestForWindowCreatorParams, type FileContent } from "@shared/ipc-types";
 import { doGetWindowManiAtom, maniXmlStrAtom, stateNapiAccess } from "@/store/7-napi-atoms";
 import { createNewFileContent } from "@/store/store-utils";
@@ -9,7 +9,7 @@ import { showBuildErrorReason, showMessage } from "./2-ctx-create-messages";
 import { doInitNewManiContentAtom, newManiContent } from "./0-ctx-content";
 import { createManiAtoms } from "../0-create-mani-ctx-atoms";
 import { createFileUsFromFileContent } from "../../1-atoms/1-files/1-do-set-files";
-import { doSetInitialRelationsAtom } from "@/store/1-atoms/2-file-mani-atoms";
+import { doSetInitialRelationsAtom } from "@/store/1-file-mani-atoms";
 import { fileUsToXmlString } from "../2-do-save-mani-atom/0-save-atom/7-fileus-to-xml-string";
 //import { printXmlManiFile } from "../2-do-save-mani-atom/0-save-atom/8-save-utils";
 //import { printNewMani } from "./2-ctx-create-messages";

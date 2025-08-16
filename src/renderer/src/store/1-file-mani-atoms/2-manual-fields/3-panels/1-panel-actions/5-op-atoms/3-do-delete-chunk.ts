@@ -1,5 +1,5 @@
 import { atom } from "jotai";
-import { type MFormCnt } from "@/store/1-atoms/2-file-mani-atoms/9-types";
+import { type MFormCnt } from "@/store/1-file-mani-atoms/9-types";
 import { confirmDeleteScriptActionsMessages, doAsyncExecuteConfirmDialogAtom } from "@/store/4-dialogs-atoms";
 import { doSelectIdxAtom } from "./1-select-atoms";
 

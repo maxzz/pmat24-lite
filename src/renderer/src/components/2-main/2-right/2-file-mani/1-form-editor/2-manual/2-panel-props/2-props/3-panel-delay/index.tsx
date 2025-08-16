@@ -1,4 +1,4 @@
-import { type ManualFieldState } from "@/store/1-atoms/2-file-mani-atoms";
+import { type ManualFieldState } from "@/store/1-file-mani-atoms";
 import { type RowInputStateAtom, InputOrCheckWithErrorMsg } from "@/ui/local-ui";
 
 export function InputDelay({ valueAtom }: { valueAtom: RowInputStateAtom; }) {

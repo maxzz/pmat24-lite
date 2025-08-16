@@ -2,11 +2,11 @@ import { type HTMLAttributes, useEffect } from "react";
 import { useSetAtom } from "jotai";
 import { classNames } from "@/utils";
 import { ScrollArea } from "@/ui";
-import { type MFormProps, doCreateScriptItemAtom } from "@/store/1-atoms/2-file-mani-atoms";
+import { type MFormProps, doCreateScriptItemAtom } from "@/store/1-file-mani-atoms";
 import { type CreateNewManualAction } from "./9-types";
 import { PanelActionsTitle } from "../1-header/1-panel-title";
 import { PanelActionsList } from "../2-rows/3-panel-items";
-import { useInitSelectedIdx } from "@/store/1-atoms/2-file-mani-atoms";
+import { useInitSelectedIdx } from "@/store/1-file-mani-atoms";
 import { focusWithinClasses } from "../../8-manual-shared-styles";
 
 export function ManualPanelActions({ mFormProps, className, ...rest }: { mFormProps: MFormProps; } & HTMLAttributes<HTMLDivElement>) {

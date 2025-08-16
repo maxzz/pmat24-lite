@@ -1,4 +1,4 @@
-import { FileUsCtx, ManualFieldState } from "@/store/1-atoms/2-file-mani-atoms";
+import { FileUsCtx, ManualFieldState } from "@/store/1-file-mani-atoms";
 import { PropsEditorDly } from "../3-panel-delay";
 import { PropsEditorFld } from "../1-panel-field";
 import { PropsEditorKey } from "../2-panel-key";

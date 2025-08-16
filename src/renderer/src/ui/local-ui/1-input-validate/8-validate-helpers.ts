@@ -1,4 +1,4 @@
-import { type ManiTabValue, type VerifyError } from "@/store/1-atoms/2-file-mani-atoms/9-types";
+import { type ManiTabValue, type VerifyError } from "@/store/1-file-mani-atoms/9-types";
 import { type RowInputState, type RowInputStateAtoms } from "./9-types";
 
 export function validateRowInputStateAtoms(toValidate: RowInputStateAtoms, maniTabValue: ManiTabValue, { get, set }: GetSet): VerifyError[] {

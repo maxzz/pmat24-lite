@@ -1,6 +1,6 @@
 import { FormIdx } from "@/store/manifest";
-import { type ManiAtoms, type VerifyError } from "@/store/1-atoms/2-file-mani-atoms/9-types";   
-import { FormOptionsConv } from "@/store/1-atoms/2-file-mani-atoms/3-options";
+import { type ManiAtoms, type VerifyError } from "@/store/1-file-mani-atoms/9-types";   
+import { FormOptionsConv } from "@/store/1-file-mani-atoms/3-options";
 import { normalFormVerifyErrors } from "./3-1-normal-verify-errors";
 import { manualFormVerifyErrors } from "./3-2-manual-verify-errors";
 

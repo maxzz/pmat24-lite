@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { atom, useAtomValue, useSetAtom } from "jotai";
 import { FormIdx } from "@/store/manifest";
-import { type FileUsCtx } from "@/store/1-atoms/2-file-mani-atoms";
+import { type FileUsCtx } from "@/store/1-file-mani-atoms";
 import { type HighlightHwnd } from "@/store/store-types";
 
 export function usePrintFileUsHwnds({ ctx }: { ctx: FileUsCtx; }) {

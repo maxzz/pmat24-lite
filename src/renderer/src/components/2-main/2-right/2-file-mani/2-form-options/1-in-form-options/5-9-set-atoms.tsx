@@ -1,7 +1,7 @@
 import { atom, useAtomValue, useSetAtom } from "jotai";
 import { Matching } from "@/store/manifest";
 import { setAtomRowInputState } from "@/ui/local-ui/1-input-validate";
-import { type FormOptionsState } from "@/store/1-atoms/2-file-mani-atoms/3-options";
+import { type FormOptionsState } from "@/store/1-file-mani-atoms/3-options";
 import { useEffect, useState } from "react";
 
 export const setUrlsEditorDataAtom = atom(

@@ -1,4 +1,4 @@
-import { type OFormProps } from "@/store/1-atoms/2-file-mani-atoms";
+import { type OFormProps } from "@/store/1-file-mani-atoms";
 import { InputWithTitle2Cols } from "@/ui/local-ui";
 
 export function Block1_General({ oFormProps }: { oFormProps: OFormProps; }) {

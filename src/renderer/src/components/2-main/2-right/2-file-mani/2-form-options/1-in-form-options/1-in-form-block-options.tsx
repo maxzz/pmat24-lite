@@ -1,5 +1,5 @@
 import { useAtomValue } from "jotai";
-import { type OFormProps, type MFormProps, type NFormProps } from "@/store/1-atoms/2-file-mani-atoms";
+import { type OFormProps, type MFormProps, type NFormProps } from "@/store/1-file-mani-atoms";
 import { DetectionContent_W32 } from "./2-in-form-detection-w32";
 import { DetectionContent_Web } from "./3-in-form-detection-web";
 

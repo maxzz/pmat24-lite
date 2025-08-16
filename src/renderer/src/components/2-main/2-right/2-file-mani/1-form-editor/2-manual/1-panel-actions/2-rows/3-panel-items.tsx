@@ -3,7 +3,7 @@ import { useAtomValue, useSetAtom } from "jotai";
 import { AnimatePresence } from "motion/react";
 import { classNames } from "@/utils";
 import { rowParentActiveClasses } from "@/components/4-dialogs/4-dlg-field-catalog/3-items-grid/2-fld-cat-item-row";
-import { doDeleteChunkAtom, doSelectByKbdAtom, doSetSelectItemValueAtom, doSwapItemsAtom, MFormProps, panelActionsListId } from "@/store/1-atoms/2-file-mani-atoms";
+import { doDeleteChunkAtom, doSelectByKbdAtom, doSetSelectItemValueAtom, doSwapItemsAtom, MFormProps, panelActionsListId } from "@/store/1-file-mani-atoms";
 import { SingleRow } from "./4-single-row";
 import { PopupMenuItemState } from "./5-row-popup-menu";
 

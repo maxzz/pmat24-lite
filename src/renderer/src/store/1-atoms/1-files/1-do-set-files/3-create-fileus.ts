@@ -2,7 +2,7 @@ import { atom } from "jotai";
 import { finalizeFileContent } from "@/store/store-utils";
 import { type FileContent } from "@shared/ipc-types";
 import { type FileUs, type ManiAtomsAtom, type HighlightHwnd } from "@/store/store-types";
-import { type ManiAtoms } from "../../2-file-mani-atoms";
+import { type ManiAtoms } from "../../../1-file-mani-atoms";
 import { createParsedSrc } from "./2-create-parsed-src";
 import { getInTestInUse } from "@/store/0-serve-atoms/5-do-inuse-test";
 

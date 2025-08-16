@@ -1,7 +1,7 @@
 import { useAtomValue } from "jotai";
 import { ChildrenWithLabel2Cols, InputWithTitle2Cols } from "@/ui/local-ui";
 import { type FileUs } from "@/store/store-types";
-import { type OFormProps } from "@/store/1-atoms/2-file-mani-atoms";
+import { type OFormProps } from "@/store/1-file-mani-atoms";
 import { ExtPolicySelect } from "../9-controls";
 import { PanelTestInUse } from "./1-panel-test-inuse-state";
 

@@ -3,7 +3,7 @@ import { useAtom } from "jotai";
 import { classNames } from "@/utils";
 import { modifierKeys } from "@/store/manifest";
 import { InputSelectUi, type RowInputStateAtom } from "@/ui";
-import { type ManualFieldState } from "@/store/1-atoms/2-file-mani-atoms";
+import { type ManualFieldState } from "@/store/1-file-mani-atoms";
 
 type FrameProps = HTMLAttributes<HTMLDivElement> & {
     label: string;

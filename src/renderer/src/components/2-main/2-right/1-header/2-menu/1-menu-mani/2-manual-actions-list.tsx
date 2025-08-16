@@ -1,6 +1,6 @@
 import { useAtomValue, useSetAtom } from "jotai";
 import { DropdownMenuItem } from "@/ui/shadcn";
-import { type MFormCtx, doCreateDefaultScriptItemsAtom, doDeleteAllChunksAtom } from "@/store/1-atoms/2-file-mani-atoms";
+import { type MFormCtx, doCreateDefaultScriptItemsAtom, doDeleteAllChunksAtom } from "@/store/1-file-mani-atoms";
 
 export function MenuItem_Manual_ClearScriptActions({ formCtx }: { formCtx: MFormCtx; }) {
     const isManualForm = formCtx.manual;

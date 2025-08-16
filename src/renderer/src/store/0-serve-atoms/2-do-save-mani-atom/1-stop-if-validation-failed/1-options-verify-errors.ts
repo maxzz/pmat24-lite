@@ -1,5 +1,5 @@
-import { type ManiAtoms, type VerifyError } from "@/store/1-atoms/2-file-mani-atoms/9-types";
-import { FormOptionsConv } from "@/store/1-atoms/2-file-mani-atoms/3-options";
+import { type ManiAtoms, type VerifyError } from "@/store/1-file-mani-atoms/9-types";
+import { FormOptionsConv } from "@/store/1-file-mani-atoms/3-options";
 import { FormIdx } from "@/store/manifest";
 
 export function getErrorsFromOptions(maniAtoms: ManiAtoms, getset: GetSet): VerifyError[] | undefined {

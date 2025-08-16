@@ -1,7 +1,7 @@
 import { useSetAtom } from "jotai";
 import { useSnapshot } from "valtio";
 import { appSettings } from "@/store/9-ui-state";
-import { type FileUsCtx, type FieldRowCtx } from "@/store/1-atoms/2-file-mani-atoms";
+import { type FileUsCtx, type FieldRowCtx } from "@/store/1-file-mani-atoms";
 import { type FceItem } from "@/store/1-atoms/4-field-catalogs";
 import { Column1_UseIt } from "../1-column-useIt";
 import { Column2_Type } from "../2-column-type";

@@ -1,5 +1,5 @@
 import { FormIdx } from "@/store/manifest";
-import { type AnyFormCtx } from "@/store/1-atoms/2-file-mani-atoms/9-types";
+import { type AnyFormCtx } from "@/store/1-file-mani-atoms/9-types";
 import { type ResetManifestCtx } from "./9-types";
 import { resetNormalFieldsAndSubmit } from "./2-reset-normal-fields";
 import { resetManualFields } from "./3-reset-manual-fields";

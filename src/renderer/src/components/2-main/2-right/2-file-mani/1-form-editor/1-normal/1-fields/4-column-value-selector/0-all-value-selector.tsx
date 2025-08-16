@@ -1,5 +1,5 @@
 import { useSetAtom } from "jotai";
-import { useIsLinkedToLogin, type FieldRowCtx, type FileUsCtx } from "@/store/1-atoms/2-file-mani-atoms";
+import { useIsLinkedToLogin, type FieldRowCtx, type FileUsCtx } from "@/store/1-file-mani-atoms";
 import { Column4_Value } from "./1-col-normal-value";
 import { Case_ValueForLinked } from "./7-col-value-linked";
 

@@ -1,7 +1,7 @@
 import { useAtomValue, useSetAtom } from "jotai";
 import { Matching, type OptionTextValue } from "@/store/manifest";
 import { InputSelectUi } from "@/ui";
-import { type OFormProps } from "@/store/1-atoms/2-file-mani-atoms/9-types";
+import { type OFormProps } from "@/store/1-file-mani-atoms/9-types";
 import { setUrlsEditorDataAtom } from "./5-9-set-atoms";
 
 export function MatchHow({ oFormProps }: { oFormProps: OFormProps; }) {

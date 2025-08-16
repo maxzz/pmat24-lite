@@ -2,7 +2,7 @@ import { useAtomValue, useSetAtom } from "jotai";
 import { ChildrenWithLabel2Cols } from "@/ui/local-ui";
 import { Switch } from "@/ui/shadcn";
 import { modeTextInTest } from "./8-test-in-use-names";
-import { type OFormProps, type FileUsCtx } from "@/store/1-atoms/2-file-mani-atoms";
+import { type OFormProps, type FileUsCtx } from "@/store/1-file-mani-atoms";
 import { doSetManiInTestAtom } from "@/store/0-serve-atoms/5-do-inuse-test";
 
 export function PanelTestInUse({ oFormProps }: { oFormProps: OFormProps; }) {

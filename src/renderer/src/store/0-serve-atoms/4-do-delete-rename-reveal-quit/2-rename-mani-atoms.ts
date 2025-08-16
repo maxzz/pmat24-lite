@@ -1,7 +1,7 @@
 import { atom } from "jotai";
 import { type RowInputStateAtom } from "@/ui";
 import { type FileUsAtom } from "@/store/store-types";
-import { getManiDispNameAtomAtom } from "@/store/1-atoms/2-file-mani-atoms/3-options/2-conv-options";
+import { getManiDispNameAtomAtom } from "@/store/1-file-mani-atoms/3-options/2-conv-options";
 
 export type ManiNameDlgData = {
     fileUsAtom: FileUsAtom;             // fileUs to rename
