@@ -9,7 +9,7 @@ import { isPmatFileToLoad } from "@/store/0-serve-atoms/6-do-inuse-test";
 import { doAddFcToLoadedAtom, doClearFcRootAtom, doInitFileUsLinksToFcAtom } from "@/store/3-field-catalog-atoms";
 import { addToTotalManis, appSettings, busyIndicator, clearTotalManis } from "@/store/9-ui-state";
 import { doDisposeAllFilesAtomAtom } from "@/store/store-utils";
-import { sortFileUsItemsInPlaceAndSetIndices } from "@/store/1-files-atoms/3-tree-files";
+import { sortFileUsItemsInPlaceAndSetIndices } from "@/store/5-tree-files";
 import { allFileUsChanges } from "@/store/2-file-mani-atoms";
 import { rightPanelAtomAtom } from "@/store/5-right-panel";
 import { createFileUsFromFileContent } from "./3-create-fileus";
