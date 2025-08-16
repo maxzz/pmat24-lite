@@ -58,15 +58,13 @@ async function setFileTestInUse(file: TestInUseParams_Start, inTest: boolean, de
     }
 }
 
-export async function testInUseInMain_Quit(): Promise<R2MInvoke.EmptyOkOrError> { // 'r2mi:test-in-use-quit'
-    const cacheFolder = getCacheFolder();
-    const rv = await deleteFolder(cacheFolder) || '';
-    return rv;
-}
-
-export async function testInUseInMain_QuitWithReload(): Promise<R2MInvoke.EmptyOkOrError> { // 'r2mi:test-in-use-quit-with-reload'
+export async function testInUseInMain_DeleteDir(): Promise<R2MInvoke.EmptyOkOrError> { // 'r2mi:test-in-use-delete-dir'
     const cacheFolder = getCacheFolder();
     const rv = await deleteFolder(cacheFolder) || '';
     await performCommand({ command: 'reloadCache' });
     return rv;
+}
+
+export async function testInUseInMain_QuitWithReload(): Promise<R2MInvoke.EmptyOkOrError> { // 'r2mi:test-in-use-quit-with-reload'
+    return testInUseInMain_DeleteDir();
 }

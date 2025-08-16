@@ -59,12 +59,12 @@ export async function inTest_Set({ fileUs, inTest, deleteFile }: { fileUs: FileU
     await asyncReloadCache();
 }
 
-export async function inTest_Quit() {
+export async function inTest_DeleteDir() {
     if (!hasMain()) {
         return;
     }
 
-    const res = await invokeMainTyped({ type: 'r2mi:test-in-use-quit' });
+    const res = await invokeMainTyped({ type: 'r2mi:test-in-use-delete-dir' });
     if (res) {
         console.error('inTest_Quit', res);
     }

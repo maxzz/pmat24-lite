@@ -121,8 +121,8 @@ export namespace R2MInvoke { // Main from Renderer invoke and get result
         files: TestInUseParams_Set[];           // Usually it is done for single file. Just in case if UI will have command to set all files to test mode.
     };
 
-    export type TestInUse_Quit = {              // Test in use (Tiu) runs when app quits
-        type: 'r2mi:test-in-use-quit';
+    export type TestInUse_DeleteDir = {         // Test in use (Tiu) delete test cache folder
+        type: 'r2mi:test-in-use-delete-dir';
     };
 
     export type AllInvokes =
@@ -150,7 +150,7 @@ export namespace R2MInvoke { // Main from Renderer invoke and get result
 
         | TestInUse_Start
         | TestInUse_Set
-        | TestInUse_Quit
+        | TestInUse_DeleteDir
         ;
 
     export type EmptyOkOrError = string | undefined;
@@ -228,7 +228,7 @@ export namespace R2MInvoke { // Main from Renderer invoke and get result
         : T extends TestInUse_Set            //'r2mi:test-in-use-set'
         ? string                             // as TestInUseResultItem[]
 
-        : T extends TestInUse_Quit           //'r2mi:test-in-use-quit'
+        : T extends TestInUse_DeleteDir      //'r2mi:test-in-use-delete-dir'
         ? EmptyOkOrError                     // as TestInUseResultItem[]
 
         : never;
@@ -254,5 +254,5 @@ export namespace R2MInvokeParams {
     export type GetWindowExtras = Omit<R2MInvoke.GetWindowExtras, 'type'>;
     export type TestInUseStart = Omit<R2MInvoke.TestInUse_Start, 'type'>;
     export type TestInUseUpdate = Omit<R2MInvoke.TestInUse_Set, 'type'>;
-    export type TestInUseQuit = Omit<R2MInvoke.TestInUse_Quit, 'type'>;
+    export type TestInUseDeleteDir = Omit<R2MInvoke.TestInUse_DeleteDir, 'type'>;
 }
