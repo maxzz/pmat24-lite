@@ -3,7 +3,7 @@ import { FormIdx } from "@/store/manifest";
 import { clearIconsCache } from "@/store/7-napi-atoms";
 import { newManiContent } from "@/store/0-serve-atoms";
 import { sureRootDir } from "@/store/1-files-atoms";
-import { rightPanelAtomAtom } from "@/store/1-atoms/3-right-panel";
+import { rightPanelAtomAtom } from "@/store/5-right-panel";
 import { checkboxCreateManualModeAtom, setSizeSmall_SawMonitorAtom, startMonitorTimerAtom, stopMonitorTimerAtom } from "./0-ctx";
 
 export const isOpen_SawMonitorAtom = atom((get) => get(_sawMonitorOpenAtom));

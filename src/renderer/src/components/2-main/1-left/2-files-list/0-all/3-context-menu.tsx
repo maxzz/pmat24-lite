@@ -3,7 +3,7 @@ import { useSetAtom } from "jotai";
 import { useSnapshot } from "valtio";
 import { hasMain } from "@/xternal-to-main";
 import { appSettings } from "@/store/9-ui-state";
-import { rightPanelAtomGetterAtom } from "@/store/1-atoms/3-right-panel";
+import { rightPanelAtomGetterAtom } from "@/store/5-right-panel";
 import { ContextMenu, ContextMenuContent, ContextMenuItem, ContextMenuTrigger } from "@/ui/shadcn";
 import { toast } from "sonner";
 import { doDeleteFileUsAtom, doRevealInExplorerAtom, doManiNameDlgAtom, doGetFileUsPathAtom } from "@/store/0-serve-atoms";

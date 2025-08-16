@@ -3,7 +3,7 @@ import { useSnapshot } from "valtio";
 import { Tree, DataItemWState } from "@ui/shadcn/tree";
 import { AppWindow as IconFile, Folder as IconFolder } from "lucide-react"; // Workflow as IconFile, File as IconFile
 import { appSettings } from "@/store/9-ui-state";
-import { doTriggerRightPanelSelectedAtom } from "@/store/1-atoms/3-right-panel";
+import { doTriggerRightPanelSelectedAtom } from "@/store/5-right-panel";
 import { doManiNameDlgAtom } from "@/store/0-serve-atoms";
 import { TreeItemRowRender } from "../2-tree-item";
 import { dataWithStateAtom, castTreeItemToFileUs, treeStateAtom, getFileUsAtomByIdAtom } from "./2-tree-action-atoms";
