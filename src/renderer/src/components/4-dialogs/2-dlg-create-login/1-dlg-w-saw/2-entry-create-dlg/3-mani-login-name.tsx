@@ -1,6 +1,6 @@
 import { useAtomValue } from "jotai";
 import { type RowInputStateAtom, InputOrCheckWithErrorMsg } from "@/ui/local-ui";
-import { newManiDispNameAtom } from "@/store/0-serve-atoms";
+import { newManiDispNameAtom } from "@/store/0-serve-atoms/0-create/1-create-new-mani-ctx";
 
 export function ManiLoginNameGuarded() {
     const nameAtom = useAtomValue(newManiDispNameAtom);

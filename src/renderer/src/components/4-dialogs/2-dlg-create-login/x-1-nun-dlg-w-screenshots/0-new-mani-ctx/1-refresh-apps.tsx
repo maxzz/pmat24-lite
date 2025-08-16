@@ -1,6 +1,6 @@
 import { atom } from "jotai";
 import { type TlwScreenshotInfo, allScreenshotAtom, defaultScreenshotWidth, doSetScreenshotsAtom } from "@/store/7-napi-atoms";
-import { doInitNewManiContentAtom } from "@/store/0-serve-atoms";
+import { doInitNewManiContentAtom } from "@/store/0-serve-atoms/0-create/1-create-new-mani-ctx";
 import { newManiCtx } from "./0-ctx";
 
 export function create_DoRefreshAppsAtom() {

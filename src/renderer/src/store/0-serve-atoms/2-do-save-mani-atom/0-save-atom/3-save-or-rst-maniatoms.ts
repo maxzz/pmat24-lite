@@ -3,7 +3,7 @@ import { type FileUsAtom, type FileUs } from "@/store/store-types";
 import { createParsedSrc } from "@/store/1-files-atoms/1-do-set-files";
 import { disposeFileUsManiAtoms, printDisposeManiAtomsAtom } from "@/store/store-utils/1-file-system-utils";
 import { fileUsChanges } from "@/store/2-file-mani-atoms/9-types";
-import { createManiAtoms } from "../../0-create-mani-ctx-atoms";
+import { createManiAtoms } from "../../0-create/0-create-mani-ctx-atoms";
 
 /**
  * @param fileUsAtom - fileUs to update

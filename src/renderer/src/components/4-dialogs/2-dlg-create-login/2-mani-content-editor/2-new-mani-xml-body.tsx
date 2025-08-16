@@ -3,7 +3,7 @@ import { useSnapshot } from "valtio";
 import { Button, ScrollArea } from "@/ui/shadcn";
 import { Copy } from "lucide-react";
 import { appSettings } from "@/store/9-ui-state";
-import { newManiContent } from "@/store/0-serve-atoms";
+import { newManiContent } from "@/store/0-serve-atoms/0-create/1-create-new-mani-ctx";
 
 export function NewManiContentRawXmlBody() {
 
