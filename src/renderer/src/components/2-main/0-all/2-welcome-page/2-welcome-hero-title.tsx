@@ -12,8 +12,8 @@ export function WelcomeHeroTitle({ allowHandleFiles }: { allowHandleFiles: boole
 
         <div className="text-xs text-balance select-none">
             {allowHandleFiles
-                ? "Open the file or folder containing the manifest files to start working with the application."
-                : "Open the folder containing the manifest files to start working with the application."
+                ? "Open the file or folder containing the template files to start working with the application."
+                : "Open the folder containing the template files to start working with the application."
             }
         </div>
     </>);

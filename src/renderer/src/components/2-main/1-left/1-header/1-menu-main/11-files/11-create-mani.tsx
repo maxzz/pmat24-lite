@@ -10,7 +10,7 @@ export function MenuItem_CreateMani() {
     const disabled = !useSnapshot(rootDir).fpath;
     return (<>
         <DropdownMenuItem onClick={openDlg} disabled={disabled}>
-            New Manifest
+            New Template
             <DropdownMenuShortcut className={menuShortcutClasses}>{appShortcuts.openCreate.text}</DropdownMenuShortcut>
         </DropdownMenuItem>
     </>);

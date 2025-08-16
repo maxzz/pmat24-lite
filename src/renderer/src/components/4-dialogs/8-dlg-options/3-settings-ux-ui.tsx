@@ -1,11 +1,12 @@
 import { useSnapshot } from "valtio";
-import { appSettings } from "@/store/9-ui-state";
+import { appSettings, debugSettings } from "@/store/9-ui-state";
 import { Checkbox, Label } from "@/ui";
 import { subClasses, rowClasses } from "./8-shared-classes";
 import { classNames } from "@/utils";
 import { ThemeSwitch } from "@/ui/shadcn/theme-toggle-switch";
 
 export function UiUxSettings() {
+    const { debugAccess } = useSnapshot(debugSettings.debugOnly);
     const { showStatusbar, showOptOnRight, showWelcome, showWelcomeCheck, allowWelcome, showQuickXml, notifyNewFile, notifyAlienfiles } = useSnapshot(appSettings.appUi.uiGeneral);
     const liveUiGeneral = appSettings.appUi.uiGeneral;
     return (<>
@@ -35,30 +36,32 @@ export function UiUxSettings() {
         <div className={subClasses}>
             <Label className={rowClasses}>
                 <Checkbox checked={notifyNewFile} onCheckedChange={(v) => liveUiGeneral.notifyNewFile = !!v} />
-                Notification: Show popup when new file created
+                Notifications: Show popup when new file created
             </Label>
         </div>
 
         <div className={subClasses}>
             <Label className={rowClasses}>
                 <Checkbox checked={notifyAlienfiles} onCheckedChange={(v) => liveUiGeneral.notifyAlienfiles = !!v} />
-                Notification: Show popup on attempt to open non-manifest files
+                Notifications: Show popup on attempt to open non-manifest files
             </Label>
         </div>
 
-        <div className={subClasses}>
-            <Label className={rowClasses}>
-                <Checkbox checked={showOptOnRight} onCheckedChange={(v) => liveUiGeneral.showOptOnRight = !!v} />
-                Show manifest form option labels on the right side
-            </Label>
-        </div>
+        {debugAccess && (<>
+            <div className={subClasses}>
+                <Label className={rowClasses}>
+                    <Checkbox checked={showOptOnRight} onCheckedChange={(v) => liveUiGeneral.showOptOnRight = !!v} />
+                    Show manifest form option labels on the right side
+                </Label>
+            </div>
 
-        <div className={subClasses}>
-            <Label className={rowClasses}>
-                <Checkbox checked={showQuickXml} onCheckedChange={(v) => liveUiGeneral.showQuickXml = !!v} />
-                Show quick access button to XML manifest content
-            </Label>
-        </div>
+            <div className={subClasses}>
+                <Label className={rowClasses}>
+                    <Checkbox checked={showQuickXml} onCheckedChange={(v) => liveUiGeneral.showQuickXml = !!v} />
+                    Show quick access button to XML manifest content
+                </Label>
+            </div>
+        </>)}
 
         <div className={subClasses}>
             <div className={rowClasses}>

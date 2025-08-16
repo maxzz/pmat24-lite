@@ -14,7 +14,7 @@ export function FilterFilesDialogTrigger() {
     const isFilterActive = useAtomValue(isFilterActiveAtom);
 
     return (<>
-        <Button className="flex-none" variant="ghost" onClick={() => setIsOpen(true)} tabIndex={-1} title={`Filter files ${appShortcuts.openFilter.text}`}>
+        <Button className="flex-none" variant="ghost" onClick={() => setIsOpen(true)} tabIndex={-1} title={`Filter Templates (${appShortcuts.openFilter.text})`}>
             <IconFilter className={classNames("p-px size-4", isFilterActive && filterActiveIconClasses)} />
         </Button>
 

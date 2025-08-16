@@ -1,4 +1,5 @@
 import { useAtom } from "jotai";
+import { useSnapshot } from "valtio";
 import * as D from "@/ui/shadcn/dialog";
 import { Button, ScrollArea } from "@/ui";
 import { overlayClasses } from "../1-dlg-filter-files";
@@ -8,6 +9,7 @@ import { UiUxSettings } from "./3-settings-ux-ui";
 import { DialogPasswordPolicy } from "./4-settings-psw-policy";
 import { AdvancedSettings } from "./5-settings-advanced";
 import { SectionTitle } from "./8-shared-classes";
+import { debugSettings } from "@/store/9-ui-state";
 
 export function AppOptionsDialog() {
 
@@ -56,6 +58,7 @@ function DialogOptionsBody({ setIsOpen }: { setIsOpen: (v: boolean) => void; }) 
 }
 
 function DialogMiddleArea() {
+    const { debugAccess } = useSnapshot(debugSettings.debugOnly);
     return (
         <ScrollArea className="size-full" fullHeight>
             <div className="size-full px-4 grid grid-cols-1 justify-start auto-rows-min gap-6">
@@ -68,9 +71,11 @@ function DialogMiddleArea() {
                     <UiUxSettings />
                 </SectionTitle>
 
-                <SectionTitle title="Dialog Password Policy">
-                    <DialogPasswordPolicy />
-                </SectionTitle>
+                {debugAccess && (<>
+                    <SectionTitle title="Dialog Password Policy">
+                        <DialogPasswordPolicy />
+                    </SectionTitle>
+                </>)}
 
                 <AdvancedSettings />
             </div>

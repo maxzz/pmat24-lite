@@ -44,14 +44,14 @@ export function FilesMainMenuBody() {
 
         {/* <PreferencesSubMenu /> */}
 
-        <DropdownMenuSeparator />
+        {/* <DropdownMenuSeparator /> */}
 
         <MenuItem_About />
 
-        {debugAccess && hasMain() && (<>
+        {/* {debugAccess && hasMain() && (<>
             <MenuItem_ReloadCache />
             <MenuItem_TestPingPong />
-        </>)}
+        </>)} */}
 
         <MenuItem_FileExit />
     </>);

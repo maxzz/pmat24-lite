@@ -8,7 +8,7 @@ export function MenuItem_FilterFiles() {
     const setFilerFileOpen = useSetAtom(filterDialogOpenAtom);
     return (
         <DropdownMenuItem onClick={() => { setFilerFileOpen(true); }}>
-            Filter files...
+            Filter Templates...
             <DropdownMenuShortcut className={menuShortcutClasses}>{appShortcuts.openFilter.text}</DropdownMenuShortcut>
         </DropdownMenuItem>
     );

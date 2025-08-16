@@ -7,7 +7,7 @@ export function DialogPasswordPolicy() {
     const snapMani = useSnapshot(appSettings, { sync: true }).right.mani;
     return (<>
         <Label className={rowClasses}>
-            Number of generated passwords
+            Number of generated passwords for test
             <Input className="h-6 px-0 max-w-10 text-xs text-center" value={snapMani.nToGenerate} onChange={(e) => appSettings.right.mani.nToGenerate = +e.target.value} />
         </Label>
     </>);
