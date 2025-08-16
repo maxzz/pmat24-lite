@@ -57,14 +57,10 @@ export const doSaveOneAtom = atom(
         //parse xml and so on...
         set(updateManiAtomsAfterSaveOrResetAtom, { fileUsAtom, resetToPrev: false });
 
-        await updateCacheIfInTest({ fileUs, getset: { get, set } });
+        await inTest_Set({ fileUs, inTest: get(fileUs.maniInTestAtom), deleteFile: false }); // Manifest in cache should be updated
         return true;
     }
 );
-
-async function updateCacheIfInTest({ fileUs, getset: { get, set } }: { fileUs: FileUs; getset: GetSet; }) {
-    await inTest_Set({ fileUs, inTest: get(fileUs.maniInTestAtom), deleteFile: false }); // Manifest in cache should be updated or deleted
-}
 
 function printFilesAtom(title: string, files: FileUsAtom[], { get }: GetSet, fileCnt?: FileContent) {
     console.log(title, files.length, fileCnt ? { fileCnt } : '');
