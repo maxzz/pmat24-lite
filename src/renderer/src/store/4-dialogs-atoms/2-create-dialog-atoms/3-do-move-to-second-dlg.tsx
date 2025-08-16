@@ -10,7 +10,7 @@ import { type FileUs, type FileUsAtom } from "../../store-types";
 import { fileUsChanges } from "../../1-atoms/2-file-mani-atoms/9-types";
 import { setManiActiveTab } from "../../1-atoms/3-right-panel";
 import { doSelectFileUsTreeAtom } from "@/components/2-main/1-left/2-files-list";
-import { createFileUsFromNewXml, doSaveOneAtom, newManiContent, notificationNewSaved } from "@/store/1-atoms/0-serve-atoms";
+import { createFileUsFromNewXml, doSaveOneAtom, newManiContent, notificationNewSaved } from "@/store/0-serve-atoms";
 import { doClearSawHandleAtom, sawHandleAtom, setBuildState } from "../../7-napi-atoms";
 import { checkboxCreateManualModeAtom, setSizeNormal_SawMonitorAtom, showProgressAtom, startMonitorTimerAtom, stopMonitorTimerAtom } from "./0-ctx";
 import { close_SawMonitorAtom } from "./1-open-saw-monitor";

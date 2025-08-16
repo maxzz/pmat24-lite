@@ -1,6 +1,6 @@
 import { atom } from "jotai";
 import { allScreenshotAtom } from "@/store/7-napi-atoms";
-import { doInitNewManiContentAtom } from "@/store/1-atoms/0-serve-atoms";
+import { doInitNewManiContentAtom } from "@/store/0-serve-atoms";
 import { newManiCtx } from "./0-ctx";
 
 const _appSelectedIdxAtom = atom(0);

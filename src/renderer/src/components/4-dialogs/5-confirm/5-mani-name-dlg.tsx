@@ -2,7 +2,7 @@ import { useAtom, useAtomValue, useSetAtom } from "jotai";
 import { useKey } from "react-use";
 import { Dialog, DialogDescription, DialogFooter, Button } from "@/ui/shadcn";
 import { InputWithTitle2Rows } from "@/ui/local-ui";
-import { type ManiNameDlgData, maniNameDlgDataAtom, maniNameDlgCloseAtom } from "@/store/1-atoms/0-serve-atoms";
+import { type ManiNameDlgData, maniNameDlgDataAtom, maniNameDlgCloseAtom } from "@/store/0-serve-atoms";
 import { DialogTitleHeader } from "./8-dialog-title-header";
 
 export function ManiNameDialog() {

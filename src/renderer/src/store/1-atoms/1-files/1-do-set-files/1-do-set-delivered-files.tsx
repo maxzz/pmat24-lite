@@ -5,7 +5,7 @@ import { type FileUs } from "@/store/store-types";
 import { type FileContent } from "@shared/ipc-types";
 import { type PmatFolder, filesAtom, isRootDirEmpty, setRootDir } from "../0-files-atom";
 import { inTest_Start } from "@/store/7-napi-atoms";
-import { isPmatFileToLoad } from "../../0-serve-atoms/5-do-inuse-test";
+import { isPmatFileToLoad } from "@/store/0-serve-atoms/5-do-inuse-test";
 import { doAddFcToLoadedAtom, doClearFcRootAtom, doInitFileUsLinksToFcAtom } from "../../4-field-catalogs";
 import { addToTotalManis, appSettings, busyIndicator, clearTotalManis } from "@/store/9-ui-state";
 import { doDisposeAllFilesAtomAtom } from "@/store/store-utils";

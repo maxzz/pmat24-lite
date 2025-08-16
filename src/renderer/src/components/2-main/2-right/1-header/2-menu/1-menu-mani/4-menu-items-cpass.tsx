@@ -2,7 +2,7 @@ import { useSetAtom } from "jotai";
 import { DropdownMenuItem } from "@/ui/shadcn";
 import { FormIdx } from "@/store/manifest";
 import { type ManiAtoms, type FileUsCtx } from "@/store/1-atoms/2-file-mani-atoms/9-types";
-import { doDeleteCpassFromFileUsAtom } from "@/store/1-atoms/0-serve-atoms";
+import { doDeleteCpassFromFileUsAtom } from "@/store/0-serve-atoms";
 import { open_SawMonitorForCpassAtom } from "@/store/4-dialogs-atoms";
 
 export function MenuItem_Cpass({ maniAtoms, fileUsCtx }: { maniAtoms: ManiAtoms; fileUsCtx: FileUsCtx; }) {
