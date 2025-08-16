@@ -1,4 +1,4 @@
-import { type FileUs } from "@/store";
+import { type FileUs } from "@/store/store-types";
 import { DropdownMenuSeparator } from "@/ui/shadcn/dropdown-menu";
 import { MenuItem_ShowXML } from "../7-show-xml";
 import { MenuItem_More } from "../8-more";

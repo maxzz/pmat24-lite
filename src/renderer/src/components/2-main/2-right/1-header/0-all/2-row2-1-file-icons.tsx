@@ -1,7 +1,7 @@
-import { appSettings } from "@/store";
-import { FileUs } from "@/store/store-types";
-import { getRightHeaderIcons } from "@/store/store-utils";
 import { useSnapshot } from "valtio";
+import { appSettings } from "@/store/9-ui-state";
+import { type FileUs } from "@/store/store-types";
+import { getRightHeaderIcons } from "@/store/store-utils";
 
 export function Row2_AppIcons({ fileUs }: { fileUs: FileUs; }) {
     const showIeWranIcon = useSnapshot(appSettings).files.itemsState.showIeMarker;

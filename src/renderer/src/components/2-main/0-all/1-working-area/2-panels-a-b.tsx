@@ -1,7 +1,7 @@
 import { useRef } from "react";
 import { ResizableHandle, ResizableHandleToys, ResizablePanel, ResizablePanelGroup, togglePanels, toysArrowClasses, toysMiddleClasses, } from "@ui/shadcn/resizable";
 import { ImperativePanelHandle, PanelGroupStorage } from "react-resizable-panels";
-import { appSettings } from "@/store";
+import { appSettings } from "@/store/9-ui-state";
 import { PanelA } from "../../1-left";
 import { PanelB } from "../../2-right";
 import { IconChevronLeft } from "@/ui/icons";

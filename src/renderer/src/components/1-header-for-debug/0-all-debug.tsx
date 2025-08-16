@@ -1,5 +1,5 @@
 import { useSnapshot } from "valtio";
-import { appSettings } from "@/store";
+import { appSettings } from "@/store/9-ui-state";
 import { TestOpenFiles } from "./8-1-test-open-files";
 import { TestOpenFieldCatalog } from "./8-2-test-open-field-catalog";
 import { ThemeSwitch } from "@/ui/shadcn/theme-toggle-switch";

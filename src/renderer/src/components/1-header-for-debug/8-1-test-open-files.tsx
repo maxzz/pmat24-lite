@@ -1,5 +1,5 @@
 import { useSnapshot } from "valtio";
-import { appSettings } from "@/store";
+import { appSettings } from "@/store/9-ui-state";
 import { ButtonFilesPicker } from "@/components/2-main/0-all/2-welcome-page/4-button-files-picker";
 
 export function TestOpenFiles() {

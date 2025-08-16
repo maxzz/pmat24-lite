@@ -1,5 +1,5 @@
 import { useSnapshot } from "valtio";
-import { debugSettings } from "@/store";
+import { debugSettings } from "@/store/9-ui-state";
 import { DropdownMenuSeparator } from "@/ui/shadcn/dropdown-menu";
 import {
     MenuItems_OpenFiles,

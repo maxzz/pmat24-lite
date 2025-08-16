@@ -1,5 +1,5 @@
-import { appSettings } from "@/store";
 import { useSnapshot } from "valtio";
+import { appSettings } from "@/store/9-ui-state";
 import { ButtonFilesPicker } from "./4-button-files-picker";
 
 const buttonClasses = "bg-background active:scale-[0.95] transition-transform";

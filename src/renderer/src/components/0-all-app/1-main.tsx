@@ -2,7 +2,7 @@ import { type MouseEvent } from "react";
 import { DebugMainHeader } from "../1-header-for-debug";
 import { SectionMain } from "../2-main";
 import { SectionFooter } from "../3-footer";
-import { appSettings } from "@/store";
+import { appSettings } from "@/store/9-ui-state";
 
 export function AppContent() {
     return (<>

@@ -1,8 +1,8 @@
 import { useSnapshot } from "valtio";
 import { classNames } from "@/utils";
-import { appSettings, RightPanelViewType } from "@/store";
 import { Button } from "@/ui";
 import { SymbolCode } from "@/ui/icons";
+import { appSettings, RightPanelViewType } from "@/store/9-ui-state";
 
 export function ButtonQuickXml() {
     const { activeView } = useSnapshot(appSettings).right;

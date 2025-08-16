@@ -1,5 +1,5 @@
 import { useSnapshot } from "valtio";
-import { appSettings } from "@/store";
+import { appSettings } from "@/store/9-ui-state";
 import { hasMain, R2MCalls } from "@/xternal-to-main";
 import { DropdownMenuItem } from "@/ui";
 import { DropdownMenuItem_Open_FromRenderer } from "./1-open-from-renderer";

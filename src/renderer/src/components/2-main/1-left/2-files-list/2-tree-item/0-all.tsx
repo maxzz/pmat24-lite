@@ -1,6 +1,7 @@
 import { useAtomValue } from "jotai";
 import { useSnapshot } from "valtio";
-import { appSettings, getTreeItemDisplayText } from "@/store";
+import { appSettings } from "@/store/9-ui-state";
+import { getTreeItemDisplayText } from "@/store/store-utils";
 import { type TreeIconAndTextProps } from "@ui/shadcn/tree";
 import { castTreeItemToFileUs } from "../0-all/2-tree-action-atoms";
 import { TreeItemIconWithAttention } from "./2-tree-item-icon";

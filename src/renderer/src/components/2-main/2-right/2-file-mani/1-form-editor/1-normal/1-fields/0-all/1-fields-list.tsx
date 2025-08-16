@@ -1,5 +1,5 @@
 import { useSnapshot } from "valtio";
-import { appSettings } from "@/store";
+import { appSettings } from "@/store/9-ui-state";
 import { FormIdx } from "@/store/manifest";
 import { type NFormProps } from "@/store/2-file-mani-atoms";
 import { FieldRow } from "./2-field-row";

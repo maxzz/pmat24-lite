@@ -1,5 +1,5 @@
 import { useAtom, useSetAtom } from "jotai";
-import { searchFilterData } from "@/store";
+import { searchFilterData } from "@/store/9-ui-state";
 import { IconClose } from "@/ui/icons";
 import { Button } from "@/ui";
 import { doUpdateTreeSelectedByRightPanelAtom } from "../../2-files-list";

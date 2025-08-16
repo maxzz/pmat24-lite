@@ -1,8 +1,8 @@
 import { HTMLAttributes } from "react";
 import { useSnapshot } from "valtio";
-import { appSettings } from "@/store";
-import { Checkbox, Label } from "@/ui";
 import { classNames } from "@/utils";
+import { Checkbox, Label } from "@/ui";
+import { appSettings } from "@/store/9-ui-state";
 
 export function DontShowNext({ className }: HTMLAttributes<HTMLLabelElement>) {
     const dontShowWelcome = !useSnapshot(appSettings.appUi.uiGeneral).showWelcome;

@@ -1,5 +1,5 @@
 import { useSnapshot } from "valtio";
-import { RightPanelViewType, appSettings } from "@/store";
+import { RightPanelViewType, appSettings } from "@/store/9-ui-state";
 import { DropdownMenuCheckboxItem } from "@/ui/shadcn";
 
 export function MenuItem_ShowXML() {

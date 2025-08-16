@@ -1,4 +1,5 @@
-import { appSettings, type FileUs, RightPanelViewType } from "@/store";
+import { type FileUs } from "@/store/store-types";
+import { appSettings, RightPanelViewType } from "@/store/9-ui-state";
 import { ButtonQuickXml } from "../3-btn-quick-xml";
 import { Button_AddItem, Button_DeleteItem, Button_Filter } from "../2-fc-tools";
 

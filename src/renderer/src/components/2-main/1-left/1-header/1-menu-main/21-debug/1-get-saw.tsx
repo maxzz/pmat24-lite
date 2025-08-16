@@ -1,5 +1,5 @@
 import { useSetAtom } from "jotai";
-import { doGetTargetHwndAtom } from "@/store";
+import { doGetTargetHwndAtom } from "@/store/7-napi-atoms";
 import { DropdownMenuItem, checkDevTools } from "@/ui";
 
 export function MenuItem_GetSaw() {
