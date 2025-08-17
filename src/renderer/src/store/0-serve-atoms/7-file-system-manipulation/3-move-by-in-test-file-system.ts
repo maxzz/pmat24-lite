@@ -42,13 +42,58 @@ async function moveFromMain({ oldFullName, newFullName, content }: { oldFullName
 
 async function moveFromWeb({ fileUs, content, inTest }: { fileUs: FileUs; content: string; inTest: boolean; }): Promise<R2MInvoke.EmptyOkOrError | undefined> {
     const fileCnt = fileUs.fileCnt;
-    const fileName = fileCnt.fname; //TODO: this is wromg, temp
+    const fileName = fileCnt.fname;
 
     const webFsItem = fileCnt.webFsItem;
-    if (!webFsItem) {
-        return 'Cannot save wo/ webFsItem';
+    if (!webFsItem || !rootDir.handle) {
+        return 'Cannot move wo/ webFsItem';
     }
 
+    const ownerHandle = webFsItem.owner;
+    if (!ownerHandle) {
+        return 'Cannot move wo/ ownerHandle';
+    }
+
+    if (inTest) {
+        if (ownerHandle.name === 'c') {
+            return; // File is already in test mode
+        }
+
+        const newDirHandle = await rootDir.handle.getDirectoryHandle('c', { create: true });
+        if (!newDirHandle) {
+            return 'Cannot move to test mode';
+        }
+
+        const newFileHandle = await newDirHandle.getFileHandle(fileName, { create: true });
+
+        const blob = new Blob([content], { type: 'text/xml' });
+        const fileSystemHandle = await fileSave(blob, { fileName }, newFileHandle);
+
+        await ownerHandle.removeEntry(fileName);
+
+        webFsItem.owner = newDirHandle;
+        webFsItem.handle = fileSystemHandle;
+        fileCnt.fpath = `${rootDir.fpath}/c`;
+    } else {
+        if (ownerHandle.name !== 'c') {
+            return; // File is not in test mode
+        }
+
+        const newDirHandle = rootDir.handle;
+        const newFileHandle = await newDirHandle.getFileHandle(fileName, { create: true });
+
+        const blob = new Blob([content], { type: 'text/xml' });
+        const fileSystemHandle = await fileSave(blob, { fileName }, newFileHandle);
+
+        await ownerHandle.removeEntry(fileName);
+
+        webFsItem.owner = newDirHandle;
+        webFsItem.handle = fileSystemHandle;
+        fileCnt.fpath = rootDir.fpath;
+    }
+
+
+    
     // const needRename = fileName !== fileCnt.fname;
     // let handle = webFsItem.handle?.kind === 'file' ? webFsItem.handle : null;
     // // let deletePrevName = needRename && handle;

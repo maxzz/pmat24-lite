@@ -32,8 +32,7 @@ type WebFsItemParams = {
 };
 
 export class WebFsItem implements WebFsItemParams {
-    //parent: FileSystemDirectoryHandle | null = null;                       // we can use root folder handle instead of personal parent handle
-    owner: FileSystemDirectoryHandle | null = null;                          // File system handle of directory where file is located
+    owner: FileSystemDirectoryHandle | null = null;                          // File system directory handle where file is currently located
     handle: FileSystemFileHandle | FileSystemDirectoryHandle | null = null;
     legacyEntry: FileSystemFileEntry | FileSystemDirectoryEntry | null = null; // legacy entry used in web drag and drop from Firefox
     legacyFile: File | null = null;
