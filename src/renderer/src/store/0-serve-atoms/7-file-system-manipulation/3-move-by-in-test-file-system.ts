@@ -62,25 +62,15 @@ async function moveFromWeb({ fileUs, content, inTest }: { fileUs: FileUs; conten
     }
 
     const newPath = inTest ? `${rootDir.fpath}/c` : rootDir.fpath;
+
     const blob = new Blob([content], { type: 'text/xml' });
+    const newFileHandle = await newDirHandle.getFileHandle(fileName, { create: true });
+    const fileSystemHandle = await fileSave(blob, { fileName }, newFileHandle);
+    await ownerHandle.removeEntry(fileName);
 
-    if (inTest) {
-        const newFileHandle = await newDirHandle.getFileHandle(fileName, { create: true });
-        const fileSystemHandle = await fileSave(blob, { fileName }, newFileHandle);
-        await ownerHandle.removeEntry(fileName);
-
-        webFsItem.owner = newDirHandle;
-        webFsItem.handle = fileSystemHandle;
-        fileCnt.fpath = newPath;
-    } else {
-        const newFileHandle = await newDirHandle.getFileHandle(fileName, { create: true });
-        const fileSystemHandle = await fileSave(blob, { fileName }, newFileHandle);
-        await ownerHandle.removeEntry(fileName);
-
-        webFsItem.owner = newDirHandle;
-        webFsItem.handle = fileSystemHandle;
-        fileCnt.fpath = newPath;
-    }
+    webFsItem.owner = newDirHandle;
+    webFsItem.handle = fileSystemHandle;
+    fileCnt.fpath = newPath;
 
     return undefined;
 }
