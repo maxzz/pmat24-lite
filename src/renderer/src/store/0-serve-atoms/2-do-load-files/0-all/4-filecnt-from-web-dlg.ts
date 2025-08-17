@@ -23,7 +23,7 @@ async function mapToDropItems(files: File[]): Promise<OpenItem[]> {
                 const webFsItem = new WebFsItem({
                     legacyFile: file,
                     handle: isFileWithFileHandle(file) ? file.handle : null,
-                    parent: isFileWithDirectoryAndFileHandle(file) ? file.directoryHandle : null,
+                    owner: isFileWithDirectoryAndFileHandle(file) ? file.directoryHandle : null,
                     legacyPath: pathWithoutFilename(file.webkitRelativePath), // webkitRelativePath is "C/D/E/{10250eb8-d616-4370-b3ab-39aedb8c6950}.dpm"
                 });
 

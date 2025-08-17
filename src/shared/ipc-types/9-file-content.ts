@@ -24,7 +24,7 @@ export type MainFileContent = Omit<FileContent, 'unid' | 'changesSet'>; // main 
 // WebFsItem exists only for item loaded without electron
 
 type WebFsItemParams = {
-    parent?: FileSystemDirectoryHandle | null;                              // File system handle of directory
+    owner?: FileSystemDirectoryHandle | null;                               // File system handle of directory
     handle?: FileSystemFileHandle | FileSystemDirectoryHandle | null;       // File system handle of file
     legacyPath?: string;                                                    // used during file items loading then FileContent.fpath will be used
     legacyEntry?: FileSystemFileEntry | FileSystemDirectoryEntry | null;    // legacy entry used in web drag and drop from Firefox
@@ -32,14 +32,15 @@ type WebFsItemParams = {
 };
 
 export class WebFsItem implements WebFsItemParams {
-    parent: FileSystemDirectoryHandle | null = null;
+    //parent: FileSystemDirectoryHandle | null = null;
+    owner: FileSystemDirectoryHandle | null = null;                          // File system handle of directory where file is located
     handle: FileSystemFileHandle | FileSystemDirectoryHandle | null = null;
     legacyEntry: FileSystemFileEntry | FileSystemDirectoryEntry | null = null; // legacy entry used in web drag and drop from Firefox
     legacyFile: File | null = null;
     legacyPath: string;
 
-    constructor({ parent, handle, legacyEntry, legacyFile, legacyPath }: WebFsItemParams) {
-        this.parent = parent || null;
+    constructor({ owner, handle, legacyEntry, legacyFile, legacyPath }: WebFsItemParams) {
+        this.owner = owner || null;
         this.handle = handle || null;
         this.legacyPath = legacyPath || '';
         this.legacyEntry = legacyEntry || null;

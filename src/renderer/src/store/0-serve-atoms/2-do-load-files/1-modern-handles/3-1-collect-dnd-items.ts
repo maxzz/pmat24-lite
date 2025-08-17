@@ -28,7 +28,7 @@ export async function collectWebDndItems(dataTransferItems: DataTransferItem[]):
             const item = new WebFsItem({
                 legacyFile: handle.kind === 'file' ? await handle.getFile() : null,
                 handle,
-                parent: dir,
+                owner: dir,
                 legacyPath: path,
             });
             rv.push(item);

@@ -16,7 +16,7 @@ export type OpenItem = {
 export function getSingleFolderHandle(items: OpenItem[]): FileSystemDirectoryHandle | undefined {
     const parentsSet = new Set(
         items.map(
-            (item) => item.fpath?.indexOf('/') === -1 ? item.webFsItem?.parent : undefined
+            (item) => item.fpath?.indexOf('/') === -1 ? item.webFsItem?.owner : undefined
         ).filter(Boolean)
     );
     const parentHandle = parentsSet.size === 1 ? parentsSet.values().next().value || undefined : undefined;

@@ -25,8 +25,8 @@ export async function moveByInTestFileSystem(fileUs: FileUs, inTest: boolean, ge
 
         fileCnt.fpath = newPath; //TODO: update fileCnt: path and handle. Should it be reactive?
     } else {
-        return 'Not yet implemented';
-        // return await moveFromWeb({ fileUs, content, inTest });
+        // return 'Not yet implemented';
+        return await moveFromWeb({ fileUs, content, inTest });
     }
 }
 
@@ -49,17 +49,20 @@ async function moveFromWeb({ fileUs, content, inTest }: { fileUs: FileUs; conten
         return 'Cannot save wo/ webFsItem';
     }
 
-    const needRename = fileName !== fileCnt.fname;
-    let handle = webFsItem.handle?.kind === 'file' ? webFsItem.handle : null;
-    // let deletePrevName = needRename && handle;
+    // const needRename = fileName !== fileCnt.fname;
+    // let handle = webFsItem.handle?.kind === 'file' ? webFsItem.handle : null;
+    // // let deletePrevName = needRename && handle;
 
-    if (needRename || fileCnt.newFile) {
-        handle = rootDir.handle ? await rootDir.handle.getFileHandle(fileName, { create: true }) : null;
-    }
+    // if (needRename || fileCnt.newFile) {
+    //     handle = rootDir.handle ? await rootDir.handle.getFileHandle(fileName, { create: true }) : null;
+    // }
 
-    const blob = new Blob([content], { type: 'text/xml' });
-    const fileSystemHandle = await fileSave(blob, { fileName }, handle);
-    webFsItem.handle = fileSystemHandle;
+    // const blob = new Blob([content], { type: 'text/xml' });
+    // const fileSystemHandle = await fileSave(blob, { fileName }, handle);
+    // webFsItem.handle = fileSystemHandle;
+
+
+
 
     // if (deletePrevName) { await rootDir.handle?.removeEntry(fileUs.fileCnt.fname); }
 

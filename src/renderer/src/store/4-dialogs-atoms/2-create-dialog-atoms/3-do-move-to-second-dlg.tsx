@@ -110,7 +110,7 @@ function initFileUsFname({ fileUs, makingCpass }: { fileUs: FileUs; makingCpass:
 
     fileUs.fileCnt.webFsItem = new WebFsItem({
         handle: undefined,
-        parent: rootDir.handle,
+        owner: rootDir.handle,
         legacyPath: rootDir.fpath,
     });
 }
