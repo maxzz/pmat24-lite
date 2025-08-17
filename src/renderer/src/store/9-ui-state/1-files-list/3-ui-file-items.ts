@@ -17,7 +17,7 @@ export const defaultFileListItemsState: FileListItemsState = {
     showIndex: false,
     showFname: false,
     showChosen: true,
-    showIeMarker: false,
+    showIeMarker: true,
     selectAsTrigger: false,
     selectEmptySpace: false,
     showCpassMarker: true,
