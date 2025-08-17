@@ -2,7 +2,6 @@ import { fileSave } from "browser-fs-access";
 import { type FileUs } from "@/store/store-types";
 import { type R2MInvoke } from "@shared/ipc-types";
 import { invokeMainTyped } from "@/xternal-to-main";
-import { asyncReloadCache } from "@/store/7-napi-atoms";
 import { rootDir } from "@/store/5-1-files";
 
 export async function moveByInTestFileSystem(fileUs: FileUs, inTest: boolean, getset: GetSet): Promise<R2MInvoke.EmptyOkOrError | undefined> {
@@ -20,12 +19,11 @@ export async function moveByInTestFileSystem(fileUs: FileUs, inTest: boolean, ge
         if (emptyOkOrError) {
             return emptyOkOrError;
         }
-        
+
         //TODO: check that we run not from the cache folder
 
-        fileCnt.fpath = newPath; //TODO: update fileCnt: path and handle. Should it be reactive?
+        fileCnt.fpath = newPath; //TODO: Should fpath be reactive?
     } else {
-        // return 'Not yet implemented';
         return await moveFromWeb({ fileUs, content, inTest });
     }
 }
@@ -54,64 +52,44 @@ async function moveFromWeb({ fileUs, content, inTest }: { fileUs: FileUs; conten
         return 'Cannot move wo/ ownerHandle';
     }
 
-    if (inTest) {
-        if (ownerHandle.name === 'c') {
-            return; // File is already in test mode
-        }
-
-        const newDirHandle = await rootDir.handle.getDirectoryHandle('c', { create: true });
-        if (!newDirHandle) {
-            return 'Cannot move to test mode';
-        }
-
-        const newFileHandle = await newDirHandle.getFileHandle(fileName, { create: true });
-
-        const blob = new Blob([content], { type: 'text/xml' });
-        const fileSystemHandle = await fileSave(blob, { fileName }, newFileHandle);
-
-        await ownerHandle.removeEntry(fileName);
-
-        webFsItem.owner = newDirHandle;
-        webFsItem.handle = fileSystemHandle;
-        fileCnt.fpath = `${rootDir.fpath}/c`;
-    } else {
-        if (ownerHandle.name !== 'c') {
-            return; // File is not in test mode
-        }
-
-        const newDirHandle = rootDir.handle;
-        const newFileHandle = await newDirHandle.getFileHandle(fileName, { create: true });
-
-        const blob = new Blob([content], { type: 'text/xml' });
-        const fileSystemHandle = await fileSave(blob, { fileName }, newFileHandle);
-
-        await ownerHandle.removeEntry(fileName);
-
-        webFsItem.owner = newDirHandle;
-        webFsItem.handle = fileSystemHandle;
-        fileCnt.fpath = rootDir.fpath;
+    if ((inTest && ownerHandle.name === 'c') || (!inTest && ownerHandle.name !== 'c')) {
+        return; // Already in the right mode
     }
 
+    const newDirHandle = inTest ? await rootDir.handle.getDirectoryHandle('c', { create: true }) : rootDir.handle;
+    if (!newDirHandle) {
+        return 'Cannot get new directory handle';
+    }
 
-    
-    // const needRename = fileName !== fileCnt.fname;
-    // let handle = webFsItem.handle?.kind === 'file' ? webFsItem.handle : null;
-    // // let deletePrevName = needRename && handle;
+    const newPath = inTest ? `${rootDir.fpath}/c` : rootDir.fpath;
+    const blob = new Blob([content], { type: 'text/xml' });
 
-    // if (needRename || fileCnt.newFile) {
-    //     handle = rootDir.handle ? await rootDir.handle.getFileHandle(fileName, { create: true }) : null;
-    // }
+    if (inTest) {
+        // const newDirHandle = await rootDir.handle.getDirectoryHandle('c', { create: true });
+        // if (!newDirHandle) {
+        //     return 'Cannot move to test mode';
+        // }
 
-    // const blob = new Blob([content], { type: 'text/xml' });
-    // const fileSystemHandle = await fileSave(blob, { fileName }, handle);
-    // webFsItem.handle = fileSystemHandle;
+        const newFileHandle = await newDirHandle.getFileHandle(fileName, { create: true });
+        const fileSystemHandle = await fileSave(blob, { fileName }, newFileHandle);
+        await ownerHandle.removeEntry(fileName);
 
+        webFsItem.owner = newDirHandle;
+        webFsItem.handle = fileSystemHandle;
+        // fileCnt.fpath = `${rootDir.fpath}/c`;
+        fileCnt.fpath = newPath;
+    } else {
+        // const newDirHandle = rootDir.handle;
 
+        const newFileHandle = await newDirHandle.getFileHandle(fileName, { create: true });
+        const fileSystemHandle = await fileSave(blob, { fileName }, newFileHandle);
+        await ownerHandle.removeEntry(fileName);
 
-
-    // if (deletePrevName) { await rootDir.handle?.removeEntry(fileUs.fileCnt.fname); }
+        webFsItem.owner = newDirHandle;
+        webFsItem.handle = fileSystemHandle;
+        // fileCnt.fpath = rootDir.fpath;
+        fileCnt.fpath = newPath;
+    }
 
     return undefined;
 }
-
-//TODO: web save to new, delete old, and update fileCnt: path and handle
