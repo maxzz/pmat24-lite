@@ -90,7 +90,8 @@ export const doSetDeliveredFilesAtom = atom(
                 }
             );
 
-        const { fileUsItems, unsupported } = filterUnsupportedFiles(initializedFileUsItems);
+        const { fileUsItems, unsupported } = splitOursAndNotOurs(initializedFileUsItems);
+        // updateWebParents(fileUsItems);
         sortFileUsItemsInPlaceAndSetIndices(fileUsItems);
 
         set(doAddFcToLoadedAtom, { fileUsItems, runningClearFiles });
@@ -108,7 +109,34 @@ export const doSetDeliveredFilesAtom = atom(
     }
 );
 
-function filterUnsupportedFiles(initializedFileUsItems: FileUs[]): { fileUsItems: FileUs[]; unsupported: FileUs[]; } {
+// function updateWebParents(fileUss: FileUs[]) {
+//     const folderHandlesMap = new Map<string, FileSystemDirectoryHandle>();
+
+//     fileUss.forEach(
+//         (fileUs) => {
+//             const webFsItem = fileUs.fileCnt.webFsItem;
+//             if (!webFsItem) {
+//                 return;
+//             }
+
+//             const owner = webFsItem.owner;
+//             if (!owner) {
+//                 return;
+//             }
+
+//             const folderHandle = folderHandlesMap.get(owner.name);
+//             if (!folderHandle) {
+//                 folderHandlesMap.set(owner.name, owner);
+//             }
+//         }
+//     );
+
+//     if (folderHandlesMap.size) {
+//         console.log('updateWebParents', folderHandlesMap);
+//     }
+// }
+
+function splitOursAndNotOurs(initializedFileUsItems: FileUs[]): { fileUsItems: FileUs[]; unsupported: FileUs[]; } {
     const { fcAllowed } = appSettings.files.shownManis;
 
     const unsupported: FileUs[] = [];
