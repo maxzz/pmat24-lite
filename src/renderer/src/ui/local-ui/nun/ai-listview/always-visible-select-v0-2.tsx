@@ -13,7 +13,7 @@ const SelectContent = forwardRef<ElementRef<typeof SelectPrimitive.Content>, Com
             <SelectPrimitive.Content
                 ref={ref}
                 className={cn(
-                    "relative z-50 min-w-[8rem] overflow-hidden rounded-md border bg-popover text-popover-foreground shadow-md",
+                    "relative z-50 min-w-32 overflow-hidden rounded-md border bg-popover text-popover-foreground shadow-md",
                     className
                 )}
                 position={position}
@@ -23,7 +23,7 @@ const SelectContent = forwardRef<ElementRef<typeof SelectPrimitive.Content>, Com
                     className={cn(
                         "p-1",
                         position === "popper" &&
-                        "h-[var(--radix-select-trigger-height)] w-full min-w-[var(--radix-select-trigger-width)]"
+                        "h-(--radix-select-trigger-height) w-full min-w-(--radix-select-trigger-width)"
                     )}
                 >
                     {children}
@@ -50,7 +50,7 @@ const SelectItem = forwardRef<ElementRef<typeof SelectPrimitive.Item>, Component
         <SelectPrimitive.Item
             ref={ref}
             className={cn(
-                "relative flex w-full cursor-default select-none items-center rounded-sm py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50",
+                "relative flex w-full cursor-default select-none items-center rounded-sm py-1.5 pl-8 pr-2 text-sm outline-hidden focus:bg-accent focus:text-accent-foreground data-disabled:pointer-events-none data-disabled:opacity-50",
                 className
             )}
             {...props}
@@ -97,7 +97,7 @@ export function ListviewWithSelectV2() {
         <div className="relative w-full max-w-xs mx-auto">
             11
             <Select value={selectedItem} onValueChange={handleValueChange} defaultOpen>
-                <SelectContent className="w-full border rounded-md shadow-sm">
+                <SelectContent className="w-full border rounded-md shadow-xs">
                     <SelectGroup>
                         <SelectLabel>Items</SelectLabel>
 

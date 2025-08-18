@@ -49,7 +49,7 @@ export function formTypeToIcon(props: IconEnumWithWarning[]): TreenIconComponent
         return (
             <div className="relative h-4 w-6">
                 <IconLogin className={classNames("absolute top-0 left-0 size-4", classesLogin, className)} {...rest} />
-                <IconCpass className={classNames("absolute top-2 left-2 !size-2.5 !fill-muted", classesCpass, className)} />
+                <IconCpass className={classNames("absolute top-2 left-2 size-2.5! fill-muted!", classesCpass, className)} />
             </div>
         );
     };

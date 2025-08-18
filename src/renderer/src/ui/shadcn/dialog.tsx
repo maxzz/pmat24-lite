@@ -13,7 +13,7 @@ const dialogOverlayClasses = "\
 fixed inset-0 z-50 \
 \
 bg-background/80 \
-backdrop-blur-sm \
+backdrop-blur-xs \
 \
 data-[state=open]:animate-in \
 data-[state=closed]:animate-out \
@@ -96,7 +96,7 @@ absolute right-4 top-4 \
 opacity-70 transition-opacity\
 \
 hover:opacity-100 \
-focus:outline-none \
+focus:outline-hidden \
 focus:ring-2 \
 focus:ring-ring \
 focus:ring-offset-2 \

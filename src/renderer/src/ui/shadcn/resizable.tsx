@@ -27,7 +27,7 @@ after:-translate-x-1/2 \
 after:w-1 \
 after:inset-y-0 \
 \
-focus-visible:outline-none \
+focus-visible:outline-hidden \
 focus-visible:ring-1 \
 focus-visible:ring-ring \
 focus-visible:ring-offset-1 \
