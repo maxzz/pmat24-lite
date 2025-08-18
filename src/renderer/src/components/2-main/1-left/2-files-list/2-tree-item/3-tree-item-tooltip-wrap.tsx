@@ -13,7 +13,7 @@ export function TreeItemTooltip({ trigger, body }: { trigger: ReactNode; body: R
                 </TooltipTrigger>
 
                 <TooltipPortal>
-                    <TooltipContent className="p-0 max-w-72 text-xs border-border border shadow">
+                    <TooltipContent className="p-0 max-w-72 text-xs border-border border shadow-sm">
                         {body}
                         <TooltipArrow className="fill-primary" />
                     </TooltipContent>
@@ -110,7 +110,7 @@ const ListViewWithDynamicTooltip: React.FC<ListViewProps> = ({ items }) => {
             <Tooltip open={!!activeItem} onOpenChange={handleTooltipOpenChange}>
                 <TooltipPortal>
                     <TooltipAllContent
-                        className="bg-sky-800 text-white p-2 rounded-md shadow-lg pointer-events-none z-[120]"
+                        className="bg-sky-800 text-white p-2 rounded-md shadow-lg pointer-events-none z-120"
                         // side="top"
                         // sideOffset={10}
                         onMouseEnter={handleTooltipContentMouseEnter}

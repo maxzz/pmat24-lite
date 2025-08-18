@@ -26,7 +26,7 @@ export function UiAccordion5Example() {
                             <AccordionTrigger className='w-full text-left text-zinc-950 dark:text-zinc-50'>
                                 <div className='flex items-center justify-between'>
                                     <div>{item.title}</div>
-                                    <ChevronUp className='size-4 -rotate-180 text-zinc-950 transition-transform duration-200 group-data-[expanded]:rotate-0 dark:text-zinc-50' />
+                                    <ChevronUp className='size-4 -rotate-180 text-zinc-950 transition-transform duration-200 group-data-expanded:rotate-0 dark:text-zinc-50' />
                                 </div>
                             </AccordionTrigger>
 

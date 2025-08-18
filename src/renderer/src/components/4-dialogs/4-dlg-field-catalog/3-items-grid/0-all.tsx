@@ -10,7 +10,7 @@ export function FldCatItemsGrid(props: { fceCtx: FceCtx; } & HTMLAttributes<HTML
     return (
         <FceScrollArea {...props}>
             <FldCatItemsBody
-                className={classNames("grid grid-cols-[minmax(32px,auto)_auto_minmax(0px,1fr)] outline-none select-none")}
+                className={classNames("grid grid-cols-[minmax(32px,auto)_auto_minmax(0px,1fr)] outline-hidden select-none")}
                 tabIndex={0}
                 fceCtx={props.fceCtx}
             />

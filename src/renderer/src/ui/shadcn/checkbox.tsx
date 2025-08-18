@@ -8,7 +8,7 @@ peer w-4 h-4 shrink-0 \
 \
 border-muted-foreground \
 \
-focus-visible:outline-none \
+focus-visible:outline-hidden \
 focus-visible:ring-1 \
 focus-visible:ring-ring \
 \

@@ -33,7 +33,7 @@ export function ListViewCo() {
         <FocusScope>
             <ScrollArea className="h-64 w-64 border border-gray-300 rounded-md overflow-auto">
                 <div
-                    className="focus:outline-none"
+                    className="focus:outline-hidden"
                     onKeyDown={handleKeyDown}
                     tabIndex={0}
                 >
