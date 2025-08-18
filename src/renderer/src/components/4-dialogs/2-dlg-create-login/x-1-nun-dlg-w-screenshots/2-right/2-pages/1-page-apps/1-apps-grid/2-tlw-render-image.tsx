@@ -49,11 +49,11 @@ export function TwlRenderImage({ info, idx, ...rest }: { info: TlwScreenshotInfo
     );
 }
 
-// const itemSelectedClasses = "outline outline-2 -outline-offset-2 outline-sky-500 outline-o rounded";
+// const itemSelectedClasses = "outline-solid outline-2 -outline-offset-2 outline-sky-500 outline-o rounded";
 // const itemSelectedClasses = "ring-2 ring-sky-500 1ring-offset-1 ring-o rounded";
 
 const itemSelectedClasses = "\
-outline outline-2 -outline-offset-2 outline-sky-500 outline-o \
+outline-2 -outline-offset-2 outline-sky-500 outline-o \
 ring-1 ring-sky-500 1ring-offset-1 ring-o \
 rounded-md \
 1transition-all 1duration-[300ms] \
@@ -62,13 +62,13 @@ rounded-md \
 // const checkboxClasses = "\
 // absolute left-2 top-1.5 p-1 size-6 \
 // text-black bg-white border-2 border-sky-500 \
-// shadow-sm shadow-slate-500 \
+// shadow-xs shadow-slate-500 \
 // rounded-full";
 
 const checkboxClasses = "\
 absolute left-3.5 top-3 p-1 size-6 \
 text-black bg-white border-2 border-sky-500 \
-shadow-sm shadow-slate-500 \
+shadow-xs shadow-slate-500 \
 rounded-full";
 
 function RenderData64({ data64, ...rest }: { data64: string; } & ComponentProps<'img'>): JSX.Element {

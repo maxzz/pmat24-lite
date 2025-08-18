@@ -30,7 +30,7 @@ export function ConfirmationDialog() {
     );
 }
 
-const contentClasses = "p-0 !w-72 rounded-lg max-w-sm data-[state=open]:[animation-duration:200ms]";
+const contentClasses = "p-0 w-72! rounded-lg max-w-sm data-[state=open]:[animation-duration:200ms]";
 
 function DialogBody({ confirmDialogOpen, onDlgClose }: { confirmDialogOpen: ConfirmationData; onDlgClose: (ok: boolean) => void; }) {
     const { ui: { icon, message, buttonOk, buttonCancel, isDafaultOk }, } = confirmDialogOpen;
@@ -42,7 +42,7 @@ function DialogBody({ confirmDialogOpen, onDlgClose }: { confirmDialogOpen: Conf
                 {message}
             </div>
 
-            <DialogFooter className={classNames("py-4 flex-row gap-2", buttonCancel ? "justify-end" : "!justify-center")}>
+            <DialogFooter className={classNames("py-4 flex-row gap-2", buttonCancel ? "justify-end" : "justify-center!")}>
                 <Button variant={isDafaultOk ? 'default' : 'outline'} onClick={() => onDlgClose(true)}>
                     {buttonOk}
                 </Button>

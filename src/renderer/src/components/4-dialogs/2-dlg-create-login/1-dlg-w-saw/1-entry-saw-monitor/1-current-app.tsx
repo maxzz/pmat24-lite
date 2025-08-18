@@ -90,7 +90,7 @@ function BuildCounter() {
     );
 }
 
-const cancelBtnClasses = "text-white bg-orange-500 hover:text-white hover:bg-orange-600 active:scale-[.97] shadow";
+const cancelBtnClasses = "text-white bg-orange-500 hover:text-white hover:bg-orange-600 active:scale-[.97] shadow-sm";
 
 function CurrentAppCaption({ className, ...rest }: ComponentPropsWithoutRef<typeof motion.div>) {
     const caption = useAtomValue(sawHandleCaptionAtom);

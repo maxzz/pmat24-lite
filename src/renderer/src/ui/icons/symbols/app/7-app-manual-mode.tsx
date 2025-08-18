@@ -11,7 +11,7 @@ export function SvgSymbolIconManualMode() { // one hand
 
 export function SymbolManualMode({ className, title, children, ...rest }: SVGAttributes<SVGSVGElement> & HTMLAttributes<SVGSVGElement>) {
     return (
-        <svg className={classNames("fill-none stroke-current scale-x-[-1] rotate-[25deg]", className)} {...rest}>
+        <svg className={classNames("fill-none stroke-current scale-x-[-1] rotate-25", className)} {...rest}>
             {title && <title>{title}</title>}
             {children}
             <use xlinkHref="#app-manual-mode" />

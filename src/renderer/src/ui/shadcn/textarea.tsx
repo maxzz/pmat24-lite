@@ -10,14 +10,14 @@ border-input \
 bg-transparent \
 placeholder:text-muted-foreground \
 \
-focus-visible:outline-none \
+focus-visible:outline-hidden \
 focus-visible:ring-1 \
 focus-visible:ring-ring \
 \
 disabled:opacity-50 \
 disabled:cursor-not-allowed \
 \
-border rounded-md shadow-sm \
+border rounded-md shadow-xs \
 flex";
 
 export const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(

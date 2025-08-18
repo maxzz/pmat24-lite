@@ -15,7 +15,7 @@ export function ButtonErrorInfo({ dlgUiCtx }: { dlgUiCtx: PolicyDlgTypes.PolicyU
             )}
 
             <PopoverPortal>
-                <PopoverContent className="relative mx-4 py-0 w-auto text-red-500 border-red-500 border shadow" sideOffset={5} align="center">
+                <PopoverContent className="relative mx-4 py-0 w-auto text-red-500 border-red-500 border shadow-sm" sideOffset={5} align="center">
 
                     <div className="my-3 text-xs">
                         <ErrorInfo errorText={errorText} />

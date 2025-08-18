@@ -27,7 +27,7 @@ after:-translate-x-1/2 \
 after:w-1 \
 after:inset-y-0 \
 \
-focus-visible:outline-none \
+focus-visible:outline-hidden \
 focus-visible:ring-1 \
 focus-visible:ring-ring \
 focus-visible:ring-offset-1 \
@@ -68,7 +68,7 @@ export const toysArrowClasses = "\
 p-px size-4 \
 invisible group-hover:visible transition-all delay-150 \
 bg-border \
-outline outline-1 outline-muted-foreground/30 \
+outline-1 outline-muted-foreground/30 \
 rounded-sm";
 
 export function ResizableHandleToys({ className, ...rest }: HTMLAttributes<HTMLDivElement>) {

@@ -13,7 +13,7 @@ export type ScrollAreaProps = ComponentPropsWithoutRef<typeof Prim.Root> & {
  * Additinal attribute ``data-fixed-width`` is used to prevent ScrollArea width from growing.
  * This is done by removing ``display: table`` from Prim.Viewport first utility div.
  * 
- * ``[&[data-fixed-width]>div>div]:![display:block]``
+ * ``[&[data-fixed-width]>div>div]:block!``
  * https://github.com/radix-ui/primitives/blob/main/packages/react/scroll-area/src/ScrollArea.tsx#L177
  * `display: table` ensures our content div will match the size of its children in both
  * horizontal and vertical axis so we can determine if scroll width/height changed and
@@ -21,11 +21,11 @@ export type ScrollAreaProps = ComponentPropsWithoutRef<typeof Prim.Root> & {
  * widths that change. We'll wait to see what use-cases consumers come up with there
  * before trying to resolve it.
  * 
- * const fixedWidthClasses = "[&[data-fixed-width]_[data-radix-scroll-area-content]]:![display:block]";
+ * const fixedWidthClasses = "[&[data-fixed-width]_[data-radix-scroll-area-content]]:block!";
  */
 const fullHeightClasses = "[&_[data-radix-scroll-area-viewport]>div]:h-full";
-const fixedWidthClasses = "[&_[data-radix-scroll-area-viewport]>div]:![display:block]"; // to block: display: table
-const parentContentWidthClasses = "[&_[data-radix-scroll-area-content]]:!min-w-0";
+const fixedWidthClasses = "[&_[data-radix-scroll-area-viewport]>div]:block!"; // to block: display: table
+const parentContentWidthClasses = "**:data-radix-scroll-area-content:min-w-0!";
 
 const ScrollArea = forwardRef<ElementRef<typeof Prim.Root>, ScrollAreaProps>(
     ({ className, children, horizontal, fixedWidth, fullHeight, parentContentWidth, ...rest }, ref) => (
@@ -87,8 +87,8 @@ const ScrollBar = forwardRef<ElementRef<typeof Prim.ScrollAreaScrollbar>, Compon
             orientation={orientation}
             className={cn(
                 "flex touch-none select-none transition-colors",
-                orientation === "vertical" && "w-2.5 h-full border-l border-l-transparent p-[1px]",
-                orientation === "horizontal" && "h-2.5 border-t border-t-transparent p-[1px]",
+                orientation === "vertical" && "w-2.5 h-full border-l border-l-transparent p-px",
+                orientation === "horizontal" && "h-2.5 border-t border-t-transparent p-px",
                 className
             )}
             {...rest}

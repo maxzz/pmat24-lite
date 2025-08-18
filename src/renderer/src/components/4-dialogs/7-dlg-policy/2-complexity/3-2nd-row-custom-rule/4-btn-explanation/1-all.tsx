@@ -12,7 +12,7 @@ export function ButtonRulesHelp() {
             <HelpTrigger />
 
             <PopoverPortal>
-                <PopoverContent className="relative mx-4 p-0 w-[460px] text-foreground bg-background border-border border shadow" sideOffset={5} align="center">
+                <PopoverContent className="relative mx-4 p-0 w-[460px] text-foreground bg-background border-border border shadow-sm" sideOffset={5} align="center">
 
                     <div className="my-3 text-xs">
                         <div className="mb-2 text-base text-center">

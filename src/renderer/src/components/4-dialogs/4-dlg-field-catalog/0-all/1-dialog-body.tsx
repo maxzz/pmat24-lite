@@ -63,7 +63,7 @@ function FceDialogPickerBody({ fceCtx }: { fceCtx: FceCtx; }) {
                 <FieldCatalogToolbar className="py-1" fceCtx={fceCtx} showPropsExpand={true} />
 
                 <div className="-mx-3 pt-1 h-full border-border 1border-b rounded flex">
-                    <FldCatItemsGrid className="flex-shrink-0" fceCtx={fceCtx} />
+                    <FldCatItemsGrid className="shrink-0" fceCtx={fceCtx} />
                     {/* <RightPanelGuard className="1relative 1bg-blue-300/10 px-2 py-2 border-border border-l 1z-10" fceCtx={fceCtx} /> */}
                 </div>
 

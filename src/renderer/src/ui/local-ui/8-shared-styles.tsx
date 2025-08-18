@@ -4,7 +4,7 @@ focus:ring-1 \
 focus:ring-offset-1 \
 focus:ring-mani-ring-activated \
 focus:ring-offset-mani-foreground dark:focus:ring-offset-mani-background \
-focus:outline-none";
+focus:outline-hidden";
 
 // this is not used
 export const inputClasses = "\
