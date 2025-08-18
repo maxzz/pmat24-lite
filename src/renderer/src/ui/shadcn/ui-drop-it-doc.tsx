@@ -8,7 +8,7 @@ export function DropItDoc({ doSetFilesFromDropAtom }: { doSetFilesFromDropAtom: 
     useDragHandlers({ doSetFilesFromDropAtom, activeAtom, });
     return (<>
         {active && (
-            <div className={`fixed inset-0 grid place-items-center text-5xl font-bold text-slate-50 bg-slate-800/90 z-99`}>
+            <div className={`fixed inset-0 grid place-items-center text-5xl font-bold text-slate-50 bg-slate-800/90 z-[99]`}>
                 Drop it!
             </div>
         )}

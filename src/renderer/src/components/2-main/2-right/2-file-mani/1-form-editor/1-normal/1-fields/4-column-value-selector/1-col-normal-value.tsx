@@ -90,6 +90,6 @@ rounded overflow-hidden";
 const inputClasses = "\
 px-2 py-3 h-7 \
 bg-mani-background text-mani-foreground \
-truncate outline-hidden";
+truncate outline-none";
 
-const inputAsRefClasses = "text-[0.6rem] text-blue-400! cursor-default";
+const inputAsRefClasses = "text-[0.6rem] !text-blue-400 cursor-default";

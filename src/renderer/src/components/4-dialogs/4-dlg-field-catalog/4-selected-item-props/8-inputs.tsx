@@ -22,7 +22,7 @@ export const inputFocusClasses = "\
 text-mani-foreground bg-mani-background \
 border-mani-border-muted border \
 \
-outline-hidden \
+outline-none \
 ring-mani-ring \
 focus:ring-1 \
 focus:ring-offset-1 \

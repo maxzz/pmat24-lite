@@ -34,7 +34,7 @@ min-w-60 min-h-0 \
 \
 grid \
 grid-cols-1 \
-grid-rows-[minmax(100px,1fr)_auto_auto] \
+grid-rows-[minmax(100px_1fr),auto,auto] \
 \
 @[600px]:grid-cols-2 \
 @[600px]:gap-y-0 \

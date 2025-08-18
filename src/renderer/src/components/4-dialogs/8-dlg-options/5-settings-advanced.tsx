@@ -80,7 +80,7 @@ export function AdvancedSettings() {
                     Field Catalog support allowed
                 </Label>
 
-                <Label className={classNames("col-start-2 has-disabled:opacity-50", rowClasses)}>
+                <Label className={classNames("col-start-2 has-[:disabled]:opacity-50", rowClasses)}>
                     <Checkbox checked={fcAllowed && showFieldCatalog} onCheckedChange={(v) => appSettings.appUi.uiAdvanced.showFieldCatalog = !!v} disabled={!fcAllowed} />
                     Show field catalog files
                 </Label>

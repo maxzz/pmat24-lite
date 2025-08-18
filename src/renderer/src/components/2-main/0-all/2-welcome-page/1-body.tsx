@@ -24,7 +24,7 @@ export function WelcomePage() {
         <MotionConfig transition={{ type: "spring", duration: .7 }}>
             {showWelcomePage && (
                 <motion.div
-                    className="absolute inset-0 bg-muted grid grid-rows-[1fr_auto_1fr] z-21"
+                    className="absolute inset-0 bg-muted grid grid-rows-[1fr_auto_1fr] z-[21]"
                     initial={{ opacity: 0, scale: 0.7 }}
                     animate={{ opacity: 1, scale: 1 }}
                 >

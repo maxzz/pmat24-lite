@@ -23,7 +23,7 @@ h-4 w-4 aspect-square \
 text-primary \
 border-primary \
 \
-focus:outline-hidden \
+focus:outline-none \
 focus-visible:ring-1 \
 focus-visible:ring-ring \
 \

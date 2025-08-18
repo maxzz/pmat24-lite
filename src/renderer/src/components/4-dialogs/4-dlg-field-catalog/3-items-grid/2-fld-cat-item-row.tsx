@@ -62,13 +62,13 @@ const parentActiveClasses = "\
 export const rowParentActiveClasses = `${listSelectionLightClasses} ${listSelectionDarkClasses} ${parentActiveClasses}`;
 
 export const rowSelectClasses = "\
-data-[list-item=selected]:text-(--selected-fg) hover:data-[list-item=selected]:text-(--selected-fg) \
-data-[list-item=selected]:bg-(--parent-selected-bg) hover:data-[list-item=selected]:bg-(--parent-selected-bg) \
+data-[list-item=selected]:text-[var(--selected-fg)] hover:data-[list-item=selected]:text-[var(--selected-fg)] \
+data-[list-item=selected]:bg-[var(--parent-selected-bg)] hover:data-[list-item=selected]:bg-[var(--parent-selected-bg)] \
 \
-data-[list-item=selected]:outline-solid \
-data-[list-item=selected]:[outline-width:calc(var(--parent-active)*1px)] \
-data-[list-item=selected]:-outline-offset-2 \
-outline-(--selected-outline)";
+data-[list-item=selected]:outline \
+data-[list-item=selected]:[outline-width:calc(var(--parent-active)_*_1px)] \
+data-[list-item=selected]:[outline-offset:-2px] \
+outline-[var(--selected-outline)]";
 
 // Specific to this file styles
 

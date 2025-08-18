@@ -16,7 +16,7 @@ import { appSettings } from "@/store/9-ui-state";
 // text-mani-title \
 // border-mani-title \
 // border-b";
-// // border-b-[0.2px]
+// // border-b-[length:0.2px]
 // // text-[#32ffdaa0] \
 // // border-[#32ffda40] \
 

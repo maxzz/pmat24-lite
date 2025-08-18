@@ -22,7 +22,7 @@ function Tile({ idx, className, ...rest }: { idx: number; } & ComponentPropsWith
     const isActive = sawPosition === idx;
     return (
         <div
-            className={classNames(tileClasses, isActive && "bg-accent!", className)}
+            className={classNames(tileClasses, isActive && "!bg-accent", className)}
             onClick={() => setPoisition(idx)}
             {...rest}
         />

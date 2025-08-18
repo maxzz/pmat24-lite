@@ -18,14 +18,14 @@ border-input \
 \
 ring-offset-background \
 \
-focus:outline-hidden \
+focus:outline-none \
 focus:ring-1 \
 focus:ring-ring \
 \
 disabled:cursor-not-allowed \
 disabled:opacity-50 \
 \
-border rounded-md shadow-xs \
+border rounded-md shadow-sm \
 \
 flex items-center justify-between";
 
@@ -42,7 +42,7 @@ const SelectTrigger = forwardRef<ElementRef<typeof Prim.Trigger>, ComponentProps
 SelectTrigger.displayName = Prim.Trigger.displayName;
 
 const selectContentClasses = "\
-z-50 relative min-w-32 \
+z-50 relative min-w-[8rem] \
 \
 text-popover-foreground bg-popover \
 \
@@ -70,8 +70,8 @@ data-[side=left]:-translate-x-1";
 
 const selectContentViewportPopperClasses = "\
 w-full \
-min-w-(--radix-select-trigger-width) \
-h-(--radix-select-trigger-height)";
+min-w-[var(--radix-select-trigger-width)] \
+h-[var(--radix-select-trigger-height)]";
 
 const SelectContent = forwardRef<ElementRef<typeof Prim.Content>, ComponentPropsWithoutRef<typeof Prim.Content>>(
     ({ className, children, position = "popper", ...rest }, ref) => (
@@ -148,10 +148,10 @@ relative py-1.5 w-full text-sm \
 focus:text-accent-foreground \
 focus:bg-accent \
 \
-data-disabled:opacity-50 \
-data-disabled:pointer-events-none \
+data-[disabled]:opacity-50 \
+data-[disabled]:pointer-events-none \
 \
-rounded-sm outline-hidden select-none cursor-default \
+rounded-sm outline-none select-none cursor-default \
 \
 flex items-center";
 

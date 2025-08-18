@@ -20,7 +20,7 @@ focus:bg-accent \
 data-[state=open]:text-accent-foreground \
 data-[state=open]:bg-accent \
 \
-rounded-sm outline-hidden select-none cursor-default \
+rounded-sm outline-none select-none cursor-default \
 flex items-center";
 
 const ContextMenuSubTrigger = forwardRef<ElementRef<typeof Prim.SubTrigger>, ComponentPropsWithoutRef<typeof Prim.SubTrigger> & { inset?: boolean; }>(
@@ -34,7 +34,7 @@ const ContextMenuSubTrigger = forwardRef<ElementRef<typeof Prim.SubTrigger>, Com
 ContextMenuSubTrigger.displayName = Prim.SubTrigger.displayName;
 
 const ContextMenuSubContentClasses = `${"\
-z-50 p-1 min-w-32 \
+z-50 p-1 min-w-[8rem] \
 text-popover-foreground bg-popover \
 border rounded-md shadow-md overflow-hidden \
 "} ${popupAnimatonClasses}`;
@@ -61,10 +61,10 @@ relative px-2 py-1.5 text-sm \
 focus:text-accent-foreground \
 focus:bg-accent \
 \
-data-disabled:opacity-50 \
-data-disabled:pointer-events-none \
+data-[disabled]:opacity-50 \
+data-[disabled]:pointer-events-none \
 \
-rounded-sm outline-hidden select-none cursor-default \
+rounded-sm outline-none select-none cursor-default \
 flex items-center";
 
 const ContextMenuItem = forwardRef<ElementRef<typeof Prim.Item>, ComponentPropsWithoutRef<typeof Prim.Item> & { inset?: boolean; }>(
@@ -80,10 +80,10 @@ relative pl-8 pr-2 py-1.5 text-sm \
 focus:text-accent-foreground \
 focus:bg-accent \
 \
-data-disabled:opacity-50 \
-data-disabled:pointer-events-none \
+data-[disabled]:opacity-50 \
+data-[disabled]:pointer-events-none \
 \
-rounded-sm outline-hidden select-none cursor-default \
+rounded-sm outline-none select-none cursor-default \
 flex items-center";
 
 const ContextMenuCheckboxItem = forwardRef<ElementRef<typeof Prim.CheckboxItem>, ComponentPropsWithoutRef<typeof Prim.CheckboxItem>>(

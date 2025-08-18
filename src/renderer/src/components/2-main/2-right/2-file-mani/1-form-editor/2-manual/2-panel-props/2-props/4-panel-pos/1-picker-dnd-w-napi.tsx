@@ -55,7 +55,7 @@ function NapiPicker({ fileUsCtx }: { fileUsCtx: FileUsCtx; }) {
 
     return (
         <div
-            className="p-1 inline-block border-border border rounded shadow-sm"
+            className="p-1 inline-block border-border border rounded shadow"
             onPointerDown={onPointerDown}
             onPointerUp={onPointerUp}
             onPointerMove={onPointerMove}

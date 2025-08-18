@@ -14,7 +14,7 @@ export function DialogSawMonitor() {
     return (
         <AnimatePresence initial={false}>
             {isOpen && (
-                <motion.div initial={false} className="fixed inset-0 bg-background 1bg-sky-300 z-100" {...animationProps}>
+                <motion.div initial={false} className="fixed inset-0 bg-background 1bg-sky-300 z-[100]" {...animationProps}>
                     {isOpen && (
                         <SawMonitorDlgBody />
                     )}
@@ -78,7 +78,7 @@ const animationProps: MotionNodeOptions = {
 
 // const dialogClasses = "\
 // p-0 \
-// w-11/12! max-w-5xl \
+// !w-11/12 max-w-5xl \
 // h-4/5 min-h-[60vh] max-h-[90vh] \
 // rounded-md \
 // data-[state=open]:[animation-duration:200ms] \

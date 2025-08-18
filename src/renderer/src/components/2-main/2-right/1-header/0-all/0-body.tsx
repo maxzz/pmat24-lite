@@ -32,7 +32,7 @@ export function R_PanelHeaderBody() {
 
 function HeaderContent({ fileUs, fileUsAtom }: { fileUs: FileUs; fileUsAtom: FileUsAtom; }) {
     return (
-        <div className={classNames(panelHeaderClasses, "pr-1! max-w-4xl xl:border-r border-border grid")}>
+        <div className={classNames(panelHeaderClasses, "!pr-1 max-w-4xl xl:border-r border-border grid")}>
             <div className="min-w-0 flex items-center justify-between">
                 <Row1_ManiChooseName fileUs={fileUs} />
 

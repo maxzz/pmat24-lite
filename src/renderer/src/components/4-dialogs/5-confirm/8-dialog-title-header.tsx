@@ -12,7 +12,7 @@ export function DialogTitleHeader({ title, className, children, onDlgClose }: Di
                 <div>
                     {title}
                 </div>
-                <DialogCloseButton className="!relative right-0! top-0! p-2 hover:text-white hover:bg-red-500 hover:opacity-100" tabIndex={-1} onClick={() => onDlgClose(false)} />
+                <DialogCloseButton className="!relative !right-0 !top-0 p-2 hover:text-white hover:bg-red-500 hover:opacity-100" tabIndex={-1} onClick={() => onDlgClose(false)} />
             </DialogHeader>
 
             {children}

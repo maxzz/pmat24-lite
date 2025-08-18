@@ -40,7 +40,7 @@ export function FilesTreeView() {
                 <Tree
                     data={dataWithState}
                     treeState={treeState}
-                    className="size-full outline-hidden"
+                    className="size-full outline-none"
                     scrollAreaProps={{ parentContentWidth: true, fixedWidth: true }}
                     IconTextRender={TreeItemRowRender}
                     IconForFolder={IconFolder}

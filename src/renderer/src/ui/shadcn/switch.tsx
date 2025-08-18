@@ -11,7 +11,7 @@ focus-visible:ring-2 \
 focus-visible:ring-offset-2 \
 focus-visible:ring-ring \
 focus-visible:ring-offset-background \
-focus-visible:outline-hidden \
+focus-visible:outline-none \
 \
 disabled:opacity-50 \
 disabled:cursor-not-allowed \
@@ -20,7 +20,7 @@ data-[state=checked]:bg-primary \
 data-[state=unchecked]:bg-input \
 \
 transition-colors \
-border-2 rounded-full shadow-xs cursor-pointer \
+border-2 rounded-full shadow-sm cursor-pointer \
 shrink-0 \
 inline-flex items-center";
 

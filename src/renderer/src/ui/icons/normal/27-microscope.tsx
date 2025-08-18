@@ -3,7 +3,7 @@ import { classNames } from "@/utils";
 
 export function IconMicroscope({ className, title, ...rest }: SVGAttributes<SVGSVGElement> & HTMLAttributes<SVGSVGElement>) {
     return (
-        <svg className={classNames("stroke-10 stroke-current fill-none", className)} strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 139 139" {...rest}>
+        <svg className={classNames("stroke-[10] stroke-current fill-none", className)} strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 139 139" {...rest}>
             {title && <title>{title}</title>}
             {/* tm favicon */}
             <path d="M34 18h26v53H34zM34 9h26M31 71h32M47 9v9M38 72h19v11H38zM60 49c32 0 35 10 35 37" />

@@ -2,7 +2,7 @@ import { HTMLAttributes } from "react";
 import { classNames } from "@/utils";
 
 const cls1Classes = "fill-current stroke-none";
-const cls3Classes = "fill-none stroke-current [stroke-linecap:round] [stroke-miterlimit:10] stroke-[0.75px]";
+const cls3Classes = "fill-none stroke-current [stroke-linecap:round] [stroke-miterlimit:10] [stroke-width:0.75px]";
 
 export function IconExPol04Proxy({ className, title, ...rest }: HTMLAttributes<SVGSVGElement>) {
     return (

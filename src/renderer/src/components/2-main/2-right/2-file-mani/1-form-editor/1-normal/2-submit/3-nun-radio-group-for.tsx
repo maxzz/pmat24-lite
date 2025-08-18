@@ -23,7 +23,7 @@ type RadioGroupProps = {
 
 export function RadioGroup({ items, groupName, selected, setSelected }: RadioGroupProps) {
     return (
-        <div className="px-3 py-2 min-w-56 max-w-max bg-background rounded flex flex-col space-y-1">
+        <div className="px-3 py-2 min-w-[14rem] max-w-max bg-background rounded flex flex-col space-y-1">
             {items.map(
                 (item, idx) => (
                     <RadioButton

@@ -17,7 +17,7 @@ file:font-medium \
 \
 placeholder:text-muted-foreground \
 \
-focus-visible:outline-hidden \
+focus-visible:outline-none \
 focus-visible:ring-1 \
 focus-visible:ring-ring \
 \
@@ -25,7 +25,7 @@ disabled:opacity-50 \
 disabled:cursor-not-allowed \
 \
 transition-colors \
-border rounded-md shadow-xs \
+border rounded-md shadow-sm \
 flex";
 
 const Input = forwardRef<HTMLInputElement, InputProps>(

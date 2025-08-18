@@ -1,11 +1,8 @@
 import { dirname, join, resolve } from "path";
 import { fileURLToPath } from "url";
-import { type PluginOption, type UserConfig } from 'vite';
 import { defineConfig, externalizeDepsPlugin } from "electron-vite";
 import react from "@vitejs/plugin-react";
-//import tailwindcss from "@tailwindcss/vite";
 //console.log('------ electron.vite.config.ts:__dirname =', __dirname);
-import { visualizer } from 'rollup-plugin-visualizer';
 
 const __dirnameEsm = dirname(fileURLToPath(import.meta.url));
 
@@ -64,15 +61,7 @@ export default defineConfig({
         build: {
             rollupOptions: { output: { manualChunks, } }, // minify: false,
         },
-        plugins: [
-            react(),
-            visualizer({
-                filename: 'visualization.html',
-                template: 'sunburst', // sunburst - d3 style (good as default as well); treemap - table (default); network - graph (slow to open).
-                gzipSize: true,
-                brotliSize: true,
-            }),
-        ]
+        plugins: [react()]
     }
 });
 
@@ -80,9 +69,9 @@ function manualChunks(id: string) { //https://rollupjs.org/configuration-options
     // if (id.includes("react-dom")) { //https://github.com/Krishnagopal-Sinha/better-nothing-glyph-composer/blob/main/vite.config.ts
     //     return "vendor-dom";
     // }
-
+    
     //console.log(`chunks: ${id}`);
-
+    
     // if (id.includes("react-dom") || id.includes("react@")) {
     //     return "vendor-dom";
     // }

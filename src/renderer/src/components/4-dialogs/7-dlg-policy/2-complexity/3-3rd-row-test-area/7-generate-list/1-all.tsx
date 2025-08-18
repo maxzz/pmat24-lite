@@ -13,7 +13,7 @@ export function ButtonGeneratedList({ openAtom }: { openAtom: PrimitiveAtom<bool
             </PopoverTrigger>
 
             <PopoverPortal>
-                <PopoverContent className="relative mx-4 p-0 w-auto min-w-52 text-foreground bg-background border-border border shadow-sm" sideOffset={5} align="center">
+                <PopoverContent className="relative mx-4 p-0 w-auto min-w-52 text-foreground bg-background border-border border shadow" sideOffset={5} align="center">
 
                     <ListBody open={open} />
                     <PopoverArrorWoBottom className="fill-muted stroke-border" />

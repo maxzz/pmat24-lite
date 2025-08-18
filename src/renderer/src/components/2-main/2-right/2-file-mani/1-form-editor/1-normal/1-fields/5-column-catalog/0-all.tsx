@@ -13,7 +13,7 @@ bg-mani-background \
 border-mani-border-muted border \
 rounded overflow-hidden cursor-pointer";
 
-const selectAsRefClasses = "text-[0.6rem] text-blue-400! cursor-default";
+const selectAsRefClasses = "text-[0.6rem] !text-blue-400 cursor-default";
 
 type Column5_CatalogProps = Omit<InputHTMLAttributes<HTMLInputElement>, 'value'> & {
     rowCtx: FieldRowCtx;

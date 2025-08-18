@@ -4,7 +4,7 @@ import { Textarea, TextareaProps } from "./textarea";
 
 // https://css-tricks.com/the-cleanest-trick-for-autogrowing-textareas
 const containerClasses = '\
-after:[content:attr(data-replicated)_"_"]! \
+after:![content:attr(data-replicated)_"_"] \
 after:whitespace-pre \
 after:border-transparent \
 after:invisible \

@@ -22,7 +22,7 @@ export function ManiNameDialog() {
     );
 }
 
-const contentClasses = "p-0 w-72! rounded-lg max-w-sm gap-0 data-[state=open]:[animation-duration:200ms]";
+const contentClasses = "p-0 !w-72 rounded-lg max-w-sm gap-0 data-[state=open]:[animation-duration:200ms]";
 
 function DialogBody({ dlgData, onCloseDlg }: { dlgData: ManiNameDlgData; onCloseDlg: (ok: boolean) => void; }) {
     const { nameAtom } = dlgData;

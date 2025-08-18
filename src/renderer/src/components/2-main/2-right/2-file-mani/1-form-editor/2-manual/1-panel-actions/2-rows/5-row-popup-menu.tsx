@@ -20,7 +20,7 @@ export function RowMenuButton({ menuState }: { menuState: PopupMenuItemState; })
     useClickAway(btnRef, () => setMenuOpen(false));
 
     return (
-        <button ref={btnRef} className={classNames("relative mr-1 outline-hidden")} tabIndex={-1}>
+        <button ref={btnRef} className={classNames("relative mr-1 outline-none")} tabIndex={-1}>
             <IconMenuHamburger5 className={IconMenuClasses} onClick={onClose} />
 
             {menuOpen && (

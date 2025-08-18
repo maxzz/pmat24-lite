@@ -5,7 +5,7 @@ mr-2 pl-1 py-1 \
 before:absolute \
 before:left-0 \
 before:w-full \
-before:h-7 \
+before:h-[1.75rem] \
 before:bg-muted/80 before:opacity-0 hover:before:opacity-100 \
 before:-z-10 \
 ";
@@ -49,7 +49,7 @@ before:border-l-2 \
 before:border-l-accent-foreground/50 \
 \
 outline-primary-400 \
-[outline-width:calc(var(--parent-active)*1px)] \
+[outline-width:calc(var(--parent-active)_*_1px)] \
 outline rounded-[3px] \
 ";
 

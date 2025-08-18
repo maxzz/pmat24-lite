@@ -20,7 +20,7 @@ export function DebugFrame({ className, children, ...rest }: ComponentPropsWitho
         return (
             <div className={classNames(debugFrameClasses, className)} {...rest}>
 
-                <div className="absolute left-0 -top-16 py-0.5 w-full text-right border-border/75 border rounded-md shadow-sm opacity-50">
+                <div className="absolute left-0 -top-16 py-0.5 w-full text-right border-border/75 border rounded-md shadow opacity-50">
                     <DebugButtonsForSaw className="scale-[.74] origin-left" />
                 </div>
 
@@ -42,4 +42,4 @@ export function DebugFrame({ className, children, ...rest }: ComponentPropsWitho
 }
 
 const electFrameClasses = "relative bg-muted/10 1bg-sky-400/20";
-const debugFrameClasses = "relative w-[320px] bg-muted/10 1bg-sky-400/20 border-border/30 border shadow-sm rounded-md";
+const debugFrameClasses = "relative w-[320px] bg-muted/10 1bg-sky-400/20 border-border/30 border shadow rounded-md";
