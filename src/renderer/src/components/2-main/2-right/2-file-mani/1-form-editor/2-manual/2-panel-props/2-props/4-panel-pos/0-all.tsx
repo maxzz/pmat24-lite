@@ -24,7 +24,7 @@ export function PropsEditorPos({ item, fileUsCtx }: { item: ManualFieldState.Ctx
     );
 
     return (
-        <div className="h-full grid grid-rows-[auto,1fr,auto]">
+        <div className="h-full grid grid-rows-[auto_1fr_auto]">
             <div className="grid grid-cols-[auto_auto_1fr] gap-x-2" style={{ gridTemplateAreas: "'r11 r12 r13' 'r21 r22 r23' 'r33 r33 r33'" }}>
                 <div className="pb-0.5">
                     x

@@ -46,7 +46,7 @@ export function ThemeSwitch({ className, heightClasses = "h-6", ...rest }: Compo
 
 function MenuItem({ label, theme, current }: { label: string; theme: ThemeMode; current: ThemeMode; }) {
     return (
-        <DropdownMenuItem className="text-xs grid grid-cols-[16px,1fr] items-center gap-x-2" onClick={() => appSettings.appUi.theme = theme}>
+        <DropdownMenuItem className="text-xs grid grid-cols-[16px_1fr] items-center gap-x-2" onClick={() => appSettings.appUi.theme = theme}>
             {current === theme && <CheckIcon className="size-4" />}
 
             <div className="col-start-2">

@@ -5,7 +5,7 @@ export function Page3OptionsBody() {
     // const doSetScreenshots = useSetAtom(doSetScreenshotsAtom);
     // useState(() => doSetScreenshots(300));
     return (
-        <div className="h-full text-xs bg-yellow-300 grid grid-rows-[auto,1fr,auto]">
+        <div className="h-full text-xs bg-yellow-300 grid grid-rows-[auto_1fr_auto]">
             <WizardPageHeader page={WizardPage.options} />
 
             <div className="relative size-full">

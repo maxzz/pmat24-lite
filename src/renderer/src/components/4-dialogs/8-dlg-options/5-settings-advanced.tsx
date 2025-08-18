@@ -24,7 +24,7 @@ export function AdvancedSettings() {
 
     return (
         <SectionTitle title="Hidden from the end user debug only">
-            <div className="py-1 grid grid-cols-[auto,auto] gap-2 grid-flow-dense">
+            <div className="py-1 grid grid-cols-[auto_auto] gap-2 grid-flow-dense">
 
                 {/* 1st column */}
 

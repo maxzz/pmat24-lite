@@ -14,7 +14,7 @@ export function RuleExplanation({ dlgUiCtx }: { dlgUiCtx: PolicyDlgTypes.PolicyU
                     Explanation of test password complexity. Password should consist of
                 </div>
 
-                <div className="pl-4 text-xs grid grid-cols-[auto,1fr] gap-x-2">
+                <div className="pl-4 text-xs grid grid-cols-[auto_1fr] gap-x-2">
 
                     {explanation.split('\n').filter(Boolean).map(
                         (line, idx) => (

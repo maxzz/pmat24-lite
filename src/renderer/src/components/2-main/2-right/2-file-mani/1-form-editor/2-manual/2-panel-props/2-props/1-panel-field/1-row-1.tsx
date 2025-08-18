@@ -8,7 +8,7 @@ import { Column3_Label } from "../../../../1-normal/1-fields";
 export function FirstRow({ item, fileUsCtx }: { item: ManualFieldState.CtxFld; fileUsCtx: FileUsCtx; }) {
     const { useItAtom, labelAtom } = item.rowCtx;
     return (
-        <div className="grid grid-cols-[auto,1fr] gap-2">
+        <div className="grid grid-cols-[auto_1fr] gap-2">
             <InputLabel label="Type">
                 <Col_ManualFieldType item={item} />
             </InputLabel>

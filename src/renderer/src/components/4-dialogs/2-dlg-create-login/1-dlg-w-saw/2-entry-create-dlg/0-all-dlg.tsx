@@ -50,7 +50,7 @@ function DialogSawBody({ onCloseDlg }: { onCloseDlg: (ok: boolean) => void; }) {
                 </Button>
             </D.DialogHeader>
 
-            <div className="size-full text-xs 1bg-sky-300 grid grid-rows-[auto,auto,1fr]">
+            <div className="size-full text-xs 1bg-sky-300 grid grid-rows-[auto_auto_1fr]">
                 <SawPageHeader />
                 <ManiLoginNameGuarded />
                 <NewManiContentEditorSelector />

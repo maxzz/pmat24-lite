@@ -48,7 +48,7 @@ function HelpTrigger() {
 
 function RulesHelpBody() {
     return (
-        <div className="mb-4 px-4 grid grid-cols-[auto,auto] gap-2">
+        <div className="mb-4 px-4 grid grid-cols-[auto_auto] gap-2">
             {helpRules.map((rule, idx) => (
                 <Fragment key={idx}>
                     <div className="text-center font-bold">
