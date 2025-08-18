@@ -16,4 +16,4 @@ text-mani-foreground bg-mani-background \
 border-mani-border-muted border \
 \
 rounded-sm \
-outline-none";
+outline-hidden";

@@ -573,7 +573,7 @@ const SelectContentImpl = React.forwardRef<SelectContentImplElement, SelectConte
                 window.addEventListener('blur', close);
                 window.addEventListener('resize', close);
                 return () => {
-                    window.removeEventListener('blur', close);
+                    window.removeEventListener('blur-sm', close);
                     window.removeEventListener('resize', close);
                 };
             }, [onOpenChange]

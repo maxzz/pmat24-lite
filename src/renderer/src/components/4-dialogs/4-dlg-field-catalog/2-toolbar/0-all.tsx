@@ -35,4 +35,4 @@ export function FieldCatalogToolbar({ fceCtx, showPropsExpand, className }: Fiel
     <Button className={inputFocusClasses}>Sort by</Button>
 */}
 
-// const pressClasses = "active:outline-none active:scale-x-[.97] active:shadow-none"; //TODO: make it global
+// const pressClasses = "active:outline-hidden active:scale-x-[.97] active:shadow-none"; //TODO: make it global

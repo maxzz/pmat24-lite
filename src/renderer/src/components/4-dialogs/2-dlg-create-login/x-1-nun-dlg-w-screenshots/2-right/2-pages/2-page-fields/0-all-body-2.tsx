@@ -4,7 +4,7 @@ import { NewManiContentEditorSelector } from "@/components/4-dialogs/2-dlg-creat
 
 export function Page2FieldsBody() {
     return (
-        <div className="size-full text-xs 1bg-sky-300 grid grid-rows-[auto,1fr,auto]">
+        <div className="size-full text-xs 1bg-sky-300 grid grid-rows-[auto_1fr_auto]">
             <WizardPageHeader page={WizardPage.fields} />
 
             <NewManiContentEditorSelector />

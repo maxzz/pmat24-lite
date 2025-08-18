@@ -31,7 +31,7 @@ function MenuRow({ type, password, addNew }: { type: ChunkKey; password?: boolea
     const dispName = rowColumnActionName(type);
     return (
         <DropdownMenuItem
-            className={classNames(menuItemClasses, "text-xs grid grid-cols-[auto,1fr] gap-x-2 items-center")}
+            className={classNames(menuItemClasses, "text-xs grid grid-cols-[auto_1fr] gap-x-2 items-center")}
             onClick={(event) => addNew({ type, password, event })}
         >
             <RowColumnIcon type={type} />
@@ -47,6 +47,6 @@ const buttonClasses = "\
 mr-2.5 size-6 \
 hover:bg-primary-200 dark:hover:bg-primary-700 \
 border-muted-foreground/20 \
-border rounded outline-none \
-shadow-sm dark:shadow-primary-900 \
+border rounded outline-hidden \
+shadow-xs dark:shadow-primary-900 \
 grid place-items-center";

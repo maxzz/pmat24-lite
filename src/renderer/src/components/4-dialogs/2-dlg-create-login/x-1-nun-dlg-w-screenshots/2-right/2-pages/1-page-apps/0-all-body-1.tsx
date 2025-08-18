@@ -8,7 +8,7 @@ import { ButtonReloadApps } from "./2-btn-refresh-apps";
 export function Page1AppsBody() {
     const [createAsManual, setCreateAsManual] = useAtom(newManiCtx.createAsManualAtom);
     return (
-        <div className="h-full text-xs grid grid-rows-[auto,1fr,auto]">
+        <div className="h-full text-xs grid grid-rows-[auto_1fr_auto]">
             <div className="flex items-center justify-between gap-2">
                 <WizardPageHeader page={WizardPage.apps} />
 

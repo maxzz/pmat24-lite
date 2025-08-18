@@ -29,7 +29,7 @@ function AppIcon({ className, ...rest }: ComponentPropsWithoutRef<'div'>) {
     const imageElm = useAtomValue(sawIconAtom);
     const showProgress = useAtomValue(showProgressAtom);
     return (
-        <div className={classNames("relative h-8 grid grid-cols-[1fr,2rem,1fr] gap-x-2 select-none", className)} {...rest}>
+        <div className={classNames("relative h-8 grid grid-cols-[1fr_2rem_1fr] gap-x-2 select-none", className)} {...rest}>
             {showProgress
                 ? <DetectionProgress />
                 : hasHandle
@@ -90,7 +90,7 @@ function BuildCounter() {
     );
 }
 
-const cancelBtnClasses = "text-white bg-orange-500 hover:text-white hover:bg-orange-600 active:scale-[.97] shadow";
+const cancelBtnClasses = "text-white bg-orange-500 hover:text-white hover:bg-orange-600 active:scale-[.97] shadow-sm";
 
 function CurrentAppCaption({ className, ...rest }: ComponentPropsWithoutRef<typeof motion.div>) {
     const caption = useAtomValue(sawHandleCaptionAtom);

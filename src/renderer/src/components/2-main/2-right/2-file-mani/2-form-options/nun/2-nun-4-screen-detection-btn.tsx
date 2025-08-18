@@ -50,11 +50,11 @@ function AppOptionsDialog({ oFormProps }: { oFormProps: OFormProps; }) {
     );
 }
 
-const contentClasses = "p-0 !w-4/5 max-w-xl h-4/5 min-h-56 max-h-[700px] data-[state=open]:[animation-duration:200ms]";
+const contentClasses = "p-0 w-4/5! max-w-xl h-4/5 min-h-56 max-h-[700px] data-[state=open]:[animation-duration:200ms]";
 
 function DialogOptionsBody({ setIsOpen, oFormProps }: { setIsOpen: (v: boolean) => void; oFormProps: OFormProps; }) {
     return (
-        <div className="text-xs select-none grid grid-rows-[auto,1fr,auto]">
+        <div className="text-xs select-none grid grid-rows-[auto_1fr_auto]">
             <D.DialogHeader className="relative text-base font-bold border-border border-b flex items-center">
                 <div className="py-2">PMAT Options</div>
                 <D.DialogCloseButton className="right-1 -top-0.5 p-2 hover:bg-muted hover:rounded-md" tabIndex={-1} onClick={() => setIsOpen(false)} />

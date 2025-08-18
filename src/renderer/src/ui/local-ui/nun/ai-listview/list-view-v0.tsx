@@ -70,7 +70,7 @@ export function ListViewV0({ items = [] }: ListViewProps) {
 
     return (
         <FocusScope>
-            <ScrollArea.Root className="w-[300px] h-[400px] rounded-md border border-gray-200 shadow-sm">
+            <ScrollArea.Root className="w-[300px] h-[400px] rounded-md border border-gray-200 shadow-xs">
                 <ScrollArea.Viewport ref={viewportRef} className="w-full h-full">
                     <ul
                         ref={listRef}
@@ -85,7 +85,7 @@ export function ListViewV0({ items = [] }: ListViewProps) {
                                         tabIndex={0}
                                         role="option"
                                         aria-selected="false"
-                                        className="p-2 rounded-md hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                        className="p-2 rounded-md hover:bg-gray-100 focus:outline-hidden focus:ring-2 focus:ring-blue-500"
                                     >
                                         {item.content}
                                     </li>

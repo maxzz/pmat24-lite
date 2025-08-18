@@ -38,7 +38,7 @@ function SingleRowWRef({ mFormProps, chunk, menuState, idx, ...rest }: SingleRow
 
 const rowLocalClasses = "\
 mx-1 py-px leading-6 \
-grid grid-cols-[min-content,5rem,1fr,min-content] items-center \
+grid grid-cols-[min-content_5rem_1fr_min-content] items-center \
 \
 text-foreground bg-background \
 hover:text-accent-foreground hover:bg-muted \

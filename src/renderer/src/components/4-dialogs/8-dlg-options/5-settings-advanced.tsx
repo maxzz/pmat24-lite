@@ -24,7 +24,7 @@ export function AdvancedSettings() {
 
     return (
         <SectionTitle title="Hidden from the end user debug only">
-            <div className="py-1 grid grid-cols-[auto,auto] gap-2 grid-flow-dense">
+            <div className="py-1 grid grid-cols-[auto_auto] gap-2 grid-flow-dense">
 
                 {/* 1st column */}
 
@@ -80,7 +80,7 @@ export function AdvancedSettings() {
                     Field Catalog support allowed
                 </Label>
 
-                <Label className={classNames("col-start-2 has-[:disabled]:opacity-50", rowClasses)}>
+                <Label className={classNames("col-start-2 has-disabled:opacity-50", rowClasses)}>
                     <Checkbox checked={fcAllowed && showFieldCatalog} onCheckedChange={(v) => appSettings.appUi.uiAdvanced.showFieldCatalog = !!v} disabled={!fcAllowed} />
                     Show field catalog files
                 </Label>

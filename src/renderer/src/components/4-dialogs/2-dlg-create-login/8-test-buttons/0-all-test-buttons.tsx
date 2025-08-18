@@ -23,7 +23,7 @@ export function DebugButtonsForSaw({ className, ...rest }: ComponentPropsWithout
     const doDissmissNextToasts = useSetAtom(doDissmissNextToastsAtom);
     const doUpdateHwndAndIcon = useSetAtom(doUpdateHwndAndIconAtom); // hwnd caption won't be updated by monitoring untill we force hwnd change
     return (
-        <div className={classNames("grid grid-cols-[1fr,auto] gap-1 select-none", className)} {...rest}>
+        <div className={classNames("grid grid-cols-[1fr_auto] gap-1 select-none", className)} {...rest}>
             <div className="px-2 py-0.5 text-[.67rem] grid grid-cols-[auto_auto_auto_auto_auto] grid-rows-2 gap-x-2">
                 <RowHwns />
                 <RowManiContent />

@@ -6,6 +6,6 @@ export function Block1_General({ oFormProps }: { oFormProps: OFormProps; }) {
     return (<>
         <InputWithTitle2Cols stateAtom={descAtom} label="Description" />
         <InputWithTitle2Cols stateAtom={hintAtom} label="User hint" />
-        <InputWithTitle2Cols stateAtom={balloonAtom} label="First login notification counter" containerClasses="!w-16" />
+        <InputWithTitle2Cols stateAtom={balloonAtom} label="First login notification counter" containerClasses="w-16!" />
     </>);
 }

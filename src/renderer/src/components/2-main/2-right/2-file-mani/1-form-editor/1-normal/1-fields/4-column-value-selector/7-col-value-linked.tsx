@@ -21,7 +21,7 @@ const inputTypes: OptionTextValue[] = [
     //["Confirm new passowrd", "out"], // new password //TODO: confirm new password, so far two new passwords are the same
 ];
 
-const inputAsRefClasses = "w-full text-[0.6rem] !text-blue-400 cursor-pointer";
+const inputAsRefClasses = "w-full text-[0.6rem] text-blue-400! cursor-pointer";
 
 // rfield: string;                 // 'in' | 'out': in(old psw) - from login form field value, out(new psw) - to login form field value
 // rfieldIndex: number;            // Index to password field in login from cpass, like '2'

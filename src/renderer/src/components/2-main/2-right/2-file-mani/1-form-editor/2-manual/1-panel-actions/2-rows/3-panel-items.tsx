@@ -19,7 +19,7 @@ export function PanelActionsListWoRef({ mFormProps }: { mFormProps: MFormProps; 
     return (<>
         <div
             ref={ref}
-            className={classNames("min-h-10 outline-none", rowParentActiveClasses)}
+            className={classNames("min-h-10 outline-hidden", rowParentActiveClasses)}
             onKeyDown={(e) => selectByKey(ctx, e.key)}
             tabIndex={0}
             {...panelActionsListId(mFormProps.mFormCtx.fileUsCtx.formIdx)}

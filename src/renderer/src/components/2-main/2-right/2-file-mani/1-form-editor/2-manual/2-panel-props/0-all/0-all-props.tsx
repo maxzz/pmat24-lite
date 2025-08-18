@@ -30,7 +30,7 @@ export function ManualPanelProps({ mFormProps, className, ...rest }: { mFormProp
 }
 
 const PanelPropsClasses = "\
-grid grid-rows-[auto,1fr] gap-2 \
+grid grid-rows-[auto_1fr] gap-2 \
 overflow-hidden \
 select-none";
 

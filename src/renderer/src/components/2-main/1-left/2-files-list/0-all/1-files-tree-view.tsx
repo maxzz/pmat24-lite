@@ -35,12 +35,12 @@ export function FilesTreeView() {
         <div className="relative size-full">
             <div className="absolute inset-px bottom-0.5 text-xs select-none">
                 
-                {/* <div className="size-full grid grid-rows-[1fr,auto]"> */}
+                {/* <div className="size-full grid grid-rows-[1fr_auto]"> */}
 
                 <Tree
                     data={dataWithState}
                     treeState={treeState}
-                    className="size-full outline-none"
+                    className="size-full outline-hidden"
                     scrollAreaProps={{ parentContentWidth: true, fixedWidth: true }}
                     IconTextRender={TreeItemRowRender}
                     IconForFolder={IconFolder}

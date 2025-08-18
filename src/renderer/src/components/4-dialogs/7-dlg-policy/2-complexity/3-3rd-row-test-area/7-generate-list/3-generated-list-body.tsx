@@ -3,7 +3,7 @@ import { GenNPasswordsItem } from "../../../0-all";
 
 export function GeneratedListBody({ generatedList }: { generatedList: GenNPasswordsItem[]; }) {
     return (
-        <div className="mb-4 mx-auto px-4 w-fit grid grid-cols-[auto,auto,auto,auto] gap-x-2 gap-y-0.5">
+        <div className="mb-4 mx-auto px-4 w-fit grid grid-cols-[auto_auto_auto_auto] gap-x-2 gap-y-0.5">
             {generatedList.map(
                 (item, idx) => {
                     const testResultClasses = `text-center select-none ${item.ok ? "text-green-500" : "text-red-500"}`;

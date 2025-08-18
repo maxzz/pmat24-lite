@@ -17,10 +17,10 @@ export function SecondRow({ item, fileUsCtx }: { item: ManualFieldState.CtxFld; 
     const containerClasses =
         fcAllowed
             ? isFieldPassword
-                ? "grid-cols-[1fr,1fr,auto]"
-                : "grid-cols-[1fr,auto]"
+                ? "grid-cols-[1fr_1fr_auto]"
+                : "grid-cols-[1fr_auto]"
             : isFieldPassword
-                ? "grid-cols-[1fr,auto]"
+                ? "grid-cols-[1fr_auto]"
                 : "grid-cols-[auto]";
 
     return (

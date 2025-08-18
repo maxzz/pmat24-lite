@@ -50,7 +50,7 @@ function DialogSawBody({ onCloseDlg }: { onCloseDlg: (ok: boolean) => void; }) {
                 </Button>
             </D.DialogHeader>
 
-            <div className="size-full text-xs 1bg-sky-300 grid grid-rows-[auto,auto,1fr]">
+            <div className="size-full text-xs 1bg-sky-300 grid grid-rows-[auto_auto_1fr]">
                 <SawPageHeader />
                 <ManiLoginNameGuarded />
                 <NewManiContentEditorSelector />
@@ -76,14 +76,14 @@ function DialogBottomButtons({ onCloseDlg, className, ...rest }: ComponentPropsW
 
 const dialogClasses = "\
 p-0 \
-!w-11/12 max-w-5xl \
+w-11/12! max-w-5xl \
 h-4/5 min-h-[60vh] max-h-[90vh] \
 rounded-md \
 data-[state=open]:[animation-duration:0ms] \
 ";
 // const dialogClasses = "\
 // p-0 \
-// !w-11/12 max-w-5xl \
+// w-11/12! max-w-5xl \
 // h-4/5 min-h-[60vh] max-h-[90vh] \
 // rounded-md \
 // data-[state=open]:[animation-duration:200ms] \

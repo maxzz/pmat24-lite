@@ -5,8 +5,8 @@ import { FldCatItemsGrid, SelectedItemPropsBody } from "@/components/4-dialogs/4
 
 export function FcViewBody({ fceCtx, className, ...rest }: { fceCtx: FceCtx; } & HTMLAttributes<HTMLDivElement>) {
     return (
-        // <div className={classNames("size-full max-w-4xl grid grid-rows-[auto,1fr,auto]", className)} {...rest}>
-        <div className={classNames("size-full max-w-4xl grid grid-rows-[1fr,auto]", className)} {...rest}>
+        // <div className={classNames("size-full max-w-4xl grid grid-rows-[auto_1fr_auto]", className)} {...rest}>
+        <div className={classNames("size-full max-w-4xl grid grid-rows-[1fr_auto]", className)} {...rest}>
 
             {/* <div className="relative mx-3 my-2 p-2 border-border border rounded-md">
                 <FieldCatalogToolbar fceCtx={fceCtx} />

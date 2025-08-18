@@ -2,8 +2,8 @@ import { HTMLAttributes } from "react";
 import { classNames } from "@/utils";
 
 const cls1Classes = "fill-current stroke-none";
-const cls4Classes = "fill-none stroke-current [stroke-miterlimit:10] [stroke-linecap:round] [stroke-width:0.58px]";
-const cls5Classes = "fill-none stroke-current [stroke-miterlimit:10] [stroke-width:0.77px]";
+const cls4Classes = "fill-none stroke-current [stroke-miterlimit:10] [stroke-linecap:round] stroke-[0.58px]";
+const cls5Classes = "fill-none stroke-current [stroke-miterlimit:10] stroke-[0.77px]";
 
 export function IconExPol07Contactless({ className, title, ...rest }: HTMLAttributes<SVGSVGElement>) {
     return (
