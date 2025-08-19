@@ -47,6 +47,9 @@ export async function deleteFolder(cacheFolder: string): Promise<string | undefi
             await fs.rm(cacheFolder, { recursive: true, force: true });
         }
     } catch (err) {
+        if (typeof err === "object" && err !== null && "code" in err && (err as any).code === 'ENOENT') {
+            return;
+        }
         return `Error deleting folder: "${cacheFolder}" ${errorToString(err)}`;
     }
 }
