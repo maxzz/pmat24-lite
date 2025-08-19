@@ -4,7 +4,7 @@ import { is } from "@electron-toolkit/utils";
 import icon from "../../../../resources/icon.png?asset"; // This is only for linux
 import { iniFileOptions } from "./8-ini-file-options";
 
-const preloadPath = join(__dirname, "../preload/index.js");
+const preloadPath = join(__dirname, "../preload/index.mjs");
 
 export function initMainWindow(): BrowserWindow {
     const rv = new BrowserWindow({
