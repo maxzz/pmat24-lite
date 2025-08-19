@@ -61,7 +61,8 @@ export default defineConfig({
             }
         },
         build: {
-            rollupOptions: { output: { manualChunks, } }, // minify: false,
+            rollupOptions: { output: { manualChunks, } },
+            //minify: false,
         },
         plugins: [
             react(),

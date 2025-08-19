@@ -20,7 +20,8 @@ export default defineConfig((): UserConfig => { // https://vitejs.dev/config
         // build: { rollupOptions: { input: absPath('src/renderer/index.html'), }, },
 
         build: {
-            rollupOptions: { output: { manualChunks, } }, // minify: false,
+            rollupOptions: { output: { manualChunks } },
+            //minify: false,
         },
 
         resolve: {
@@ -38,7 +39,7 @@ export default defineConfig((): UserConfig => { // https://vitejs.dev/config
         plugins: [
             react(),
             visualizer({
-                filename: 'visualization.html',
+                filename: 'visualization-web.html',
                 template: 'sunburst', // sunburst - d3 style (good as default as well); treemap - table (default); network - graph (slow to open).
                 gzipSize: true,
                 brotliSize: true,
@@ -61,12 +62,12 @@ function manualChunks(id: string) { //https://rollupjs.org/configuration-options
 
     //console.log(`chunks: ${id}`);
 
-    if (id.includes("react-dom")) {
-        return "vendor-dom";
-    }
-    if (id.includes("node_modules")) {
-        return "vendor";
-    }
+    // if (id.includes("react-dom")) {
+    //     return "vendor-dom";
+    // }
+    // if (id.includes("node_modules")) {
+    //     return "vendor";
+    // }
     if (id.includes("@radix-ui")) {
         return "radix-ui";
     }

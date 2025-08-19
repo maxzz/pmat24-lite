@@ -6,6 +6,7 @@ dist
 *.tsbuildinfo
 
 visualization.html
+visualization-web.html
 
 release
 dist-electron/*
