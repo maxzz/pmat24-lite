@@ -37,3 +37,9 @@ export function showStackElectron(...rest: any[]) {
     console.trace();
     console.groupEnd();
 }
+
+// Check node.js error
+
+export function isErrorWithCode(err: unknown): err is Error & { code: unknown; } {
+    return err instanceof Error && 'code' in err;
+}
