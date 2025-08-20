@@ -1,7 +1,7 @@
 import { type HTMLAttributes, type ReactNode, useCallback, useEffect, useRef } from "react";
 import { useAtom, useSetAtom } from "jotai";
 import { classNames } from "@/utils";
-import useResizeObserver from "use-resize-observer";
+import { useResizeObserver } from "@/utils";
 import { ScrollArea } from "@/ui/shadcn";
 import { type FceCtx, doScrollToItemAtom } from "@/store/3-field-catalog-atoms";
 import { FldCatItemsBody } from "./1-body";

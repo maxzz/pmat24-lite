@@ -1,7 +1,7 @@
 import { type HTMLAttributes } from "react";
 import { ScrollArea } from "@/ui";
 import { SyntaxHighlighterXml } from "./syntax-highlighter-xml";
-import useResizeObserver from "use-resize-observer";
+import { useResizeObserver } from "@/utils";
 import { classNames } from "@/utils";
 
 /**/

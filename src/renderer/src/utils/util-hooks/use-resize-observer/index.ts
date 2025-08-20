@@ -36,7 +36,7 @@ declare global {
 
 export type RoundingFunction = (n: number) => number;
 
-function useResizeObserver<T extends Element>(
+export function useResizeObserver<T extends Element>(
     opts: {
         ref?: RefObject<T> | T | null | undefined;
         onResize?: ResizeHandler;
@@ -57,7 +57,7 @@ function useResizeObserver<T extends Element>(
         box?: ResizeObserverBoxOptions;
         round?: RoundingFunction;
         instance: ResizeObserver;
-    }>();
+    }>(null);
 
     const [size, setSize] = useState<{
         width?: number;
@@ -164,5 +164,3 @@ function useResizeObserver<T extends Element>(
         [refCallback, size.width, size.height]
     );
 }
-
-export default useResizeObserver;

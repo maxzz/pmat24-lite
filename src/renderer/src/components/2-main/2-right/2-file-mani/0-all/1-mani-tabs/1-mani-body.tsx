@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { type Atom, useAtom, useAtomValue } from "jotai";
 import { useSnapshot } from "valtio";
-import useResizeObserver from "use-resize-observer";
+import { useResizeObserver } from "@/utils";
 import { ScrollArea, Tabs, TabsContent } from "@/ui";
 import { appSettings } from "@/store/9-ui-state";
 import { type FileUs, type FileUsAtom } from "@/store/store-types";

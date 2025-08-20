@@ -4,7 +4,7 @@ import { classNames, cn } from "@/utils";
 import * as A from "@radix-ui/react-accordion";
 import { ScrollArea, ScrollAreaProps } from "@ui/shadcn/scroll-area";
 import { ChevronRight } from "lucide-react";
-import useResizeObserver from "use-resize-observer";
+import { useResizeObserver } from "@/utils";
 import { type DataItemNavigation, type DataItemCore, type TreenIconComponent, TypeTreeFolder, TypeTreeFolderTrigger } from "./shared/types";
 import { collectExpandedItemIds, findTreeItemById, getNextId } from "./shared/utils";
 import { folderBaseClasses, folderSelectedClasses, folderIconClasses, leafBaseClasses, leafSelectedClasses, leafIconClasses } from "./shared/classes";
