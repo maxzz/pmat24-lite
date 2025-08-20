@@ -1,7 +1,7 @@
 import { shell } from "electron";
 import { iniFileOptions } from "./8-ini-file-options";
 import { electronState, sessionState } from "@shell/2-electron-globals";
-import { type AppWindow } from "./8-app-window-instance";
+import { type AppWindow } from "./7-app-window-instance";
 import { mainToRenderer } from "../../xternal-to-renderer";
 import { setSawModeOnMain } from "../../xternal-to-renderer/2-commands-in-main";
 import { testInUseInMain_QuitWithReload } from "../../xternal-to-renderer/2-commands-in-main/3-test-inuse";

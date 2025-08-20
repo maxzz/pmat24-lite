@@ -1,6 +1,6 @@
 import { app, BrowserWindow } from "electron";
 import { optimizer } from "@electron-toolkit/utils";
-import { appWindow } from "./8-app-window-instance";
+import { appWindow } from "./7-app-window-instance";
 import { createAppWindow } from "./1-create-app-window";
 
 export function setAppListeners() {
