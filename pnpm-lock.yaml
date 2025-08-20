@@ -119,13 +119,13 @@ importers:
         version: 6.2.2
       jotai:
         specifier: ^2.13.1
-        version: 2.13.1(@babel/core@7.28.3)(@babel/template@7.27.2)(@types/react@19.1.9)(react@19.1.1)
+        version: 2.13.1(@babel/core@7.28.0)(@babel/template@7.27.2)(@types/react@19.1.9)(react@19.1.1)
       jotai-effect:
         specifier: ^2.0.5
-        version: 2.0.5(jotai@2.13.1(@babel/core@7.28.3)(@babel/template@7.27.2)(@types/react@19.1.9)(react@19.1.1))
+        version: 2.0.5(jotai@2.13.1(@babel/core@7.28.0)(@babel/template@7.27.2)(@types/react@19.1.9)(react@19.1.1))
       jotai-valtio:
         specifier: ^0.6.0
-        version: 0.6.0(jotai@2.13.1(@babel/core@7.28.3)(@babel/template@7.27.2)(@types/react@19.1.9)(react@19.1.1))(valtio@2.1.5(@types/react@19.1.9)(react@19.1.1))
+        version: 0.6.0(jotai@2.13.1(@babel/core@7.28.0)(@babel/template@7.27.2)(@types/react@19.1.9)(react@19.1.1))(valtio@2.1.5(@types/react@19.1.9)(react@19.1.1))
       lucide-react:
         specifier: ^0.539.0
         version: 0.539.0(react@19.1.1)
@@ -150,9 +150,6 @@ importers:
       react-resizable-panels:
         specifier: ^2.1.7
         version: 2.1.9(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
-      react-resize-detector:
-        specifier: ^12.1.0
-        version: 12.1.0(react@19.1.1)
       react-syntax-highlighter:
         specifier: ^15.6.1
         version: 15.6.1(react@19.1.1)
@@ -2924,11 +2921,6 @@ packages:
     peerDependencies:
       react: ^16.14.0 || ^17.0.0 || ^18.0.0 || ^19.0.0 || ^19.0.0-rc
       react-dom: ^16.14.0 || ^17.0.0 || ^18.0.0 || ^19.0.0 || ^19.0.0-rc
-
-  react-resize-detector@12.1.0:
-    resolution: {integrity: sha512-yiGIFSLymRz/ujDDXjaAssz9wampLn1FH89JtL9kq9Ql8NFHppqEtgRYUkJni1xwM0CtpSiYsBxEgctMnTHV0Q==}
-    peerDependencies:
-      react: ^18.0.0 || ^19.0.0
 
   react-style-singleton@2.2.3:
     resolution: {integrity: sha512-b6jSvxvVnyptAiLjbkWLE/lOnR4lfTtDAl+eUC7RZy+QQWc6wRzIV2CE6xBuMmDxc2qIihtDCZD5NPOFl7fRBQ==}
@@ -5883,18 +5875,18 @@ snapshots:
   jiti@2.4.2:
     optional: true
 
-  jotai-effect@2.0.5(jotai@2.13.1(@babel/core@7.28.3)(@babel/template@7.27.2)(@types/react@19.1.9)(react@19.1.1)):
+  jotai-effect@2.0.5(jotai@2.13.1(@babel/core@7.28.0)(@babel/template@7.27.2)(@types/react@19.1.9)(react@19.1.1)):
     dependencies:
-      jotai: 2.13.1(@babel/core@7.28.3)(@babel/template@7.27.2)(@types/react@19.1.9)(react@19.1.1)
+      jotai: 2.13.1(@babel/core@7.28.0)(@babel/template@7.27.2)(@types/react@19.1.9)(react@19.1.1)
 
-  jotai-valtio@0.6.0(jotai@2.13.1(@babel/core@7.28.3)(@babel/template@7.27.2)(@types/react@19.1.9)(react@19.1.1))(valtio@2.1.5(@types/react@19.1.9)(react@19.1.1)):
+  jotai-valtio@0.6.0(jotai@2.13.1(@babel/core@7.28.0)(@babel/template@7.27.2)(@types/react@19.1.9)(react@19.1.1))(valtio@2.1.5(@types/react@19.1.9)(react@19.1.1)):
     dependencies:
-      jotai: 2.13.1(@babel/core@7.28.3)(@babel/template@7.27.2)(@types/react@19.1.9)(react@19.1.1)
+      jotai: 2.13.1(@babel/core@7.28.0)(@babel/template@7.27.2)(@types/react@19.1.9)(react@19.1.1)
       valtio: 2.1.5(@types/react@19.1.9)(react@19.1.1)
 
-  jotai@2.13.1(@babel/core@7.28.3)(@babel/template@7.27.2)(@types/react@19.1.9)(react@19.1.1):
+  jotai@2.13.1(@babel/core@7.28.0)(@babel/template@7.27.2)(@types/react@19.1.9)(react@19.1.1):
     optionalDependencies:
-      '@babel/core': 7.28.3
+      '@babel/core': 7.28.0
       '@babel/template': 7.27.2
       '@types/react': 19.1.9
       react: 19.1.1
@@ -6359,11 +6351,6 @@ snapshots:
     dependencies:
       react: 19.1.1
       react-dom: 19.1.1(react@19.1.1)
-
-  react-resize-detector@12.1.0(react@19.1.1):
-    dependencies:
-      lodash: 4.17.21
-      react: 19.1.1
 
   react-style-singleton@2.2.3(@types/react@19.1.9)(react@19.1.1):
     dependencies:

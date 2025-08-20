@@ -64,7 +64,6 @@
         "react": "^19.1.1",
         "react-dom": "^19.1.1",
         "react-resizable-panels": "^2.1.7",
-        "react-resize-detector": "^12.1.0",
         "react-syntax-highlighter": "^15.6.1",
         "react-use": "^17.6.0",
         "rollup-plugin-visualizer": "^6.0.3",
