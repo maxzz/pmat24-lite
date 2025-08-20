@@ -1,8 +1,8 @@
 import { appWindow } from "./8-app-window-instance";
-import { initMainWindow } from "./2-init-main-window";
+import { initAppWindow } from "./2-init-app-window";
 import { setMainWindowListeners } from "./3-listeners-of-main-window";
 
-export function createMainWindow(): void {
-    appWindow.wnd = initMainWindow();
+export function createAppWindow(): void {
+    appWindow.wnd = initAppWindow();
     setMainWindowListeners(appWindow);
 }

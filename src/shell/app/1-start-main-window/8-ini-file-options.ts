@@ -8,7 +8,7 @@ export type IniOptions = {
     devTools: boolean;  // is devTools open
 };
 
-export function loadIniFileOptions(): IniOptions | undefined {
+function loadIniFileOptions(): IniOptions | undefined {
     try {
         const cnt = fs.readFileSync(INI_FNAME, 'utf8');
         const data = JSON.parse(cnt) as IniOptions;
@@ -20,7 +20,7 @@ export function loadIniFileOptions(): IniOptions | undefined {
     }
 }
 
-export function saveIniFileOptions(win: BrowserWindow) {
+function saveIniFileOptions(win: BrowserWindow) {
     const data = {
         bounds: win.getNormalBounds(),
         devTools: win.webContents.isDevToolsOpened(),

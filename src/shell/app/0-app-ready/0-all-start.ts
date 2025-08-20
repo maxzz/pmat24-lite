@@ -1,6 +1,6 @@
 import { app } from "electron";
 import { electronApp } from "@electron-toolkit/utils";
-import { connect_ListenersForCallFromRenderer, createMainWindow, setAppListeners } from "../1-start-main-window";
+import { connect_ListenersForCallFromRenderer, createAppWindow, setAppListeners } from "../1-start-main-window";
 import { iniFileOptions } from "@shell/1-start-main-window/8-ini-file-options";
 
 // This method will be called when Electron has finished initialization and is ready to create browser windows.
@@ -16,7 +16,7 @@ app.whenReady().then(
         // ipcMain.on('ping', () => console.log('pong'));
 
         iniFileOptions.load();
-        createMainWindow();
+        createAppWindow();
 
         setAppListeners();
     }

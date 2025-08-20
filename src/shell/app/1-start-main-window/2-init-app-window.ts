@@ -6,7 +6,7 @@ import { iniFileOptions } from "./8-ini-file-options";
 
 const preloadPath = join(__dirname, "../preload/index.mjs");
 
-export function initMainWindow(): BrowserWindow {
+export function initAppWindow(): BrowserWindow {
     const rv = new BrowserWindow({
         ...(iniFileOptions.options?.bounds),
         minWidth: 200,                  //TODO: this should be set after window created with count on zoomFactor
