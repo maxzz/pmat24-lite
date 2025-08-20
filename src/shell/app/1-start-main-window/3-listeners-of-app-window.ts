@@ -6,7 +6,7 @@ import { mainToRenderer } from "../../xternal-to-renderer";
 import { setSawModeOnMain } from "../../xternal-to-renderer/2-commands-in-main";
 import { testInUseInMain_QuitWithReload } from "../../xternal-to-renderer/2-commands-in-main/3-test-inuse";
 
-export function setMainWindowListeners(appWindow: AppWindow) {
+export function setAppWindowListeners(appWindow: AppWindow) {
     if (!appWindow.wnd) {
         return;
     }
