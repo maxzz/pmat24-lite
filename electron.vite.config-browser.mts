@@ -21,7 +21,7 @@ export default defineConfig((): UserConfig => { // https://vitejs.dev/config
 
         build: {
             rollupOptions: { output: { manualChunks } },
-            //minify: false,
+            minify: false,
         },
 
         resolve: {
