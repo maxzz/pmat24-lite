@@ -36,6 +36,19 @@
             "webRoot": "${workspaceFolder}/src/renderer",
             "runtimeArgs": ["--preserve-symlinks"],
             "timeout": 60000,
+        },
+        {
+            "name": "debug build",
+            "type": "node",
+            "request": "launch",
+            "cwd": "${workspaceRoot}",
+            "runtimeExecutable": "${workspaceRoot}/node_modules/.bin/vite.cmd",
+            "runtimeArgs": [
+                "build",
+                // "--config electron.vite.config-browser.mts",
+                "--config",
+                "electron.vite.config-browser.mts",
+            ],
         }
     ],
     "compounds": [
