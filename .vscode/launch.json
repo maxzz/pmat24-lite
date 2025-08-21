@@ -45,10 +45,13 @@
             "program": "${workspaceRoot}/node_modules/vite/bin/vite.js",
             "runtimeArgs": [
                 "--preserve-symlinks",
-                // "build",
-                // "--config",
-                // "electron.vite.config-browser.mts",
+                "--preserve-symlinks-main",
             ],
+            "args": [
+                "build",
+                "--config",
+                "electron.vite.config-browser.mts",
+            ]
         }
     ],
     "compounds": [
