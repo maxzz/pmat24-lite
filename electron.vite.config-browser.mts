@@ -52,6 +52,7 @@ export default defineConfig((): UserConfig => { // https://vitejs.dev/config
 
 //TODO: the same problem: no React.Children when run 'p build:web' and 'p build:web:preview'
 function manualChunks(id: string) { //https://rollupjs.org/configuration-options/#output-manualchunks
+
     // const dd = [
     //     "@babel/runtime",
     //     "highlight",
@@ -60,7 +61,8 @@ function manualChunks(id: string) { //https://rollupjs.org/configuration-options
     //     "refractor",
     // ]
 
-    //console.log(`chunks: ${id}`);
+    //console.log(`%cid: ${id.replace("C:/y/w/2-web/0-dp/pmat24-lite/src/", '')}`, 'color:red');
+    printId(id);
 
     // if (id.includes("react-dom")) {
     //     return "vendor-dom";
@@ -77,4 +79,25 @@ function manualChunks(id: string) { //https://rollupjs.org/configuration-options
     if (id.includes("fast-xml-parser")) {
         return "rare";
     }
+}
+
+const root = "C:/y/w/2-web/0-dp/pmat24-lite/";
+const rootNodeModules = "C:/y/w/2-web/0-dp/pmat24-lite/node_modules/";
+const rootSrc = "C:/y/w/2-web/0-dp/pmat24-lite/src/";
+
+function printId(id: string): void {
+    
+    if (id.includes(rootNodeModules)) {
+        const id2 = id.replace(rootNodeModules, '');
+        const color = id2.includes('motion') ? 'color:orange' : id2.includes('lucide-react') ? 'color:yellow' : 'color:red';
+        console.log(`%cid: ${id2}`, color);
+        return;
+    }
+
+    if (id.includes(rootSrc)) {
+        console.log(`%cid: ${id.replace(rootSrc, '')}`, 'color:green');
+        return;
+    }
+
+    console.log(`%cid: ${id}`, 'color:blue');
 }
