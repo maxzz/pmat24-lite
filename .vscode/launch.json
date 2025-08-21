@@ -51,6 +51,7 @@
             "args": [
                 "--config",
                 "electron.vite.config-browser.mts",
+                // "electron.vite.config-browser.mjs", // built with 'tsc electron.vite.config-browser.mts'
                 // "--force",
                 "build",
             ]
