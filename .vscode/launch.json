@@ -37,20 +37,37 @@
             "runtimeArgs": ["--preserve-symlinks"],
             "timeout": 60000,
         },
+
         {
-            "name": "debug build",
+            "name": "debug vite build",
             "type": "node",
             "request": "launch",
             "cwd": "${workspaceRoot}",
             "program": "${workspaceRoot}/node_modules/vite/bin/vite.js",
             "runtimeArgs": [
                 "--preserve-symlinks",
-                "--preserve-symlinks-main",
+                // "--preserve-symlinks-main", // This is breaking the build
+            ],
+            "args": [
+                "--config",
+                "electron.vite.config-browser.mts",
+                // "--force",
+                "build",
+            ]
+        },
+
+        {
+            "name": "debug electron.vite build",
+            "type": "node",
+            "request": "launch",
+            "cwd": "${workspaceRoot}",
+            "program": "${workspaceRoot}/node_modules/electron-vite/bin/electron-vite.js",
+            "runtimeArgs": [
+                // "--preserve-symlinks",
+                // "--preserve-symlinks-main", // This is breaking the build
             ],
             "args": [
                 "build",
-                "--config",
-                "electron.vite.config-browser.mts",
             ]
         }
     ],
