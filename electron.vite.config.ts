@@ -89,6 +89,11 @@ function manualChunks(id: string) { //https://rollupjs.org/configuration-options
     // if (id.includes("react-")) {
     //     return "vendor-dom";
     // }
+
+    if (id.includes("motion")) {
+        return "radix-ui";
+    }
+    
     if (id.includes("@radix-ui")) {
         return "radix-ui";
     }
