@@ -7,6 +7,7 @@ import { RecentFilesList } from "./5-recent-files-list";
 import { HIDLogoAnimation } from "./6-hid-logo-animation";
 import { DontShowNext } from "./nun/27-nun-dont-show-next";
 import { rootDir } from "@/store/5-1-files";
+import { TestLucidIcons } from "@/components/2-main/0-all/2-welcome-page/7-test-lucide-icons";
 //import { ListViewDemo } from "@/ui/local-ui/nun/ai-listview/0-list-view-demo4";
 //import { StarTest } from "./nun/1-star-test";
 //import { IconHIDWFrame } from "@/ui/icons";
@@ -44,6 +45,8 @@ export function WelcomePage() {
                             <DontShowNext className="absolute left-0 bottom-0 p-2" />
                         )}
                     </div>
+
+                    <TestLucidIcons />
 
                     {/* <StarTest /> */}
                 </motion.div>
