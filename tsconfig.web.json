@@ -6,6 +6,8 @@
         "noUnusedParameters": false,
         "noImplicitReturns": false,
 
+        "moduleResolution": "bundler",
+
         "paths": {
             "@/*":       [ "./src/renderer/src/*" ],
             "@ui/*":     [ "./src/renderer/src/ui/*" ],

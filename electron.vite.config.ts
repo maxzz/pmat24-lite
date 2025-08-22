@@ -1,10 +1,10 @@
 import { dirname, join, resolve } from "path";
 import { fileURLToPath } from "url";
-import { type PluginOption, type UserConfig } from 'vite';
+import { type PluginOption, type UserConfig } from "vite";
 import { defineConfig, externalizeDepsPlugin } from "electron-vite";
 import react from "@vitejs/plugin-react";
-//console.log('------ electron.vite.config.ts:__dirname =', __dirname);
-import { visualizer } from 'rollup-plugin-visualizer';
+//console.log("------ electron.vite.config.ts:__dirname =", __dirname);
+import { visualizer } from "rollup-plugin-visualizer";
 
 const __dirnameEsm = dirname(fileURLToPath(import.meta.url));
 

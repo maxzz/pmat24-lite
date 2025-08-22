@@ -1,8 +1,8 @@
-import { dirname, join, resolve } from 'path';
-import { fileURLToPath } from 'url';
-import { defineConfig, type PluginOption, type UserConfig } from 'vite';
-import react from '@vitejs/plugin-react';
-import { visualizer } from 'rollup-plugin-visualizer';
+import { dirname, join, resolve } from "path";
+import { fileURLToPath } from "url";
+import { defineConfig, type PluginOption, type UserConfig } from "vite";
+import react from "@vitejs/plugin-react";
+import { visualizer } from "rollup-plugin-visualizer";
 
 const __dirnameEsm = dirname(fileURLToPath(import.meta.url));
 
