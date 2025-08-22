@@ -5,7 +5,7 @@ import { classNames, type ThemeMode } from "@/utils";
 import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuItem } from "./dropdown-menu";
 import { Button } from "./button";
 import { IconDark, IconLight, IconSystem } from "../icons/normal";
-import { ChevronDown, CheckIcon } from "lucide-react";
+import { IconL_ChevronDown, IconL_Check } from "@/ui/icons";
 
 export function ThemeSwitch({ className, heightClasses = "h-6", ...rest }: ComponentPropsWithoutRef<"div"> & { heightClasses?: string; }) {
     const { theme: snapTheme } = useSnapshot(appSettings).appUi;
@@ -29,7 +29,7 @@ export function ThemeSwitch({ className, heightClasses = "h-6", ...rest }: Compo
             <DropdownMenu>
                 <DropdownMenuTrigger asChild>
                     <Button variant="ghost" size="xs" className={classNames(heightClasses, "px-1 py-0 border border-input rounded-l-none focus-visible:ring-0")}>
-                        <ChevronDown className="size-3" />
+                        <IconL_ChevronDown className="size-3" />
                     </Button>
                 </DropdownMenuTrigger>
 
@@ -47,7 +47,7 @@ export function ThemeSwitch({ className, heightClasses = "h-6", ...rest }: Compo
 function MenuItem({ label, theme, current }: { label: string; theme: ThemeMode; current: ThemeMode; }) {
     return (
         <DropdownMenuItem className="text-xs grid grid-cols-[16px_1fr] items-center gap-x-2" onClick={() => appSettings.appUi.theme = theme}>
-            {current === theme && <CheckIcon className="size-4" />}
+            {current === theme && <IconL_Check className="size-4" />}
 
             <div className="col-start-2">
                 {label}

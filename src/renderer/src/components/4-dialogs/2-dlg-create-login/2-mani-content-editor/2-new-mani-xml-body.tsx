@@ -1,7 +1,7 @@
 import { useAtomValue } from "jotai";
 import { useSnapshot } from "valtio";
 import { Button, ScrollArea } from "@/ui/shadcn";
-import { Copy } from "lucide-react";
+import { IconL_Copy } from "@/ui/icons";
 import { appSettings } from "@/store/9-ui-state";
 import { newManiContent } from "@/store/0-serve-atoms/0-create/1-create-new-mani-ctx";
 
@@ -16,7 +16,7 @@ export function NewManiContentRawXmlBody() {
                 className="absolute right-2.5 top-0.5 active:scale-y-95 z-10" variant="ghost"
                 onClick={() => navigator.clipboard.writeText(maniXml || '')}
             >
-                <Copy className="size-4" />
+                <IconL_Copy className="size-4" />
             </Button>
         )}
 

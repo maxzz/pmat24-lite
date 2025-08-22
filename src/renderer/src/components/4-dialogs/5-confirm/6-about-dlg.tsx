@@ -2,7 +2,7 @@ import { atom } from "jotai";
 import { classNames } from "@/utils";
 import { Textarea } from "@/ui/shadcn";
 import { inputRingClasses, optionInputClasses } from "@/ui/local-ui";
-import { AlertOctagon } from "lucide-react";
+import { IconL_AlertOctagon } from "@/ui/icons";
 import { aboutMessages, doAsyncExecuteConfirmDialogAtom } from "@/store/4-dialogs-atoms";
 import { asyncGetAboutInfo } from "@/store/7-napi-atoms";
 import { type ProductInfo, type GeneralInfoResult } from "@shared/ipc-types";
@@ -62,7 +62,7 @@ function AboutBody({ products, templatePath, copyright }: { products: ProductInf
 function AboutError() {
     return (
         <div className="text-xs flex items-center gap-x-2">
-            <AlertOctagon className="size-6 text-red-500" />
+            <IconL_AlertOctagon className="size-6 text-red-500" />
             Cannot get information about installed applications
         </div>
     );

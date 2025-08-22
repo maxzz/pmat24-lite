@@ -11,8 +11,8 @@ import { rootDir } from "@/store/5-1-files";
 //import { StarTest } from "./nun/1-star-test";
 //import { IconHIDWFrame } from "@/ui/icons";
 
-import { TestLucidIconsOrg } from "@/components/2-main/0-all/2-welcome-page/7-test-lucide-icons-original";
-import { TestLucidIconsTm } from "./7-test-lucide-icons-tm";
+// import { TestLucidIconsOrg } from "@/components/2-main/0-all/2-welcome-page/7-test-lucide-icons-original";
+// import { TestLucidIconsTm } from "./7-test-lucide-icons-tm";
 
 /**
  * Don't use AnimatePresence and exit animation.
@@ -48,10 +48,10 @@ export function WelcomePage() {
                         )}
                     </div>
 
-                    <div className="grid grid-cols-2 gap-2">
+                    {/* <div className="grid grid-cols-2 gap-2">
                         <TestLucidIconsOrg />
                         <TestLucidIconsTm />
-                    </div>
+                    </div> */}
 
                     {/* <StarTest /> */}
                 </motion.div>

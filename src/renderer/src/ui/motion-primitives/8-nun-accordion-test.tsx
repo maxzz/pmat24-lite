@@ -1,5 +1,5 @@
 import { Accordion, AccordionItem, AccordionTrigger, AccordionContent, } from "./1-accordion"; //https://motion-primitives.com/docs/accordion
-import { ChevronRight } from "lucide-react";
+import { IconL_ChevronRight } from "@/ui/icons";
 
 export function TestAccordionVariant() {
     return (
@@ -101,4 +101,4 @@ const triggerTextClasses = 'ml-2 text-zinc-950 dark:text-zinc-50';
 const contentClasses = 'origin-left';
 const textClasses = 'pl-6 pr-2 text-zinc-500 dark:text-zinc-400';
 
-const ChevronRightIcon = <ChevronRight className='h-4 w-4 text-zinc-950 transition-transform duration-200 group-data-expanded:rotate-90 dark:text-zinc-50' />;
+const ChevronRightIcon = <IconL_ChevronRight className='h-4 w-4 text-zinc-950 transition-transform duration-200 group-data-expanded:rotate-90 dark:text-zinc-50' />;

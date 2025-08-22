@@ -3,12 +3,12 @@ import { useSetAtom } from "jotai";
 import { useSnapshot } from "valtio";
 import { classNames } from "@/utils";
 import { AnimatePresence, motion } from "motion/react";
-import { CheckIcon } from "lucide-react";
+import { IconL_Check } from "@/ui/icons";
 import { type TlwData } from "@shared/ipc-types";
 import { type TlwScreenshotInfo } from "@/store/7-napi-atoms";
 import { newManiCtx } from "../../../../0-new-mani-ctx";
 
-const MotionIcon = motion.create(CheckIcon);
+const MotionIcon = motion.create(IconL_Check);
 
 export function TwlRenderImage({ info, idx, ...rest }: { info: TlwScreenshotInfo; idx: number; } & ComponentProps<'div'>) {
     const doSetSelected = useSetAtom(newManiCtx.appSelectedIdxAtom);
@@ -31,7 +31,7 @@ export function TwlRenderImage({ info, idx, ...rest }: { info: TlwScreenshotInfo
         >
             <RenderData64 className={classNames("m-1 max-w-52 max-h-36", isSelected && itemSelectedClasses)} data64={tlwData.data} />
 
-            {/* {isSelected && <CheckIcon className={checkboxClasses} />} */}
+            {/* {isSelected && <IconL_Check className={checkboxClasses} />} */}
             <AnimatePresence>
                 {isSelected && (
                     <MotionIcon
