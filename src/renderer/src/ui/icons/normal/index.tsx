@@ -20,3 +20,4 @@ export * from "./27-stop-circle";
 export * from "./editor-manual-fields";
 export * from "./editor-swap-popup";
 export * from "./logos";
+export * from "./lucid-react";

@@ -1,21 +1,20 @@
-//import { AlertOctagon, AppWindow, Check, ChevronDown, ChevronRight, ChevronUp, Copy, Folder, Layout } from "@/ui/icons/normal/lucid-react";
-import { IconLucidAlertOctagon, IconLucidAppWindow, IconLucidCheck, IconLucidChevronDown, IconLucidChevronRight, IconLucidChevronUp, IconLucidCopy, IconLucidFolder, IconLucidLayout } from "@/ui/icons/normal/lucid-react";
+import { IconL_AlertOctagon, IconL_AppWindow, IconL_Check, IconL_ChevronDown, IconL_ChevronRight, IconL_ChevronUp, IconL_Copy, IconL_Folder, IconL_Layout } from "@/ui/icons";
 
 export function TestLucidIconsTm() {
     return (
         <div className="relative w-full h-full overflow-hidden">
             <div className="absolute inset-0 grid gap-2 place-items-center">
-                <IconLucidFolder className={demoClasses} />
-                <IconLucidLayout className={demoClasses} />
-                <IconLucidAppWindow className={demoClasses} />
+                <IconL_Folder className={demoClasses} />
+                <IconL_Layout className={demoClasses} />
+                <IconL_AppWindow className={demoClasses} />
 
-                <IconLucidChevronUp className={demoClasses} />
-                <IconLucidChevronDown className={demoClasses} />
-                <IconLucidChevronRight className={demoClasses} />
+                <IconL_ChevronUp className={demoClasses} />
+                <IconL_ChevronDown className={demoClasses} />
+                <IconL_ChevronRight className={demoClasses} />
 
-                <IconLucidCopy className={demoClasses} />
-                <IconLucidCheck className={demoClasses} />
-                <IconLucidAlertOctagon className={demoClasses} />
+                <IconL_Copy className={demoClasses} />
+                <IconL_Check className={demoClasses} />
+                <IconL_AlertOctagon className={demoClasses} />
             </div>
         </div>
     );
