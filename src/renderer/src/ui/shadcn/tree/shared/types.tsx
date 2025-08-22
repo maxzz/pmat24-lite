@@ -1,4 +1,17 @@
-import { type LucideIcon as LucideIconType } from "lucide-react"; // https://github.com/shadcn-ui/ui/issues/355#issuecomment-1703767574 'G: shadcn tree'
+/*avoid lucide-react dependency*/
+
+//import { type LucideIcon as LucideIconType } from "lucide-react"; // https://github.com/shadcn-ui/ui/issues/355#issuecomment-1703767574 'G: shadcn tree'
+import { ForwardRefExoticComponent, RefAttributes, SVGProps } from "react";
+
+type SVGAttributes = Partial<SVGProps<SVGSVGElement>>;
+type ElementAttributes = RefAttributes<SVGSVGElement> & SVGAttributes;
+interface LucideProps extends ElementAttributes {
+    size?: string | number;
+    absoluteStrokeWidth?: boolean;
+}
+type LucideIcon = ForwardRefExoticComponent<Omit<LucideProps, 'ref'> & RefAttributes<SVGSVGElement>>;
+type LucideIconType = LucideIcon;
+/*avoid lucide-react dependency*/
 
 export type DataItemNavigation<T> =
     & {
