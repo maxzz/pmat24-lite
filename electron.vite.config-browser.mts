@@ -61,8 +61,7 @@ function manualChunks(id: string) { //https://rollupjs.org/configuration-options
     //     "refractor",
     // ]
 
-    //console.log(`%cid: ${id.replace("C:/y/w/2-web/0-dp/pmat24-lite/src/", '')}`, 'color:red');
-    printId(id);
+    //printId(id);
 
     // if (id.includes("react-dom")) {
     //     return "vendor-dom";
@@ -70,6 +69,7 @@ function manualChunks(id: string) { //https://rollupjs.org/configuration-options
     // if (id.includes("node_modules")) {
     //     return "vendor";
     // }
+
     if (id.includes("@radix-ui")) {
         return "radix-ui";
     }
@@ -81,9 +81,9 @@ function manualChunks(id: string) { //https://rollupjs.org/configuration-options
     }
 }
 
-const root = "C:/y/w/2-web/0-dp/pmat24-lite/";
-const rootNodeModules = "C:/y/w/2-web/0-dp/pmat24-lite/node_modules/";
-const rootSrc = "C:/y/w/2-web/0-dp/pmat24-lite/src/";
+const root = "C:/y/w/2-web/0-dp/pmat24-lite";
+const rootNodeModules = `${root}/node_modules/`;
+const rootSrc = `${root}/src/`;
 
 function printId(id: string): void {
     

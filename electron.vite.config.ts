@@ -81,7 +81,7 @@ function manualChunks(id: string) { //https://rollupjs.org/configuration-options
     //     return "vendor-dom";
     // }
     
-    //console.log(`chunks: ${id}`);
+    //printId(id);
     
     // if (id.includes("react-dom") || id.includes("react@")) {
     //     return "vendor-dom";
@@ -90,9 +90,9 @@ function manualChunks(id: string) { //https://rollupjs.org/configuration-options
     //     return "vendor-dom";
     // }
 
-    if (id.includes("motion")) {
-        return "radix-ui";
-    }
+    // if (id.includes("motion")) {
+    //     return "radix-ui";
+    // }
     
     if (id.includes("@radix-ui")) {
         return "radix-ui";
@@ -111,4 +111,25 @@ function manualChunks(id: string) { //https://rollupjs.org/configuration-options
     // if (id.includes("node_modules")) {
     //     return "vendor";
     // }
+}
+
+const root = "C:/y/w/2-web/0-dp/pmat24-lite";
+const rootNodeModules = `${root}/node_modules/`;
+const rootSrc = `${root}/src/`;
+
+function printId(id: string): void {
+    
+    if (id.includes(rootNodeModules)) {
+        const id2 = id.replace(rootNodeModules, '');
+        const color = id2.includes('motion') ? 'color:orange' : id2.includes('lucide-react') ? 'color:yellow' : 'color:red';
+        console.log(`%cid: ${id2}`, color);
+        return;
+    }
+
+    if (id.includes(rootSrc)) {
+        console.log(`%cid: ${id.replace(rootSrc, '')}`, 'color:green');
+        return;
+    }
+
+    console.log(`%cid: ${id}`, 'color:blue');
 }
