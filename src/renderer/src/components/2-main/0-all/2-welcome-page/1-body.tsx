@@ -7,10 +7,12 @@ import { RecentFilesList } from "./5-recent-files-list";
 import { HIDLogoAnimation } from "./6-hid-logo-animation";
 import { DontShowNext } from "./nun/27-nun-dont-show-next";
 import { rootDir } from "@/store/5-1-files";
-import { TestLucidIcons } from "@/components/2-main/0-all/2-welcome-page/7-test-lucide-icons";
 //import { ListViewDemo } from "@/ui/local-ui/nun/ai-listview/0-list-view-demo4";
 //import { StarTest } from "./nun/1-star-test";
 //import { IconHIDWFrame } from "@/ui/icons";
+
+import { TestLucidIconsOrg } from "@/components/2-main/0-all/2-welcome-page/7-test-lucide-icons-original";
+import { TestLucidIconsTm } from "./7-test-lucide-icons-tm";
 
 /**
  * Don't use AnimatePresence and exit animation.
@@ -46,7 +48,10 @@ export function WelcomePage() {
                         )}
                     </div>
 
-                    <TestLucidIcons />
+                    <div className="grid grid-cols-2 gap-2">
+                        <TestLucidIconsOrg />
+                        <TestLucidIconsTm />
+                    </div>
 
                     {/* <StarTest /> */}
                 </motion.div>
