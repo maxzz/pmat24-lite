@@ -86,3 +86,7 @@ This is phone edit test
   * and turn off Cloudflare Warp before running the build
 
   * ```set VITE_CJS_IGNORE_WARNING=true && p web```
+
+## build electron
+  * Run VsCode as Administrator if there is a problem wiith permissions (it is possible we need it only once)
+  * Or set in Windows settings: Type in "Developer" and under "Power shell" enable sudo
