@@ -124,14 +124,14 @@ importers:
         specifier: ^6.2.2
         version: 6.2.2
       jotai:
-        specifier: ^2.13.1
-        version: 2.13.1(@babel/core@7.28.3)(@babel/template@7.27.2)(@types/react@19.1.13)(react@19.1.1)
+        specifier: ^2.14.0
+        version: 2.14.0(@babel/core@7.28.3)(@babel/template@7.27.2)(@types/react@19.1.13)(react@19.1.1)
       jotai-effect:
-        specifier: ^2.0.5
-        version: 2.0.5(jotai@2.13.1(@babel/core@7.28.3)(@babel/template@7.27.2)(@types/react@19.1.13)(react@19.1.1))
+        specifier: ^2.1.1
+        version: 2.1.1(jotai@2.14.0(@babel/core@7.28.3)(@babel/template@7.27.2)(@types/react@19.1.13)(react@19.1.1))
       jotai-valtio:
         specifier: ^0.6.0
-        version: 0.6.0(jotai@2.13.1(@babel/core@7.28.3)(@babel/template@7.27.2)(@types/react@19.1.13)(react@19.1.1))(valtio@2.1.7(@types/react@19.1.13)(react@19.1.1))
+        version: 0.6.0(jotai@2.14.0(@babel/core@7.28.3)(@babel/template@7.27.2)(@types/react@19.1.13)(react@19.1.1))(valtio@2.1.7(@types/react@19.1.13)(react@19.1.1))
       lucide-react:
         specifier: ^0.541.0
         version: 0.541.0(react@19.1.1)
@@ -2261,11 +2261,11 @@ packages:
     resolution: {integrity: sha512-rg9zJN+G4n2nfJl5MW3BMygZX56zKPNVEYYqq7adpmMh4Jn2QNEwhvQlFy6jPVdcod7txZtKHWnyZiA3a0zP7A==}
     hasBin: true
 
-  jotai-effect@2.0.5:
-    resolution: {integrity: sha512-SUCStiMDWMQIV5Wh95Dq0qvl3tsI1vKDSRHFBQg2bHS5BCIyDB6ykFpIFYhX+d2yYk3dJjOgNKZaTJEUmFFcdA==}
+  jotai-effect@2.1.1:
+    resolution: {integrity: sha512-/K6YFfAFtaY+LYVmbqrZLL/KkWTYEki3CYTUE/Odz4p1pAfQs6gh0NkL6j9oA+RfKlc9UUdMjZeSGkjbxnSvAQ==}
     engines: {node: '>=12.20.0'}
     peerDependencies:
-      jotai: '>=2.12.1'
+      jotai: '>=2.14.0'
 
   jotai-valtio@0.6.0:
     resolution: {integrity: sha512-ohn1On9O8dUZRfl04BFdJk1JcFjYmjLV8UZWNNypxpyzrx0nKKqbnu7mvAZjE8430obnqYQX1KRb+4CluFVPeA==}
@@ -2273,8 +2273,8 @@ packages:
       jotai: '>=2.0.0'
       valtio: '>=2.0.0'
 
-  jotai@2.13.1:
-    resolution: {integrity: sha512-cRsw6kFeGC9Z/D3egVKrTXRweycZ4z/k7i2MrfCzPYsL9SIWcPXTyqv258/+Ay8VUEcihNiE/coBLE6Kic6b8A==}
+  jotai@2.14.0:
+    resolution: {integrity: sha512-JQkNkTnqjk1BlSUjHfXi+pGG/573bVN104gp6CymhrWDseZGDReTNniWrLhJ+zXbM6pH+82+UNJ2vwYQUkQMWQ==}
     engines: {node: '>=12.20.0'}
     peerDependencies:
       '@babel/core': '>=7.0.0'
@@ -5693,16 +5693,16 @@ snapshots:
   jiti@2.4.2:
     optional: true
 
-  jotai-effect@2.0.5(jotai@2.13.1(@babel/core@7.28.3)(@babel/template@7.27.2)(@types/react@19.1.13)(react@19.1.1)):
+  jotai-effect@2.1.1(jotai@2.14.0(@babel/core@7.28.3)(@babel/template@7.27.2)(@types/react@19.1.13)(react@19.1.1)):
     dependencies:
-      jotai: 2.13.1(@babel/core@7.28.3)(@babel/template@7.27.2)(@types/react@19.1.13)(react@19.1.1)
+      jotai: 2.14.0(@babel/core@7.28.3)(@babel/template@7.27.2)(@types/react@19.1.13)(react@19.1.1)
 
-  jotai-valtio@0.6.0(jotai@2.13.1(@babel/core@7.28.3)(@babel/template@7.27.2)(@types/react@19.1.13)(react@19.1.1))(valtio@2.1.7(@types/react@19.1.13)(react@19.1.1)):
+  jotai-valtio@0.6.0(jotai@2.14.0(@babel/core@7.28.3)(@babel/template@7.27.2)(@types/react@19.1.13)(react@19.1.1))(valtio@2.1.7(@types/react@19.1.13)(react@19.1.1)):
     dependencies:
-      jotai: 2.13.1(@babel/core@7.28.3)(@babel/template@7.27.2)(@types/react@19.1.13)(react@19.1.1)
+      jotai: 2.14.0(@babel/core@7.28.3)(@babel/template@7.27.2)(@types/react@19.1.13)(react@19.1.1)
       valtio: 2.1.7(@types/react@19.1.13)(react@19.1.1)
 
-  jotai@2.13.1(@babel/core@7.28.3)(@babel/template@7.27.2)(@types/react@19.1.13)(react@19.1.1):
+  jotai@2.14.0(@babel/core@7.28.3)(@babel/template@7.27.2)(@types/react@19.1.13)(react@19.1.1):
     optionalDependencies:
       '@babel/core': 7.28.3
       '@babel/template': 7.27.2
