@@ -1,6 +1,6 @@
 import fs from "fs";
 import path from "path";
-import { errorToString } from "@shell/3-utils-main";
+import { errorToString, toWindows } from "@shell/3-utils-main";
 import { type R2MInvoke } from "@shared/ipc-types";
 
 /**
@@ -10,6 +10,7 @@ import { type R2MInvoke } from "@shared/ipc-types";
  * @returns - error message or empty string
  */
 export async function saveFileInMain(fileName: string, content: string): Promise<R2MInvoke.EmptyOkOrError> { // call 'r2mi:save-file' in main
+    fileName = toWindows(fileName); // critical for Windows ntework files
 
     // 1. Create dir if needed
 
@@ -35,3 +36,5 @@ export async function saveFileInMain(fileName: string, content: string): Promise
         return errorToString(error);
     }
 }
+
+//TODO: save. delete, open, recent files
