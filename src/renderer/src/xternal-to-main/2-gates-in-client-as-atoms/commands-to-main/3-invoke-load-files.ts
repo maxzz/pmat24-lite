@@ -1,5 +1,5 @@
 import { proxySet } from "valtio/utils";
-import { toUnix } from "@/utils";
+import { toWindows } from "@/utils";
 import { uuid } from "@/store/manifest";
 import { type FileContent, type MainFileContent } from "@shared/ipc-types";
 import { invokeMainTyped } from "../3-to-main-apis";
@@ -27,7 +27,7 @@ export function finalizeFileContent(fileContent: MainFileContent): FileContent {
 
     rv.unid = uuid.asRelativeNumber();
     rv.changesSet = proxySet<string>();
-    rv.fpath = toUnix(rv.fpath);
+    rv.fpath = toWindows(rv.fpath);
 
     return rv;
 }

@@ -1,5 +1,5 @@
 import { ref, snapshot, subscribe } from "valtio";
-import { errorToString, normalizeFpath, showStack, toUnix } from "@/utils";
+import { errorToString, normalizeFpath, showStack, toWindows } from "@/utils";
 import { get, set } from "idb-keyval";
 import { appSettings } from "@/store/9-ui-state";
 import { type PmatFolder } from "./9-types";
@@ -34,7 +34,7 @@ function updateMruList(items: PmatFolder[], folder: PmatFolder): boolean {
 
     folder = { ...folder }; // copy because it can be ref and as result frozen
 
-    folder.fpath = toUnix(folder.fpath).toLowerCase(); // normalize fpath
+    folder.fpath = toWindows(folder.fpath).toLowerCase(); // normalize fpath
 
     const newFolder = ref(folder); // It should be ref() otherwise we'll loose the handle type and as result won't be able to restore handle from indexedDB
 
