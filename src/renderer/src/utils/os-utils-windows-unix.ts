@@ -22,3 +22,23 @@ export function normalizeFpath(fpath: string | undefined): string {
 export function filenameForRegex(filename: string | undefined): string {
     return (filename || '').replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 }
+
+function test() {
+    let a: string = '';
+    let b: string = '';
+    let c: string = '';
+    a = 'c:/y/w/2-web/0-dp/pmat24-lite/src/renderer/src/store/5-1-files/4-mru-dirs.ts';
+    b = toUnix(a);
+    c = toWindows(b);
+    console.log(`a: ${a}`);
+    console.log(`   b: ${b}`);
+    console.log(`   c: ${c}`);
+
+    a = '\\\\TANAM5\\share-to-hid\\pmat-network-test\\test-files\\test.txt';
+    b = toUnix(a);
+    c = toWindows(b);
+    console.log(`a: ${a}`);
+    console.log(`   b: ${b}`);
+    console.log(`   c: ${c}`);
+}
+test();
