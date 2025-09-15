@@ -1,11 +1,15 @@
 // slashes back and forward
 
 export function toUnix(fileName: string | undefined): string {
+
     const double = /\/\//;
-    let res: string = (fileName || '').replace(/\\/g, '/');
-    while (res.match(double)) {
-        res = res.replace(double, '/');
-    }
+    let res: string = (fileName || '')//.replace(/\\/g, '/');
+    
+    res = res.replace(/(?!^)\\\\\\\\/g, "/");
+
+    // while (res.match(double)) {
+    //     res = res.replace(double, '/');
+    // }
     return res;
 }
 
