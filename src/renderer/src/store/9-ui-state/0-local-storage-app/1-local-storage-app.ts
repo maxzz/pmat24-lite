@@ -8,7 +8,7 @@ import { type RightPanelSettings, defaultRightPanelSettings } from "../2-right-p
 import { type AppUISettings, defaultAppUISettings } from "../8-app-ui";
 
 const STORE_KEY = "pmat25-ui";
-const STORE_VER = 'v2';
+const STORE_VER = 'v3'; // fix for network share MRU list
 
 export type AppSettings = {
     appUi: AppUISettings;           // App UI settings: theme, divider, etc.
