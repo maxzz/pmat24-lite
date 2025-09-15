@@ -3,9 +3,9 @@
 export function toUnix(fileName: string | undefined): string {
 
     const double = /\/\//;
-    let res: string = (fileName || '')//.replace(/\\/g, '/');
+    let res: string = (fileName || '').replace(/\\/g, '/');
     
-    res = res.replace(/(?!^)\\\\\\\\/g, "/");
+    res = res.replace(/(?!^)\/\//g, "/");
 
     // while (res.match(double)) {
     //     res = res.replace(double, '/');
@@ -31,18 +31,18 @@ function test() {
     let a: string = '';
     let b: string = '';
     let c: string = '';
-    a = 'c:/y/w/2-web/0-dp/pmat24-lite/src/renderer/src/store/5-1-files/4-mru-dirs.ts';
+    a = 'c:\\y\\w\\\\2-web\\0-dp\\pmat24-lite\\src\\renderer\\src\\store\\5-1-files\\4-mru-dirs.ts';
     b = toUnix(a);
     c = toWindows(b);
     console.log(`a: ${a}`);
-    console.log(`   b: ${b}`);
-    console.log(`   c: ${c}`);
+    console.log(`   u: ${b}`);
+    console.log(`   w: ${c}`);
 
-    a = '\\\\TANAM5\\share-to-hid\\pmat-network-test\\test-files\\test.txt';
+    a = '\\\\TANAM5\\\\share-to-hid\\pmat-network-test\\test-files\\test.txt';
     b = toUnix(a);
     c = toWindows(b);
     console.log(`a: ${a}`);
-    console.log(`   b: ${b}`);
-    console.log(`   c: ${c}`);
+    console.log(`   u: ${b}`);
+    console.log(`   w: ${c}`);
 }
 test();
