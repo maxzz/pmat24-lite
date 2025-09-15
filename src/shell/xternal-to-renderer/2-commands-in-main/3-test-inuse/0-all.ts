@@ -1,4 +1,4 @@
-import { promises as fs } from "fs";
+import { promises as fs, type Stats } from "fs";
 import { type TestInUseParams_Start, type TestInUseParams_Set, type TestInUseResultItem } from "@shared/ipc-types/9-test-inuse";
 import { type R2MInvoke } from "@shared/ipc-types";
 import { deleteFolder, getCacheFolder, getCacheInTestFolder, listFiles } from "./8-os-utils";
@@ -45,7 +45,16 @@ async function setFileTestInUse(file: TestInUseParams_Start, inTest: boolean, de
             await fs.mkdir(cacheFolder, { recursive: true });
             await fs.writeFile(fullName, file.rawCnt, 'utf8'); // Overwrites by default
         } else {
-            const stats = await fs.stat(fullName);
+            let stats: Stats | undefined;
+            try {
+                stats = await fs.stat(fullName);
+            } catch (error) {
+                if (error instanceof Error && 'code' in error && error.code === 'ENOENT') {
+                    return;
+                } else {
+                    throw error;
+                }
+            }
             if (stats.isFile()) {
                 await fs.rm(fullName, { force: true });
             }
