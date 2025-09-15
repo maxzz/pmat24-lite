@@ -16,6 +16,8 @@ export function toWindows(fileName: string | undefined): string {
     return rv;
 }
 
+//
+
 export function normalizeFpath(fpath: string | undefined): string {
     return toUnix(fpath).toLowerCase();
 }
