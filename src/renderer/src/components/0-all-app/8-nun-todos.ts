@@ -225,3 +225,9 @@
 //TODO: update cache when in test mode file deleted - done
 //TODO: there is no warning when leaving the app with unsaved changes for web
 //TODO: cannot open empty folder w/ empty subfolder 'c'
+
+//09.14.25
+//TODO: default manifest name for new manifest
+//TODO: when save file with empty name we select page and highlight filed but don't set focus to filed - OK for now but annoying
+//TODO: monitor does not truncate name if explorer with long path is trained - it seems OK
+//TODO: I don't delete c folder if it is empty - OK for now
