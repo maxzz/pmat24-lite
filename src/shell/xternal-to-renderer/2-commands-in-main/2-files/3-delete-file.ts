@@ -1,6 +1,6 @@
 import fs from "fs";
 import path from "path";
-import { errorToString } from "@shell/3-utils-main";
+import { errorToString, toWindows } from "@shell/3-utils-main";
 
 /**
  * Delete file (not directory) from renderer in the main process.
@@ -9,6 +9,8 @@ import { errorToString } from "@shell/3-utils-main";
  */
 export async function deleteFileInMain(fileName: string): Promise<string> { // call 'r2mi:delete-file' in main
     try {
+        fileName = toWindows(fileName); // critical for Windows ntework share files
+        
         if (!fs.existsSync(fileName)) {
             return '';
         }

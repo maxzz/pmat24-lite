@@ -10,7 +10,7 @@ import { type R2MInvoke } from "@shared/ipc-types";
  * @returns - error message or empty string
  */
 export async function saveFileInMain(fileName: string, content: string): Promise<R2MInvoke.EmptyOkOrError> { // call 'r2mi:save-file' in main
-    fileName = toWindows(fileName); // critical for Windows ntework files
+    fileName = toWindows(fileName); // critical for Windows ntework share files
 
     // 1. Create dir if needed
 
