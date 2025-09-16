@@ -69,8 +69,8 @@ export function pathWithoutFilename(path: string | undefined): string {
 export function filenameWithoutPath(path: string | undefined): string {
     const rv =
         (path || '')
-            .replace(/^\//, '') // remove first slash
-            .split(/[\\\/]/);   // split by slashes
+            .replace(/^[\\\/]+/, '') // remove first slashes
+            .split(/[\\\/]/);        // split by slashes
     return rv.pop() || '';
 }
 

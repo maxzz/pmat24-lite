@@ -53,21 +53,7 @@ function collectNamesRecursively(filenames: string[], rv: MainFileContent[]) {
         (filename) => {
             filename = normalize(filename);
 
-            const newItem: MainFileContent = {
-                idx: 0,
-                fname: basename(filename),
-                fpath: dirname(filename),
-                fmodi: 0,
-                size: 0,
-                rawLoaded: '',
-                failed: false,
-                notOur: false,
-                newFile: false,
-                newAsManual: false,
-                fromMain: true,
-                webFsItem: null,
-            };
-
+            const newItem: MainFileContent = makeNewItem(filename);
             try {
                 const st = statSync(filename);
 
@@ -87,6 +73,23 @@ function collectNamesRecursively(filenames: string[], rv: MainFileContent[]) {
             }
         }
     );
+}
+
+function makeNewItem(filename: string): MainFileContent {
+    return {
+        idx: 0,
+        fname: basename(filename),
+        fpath: dirname(filename),
+        fmodi: 0,
+        size: 0,
+        rawLoaded: '',
+        failed: false,
+        notOur: false,
+        newFile: false,
+        newAsManual: false,
+        fromMain: true,
+        webFsItem: null,
+    };
 }
 
 function isAllowedExt(filename: string | undefined, allowedExt: string[]): boolean | undefined { // the same as in renderer

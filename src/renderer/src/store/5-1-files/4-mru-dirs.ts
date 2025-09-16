@@ -1,6 +1,6 @@
 import { ref, snapshot, subscribe } from "valtio";
-import { errorToString, normalizeFpath, showStack, toWindows } from "@/utils";
 import { get, set } from "idb-keyval";
+import { errorToString, normalizeFpath, showStack, toWindows } from "@/utils";
 import { appSettings } from "@/store/9-ui-state";
 import { type PmatFolder } from "./9-types";
 import { isPmatFolderEmpty } from "@/store/5-1-files";
