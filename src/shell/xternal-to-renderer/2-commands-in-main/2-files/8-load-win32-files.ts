@@ -49,30 +49,30 @@ export function loadWin32FilesContent(filenames: string[], allowedExt?: string[]
 }
 
 function collectNamesRecursively(filenames: string[], rv: MainFileContent[]) {
-    (filenames || []).forEach(
-        (filename) => {
-            filename = normalize(filename);
+    for (const fname of (filenames || [])) {
+        const filename = normalize(fname);
 
-            const newItem: MainFileContent = makeNewItem(filename);
-            try {
-                const st = statSync(filename);
+        const newItem: MainFileContent = makeNewItem(filename);
+        try {
+            const st = statSync(filename);
 
-                if (st.isFile()) {
-                    newItem.fmodi = st.mtimeMs;
-                    newItem.size = st.size;
-                    rv.push(newItem);
-                }
-                else if (st.isDirectory()) {
-                    const entries = readdirSync(filename).map((entry) => join(filename, entry));
-                    collectNamesRecursively(entries, rv);
-                }
-            } catch (error) {
-                newItem.rawLoaded = error instanceof Error ? error.message : JSON.stringify(error);
-                newItem.failed = true;
+            if (st.isFile()) {
+                newItem.fmodi = st.mtimeMs;
+                newItem.size = st.size;
                 rv.push(newItem);
             }
+            else if (st.isDirectory()) {
+                const entries = readdirSync(filename).map(
+                    (entry) => join(filename, entry)
+                );
+                collectNamesRecursively(entries, rv);
+            }
+        } catch (error) {
+            newItem.rawLoaded = error instanceof Error ? error.message : JSON.stringify(error);
+            newItem.failed = true;
+            rv.push(newItem);
         }
-    );
+    }
 }
 
 function makeNewItem(filename: string): MainFileContent {
