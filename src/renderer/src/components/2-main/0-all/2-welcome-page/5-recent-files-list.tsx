@@ -40,10 +40,10 @@ function FolderItem({ folder }: { folder: PmatFolder; }) {
     const short = filenameWithoutPath(folder.fpath);
     const doSetFilesFrom_MruFolder = useSetAtom(doSetFilesFrom_MruFolder_Atom);
     return (
-        <Button variant="ghost" className="justify-start w-full h-6 text-xs" title={folder.fpath} onClick={() => doSetFilesFrom_MruFolder({ folder })}>
+        <Button variant="ghost" className="relative justify-start w-full h-6 text-xs" title={folder.fpath} onClick={() => doSetFilesFrom_MruFolder({ folder })}>
             <IconFolderClosed className="mr-1 size-4" />
             <div className="truncate">{short}</div>
-            <SymbolCross className="justify-self-end ml-1 size-3" />
+            <SymbolCross className="absolute right-1 size-3" />
         </Button>
     );
 }
