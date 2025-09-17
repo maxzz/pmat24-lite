@@ -1,6 +1,6 @@
 import { type R2MInvoke } from "@shared/ipc-types";
 import { getTargetHwnd, getWindowIcon, getWindowControls, getWindowMani, getTlwInfos, getTlwScreenshots, highlightControl, highlightWindow, getWindowExtras, dndActionInit, getGeneralInfo, performCommand } from "../7-napi-calls";
-import { loadWin32FilesContent } from "../2-commands-in-main/2-files/8-load-win32-files";
+import { asyncLoadWin32FilesContent } from "../2-commands-in-main/2-files/8-load-win32-files";
 import { existsFileInMain, deleteFileInMain, generateUniqueFilename, revealInExplorer, saveFileInMain } from "../2-commands-in-main/2-files";
 import { testInUseInMain_DeleteDir, testInUseInMain_Start, testInUseInMain_Set } from "../2-commands-in-main/3-test-inuse";
 
@@ -11,7 +11,7 @@ export async function invokeFromRendererInMain(data: R2MInvoke.AllInvokes): Prom
         // files
 
         case 'r2mi:load-files': {
-            const rv: R2MInvoke.InvokeResult<R2MInvoke.DoLoadfiles> = loadWin32FilesContent(data.filenames, data.allowedExt);
+            const rv: R2MInvoke.InvokeResult<R2MInvoke.DoLoadfiles> = await asyncLoadWin32FilesContent(data.filenames, data.allowedExt);
             return rv;
         }
 

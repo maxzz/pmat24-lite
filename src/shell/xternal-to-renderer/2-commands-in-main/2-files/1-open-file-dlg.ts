@@ -1,7 +1,7 @@
 import { type BrowserWindow, dialog } from "electron";
 import { pmAllowedToOpenExt } from "@shared/ipc-types";
 import { mainToRenderer } from "../../1-gates-in-main/3-send-in-main-to-renderer";
-import { loadWin32FilesContent } from "./8-load-win32-files";
+import { asyncLoadWin32FilesContent } from "./8-load-win32-files";
 
 export async function openFileDialogAndReply(appWin: BrowserWindow | null | undefined, what: { openDirs?: boolean; } = { openDirs: false }) {
     if (!appWin) {
@@ -18,7 +18,7 @@ export async function openFileDialogAndReply(appWin: BrowserWindow | null | unde
             return;
         }
 
-        const { filesCnt, emptyFolder } = loadWin32FilesContent(filePaths, pmAllowedToOpenExt);
+        const { filesCnt, emptyFolder } = await asyncLoadWin32FilesContent(filePaths, pmAllowedToOpenExt);
         mainToRenderer({ type: 'm2r:loaded-files', filesCnt, emptyFolder });
 
     } catch (error) {

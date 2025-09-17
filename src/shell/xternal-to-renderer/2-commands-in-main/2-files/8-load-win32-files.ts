@@ -1,6 +1,7 @@
 import { basename, dirname, extname, join, normalize } from "node:path";
 import { readdirSync, readFileSync, statSync } from "node:fs";
 import { type MainFileContent } from "@shared/ipc-types";
+import { getLinkTargetPath } from "@shell/3-utils-main";
 
 /**
  * @param filenames - filenames with path
@@ -9,7 +10,7 @@ import { type MainFileContent } from "@shared/ipc-types";
  *  - filesCnt - MainFileContent casted to FileContent. They should be filled from renderer.
  *  - emptyFolder - if call open folder and no files found then we return empty folder path
  */
-export function loadWin32FilesContent(filenames: string[], allowedExt?: string[]): { filesCnt: MainFileContent[]; emptyFolder: string; } { // call 'r2mi:load-files' in main
+export async function asyncLoadWin32FilesContent(filenames: string[], allowedExt?: string[]): Promise<{ filesCnt: MainFileContent[]; emptyFolder: string; }> { // call 'r2mi:load-files' in main
 
     const ctx: CollectCtx = { numberOfLevels: 1, allowedSubfolders: ["a", "b", "c"], rv: [] };
     collectNamesRecursively(filenames, 0, ctx);
@@ -54,9 +55,9 @@ type CollectCtx = {
     rv: MainFileContent[];
 };
 
-function collectNamesRecursively(filenames: string[], level: number, ctx: CollectCtx) {
+async function collectNamesRecursively(filenames: string[], level: number, ctx: CollectCtx) {
     for (const fname of (filenames || [])) {
-        const filename = normalize(fname);
+        const filename = await getLinkTargetPath(normalize(fname));
 
         const newItem: MainFileContent = makeNewItem(filename);
         try {
