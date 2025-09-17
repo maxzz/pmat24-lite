@@ -40,18 +40,19 @@ export function RecentFilesList({ className, ...rest }: ComponentPropsWithoutRef
 function FolderItem({ folder }: { folder: PmatFolder; }) {
     const short = filenameWithoutPath(folder.fpath);
     const doSetFilesFrom_MruFolder = useSetAtom(doSetFilesFrom_MruFolder_Atom);
+    
     const [hover, setHover] = useState(false);
+
+    function onCrossClick(event: React.MouseEvent): void {
+        event.stopPropagation(); 
+        appSettings.appUi.mru.folders = appSettings.appUi.mru.folders.filter((item) => item.fpath !== folder.fpath);
+    }
+
     return (
         <Button variant="ghost" className="relative justify-start w-full h-6 text-xs overflow-hidden" title={folder.fpath} onClick={() => doSetFilesFrom_MruFolder({ folder })} onMouseEnter={() => setHover(true)} onMouseLeave={() => setHover(false)}>
             <IconFolderClosed className="mr-1 size-4" />
             <div className="truncate">{short}</div>
-            <IconCrossOnHover className="absolute right-2" onClick={(event: React.MouseEvent) => { event.stopPropagation(); RemoveFromMru(folder); }} show={hover} />
+            <IconCrossOnHover className="absolute right-2" onClick={onCrossClick} show={hover} />
         </Button>
     );
-}
-
-function RemoveFromMru(folder: PmatFolder): void {
-    const folders = appSettings.appUi.mru.folders;
-    const newFolders = folders.filter((item) => item.fpath !== folder.fpath);
-    appSettings.appUi.mru.folders = newFolders;
 }
