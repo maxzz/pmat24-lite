@@ -41,7 +41,7 @@ function FolderItem({ folder }: { folder: PmatFolder; }) {
     const doSetFilesFrom_MruFolder = useSetAtom(doSetFilesFrom_MruFolder_Atom);
     const [hover, setHover] = useState(false);
     return (
-        <Button variant="ghost" className="relative justify-start w-full h-6 text-xs" title={folder.fpath} onClick={() => doSetFilesFrom_MruFolder({ folder })} onMouseEnter={() => setHover(true)} onMouseLeave={() => setHover(false)}>
+        <Button variant="ghost" className="relative justify-start w-full h-6 text-xs overflow-hidden" title={folder.fpath} onClick={() => doSetFilesFrom_MruFolder({ folder })} onMouseEnter={() => setHover(true)} onMouseLeave={() => setHover(false)}>
             <IconFolderClosed className="mr-1 size-4" />
             <div className="truncate">{short}</div>
             <IconCrossOnHover className="absolute right-2" onClick={() => { }} show={hover} />
@@ -51,15 +51,15 @@ function FolderItem({ folder }: { folder: PmatFolder; }) {
 
 function IconCrossOnHover({ show, className, ...rest }: { show: boolean; } & ComponentPropsWithoutRef<typeof SymbolCross>) {
     return (<>
-        <motion.div
-            className={classNames("", className)}
-            initial={{ opacity: 0, scale: 0 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 2.2, delay: 2 }}
-        >
-            {show && (
+        {show && (
+            <motion.div
+                className={classNames("", className)}
+                initial={{ opacity: 0, scale: 0.7, x: 100 }}
+                animate={{ opacity: 1, scale: 1, x: 0 }}
+                transition={{ duration: .2, delay: .17 }}
+            >
                 <SymbolCross className="size-3" {...rest} />
-            )}
-        </motion.div>
+            </motion.div>
+        )}
     </>);
 }
