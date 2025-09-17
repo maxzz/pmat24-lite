@@ -1,7 +1,7 @@
 import { useState, type ComponentPropsWithoutRef } from "react";
 import { useSetAtom } from "jotai";
 import { useSnapshot } from "valtio";
-import { motion } from "motion/react";
+import { AnimatePresence, motion, MotionConfig } from "motion/react";
 import { classNames, filenameWithoutPath } from "@/utils";
 import { Button } from "@/ui";
 import { IconTrash, SymbolCross } from "@/ui/icons";
@@ -51,15 +51,20 @@ function FolderItem({ folder }: { folder: PmatFolder; }) {
 
 function IconCrossOnHover({ show, className, ...rest }: { show: boolean; } & ComponentPropsWithoutRef<typeof SymbolCross>) {
     return (<>
-        {show && (
-            <motion.div
-                className={classNames("", className)}
-                initial={{ opacity: 0, scale: 0.7, x: 100 }}
-                animate={{ opacity: 1, scale: 1, x: 0 }}
-                transition={{ duration: .2, delay: .17 }}
-            >
-                <SymbolCross className="size-3" {...rest} />
-            </motion.div>
-        )}
+        <MotionConfig transition={{ duration: .2 }}>
+            <AnimatePresence initial={false}>
+                {show && (
+                    <motion.div
+                        className={classNames("", className)}
+                        initial={{ opacity: 0, scale: 0.7, x: 100 }}
+                        animate={{ opacity: 1, scale: 1, x: 0 }}
+                        exit={{ opacity: 0, scale: 0.7, x: 100, transition: { duration: 2 } }}
+                        //transition={{ duration: .2, delay: .17 }}
+                    >
+                        <SymbolCross className="size-3" {...rest} />
+                    </motion.div>
+                )}
+            </AnimatePresence>
+        </MotionConfig>
     </>);
 }
