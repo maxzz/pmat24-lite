@@ -1,4 +1,4 @@
-import { type ComponentPropsWithoutRef } from "react";
+import { useState, type ComponentPropsWithoutRef } from "react";
 import { useSetAtom } from "jotai";
 import { useSnapshot } from "valtio";
 import { motion } from "motion/react";
@@ -39,17 +39,20 @@ export function RecentFilesList({ className, ...rest }: ComponentPropsWithoutRef
 function FolderItem({ folder }: { folder: PmatFolder; }) {
     const short = filenameWithoutPath(folder.fpath);
     const doSetFilesFrom_MruFolder = useSetAtom(doSetFilesFrom_MruFolder_Atom);
+    const [hover, setHover] = useState(false);
     return (
-        <Button variant="ghost" className="relative justify-start w-full h-6 text-xs" title={folder.fpath} onClick={() => doSetFilesFrom_MruFolder({ folder })}>
+        <Button variant="ghost" className="relative justify-start w-full h-6 text-xs" title={folder.fpath} onClick={() => doSetFilesFrom_MruFolder({ folder })} onMouseEnter={() => setHover(true)} onMouseLeave={() => setHover(false)}>
             <IconFolderClosed className="mr-1 size-4" />
             <div className="truncate">{short}</div>
-            <SymbolCross className="absolute right-2 size-3" />
+            <IconCrossOnHover className="absolute right-2 size-3" onClick={() => {}} show={hover} />
         </Button>
     );
 }
 
-function IconCrossOnHover({ className, ...rest }: ComponentPropsWithoutRef<typeof SymbolCross>) {
-    return (
-        <SymbolCross className={classNames("absolute right-2 size-3", className)} {...rest} />
-    );
+function IconCrossOnHover({ show, className, ...rest }: { show: boolean; } & ComponentPropsWithoutRef<typeof SymbolCross>) {
+    return (<>
+        {show && (
+            <SymbolCross className={classNames("", className)} {...rest} />
+        )}
+    </>);
 }
