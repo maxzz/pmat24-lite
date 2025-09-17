@@ -59,28 +59,28 @@ export async function collectWebDndItems(dataTransferItems: DataTransferItem[]):
 }
 
 function printEntryFiles(handles: FileWithPath[]) {
-    console.log('🔊%cEntryFiles:', 'color: saddlebrown', 'Firefox entries detected');
+    console.log('🔊 %cEntryFiles:', 'color: saddlebrown', 'Firefox entries detected');
     for (const file of handles) {
         console.log(`%cpath: "${file.path}"%o`, `color: tan`, { file });
     }
 }
 
 function printHandles(handles: DndHandle[]) {
-    console.log('🔊%cDndHandles:', 'color: saddlebrown');
+    console.log('🔊 %cDndHandles:', 'color: saddlebrown');
 
     for (const [fullPath, handle, ownerDir] of handles) {
         const isFile = handle.kind === 'file';
         const fileColor = isFile ? 'tan' : 'fuchsia';
-        const handle2 = FSHandleString(handle);
-        const dir2 = FSHandleString(ownerDir);
+        const handleStr = FSHandleString(handle);
+        const ownerDirStr = FSHandleString(ownerDir);
         console.log(
-            `%c${isFile ? '  File' : 'Folder'} full path: %c"${fullPath}" %cOwnerDir: ${dir2} %chandle: ${handle2}`,
-            'color: gray',
+            `%c       ${isFile ? '  File' : 'Folder'} full path: %c"${fullPath}" %cownerDir: ${ownerDirStr} %chandle: ${handleStr}`,
+            'color: gray; font-size: 0.5rem;',
             `color: ${fileColor}`,
-            'color: gray',
+            'color: gray; font-size: 0.5rem;',
             'color: saddlebrown',
             'color: saddlebrown',
-            'color: gray',
+            'color: gray; font-size: 0.5rem;',
             'color: saddlebrown',
             'color: saddlebrown',
             // { all: [path, handle, dir] }
@@ -89,7 +89,7 @@ function printHandles(handles: DndHandle[]) {
 }
 
 function printWebFsitems(items: WebFsItem[]) {
-    console.log('🔊%cWebFsItems:', 'color: saddlebrown');
+    console.log('🔊 %cWebFsItems:', 'color: saddlebrown');
 
     for (const item of items) {
         console.log(`%cpath: "${item.legacyPath}"%o`, `color: ${item.handle?.kind === 'file' ? 'tan' : 'fuchsia'}`, { item });

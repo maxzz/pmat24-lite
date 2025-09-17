@@ -41,4 +41,6 @@ export function isFsFileHandle(handle: FileSystemHandle | FileSystemHandleUnion)
 export function isFsDirectoryHandle(handle: FileSystemHandle | FileSystemHandleUnion): handle is FileSystemDirectoryHandle {
     return handle instanceof FileSystemHandle && handle.kind === 'directory';
 }
+
+export const isItemFile = (handle: FileSystemHandle ): boolean => handle.kind === 'file';
 */
