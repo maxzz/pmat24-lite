@@ -6,7 +6,7 @@ import { doDisposeAllFilesAtomAtom } from "@/store/store-utils";
 import { type FileUs } from "@/store/store-types";
 import { type FileContent } from "@shared/ipc-types";
 import { allFileUsChanges } from "@/store/2-file-mani-atoms";
-import { type PmatFolder, filesAtom, isRootDirEmpty, setRootDir } from "@/store/5-1-files";
+import { type PmatFolder, filesAtom, isRootDirEmpty, setRootDir, undefinedPmatFolder } from "@/store/5-1-files";
 import { sortFileUsItemsInPlaceAndSetIndices } from "@/store/5-2-tree-files";
 import { rightPanelAtomAtom } from "@/store/5-3-right-panel";
 import { isPmatFileToLoad, inTest_Start } from "@/store/0-serve-atoms/6-do-inuse-test";
@@ -77,6 +77,7 @@ export const doSetDeliveredFilesAtom = atom(
             !runningClearFiles && toast.warning('Opening multiple files or folders is not allowed. Drag and drop one folder.');
             deliveredFileContents = [];
             runningClearFiles = true;
+            setRootDir(undefinedPmatFolder());
         }
 
         const initializedFileUsItems: FileUs[] = deliveredFileContents
