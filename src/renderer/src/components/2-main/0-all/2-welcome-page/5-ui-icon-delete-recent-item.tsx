@@ -14,7 +14,7 @@ export function IconCrossOnHover({ show, className, onClick, ...rest }: { show: 
                         animate={{ opacity: 1, scale: 1, x: 0, transition: { delay: .7 } }}
                         exit={{ opacity: 0, scale: 0, x: 10 }}
                         onClick={onClick}
-                        title="Delete recent item"
+                        title="Remove this item from the list of recent items"
                     >
                         <SymbolCross className="size-3" {...rest} />
                     </motion.div>

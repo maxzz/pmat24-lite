@@ -9,6 +9,7 @@ import { appSettings } from "@/store/9-ui-state";
 import { type PmatFolder } from "@/store/5-1-files";
 import { IconCrossOnHover } from "./5-ui-icon-delete-recent-item";
 import { doSetFilesFrom_MruFolder_Atom } from "@/store/0-serve-atoms/2-do-load-files";
+import { a } from "@react-spring/web";
 
 export function RecentFilesList({ className, ...rest }: ComponentPropsWithoutRef<typeof motion.div>) {
     const { folders } = useSnapshot(appSettings.appUi.mru);
@@ -44,7 +45,13 @@ function FolderItem({ folder }: { folder: PmatFolder; }) {
         <Button variant="ghost" className="relative justify-start w-full h-6 text-xs overflow-hidden" title={folder.fpath} onClick={() => doSetFilesFrom_MruFolder({ folder })} onMouseEnter={() => setHover(true)} onMouseLeave={() => setHover(false)}>
             <IconFolderClosed className="mr-1 size-4" />
             <div className="truncate">{short}</div>
-            <IconCrossOnHover className="absolute right-2" onClick={() => { }} show={hover} />
+            <IconCrossOnHover className="absolute right-2" onClick={(event: React.MouseEvent) => { event.stopPropagation(); RemoveFromMru(folder); }} show={hover} />
         </Button>
     );
+}
+
+function RemoveFromMru(folder: PmatFolder): void {
+    const folders = appSettings.appUi.mru.folders;
+    const newFolders = folders.filter((item) => item.fpath !== folder.fpath);
+    appSettings.appUi.mru.folders = newFolders;
 }
