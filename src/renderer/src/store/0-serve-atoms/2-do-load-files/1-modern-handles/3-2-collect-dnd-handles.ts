@@ -1,4 +1,8 @@
-export type DndHandle = [path: string, handle: FileSystemHandleUnion, dir: FileSystemDirectoryHandle | null];
+export type DndHandle = [
+    path: string,                               // Path to the file or folder
+    handle: FileSystemHandleUnion,              // Handle of this item as FileSystemFileHandle | FileSystemDirectoryHandle
+    dir: FileSystemDirectoryHandle | null,
+];
 
 export async function collectDndHandles(files: DataTransferItem[]): Promise<DndHandle[]> {
     const rv: DndHandle[] = [];
