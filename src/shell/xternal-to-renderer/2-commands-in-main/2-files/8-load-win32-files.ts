@@ -11,12 +11,12 @@ import { type MainFileContent } from "@shared/ipc-types";
  */
 export function loadWin32FilesContent(filenames: string[], allowedExt?: string[]): { filesCnt: MainFileContent[]; emptyFolder: string; } { // call 'r2mi:load-files' in main
 
-    let rv: MainFileContent[] = [];
-    collectNamesRecursively(filenames, rv);
+    const ctx: CollectCtx = { numberOfLevels: 1, allowedSubfolders: ["a", "b", "c"], rv: [] };
+    collectNamesRecursively(filenames, 0, ctx);
 
-    allowedExt && rv.forEach((item) => item.notOur = !isAllowedExt(item.fname, allowedExt));
+    allowedExt && ctx.rv.forEach((item) => item.notOur = !isAllowedExt(item.fname, allowedExt));
 
-    rv.forEach(
+    ctx.rv.forEach(
         (fileContent, idx) => { // read file content
             fileContent.idx = idx;
             if (fileContent.failed || fileContent.notOur) {
@@ -35,7 +35,7 @@ export function loadWin32FilesContent(filenames: string[], allowedExt?: string[]
 
     let emptyFolder = '';
 
-    if (!rv.length && filenames.length === 1) {
+    if (!ctx.rv.length && filenames.length === 1) {
         try {
             if (statSync(filenames[0]).isDirectory()) {
                 emptyFolder = filenames[0];
@@ -45,10 +45,16 @@ export function loadWin32FilesContent(filenames: string[], allowedExt?: string[]
         }
     }
 
-    return { filesCnt: rv, emptyFolder };
+    return { filesCnt: ctx.rv, emptyFolder };
 }
 
-function collectNamesRecursively(filenames: string[], rv: MainFileContent[]) {
+type CollectCtx = {
+    numberOfLevels: number; // number of levels to collect: 1 - only root as allowedSubfolders, 2 - root and subfolders of 1st level and allowedSubfolders
+    allowedSubfolders: string[]; // allowed subfolders to collect at level 0
+    rv: MainFileContent[];
+};
+
+function collectNamesRecursively(filenames: string[], level: number, ctx: CollectCtx) {
     for (const fname of (filenames || [])) {
         const filename = normalize(fname);
 
@@ -59,18 +65,18 @@ function collectNamesRecursively(filenames: string[], rv: MainFileContent[]) {
             if (st.isFile()) {
                 newItem.fmodi = st.mtimeMs;
                 newItem.size = st.size;
-                rv.push(newItem);
+                ctx.rv.push(newItem);
             }
             else if (st.isDirectory()) {
                 const entries = readdirSync(filename).map(
                     (entry) => join(filename, entry)
                 );
-                collectNamesRecursively(entries, rv);
+                collectNamesRecursively(entries, level + 1, ctx);
             }
         } catch (error) {
             newItem.rawLoaded = error instanceof Error ? error.message : JSON.stringify(error);
             newItem.failed = true;
-            rv.push(newItem);
+            ctx.rv.push(newItem);
         }
     }
 }
