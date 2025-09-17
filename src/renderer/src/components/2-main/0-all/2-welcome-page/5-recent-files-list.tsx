@@ -4,7 +4,7 @@ import { useSnapshot } from "valtio";
 import { motion } from "motion/react";
 import { classNames, filenameWithoutPath } from "@/utils";
 import { Button } from "@/ui";
-import { IconTrash } from "@/ui/icons";
+import { IconTrash, SymbolCross } from "@/ui/icons";
 import { IconFolderClosed } from "@/ui/icons/normal/temp2";
 import { appSettings } from "@/store/9-ui-state";
 import { type PmatFolder } from "@/store/5-1-files";
@@ -42,7 +42,8 @@ function FolderItem({ folder }: { folder: PmatFolder; }) {
     return (
         <Button variant="ghost" className="justify-start w-full h-6 text-xs" title={folder.fpath} onClick={() => doSetFilesFrom_MruFolder({ folder })}>
             <IconFolderClosed className="mr-1 size-4" />
-            {short}
+            <div className="truncate">{short}</div>
+            <SymbolCross className="justify-self-end ml-1 size-3" />
         </Button>
     );
 }
