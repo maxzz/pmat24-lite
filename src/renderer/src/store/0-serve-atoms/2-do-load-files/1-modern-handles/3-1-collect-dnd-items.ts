@@ -35,7 +35,26 @@ export async function collectWebDndItems(dataTransferItems: DataTransferItem[]):
         }
     }
 
-    // printWebFsitems(rv);
+    printWebFsitems(rv);
+    /*
+        125 - dropped
+        125/c
+        125/c/c
+        125/c/c/c
+        125/c/c/c/6ba4ea1a-4329-424c-b36f-4ea85629870b.test.dpm
+    rv is [
+        {"owner":{kind:'directory', name:'125'},"handle":{kind:'directory', name:'125'},      "legacyEntry":null,"legacyFile":null,"legacyPath":"125"},
+        {"owner":{kind:'directory', name:'125'},"handle":{kind:'directory', name:'125/c'},    "legacyEntry":null,"legacyFile":null,"legacyPath":"125/c"},
+        {"owner":{kind:'directory', name:'c'},  "handle":{kind:'directory', name:'125/c/c'},  "legacyEntry":null,"legacyFile":null,"legacyPath":"125/c/c"},
+        {"owner":{kind:'directory', name:'c'},  "handle":{kind:'directory', name:'125/c/c/c'},"legacyEntry":null,"legacyFile":null,"legacyPath":"125/c/c/c"},
+        
+        {"owner":{kind:'directory', name:'c'},  "handle":{kind:'file', name:'6ba4ea1a-4329-424c-b36f-4ea85629870b.test.dpm'},
+            "legacyEntry":null,
+            "legacyFile":{name:'6ba4ea1a-4329-424c-b36f-4ea85629870b.test.dpm',lastModified:1679072000000,lastModified:1679072000000,lastModifiedDate:'Sat Aug 16 2025...',webkitRelativePath:'',size:2044,type:''},
+            "legacyPath":"125/c/c/c"
+        },
+    ]
+    */
     return rv;
 }
 
