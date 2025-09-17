@@ -21,21 +21,21 @@ export async function collectWebDndItems(dataTransferItems: DataTransferItem[]):
             })
         );
     } else {
-        const handles = await collectDndHandles(dataTransferItems);
+        const handles: DndHandle[] = await collectDndHandles(dataTransferItems);
         printHandles(handles);
 
-        for (const [path, handle, dir] of handles) {
+        for (const [fullPath, handle, ownerDir] of handles) {
             const item = new WebFsItem({
                 legacyFile: handle.kind === 'file' ? await handle.getFile() : null,
                 handle,
-                owner: dir,
-                legacyPath: path,
+                owner: ownerDir,
+                legacyPath: fullPath,
             });
             rv.push(item);
         }
     }
 
-    printWebFsitems(rv);
+    //printWebFsitems(rv);
     /*
         125 - dropped
         125/c
@@ -68,13 +68,22 @@ function printEntryFiles(handles: FileWithPath[]) {
 function printHandles(handles: DndHandle[]) {
     console.log('🔊%cDndHandles:', 'color: saddlebrown');
 
-    for (const [path, handle, dir] of handles) {
+    for (const [fullPath, handle, ownerDir] of handles) {
         const isFile = isFsFileHandle(handle);
+        const fileColor = isFile ? 'tan' : 'fuchsia';
+        const handle2 = FSHandleString(handle);
+        const dir2 = FSHandleString(ownerDir);
         console.log(
-            `%c${isFile ? '  File' : 'Folder'} path: "${path}"`,
-            `color: ${isFile ? 'tan' : 'fuchsia'}`,
-            'handle:', FSHandleString(handle),
-            'dir:', FSHandleString(dir), [path, handle, dir]
+            `%c${isFile ? '  File' : 'Folder'} full path: %c"${fullPath}" %cOwnerDir: ${dir2} %chandle: ${handle2}`,
+            'color: gray',
+            `color: ${fileColor}`,
+            'color: gray',
+            'color: saddlebrown',
+            'color: saddlebrown',
+            'color: gray',
+            'color: saddlebrown',
+            'color: saddlebrown',
+            // { all: [path, handle, dir] }
         );
     }
 }
@@ -112,7 +121,7 @@ function FSHandleString(handle: FileSystemHandle | FileSystemHandleUnion | null)
         return 'null';
     }
     if (handle instanceof FileSystemHandle) {
-        return `${handle.kind}:${handle.name}`;
+        return `%c${handle.kind === 'file' ? '  file' : 'folder'}:%c"${handle.name}"`;
     }
     return '???';
 }
