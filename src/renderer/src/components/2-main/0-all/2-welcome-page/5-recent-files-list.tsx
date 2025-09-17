@@ -53,9 +53,9 @@ function IconCrossOnHover({ show, className, ...rest }: { show: boolean; } & Com
     return (<>
         <motion.div
             className={classNames("", className)}
-            initial={{ opacity: 0, scale: 0.9 }}
+            initial={{ opacity: 0, scale: 0 }}
             animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 2.2 }}
+            transition={{ duration: 2.2, delay: 2 }}
         >
             {show && (
                 <SymbolCross className="size-3" {...rest} />
