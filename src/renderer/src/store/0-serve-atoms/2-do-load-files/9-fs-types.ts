@@ -22,7 +22,6 @@ export function isFsSupported(obj: any & Window): boolean {
 }
 
 // Modern API types
-
 /*
 export function isFsFileHandle(handle: FileSystemHandle | FileSystemHandleUnion): handle is FileSystemFileHandle {
     return handle.kind === 'file';
@@ -30,5 +29,16 @@ export function isFsFileHandle(handle: FileSystemHandle | FileSystemHandleUnion)
 
 export function isFsDirectoryHandle(handle: FileSystemHandle | FileSystemHandleUnion): handle is FileSystemDirectoryHandle {
     return handle.kind === 'directory';
+}
+*/
+
+// Safe, better but still not needed
+/*
+export function isFsFileHandle(handle: FileSystemHandle | FileSystemHandleUnion): handle is FileSystemFileHandle {
+    return handle instanceof FileSystemHandle && handle.kind === 'file';
+}
+
+export function isFsDirectoryHandle(handle: FileSystemHandle | FileSystemHandleUnion): handle is FileSystemDirectoryHandle {
+    return handle instanceof FileSystemHandle && handle.kind === 'directory';
 }
 */

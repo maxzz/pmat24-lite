@@ -69,7 +69,7 @@ function printHandles(handles: DndHandle[]) {
     console.log('🔊%cDndHandles:', 'color: saddlebrown');
 
     for (const [fullPath, handle, ownerDir] of handles) {
-        const isFile = isFsFileHandle(handle);
+        const isFile = handle.kind === 'file';
         const fileColor = isFile ? 'tan' : 'fuchsia';
         const handle2 = FSHandleString(handle);
         const dir2 = FSHandleString(ownerDir);
@@ -97,24 +97,6 @@ function printWebFsitems(items: WebFsItem[]) {
 }
 
 //
-
-export function isFsFileHandle(handle: FileSystemHandle | FileSystemHandleUnion): handle is FileSystemFileHandle {
-    return handle instanceof FileSystemHandle && handle.kind === 'file';
-}
-
-export function isFsDirectoryHandle(handle: FileSystemHandle | FileSystemHandleUnion): handle is FileSystemDirectoryHandle {
-    return handle instanceof FileSystemHandle && handle.kind === 'directory';
-}
-
-function FileSystemHandlePrintable(handle: FileSystemHandle | FileSystemHandleUnion | null): { kind: string; name: string; } {
-    if (!handle) {
-        return { kind: 'null', name: 'null' };
-    }
-    if (handle instanceof FileSystemHandle) {
-        return { kind: handle.kind, name: handle.name };
-    }
-    return { kind: '???', name: '???' };
-}
 
 function FSHandleString(handle: FileSystemHandle | FileSystemHandleUnion | null): string {
     if (!handle) {
