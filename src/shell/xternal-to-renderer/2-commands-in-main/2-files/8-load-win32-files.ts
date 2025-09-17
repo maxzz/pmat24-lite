@@ -68,10 +68,13 @@ function collectNamesRecursively(filenames: string[], level: number, ctx: Collec
                 ctx.rv.push(newItem);
             }
             else if (st.isDirectory()) {
-                const entries = readdirSync(filename).map(
-                    (entry) => join(filename, entry)
-                );
-                collectNamesRecursively(entries, level + 1, ctx);
+                const handleThisDir = level === ctx.numberOfLevels - 1 || ctx.allowedSubfolders.includes(basename(filename));
+                if (handleThisDir) {
+                    const entries = readdirSync(filename).map(
+                        (entry) => join(filename, entry)
+                    );
+                    collectNamesRecursively(entries, level + 1, ctx);
+                }
             }
         } catch (error) {
             newItem.rawLoaded = error instanceof Error ? error.message : JSON.stringify(error);
