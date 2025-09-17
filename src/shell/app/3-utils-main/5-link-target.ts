@@ -1,5 +1,6 @@
-import { exec } from 'child_process';
+import path from 'path';
 import { promisify } from 'util';
+import { exec } from 'child_process';
 
 // Promisify the exec function to use with async/await
 const execPromise = promisify(exec);
@@ -12,6 +13,11 @@ const execPromise = promisify(exec);
 export async function getLinkTargetPath(linkPath: string): Promise<string> {
     if (process.platform !== 'win32') {
         throw new Error('This function only works on Windows.');
+    }
+
+    // Check if the file extension is .lnk
+    if (path.extname(linkPath).toLowerCase() !== '.lnk') {
+        return linkPath;
     }
 
     // Use PowerShell to read the TargetPath property of the shortcut
@@ -30,14 +36,14 @@ export async function getLinkTargetPath(linkPath: string): Promise<string> {
 }
 
 /*
-	gai: 'how to check in nodejs that path is Windows link or folder'
-		// const stats = fs.lstatSync(filePath); If filePath points to a Windows symbolic link (e.g., a .lnk file): stats.isSymbolicLink() will be true.
-		'is symbolic link the same as Windows shotcut?' 
-			// No, a Windows symbolic link is not the same as a Windows shortcut. A shortcut is a regular file with a .lnk extension.
-			'How to get destination of Windows .lnk file?'
-				//npm install windows-shortcuts-ps https://github.com/felixrieseberg/windows-shortcuts-ps
-				'Make Method 2 as typescript function that receive link path as parameter'
-				'Make alternative example as typescript function that receive link path as parameter'
+    gai: 'how to check in nodejs that path is Windows link or folder'
+        // const stats = fs.lstatSync(filePath); If filePath points to a Windows symbolic link (e.g., a .lnk file): stats.isSymbolicLink() will be true.
+        'is symbolic link the same as Windows shotcut?' 
+            // No, a Windows symbolic link is not the same as a Windows shortcut. A shortcut is a regular file with a .lnk extension.
+            'How to get destination of Windows .lnk file?'
+                //npm install windows-shortcuts-ps https://github.com/felixrieseberg/windows-shortcuts-ps
+                'Make Method 2 as typescript function that receive link path as parameter'
+                'Make alternative example as typescript function that receive link path as parameter'
 
     or: https://github.com/felixrieseberg/windows-shortcuts-ps/blob/master/lib/index.js
 */
