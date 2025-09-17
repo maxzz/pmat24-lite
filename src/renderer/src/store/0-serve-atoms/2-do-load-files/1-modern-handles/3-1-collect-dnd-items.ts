@@ -22,7 +22,7 @@ export async function collectWebDndItems(dataTransferItems: DataTransferItem[]):
         );
     } else {
         const handles = await collectDndHandles(dataTransferItems);
-        // printHandles(handles);
+        printHandles(handles);
 
         for (const [path, handle, dir] of handles) {
             const item = new WebFsItem({
@@ -59,22 +59,60 @@ export async function collectWebDndItems(dataTransferItems: DataTransferItem[]):
 }
 
 function printEntryFiles(handles: FileWithPath[]) {
-    console.log('%cEntryFiles:', 'color: saddlebrown', 'Firefox entries detected');
+    console.log('🔊%cEntryFiles:', 'color: saddlebrown', 'Firefox entries detected');
     for (const file of handles) {
         console.log(`%cpath: "${file.path}"%o`, `color: tan`, { file });
     }
 }
 
 function printHandles(handles: DndHandle[]) {
-    console.log('%cDndHandles:', 'color: saddlebrown');
+    console.log('🔊%cDndHandles:', 'color: saddlebrown');
+
     for (const [path, handle, dir] of handles) {
-        console.log(`%cpath: "${path}"%o`, `color: ${handle.kind === 'file' ? 'tan' : 'fuchsia'}`, { handle, dir });
+        const isFile = isFsFileHandle(handle);
+        console.log(
+            `%c${isFile ? '  File' : 'Folder'} path: "${path}"`,
+            `color: ${isFile ? 'tan' : 'fuchsia'}`,
+            'handle:', FSHandleString(handle),
+            'dir:', FSHandleString(dir), [path, handle, dir]
+        );
     }
 }
 
 function printWebFsitems(items: WebFsItem[]) {
-    console.log('%cWebFsItems:', 'color: saddlebrown');
+    console.log('🔊%cWebFsItems:', 'color: saddlebrown');
+
     for (const item of items) {
         console.log(`%cpath: "${item.legacyPath}"%o`, `color: ${item.handle?.kind === 'file' ? 'tan' : 'fuchsia'}`, { item });
     }
+}
+
+//
+
+export function isFsFileHandle(handle: FileSystemHandle | FileSystemHandleUnion): handle is FileSystemFileHandle {
+    return handle instanceof FileSystemHandle && handle.kind === 'file';
+}
+
+export function isFsDirectoryHandle(handle: FileSystemHandle | FileSystemHandleUnion): handle is FileSystemDirectoryHandle {
+    return handle instanceof FileSystemHandle && handle.kind === 'directory';
+}
+
+function FileSystemHandlePrintable(handle: FileSystemHandle | FileSystemHandleUnion | null): { kind: string; name: string; } {
+    if (!handle) {
+        return { kind: 'null', name: 'null' };
+    }
+    if (handle instanceof FileSystemHandle) {
+        return { kind: handle.kind, name: handle.name };
+    }
+    return { kind: '???', name: '???' };
+}
+
+function FSHandleString(handle: FileSystemHandle | FileSystemHandleUnion | null): string {
+    if (!handle) {
+        return 'null';
+    }
+    if (handle instanceof FileSystemHandle) {
+        return `${handle.kind}:${handle.name}`;
+    }
+    return '???';
 }
