@@ -44,15 +44,22 @@ function FolderItem({ folder }: { folder: PmatFolder; }) {
         <Button variant="ghost" className="relative justify-start w-full h-6 text-xs" title={folder.fpath} onClick={() => doSetFilesFrom_MruFolder({ folder })} onMouseEnter={() => setHover(true)} onMouseLeave={() => setHover(false)}>
             <IconFolderClosed className="mr-1 size-4" />
             <div className="truncate">{short}</div>
-            <IconCrossOnHover className="absolute right-2 size-3" onClick={() => {}} show={hover} />
+            <IconCrossOnHover className="absolute right-2" onClick={() => { }} show={hover} />
         </Button>
     );
 }
 
 function IconCrossOnHover({ show, className, ...rest }: { show: boolean; } & ComponentPropsWithoutRef<typeof SymbolCross>) {
     return (<>
-        {show && (
-            <SymbolCross className={classNames("", className)} {...rest} />
-        )}
+        <motion.div
+            className={classNames("", className)}
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 2.2 }}
+        >
+            {show && (
+                <SymbolCross className="size-3" {...rest} />
+            )}
+        </motion.div>
     </>);
 }
