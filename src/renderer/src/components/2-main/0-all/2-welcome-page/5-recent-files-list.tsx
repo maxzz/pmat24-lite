@@ -43,7 +43,13 @@ function FolderItem({ folder }: { folder: PmatFolder; }) {
         <Button variant="ghost" className="relative justify-start w-full h-6 text-xs" title={folder.fpath} onClick={() => doSetFilesFrom_MruFolder({ folder })}>
             <IconFolderClosed className="mr-1 size-4" />
             <div className="truncate">{short}</div>
-            <SymbolCross className="absolute right-1 size-3" />
+            <SymbolCross className="absolute right-2 size-3" />
         </Button>
+    );
+}
+
+function IconCrossOnHover({ className, ...rest }: ComponentPropsWithoutRef<typeof SymbolCross>) {
+    return (
+        <SymbolCross className={classNames("absolute right-2 size-3", className)} {...rest} />
     );
 }
