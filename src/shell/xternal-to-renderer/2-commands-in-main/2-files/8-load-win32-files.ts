@@ -11,6 +11,9 @@ import { getLinkTargetPath } from "@shell/3-utils-main";
  *  - emptyFolder - if call open folder and no files found then we return empty folder path
  */
 export async function asyncLoadWin32FilesContent(filenames: string[], allowedExt?: string[]): Promise<{ filesCnt: MainFileContent[]; emptyFolder: string; }> { // call 'r2mi:load-files' in main
+    if (filenames.length === 1) { // resolve shortcut link to target only if it's a single file from drag and drop
+        filenames[0] = await getLinkTargetPath(filenames[0]);
+    }
 
     const ctx: CollectCtx = { numberOfLevels: 1, allowedSubfolders: ["a", "b", "c"], rv: [] };
     collectNamesRecursively(filenames, 0, ctx);
@@ -57,7 +60,7 @@ type CollectCtx = {
 
 async function collectNamesRecursively(filenames: string[], level: number, ctx: CollectCtx) {
     for (const fname of (filenames || [])) {
-        const filename = await getLinkTargetPath(normalize(fname));
+        const filename = normalize(fname);
 
         const newItem: MainFileContent = makeNewItem(filename);
         try {
