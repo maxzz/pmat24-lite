@@ -1,13 +1,13 @@
 import { useState, type ComponentPropsWithoutRef } from "react";
 import { useSetAtom } from "jotai";
 import { useSnapshot } from "valtio";
-import { AnimatePresence, motion, MotionConfig } from "motion/react";
+import { motion } from "motion/react";
 import { classNames, filenameWithoutPath } from "@/utils";
 import { Button } from "@/ui";
-import { IconTrash, SymbolCross } from "@/ui/icons";
 import { IconFolderClosed } from "@/ui/icons/normal/temp2";
 import { appSettings } from "@/store/9-ui-state";
 import { type PmatFolder } from "@/store/5-1-files";
+import { IconCrossOnHover } from "./5-ui-icon-delete-recent-item";
 import { doSetFilesFrom_MruFolder_Atom } from "@/store/0-serve-atoms/2-do-load-files";
 
 export function RecentFilesList({ className, ...rest }: ComponentPropsWithoutRef<typeof motion.div>) {
@@ -47,24 +47,4 @@ function FolderItem({ folder }: { folder: PmatFolder; }) {
             <IconCrossOnHover className="absolute right-2" onClick={() => { }} show={hover} />
         </Button>
     );
-}
-
-function IconCrossOnHover({ show, className, ...rest }: { show: boolean; } & ComponentPropsWithoutRef<typeof SymbolCross>) {
-    return (<>
-        <MotionConfig transition={{ duration: .2 }}>
-            <AnimatePresence initial={false}>
-                {show && (
-                    <motion.div
-                        className={classNames("origin-bottom-right", className)}
-                        initial={{ opacity: 0, scale: 0, x: 10 }}
-                        animate={{ opacity: 1, scale: 1, x: 0 }}
-                        exit={{ opacity: 0, scale: 0, x: 10 /*, transition: { duration: .2 }*/ }}
-                        //transition={{ duration: .2, delay: .17 }}
-                    >
-                        <SymbolCross className="size-3" {...rest} />
-                    </motion.div>
-                )}
-            </AnimatePresence>
-        </MotionConfig>
-    </>);
 }
