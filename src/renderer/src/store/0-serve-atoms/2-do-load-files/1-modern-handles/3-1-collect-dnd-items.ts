@@ -24,6 +24,11 @@ export async function collectWebDndItems(dataTransferItems: DataTransferItem[]):
         const handles: DndHandle[] = await collectDndHandles(dataTransferItems);
         printHandles(handles);
 
+        const handlesBYDir  = handles.reduce((acc, item) => {
+            const [fullPath, handle, ownerDir] = item;
+            return acc;
+        }, {} as Record<string, DndHandle[]>);
+
         for (const [fullPath, handle, ownerDir] of handles) {
             const item = new WebFsItem({
                 legacyFile: handle.kind === 'file' ? await handle.getFile() : null,
@@ -57,6 +62,10 @@ export async function collectWebDndItems(dataTransferItems: DataTransferItem[]):
     */
     return rv;
 }
+
+// type of handlesByDir
+
+type HandlesTree = Record<string, Record<string, DndHandle[]> | DndHandle[]>;
 
 function printEntryFiles(handles: FileWithPath[]) {
     console.log('🔊 %cEntryFiles:', 'color: saddlebrown', 'Firefox entries detected');
