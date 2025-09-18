@@ -25,6 +25,10 @@ export async function collectWebDndItems(dataTransferItems: DataTransferItem[]):
         const handles: DndHandle[] = await collectDndHandles(dataTransferItems);
         printHandles(handles);
 
+        const tree = pathsToFolderTree(handles.map((item) => ({ path: item[0], userData: item })));
+        console.log(JSON.stringify(tree, null, 2));
+        console.log({ tree });
+
         const handlesBYDir = handles.reduce((acc, item) => {
             const [fullPath, handle, ownerDir] = item;
             return acc;

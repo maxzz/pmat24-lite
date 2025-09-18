@@ -1,16 +1,13 @@
-// ...existing code...
-type FileName = string;
+export type InputItem<T> = { path: string; userData?: T };
 
-type InputItem<T> = { path: string; userData?: T };
+export type FileItem<T> = { name: string; userData?: T };
 
-type FileItem<T> = { name: string; userData?: T };
-
-interface FolderNode<T> {
+export interface FolderNode<T> {
     files: FileItem<T>[];
     children?: Record<string, FolderNode<T>>;
 }
 
-type FolderTree<T> = Record<string, FolderNode<T>>;
+export type FolderTree<T> = Record<string, FolderNode<T>>;
 
 /**
  * Convert array of { path, userData } into FolderTree.
