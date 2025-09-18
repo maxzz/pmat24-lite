@@ -1,10 +1,10 @@
 export type InputItem<T> = { path: string; isFolder: (userData: T) => boolean; userData?: T; };
 
-export type FileItem<T> = { name: string; userData?: T; };
+export type FileItem<T> = T;
 
 export interface FolderNode<T> {
-    files: FileItem<T>[];
     children?: Record<string, FolderNode<T>>;
+    files: FileItem<T>[];
 }
 
 export type FolderTree<T> = Record<string, FolderNode<T>>;
@@ -35,27 +35,19 @@ export function pathsToFolderTree<T = unknown>(items: InputItem<T>[]): FolderTre
 
     const tree: FolderTree<T> = {};
 
-    dirSet.forEach((dir) => ensureNode(dir.split('/'), tree));
+    dirSet.forEach((dir) => ensureNode(dir.split('/'), tree)); // explicit or implicit folder entry - ensure node exists
 
-    // for (const { path, userData } of normalized) {
-    //     if (!path) {
-    //         continue;
-    //     }
-    //     const parts = path.split('/');
-    //     const pathKey = parts.join('/');
+    for (const item of normalized) {
+        const { path, userData } = item;
+        if (!path || !userData || item.isFolder(userData)) {
+            continue;
+        }
+        const parts = path.split('/');
 
-    //     if (dirSet.has(pathKey)) {
-    //         // explicit or implicit folder entry - ensure node exists
-    //         ensureNode(parts, tree);
-    //         continue;
-    //     }
-
-    //     // file entry -> attach to parent folder (or root pseudo-folder)
-    //     const fileName = parts[parts.length - 1];
-    //     const parent = parts.slice(0, -1);
-    //     const node = ensureNode(parent.length === 0 ? [] : parent, tree);
-    //     node.files.push({ name: fileName, userData });
-    // }
+        // file entry -> attach to parent folder (or root pseudo-folder)
+        const node = ensureNode(parts, tree);
+        node.files.push(userData);
+    }
 
     return tree;
 }

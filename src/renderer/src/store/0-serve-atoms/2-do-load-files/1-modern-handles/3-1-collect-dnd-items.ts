@@ -25,7 +25,7 @@ export async function collectWebDndItems(dataTransferItems: DataTransferItem[]):
         const handles: DndHandle[] = await collectDndHandles(dataTransferItems);
         //printHandles(handles);
 
-        const tree = pathsToFolderTree(handles.map((item) => ({ path: item[0], isFolder: (userData: DndHandle) => userData[2]?.kind === 'directory', userData: item })));
+        const tree = pathsToFolderTree(handles.map((item) => ({ path: item[0], isFolder: (userData: DndHandle) => userData[1]?.kind === 'directory', userData: item })));
         printTreeHandles(tree);
 
         // console.log({ tree });
@@ -128,13 +128,14 @@ function printTreeHandles<T>(nodeMap: Record<string, import("./3-3-paths-to-tree
         console.log(`${indent}%cFolder: "${name}"`, 'color: fuchsia; font-weight: 600;');
 
         for (const file of node.files) {
-            const ud = file.userData as unknown as DndHandle | undefined;
+            const ud = file as unknown as DndHandle | undefined;
             if (Array.isArray(ud) && ud.length >= 3) {
                 const [fullPath, handle, ownerDir] = ud;
+                const name = handle.name;
                 const handleStr = FSHandleString(handle);
                 const ownerStr = FSHandleString(ownerDir);
                 console.log(
-                    `    %cFile: %c"${file.name}" %cpath: %c"${fullPath}" %chandle: ${handleStr} %cowner: ${ownerStr}`,
+                    `    %cFile: %c"${name}" %cpath: %c"${fullPath}" %chandle: ${handleStr} %cowner: ${ownerStr}`,
                     'color: gray; font-size: 0.5rem;', // file
                     'color: tan',
                     'color: gray; font-size: 0.5rem;', // path
@@ -147,7 +148,7 @@ function printTreeHandles<T>(nodeMap: Record<string, import("./3-3-paths-to-tree
                     'color: saddlebrown',
                 );
             } else {
-                console.log(`%c  File: "${file.name}"`, 'color: tan', { file });
+                console.log(`%c  File: "???"`, 'color: red', { file });
             }
         }
 
