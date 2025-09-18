@@ -23,16 +23,16 @@ export async function collectWebDndItems(dataTransferItems: DataTransferItem[]):
         );
     } else {
         const handles: DndHandle[] = await collectDndHandles(dataTransferItems);
-        printHandles(handles);
+        //printHandles(handles);
 
         const tree = pathsToFolderTree(handles.map((item) => ({ path: item[0], userData: item })));
-        console.log(JSON.stringify(tree, null, 2));
-        console.log({ tree });
+        printTreeHandles(tree);
 
-        const handlesBYDir = handles.reduce((acc, item) => {
-            const [fullPath, handle, ownerDir] = item;
-            return acc;
-        }, {} as Record<string, DndHandle[]>);
+        // console.log({ tree });
+        // const handlesBYDir = handles.reduce((acc, item) => {
+        //     const [fullPath, handle, ownerDir] = item;
+        //     return acc;
+        // }, {} as Record<string, DndHandle[]>);
 
         for (const [fullPath, handle, ownerDir] of handles) {
             const item = new WebFsItem({
@@ -120,4 +120,39 @@ function FSHandleString(handle: FileSystemHandle | FileSystemHandleUnion | null)
         return `%c${handle.kind === 'file' ? '  file' : 'folder'}:%c"${handle.name}"`;
     }
     return '???';
+}
+
+// traverse tree and print each item's userData handles using FSHandleString()
+function printTreeHandles<T>(nodeMap: Record<string, import("./3-3-paths-to-tree").FolderNode<T>>, indent = '') {
+    for (const [name, node] of Object.entries(nodeMap)) {
+        console.log(`${indent}%cFolder: "${name}"`, 'color: fuchsia; font-weight: 600;');
+
+        for (const file of node.files) {
+            const ud = file.userData as unknown as DndHandle | undefined;
+            if (Array.isArray(ud) && ud.length >= 3) {
+                const [fullPath, handle, ownerDir] = ud;
+                const handleStr = FSHandleString(handle);
+                const ownerStr = FSHandleString(ownerDir);
+                console.log(
+                    `    %cFile: %c"${file.name}" %cpath: %c"${fullPath}" %chandle: ${handleStr} %cowner: ${ownerStr}`,
+                    'color: gray; font-size: 0.5rem;', // file
+                    'color: tan',
+                    'color: gray; font-size: 0.5rem;', // path
+                    'color: saddlebrown',
+                    'color: gray; font-size: 0.5rem;', // handle
+                    'color: saddlebrown',
+                    'color: saddlebrown',
+                    'color: gray; font-size: 0.5rem;',  // owner
+                    'color: saddlebrown',
+                    'color: saddlebrown',
+                );
+            } else {
+                console.log(`%c  File: "${file.name}"`, 'color: tan', { file });
+            }
+        }
+
+        if (node.children && Object.keys(node.children).length > 0) {
+            printTreeHandles(node.children, indent + '  ');
+        }
+    }
 }

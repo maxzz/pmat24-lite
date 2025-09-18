@@ -76,6 +76,7 @@ export function pathsToFolderTree<T = unknown>(items: InputItem<T>[]): FolderTre
 }
 
 // Example usage
+/*
 const input: InputItem<any>[] = [
   { path: 'folderA', userData: { isFolderMarker: true } },
   { path: 'folderA\\fileA', userData: { size: 123 } },
