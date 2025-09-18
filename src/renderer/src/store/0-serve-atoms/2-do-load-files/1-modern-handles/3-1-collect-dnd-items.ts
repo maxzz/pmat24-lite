@@ -1,6 +1,7 @@
 import { WebFsItem } from "@shared/ipc-types";
 import { collectDndHandles, type DndHandle } from "./3-2-collect-dnd-handles";
 import { FileWithPath, getFilesFromDataTransferItems } from "../2-legacy-entries";
+import { pathsToFolderTree } from "./3-3-paths-to-tree";
 
 /**
  * This is for modern and legay DnD items.
@@ -24,7 +25,7 @@ export async function collectWebDndItems(dataTransferItems: DataTransferItem[]):
         const handles: DndHandle[] = await collectDndHandles(dataTransferItems);
         printHandles(handles);
 
-        const handlesBYDir  = handles.reduce((acc, item) => {
+        const handlesBYDir = handles.reduce((acc, item) => {
             const [fullPath, handle, ownerDir] = item;
             return acc;
         }, {} as Record<string, DndHandle[]>);
