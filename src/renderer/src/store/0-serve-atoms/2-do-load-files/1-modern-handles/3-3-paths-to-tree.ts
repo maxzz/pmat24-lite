@@ -35,25 +35,27 @@ export function pathsToFolderTree<T = unknown>(items: InputItem<T>[]): FolderTre
 
     const tree: FolderTree<T> = {};
 
-    for (const { path, userData } of normalized) {
-        if (!path) {
-            continue;
-        }
-        const parts = path.split('/');
-        const pathKey = parts.join('/');
+    dirSet.forEach((dir) => ensureNode(dir.split('/'), tree));
 
-        if (dirSet.has(pathKey)) {
-            // explicit or implicit folder entry - ensure node exists
-            ensureNode(parts, tree);
-            continue;
-        }
+    // for (const { path, userData } of normalized) {
+    //     if (!path) {
+    //         continue;
+    //     }
+    //     const parts = path.split('/');
+    //     const pathKey = parts.join('/');
 
-        // file entry -> attach to parent folder (or root pseudo-folder)
-        const fileName = parts[parts.length - 1];
-        const parent = parts.slice(0, -1);
-        const node = ensureNode(parent.length === 0 ? [] : parent, tree);
-        node.files.push({ name: fileName, userData });
-    }
+    //     if (dirSet.has(pathKey)) {
+    //         // explicit or implicit folder entry - ensure node exists
+    //         ensureNode(parts, tree);
+    //         continue;
+    //     }
+
+    //     // file entry -> attach to parent folder (or root pseudo-folder)
+    //     const fileName = parts[parts.length - 1];
+    //     const parent = parts.slice(0, -1);
+    //     const node = ensureNode(parent.length === 0 ? [] : parent, tree);
+    //     node.files.push({ name: fileName, userData });
+    // }
 
     return tree;
 }
