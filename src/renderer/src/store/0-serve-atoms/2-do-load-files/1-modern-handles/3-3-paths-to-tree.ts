@@ -35,29 +35,6 @@ export function pathsToFolderTree<T = unknown>(items: InputItem<T>[]): FolderTre
 
     const tree: FolderTree<T> = {};
 
-    function ensureNode(parts: string[]): FolderNode<T> {
-        // create nested nodes for parts; return node for last part
-        if (parts.length === 0) {
-            // create/return pseudo-root
-            if (!tree['.']) tree['.'] = { files: [], children: {} };
-            return tree['.'];
-        }
-
-        let currentLevel = tree;
-        let node: FolderNode<T> | undefined;
-        for (const part of parts) {
-            node = currentLevel[part];
-            if (!node) {
-                node = { files: [], children: {} };
-                currentLevel[part] = node;
-            } else if (!node.children) {
-                node.children = {};
-            }
-            currentLevel = node.children!;
-        }
-        return node!;
-    }
-
     for (const { path, userData } of normalized) {
         if (!path) {
             continue;
@@ -67,18 +44,41 @@ export function pathsToFolderTree<T = unknown>(items: InputItem<T>[]): FolderTre
 
         if (dirSet.has(pathKey)) {
             // explicit or implicit folder entry - ensure node exists
-            ensureNode(parts);
+            ensureNode(parts, tree);
             continue;
         }
 
         // file entry -> attach to parent folder (or root pseudo-folder)
         const fileName = parts[parts.length - 1];
         const parent = parts.slice(0, -1);
-        const node = ensureNode(parent.length === 0 ? [] : parent);
+        const node = ensureNode(parent.length === 0 ? [] : parent, tree);
         node.files.push({ name: fileName, userData });
     }
 
     return tree;
+}
+
+function ensureNode<T>(parts: string[], tree: FolderTree<T>): FolderNode<T> {
+    // create nested nodes for parts; return node for last part
+    if (parts.length === 0) {
+        // create/return pseudo-root
+        if (!tree['.']) tree['.'] = { files: [], children: {} };
+        return tree['.'];
+    }
+
+    let currentLevel = tree;
+    let node: FolderNode<T> | undefined;
+    for (const part of parts) {
+        node = currentLevel[part];
+        if (!node) {
+            node = { files: [], children: {} };
+            currentLevel[part] = node;
+        } else if (!node.children) {
+            node.children = {};
+        }
+        currentLevel = node.children!;
+    }
+    return node!;
 }
 
 // Example usage
