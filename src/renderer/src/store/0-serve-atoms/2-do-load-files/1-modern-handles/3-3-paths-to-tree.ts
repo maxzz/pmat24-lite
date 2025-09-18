@@ -1,4 +1,4 @@
-export type InputItem<T> = { path: string; userData?: T; };
+export type InputItem<T> = { path: string; isFolder: (userData: T) => boolean; userData?: T; };
 
 export type FileItem<T> = { name: string; userData?: T; };
 
@@ -18,20 +18,24 @@ export type FolderTree<T> = Record<string, FolderNode<T>>;
 export function pathsToFolderTree<T = unknown>(items: InputItem<T>[]): FolderTree<T> {
     const sepRe = /[\\/]/g;
     const norm = (p: string) => p.replace(sepRe, '/').replace(/^\/|\/$/g, '');
-    const normalized = items.map((it) => ({ path: norm(it.path), userData: it.userData }));
+    const normalized = items.map((it) => ({ path: norm(it.path), isFolder: it.isFolder, userData: it.userData }));
 
     // any path that is a prefix of another path is a directory
     const dirSet = new Set<string>();
-    for (const { path } of normalized) {
-        
+    for (const item of normalized) {
+        const { path, userData } = item;
+
         // ...existing code...
-        const cleaned = path.replace(/\\/g, '/').replace(/^\/+|\/+$/g, '');
-        const parts = cleaned ? cleaned.split('/') : [];
-        let prefix = '';
-        for (let i = 0; i < parts.length; i++) {
-            prefix = prefix ? `${prefix}/${parts[i]}` : parts[i];
-            dirSet.add(prefix);
+        const cleaned = path.replace(/\\/g, '/').replace(/^\/+|\/+$/g, ''); // make all slashes forward and remove leading and trailing slashes
+        if (userData && item.isFolder(userData)) {
+            const parts = cleaned ? cleaned.split('/') : [];
+            let prefix = '';
+            for (let i = 0; i < parts.length; i++) {
+                prefix = prefix ? `${prefix}/${parts[i]}` : parts[i];
+                dirSet.add(prefix);
+            }
         }
+
         // ...existing code...
 
         // const parts = path.split('/');
