@@ -23,11 +23,12 @@ export function pathsToFolderTree<T = unknown>(items: InputItem<T>[]): FolderTre
     // any path that is a prefix of another path is a directory
     const dirSet = new Set<string>();
     for (const { path } of normalized) {
+        
         // ...existing code...
         const cleaned = path.replace(/\\/g, '/').replace(/^\/+|\/+$/g, '');
         const parts = cleaned ? cleaned.split('/') : [];
         let prefix = '';
-        for (let i = 0; i < parts.length - 1; i++) {
+        for (let i = 0; i < parts.length; i++) {
             prefix = prefix ? `${prefix}/${parts[i]}` : parts[i];
             dirSet.add(prefix);
         }
@@ -65,7 +66,9 @@ export function pathsToFolderTree<T = unknown>(items: InputItem<T>[]): FolderTre
     }
 
     for (const { path, userData } of normalized) {
-        if (!path) continue;
+        if (!path) {
+            continue;
+        }
         const parts = path.split('/');
         const pathKey = parts.join('/');
 
