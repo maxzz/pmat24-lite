@@ -16,32 +16,21 @@ export type FolderTree<T> = Record<string, FolderNode<T>>;
  * - files are stored as objects { name, userData }
  */
 export function pathsToFolderTree<T = unknown>(items: InputItem<T>[]): FolderTree<T> {
-    const sepRe = /[\\/]/g;
-    const norm = (p: string) => p.replace(sepRe, '/').replace(/^\/|\/$/g, '');
+    const norm = (p: string) => p.replace(/\\/g, '/').replace(/^\/+|\/+$/g, ''); // make all slashes forward and remove leading and trailing slashes
     const normalized = items.map((it) => ({ path: norm(it.path), isFolder: it.isFolder, userData: it.userData }));
 
     // any path that is a prefix of another path is a directory
     const dirSet = new Set<string>();
     for (const item of normalized) {
         const { path, userData } = item;
-
-        // ...existing code...
-        const cleaned = path.replace(/\\/g, '/').replace(/^\/+|\/+$/g, ''); // make all slashes forward and remove leading and trailing slashes
         if (userData && item.isFolder(userData)) {
-            const parts = cleaned ? cleaned.split('/') : [];
+            const parts = path ? path.split('/') : [];
             let prefix = '';
             for (let i = 0; i < parts.length; i++) {
                 prefix = prefix ? `${prefix}/${parts[i]}` : parts[i];
                 dirSet.add(prefix);
             }
         }
-
-        // ...existing code...
-
-        // const parts = path.split('/');
-        // for (let i = 1; i < parts.length; i++) {
-        //     dirSet.add(parts.slice(0, i).join('/'));
-        // }
     }
 
     const tree: FolderTree<T> = {};
@@ -85,7 +74,7 @@ export function pathsToFolderTree<T = unknown>(items: InputItem<T>[]): FolderTre
         // file entry -> attach to parent folder (or root pseudo-folder)
         const fileName = parts[parts.length - 1];
         const parent = parts.slice(0, -1);
-        const node = parent.length === 0 ? ensureNode([]) : ensureNode(parent);
+        const node = ensureNode(parent.length === 0 ? [] : parent);
         node.files.push({ name: fileName, userData });
     }
 
