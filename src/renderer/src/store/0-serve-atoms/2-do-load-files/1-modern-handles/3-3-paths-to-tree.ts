@@ -1,6 +1,6 @@
-export type InputItem<T> = { path: string; userData?: T };
+export type InputItem<T> = { path: string; userData?: T; };
 
-export type FileItem<T> = { name: string; userData?: T };
+export type FileItem<T> = { name: string; userData?: T; };
 
 export interface FolderNode<T> {
     files: FileItem<T>[];
@@ -23,10 +23,20 @@ export function pathsToFolderTree<T = unknown>(items: InputItem<T>[]): FolderTre
     // any path that is a prefix of another path is a directory
     const dirSet = new Set<string>();
     for (const { path } of normalized) {
-        const parts = path.split('/');
-        for (let i = 1; i < parts.length; i++) {
-            dirSet.add(parts.slice(0, i).join('/'));
+        // ...existing code...
+        const cleaned = path.replace(/\\/g, '/').replace(/^\/+|\/+$/g, '');
+        const parts = cleaned ? cleaned.split('/') : [];
+        let prefix = '';
+        for (let i = 0; i < parts.length - 1; i++) {
+            prefix = prefix ? `${prefix}/${parts[i]}` : parts[i];
+            dirSet.add(prefix);
         }
+        // ...existing code...
+
+        // const parts = path.split('/');
+        // for (let i = 1; i < parts.length; i++) {
+        //     dirSet.add(parts.slice(0, i).join('/'));
+        // }
     }
 
     const tree: FolderTree<T> = {};
