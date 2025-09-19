@@ -54,14 +54,16 @@ export function pathsToFolderTree<T = unknown>(items: InputItem<T>[]): FolderTre
 
 function ensureNode<T>(parts: string[], tree: FolderTree<T>): FolderNode<T> {
     // create nested nodes for parts; return node for last part
-    if (parts.length === 0) {
-        // create/return pseudo-root
-        if (!tree['.']) tree['.'] = { files: [], children: {} };
+    if (!parts.length) {
+        if (!tree['.']) {
+            tree['.'] = { files: [], children: {} }; // create/return pseudo-root
+        }
         return tree['.'];
     }
 
     let currentLevel = tree;
     let node: FolderNode<T> | undefined;
+
     for (const part of parts) {
         node = currentLevel[part];
         if (!node) {
@@ -72,6 +74,7 @@ function ensureNode<T>(parts: string[], tree: FolderTree<T>): FolderNode<T> {
         }
         currentLevel = node.children!;
     }
+
     return node!;
 }
 
@@ -90,31 +93,13 @@ console.log(JSON.stringify(pathsToFolderTree(input), null, 2));
 /* produces:
 {
   "folderA": {
-    "files": [
-      {
-        "name": "fileA",
-        "userData": { "size": 123 }
-      },
-      {
-        "name": "fileB",
-        "userData": { "size": 456 }
-      }
-    ],
     "children": {
       "folderB": {
-        "files": [
-          {
-            "name": "fileAA",
-            "userData": { "size": 11 }
-          },
-          {
-            "name": "fileAB",
-            "userData": { "size": 22 }
-          }
-        ],
         "children": {}
+        "files": [ { "size": 11 }, { "size": 22 } ], ],
       }
-    }
+    },
+    "files": [{ "size": 123 }, { "size": 456 }], ], // fileA, fileB
   }
 }
 */

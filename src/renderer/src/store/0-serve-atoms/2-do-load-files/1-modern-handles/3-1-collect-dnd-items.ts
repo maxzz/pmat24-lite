@@ -28,12 +28,6 @@ export async function collectWebDndItems(dataTransferItems: DataTransferItem[]):
         const tree = pathsToFolderTree(handles.map((item) => ({ path: item[0], isFolder: (userData: DndHandle) => userData[1]?.kind === 'directory', userData: item })));
         printTreeHandles(tree);
 
-        // console.log({ tree });
-        // const handlesBYDir = handles.reduce((acc, item) => {
-        //     const [fullPath, handle, ownerDir] = item;
-        //     return acc;
-        // }, {} as Record<string, DndHandle[]>);
-
         for (const [fullPath, handle, ownerDir] of handles) {
             const item = new WebFsItem({
                 legacyFile: handle.kind === 'file' ? await handle.getFile() : null,
@@ -100,6 +94,16 @@ function printHandles(handles: DndHandle[]) {
             // { all: [path, handle, dir] }
         );
     }
+
+    function FSHandleString(handle: FileSystemHandle | FileSystemHandleUnion | null): string {
+        if (!handle) {
+            return 'null';
+        }
+        if (handle instanceof FileSystemHandle) {
+            return `%c${handle.kind === 'file' ? '  file' : 'folder'}:%c"${handle.name}"`;
+        }
+        return '???';
+    }
 }
 
 function printWebFsitems(items: WebFsItem[]) {
@@ -108,18 +112,6 @@ function printWebFsitems(items: WebFsItem[]) {
     for (const item of items) {
         console.log(`%cpath: "${item.legacyPath}"%o`, `color: ${item.handle?.kind === 'file' ? 'tan' : 'fuchsia'}`, { item });
     }
-}
-
-//
-
-function FSHandleString(handle: FileSystemHandle | FileSystemHandleUnion | null): string {
-    if (!handle) {
-        return 'null';
-    }
-    if (handle instanceof FileSystemHandle) {
-        return `%c${handle.kind === 'file' ? '  file' : 'folder'}:%c"${handle.name}"`;
-    }
-    return '???';
 }
 
 // traverse tree and print each item's userData handles using FSHandleString()
@@ -131,13 +123,10 @@ function printTreeHandles<T>(nodeMap: Record<string, import("./3-3-paths-to-tree
             const ud = file as unknown as DndHandle | undefined;
             if (Array.isArray(ud) && ud.length >= 3) {
                 const [fullPath, handle, ownerDir] = ud;
-                const name = handle.name;
                 const handleStr = FSHandleString(handle);
                 const ownerStr = FSHandleString(ownerDir);
                 console.log(
-                    `    %cFile: %c"${name}" %cpath: %c"${fullPath}" %chandle: ${handleStr} %cowner: ${ownerStr}`,
-                    'color: gray; font-size: 0.5rem;', // file
-                    'color: tan',
+                    `    %cpath: %c"${fullPath}" %chandle:${handleStr} %cowner:${ownerStr}`,
                     'color: gray; font-size: 0.5rem;', // path
                     'color: saddlebrown',
                     'color: gray; font-size: 0.5rem;', // handle
@@ -155,5 +144,15 @@ function printTreeHandles<T>(nodeMap: Record<string, import("./3-3-paths-to-tree
         if (node.children && Object.keys(node.children).length > 0) {
             printTreeHandles(node.children, indent + '  ');
         }
+    }
+
+    function FSHandleString(handle: FileSystemHandle | FileSystemHandleUnion | null): string {
+        if (!handle) {
+            return 'null';
+        }
+        if (handle instanceof FileSystemHandle) {
+            return `%c${handle.kind === 'file' ? 'file' : 'folder'}:%c"${handle.name}"`;
+        }
+        return '???';
     }
 }
