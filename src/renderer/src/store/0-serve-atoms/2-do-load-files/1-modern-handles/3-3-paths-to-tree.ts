@@ -40,10 +40,17 @@ export function pathsToFolderTree<T = unknown>(items: InputItem<T>[]): FolderTre
 
     for (const item of normalized) {
         const { path, userData } = item;
-        if (!path || !userData || item.isFolder(userData)) {
+        if (!path || !userData) {
             continue;
         }
+        
         const parts = path.split('/');
+
+        if (item.isFolder(userData)) {
+            const node = ensureNode(parts, tree);
+            node.folderData = userData;
+            continue;
+        }
 
         // file entry -> attach to parent folder (or root pseudo-folder)
         const node = ensureNode(parts, tree);
