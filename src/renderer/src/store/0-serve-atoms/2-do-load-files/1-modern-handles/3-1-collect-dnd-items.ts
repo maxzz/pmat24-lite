@@ -1,7 +1,7 @@
 import { WebFsItem } from "@shared/ipc-types";
 import { collectDndHandles, type DndHandle } from "./3-2-collect-dnd-handles";
 import { FileWithPath, getFilesFromDataTransferItems } from "../2-legacy-entries";
-import { pathsToFolderTree } from "./3-3-paths-to-tree";
+import { type FolderNode, type FolderTree, pathsToFolderTree } from "./3-3-paths-to-tree";
 
 /**
  * This is for modern and legay DnD items.
@@ -27,6 +27,9 @@ export async function collectWebDndItems(dataTransferItems: DataTransferItem[]):
 
         const tree = pathsToFolderTree(handles.map((item) => ({ path: item[0], isFolder: (userData: DndHandle) => userData[1]?.kind === 'directory', userData: item })));
         printTreeHandles(tree);
+
+        const pmatFileHandles = getPmatFileHandles(tree);
+        printHandles(pmatFileHandles);
 
         for (const [fullPath, handle, ownerDir] of handles) {
             const item = new WebFsItem({
@@ -62,9 +65,21 @@ export async function collectWebDndItems(dataTransferItems: DataTransferItem[]):
     return rv;
 }
 
-// type of handlesByDir
+function getPmatFileHandles(tree: FolderTree<DndHandle>): DndHandle[] {
+    const values = Object.values(tree);
+    const root = values.length === 1 && values[0];
+    if (!root) {
+        return [];
+    }
 
-type HandlesTree = Record<string, Record<string, DndHandle[]> | DndHandle[]>;
+    const rv: DndHandle[] = [
+        ...root.files,
+        ...(root.children?.['c']?.files || []),
+        ...(root.children?.['C']?.files || []),
+    ];
+
+    return rv;
+}
 
 function printEntryFiles(handles: FileWithPath[]) {
     console.log('🔊 %cEntryFiles:', 'color: saddlebrown', 'Firefox entries detected');
@@ -106,16 +121,10 @@ function printHandles(handles: DndHandle[]) {
     }
 }
 
-function printWebFsitems(items: WebFsItem[]) {
-    console.log('🔊 %cWebFsItems:', 'color: saddlebrown');
-
-    for (const item of items) {
-        console.log(`%cpath: "${item.legacyPath}"%o`, `color: ${item.handle?.kind === 'file' ? 'tan' : 'fuchsia'}`, { item });
-    }
-}
-
 // traverse tree and print each item's userData handles using FSHandleString()
-function printTreeHandles<T>(nodeMap: Record<string, import("./3-3-paths-to-tree").FolderNode<T>>, indent = '') {
+function printTreeHandles<T>(nodeMap: Record<string, FolderNode<T>>, indent = '') {
+    !indent && console.log('🔊 %cTree DndHandles:', 'color: saddlebrown');
+
     for (const [name, node] of Object.entries(nodeMap)) {
         console.log(`${indent}%cFolder: "${name}"`, 'color: fuchsia; font-weight: 600;');
 
@@ -126,7 +135,7 @@ function printTreeHandles<T>(nodeMap: Record<string, import("./3-3-paths-to-tree
                 const handleStr = FSHandleString(handle);
                 const ownerStr = FSHandleString(ownerDir);
                 console.log(
-                    `    %cpath: %c"${fullPath}" %chandle:${handleStr} %cowner:${ownerStr}`,
+                    `    ${indent}%cFile: %c"${name}" %cpath: %c"${fullPath}" %chandle: ${handleStr} %cowner: ${ownerStr}`,
                     'color: gray; font-size: 0.5rem;', // path
                     'color: saddlebrown',
                     'color: gray; font-size: 0.5rem;', // handle
@@ -142,7 +151,7 @@ function printTreeHandles<T>(nodeMap: Record<string, import("./3-3-paths-to-tree
         }
 
         if (node.children && Object.keys(node.children).length > 0) {
-            printTreeHandles(node.children, indent + '  ');
+            printTreeHandles(node.children, indent + '    ');
         }
     }
 
@@ -154,5 +163,13 @@ function printTreeHandles<T>(nodeMap: Record<string, import("./3-3-paths-to-tree
             return `%c${handle.kind === 'file' ? 'file' : 'folder'}:%c"${handle.name}"`;
         }
         return '???';
+    }
+}
+
+function printWebFsitems(items: WebFsItem[]) {
+    console.log('🔊 %cWebFsItems:', 'color: saddlebrown');
+
+    for (const item of items) {
+        console.log(`%cpath: "${item.legacyPath}"%o`, `color: ${item.handle?.kind === 'file' ? 'tan' : 'fuchsia'}`, { item });
     }
 }
