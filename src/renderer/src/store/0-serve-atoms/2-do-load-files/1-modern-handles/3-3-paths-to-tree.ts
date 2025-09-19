@@ -5,6 +5,7 @@ export type FileItem<T> = T;
 export interface FolderNode<T> {
     children?: Record<string, FolderNode<T>>;
     files: FileItem<T>[];
+    folderData: T | undefined;
 }
 
 export type FolderTree<T> = Record<string, FolderNode<T>>;
@@ -56,7 +57,7 @@ function ensureNode<T>(parts: string[], tree: FolderTree<T>): FolderNode<T> {
     // create nested nodes for parts; return node for last part
     if (!parts.length) {
         if (!tree['.']) {
-            tree['.'] = { files: [], children: {} }; // create/return pseudo-root
+            tree['.'] = { files: [], children: {}, folderData: undefined }; // create/return pseudo-root
         }
         return tree['.'];
     }
@@ -67,7 +68,7 @@ function ensureNode<T>(parts: string[], tree: FolderTree<T>): FolderNode<T> {
     for (const part of parts) {
         node = currentLevel[part];
         if (!node) {
-            node = { files: [], children: {} };
+            node = { files: [], children: {}, folderData: undefined };
             currentLevel[part] = node;
         } else if (!node.children) {
             node.children = {};
