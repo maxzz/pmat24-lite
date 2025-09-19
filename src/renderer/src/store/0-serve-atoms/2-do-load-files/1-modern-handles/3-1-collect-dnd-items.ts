@@ -2,6 +2,7 @@ import { WebFsItem } from "@shared/ipc-types";
 import { collectDndHandles, type DndHandle } from "./3-2-collect-dnd-handles";
 import { FileWithPath, getFilesFromDataTransferItems } from "../2-legacy-entries";
 import { type FolderNode, type FolderTree, pathsToFolderTree } from "./3-3-paths-to-tree";
+import { toast } from "sonner";
 
 /**
  * This is for modern and legay DnD items.
@@ -23,15 +24,23 @@ export async function collectWebDndItems(dataTransferItems: DataTransferItem[]):
         );
     } else {
         const handles: DndHandle[] = await collectDndHandles(dataTransferItems);
-        //printHandles(handles);
+
+        if (handles.length === 1) {
+            const [fullPath, handle, ownerDir] = handles[0];
+            if (!handle || handle.kind !== 'directory') {
+                const text = handle.name.endsWith('.lnk') ? 'The Windows shortcut cannot be opened by the web version of PMAT.' : 'You can only open one folder at a time.';
+                toast.warning(text);
+                return rv;
+            }
+        }
 
         const tree = pathsToFolderTree(handles.map((item) => ({ path: item[0], isFolder: (userData: DndHandle) => userData[1]?.kind === 'directory', userData: item })));
-        printTreeHandles(tree);
+        const pmatHandles = getPmatFileHandles(tree);
+        // printHandles(handles);
+        // printTreeHandles(tree);
+        // printHandles(pmatHandles);
 
-        const pmatFileHandles = getPmatFileHandles(tree);
-        printHandles(pmatFileHandles);
-
-        for (const [fullPath, handle, ownerDir] of handles) {
+        for (const [fullPath, handle, ownerDir] of pmatHandles) {
             const item = new WebFsItem({
                 legacyFile: handle.kind === 'file' ? await handle.getFile() : null,
                 handle,
@@ -67,7 +76,7 @@ export async function collectWebDndItems(dataTransferItems: DataTransferItem[]):
 
 function getPmatFileHandles(tree: FolderTree<DndHandle>): DndHandle[] {
     const values = Object.values(tree);
-    const root = values.length === 1 && values[0];
+    const root = values.length === 1 && values[0]; // allow only one folder in the root of the tree
     if (!root) {
         return [];
     }
