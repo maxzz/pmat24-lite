@@ -46,4 +46,6 @@ export async function getLinkTargetPath(linkPath: string): Promise<string> {
                 'Make alternative example as typescript function that receive link path as parameter'
 
     or: https://github.com/felixrieseberg/windows-shortcuts-ps/blob/master/lib/index.js
+
+    gai: 'how to check in Chrome browser that path is Windows link or folder?' <- In a Chrome browser, you cannot directly check if a Windows path is a shortcut (.lnk file) or a folder due to security restrictions.
 */

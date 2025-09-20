@@ -74,6 +74,17 @@ export async function collectWebDndItems(dataTransferItems: DataTransferItem[]):
     return rv;
 }
 
+async function asyncDndHandleToWebFsItem(dndHandle: DndHandle): Promise<WebFsItem> {
+    const [fullPath, handle, ownerDir] = dndHandle;
+    const rv = new WebFsItem({
+        legacyFile: handle.kind === 'file' ? await handle.getFile() : null,
+        handle,
+        owner: ownerDir,
+        legacyPath: fullPath,
+    });
+    return rv;
+}
+
 function getPmatFileHandles(tree: FolderTree<DndHandle>): DndHandle[] {
     const values = Object.values(tree);
     const root = values.length === 1 && values[0]; // allow only one folder in the root of the tree
