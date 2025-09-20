@@ -59,7 +59,7 @@
         "jotai-effect": "^2.1.1",
         "jotai-valtio": "^0.6.0",
         "lucide-react": "^0.544.0",
-        "motion": "^12.23.12",
+        "motion": "^12.23.16",
         "pm-manifest": "^1.5.31",
         "pm-manifest-icons": "latest",
         "postcss": "^8.5.6",
