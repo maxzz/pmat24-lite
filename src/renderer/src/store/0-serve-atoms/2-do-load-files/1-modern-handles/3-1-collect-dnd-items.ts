@@ -40,13 +40,8 @@ export async function collectWebDndItems(dataTransferItems: DataTransferItem[]):
         // printTreeHandles(tree);
         // printHandles(pmatHandles);
 
-        for (const [fullPath, handle, ownerDir] of pmatHandles) {
-            const item = new WebFsItem({
-                legacyFile: handle.kind === 'file' ? await handle.getFile() : null,
-                handle,
-                owner: ownerDir,
-                legacyPath: fullPath,
-            });
+        for (const dndHandle of pmatHandles) {
+            const item = await asyncDndHandleToWebFsItem(dndHandle);
             rv.push(item);
         }
     }
@@ -74,8 +69,7 @@ export async function collectWebDndItems(dataTransferItems: DataTransferItem[]):
     return rv;
 }
 
-async function asyncDndHandleToWebFsItem(dndHandle: DndHandle): Promise<WebFsItem> {
-    const [fullPath, handle, ownerDir] = dndHandle;
+async function asyncDndHandleToWebFsItem([fullPath, handle, ownerDir]: DndHandle): Promise<WebFsItem> {
     const rv = new WebFsItem({
         legacyFile: handle.kind === 'file' ? await handle.getFile() : null,
         handle,
