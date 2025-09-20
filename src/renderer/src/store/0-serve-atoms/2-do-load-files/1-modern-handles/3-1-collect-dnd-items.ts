@@ -32,6 +32,11 @@ export async function collectWebDndItems(dataTransferItems: DataTransferItem[]):
                 toast.warning(text);
                 return rv;
             }
+            if (handle.kind === 'directory') {
+                const item = await asyncDndHandleToWebFsItem(handles[0]); // This will allow to open a single folder even if it's empty
+                rv.push(item);
+                return rv;
+            }
         }
 
         const tree = pathsToFolderTree(handles.map((item) => ({ path: item[0], isFolder: (userData: DndHandle) => userData[1]?.kind === 'directory', userData: item })));
