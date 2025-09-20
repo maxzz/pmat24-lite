@@ -139,8 +139,8 @@ importers:
         specifier: ^12.23.12
         version: 12.23.12(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
       pm-manifest:
-        specifier: ^1.5.30
-        version: 1.5.30
+        specifier: ^1.5.31
+        version: 1.5.31
       pm-manifest-icons:
         specifier: latest
         version: 1.0.4(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
@@ -2836,8 +2836,8 @@ packages:
       react: ^18.2.0 || ^19
       react-dom: ^18.2.0 || ^19
 
-  pm-manifest@1.5.30:
-    resolution: {integrity: sha512-bNshvuU3Xe07xEg8N8BCR2e8zfiPzx2OL7fM+QjmtE1l9R3SebnqBn0ZbXDLmFXXwO4aV6HyBfMqywVBVHLTcQ==}
+  pm-manifest@1.5.31:
+    resolution: {integrity: sha512-zQYnwLcxuMjFu2wZ11koAsIqpaoLVFGmlxkCC1yPK3voFPPbfscZonUYWTCaVFir/LZuU+GjZiQPeYMwYBe91g==}
 
   postcss-import@15.1.0:
     resolution: {integrity: sha512-hpr+J05B2FVYUAXHeK1YyI267J/dDDhMU6B6civm8hSY1jYJnBXxzKDKDswzJmtLHryrjhnDjqqp/49t8FALew==}
@@ -6340,7 +6340,7 @@ snapshots:
       react: 19.1.1
       react-dom: 19.1.1(react@19.1.1)
 
-  pm-manifest@1.5.30:
+  pm-manifest@1.5.31:
     dependencies:
       '@types/uuid': 10.0.0
       fast-xml-parser: 5.2.3

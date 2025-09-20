@@ -60,7 +60,7 @@
         "jotai-valtio": "^0.6.0",
         "lucide-react": "^0.541.0",
         "motion": "^12.23.12",
-        "pm-manifest": "^1.5.30",
+        "pm-manifest": "^1.5.31",
         "pm-manifest-icons": "latest",
         "postcss": "^8.5.6",
         "react-resizable-panels": "^3.0.4",

@@ -10,7 +10,7 @@ export function forAtoms(metaForm: Meta.Form): SubmitFieldTypes.ForAtoms {
 
     const submittype = metaForm.mani.options?.submittype;
     const isSubmitTypeUndefined = !submittype;
-    const doSubmit = submittype === SUBMIT.dosumbit || useItButtonIdx !== -1;
+    const doSubmit = submittype === SUBMIT.dosubmit || useItButtonIdx !== -1;
     
 
     const initialSelected = 1 + (
