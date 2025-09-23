@@ -40,9 +40,9 @@ export const extPolicyTokens: ExtPolTokenType[] = [ // This defines the order of
     { displayName: 'Contactless writable card', /**/ value: /**/   '20', icon: 'contactless', },
     { displayName: 'PIN',                       /**/ value: /**/   '80', icon: 'pin', },
     { displayName: 'One-Time Password',         /**/ value: /**/  '800', icon: 'otp', },
-    { displayName: 'Proximity ID card',         /**/ value: /**/  '100', icon: 'prox', },
-    { displayName: 'FIDO Key',                  /**/ value: /**/ '8000', icon: 'fido', },
-    { displayName: 'Bluetooth',                 /**/ value: /**/  '200', icon: 'bluetooth', },
+    { displayName: 'Contactless ID Card',       /**/ value: /**/  '100', icon: 'prox', },       // renamed 'Proximity ID card'. IAMSDP-2233
+    { displayName: 'Device-bound Passkey',      /**/ value: /**/ '8000', icon: 'fido', },       // renamed 'FIDO Key'. IAMSDP-2233
+    //{ displayName: 'Bluetooth',               /**/ value: /**/  '200', icon: 'bluetooth', },  // removed Bluetooth authentication policy. IAMSDP-2233
     { displayName: 'Face',                      /**/ value: /**/   '10', icon: 'face', },
 ];
 
