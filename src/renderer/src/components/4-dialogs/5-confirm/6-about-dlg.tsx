@@ -1,5 +1,5 @@
 import { atom } from "jotai";
-import { classNames } from "@/utils";
+import { classNames, envBuildVersion } from "@/utils";
 import { Textarea } from "@/ui/shadcn";
 import { inputRingClasses, optionInputClasses } from "@/ui/local-ui";
 import { IconL_AlertOctagon } from "@/ui/icons";
@@ -20,7 +20,7 @@ function FormattedJson({ json }: { json: string; }) {
         const obj = JSON.parse(json) as GeneralInfoResult;
         let { products = [], templatePath = '', copy = '' } = obj;
 
-        products.unshift({ product: 'Password Manager Admin Tool', version: import.meta.env.VITE_PMAT_VERSION || 'None' });
+        products.unshift({ product: 'Password Manager Admin Tool', version: envBuildVersion() });
         if (products.length === 1) {
             products.push({ product: 'No other products installed', version: '' });
         } else {
