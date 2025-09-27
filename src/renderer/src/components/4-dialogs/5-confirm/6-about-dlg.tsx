@@ -31,13 +31,18 @@ function FormattedJson({ json }: { json: string; }) {
 
         return <AboutBody products={products} templatePath={templatePath} copyright={copyright} />; // This will be rendered since it is a React component
     } catch (error) {
-        return <AboutError />;
+        return (
+            <div className="text-xs flex items-center gap-x-2">
+                <IconL_AlertOctagon className="size-6 text-red-500" />
+                Cannot get information about installed applications
+            </div>
+        );
     }
 }
 
 function AboutBody({ products, templatePath, copyright }: { products: ProductInfo[]; templatePath: string; copyright: string[]; }) {
     return (
-        <div className="w-full text-xs grid gap-4">
+        <div className="w-full text-xs grid gap-4 cursor-default">
             <div>
                 <div className="mb-1 1font-semibold">
                     Installed products:
@@ -53,17 +58,12 @@ function AboutBody({ products, templatePath, copyright }: { products: ProductInf
             </div>
 
             <div className="text-[0.65rem] grid">
-                {copyright.map((line, index) => (<div className="text-center" key={index}>{line}</div>))}
+                {copyright.map(
+                    (line, index) => (
+                        <div className="text-center" key={index}>{line}</div>
+                    ))
+                }
             </div>
-        </div>
-    );
-}
-
-function AboutError() {
-    return (
-        <div className="text-xs flex items-center gap-x-2">
-            <IconL_AlertOctagon className="size-6 text-red-500" />
-            Cannot get information about installed applications
         </div>
     );
 }
