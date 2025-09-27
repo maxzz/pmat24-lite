@@ -55,7 +55,7 @@
         "electron-builder": "^26.0.12",
         "electron-vite": "^4.0.0",
         "idb-keyval": "^6.2.2",
-        "jotai": "^2.14.0",
+        "jotai": "^2.15.0",
         "jotai-effect": "^2.1.1",
         "jotai-valtio": "^0.6.0",
         "lucide-react": "^0.544.0",
