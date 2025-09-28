@@ -8,8 +8,8 @@ export const dateFormatter = new Intl.DateTimeFormat('en-US', {
 });
 
 export function envModifiedDate() {
-    const date = new Date(import.meta.env.VITE_MODIFIED || '2025-01-01T00:00:00.000Z');
-    const formattedDate = dateFormatter.format(date).replaceAll('/', '.');
+    const date = new Date(import.meta.env.VITE_MODIFIED || '1001-01-01T00:00:00.000Z');
+    const formattedDate = dateFormatter.format(date);//.replace(/\//g, '.');
     return formattedDate;
 }
 
