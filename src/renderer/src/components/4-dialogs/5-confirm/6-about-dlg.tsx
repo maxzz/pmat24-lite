@@ -53,15 +53,19 @@ function AboutBody({ products, templatePath, copyright }: { products: ProductInf
     return (
         <div className="w-full text-xs grid gap-4 cursor-default">
             <div>
-                <div className="mb-1 1font-semibold">
+                <div className="mb-1.5 1font-semibold">
                     Installed products:
                 </div>
-                <Products products={products} />
+                {products.map(
+                    ({ product, version, builtOn: buildAt }) => (
+                        <div key={product} title={buildAt}> {product}{version ? ': version' : ''} <span>{version}</span> </div>
+                    ))
+                }
             </div>
 
             <div>
-                <div className="mb-1 1font-semibold">
-                    GPO templates path
+                <div className="mb-1.5 1font-semibold">
+                    GPO templates path (read-only)
                 </div>
                 <GpoTempatesPath templatePath={templatePath} />
             </div>
@@ -77,22 +81,12 @@ function AboutBody({ products, templatePath, copyright }: { products: ProductInf
     );
 }
 
-function Products({ products }: { products: ProductInfoEx[]; }) {
-    return (<>
-        {products.map(
-            ({ product, version, builtOn: buildAt }) => (
-                <div key={product} title={buildAt}> {product}{version ? ': version' : ''} <span>{version}</span> </div>
-            ))
-        }
-    </>);
-}
-
 function GpoTempatesPath({ templatePath }: { templatePath: string; }) {
     return (
         <Textarea
             className={classNames("text-xs", optionInputClasses, inputRingClasses)}
             style={{ 'fieldSizing': 'content' } as React.CSSProperties}
-            value={templatePath}
+            defaultValue={templatePath}
             readOnly
             tabIndex={-1}
         />
