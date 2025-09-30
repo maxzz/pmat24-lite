@@ -7,6 +7,7 @@
         "noImplicitReturns": false,
 
         "moduleResolution": "bundler",
+        "forceConsistentCasingInFileNames": true,
 
         "paths": {
             "@/*":       [ "./src/renderer/src/*" ],
@@ -18,7 +19,7 @@
         },
 
         "jsx": "react-jsx",
-        "lib": ["ESNext", "DOM", "DOM.Iterable", "DOM.AsyncIterable"],
+        "lib": ["ESNext", "DOM", "DOM.Iterable", "ESNext.AsyncIterable"],
     },
     "include": [
         "src/shell/app/**/*",
