@@ -56,7 +56,7 @@ export const confirmRemoveFromMruMessages: ConfirmationUi = {
     isDafaultOk: true,
 };
 
-export const asyncUdpateMruAtom = atom(null,
+export const asyncRemoveMruItemAtom = atom(null,
     async (get, set, folder: PmatFolder) => {
         const ok = await set(doAsyncExecuteConfirmDialogAtom, confirmRemoveFromMruMessages);
         if (ok) {
