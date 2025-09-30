@@ -9,6 +9,7 @@ import { appSettings } from "@/store/9-ui-state";
 import { type PmatFolder } from "@/store/5-1-files";
 import { IconCrossOnHover } from "./5-ui-icon-delete-recent-item";
 import { doSetFilesFrom_MruFolder_Atom } from "@/store/0-serve-atoms/2-do-load-files";
+import { asyncUdpateMruAtom } from "@/store/4-dialogs-atoms/5-confirm-atoms";
 
 export function RecentFilesList({ className, ...rest }: ComponentPropsWithoutRef<typeof motion.div>) {
     const { folders } = useSnapshot(appSettings.appUi.mru);
@@ -39,12 +40,14 @@ export function RecentFilesList({ className, ...rest }: ComponentPropsWithoutRef
 function FolderItem({ folder }: { folder: PmatFolder; }) {
     const short = filenameWithoutPath(folder.fpath);
     const doSetFilesFrom_MruFolder = useSetAtom(doSetFilesFrom_MruFolder_Atom);
+    const removeFromMru = useSetAtom(asyncUdpateMruAtom);
     
     const [hover, setHover] = useState(false);
 
-    function onCrossClick(event: React.MouseEvent): void {
+    async function onCrossClick(event: React.MouseEvent) {
         event.stopPropagation(); 
-        appSettings.appUi.mru.folders = appSettings.appUi.mru.folders.filter((item) => item.fpath !== folder.fpath);
+        await removeFromMru(folder);
+        //appSettings.appUi.mru.folders = appSettings.appUi.mru.folders.filter((item) => item.fpath !== folder.fpath);
     }
 
     return (
