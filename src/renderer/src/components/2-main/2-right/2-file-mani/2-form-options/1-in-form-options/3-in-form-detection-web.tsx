@@ -1,13 +1,14 @@
+import { useState } from "react";
 import { useAtomValue } from "jotai";
 import { classNames } from "@/utils";
 import { toast } from "sonner";
 import { Matching } from "@/store/manifest";
+import { SymbolLockClosed, SymbolLockOpen } from "@/ui/icons";
 import { type OFormProps } from "@/store/2-file-mani-atoms";
 import { AccordionWithTrigger } from "@/ui/motion-primitives";
 import { InputWithTitle2Rows } from "@/ui/local-ui";
 import { useIsShowExample } from "./5-9-set-atoms";
 import { MatchHow } from "./5-2-match-how";
-import { SymbolLockClosed } from "@/ui/icons";
 
 export function DetectionContent_Web({ oFormProps }: { oFormProps: OFormProps; }) {
     const formIdx = oFormProps.oAllAtoms.options.formIdx;
@@ -17,8 +18,10 @@ export function DetectionContent_Web({ oFormProps }: { oFormProps: OFormProps; }
     const showExample = useIsShowExample(oFormProps.oAllAtoms.options);
     const disabled = how === Matching.How.undef;
 
+    const [isLocked, setIsLocked] = useState(true);
+
     function onLockClick() {
-        console.log('lock click');
+        setIsLocked(!isLocked);
     }
 
     return (
@@ -28,13 +31,20 @@ export function DetectionContent_Web({ oFormProps }: { oFormProps: OFormProps; }
                     label={(
                         <div className="flex items-center gap-0.5">
                             Original URL of the website
-                            <SymbolLockClosed className="size-2.5" title="This input is read-only. Change it olny if you know what you are doing." onClick={onLockClick} />
+                            <div className="size-2.5 cursor-pointer" onClick={onLockClick}>
+                                {isLocked
+                                    ? <SymbolLockClosed className="size-full" title="This setting is read-only. Only change it if you understand what you're doing." />
+                                    : <SymbolLockOpen className="size-full" title="This input can be edited. Please proceed with caution." />
+                                }
+                            </div>
+
                         </div>
                     )}
                     labelClasses="font-normal"
                     stateAtom={ourlAtom}
                     asTextarea
-                    readOnly
+                    readOnly={isLocked}
+                    onBlur={() => setIsLocked(true)}
                 />
 
                 <div className="mt-4">How to match URL:</div>

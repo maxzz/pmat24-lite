@@ -236,4 +236,5 @@
 //TODO: options tab: original URL is readonly. and icon to unlock it modify and lock it again
 //TODO: options tab: match URL is not initiallized if inital value is empty
 //TODO: if error inside collapsed group we should expand this group
+//TODO: change "How to match URL" does not reset file changes
 //TODO: processname="\\jsccorefe01\fsba\BIN\InterACT.exe" commandline="Z:\BIN\InterACT.exe -VVystar -W -DZ:\Denorm\InterACTCert" - do proper encoding wo/ percents
