@@ -6,7 +6,7 @@ import { Matching } from "@/store/manifest";
 
 export function createAtoms(initialState: FormOptionsState.ForAtoms, onChange: OnChangeValueWithUpdateName): FormOptionsState.AllAtoms {
     const { p1General, p2Detect, p3Auth, p4QL, p5Icon } = initialState;
-    const initialHOU = Matching.parseRawMatchData(p2Detect.murl);
+    const initialHOU = Matching.parseRawMatchData(p2Detect.murl || p2Detect.ourl); // murl can be empty if it is the same as ourl
 
     const rv: FormOptionsState.AllAtoms = {
         p1General: {

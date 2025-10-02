@@ -231,3 +231,8 @@
 //TODO: when save file with empty name we select page and highlight filed but don't set focus to filed - OK for now but annoying
 //TODO: monitor does not truncate name if explorer with long path is trained - it seems OK
 //TODO: I don't delete c folder if it is empty - OK for now
+
+//10.02.25
+//TODO: options tab: original URL is readonly. and icon to unlock it modify and lock it again
+//TODO: options tab: match URL is not initiallized if inital value is empty
+//TODO: if error inside collapsed group we should expand this group
