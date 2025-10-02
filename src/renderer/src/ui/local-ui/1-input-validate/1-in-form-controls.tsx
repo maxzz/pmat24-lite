@@ -4,7 +4,7 @@ import { classNames } from "@/utils";
 import { type Variants, AnimatePresence, motion } from "motion/react";
 import { type OptionInputWTypeProps, OptionAsCheckbox, OptionAsString, OptionAsTextarea } from "@/ui/local-ui";
 
-export function ChildrenWithLabel2Cols({ label, children, containerClasses }: { label: string; children: ReactNode; containerClasses?: string; }) {
+export function ChildrenWithLabel2Cols({ label, children, containerClasses }: { label: ReactNode; children: ReactNode; containerClasses?: string; }) {
     return (
         <FormRowChildren label={label} className={classNames(children2ColsClasses, containerClasses)} labelClasses={label2ColsClasses}>
             {children}
@@ -12,7 +12,7 @@ export function ChildrenWithLabel2Cols({ label, children, containerClasses }: { 
     );
 }
 
-export function InputWithTitle2Cols({ label, containerClasses, labelClasses, ...rest }: { label: string; } & OptionInputWTypeProps) {
+export function InputWithTitle2Cols({ label, containerClasses, labelClasses, ...rest }: { label: ReactNode; } & OptionInputWTypeProps) {
     return (
         <FormRowChildren label={label} className={classNames(children2ColsClasses, containerClasses)} labelClasses={classNames(label2ColsClasses, labelClasses)}>
             <InputOrCheckWithErrorMsg {...rest} />
@@ -20,7 +20,7 @@ export function InputWithTitle2Cols({ label, containerClasses, labelClasses, ...
     );
 }
 
-export function InputWithTitle2Rows({ label, containerClasses, labelClasses, ...rest }: { label: string; } & OptionInputWTypeProps) {
+export function InputWithTitle2Rows({ label, containerClasses, labelClasses, ...rest }: { label: ReactNode; } & OptionInputWTypeProps) {
     return (
         <FormRowChildren label={label} className={classNames(children2RowsClasses, containerClasses)} labelClasses={classNames(label2RowsClasses, labelClasses)}>
             <InputOrCheckWithErrorMsg twoRows {...rest} />
@@ -71,7 +71,7 @@ const variants: Variants = {
 
 // Row with children simle DOM layout
 
-export function FormRowChildren({ label, children, className, labelClasses }: { label: string; children: ReactNode; className?: string; labelClasses?: string; }) {
+export function FormRowChildren({ label, children, className, labelClasses }: { label: ReactNode; children: ReactNode; className?: string; labelClasses?: string; }) {
     return (
         <div className={className}>
             <div className={labelClasses}>
