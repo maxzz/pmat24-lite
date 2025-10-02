@@ -1,7 +1,7 @@
 import { atom } from "jotai";
 import { FieldTyp, FormIdx, Mani } from "@/store/manifest";
 import { appSettings } from "@/store/9-ui-state";
-import { filesAtom } from "@/store/5-1-files";
+import { filesAtom } from "@/store/5-1-open-files";
 import { type FileUsAtom, type FileUs } from "@/store/store-types";
 import { type FieldRowCtx, type ManualFieldState } from "@/store/2-file-mani-atoms";
 import { type FceItem } from "../../9-types";

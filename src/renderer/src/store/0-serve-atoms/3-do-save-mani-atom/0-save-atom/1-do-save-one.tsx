@@ -2,7 +2,7 @@ import { atom } from "jotai";
 import { type FileContent } from "@shared/ipc-types";
 import { type FileUs, type FileUsAtom } from "@/store/store-types";
 import { fileUsChanges } from "@/store/2-file-mani-atoms/9-types";
-import { filesAtom } from "@/store/5-1-files";
+import { filesAtom } from "@/store/5-1-open-files";
 import { saveToFileSystem } from "@/store/0-serve-atoms/7-file-system-manipulation";
 import { inTest_Set } from "@/store/0-serve-atoms/6-do-inuse-test";
 import { fileUsToXmlString } from "./7-fileus-to-xml-string";

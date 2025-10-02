@@ -6,7 +6,7 @@ import { classNames, filenameWithoutPath } from "@/utils";
 import { Button } from "@/ui";
 import { IconFolderClosed } from "@/ui/icons/normal/temp2";
 import { appSettings } from "@/store/9-ui-state";
-import { type PmatFolder } from "@/store/5-1-files";
+import { type PmatFolder } from "@/store/5-1-open-files";
 import { IconCrossOnHover } from "./5-ui-icon-delete-recent-item";
 import { doSetFilesFrom_MruFolder_Atom } from "@/store/0-serve-atoms/2-do-load-files";
 import { asyncRemoveMruItemAtom } from "@/store/4-dialogs-atoms/5-confirm-atoms";

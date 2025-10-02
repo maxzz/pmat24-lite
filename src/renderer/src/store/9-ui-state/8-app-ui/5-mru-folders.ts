@@ -1,4 +1,4 @@
-import { type PmatFolder } from "@/store/5-1-files";
+import { type PmatFolder } from "@/store/5-1-open-files";
 
 /**
  * Most Recently Used folders (and maybe files, FCs).

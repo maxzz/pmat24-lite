@@ -2,7 +2,7 @@ import { fileSave } from "browser-fs-access";
 import { type FileUs } from "@/store/store-types";
 import { type R2MInvoke } from "@shared/ipc-types";
 import { invokeMainTyped } from "@/xternal-to-main";
-import { rootDir } from "@/store/5-1-files";
+import { rootDir } from "@/store/5-1-open-files";
 
 export async function moveByInTestFileSystem(fileUs: FileUs, inTest: boolean, getset: GetSet): Promise<R2MInvoke.EmptyOkOrError | undefined> {
     const fileCnt = fileUs.fileCnt;
