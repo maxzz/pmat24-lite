@@ -51,7 +51,7 @@ export function DetectionContent_Web({ oFormProps }: { oFormProps: OFormProps; }
                 <MatchHow oFormProps={oFormProps} />
 
                 <InputWithTitle2Rows
-                    label="Match URL"
+                    label={how === Matching.How.regex ? "Regular expression" : "Original URL"}
                     className={classNames(disabled && 'opacity-50 cursor-default')}
                     stateAtom={rurlAtom}
                     readOnly={disabled}
@@ -61,14 +61,14 @@ export function DetectionContent_Web({ oFormProps }: { oFormProps: OFormProps; }
 
                 {showExample && (<>
                     <div className="mt-1">
-                        Now the match URL is a regular expression and equal to the original URL.
-                        It is recommended to specify the match URL as a part of original URL.
+                        The regular expression and the original URL are an exact match, so the regular expression is useless. 
+                        You can define the regular expression as any part of the original URL, but the website domain will be taken from the original URL.
                     </div>
 
-                    <div className="mt-1">
-                        For example:
-                        for <span className={exampleClasses}>https://login.example.com</span> the match URL as regular expression can be: <span className={exampleClasses}>login</span>.
-                        That will not be match <span className={exampleClasses}>https://admin.example.com/login</span>.
+                    <div className="mt-2">
+                        For example, if the original URL is <span className={exampleClasses}>https://login.example.com</span> and the regular expression is <span className={exampleClasses}>login</span>, 
+                        the domain in this case would be <span className={exampleClasses}>example.com</span>, and the login form would match <span className={exampleClasses}>login.example.com</span>, but not <span className={exampleClasses}>admin.example.com</span>.
+                        This allows you to determine where the form will be used.
                     </div>
                 </>)}
 
