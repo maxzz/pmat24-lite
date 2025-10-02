@@ -73,7 +73,7 @@
         "tailwindcss": "^3.4.17",
         "typescript": "^5.9.2",
         "upen": "^1.0.2",
-        "valtio": "^2.1.7",
+        "valtio": "^2.1.8",
         "vaul": "^1.1.2",
         "vite": "^7.1.7"
     },
