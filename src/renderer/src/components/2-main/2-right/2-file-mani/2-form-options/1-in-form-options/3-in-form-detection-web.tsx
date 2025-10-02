@@ -7,6 +7,7 @@ import { AccordionWithTrigger } from "@/ui/motion-primitives";
 import { InputWithTitle2Rows } from "@/ui/local-ui";
 import { useIsShowExample } from "./5-9-set-atoms";
 import { MatchHow } from "./5-2-match-how";
+import { SymbolLockClosed } from "@/ui/icons";
 
 export function DetectionContent_Web({ oFormProps }: { oFormProps: OFormProps; }) {
     const formIdx = oFormProps.oAllAtoms.options.formIdx;
@@ -16,11 +17,20 @@ export function DetectionContent_Web({ oFormProps }: { oFormProps: OFormProps; }
     const showExample = useIsShowExample(oFormProps.oAllAtoms.options);
     const disabled = how === Matching.How.undef;
 
+    function onLockClick() {
+        console.log('lock click');
+    }
+
     return (
         <AccordionWithTrigger name='form-detection' formIdx={formIdx} triggerText="Screen detection">
             <div className={textClasses}>
                 <InputWithTitle2Rows
-                    label="Original URL of the website (readonly)"
+                    label={(
+                        <div className="flex items-center gap-0.5">
+                            Original URL of the website
+                            <SymbolLockClosed className="size-2.5" title="This input is read-only. Change it olny if you know what you are doing." onClick={onLockClick} />
+                        </div>
+                    )}
                     labelClasses="font-normal"
                     stateAtom={ourlAtom}
                     asTextarea
