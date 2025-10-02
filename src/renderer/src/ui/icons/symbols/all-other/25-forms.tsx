@@ -19,5 +19,4 @@ export function SymbolForms({ className, children, title, ...rest }: SVGAttribut
             <use xlinkHref="#icon-forms" />
         </svg>
     );
-
 }

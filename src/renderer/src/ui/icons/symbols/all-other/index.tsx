@@ -18,6 +18,8 @@ import { SvgSymbolWarning } from "./24-warning";
 import { SvgSymbolCode } from "./25-code";
 import { SvgSymbolForms } from "./25-forms";
 import { SvgSymbolEllipsis } from "./26-ellipsis";
+import { SvgSymbolLockOpen } from "./30-lock-open";
+import { SvgSymbolLockClosed } from "./31-lock-closed";
 
 export * from "./06-folder";
 export * from "./08-dot";
@@ -39,6 +41,8 @@ export * from "./24-warning";
 export * from "./25-code";
 export * from "./25-forms";
 export * from "./26-ellipsis";
+export * from "./30-lock-open";
+export * from "./31-lock-closed";
 
 export function DefAllOtherTypes() {
     return (<>
@@ -62,5 +66,7 @@ export function DefAllOtherTypes() {
         {SvgSymbolCode()}
         {SvgSymbolForms()}
         {SvgSymbolEllipsis()}
+        {SvgSymbolLockOpen()}
+        {SvgSymbolLockClosed()}
     </>);
 }

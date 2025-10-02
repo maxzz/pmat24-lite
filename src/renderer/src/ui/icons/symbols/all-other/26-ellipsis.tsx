@@ -19,5 +19,4 @@ export function SymbolEllipsis({ className, children, title, ...rest }: SVGAttri
             <use xlinkHref="#icon-ellipsis" />
         </svg>
     );
-
 }

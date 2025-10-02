@@ -17,5 +17,4 @@ export function SymbolCode({ className, children, title, ...rest }: SVGAttribute
             <use xlinkHref="#icon-code" />
         </svg>
     );
-
 }
