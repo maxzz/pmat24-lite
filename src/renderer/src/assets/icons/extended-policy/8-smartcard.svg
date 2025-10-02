@@ -1,4 +1,4 @@
-<svg id="renders" viewBox="0 0 24 24">
+<svg id="renders" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
   <defs>
     <style>
       .cls-1{stroke-width:.35px;fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round}
