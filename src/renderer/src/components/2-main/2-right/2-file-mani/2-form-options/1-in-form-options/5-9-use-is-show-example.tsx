@@ -31,3 +31,20 @@ const isShowExampleAtom = atom(
         }
     }
 );
+
+export function ShowExampleText() {
+    return (<>
+        <div className="mt-1">
+            The regular expression and the original URL are an exact match, so the regular expression is useless.
+            You can define the regular expression as any part of the original URL, but the website domain will be taken from the original URL.
+        </div>
+
+        <div className="mt-2">
+            For example, if the original URL is <span className={exampleClasses}>https://login.example.com</span> and the regular expression is <span className={exampleClasses}>login</span>,
+            the domain in this case would be <span className={exampleClasses}>example.com</span>, and the login form would match <span className={exampleClasses}>login.example.com</span>, but not <span className={exampleClasses}>admin.example.com</span>.
+            This allows you to determine where the form will be used.
+        </div>
+    </>);
+}
+
+const exampleClasses = "text-blue-500";

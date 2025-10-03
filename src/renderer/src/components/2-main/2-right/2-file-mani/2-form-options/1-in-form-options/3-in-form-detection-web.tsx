@@ -8,7 +8,7 @@ import { SymbolLockClosed, SymbolLockOpen } from "@/ui/icons";
 import { type OFormProps } from "@/store/2-file-mani-atoms";
 import { AccordionWithTrigger } from "@/ui/motion-primitives";
 import { InputWithTitle2Rows } from "@/ui/local-ui";
-import { useIsShowExample } from "./5-9-set-atoms";
+import { ShowExampleText, useIsShowExample } from "./5-9-use-is-show-example";
 import { MatchHow } from "./5-2-match-how";
 
 export function DetectionContent_Web({ oFormProps }: { oFormProps: OFormProps; }) {
@@ -22,10 +22,6 @@ export function DetectionContent_Web({ oFormProps }: { oFormProps: OFormProps; }
 
     const [isLocked, setIsLocked] = useState(true);
 
-    function onLockClick() {
-        setIsLocked(!isLocked);
-    }
-
     return (
         <AccordionWithTrigger name='form-detection' formIdx={formIdx} triggerText="Screen detection">
             <div className={textClasses}>
@@ -33,7 +29,7 @@ export function DetectionContent_Web({ oFormProps }: { oFormProps: OFormProps; }
                     label={(
                         <div className="flex items-center gap-0.5">
                             Original URL of the website
-                            <div className="size-2.5 cursor-pointer" onClick={onLockClick}>
+                            <div className="size-2.5 cursor-pointer" onClick={() => setIsLocked(!isLocked)}>
                                 {isLocked
                                     ? <SymbolLockClosed className="size-full" title="This setting is read-only. Only change it if you understand what you're doing." />
                                     : <SymbolLockOpen className="size-full" title="This input can be edited. Please proceed with caution." />
@@ -62,8 +58,6 @@ export function DetectionContent_Web({ oFormProps }: { oFormProps: OFormProps; }
                             animate={{ opacity: 1, height: 'auto' }}
                             exit={{ opacity: 0, height: 0 }}
                             transition={{ duration: .4 }}
-                        // onAnimationStart={() => console.log('start', showRegex)}
-                        // onAnimationComplete={() => console.log('complete', showRegex)}
                         >
                             <InputWithTitle2Rows
                                 label={how === Matching.How.regex ? "Regular expression" : "Original URL"}
@@ -75,18 +69,7 @@ export function DetectionContent_Web({ oFormProps }: { oFormProps: OFormProps; }
                                 onClick={() => disabled && toast.info('This input is disabled because "How to match URL" is set "As original URL".')}
                             />
 
-                            {showExample && (<>
-                                <div className="mt-1">
-                                    The regular expression and the original URL are an exact match, so the regular expression is useless.
-                                    You can define the regular expression as any part of the original URL, but the website domain will be taken from the original URL.
-                                </div>
-
-                                <div className="mt-2">
-                                    For example, if the original URL is <span className={exampleClasses}>https://login.example.com</span> and the regular expression is <span className={exampleClasses}>login</span>,
-                                    the domain in this case would be <span className={exampleClasses}>example.com</span>, and the login form would match <span className={exampleClasses}>login.example.com</span>, but not <span className={exampleClasses}>admin.example.com</span>.
-                                    This allows you to determine where the form will be used.
-                                </div>
-                            </>)}
+                            {showExample && <ShowExampleText />}
                         </motion.div>
                     </>)}
                 </AnimatePresence>
