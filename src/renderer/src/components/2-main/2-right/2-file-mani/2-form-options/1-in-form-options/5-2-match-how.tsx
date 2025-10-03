@@ -6,26 +6,22 @@ import { type FormOptionsState } from "@/store/2-file-mani-atoms/3-options";
 import { type OFormProps } from "@/store/2-file-mani-atoms/9-types";
 
 export function MatchHow({ oFormProps }: { oFormProps: OFormProps; }) {
+    const setOtherPartsAfterHowChanged = useSetAtom(setOtherPartsAfterHowChangedAtom);
     const { options } = oFormProps.oAllAtoms;
-    const setUrlsEditorData = useSetAtom(setUrlsEditorDataAtom);
     const how = useAtomValue(options.howAtom);
     const items = getNamesList(how);
-
-    function setValue(v: string) {
-        setUrlsEditorData({ options, how: +v });
-    }
 
     return (
         <InputSelectUi
             triggerClasses={inputAsRefClasses}
             items={items}
             value={`${how}`}
-            onValueChange={setValue}
+            onValueChange={(value) => setOtherPartsAfterHowChanged({ options, how: +value })}
         />
     );
 }
 
-export const setUrlsEditorDataAtom = atom(
+const setOtherPartsAfterHowChangedAtom = atom(
     null,
     (get, set, { options, o, how, opt, url }: { options: FormOptionsState.AllAtoms, o?: string; how?: Matching.How; opt?: Matching.Options; url?: string; }) => {
         const getset = { get, set };
