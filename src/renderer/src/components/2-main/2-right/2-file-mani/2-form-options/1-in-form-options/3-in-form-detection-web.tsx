@@ -59,7 +59,8 @@ export function DetectionContent_Web({ oFormProps }: { oFormProps: OFormProps; }
                             animate={{ opacity: 1, height: 'auto' }}
                             exit={{ opacity: 0, height: 0 }}
                             transition={{ duration: .4 }}
-                            onAnimationEnd={() => console.log('end')}
+                            // onAnimationStart={() => console.log('start', showRegex)}
+                            // onAnimationComplete={() => console.log('complete', showRegex)}
                         >
                             <InputWithTitle2Rows
                                 label={how === Matching.How.regex ? "Regular expression" : "Original URL"}
