@@ -43,6 +43,7 @@ export function DetectionContent_Web({ oFormProps }: { oFormProps: OFormProps; }
                         </div>
                     )}
                     labelClasses="font-normal"
+                    className={classNames(isLocked ? 'opacity-75 cursor-default' : '')}
                     stateAtom={ourlAtom}
                     asTextarea
                     readOnly={isLocked}
