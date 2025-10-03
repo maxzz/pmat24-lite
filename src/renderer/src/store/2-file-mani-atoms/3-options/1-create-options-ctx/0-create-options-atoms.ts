@@ -1,8 +1,7 @@
-import { type OnChangeProps, type FileUsCtx, type ManiAtoms, safeManiAtomsFromFileUsCtx } from "../../9-types";
-import { type FormOptionsState, FormOptionsConv } from "../2-conv-options";
 import { type RowInputState } from "@/ui";
 import { type OnValueChange, debounce } from "@/utils";
-import { fileUsChanges } from "../../9-types";
+import { type OnChangeProps, type FileUsCtx, safeManiAtomsFromFileUsCtx, fileUsChanges } from "../../9-types";
+import { type FormOptionsState, FormOptionsConv } from "../2-conv-options";
 
 export namespace OptionsState {
 
@@ -30,24 +29,33 @@ function onChangeWithScope(updateName: string, nextValue: RowInputState, { fileU
         set(fileUsCtx.fileUs.parsedSrc.stats.loginFormChooseNameAtom, nextValue.data);
     }
 
-    if (updateName === 'rurl') {
-        console.log('rurl', nextValue.data); // rurl will update murl
+    const oFormCtx: OptionsState.Atoms | undefined = safeManiAtomsFromFileUsCtx(fileUsCtx, get)[fileUsCtx?.formIdx]?.options;
+    if (!oFormCtx) {
+        return;
+    }
+
+    const changeName = fileUsChanges.changeName(fileUsCtx.formIdx, 'o', updateName);
+    const fromFile = oFormCtx.fromFileHOU;
+
+    console.log('🎆onChangeWithScope:', updateName, nextValue.data, JSON.stringify(fromFile));
+
+    if (updateName === 'rurl') { // This is murl input
+        const changed = nextValue.data !== fromFile.url;
+        fileUsChanges.set(fileUsCtx, changed, changeName);
+        //console.log('rurl', nextValue.data); // rurl will update murl
         return;
     }
 
     if (updateName === 'murl') { // This is case when we change how to match URL dropdown
-        const oFormCtx: OptionsState.Atoms | undefined = safeManiAtomsFromFileUsCtx(fileUsCtx, get)[fileUsCtx?.formIdx]?.options;
-        if (oFormCtx) {
-            const how = get(oFormCtx.howAtom);
-            const fromFile = oFormCtx.fromFileHOU;
-            if (how === fromFile.how && nextValue.data === fromFile.url) {
-                fileUsChanges.set(fileUsCtx, false, `${fileUsCtx.formIdx ? 'c' : 'l'}-o-${updateName}`);
-                return;
-            }
+        const how = get(oFormCtx.howAtom);
+        if (how === fromFile.how) {
+            const changed = nextValue.data !== fromFile.url;
+            fileUsChanges.set(fileUsCtx, changed, changeName);
+            return;
         }
     }
 
-    fileUsChanges.set(fileUsCtx, nextValue.dirty, `${fileUsCtx.formIdx ? 'c' : 'l'}-o-${updateName}`);
+    fileUsChanges.set(fileUsCtx, nextValue.dirty, changeName);
 
     //console.log(`%c-------- "${updateName}" %s`, 'color: darkgoldenrod; font-size: 0.6rem;', `nextValue ${JSON.stringify(nextValue)}`);
 }
