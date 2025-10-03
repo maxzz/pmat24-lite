@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { atom, useAtomValue, useSetAtom } from "jotai";
 import { Matching } from "@/store/manifest";
+import { type RowInputStateAtom } from "@/ui/local-ui/1-input-validate/9-types";
 import { type FormOptionsState } from "@/store/2-file-mani-atoms/3-options";
 
 export function useIsShowExample(options: FormOptionsState.AllAtoms): boolean | undefined {
@@ -32,10 +33,14 @@ const isShowExampleAtom = atom(
     }
 );
 
-export function ShowExampleText() {
+export function ShowExampleText({ rurlAtom }: { rurlAtom: RowInputStateAtom; }) {
+    const isEmpty = useAtomValue(rurlAtom).data === '';
     return (<>
         <div className="mt-1">
-            The regular expression and the original URL are an exact match or the regular expression is empty, so the regular expression is useless.
+            {isEmpty
+                ? 'The regular expression is empty, so the regular expression is useless.'
+                : 'The regular expression and the original URL are an exact match, so the regular expression is useless.'
+            }
         </div>
 
         <div className="mt-2">

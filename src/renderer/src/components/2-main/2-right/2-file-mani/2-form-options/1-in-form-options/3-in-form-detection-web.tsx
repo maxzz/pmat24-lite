@@ -15,7 +15,7 @@ export function DetectionContent_Web({ oFormProps }: { oFormProps: OFormProps; }
     const { p2Detect: { ourlAtom, rurlAtom }, howAtom, formIdx } = oFormProps.oAllAtoms.options;
     const [isLocked, setIsLocked] = useState(true);
     const showExample = useIsShowExample(oFormProps.oAllAtoms.options);
-    
+
     const how = useAtomValue(howAtom);
     const disabled = how === Matching.How.undef;
     const showRegex = how === Matching.How.regex;
@@ -66,7 +66,7 @@ export function DetectionContent_Web({ oFormProps }: { oFormProps: OFormProps; }
                                 className={classNames(disabled && 'opacity-50 cursor-default')}
                             />
 
-                            {showExample && <ShowExampleText />}
+                            {showExample && <ShowExampleText rurlAtom={rurlAtom} />}
                         </motion.div>
                     </>)}
                 </AnimatePresence>
