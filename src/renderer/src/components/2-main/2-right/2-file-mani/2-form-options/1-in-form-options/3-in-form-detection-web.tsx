@@ -53,13 +53,14 @@ export function DetectionContent_Web({ oFormProps }: { oFormProps: OFormProps; }
                 <MatchHow oFormProps={oFormProps} />
 
                 <AnimatePresence>
-                    <motion.div
-                        initial={{ opacity: 0, height: 0 }}
-                        animate={{ opacity: 1, height: 'auto' }}
-                        exit={{ opacity: 0, height: 0 }}
-                        transition={{ duration: 2 }}
-                    >
-                        {showRegex && (<>
+                    {showRegex && (<>
+                        <motion.div
+                            initial={{ opacity: 0, height: 0 }}
+                            animate={{ opacity: 1, height: 'auto' }}
+                            exit={{ opacity: 0, height: 0 }}
+                            transition={{ duration: .4 }}
+                            onAnimationEnd={() => console.log('end')}
+                        >
                             <InputWithTitle2Rows
                                 label={how === Matching.How.regex ? "Regular expression" : "Original URL"}
                                 className={classNames(disabled && 'opacity-50 cursor-default')}
@@ -81,8 +82,8 @@ export function DetectionContent_Web({ oFormProps }: { oFormProps: OFormProps; }
                                     This allows you to determine where the form will be used.
                                 </div>
                             </>)}
-                        </>)}
-                    </motion.div>
+                        </motion.div>
+                    </>)}
                 </AnimatePresence>
 
             </div>
