@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useAtomValue } from "jotai";
 import { classNames } from "@/utils";
+import { AnimatePresence, motion } from "motion/react";
 import { toast } from "sonner";
 import { Matching } from "@/store/manifest";
 import { SymbolLockClosed, SymbolLockOpen } from "@/ui/icons";
@@ -51,29 +52,38 @@ export function DetectionContent_Web({ oFormProps }: { oFormProps: OFormProps; }
                 <div className="mt-2">How to match URL:</div>
                 <MatchHow oFormProps={oFormProps} />
 
-                {showRegex && (<>
-                    <InputWithTitle2Rows
-                        label={how === Matching.How.regex ? "Regular expression" : "Original URL"}
-                        className={classNames(disabled && 'opacity-50 cursor-default')}
-                        stateAtom={rurlAtom}
-                        readOnly={disabled}
-                        asTextarea
-                        onClick={() => disabled && toast.info('This input is disabled because "How to match URL" is set "As original URL".')}
-                    />
+                <AnimatePresence>
+                    <motion.div
+                        initial={{ opacity: 0, height: 0 }}
+                        animate={{ opacity: 1, height: 'auto' }}
+                        exit={{ opacity: 0, height: 0 }}
+                        transition={{ duration: 2 }}
+                    >
+                        {showRegex && (<>
+                            <InputWithTitle2Rows
+                                label={how === Matching.How.regex ? "Regular expression" : "Original URL"}
+                                className={classNames(disabled && 'opacity-50 cursor-default')}
+                                stateAtom={rurlAtom}
+                                readOnly={disabled}
+                                asTextarea
+                                onClick={() => disabled && toast.info('This input is disabled because "How to match URL" is set "As original URL".')}
+                            />
 
-                    {showExample && (<>
-                        <div className="mt-1">
-                            The regular expression and the original URL are an exact match, so the regular expression is useless.
-                            You can define the regular expression as any part of the original URL, but the website domain will be taken from the original URL.
-                        </div>
+                            {showExample && (<>
+                                <div className="mt-1">
+                                    The regular expression and the original URL are an exact match, so the regular expression is useless.
+                                    You can define the regular expression as any part of the original URL, but the website domain will be taken from the original URL.
+                                </div>
 
-                        <div className="mt-2">
-                            For example, if the original URL is <span className={exampleClasses}>https://login.example.com</span> and the regular expression is <span className={exampleClasses}>login</span>,
-                            the domain in this case would be <span className={exampleClasses}>example.com</span>, and the login form would match <span className={exampleClasses}>login.example.com</span>, but not <span className={exampleClasses}>admin.example.com</span>.
-                            This allows you to determine where the form will be used.
-                        </div>
-                    </>)}
-                </>)}
+                                <div className="mt-2">
+                                    For example, if the original URL is <span className={exampleClasses}>https://login.example.com</span> and the regular expression is <span className={exampleClasses}>login</span>,
+                                    the domain in this case would be <span className={exampleClasses}>example.com</span>, and the login form would match <span className={exampleClasses}>login.example.com</span>, but not <span className={exampleClasses}>admin.example.com</span>.
+                                    This allows you to determine where the form will be used.
+                                </div>
+                            </>)}
+                        </>)}
+                    </motion.div>
+                </AnimatePresence>
 
             </div>
         </AccordionWithTrigger>
