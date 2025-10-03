@@ -50,8 +50,10 @@ export function DetectionContent_Web({ oFormProps }: { oFormProps: OFormProps; }
                     onBlur={() => setIsLocked(true)}
                 />
 
-                <div className="mt-2">How to match URL:</div>
-                <MatchHow oFormProps={oFormProps} />
+                <div className="mt-2 flex items-center gap-2">
+                    <div className="">How to match URL:</div>
+                    <MatchHow oFormProps={oFormProps} />
+                </div>
 
                 <AnimatePresence>
                     {showRegex && (<>
@@ -60,8 +62,8 @@ export function DetectionContent_Web({ oFormProps }: { oFormProps: OFormProps; }
                             animate={{ opacity: 1, height: 'auto' }}
                             exit={{ opacity: 0, height: 0 }}
                             transition={{ duration: .4 }}
-                            // onAnimationStart={() => console.log('start', showRegex)}
-                            // onAnimationComplete={() => console.log('complete', showRegex)}
+                        // onAnimationStart={() => console.log('start', showRegex)}
+                        // onAnimationComplete={() => console.log('complete', showRegex)}
                         >
                             <InputWithTitle2Rows
                                 label={how === Matching.How.regex ? "Regular expression" : "Original URL"}
