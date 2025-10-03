@@ -2,6 +2,7 @@ import { type OnChangeProps, type FileUsCtx, type ManiAtoms, safeManiAtomsFromFi
 import { type FormOptionsState, FormOptionsConv } from "../2-conv-options";
 import { type RowInputState } from "@/ui";
 import { type OnValueChange, debounce } from "@/utils";
+import { Matching } from "pm-manifest";
 import { fileUsChanges } from "../../9-types";
 
 export namespace OptionsState {
@@ -39,6 +40,18 @@ function onChangeWithScope(updateName: string, nextValue: RowInputState, { fileU
     if (updateName === 'rurl') {
         console.log('rurl', nextValue.data); // rurl will update murl
         return;
+    }
+
+    if (updateName === 'murl') {
+        const oFormCtx: OptionsState.Atoms | undefined = safeManiAtomsFromFileUsCtx(fileUsCtx, get)[fileUsCtx?.formIdx]?.options; // can be undefined after reset
+        if (oFormCtx) {
+            const how = get(oFormCtx.howAtom);
+            const fromFile = oFormCtx.fromFileHOU;
+            if (how === fromFile.how && nextValue.data === fromFile.url) {
+                fileUsChanges.set(fileUsCtx, false, `${fileUsCtx.formIdx ? 'c' : 'l'}-o-${updateName}`);
+                return;
+            }
+        }
     }
 
     fileUsChanges.set(fileUsCtx, nextValue.dirty, `${fileUsCtx.formIdx ? 'c' : 'l'}-o-${updateName}`);
