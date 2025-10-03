@@ -46,7 +46,7 @@ export function DetectionContent_Web({ oFormProps }: { oFormProps: OFormProps; }
                 />
 
                 <div className="mt-2 flex items-center gap-2">
-                    <div className="">How to match URL:</div>
+                    <div className="">How to match the website URL:</div>
                     <MatchHow oFormProps={oFormProps} />
                 </div>
 
