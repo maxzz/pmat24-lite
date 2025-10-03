@@ -39,6 +39,6 @@ function onChangeWithScope({ fileUsCtx, get, set }: OnChangeProps) {
     const fromUi = SubmitConv.fromAtoms(atoms, { get, set });
     const changed = !SubmitConv.areTheSame(fromUi, atoms.fromFile);
 
-    fileUsChanges.set(fileUsCtx, changed, `${fileUsCtx.formIdx ? 'c' : 'l'}-submit`);
+    fileUsChanges.set(fileUsCtx, changed, fileUsChanges.changeName(fileUsCtx.formIdx, 'submit', ''));
 }
 

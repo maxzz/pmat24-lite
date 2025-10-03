@@ -51,7 +51,7 @@ function onChangeWithScope(fieldIdx: number, { fileUsCtx, get, set }: OnChangePr
 
     const fromUi = NormalFieldConv.fromAtoms(rowCtx, { get });
     const changed = !NormalFieldConv.areTheSame(fromUi, rowCtx.fromFile);
-    const changes = fileUsChanges.set(fileUsCtx, changed, `${fileUsCtx.formIdx ? 'c' : 'l'}-f-${fieldIdx}`);
+    const changes = fileUsChanges.set(fileUsCtx, changed, fileUsChanges.changeName(fileUsCtx.formIdx, 'f', `${fieldIdx}`));
 
     /** /
     const str1 = JSON.stringify(fromUi.policies, null, 2);

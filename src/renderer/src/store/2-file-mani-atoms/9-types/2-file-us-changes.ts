@@ -1,7 +1,8 @@
+import { subscribe } from "valtio";
 import { proxySet } from "valtio/utils";
 import { type ChangesSet } from "@shared/ipc-types";
 import { type FileUs } from "@/store/store-types";
-import { subscribe } from "valtio";
+import { type FormIdx } from "@/store/manifest";
 import { hasMain, R2MCalls } from "@/xternal-to-main";
 
 // All files changes. It is important to show that some files have changes due to tree view scrolling.
@@ -16,6 +17,7 @@ export const fileUsChanges = {
     hasAny: hasAnyChange,           // has any changes
     hasChange,                      // has change by name
     hasCpassChange,                 // added or deleted password change form change
+    changeName,                     // change name
 };
 
 // Set/clear changes
@@ -25,7 +27,7 @@ function setChangeFlag({ fileUs }: { fileUs: FileUs; }, changed: boolean, change
     changes[changed ? 'add' : 'delete'](changeName);
 
     allFileUsChanges[changes.size ? 'add' : 'delete'](`${fileUs.fileCnt.unid}`);
-    //printChanges(fileUs);
+    printChanges(fileUs);
 
     return changes;
 }
@@ -55,6 +57,12 @@ function hasChange({ fileUs }: { fileUs: FileUs; }, name: string): boolean {
 
 function hasCpassChange({ fileUs }: { fileUs: FileUs; }): boolean {
     return hasChange({ fileUs }, 'cpass');
+}
+
+// Name of change
+
+function changeName(formIdx: FormIdx, area: string, name: string): string { // area: 'o' - options, 'f' - form, manual, 'submit'
+    return `${formIdx ? 'c' : 'l'}-${area}${name ? '-' : ''}${name}`;
 }
 
 // Notify main process about changes

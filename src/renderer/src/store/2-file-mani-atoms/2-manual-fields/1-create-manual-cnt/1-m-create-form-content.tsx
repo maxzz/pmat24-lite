@@ -77,7 +77,7 @@ function onChangeWithScope(updateName: string, nextValue: ManualFieldState.Ctx |
         const newChunksStr = ManualFieldConv.chunksToCompareString(chunks);
         const changed = newChunksStr !== mFormCtx.initialChunks;
 
-        fileUsChanges.set(fileUsCtx, changed, `${fileUsCtx.formIdx ? 'c' : 'l'}-manual-${updateName}`);
+        fileUsChanges.set(fileUsCtx, changed, fileUsChanges.changeName(fileUsCtx.formIdx, 'manual', updateName));
         //printChanges('onChangeWScope.chunks', updateName, nextValue, { fileUsCtx, get, set });
         return;
     }
@@ -94,7 +94,7 @@ function onChangeWithScope(updateName: string, nextValue: ManualFieldState.Ctx |
         set(nextValue.hasErrorAtom, ManualFieldConv.isChunkInvalid(nextValue, { get }));
     }
 
-    fileUsChanges.set(fileUsCtx, changed, `${fileUsCtx.formIdx ? 'c' : 'l'}-manual-${updateName}`);
+    fileUsChanges.set(fileUsCtx, changed, fileUsChanges.changeName(fileUsCtx.formIdx, 'manual', updateName));
     //printChanges('onChangeWScope.item', updateName, nextValue, { fileUsCtx, get, set });
 }
 

@@ -67,6 +67,7 @@ export function DetectionContent_Web({ oFormProps }: { oFormProps: OFormProps; }
                         >
                             <InputWithTitle2Rows
                                 label={how === Matching.How.regex ? "Regular expression" : "Original URL"}
+                                labelClasses="font-normal"
                                 className={classNames(disabled && 'opacity-50 cursor-default')}
                                 stateAtom={rurlAtom}
                                 readOnly={disabled}
