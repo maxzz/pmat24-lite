@@ -2,7 +2,6 @@ import { type OnChangeProps, type FileUsCtx, type ManiAtoms, safeManiAtomsFromFi
 import { type FormOptionsState, FormOptionsConv } from "../2-conv-options";
 import { type RowInputState } from "@/ui";
 import { type OnValueChange, debounce } from "@/utils";
-import { Matching } from "pm-manifest";
 import { fileUsChanges } from "../../9-types";
 
 export namespace OptionsState {
@@ -27,12 +26,6 @@ export namespace OptionsState {
 }
 
 function onChangeWithScope(updateName: string, nextValue: RowInputState, { fileUsCtx, get, set }: OnChangeProps) {
-    // const oFormCtx: OptionsState.Atoms | undefined = safeManiAtomsFromFileUsCtx(fileUsCtx, get)[fileUsCtx?.formIdx]?.options; // can be undefined after reset
-    // if (nextValue.dirty && oFormCtx) {
-    //     const fromUi = OptionsConv.fromAtoms(oFormCtx, get, set);
-    //     console.log('PolicyEditor atoms', JSON.stringify(fromUi, null, 4));
-    // }
-
     if (updateName === 'name') {
         set(fileUsCtx.fileUs.parsedSrc.stats.loginFormChooseNameAtom, nextValue.data);
     }
@@ -42,8 +35,8 @@ function onChangeWithScope(updateName: string, nextValue: RowInputState, { fileU
         return;
     }
 
-    if (updateName === 'murl') {
-        const oFormCtx: OptionsState.Atoms | undefined = safeManiAtomsFromFileUsCtx(fileUsCtx, get)[fileUsCtx?.formIdx]?.options; // can be undefined after reset
+    if (updateName === 'murl') { // This is case when we change how to match URL dropdown
+        const oFormCtx: OptionsState.Atoms | undefined = safeManiAtomsFromFileUsCtx(fileUsCtx, get)[fileUsCtx?.formIdx]?.options;
         if (oFormCtx) {
             const how = get(oFormCtx.howAtom);
             const fromFile = oFormCtx.fromFileHOU;
