@@ -25,34 +25,39 @@ const setOtherPartsAfterHowChangedAtom = atom(
     null,
     (get, set, { options, o, how, opt, url }: { options: FormOptionsState.AllAtoms, o?: string; how?: Matching.How; opt?: Matching.Options; url?: string; }) => {
         const getset = { get, set };
-        const detect = options.p2Detect;
+        const { ourlAtom, murlAtom, rurlAtom: partRurlAtom } = options.p2Detect;
+        const { howAtom: partHowAtom, optAtom: partOptAtom } = options; // partHowAtom, partRurlAtom, partOptAtom are parts of string 'how + opt + url'
 
         if (o !== undefined) {
-            setAtomRowInputState(detect.ourlAtom, o, getset);
+            setAtomRowInputState(ourlAtom, o, getset);
         }
 
-        if (how !== undefined || opt !== undefined || url !== undefined) {
-            const current: Matching.RawMatchData = { how: get(options.howAtom), opt: get(options.optAtom), url: get(detect.rurlAtom).data };
-
-            if (how !== undefined) {
-                current.how = how;
-                set(options.howAtom, how);
-
-                if (how === Matching.How.undef) {
-                    setAtomRowInputState(detect.rurlAtom, get(detect.ourlAtom).data, getset);
-                }
-            }
-            if (opt !== undefined) {
-                current.opt = opt;
-                set(options.optAtom, opt);
-            }
-            if (url !== undefined) {
-                current.url = url;
-                setAtomRowInputState(detect.rurlAtom, url, getset);
-            }
-
-            setAtomRowInputState(detect.murlAtom, Matching.stringifyRawMatchData(current, get(detect.ourlAtom).data), getset);
+        if (how === undefined && opt === undefined && url === undefined) {
+            return;
         }
+
+        const current: Matching.RawMatchData = { how: get(partHowAtom), opt: get(partOptAtom), url: get(partRurlAtom).data };
+
+        if (how !== undefined) {
+            current.how = how;
+            set(partHowAtom, how);
+
+            if (how === Matching.How.undef) {
+                setAtomRowInputState(partRurlAtom, get(ourlAtom).data, getset);
+            }
+        }
+
+        if (opt !== undefined) {
+            current.opt = opt;
+            set(partOptAtom, opt);
+        }
+
+        if (url !== undefined) {
+            current.url = url;
+            setAtomRowInputState(partRurlAtom, url, getset);
+        }
+
+        setAtomRowInputState(murlAtom, Matching.stringifyRawMatchData(current, get(ourlAtom).data), getset);
     }
 );
 
