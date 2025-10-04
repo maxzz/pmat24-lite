@@ -2,7 +2,7 @@ import { toast } from "sonner";
 import { appSettings } from "@/store/9-ui-state";
 import { FormIdx } from "@/store/manifest";
 import { type ManiAtoms, type ManiTabValue, type VerifyError } from "@/store/2-file-mani-atoms/9-types";
-import { optionsFormVerifyErrors } from "./3-0-options-verify-errors";
+import { optionsFormVerifyErrors } from "./2-3-options-verify-errors";
 import { getErrorsFromForm } from "./2-0-form-verify-errors";
 
 export function stopIfInvalidAny(maniAtoms: ManiAtoms, getset: GetSet): boolean | undefined {
