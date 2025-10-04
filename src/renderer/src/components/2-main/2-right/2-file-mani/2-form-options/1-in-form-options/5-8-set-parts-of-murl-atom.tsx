@@ -1,6 +1,6 @@
 import { atom } from "jotai";
 import { Matching } from "@/store/manifest";
-import { setAtomRowInputState } from "@/ui/local-ui/1-input-validate";
+import { setRowInputStateToAtom } from "@/ui/local-ui/1-input-validate";
 import { type FormOptionsState } from "@/store/2-file-mani-atoms/3-options";
 
 export const setOtherPartsAfterHowChangedAtom = atom(
@@ -11,7 +11,7 @@ export const setOtherPartsAfterHowChangedAtom = atom(
         const { howAtom: part_howAtom, optAtom: part_optAtom } = options; // partHowAtom, partRurlAtom, partOptAtom are parts of string 'how + opt + url'
 
         if (o !== undefined) {
-            setAtomRowInputState(ourlAtom, o, getset);
+            setRowInputStateToAtom(ourlAtom, o, getset);
         }
 
         if (how === undefined && opt === undefined && url === undefined) {
@@ -25,7 +25,7 @@ export const setOtherPartsAfterHowChangedAtom = atom(
             set(part_howAtom, how);
 
             if (how === Matching.How.undef) {
-                setAtomRowInputState(part_rurlAtom, get(ourlAtom).data, getset);
+                setRowInputStateToAtom(part_rurlAtom, get(ourlAtom).data, getset);
             }
         }
 
@@ -36,9 +36,9 @@ export const setOtherPartsAfterHowChangedAtom = atom(
 
         if (url !== undefined) {
             current.url = url;
-            setAtomRowInputState(part_rurlAtom, url, getset);
+            setRowInputStateToAtom(part_rurlAtom, url, getset);
         }
 
-        setAtomRowInputState(murlAtom, Matching.stringifyRawMatchData(current, get(ourlAtom).data), getset);
+        setRowInputStateToAtom(murlAtom, Matching.stringifyRawMatchData(current, get(ourlAtom).data), getset);
     }
 );

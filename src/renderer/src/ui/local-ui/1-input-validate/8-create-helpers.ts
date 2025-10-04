@@ -3,7 +3,9 @@ import { type RowInputState, type RowInputStateAtom } from "./9-types";
 
 export type OnChangeValueWithUpdateName<T = any> = (updateName: string) => OnValueChange<T>; //TODO: it should be string, but it's any for now, due to some options are boolean
 
-export function initStateForInput(value: string, more?: Partial<RowInputState>): RowInputState {
+// Init state
+
+export function initRowInputState(value: string, more?: Partial<RowInputState>): RowInputState {
     const state: RowInputState = {
         type: 'string',
         data: value,
@@ -17,7 +19,19 @@ export function initStateForInput(value: string, more?: Partial<RowInputState>):
     return rv;
 }
 
-export function dataForStateAtom(value: string | number, more?: Partial<RowInputState>): RowInputState {
+// Create atoms
+
+export function createAtomForInput(value: string | number, onChange: OnValueChange<RowInputState>, more?: Partial<RowInputState>): RowInputStateAtom {
+    const initialData = createDataForStateAtom(value, more);
+    const rv = atomWithCallback(initialData, onChange);
+    return rv;
+}
+
+export function createAtomForCheck(value: boolean, onChange: OnValueChange<RowInputState>): RowInputStateAtom {
+    return createAtomForInput(value ? '1' : '', onChange, { type: 'boolean' });
+}
+
+export function createDataForStateAtom(value: string | number, more?: Partial<RowInputState>): RowInputState {
     value = value.toString();
 
     const { options, ...rest } = more || {};
@@ -45,6 +59,8 @@ export function dataForStateAtom(value: string | number, more?: Partial<RowInput
     return initialData;
 }
 
+// Reset state
+
 export function resetRowInputState(state: RowInputState, value: string): RowInputState {
     const rv = {
         ...state,
@@ -56,7 +72,9 @@ export function resetRowInputState(state: RowInputState, value: string): RowInpu
     return rv;
 }
 
-export function setAtomRowInputState(stateAtom: RowInputStateAtom, value: RowInputState['data'], { get, set }: GetSet) {
+// Set atom
+
+export function setRowInputStateToAtom(stateAtom: RowInputStateAtom, value: RowInputState['data'], { get, set }: GetSet) {
     const state = get(stateAtom);
     const newState: RowInputState = {
         ...state,
@@ -65,14 +83,4 @@ export function setAtomRowInputState(stateAtom: RowInputStateAtom, value: RowInp
         dirty: state.initialData !== value,
     };
     set(stateAtom, newState);
-}
-
-export function createAtomForInput(value: string | number, onChange: OnValueChange<RowInputState>, more?: Partial<RowInputState>): RowInputStateAtom {
-    const initialData = dataForStateAtom(value, more);
-    const rv = atomWithCallback(initialData, onChange);
-    return rv;
-}
-
-export function createAtomForCheck(value: boolean, onChange: OnValueChange<RowInputState>): RowInputStateAtom {
-    return createAtomForInput(value ? '1' : '', onChange, { type: 'boolean' });
 }

@@ -1,7 +1,7 @@
 import { type Mani, Poli, namesConstrainSet } from "@/store/manifest";
 import { type PolicyDlgTypes } from "./9-types";
 import { policyFromStrings } from "@/store/manifest";
-import { initStateForInput, validateMaxLen, validateMinLen } from "@/ui";
+import { initRowInputState, validateMaxLen, validateMinLen } from "@/ui";
 
 // Inital policy
 
@@ -11,8 +11,8 @@ const initialForAtoms: PolicyDlgTypes.ForAtoms = {
     constrainSet0: `${Poli.ConstrainSet.withspecial}`,
     isCustom: false,
     custom: '',
-    minLen: initStateForInput('8', { type: 'number' }),
-    maxLen: initStateForInput('12', { type: 'number' }),
+    minLen: initRowInputState('8', { type: 'number' }),
+    maxLen: initRowInputState('12', { type: 'number' }),
     explanation: '',
     errorText: '',
     testPassword: '',
@@ -40,8 +40,8 @@ export function forAtoms(policies: Mani.FieldPolicy): PolicyDlgTypes.ForAtoms {
             constrainSet0: `${policy.constrainSet}`,
             isCustom: isCustom,
             custom: policy.custom,
-            minLen: initStateForInput(`${policy.minLen}`, { type: 'number', validate: validateMinLen, }),
-            maxLen: initStateForInput(`${policy.maxLen}`, { type: 'number', validate: validateMaxLen, }),
+            minLen: initRowInputState(`${policy.minLen}`, { type: 'number', validate: validateMinLen, }),
+            maxLen: initRowInputState(`${policy.maxLen}`, { type: 'number', validate: validateMaxLen, }),
             constrainPsw: `${policy.constrainPsw}`,
             useAs: `${policy.useAs}`,
             fakeOptions: policies.options,

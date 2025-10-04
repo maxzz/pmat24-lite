@@ -4,7 +4,7 @@ import { type ManualFieldState } from "../9-types";
 import { type EditorDataForOne, type EditorField, convFieldForEditor, uuid } from "@/store/manifest";
 import { type FieldRowCtx } from "../../9-types";
 import { NormalFieldConv } from "../../1-normal-fields";
-import { createAtomForCheck, createAtomForInput, dataForStateAtom, type OnChangeValueWithUpdateName, validateNumber, validateNumberMinMax } from "@/ui/local-ui/1-input-validate";
+import { createAtomForCheck, createAtomForInput, createDataForStateAtom, type OnChangeValueWithUpdateName, validateNumber, validateNumberMinMax } from "@/ui/local-ui/1-input-validate";
 
 export function createManualAtom(chunk: EditorDataForOne, onChange: OnChangeValueWithUpdateName): ManualFieldState.Ctx {
     const uid5 = uuid.asRelativeNumber();
@@ -19,7 +19,7 @@ export function createManualAtom(chunk: EditorDataForOne, onChange: OnChangeValu
                 };
             };
 
-            const repeatData = dataForStateAtom(chunk.repeat, { validate: validateNumberMinMax(1, 9999, 'Repeat key'), options: { initialValidate: true }, });
+            const repeatData = createDataForStateAtom(chunk.repeat, { validate: validateNumberMinMax(1, 9999, 'Repeat key'), options: { initialValidate: true }, });
 
             const chunkData = {
                 charAtom: createAtomForInput(chunk.char, onScopedChange(`kbd-key-${uid5}`)),
@@ -46,9 +46,9 @@ export function createManualAtom(chunk: EditorDataForOne, onChange: OnChangeValu
                 };
             };
 
-            const xData = dataForStateAtom(chunk.x, validateNumberOptions);
-            const yData = dataForStateAtom(chunk.y, validateNumberOptions);
-            const resData = dataForStateAtom(chunk.res, validateNumberOptions);
+            const xData = createDataForStateAtom(chunk.x, validateNumberOptions);
+            const yData = createDataForStateAtom(chunk.y, validateNumberOptions);
+            const resData = createDataForStateAtom(chunk.res, validateNumberOptions);
 
             const chunkData = {
                 xAtom: atomWithCallback(xData, onScopedChange(`pos-x-${uid5}`)),
@@ -74,7 +74,7 @@ export function createManualAtom(chunk: EditorDataForOne, onChange: OnChangeValu
                 };
             };
 
-            const nData = dataForStateAtom(chunk.n, validateNumberOptions);
+            const nData = createDataForStateAtom(chunk.n, validateNumberOptions);
 
             const chunkData = {
                 nAtom: atomWithCallback(nData, onScopedChange(`dly-dly-${uid5}`)),
