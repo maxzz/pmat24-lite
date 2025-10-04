@@ -74,7 +74,7 @@ export function resetRowInputState(state: RowInputState, value: string): RowInpu
 
 // Set atom
 
-export function setRowInputStateToAtom(stateAtom: RowInputStateAtom, value: RowInputState['data'], { get, set }: GetSet) {
+export function setRowInputStateAtomValue(stateAtom: RowInputStateAtom, value: RowInputState['data'], { get, set }: GetSet) {
     const state = get(stateAtom);
     const newState: RowInputState = {
         ...state,
