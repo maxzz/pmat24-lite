@@ -1,8 +1,8 @@
 import { FormIdx } from "@/store/manifest";
-import { type MFormCnt, type VerifyError } from "../../../2-file-mani-atoms/9-types";
-import { type RowInputStateUuid, getChunkRawInputStatesForValidate } from "../../../2-file-mani-atoms/2-manual-fields/2-conv-manual/2-m-from-atoms";
+import { type MFormCnt, type VerifyError } from "@/store/2-file-mani-atoms/9-types";
+import { type RowInputStateUuid, getChunkRawInputStatesForValidate } from "@/store/2-file-mani-atoms/2-manual-fields/2-conv-manual/2-m-from-atoms";
 
-export function getFormVerifyErrors(cnt: MFormCnt, formIdx: FormIdx, { get, set }: GetSet): VerifyError[] {
+export function getVerifyErrors_FromManualForm(cnt: MFormCnt, formIdx: FormIdx, { get, set }: GetSet): VerifyError[] {
     const tab = formIdx === FormIdx.login ? 'login' : 'cpass';
 
     const chunks = get(cnt.chunksAtom);
@@ -30,7 +30,9 @@ export function getFormVerifyErrors(cnt: MFormCnt, formIdx: FormIdx, { get, set 
             }
         ).filter(Boolean);
 
-    chunksToSetErrorMap.forEach((num: number, errorAtom: PA<boolean>) => set(errorAtom, true));
+    chunksToSetErrorMap.forEach(
+        (num: number, errorAtom: PA<boolean>) => set(errorAtom, true)
+    );
 
     return rv;
 }

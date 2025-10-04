@@ -99,16 +99,15 @@ function onChangeWithScope(updateName: string, nextValue: ManualFieldState.Ctx |
     //printChanges('onChangeWScope.item', updateName, nextValue, { fileUsCtx, get, set });
 }
 
+function isChunkInvalid(chunk: ManualFieldState.Ctx, { get }: GetOnly): boolean { //TODO: this was for initial validation, but not need anymore
+    const toValidate: RowInputStateUuid[] = getChunkRawInputStatesForValidate(chunk, 0, get); // rowIdx is not important here
+    
+    const error = toValidate.some((item) => item.validate?.(item.data));
+    return error;
+}
+
 // Utilities
 
 function printChanges(label: string, updateName: string, nextValue: ManualFieldState.Ctx | ManualFieldState.Ctx[], { fileUsCtx, get, set }: OnChangeProps) {
     console.log(`${label}: "${updateName}" chg:`, JSON.stringify([...fileUsCtx.fileUs.fileCnt.changesSet]), { nextValue });
-}
-
-//TODO: this was for initial validation, but not need anymore
-function isChunkInvalid(chunk: ManualFieldState.Ctx, { get }: GetOnly): boolean {
-    const toValidate: RowInputStateUuid[] = getChunkRawInputStatesForValidate(chunk, 0, get); // rowIdx is not important here
-
-    const error = toValidate.some((item) => item.validate?.(item.data));
-    return error;
 }

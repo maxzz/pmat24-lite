@@ -1,6 +1,6 @@
 import { FormIdx } from "@/store/manifest";
 import { type ManiAtoms, type FieldRowCtx, type VerifyError } from "@/store/2-file-mani-atoms/9-types";
-import { getFormVerifyErrors } from "./3-form-manual-verify-errors";
+import { getVerifyErrors_FromManualForm } from "./3-form-manual-verify-errors";
 
 // Manual form
 
@@ -10,7 +10,7 @@ export function getVerifyErrors_ManualForm(maniAtoms: ManiAtoms, formIdx: FormId
         return;
     }
 
-    const rv: VerifyError[] = getFormVerifyErrors(formCtx.manual, formIdx, getset);
+    const rv: VerifyError[] = getVerifyErrors_FromManualForm(formCtx.manual, formIdx, getset);
     return rv.length ? rv : undefined;
 };
 
