@@ -3,40 +3,34 @@ import { type ManiAtoms, type VerifyError } from "@/store/2-file-mani-atoms/9-ty
 import { type RowInputStateAtoms, validateRowInputStateAtoms } from "@/ui";
 import { type FormOptionsState } from "@/store/2-file-mani-atoms/3-options/2-conv-options/9-types";
 
-export function optionsFormVerifyErrors(maniAtoms: ManiAtoms, formIdx: FormIdx, getset: GetSet): VerifyError[] | undefined {
-    const rv: VerifyError[] = [];
-
+export function getVerifyErrors_MainOptionsTab(maniAtoms: ManiAtoms, formIdx: FormIdx, getset: GetSet): VerifyError[] | undefined {
     const formCtx = maniAtoms[formIdx];
-
     if (formCtx) {
-        const errors = getOptionsVerifyErrors_OfMain(formCtx.options, formIdx, getset);
-        if (errors.length) {
-            rv.push(...errors);
-        }
+        const toValidate = getToVerify(formCtx.options, formIdx, getset);
+        
+        const rv: VerifyError[] = validateRowInputStateAtoms(toValidate, 'options', getset);
+        return rv.length ? rv : undefined;
     }
 
-    return rv.length ? rv : undefined;
-
-    function getOptionsVerifyErrors_OfMain(atoms: FormOptionsState.AllAtoms, formIdx: FormIdx, getset: GetSet): VerifyError[] {
+    function getToVerify(atoms: FormOptionsState.AllAtoms, formIdx: FormIdx, getset: GetSet): RowInputStateAtoms {
         const { p1General, p3Auth, p4QL } = atoms;
 
         const toValidate: RowInputStateAtoms =
             formIdx === FormIdx.login
                 ? { ...p3Auth, ...p4QL, ...p1General, }
                 : { ...p3Auth, ...p4QL, };
-
-        const rv: VerifyError[] = validateRowInputStateAtoms(toValidate, 'options', getset);
-        return rv;
+        
+        return toValidate;
     }
 }
 
-export function getOptionsVerifyErrors_OfForm(atoms: FormOptionsState.AllAtoms, formIdx: FormIdx, getset: GetSet): VerifyError[] {
-    const toValidate: RowInputStateAtoms = getFormAtomsToValidate(atoms, formIdx, getset);
+export function getVerifyErrors_FormOptionsTab(atoms: FormOptionsState.AllAtoms, formIdx: FormIdx, getset: GetSet): VerifyError[] {
+    const toValidate: RowInputStateAtoms = getToVerify(atoms, formIdx, getset);
 
     const rv: VerifyError[] = validateRowInputStateAtoms(toValidate, formIdx === FormIdx.login ? 'login' : 'cpass', getset);
     return rv;
 
-    function getFormAtomsToValidate(atoms: FormOptionsState.AllAtoms, formIdx: FormIdx, { get }: GetOnly): RowInputStateAtoms {
+    function getToVerify(atoms: FormOptionsState.AllAtoms, formIdx: FormIdx, { get }: GetOnly): RowInputStateAtoms {
         const { p2Detect, p5Icon, isWebAtom, murl_howAtom, murl_regexAtom } = atoms;
 
         const isWeb = get(isWebAtom); // Exclude atom with validation that are not appropriate depending on the form
