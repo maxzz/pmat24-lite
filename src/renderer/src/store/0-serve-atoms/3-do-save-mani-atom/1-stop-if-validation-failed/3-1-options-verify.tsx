@@ -1,7 +1,7 @@
-import { type RowInputStateAtoms, validateRowInputStateAtoms } from "@/ui";
 import { FormIdx, Matching } from "@/store/manifest";
-import { type VerifyError } from "../../../2-file-mani-atoms/9-types";
-import { type FormOptionsState } from "../../../2-file-mani-atoms/3-options/2-conv-options/9-types";
+import { type VerifyError } from "@/store/2-file-mani-atoms/9-types";
+import { type RowInputStateAtoms, validateRowInputStateAtoms } from "@/ui";
+import { type FormOptionsState } from "@/store/2-file-mani-atoms/3-options/2-conv-options/9-types";
 
 export function getOptionsVerifyErrors_OfMain(atoms: FormOptionsState.AllAtoms, formIdx: FormIdx, getset: GetSet): VerifyError[] {
     const { p1General, p3Auth, p4QL } = atoms;
@@ -17,6 +17,7 @@ export function getOptionsVerifyErrors_OfMain(atoms: FormOptionsState.AllAtoms, 
 
 export function getOptionsVerifyErrors_OfForm(atoms: FormOptionsState.AllAtoms, formIdx: FormIdx, getset: GetSet): VerifyError[] {
     const toValidate: RowInputStateAtoms = getFormAtomsToValidate(atoms, formIdx, getset);
+    
     const rv: VerifyError[] = validateRowInputStateAtoms(toValidate, formIdx === FormIdx.login ? 'login' : 'cpass', getset);
     return rv;
 }

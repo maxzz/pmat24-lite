@@ -1,8 +1,9 @@
 import { toast } from "sonner";
 import { appSettings } from "@/store/9-ui-state";
+import { FormIdx } from "@/store/manifest";
 import { type ManiAtoms, type ManiTabValue, type VerifyError } from "@/store/2-file-mani-atoms/9-types";
-import { getErrorsFromOptions } from "./1-options-verify-errors";
-import { getErrorsFromCpass, getErrorsFromLogin } from "./2-form-verify-errors";
+import { optionsFormVerifyErrors } from "./3-0-options-verify-errors";
+import { getErrorsFromForm } from "./2-0-form-verify-errors";
 
 export function stopIfInvalidAny(maniAtoms: ManiAtoms, getset: GetSet): boolean | undefined {
     const checkOrder = new Map<ManiTabValue, ValidationFn>(defaultValidationOrder);
@@ -26,16 +27,6 @@ export function stopIfInvalidAny(maniAtoms: ManiAtoms, getset: GetSet): boolean 
         return true;
     }
 }
-
-type ValidationFn = (maniAtoms: ManiAtoms, getset: GetSet) => VerifyError[] | undefined;
-
-const defaultValidationOrder: Array<[ManiTabValue, ValidationFn]> = [
-    ['login', getErrorsFromLogin],
-    ['cpass', getErrorsFromCpass],
-    ['options', getErrorsFromOptions],
-];
-
-// Show validation errors
 
 function showValidationErrors(verifyErrors: VerifyError[]): void {
 
@@ -63,3 +54,28 @@ function showValidationErrors(verifyErrors: VerifyError[]): void {
 
     toast.error(<div className="flex flex-col">{messages}</div>);
 };
+
+// Utilities
+
+type ValidationFn = (maniAtoms: ManiAtoms, getset: GetSet) => VerifyError[] | undefined;
+
+function getErrorsFromLogin(maniAtoms: ManiAtoms, getset: GetSet): VerifyError[] | undefined {
+    return getErrorsFromForm(maniAtoms, FormIdx.login, getset);
+}
+
+function getErrorsFromCpass(maniAtoms: ManiAtoms, getset: GetSet): VerifyError[] | undefined {
+    return getErrorsFromForm(maniAtoms, FormIdx.cpass, getset);
+}
+
+function getErrorsFromOptions(maniAtoms: ManiAtoms, getset: GetSet): VerifyError[] | undefined {
+    const errors =
+        optionsFormVerifyErrors(maniAtoms, FormIdx.login, getset) ||
+        optionsFormVerifyErrors(maniAtoms, FormIdx.cpass, getset);
+    return errors;
+}
+
+const defaultValidationOrder: Array<[ManiTabValue, ValidationFn]> = [
+    ['login', getErrorsFromLogin],
+    ['cpass', getErrorsFromCpass],
+    ['options', getErrorsFromOptions],
+];
