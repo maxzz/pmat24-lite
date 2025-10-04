@@ -2,9 +2,8 @@ import { toast } from "sonner";
 import { appSettings } from "@/store/9-ui-state";
 import { FormIdx } from "@/store/manifest";
 import { type ManiAtoms, type ManiTabValue, type VerifyError } from "@/store/2-file-mani-atoms/9-types";
-import { getVerifyErrors_NormalForm } from "./2-1-normal-verify-errors";
-import { getVerifyErrors_ManualForm } from "./2-2-manual-verify-errors";
-import { getVerifyErrors_FormOptionsTab, getVerifyErrors_MainOptionsTab } from "./2-3-options-verify-errors";
+import { getVerifyErrors_ManualForm, getVerifyErrors_NormalForm } from "./1-form-verify-errors";
+import { getVerifyErrors_FormOptionsTab, getVerifyErrors_MainOptionsTab } from "./2-options-verify-errors";
 
 export function stopIfInvalidAny(maniAtoms: ManiAtoms, getset: GetSet): boolean | undefined {
     const checkOrder = new Map<ManiTabValue, ValidationFn>(defaultValidationOrder);

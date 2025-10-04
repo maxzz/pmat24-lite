@@ -3,6 +3,8 @@ import { type ManiAtoms, type VerifyError } from "@/store/2-file-mani-atoms/9-ty
 import { type RowInputStateAtoms, validateRowInputStateAtoms } from "@/ui";
 import { type FormOptionsState } from "@/store/2-file-mani-atoms/3-options/2-conv-options/9-types";
 
+// Main options tab
+
 export function getVerifyErrors_MainOptionsTab(maniAtoms: ManiAtoms, formIdx: FormIdx, getset: GetSet): VerifyError[] | undefined {
     const formCtx = maniAtoms[formIdx];
     if (formCtx) {
@@ -23,6 +25,8 @@ export function getVerifyErrors_MainOptionsTab(maniAtoms: ManiAtoms, formIdx: Fo
         return toValidate;
     }
 }
+
+// Form options tab
 
 export function getVerifyErrors_FormOptionsTab(atoms: FormOptionsState.AllAtoms, formIdx: FormIdx, getset: GetSet): VerifyError[] | undefined {
     const toValidate: RowInputStateAtoms = getToVerify(atoms, formIdx, getset);

@@ -1,5 +1,20 @@
 import { FormIdx } from "@/store/manifest";
 import { type ManiAtoms, type FieldRowCtx, type VerifyError } from "@/store/2-file-mani-atoms/9-types";
+import { ManualFieldConv } from "@/store/2-file-mani-atoms/2-manual-fields";
+
+// Manual form
+
+export function getVerifyErrors_ManualForm(maniAtoms: ManiAtoms, formIdx: FormIdx, getset: GetSet): VerifyError[] | undefined {
+    const formCtx = maniAtoms[formIdx];
+    if (!formCtx?.manual) {
+        return;
+    }
+
+    const rv: VerifyError[] = ManualFieldConv.getFormVerifyErrors(formCtx.manual, formIdx, getset);
+    return rv.length ? rv : undefined;
+};
+
+// Normal form
 
 export function getVerifyErrors_NormalForm(maniAtoms: ManiAtoms, formIdx: FormIdx, getset: GetSet): VerifyError[] | undefined {
 
@@ -34,6 +49,5 @@ function totalFieldsInUse(rowCtxs: FieldRowCtx[] | undefined, { get }: GetSet): 
     );
 
     return rv;
+    //TODO: We can remove the button elements if the form is intended for websites. Buttons were added for old IE submit method.
 }
-
-//TODO: We can remove the button elements if the form is intended for websites. Buttons were added for old IE submit method.
