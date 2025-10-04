@@ -39,14 +39,14 @@ function onChangeWithScope(updateName: string, nextValue: RowInputState, { fileU
 
     console.log('🎆onChangeWithScope:', updateName, nextValue.data, JSON.stringify(fromFile));
 
-    if (updateName === 'rurl') { // This is murl input
+    if (updateName === 'rurl') { // This is regex input control
         const changed = nextValue.data !== fromFile.url;
         // fileUsChanges.set(fileUsCtx, changed, changeName);
         console.log('rurl', nextValue.data); // rurl will update murl
         return;
     }
 
-    if (updateName === 'murl') { // This is case when we change how to match URL dropdown
+    if (updateName === 'murl') { // This is dropdown for how to match URL
         const how = get(oFormCtx.howAtom);
         if (how === fromFile.how) {
             const changed = nextValue.data !== fromFile.url;
