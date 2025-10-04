@@ -32,7 +32,7 @@ export function OptionAsTextarea({ stateAtom, className, onValueStateChange, onB
                     error: prev.validate?.(prev.data),
                     dirty: prev.initialData !== prev.data,
                 };
-                // if (prev.touched === rv.touched && prev.error === rv.error && prev.dirty === rv.dirty) { // does not have any effect
+                // if (prev.touched === rv.touched && prev.error === rv.error && prev.dirty === rv.dirty) { // does not have any effect and trigger change event
                 //     return prev;
                 // }
                 return rv;

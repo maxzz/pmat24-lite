@@ -37,7 +37,7 @@ export namespace FormOptionsState {
         processname: string;
         commandline: string;
 
-        reCheck: boolean;           // re-check windowa after fillin
+        reCheck: boolean;           // re-check window after fillin
     };
 
     type p3Auth = {                 // Part Authentication
