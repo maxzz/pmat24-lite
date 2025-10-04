@@ -5,6 +5,7 @@ import { type MFormCnt, type FileUsCtx, type OnChangeProps, fileUsChanges, safeB
 import { type ManualFieldState, ManualFieldConv } from "../2-conv-manual";
 import { NormalFieldConv } from "../../1-normal-fields";
 import { createManualAtom } from "../2-conv-manual/1-m-create-atoms";
+import { getChunkRawInputStatesForValidate, RowInputStateUuid } from "../2-conv-manual/2-m-from-atoms";
 
 export namespace ManualFieldsState {
 
@@ -91,7 +92,7 @@ function onChangeWithScope(updateName: string, nextValue: ManualFieldState.Ctx |
         const fromUi = ManualFieldConv.fromAtom(nextValue, { get });
         changed = !ManualFieldConv.areTheSame(fromUi, nextValue.original);
 
-        set(nextValue.hasErrorAtom, ManualFieldConv.isChunkInvalid(nextValue, { get }));
+        set(nextValue.hasErrorAtom, isChunkInvalid(nextValue, { get }));
     }
 
     fileUsChanges.set(fileUsCtx, changed, fileUsChanges.changeName(fileUsCtx.formIdx, 'manual', updateName));
@@ -102,4 +103,12 @@ function onChangeWithScope(updateName: string, nextValue: ManualFieldState.Ctx |
 
 function printChanges(label: string, updateName: string, nextValue: ManualFieldState.Ctx | ManualFieldState.Ctx[], { fileUsCtx, get, set }: OnChangeProps) {
     console.log(`${label}: "${updateName}" chg:`, JSON.stringify([...fileUsCtx.fileUs.fileCnt.changesSet]), { nextValue });
+}
+
+//TODO: this was for initial validation, but not need anymore
+function isChunkInvalid(chunk: ManualFieldState.Ctx, { get }: GetOnly): boolean {
+    const toValidate: RowInputStateUuid[] = getChunkRawInputStatesForValidate(chunk, 0, get); // rowIdx is not important here
+
+    const error = toValidate.some((item) => item.validate?.(item.data));
+    return error;
 }

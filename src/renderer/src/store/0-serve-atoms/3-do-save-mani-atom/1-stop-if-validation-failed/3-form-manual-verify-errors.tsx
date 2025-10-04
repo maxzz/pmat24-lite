@@ -1,7 +1,6 @@
 import { FormIdx } from "@/store/manifest";
-import { type MFormCnt, type VerifyError } from "../../9-types";
-import { type ManualFieldState } from "../9-types";
-import { type RowInputStateUuid, getChunkRawInputStatesForValidate } from "./2-m-from-atoms";
+import { type MFormCnt, type VerifyError } from "../../../2-file-mani-atoms/9-types";
+import { type RowInputStateUuid, getChunkRawInputStatesForValidate } from "../../../2-file-mani-atoms/2-manual-fields/2-conv-manual/2-m-from-atoms";
 
 export function getFormVerifyErrors(cnt: MFormCnt, formIdx: FormIdx, { get, set }: GetSet): VerifyError[] {
     const tab = formIdx === FormIdx.login ? 'login' : 'cpass';
@@ -34,12 +33,4 @@ export function getFormVerifyErrors(cnt: MFormCnt, formIdx: FormIdx, { get, set 
     chunksToSetErrorMap.forEach((num: number, errorAtom: PA<boolean>) => set(errorAtom, true));
 
     return rv;
-}
-
-//TODO: this was for initial validation, but not need anymore
-export function isChunkInvalid(chunk: ManualFieldState.Ctx, { get }: GetOnly): boolean {
-    const toValidate: RowInputStateUuid[] = getChunkRawInputStatesForValidate(chunk, 0, get); // rowIdx is not important here
-
-    const error = toValidate.some((item) => item.validate?.(item.data));
-    return error;
 }
