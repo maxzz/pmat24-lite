@@ -3,16 +3,11 @@ import { type ManiAtoms, type VerifyError } from "@/store/2-file-mani-atoms/9-ty
 import { ManualFieldConv } from "@/store/2-file-mani-atoms/2-manual-fields";
 
 export function getVerifyErrors_ManualForm(maniAtoms: ManiAtoms, formIdx: FormIdx, getset: GetSet): VerifyError[] | undefined {
-    const rv: VerifyError[] = [];
-
     const formCtx = maniAtoms[formIdx];
-
-    if (formCtx?.manual) {
-        const errors = ManualFieldConv.getFormVerifyErrors(formCtx.manual, formIdx, getset);
-        if (errors.length) {
-            rv.push(...errors);
-        }
+    if (!formCtx?.manual) {
+        return;
     }
 
+    const rv: VerifyError[] = ManualFieldConv.getFormVerifyErrors(formCtx.manual, formIdx, getset);
     return rv.length ? rv : undefined;
 };

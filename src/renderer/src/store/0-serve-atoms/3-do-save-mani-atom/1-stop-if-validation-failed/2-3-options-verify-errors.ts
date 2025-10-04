@@ -24,16 +24,16 @@ export function getVerifyErrors_MainOptionsTab(maniAtoms: ManiAtoms, formIdx: Fo
     }
 }
 
-export function getVerifyErrors_FormOptionsTab(atoms: FormOptionsState.AllAtoms, formIdx: FormIdx, getset: GetSet): VerifyError[] {
+export function getVerifyErrors_FormOptionsTab(atoms: FormOptionsState.AllAtoms, formIdx: FormIdx, getset: GetSet): VerifyError[] | undefined {
     const toValidate: RowInputStateAtoms = getToVerify(atoms, formIdx, getset);
 
     const rv: VerifyError[] = validateRowInputStateAtoms(toValidate, formIdx === FormIdx.login ? 'login' : 'cpass', getset);
-    return rv;
+    return rv.length ? rv : undefined;
 
     function getToVerify(atoms: FormOptionsState.AllAtoms, formIdx: FormIdx, { get }: GetOnly): RowInputStateAtoms {
         const { p2Detect, p5Icon, isWebAtom, murl_howAtom, murl_regexAtom } = atoms;
 
-        const isWeb = get(isWebAtom); // Exclude atom with validation that are not appropriate depending on the form
+        const isWeb = get(isWebAtom);
         const murl = isWeb && get(murl_howAtom) === Matching.How.regex ? { murl_regexAtom } : undefined;
 
         const toValidate: RowInputStateAtoms =
@@ -42,7 +42,7 @@ export function getVerifyErrors_FormOptionsTab(atoms: FormOptionsState.AllAtoms,
                 : { ...p2Detect, ...murl, ...p5Icon, };
 
         if (isWeb) {
-            delete toValidate.captionAtom;
+            delete toValidate.captionAtom; // Exclude atom with validation that are not appropriate depending on the app type
         }
 
         return toValidate;
