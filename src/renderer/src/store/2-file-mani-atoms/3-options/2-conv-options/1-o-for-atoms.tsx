@@ -66,8 +66,8 @@ export function forAtoms(fileUsCtx: FileUsCtx): FormOptionsState.ForAtoms {
         isFormWeb,
         formIdx,
         fromFileHOU,
-        how: fromFileHOU.how,
-        opt: fromFileHOU.opt,
+        murl_how: fromFileHOU.how,
+        murl_opt: fromFileHOU.opt,
     };
 
     return rv;

@@ -67,8 +67,8 @@ export namespace FormOptionsState {
         isFormWeb: boolean;
         formIdx: FormIdx;
         fromFileHOU: Matching.RawMatchData; // Initial values of how, opt, url (HOW) for murl from file
-        how: Matching.How;          // how to match URL
-        opt: Matching.Options;      // how to match URL
+        murl_how: Matching.How;     // how to match URL
+        murl_opt: Matching.Options; // how to match URL
     };
 
     export type AllAtoms = {
@@ -80,8 +80,8 @@ export namespace FormOptionsState {
 
         isWebAtom: PrimitiveAtom<boolean>;
         formIdx: FormIdx;
-        fromFileHOU: Matching.RawMatchData;         // Initial values of how, opt, url (HOW) for murl from file
-        howAtom: PrimitiveAtom<Matching.How>;       // how to match URL
-        optAtom: PrimitiveAtom<Matching.Options>;   // how to match URL
+        fromFileHOU: Matching.RawMatchData;             // Initial values of how, opt, url (HOW) for murl from file
+        murl_howAtom: PrimitiveAtom<Matching.How>;      // how to match URL
+        murl_optAtom: PrimitiveAtom<Matching.Options>;  // how to match URL
     };
 }

@@ -60,8 +60,8 @@ export function createAtoms(initialState: FormOptionsState.ForAtoms, onChange: O
         isWebAtom: atomWithCallback(initialState.isFormWeb, onChange('isWeb')),
         formIdx: initialState.formIdx,
         fromFileHOU: initialHOU,
-        howAtom: atom(initialHOU.how),
-        optAtom: atom(initialHOU.opt),
+        murl_howAtom: atom(initialHOU.how),
+        murl_optAtom: atom(initialHOU.opt),
     };
 
     return rv;

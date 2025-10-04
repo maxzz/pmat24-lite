@@ -7,8 +7,8 @@ export const setOtherPartsAfterHowChangedAtom = atom(
     null,
     (get, set, { options, o, how, opt, url }: { options: FormOptionsState.AllAtoms, o?: string; how?: Matching.How; opt?: Matching.Options; url?: string; }) => {
         const getset = { get, set };
-        const { ourlAtom, murlAtom, murl_regexAtom: part_rurlAtom } = options.p2Detect;
-        const { howAtom: part_howAtom, optAtom: part_optAtom } = options; // partHowAtom, partRurlAtom, partOptAtom are parts of string 'how + opt + url'
+        const { ourlAtom, murlAtom, murl_regexAtom } = options.p2Detect;
+        const { murl_howAtom, murl_optAtom } = options; // partHowAtom, partRurlAtom, partOptAtom are parts of string 'how + opt + url'
 
         if (o !== undefined) {
             setValue(ourlAtom, o, getset);
@@ -18,25 +18,25 @@ export const setOtherPartsAfterHowChangedAtom = atom(
             return;
         }
 
-        const current: Matching.RawMatchData = { how: get(part_howAtom), opt: get(part_optAtom), url: get(part_rurlAtom).data };
+        const current: Matching.RawMatchData = { how: get(murl_howAtom), opt: get(murl_optAtom), url: get(murl_regexAtom).data };
 
         if (how !== undefined) {
             current.how = how;
-            set(part_howAtom, how);
+            set(murl_howAtom, how);
 
             if (how === Matching.How.undef) {
-                setValue(part_rurlAtom, get(ourlAtom).data, getset);
+                setValue(murl_regexAtom, get(ourlAtom).data, getset);
             }
         }
 
         if (opt !== undefined) {
             current.opt = opt;
-            set(part_optAtom, opt);
+            set(murl_optAtom, opt);
         }
 
         if (url !== undefined) {
             current.url = url;
-            setValue(part_rurlAtom, url, getset);
+            setValue(murl_regexAtom, url, getset);
         }
 
         setValue(murlAtom, Matching.stringifyRawMatchData(current, get(ourlAtom).data), getset);

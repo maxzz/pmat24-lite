@@ -7,7 +7,7 @@ import { setOtherPartsAfterHowChangedAtom } from "./5-8-set-parts-of-murl-atom";
 export function MatchHow({ oFormProps }: { oFormProps: OFormProps; }) {
     const setOtherPartsAfterHowChanged = useSetAtom(setOtherPartsAfterHowChangedAtom);
     const { options } = oFormProps.oAllAtoms;
-    const how = useAtomValue(options.howAtom);
+    const how = useAtomValue(options.murl_howAtom);
     const items = getNamesList(how);
 
     return (

@@ -55,8 +55,8 @@ export function fromAtoms(atoms: FormOptionsState.AllAtoms, { get }: GetOnly): F
         isFormWeb: get(atoms.isWebAtom),
         formIdx: atoms.formIdx,
         fromFileHOU: atoms.fromFileHOU,
-        how: get(atoms.howAtom),
-        opt: get(atoms.optAtom),
+        murl_how: get(atoms.murl_howAtom),
+        murl_opt: get(atoms.murl_optAtom),
     };
 
     return rv;

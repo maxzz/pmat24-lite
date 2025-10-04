@@ -47,7 +47,7 @@ function onChangeWithScope(updateName: string, nextValue: RowInputState, { fileU
     }
 
     if (updateName === 'murl') { // This is dropdown for how to match URL
-        const how = get(oFormCtx.howAtom);
+        const how = get(oFormCtx.murl_howAtom);
         if (how === fromFile.how) {
             const changed = nextValue.data !== fromFile.url;
             fileUsChanges.set(fileUsCtx, changed, changeName);

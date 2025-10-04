@@ -12,13 +12,13 @@ import { ShowExampleText, useIsShowExample } from "./5-9-use-is-show-example";
 import { MatchHow } from "./5-2-match-how";
 
 export function DetectionContent_Web({ oFormProps }: { oFormProps: OFormProps; }) {
-    const { p2Detect: { ourlAtom, murl_regexAtom }, howAtom, formIdx } = oFormProps.oAllAtoms.options;
+    const { p2Detect: { ourlAtom, murl_regexAtom }, murl_howAtom, formIdx } = oFormProps.oAllAtoms.options;
     const [isLocked, setIsLocked] = useState(true);
     const showExample = useIsShowExample(oFormProps.oAllAtoms.options);
 
-    const how = useAtomValue(howAtom);
-    const disabled = how === Matching.How.undef;
-    const showRegex = how === Matching.How.regex;
+    const murl_how = useAtomValue(murl_howAtom);
+    const disabled = murl_how === Matching.How.undef;
+    const showRegex = murl_how === Matching.How.regex;
 
     return (
         <AccordionWithTrigger name='form-detection' formIdx={formIdx} triggerText="Screen detection">

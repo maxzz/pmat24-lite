@@ -8,7 +8,7 @@ export function useIsShowExample(options: FormOptionsState.AllAtoms): boolean | 
     const isShowExample = useSetAtom(isShowExampleAtom);
     const [showExample, setShowExample] = useState<boolean | undefined>(false);
 
-    const how = useAtomValue(options.howAtom);
+    const how = useAtomValue(options.murl_howAtom);
     const o = useAtomValue(options.p2Detect.ourlAtom);
     const r = useAtomValue(options.p2Detect.murl_regexAtom);
 
@@ -24,7 +24,7 @@ export function useIsShowExample(options: FormOptionsState.AllAtoms): boolean | 
 const isShowExampleAtom = atom(
     null,
     (get, set, options: FormOptionsState.AllAtoms): boolean | undefined => {
-        const how = get(options.howAtom);
+        const how = get(options.murl_howAtom);
         if (how === Matching.How.regex) {
             const o = get(options.p2Detect.ourlAtom).data;
             const r = get(options.p2Detect.murl_regexAtom).data;
