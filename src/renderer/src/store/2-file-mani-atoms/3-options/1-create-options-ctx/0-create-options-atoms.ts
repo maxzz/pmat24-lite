@@ -39,10 +39,10 @@ function onChangeWithScope(updateName: string, nextValue: RowInputState, { fileU
 
     console.log('🎆onChangeWithScope:', updateName, nextValue.data, JSON.stringify(fromFile));
 
-    if (updateName === 'rurl') { // This is regex input control
+    if (updateName === 'regex_url') { // This is regex input control
         const changed = nextValue.data !== fromFile.url;
         // fileUsChanges.set(fileUsCtx, changed, changeName);
-        console.log('rurl', nextValue.data); // rurl will update murl
+        console.log('regex_url', nextValue.data); // regex_url will update murl
         return;
     }
 

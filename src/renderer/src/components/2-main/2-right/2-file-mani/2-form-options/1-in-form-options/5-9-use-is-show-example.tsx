@@ -9,8 +9,8 @@ export function useIsShowExample(options: FormOptionsState.AllAtoms): boolean | 
     const [showExample, setShowExample] = useState<boolean | undefined>(false);
 
     const how = useAtomValue(options.murl_howAtom);
+    const r = useAtomValue(options.murl_regexAtom);
     const o = useAtomValue(options.p2Detect.ourlAtom);
-    const r = useAtomValue(options.p2Detect.murl_regexAtom);
 
     useEffect(
         () => {
@@ -26,8 +26,8 @@ const isShowExampleAtom = atom(
     (get, set, options: FormOptionsState.AllAtoms): boolean | undefined => {
         const how = get(options.murl_howAtom);
         if (how === Matching.How.regex) {
+            const r = get(options.murl_regexAtom).data;
             const o = get(options.p2Detect.ourlAtom).data;
-            const r = get(options.p2Detect.murl_regexAtom).data;
             return o === r || !r;
         }
     }

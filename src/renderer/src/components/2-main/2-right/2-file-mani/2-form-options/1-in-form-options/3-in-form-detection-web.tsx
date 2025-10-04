@@ -12,7 +12,7 @@ import { ShowExampleText, useIsShowExample } from "./5-9-use-is-show-example";
 import { MatchHow } from "./5-2-match-how";
 
 export function DetectionContent_Web({ oFormProps }: { oFormProps: OFormProps; }) {
-    const { p2Detect: { ourlAtom, murl_regexAtom }, murl_howAtom, formIdx } = oFormProps.oAllAtoms.options;
+    const { p2Detect: { ourlAtom }, formIdx, murl_howAtom, murl_regexAtom } = oFormProps.oAllAtoms.options;
     const [isLocked, setIsLocked] = useState(true);
     const showExample = useIsShowExample(oFormProps.oAllAtoms.options);
 

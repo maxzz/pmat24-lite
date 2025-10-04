@@ -26,7 +26,6 @@ export function createAtoms(initialState: FormOptionsState.ForAtoms, onChange: O
 
             ourlAtom: createAtomForInput(p2Detect.ourl, onChange('ourl')),
             murlAtom: createAtomForInput(p2Detect.murl, onChange('murl')),
-            murl_regexAtom: createAtomForInput(initialHOU.url, onChange('rurl'), { validate: validateNonEmptyWithMessage('Value cannot be empty.') }),
 
             webCheckUrlAtom: createAtomForCheck(p2Detect.webCheckUrl, onChange('web_checkurl')),
 
@@ -59,9 +58,11 @@ export function createAtoms(initialState: FormOptionsState.ForAtoms, onChange: O
 
         isWebAtom: atomWithCallback(initialState.isFormWeb, onChange('isWeb')),
         formIdx: initialState.formIdx,
+
         fromFileHOU: initialHOU,
         murl_howAtom: atom(initialHOU.how),
         murl_optAtom: atom(initialHOU.opt),
+        murl_regexAtom: createAtomForInput(initialHOU.url, onChange('regex_url'), { validate: validateNonEmptyWithMessage('Value cannot be empty.') }),
     };
 
     return rv;

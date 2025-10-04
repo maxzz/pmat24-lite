@@ -7,8 +7,8 @@ export const setOtherPartsAfterHowChangedAtom = atom(
     null,
     (get, set, { options, o, how, opt, url }: { options: FormOptionsState.AllAtoms, o?: string; how?: Matching.How; opt?: Matching.Options; url?: string; }) => {
         const getset = { get, set };
-        const { ourlAtom, murlAtom, murl_regexAtom } = options.p2Detect;
-        const { murl_howAtom, murl_optAtom } = options; // partHowAtom, partRurlAtom, partOptAtom are parts of string 'how + opt + url'
+        const { ourlAtom, murlAtom } = options.p2Detect;
+        const { murl_howAtom, murl_optAtom, murl_regexAtom } = options; // parts of string 'how:opt:url'
 
         if (o !== undefined) {
             setValue(ourlAtom, o, getset);

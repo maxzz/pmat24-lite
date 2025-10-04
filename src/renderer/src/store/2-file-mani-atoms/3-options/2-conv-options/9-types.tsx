@@ -1,30 +1,28 @@
-import { type PrimitiveAtom } from "jotai";
 import { type AtomizeWithType } from "@/utils";
 import { type RowInputState } from "@/ui";
 import { type Matching, type FormIdx } from "@/store/manifest";
 
 export namespace FormOptionsState {
 
-    type p1General = {              // Part General
-        name: string;               // login name
-        desc: string;               // login description; Mani.Options.sidekick
-        hint: string;               // user hint; Mani.Options.ownernote
-        balloon: string;            // show balloon # times; note: value should be a number, but it's stored as string
-        submitType: string;         // "dosubmit" | "nosubmit"
-        qlName: string;             // Quick Link Name
-        qlWoCred: boolean;          // Quick reauthentication enable/disable (QL wo/ crededntials). I'm not sure why it's here at all
-        unkAttrs: string;           // unknown attributes
+    type p1General = {                          // Part General
+        name: string;                           // login name
+        desc: string;                           // login description; Mani.Options.sidekick
+        hint: string;                           // user hint; Mani.Options.ownernote
+        balloon: string;                        // show balloon # times; note: value should be a number, but it's stored as string
+        submitType: string;                     // "dosubmit" | "nosubmit"
+        qlName: string;                         // Quick Link Name
+        qlWoCred: boolean;                      // Quick reauthentication enable/disable (QL wo/ crededntials). I'm not sure why it's here at all
+        unkAttrs: string;                       // unknown attributes
     };
 
-    type p2Detect = {               // Part Screen Detection
-        ourl: string;               // original URL
-        murl: string;               // match URL
-        murl_regex: string;         // Regex matching (or any other like wildcards) URL (as usual regex); This is internal value to show validation errors
+    type p2Detect = {                           // Part Screen Detection
+        ourl: string;                           // original URL
+        murl: string;                           // match URL
         
-        webCheckUrl: boolean;       // 'web_checkurl' not used by editor; only for detection section creation; in file '1'
-        caption: string;            // Windows Caption
-        variablecaption: string;    // Variable Caption
-        monitor: boolean;           // Monitor screen changes
+        webCheckUrl: boolean;                   // 'web_checkurl' not used by editor; only for detection section creation; in file '1'
+        caption: string;                        // Windows Caption
+        variablecaption: string;                // Variable Caption
+        monitor: boolean;                       // Monitor screen changes
 
         dlg_tab: string;
         dlg_class: string;
@@ -37,24 +35,24 @@ export namespace FormOptionsState {
         processname: string;
         commandline: string;
 
-        reCheck: boolean;           // re-check window after fillin
+        reCheck: boolean;                       // re-check window after fillin
     };
 
-    type p3Auth = {                 // Part Authentication
-        aim: boolean;               // Start authentication immediately
-        lock: boolean;              // Lock out login fields
-        auth_pl: string;            // extended policy (see AuthTokenValues); only one bit as hex string (auth_pl="100"); used only for login form
+    type p3Auth = {                             // Part Authentication
+        aim: boolean;                           // Start authentication immediately
+        lock: boolean;                          // Lock out login fields
+        auth_pl: string;                        // extended policy (see AuthTokenValues); only one bit as hex string (auth_pl="100"); used only for login form
     };
 
-    type p4QL = {                   // Part Quick Links
-        qName: string;              // Quick Link Name
-        qUrl: string;               // Quick Link URL
-        qUse: boolean;              // Use Quick Link, i.e display on mini-dashboard; now totally depends on 'qName' emptyness
+    type p4QL = {                               // Part Quick Links
+        qName: string;                          // Quick Link Name
+        qUrl: string;                           // Quick Link URL
+        qUse: boolean;                          // Use Quick Link, i.e display on mini-dashboard; now totally depends on 'qName' emptyness
     };
 
-    type p5Icon = {                 // Part Password Manager Icon
-        id: string;                 // Location ID
-        loc: string;                // Location
+    type p5Icon = {                             // Part Password Manager Icon
+        id: string;                             // Location ID
+        loc: string;                            // Location
     };
 
     export type ForAtoms = {
@@ -66,9 +64,10 @@ export namespace FormOptionsState {
 
         isFormWeb: boolean;
         formIdx: FormIdx;
-        fromFileHOU: Matching.RawMatchData; // Initial values of how, opt, url (HOW) for murl from file
-        murl_how: Matching.How;     // how to match URL
-        murl_opt: Matching.Options; // how to match URL
+        fromFileHOU: Matching.RawMatchData;     // Initial values of how, opt, url (HOW) for murl from file
+        murl_how: Matching.How;                 // how to match URL
+        murl_opt: Matching.Options;             // how to match URL
+        murl_regex: string;                     // Regex matching (or any other like wildcards) URL (as usual regex); This is internal value to show validation errors
     };
 
     export type AllAtoms = {
@@ -78,10 +77,11 @@ export namespace FormOptionsState {
         p4QL: AtomizeWithType<p4QL, RowInputState>;
         p5Icon: AtomizeWithType<p5Icon, RowInputState>;
 
-        isWebAtom: PrimitiveAtom<boolean>;
+        isWebAtom: PA<boolean>;
         formIdx: FormIdx;
-        fromFileHOU: Matching.RawMatchData;             // Initial values of how, opt, url (HOW) for murl from file
-        murl_howAtom: PrimitiveAtom<Matching.How>;      // how to match URL
-        murl_optAtom: PrimitiveAtom<Matching.Options>;  // how to match URL
+        fromFileHOU: Matching.RawMatchData;     // Initial values of how, opt, url (HOW) for murl from file
+        murl_howAtom: PA<Matching.How>;         // how to match URL
+        murl_optAtom: PA<Matching.Options>;     // how to match URL
+        murl_regexAtom: PA<RowInputState>;      // Regex matching (or any other like wildcards) URL (as usual regex); This is internal value to show validation errors
     };
 }

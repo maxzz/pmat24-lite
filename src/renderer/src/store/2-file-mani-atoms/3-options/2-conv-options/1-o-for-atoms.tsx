@@ -29,10 +29,9 @@ export function forAtoms(fileUsCtx: FileUsCtx): FormOptionsState.ForAtoms {
             caption: detection.caption || '',                   //TODO: show only for Win32
             variablecaption: detection.variablecaption || '',   //TODO: show only for Win32
             monitor: options.recheckwindowafterfillin === '1',  //TODO: strange name for monitor changes
-            
+
             ourl: detection.web_ourl || '',
             murl: detection.web_murl || '',
-            murl_regex: fromFileHOU.url,
 
             webCheckUrl: !!detection.web_checkurl,
 
@@ -65,9 +64,11 @@ export function forAtoms(fileUsCtx: FileUsCtx): FormOptionsState.ForAtoms {
 
         isFormWeb,
         formIdx,
+
         fromFileHOU,
         murl_how: fromFileHOU.how,
         murl_opt: fromFileHOU.opt,
+        murl_regex: fromFileHOU.url,
     };
 
     return rv;

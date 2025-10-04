@@ -21,7 +21,6 @@ export function fromAtoms(atoms: FormOptionsState.AllAtoms, { get }: GetOnly): F
 
             ourl: get(p2Detect.ourlAtom).data,
             murl: get(p2Detect.murlAtom).data,
-            murl_regex: get(p2Detect.murl_regexAtom).data,
 
             webCheckUrl: get(p2Detect.webCheckUrlAtom).data === '1',
 
@@ -54,9 +53,11 @@ export function fromAtoms(atoms: FormOptionsState.AllAtoms, { get }: GetOnly): F
 
         isFormWeb: get(atoms.isWebAtom),
         formIdx: atoms.formIdx,
+
         fromFileHOU: atoms.fromFileHOU,
         murl_how: get(atoms.murl_howAtom),
         murl_opt: get(atoms.murl_optAtom),
+        murl_regex: get(atoms.murl_regexAtom).data,
     };
 
     return rv;
