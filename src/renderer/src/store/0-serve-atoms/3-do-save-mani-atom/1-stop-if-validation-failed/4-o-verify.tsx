@@ -1,7 +1,7 @@
 import { type RowInputStateAtoms, validateRowInputStateAtoms } from "@/ui";
 import { FormIdx, Matching } from "@/store/manifest";
-import { type VerifyError } from "../../9-types";
-import { type FormOptionsState } from "./9-types";
+import { type VerifyError } from "../../../2-file-mani-atoms/9-types";
+import { type FormOptionsState } from "../../../2-file-mani-atoms/3-options/2-conv-options/9-types";
 
 export function getOptionsVerifyErrors_OfMain(atoms: FormOptionsState.AllAtoms, formIdx: FormIdx, getset: GetSet): VerifyError[] {
     const { p1General, p3Auth, p4QL } = atoms;
@@ -24,18 +24,16 @@ export function getOptionsVerifyErrors_OfForm(atoms: FormOptionsState.AllAtoms, 
 function getFormAtomsToValidate(atoms: FormOptionsState.AllAtoms, formIdx: FormIdx, { get }: GetOnly): RowInputStateAtoms {
     const { p2Detect, p5Icon, isWebAtom, murl_howAtom, murl_regexAtom } = atoms;
 
-    const murl = get(murl_howAtom) === Matching.How.regex ? { murl_regexAtom } : undefined;
+    const isWeb = get(isWebAtom); // Exclude atom with validation that are not appropriate depending on the form
+    const murl = isWeb && get(murl_howAtom) === Matching.How.regex ? { murl_regexAtom } : undefined;
 
     const toValidate: RowInputStateAtoms =
         formIdx === FormIdx.login
             ? { ...p2Detect, ...murl, ...p5Icon, }
             : { ...p2Detect, ...murl, ...p5Icon, };
-
-    const isWeb = get(isWebAtom); // Exclude atom with validation that are not appropriate depending on the form
+    
     if (isWeb) {
         delete toValidate.captionAtom;
-    } else {
-        // delete toValidate.rurlAtom; // now it's regex_url and not part of the p2Detect
     }
 
     return toValidate;

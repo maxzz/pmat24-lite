@@ -1,8 +1,8 @@
 import { FormIdx } from "@/store/manifest";
 import { type ManiAtoms, type VerifyError } from "@/store/2-file-mani-atoms/9-types";   
-import { FormOptionsConv } from "@/store/2-file-mani-atoms/3-options";
 import { normalFormVerifyErrors } from "./3-1-normal-verify-errors";
 import { manualFormVerifyErrors } from "./3-2-manual-verify-errors";
+import { getOptionsVerifyErrors_OfForm } from "./4-o-verify";
 
 export function getErrorsFromLogin(maniAtoms: ManiAtoms, getset: GetSet): VerifyError[] | undefined {
     return getErrorsFromForm(maniAtoms, FormIdx.login, getset);
@@ -19,7 +19,7 @@ function getErrorsFromForm(maniAtoms: ManiAtoms, formIdx: FormIdx, getset: GetSe
 
     if (!errors?.length) {
         const optionsAtoms = maniAtoms[formIdx]?.options;
-        errors = optionsAtoms && FormOptionsConv.getOptionsVerifyErrors_OfForm(optionsAtoms, formIdx, getset);
+        errors = optionsAtoms && getOptionsVerifyErrors_OfForm(optionsAtoms, formIdx, getset);
     }
 
     return errors;
