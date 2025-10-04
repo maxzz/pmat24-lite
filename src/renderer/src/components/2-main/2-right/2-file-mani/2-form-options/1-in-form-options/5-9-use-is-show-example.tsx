@@ -10,7 +10,7 @@ export function useIsShowExample(options: FormOptionsState.AllAtoms): boolean | 
 
     const how = useAtomValue(options.howAtom);
     const o = useAtomValue(options.p2Detect.ourlAtom);
-    const r = useAtomValue(options.p2Detect.rurlAtom);
+    const r = useAtomValue(options.p2Detect.murl_regexAtom);
 
     useEffect(
         () => {
@@ -27,14 +27,14 @@ const isShowExampleAtom = atom(
         const how = get(options.howAtom);
         if (how === Matching.How.regex) {
             const o = get(options.p2Detect.ourlAtom).data;
-            const r = get(options.p2Detect.rurlAtom).data;
+            const r = get(options.p2Detect.murl_regexAtom).data;
             return o === r || !r;
         }
     }
 );
 
-export function ShowExampleText({ rurlAtom }: { rurlAtom: RowInputStateAtom; }) {
-    const isEmpty = useAtomValue(rurlAtom).data === '';
+export function ShowExampleText({ murl_regexAtom }: { murl_regexAtom: RowInputStateAtom; }) {
+    const isEmpty = useAtomValue(murl_regexAtom).data === '';
     return (<>
         <div className="mt-1">
             {isEmpty

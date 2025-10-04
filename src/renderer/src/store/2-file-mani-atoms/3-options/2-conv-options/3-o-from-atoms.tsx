@@ -21,7 +21,7 @@ export function fromAtoms(atoms: FormOptionsState.AllAtoms, { get }: GetOnly): F
 
             ourl: get(p2Detect.ourlAtom).data,
             murl: get(p2Detect.murlAtom).data,
-            rurl: get(p2Detect.rurlAtom).data,
+            murl_regex: get(p2Detect.murl_regexAtom).data,
 
             webCheckUrl: get(p2Detect.webCheckUrlAtom).data === '1',
 

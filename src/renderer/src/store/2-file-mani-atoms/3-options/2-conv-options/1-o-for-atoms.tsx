@@ -32,7 +32,7 @@ export function forAtoms(fileUsCtx: FileUsCtx): FormOptionsState.ForAtoms {
             
             ourl: detection.web_ourl || '',
             murl: detection.web_murl || '',
-            rurl: fromFileHOU.url,
+            murl_regex: fromFileHOU.url,
 
             webCheckUrl: !!detection.web_checkurl,
 

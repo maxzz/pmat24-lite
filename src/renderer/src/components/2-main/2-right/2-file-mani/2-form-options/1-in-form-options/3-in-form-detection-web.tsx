@@ -12,7 +12,7 @@ import { ShowExampleText, useIsShowExample } from "./5-9-use-is-show-example";
 import { MatchHow } from "./5-2-match-how";
 
 export function DetectionContent_Web({ oFormProps }: { oFormProps: OFormProps; }) {
-    const { p2Detect: { ourlAtom, rurlAtom }, howAtom, formIdx } = oFormProps.oAllAtoms.options;
+    const { p2Detect: { ourlAtom, murl_regexAtom }, howAtom, formIdx } = oFormProps.oAllAtoms.options;
     const [isLocked, setIsLocked] = useState(true);
     const showExample = useIsShowExample(oFormProps.oAllAtoms.options);
 
@@ -60,13 +60,13 @@ export function DetectionContent_Web({ oFormProps }: { oFormProps: OFormProps; }
                         >
                             <InputWithTitle2Rows
                                 asTextarea
-                                stateAtom={rurlAtom}
+                                stateAtom={murl_regexAtom}
                                 label={showRegex ? "Regular expression" : "Original URL"}
                                 labelClasses="font-normal"
                                 className={classNames(disabled && 'opacity-50 cursor-default')}
                             />
 
-                            {showExample && <ShowExampleText rurlAtom={rurlAtom} />}
+                            {showExample && <ShowExampleText murl_regexAtom={murl_regexAtom} />}
                         </motion.div>
                     </>)}
                 </AnimatePresence>
