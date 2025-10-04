@@ -7,8 +7,8 @@ export const setOtherPartsAfterHowChangedAtom = atom(
     null,
     (get, set, { options, o, how, opt, url }: { options: FormOptionsState.AllAtoms, o?: string; how?: Matching.How; opt?: Matching.Options; url?: string; }) => {
         const getset = { get, set };
-        const { ourlAtom, murlAtom, rurlAtom: partRurlAtom } = options.p2Detect;
-        const { howAtom: partHowAtom, optAtom: partOptAtom } = options; // partHowAtom, partRurlAtom, partOptAtom are parts of string 'how + opt + url'
+        const { ourlAtom, murlAtom, rurlAtom: part_rurlAtom } = options.p2Detect;
+        const { howAtom: part_howAtom, optAtom: part_optAtom } = options; // partHowAtom, partRurlAtom, partOptAtom are parts of string 'how + opt + url'
 
         if (o !== undefined) {
             setAtomRowInputState(ourlAtom, o, getset);
@@ -18,25 +18,25 @@ export const setOtherPartsAfterHowChangedAtom = atom(
             return;
         }
 
-        const current: Matching.RawMatchData = { how: get(partHowAtom), opt: get(partOptAtom), url: get(partRurlAtom).data };
+        const current: Matching.RawMatchData = { how: get(part_howAtom), opt: get(part_optAtom), url: get(part_rurlAtom).data };
 
         if (how !== undefined) {
             current.how = how;
-            set(partHowAtom, how);
+            set(part_howAtom, how);
 
             if (how === Matching.How.undef) {
-                setAtomRowInputState(partRurlAtom, get(ourlAtom).data, getset);
+                setAtomRowInputState(part_rurlAtom, get(ourlAtom).data, getset);
             }
         }
 
         if (opt !== undefined) {
             current.opt = opt;
-            set(partOptAtom, opt);
+            set(part_optAtom, opt);
         }
 
         if (url !== undefined) {
             current.url = url;
-            setAtomRowInputState(partRurlAtom, url, getset);
+            setAtomRowInputState(part_rurlAtom, url, getset);
         }
 
         setAtomRowInputState(murlAtom, Matching.stringifyRawMatchData(current, get(ourlAtom).data), getset);

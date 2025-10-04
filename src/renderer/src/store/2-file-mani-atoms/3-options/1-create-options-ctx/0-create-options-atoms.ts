@@ -41,8 +41,8 @@ function onChangeWithScope(updateName: string, nextValue: RowInputState, { fileU
 
     if (updateName === 'rurl') { // This is murl input
         const changed = nextValue.data !== fromFile.url;
-        fileUsChanges.set(fileUsCtx, changed, changeName);
-        //console.log('rurl', nextValue.data); // rurl will update murl
+        // fileUsChanges.set(fileUsCtx, changed, changeName);
+        console.log('rurl', nextValue.data); // rurl will update murl
         return;
     }
 
