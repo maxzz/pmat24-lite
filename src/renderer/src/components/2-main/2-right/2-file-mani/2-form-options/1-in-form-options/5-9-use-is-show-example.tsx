@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { atom, useAtomValue, useSetAtom } from "jotai";
+import { SymbolWarning } from "@/ui/icons";
 import { Matching } from "@/store/manifest";
 import { type RowInputStateAtom } from "@/ui/local-ui/1-input-validate/9-types";
 import { type FormOptionsState } from "@/store/2-file-mani-atoms/3-options";
@@ -37,6 +38,7 @@ export function ShowExampleText({ murl_regexAtom }: { murl_regexAtom: RowInputSt
     const isEmpty = useAtomValue(murl_regexAtom).data === '';
     return (<>
         <div className="mt-1">
+            <SymbolWarning className="size-4 text-orange-600 dark:text-orange-400" />
             {isEmpty
                 ? 'The regular expression is empty, so the regular expression is useless.'
                 : 'The regular expression and the original URL are an exact match, so the regular expression is useless.'

@@ -4,7 +4,7 @@ import { classNames } from "@/utils";
 import { AnimatePresence, motion } from "motion/react";
 import { toast } from "sonner";
 import { Matching } from "@/store/manifest";
-import { SymbolLockClosed, SymbolLockOpen } from "@/ui/icons";
+import { SymbolInfo, SymbolLockClosed, SymbolLockOpen } from "@/ui/icons";
 import { type OFormProps } from "@/store/2-file-mani-atoms";
 import { AccordionWithTrigger } from "@/ui/motion-primitives";
 import { InputWithTitle2Rows } from "@/ui/local-ui";
@@ -57,7 +57,10 @@ export function DetectionContent_Web({ oFormProps }: { oFormProps: OFormProps; }
                             animate={{ opacity: 1, height: 'auto' }}
                             exit={{ opacity: 0, height: 0 }}
                             transition={{ duration: .4 }}
+                            className="relative"
                         >
+                            <SymbolInfo className="absolute right-2 top-7 size-4 text-foreground/75" />
+                            
                             <InputWithTitle2Rows
                                 asTextarea
                                 stateAtom={murl_regexAtom}
