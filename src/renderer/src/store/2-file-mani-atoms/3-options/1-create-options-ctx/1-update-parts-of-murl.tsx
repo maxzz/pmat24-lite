@@ -6,9 +6,10 @@ import { type FormOptionsState } from "@/store/2-file-mani-atoms/3-options";
 export const setHowChangedAtom = atom(
     null,
     (get, set, { oFormCtx, how }: { oFormCtx: FormOptionsState.AllAtoms, how: Matching.How; }) => {
-        const { p2Detect: { ourlAtom, murlAtom }, murl_optAtom, murl_regexAtom } = oFormCtx;
+        const { p2Detect: { ourlAtom, murlAtom }, murl_howAtom, murl_optAtom, murl_regexAtom } = oFormCtx;
 
         const current: Matching.RawMatchData = { how, opt: get(murl_optAtom), url: get(murl_regexAtom).data };
+        set(murl_howAtom, how);
 
         setValue(murlAtom, Matching.stringifyRawMatchData(current, get(ourlAtom).data), { get, set });
     }
