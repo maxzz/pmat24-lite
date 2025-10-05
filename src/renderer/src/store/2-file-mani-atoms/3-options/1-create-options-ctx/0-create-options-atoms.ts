@@ -38,28 +38,11 @@ function onChangeWithScope(updateName: string, nextValue: RowInputState, { fileU
     const changeName = fileUsChanges.changeName(fileUsCtx.formIdx, 'o', updateName);
     const fromFile = oFormCtx.fromFileHOU;
 
-    console.log('🎆onChangeWithScope:', updateName, nextValue.data, JSON.stringify(fromFile));
-
-    if (updateName === 'ourl') {
-        // set(updateAfterOurlChangeAtom, { options: oFormCtx, ourl: nextValue.data });
-        // console.log('ourl', nextValue.data);
-    }
+    // console.log('🎆onChangeWithScope:', updateName, nextValue.data, JSON.stringify(fromFile));
 
     if (updateName === 'regex_url') { // This is regex input control
-        set(updateAfterRegexUrlChangeAtom, { options: oFormCtx });
-        // const changed = nextValue.data !== fromFile.url;
-        // fileUsChanges.set(fileUsCtx, changed, changeName);
-        // console.log('regex_url', nextValue.data); // regex_url will update murl
+        set(updateAfterRegexUrlChangeAtom, { oFormCtx });
         return;
-    }
-
-    if (updateName === 'murl') { // This is dropdown for how to match URL
-        // const how = get(oFormCtx.murl_howAtom);
-        // if (how === fromFile.how) {
-        //     const changed = nextValue.data !== fromFile.url;
-        //     fileUsChanges.set(fileUsCtx, changed, changeName);
-        //     return;
-        // }
     }
 
     fileUsChanges.set(fileUsCtx, nextValue.dirty, changeName);
