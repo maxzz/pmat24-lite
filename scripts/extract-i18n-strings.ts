@@ -73,7 +73,7 @@ function extractStringsFromFile(filePath: string, minLength: number): Record<str
         let match;
         while ((match = pattern.exec(content)) !== null) {
             const str = match[1];
-            
+
             // Filter out strings that are likely not user-facing
             if (
                 str.length < minLength ||
@@ -145,34 +145,32 @@ function generateKey(str: string): string {
         .join('');
 }
 
-// CLI interface
-if (require.main === module) {
-    const args = process.argv.slice(2);
-    const config: Partial<Config> = {};
+// CLI interface - auto-execute when run directly
+const args = process.argv.slice(2);
+const config: Partial<Config> = {};
 
-    for (let i = 0; i < args.length; i += 2) {
-        const key = args[i].replace(/^--/, '');
-        const value = args[i + 1];
-        
-        if (key === 'src') config.srcDir = value;
-        else if (key === 'output') config.outputFile = value;
-        else if (key === 'min-length') config.minStringLength = parseInt(value, 10);
-    }
+for (let i = 0; i < args.length; i += 2) {
+    const key = args[i].replace(/^--/, '');
+    const value = args[i + 1];
 
-    console.log('🔍 Extracting localization strings...');
-    console.log(`   Source: ${config.srcDir || defaultConfig.srcDir}`);
-    console.log(`   Output: ${config.outputFile || defaultConfig.outputFile}`);
-
-    const results = extractI18nStrings(config);
-    const totalStrings = Object.values(results).reduce((sum, obj) => sum + Object.keys(obj).length, 0);
-
-    const outputPath = path.resolve(config.outputFile || defaultConfig.outputFile);
-    fs.mkdirSync(path.dirname(outputPath), { recursive: true });
-    fs.writeFileSync(outputPath, JSON.stringify(results, null, 2), 'utf-8');
-
-    console.log(`✅ Extracted ${totalStrings} strings from ${Object.keys(results).length} files`);
-    console.log(`   Saved to: ${outputPath}`);
+    if (key === 'src') config.srcDir = value;
+    else if (key === 'output') config.outputFile = value;
+    else if (key === 'min-length') config.minStringLength = parseInt(value, 10);
 }
+
+console.log('🔍 Extracting localization strings...');
+console.log(`   Source: ${config.srcDir || defaultConfig.srcDir}`);
+console.log(`   Output: ${config.outputFile || defaultConfig.outputFile}`);
+
+const results = extractI18nStrings(config);
+const totalStrings = Object.values(results).reduce((sum, obj) => sum + Object.keys(obj).length, 0);
+
+const outputPath = path.resolve(config.outputFile || defaultConfig.outputFile);
+fs.mkdirSync(path.dirname(outputPath), { recursive: true });
+fs.writeFileSync(outputPath, JSON.stringify(results, null, 2), 'utf-8');
+
+console.log(`✅ Extracted ${totalStrings} strings from ${Object.keys(results).length} files`);
+console.log(`   Saved to: ${outputPath}`);
 
 /*
 Usage:
