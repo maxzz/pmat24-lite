@@ -42,3 +42,34 @@ export const setOtherPartsAfterHowChangedAtom = atom(
         setValue(murlAtom, Matching.stringifyRawMatchData(current, get(ourlAtom).data), getset);
     }
 );
+
+// We are in callback and value is already set, so we can't compare it with previous value:
+// export const updateAfterOurlChangeAtom = atom(
+//     null,
+//     (get, set, { options, ourl }: { options: FormOptionsState.AllAtoms, ourl: string; }) => {
+//         const getset = { get, set };
+//         const { ourlAtom, murlAtom } = options.p2Detect;
+//         const { murl_howAtom, murl_optAtom, murl_regexAtom } = options;
+
+//         const current: Matching.RawMatchData = { how: get(murl_howAtom), opt: get(murl_optAtom), url: get(murl_regexAtom).data };
+
+//         if (current.how === Matching.How.regex && current.url === ourl) { // Don't touch if user changed the regex url
+//             setValue(murl_regexAtom, ourl, getset);
+//         }
+//     }
+// );
+
+export const updateAfterRegexUrlChangeAtom = atom(
+    null,
+    (get, set, { options }: { options: FormOptionsState.AllAtoms }) => {
+        const getset = { get, set };
+        const { ourlAtom, murlAtom } = options.p2Detect;
+        const { murl_howAtom, murl_optAtom, murl_regexAtom } = options;
+
+        const current: Matching.RawMatchData = { how: get(murl_howAtom), opt: get(murl_optAtom), url: get(murl_regexAtom).data };
+
+        if (current.how === Matching.How.regex) {
+            setValue(murlAtom, Matching.stringifyRawMatchData(current, get(ourlAtom).data), getset);
+        }
+    }
+);

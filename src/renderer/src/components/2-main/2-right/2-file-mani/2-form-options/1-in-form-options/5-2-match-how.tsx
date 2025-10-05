@@ -2,7 +2,7 @@ import { useAtomValue, useSetAtom } from "jotai";
 import { InputSelectUi } from "@/ui";
 import { Matching, type OptionTextValue } from "@/store/manifest";
 import { type OFormProps } from "@/store/2-file-mani-atoms/9-types";
-import { setOtherPartsAfterHowChangedAtom } from "./5-8-set-parts-of-murl-atom";
+import { setOtherPartsAfterHowChangedAtom } from "@/store/2-file-mani-atoms/3-options/1-create-options-ctx/5-8-set-parts-of-murl-atom";
 
 export function MatchHow({ oFormProps }: { oFormProps: OFormProps; }) {
     const setOtherPartsAfterHowChanged = useSetAtom(setOtherPartsAfterHowChangedAtom);
