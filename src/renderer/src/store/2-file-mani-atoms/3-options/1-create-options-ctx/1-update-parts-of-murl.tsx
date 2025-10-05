@@ -1,0 +1,28 @@
+import { atom } from "jotai";
+import { Matching } from "@/store/manifest";
+import { setRowInputStateAtomValue as setValue } from "@/ui/local-ui/1-input-validate";
+import { type FormOptionsState } from "@/store/2-file-mani-atoms/3-options";
+
+export const setHowChangedAtom = atom(
+    null,
+    (get, set, { oFormCtx, how }: { oFormCtx: FormOptionsState.AllAtoms, how: Matching.How; }) => {
+        const { p2Detect: { ourlAtom, murlAtom }, murl_optAtom, murl_regexAtom } = oFormCtx;
+
+        const current: Matching.RawMatchData = { how, opt: get(murl_optAtom), url: get(murl_regexAtom).data };
+
+        setValue(murlAtom, Matching.stringifyRawMatchData(current, get(ourlAtom).data), { get, set });
+    }
+);
+
+export const updateAfterRegexUrlChangeAtom = atom(
+    null,
+    (get, set, { oFormCtx }: { oFormCtx: FormOptionsState.AllAtoms; }) => {
+        const { p2Detect: { ourlAtom, murlAtom }, murl_howAtom, murl_optAtom, murl_regexAtom } = oFormCtx;
+
+        const current: Matching.RawMatchData = { how: get(murl_howAtom), opt: get(murl_optAtom), url: get(murl_regexAtom).data };
+
+        if (current.how === Matching.How.regex) {
+            setValue(murlAtom, Matching.stringifyRawMatchData(current, get(ourlAtom).data), { get, set });
+        }
+    }
+);

@@ -2,7 +2,7 @@ import { type RowInputState } from "@/ui";
 import { type OnValueChange, debounce } from "@/utils";
 import { type OnChangeProps, type FileUsCtx, safeManiAtomsFromFileUsCtx, fileUsChanges } from "../../9-types";
 import { type FormOptionsState, FormOptionsConv } from "../2-conv-options";
-import { updateAfterRegexUrlChangeAtom } from "./5-8-set-parts-of-murl-atom";
+import { updateAfterRegexUrlChangeAtom } from "./1-update-parts-of-murl";
 
 export namespace OptionsState {
 
@@ -35,17 +35,12 @@ function onChangeWithScope(updateName: string, nextValue: RowInputState, { fileU
         return;
     }
 
-    const changeName = fileUsChanges.changeName(fileUsCtx.formIdx, 'o', updateName);
-    const fromFile = oFormCtx.fromFileHOU;
-
-    // console.log('🎆onChangeWithScope:', updateName, nextValue.data, JSON.stringify(fromFile));
-
-    if (updateName === 'regex_url') { // This is regex input control
-        set(updateAfterRegexUrlChangeAtom, { oFormCtx });
+    if (updateName === 'regex_url') {
+        set(updateAfterRegexUrlChangeAtom, { oFormCtx }); // This will update murl and trigger onChangeWithScope
         return;
     }
 
-    fileUsChanges.set(fileUsCtx, nextValue.dirty, changeName);
+    fileUsChanges.set(fileUsCtx, nextValue.dirty, fileUsChanges.changeName(fileUsCtx.formIdx, 'o', updateName));
 
-    //console.log(`%c-------- "${updateName}" %s`, 'color: darkgoldenrod; font-size: 0.6rem;', `nextValue ${JSON.stringify(nextValue)}`);
+    //console.log(`%c-------- "${updateName}" %s`, 'color: darkgoldenrod; font-size: 0.6rem;', `nextValue ${JSON.stringify(nextValue)} fromFile ${JSON.stringify(oFormCtx.fromFileHOU)}`);
 }

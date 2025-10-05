@@ -2,7 +2,7 @@ import { useAtomValue, useSetAtom } from "jotai";
 import { InputSelectUi } from "@/ui";
 import { Matching, type OptionTextValue } from "@/store/manifest";
 import { type OFormProps } from "@/store/2-file-mani-atoms/9-types";
-import { setHowChangedAtom } from "@/store/2-file-mani-atoms/3-options/1-create-options-ctx/5-8-set-parts-of-murl-atom";
+import { setHowChangedAtom } from "@/store/2-file-mani-atoms/3-options/1-create-options-ctx/1-update-parts-of-murl";
 
 export function MatchHow({ oFormProps }: { oFormProps: OFormProps; }) {
     const setHowChanged = useSetAtom(setHowChangedAtom);
@@ -15,7 +15,7 @@ export function MatchHow({ oFormProps }: { oFormProps: OFormProps; }) {
             triggerClasses={inputAsRefClasses}
             items={items}
             value={`${how}`}
-            onValueChange={(value) => setHowChanged({ options, how: +value })}
+            onValueChange={(value) => setHowChanged({ oFormCtx: options, how: +value })}
         />
     );
 }
