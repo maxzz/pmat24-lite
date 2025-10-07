@@ -74,12 +74,12 @@ export function resetRowInputState(state: RowInputState, value: string): RowInpu
 
 // Set atom
 
-export function setRowInputStateAtomValue({ stateAtom, value, getset: { get, set } }: { stateAtom: RowInputStateAtom; value: RowInputState['data']; getset: GetSet; }) {
+export function setRowInputStateAtomValue({ stateAtom, value, error, getset: { get, set } }: { stateAtom: RowInputStateAtom; value: RowInputState['data']; error?: string; getset: GetSet; }) {
     const state = get(stateAtom);
     const newState: RowInputState = {
         ...state,
         data: value,
-        error: state.validate?.(value),
+        error: error !== undefined ? error : state.validate?.(value), // set error if it was checked from outside otherwise use the one from validation
         dirty: state.initialData !== value,
     };
     set(stateAtom, newState);
