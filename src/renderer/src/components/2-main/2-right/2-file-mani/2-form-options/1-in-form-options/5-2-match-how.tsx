@@ -7,7 +7,7 @@ import { setHowChangedAtom } from "@/store/2-file-mani-atoms/3-options/1-create-
 export function MatchHow({ oFormProps }: { oFormProps: OFormProps; }) {
     const setHowChanged = useSetAtom(setHowChangedAtom);
     const { options } = oFormProps.oAllAtoms;
-    const how = useAtomValue(options.murl_howAtom);
+    const how = +useAtomValue(options.murl_howAtom).data;
     const items = getNamesList(how);
 
     return (

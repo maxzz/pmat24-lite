@@ -38,7 +38,7 @@ export function getVerifyErrors_FormOptionsTab(atoms: FormOptionsState.AllAtoms,
         const { p2Detect, p5Icon, isWebAtom, murl_howAtom, murl_regexAtom } = atoms;
 
         const isWeb = get(isWebAtom);
-        const murl = isWeb && get(murl_howAtom) === Matching.How.regex ? { murl_regexAtom } : undefined;
+        const murl = isWeb && +get(murl_howAtom).data === Matching.How.regex ? { murl_regexAtom } : undefined;
 
         const toValidate: RowInputStateAtoms =
             formIdx === FormIdx.login

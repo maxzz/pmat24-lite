@@ -25,7 +25,7 @@ export function useIsShowExample(options: FormOptionsState.AllAtoms): boolean | 
 const isShowExampleAtom = atom(
     null,
     (get, set, options: FormOptionsState.AllAtoms): boolean | undefined => {
-        const how = get(options.murl_howAtom);
+        const how = +get(options.murl_howAtom).data;
         if (how === Matching.How.regex) {
             const r = get(options.murl_regexAtom).data;
             const o = get(options.p2Detect.ourlAtom).data;
