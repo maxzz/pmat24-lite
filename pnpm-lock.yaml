@@ -10,10 +10,10 @@ importers:
     dependencies:
       '@electron-toolkit/preload':
         specifier: ^3.0.2
-        version: 3.0.2(electron@38.2.0)
+        version: 3.0.2(electron@38.2.1)
       '@electron-toolkit/utils':
         specifier: ^4.0.0
-        version: 4.0.0(electron@38.2.0)
+        version: 4.0.0(electron@38.2.1)
       electron-updater:
         specifier: ^6.6.2
         version: 6.6.2
@@ -112,8 +112,8 @@ importers:
         specifier: ^0.7.1
         version: 0.7.1
       electron:
-        specifier: 38.2.0
-        version: 38.2.0
+        specifier: 38.2.1
+        version: 38.2.1
       electron-builder:
         specifier: ^26.0.12
         version: 26.0.12(electron-builder-squirrel-windows@26.0.12)
@@ -1826,8 +1826,8 @@ packages:
     resolution: {integrity: sha512-bO3y10YikuUwUuDUQRM4KfwNkKhnpVO7IPdbsrejwN9/AABJzzTQ4GeHwyzNSrVO+tEH3/Np255a3sVZpZDjvg==}
     engines: {node: '>=8.0.0'}
 
-  electron@38.2.0:
-    resolution: {integrity: sha512-Cw5Mb+N5NxsG0Hc1qr8I65Kt5APRrbgTtEEn3zTod30UNJRnAE1xbGk/1NOaDn3ODzI/MYn6BzT9T9zreP7xWA==}
+  electron@38.2.1:
+    resolution: {integrity: sha512-P4pE2RpRg3kM8IeOK+heg6iAxR5wcXnNHrbVchn7M3GBnYAhjfJRkROusdOro5PlKzdtfKjesbbqaG4MqQXccg==}
     engines: {node: '>= 12.20.55'}
     hasBin: true
 
@@ -3579,17 +3579,17 @@ snapshots:
       ajv: 6.12.6
       ajv-keywords: 3.5.2(ajv@6.12.6)
 
-  '@electron-toolkit/preload@3.0.2(electron@38.2.0)':
+  '@electron-toolkit/preload@3.0.2(electron@38.2.1)':
     dependencies:
-      electron: 38.2.0
+      electron: 38.2.1
 
   '@electron-toolkit/tsconfig@2.0.0(@types/node@24.7.0)':
     dependencies:
       '@types/node': 24.7.0
 
-  '@electron-toolkit/utils@4.0.0(electron@38.2.0)':
+  '@electron-toolkit/utils@4.0.0(electron@38.2.1)':
     dependencies:
-      electron: 38.2.0
+      electron: 38.2.1
 
   '@electron/asar@3.2.18':
     dependencies:
@@ -5195,7 +5195,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  electron@38.2.0:
+  electron@38.2.1:
     dependencies:
       '@electron/get': 2.0.3
       '@types/node': 22.18.8
