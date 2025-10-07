@@ -1,4 +1,4 @@
-import { type Mani, FormIdx } from "@/store/manifest";
+import { type Mani, FormIdx, Matching } from "@/store/manifest";
 import { type FormOptionsState, FormOptionsConv } from "@/store/2-file-mani-atoms/3-options";
 import { type PackManifestDataParams } from "../9-types";
 
@@ -14,6 +14,13 @@ export function packFormOptions(optionsAtoms: FormOptionsState.AllAtoms, formIdx
     return rv;
 }
 
+function getMurl(detect: FormOptionsState.ForAtoms['p2Detect']): string { // If regex is the same as original URL then reset it to empty
+    const md: Matching.RawMatchData = Matching.parseRawMatchData(detect.murl);
+    const invalidRegex = md.how === Matching.How.regex && (md.url === detect.ourl || !md.url.trim()); // Don't need to check md.opt === Matching.Options.undef
+    const murl = invalidRegex ? '' : detect.murl;
+    return murl;
+}
+
 function detectionForMani(values: FormOptionsState.ForAtoms): Mani.Detection {
     const { p2Detect: detect } = values;
 
@@ -22,7 +29,7 @@ function detectionForMani(values: FormOptionsState.ForAtoms): Mani.Detection {
         variablecaption: detect.variablecaption,
 
         web_ourl: detect.ourl,
-        web_murl: detect.murl === detect.ourl ? '' : detect.murl,
+        web_murl: getMurl(detect),
         web_qurl: values.p4QL.qUrl === detect.ourl ? '' : values.p4QL.qUrl,
         web_checkurl: detect.webCheckUrl,
 
