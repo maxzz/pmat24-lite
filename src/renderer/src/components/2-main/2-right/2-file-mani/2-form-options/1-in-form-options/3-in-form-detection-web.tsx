@@ -10,6 +10,7 @@ import { AccordionWithTrigger } from "@/ui/motion-primitives";
 import { InputWithTitle2Rows } from "@/ui/local-ui";
 import { ShowExampleText, useIsShowExample } from "./5-9-use-is-show-example";
 import { MatchHow } from "./5-2-match-how";
+import { RegexTooltip } from "./5-3-regex-tooltip";
 
 export function DetectionContent_Web({ oFormProps }: { oFormProps: OFormProps; }) {
     const { p2Detect: { ourlAtom }, formIdx, murl_howAtom, murl_regexAtom } = oFormProps.oAllAtoms.options;
@@ -50,17 +51,18 @@ export function DetectionContent_Web({ oFormProps }: { oFormProps: OFormProps; }
                     <MatchHow oFormProps={oFormProps} />
                 </div>
 
-                <AnimatePresence>
+                <AnimatePresence initial={false}>
                     {showRegex && (<>
                         <motion.div
-                            initial={{ opacity: 0, height: 0 }}
-                            animate={{ opacity: 1, height: 'auto' }}
+                            initial={{ opacity: 0, x: 1000, height: 0 }}
+                            animate={{ opacity: 1, x: 0, height: 'auto' }}
                             exit={{ opacity: 0, height: 0 }}
-                            transition={{ duration: .4 }}
+                            transition={{ duration: .3 }}
                             className="relative"
                         >
-                            <SymbolInfo className="absolute right-2 top-7 size-4 text-foreground/75" />
-                            
+                            {/* <SymbolInfo className="absolute right-2 top-7 size-4 text-foreground/75" /> */}
+                            <RegexTooltip />
+
                             <InputWithTitle2Rows
                                 asTextarea
                                 stateAtom={murl_regexAtom}
