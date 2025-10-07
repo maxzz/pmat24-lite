@@ -9,7 +9,11 @@ export const setHowChangedAtom = atom(
         const { p2Detect: { ourlAtom, murlAtom }, murl_howAtom, murl_optAtom, murl_regexAtom } = oFormCtx;
 
         const current: Matching.RawMatchData = { how, opt: +get(murl_optAtom).data, url: get(murl_regexAtom).data };
-        setValue({ stateAtom: murl_howAtom, value: `${how}`, getset: { get, set } });
+        setValue({
+            stateAtom: murl_howAtom,
+            value: `${how}`,
+            getset: { get, set },
+        });
 
         setValue({
             stateAtom: murlAtom,

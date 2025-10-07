@@ -10,9 +10,9 @@ export namespace OptionsState {
 
     export function createAtoms(fileUsCtx: FileUsCtx): Atoms {
 
-        const debouncedOnChangeWithNameScope = debounce(onChangeWithScope);
-
         function onChange(updateName: string): OnValueChange<RowInputState> {
+            const debouncedOnChangeWithNameScope = debounce(onChangeWithScope);
+            
             return function OnChangeWithNameScope({ get, set, nextValue }) {
                 debouncedOnChangeWithNameScope(updateName, nextValue, { fileUsCtx, get, set });
             };
