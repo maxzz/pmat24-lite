@@ -68,22 +68,6 @@ export function createAtoms(initialState: FormOptionsState.ForAtoms, onChange: O
         murl_regexAtom: createAtomForInput(initialHOU.url, onChange('regex_url'), { validate: validateNonEmptyWithMessage('Value cannot be empty.') }),
     };
 
-    // function createMurlValidate(murl: string, atoms: FormOptionsState.AllAtoms) {
-    //     function validate(value: string) {
-    //         const isEmpty = value === '';
-    //         if (isEmpty) {
-    //             return 'Value cannot be empty.';
-    //         }
-    //         const { murl_howAtom, murl_optAtom, murl_regexAtom } = atoms;
-    //         const murlData = Matching.parseRawMatchData(value);
-    //         if (murlData.how !== get(murl_howAtom)) {
-    //             return 'Value is not valid.';
-    //         }
-    //         return 'Value is not valid.';
-    //     }
-    //     return validateNonEmptyWithMessage('Value cannot be empty.');
-    // }
-
     return rv;
 }
 
