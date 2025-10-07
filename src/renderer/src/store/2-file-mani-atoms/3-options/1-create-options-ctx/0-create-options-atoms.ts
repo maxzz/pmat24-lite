@@ -35,17 +35,29 @@ function onChangeWithScope(updateName: string, nextValue: RowInputState, { fileU
         return;
     }
 
+    printChanges(updateName, nextValue, oFormCtx);
+
     if (updateName === 'murl_regex') {
         set(updateAfterRegexUrlChangeAtom, { oFormCtx }); // This will update murl and trigger onChangeWithScope
         return;
     }
 
     if (updateName === 'murl') {
-        console.log('murl', JSON.stringify(nextValue));
+        //console.log('murl', JSON.stringify(nextValue));
         return;
     }
 
     fileUsChanges.set(fileUsCtx, nextValue.dirty, fileUsChanges.changeName(fileUsCtx.formIdx, 'o', updateName));
+}
 
-    //console.log(`%c-------- "${updateName}" %s`, 'color: darkgoldenrod; font-size: 0.6rem;', `nextValue ${JSON.stringify(nextValue)} fromFile ${JSON.stringify(oFormCtx.fromFileHOU)}`);
+function printChanges(updateName: string, nextValue: RowInputState, oFormCtx: OptionsState.Atoms) {
+    console.log(`%c💻🤔change: ${updateName}\n\t\t\t %cnextValue:%c%s\n\t\t\t %cfromFile:%c%s`,
+        'color: darkgreen; font-size: 0.6rem;',
+        'color: gray; font-size: 0.6rem;',
+        'color: maroon; font-size: 0.6rem;',
+        JSON.stringify(nextValue),
+        'color: gray; font-size: 0.6rem;',
+        'color: maroon; font-size: 0.6rem;',
+        JSON.stringify(oFormCtx.fromFileHOU),
+    );
 }
