@@ -97,8 +97,8 @@ importers:
         specifier: ^19.2.0
         version: 19.2.0(@types/react@19.2.1)
       '@types/wicg-file-system-access':
-        specifier: ^2023.10.6
-        version: 2023.10.6
+        specifier: ^2023.10.7
+        version: 2023.10.7
       '@vitejs/plugin-react':
         specifier: ^5.0.4
         version: 5.0.4(vite@7.1.7(@types/node@24.7.0)(jiti@2.4.2)(tsx@4.20.6)(yaml@2.7.1))
@@ -1358,8 +1358,8 @@ packages:
   '@types/verror@1.10.11':
     resolution: {integrity: sha512-RlDm9K7+o5stv0Co8i8ZRGxDbrTxhJtgjqjFyVh/tXQyl/rYtTKlnTvZ88oSTeYREWurwx20Js4kTuKCsFkUtg==}
 
-  '@types/wicg-file-system-access@2023.10.6':
-    resolution: {integrity: sha512-YO/183gNRzZFSdKu+ikkD7ambAj4PhgjFAF2A/Mw/7wroSF6ne8r804RkpZzqrJ/F6DO2/IYlQF/ULOZ/bhKyA==}
+  '@types/wicg-file-system-access@2023.10.7':
+    resolution: {integrity: sha512-g49ijasEJvCd7ifmAY2D0wdEtt1xRjBbA33PJTiv8mKBr7DoMsPeISoJ8oQOTopSRi+FBWPpPW5ouDj2QPKtGA==}
 
   '@types/yauzl@2.10.3':
     resolution: {integrity: sha512-oJoftv0LSuaDZE3Le4DbKX+KS9G36NzOeSap90UIK0yMA/NhKJhqlSGtNDORNRaIbQfzjXDrQa0ytJ6mNRGz/Q==}
@@ -4613,7 +4613,7 @@ snapshots:
   '@types/verror@1.10.11':
     optional: true
 
-  '@types/wicg-file-system-access@2023.10.6': {}
+  '@types/wicg-file-system-access@2023.10.7': {}
 
   '@types/yauzl@2.10.3':
     dependencies:
