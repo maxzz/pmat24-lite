@@ -80,8 +80,8 @@ export namespace FormOptionsState {
         isWebAtom: PA<boolean>;
         formIdx: FormIdx;
         fromFileHOU: Matching.RawMatchData;     // Initial values of how, opt, url (HOW) for murl from file
-        murl_howAtom: PA<Matching.How>;         // how to match URL
-        murl_optAtom: PA<Matching.Options>;     // how to match URL
+        murl_howAtom: PA<RowInputState>;        // how to match URL as Matching.How
+        murl_optAtom: PA<RowInputState>;        // how to match URL options as Matching.Options
         murl_regexAtom: PA<RowInputState>;      // Regex matching (or any other like wildcards) URL (as usual regex); This is internal value to show validation errors
     };
 }

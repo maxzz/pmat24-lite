@@ -55,8 +55,8 @@ export function fromAtoms(atoms: FormOptionsState.AllAtoms, { get }: GetOnly): F
         formIdx: atoms.formIdx,
 
         fromFileHOU: atoms.fromFileHOU,
-        murl_how: get(atoms.murl_howAtom),
-        murl_opt: get(atoms.murl_optAtom),
+        murl_how: +get(atoms.murl_howAtom).data,
+        murl_opt: +get(atoms.murl_optAtom).data,
         murl_regex: get(atoms.murl_regexAtom).data,
     };
 

@@ -17,7 +17,7 @@ export function DetectionContent_Web({ oFormProps }: { oFormProps: OFormProps; }
     const [isLocked, setIsLocked] = useState(true);
     const showExample = useIsShowExample(oFormProps.oAllAtoms.options);
 
-    const murl_how = useAtomValue(murl_howAtom);
+    const murl_how = +useAtomValue(murl_howAtom).data;
     const disabled = murl_how === Matching.How.undef;
     const showRegex = murl_how === Matching.How.regex;
 

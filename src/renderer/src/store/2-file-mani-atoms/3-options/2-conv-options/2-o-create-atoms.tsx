@@ -63,9 +63,9 @@ export function createAtoms(initialState: FormOptionsState.ForAtoms, onChange: O
         formIdx: initialState.formIdx,
 
         fromFileHOU: initialHOU,
-        murl_howAtom: atom(initialHOU.how),
-        murl_optAtom: atom(initialHOU.opt),
-        murl_regexAtom: createAtomForInput(initialHOU.url, onChange('regex_url'), { validate: validateNonEmptyWithMessage('Value cannot be empty.') }),
+        murl_howAtom: createAtomForInput(initialHOU.how, onChange('murl_how')),
+        murl_optAtom: createAtomForInput(initialHOU.opt, onChange('murl_opt')),
+        murl_regexAtom: createAtomForInput(initialHOU.url, onChange('murl_regex'), { validate: validateNonEmptyWithMessage('Value cannot be empty.') }),
     };
 
     return rv;

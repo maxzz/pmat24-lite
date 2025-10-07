@@ -8,8 +8,8 @@ export const setHowChangedAtom = atom(
     (get, set, { oFormCtx, how }: { oFormCtx: FormOptionsState.AllAtoms, how: Matching.How; }) => {
         const { p2Detect: { ourlAtom, murlAtom }, murl_howAtom, murl_optAtom, murl_regexAtom } = oFormCtx;
 
-        const current: Matching.RawMatchData = { how, opt: get(murl_optAtom), url: get(murl_regexAtom).data };
-        set(murl_howAtom, how);
+        const current: Matching.RawMatchData = { how, opt: +get(murl_optAtom).data, url: get(murl_regexAtom).data };
+        setValue({ stateAtom: murl_howAtom, value: `${how}`, getset: { get, set } });
 
         setValue({
             stateAtom: murlAtom,
@@ -24,7 +24,7 @@ export const updateAfterRegexUrlChangeAtom = atom(
     (get, set, { oFormCtx }: { oFormCtx: FormOptionsState.AllAtoms; }) => {
         const { p2Detect: { ourlAtom, murlAtom }, murl_howAtom, murl_optAtom, murl_regexAtom } = oFormCtx;
 
-        const current: Matching.RawMatchData = { how: get(murl_howAtom), opt: get(murl_optAtom), url: get(murl_regexAtom).data };
+        const current: Matching.RawMatchData = { how: +get(murl_howAtom).data, opt: +get(murl_optAtom).data, url: get(murl_regexAtom).data };
 
         if (current.how === Matching.How.regex) {
             setValue({
