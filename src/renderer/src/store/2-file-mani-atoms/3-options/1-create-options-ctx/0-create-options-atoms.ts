@@ -40,6 +40,11 @@ function onChangeWithScope(updateName: string, nextValue: RowInputState, { fileU
         return;
     }
 
+    if (updateName === 'murl') {
+        console.log('murl', JSON.stringify(nextValue));
+        return;
+    }
+
     fileUsChanges.set(fileUsCtx, nextValue.dirty, fileUsChanges.changeName(fileUsCtx.formIdx, 'o', updateName));
 
     //console.log(`%c-------- "${updateName}" %s`, 'color: darkgoldenrod; font-size: 0.6rem;', `nextValue ${JSON.stringify(nextValue)} fromFile ${JSON.stringify(oFormCtx.fromFileHOU)}`);
