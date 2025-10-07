@@ -31,6 +31,7 @@ export const updateAfterRegexUrlChangeAtom = atom(
                 stateAtom: murlAtom,
                 value: Matching.stringifyRawMatchData(current, get(ourlAtom).data),
                 getset: { get, set },
+                error: current.how === Matching.How.regex && !current.url.trim() ? 'Value cannot be empty.' : undefined,
             });
         }
     }
