@@ -6,7 +6,10 @@ import { Matching } from "@/store/manifest";
 
 export function createAtoms(initialState: FormOptionsState.ForAtoms, onChange: OnChangeValueWithUpdateName): FormOptionsState.AllAtoms {
     const { p1General, p2Detect, p3Auth, p4QL, p5Icon } = initialState;
-    const initialHOU = Matching.parseRawMatchData(p2Detect.murl || p2Detect.ourl); // murl can be empty if it is the same as ourl
+    
+    const murl = p2Detect.murl === '[m0]:2:0:' ? '' : p2Detect.murl; // if by some reason url from murl is empty then we need to reset it to empty
+    const initialHOU = Matching.parseRawMatchData(murl || p2Detect.ourl); // murl can be empty if it is the same as ourl
+
 
     const rv: FormOptionsState.AllAtoms = {
         p1General: {
@@ -25,7 +28,7 @@ export function createAtoms(initialState: FormOptionsState.ForAtoms, onChange: O
             monitorAtom: createAtomForCheck(p2Detect.monitor, onChange('monitor')),
 
             ourlAtom: createAtomForInput(p2Detect.ourl, onChange('ourl')),
-            murlAtom: createAtomForInput(p2Detect.murl, onChange('murl')),
+            murlAtom: createAtomForInput(murl, onChange('murl')),
 
             webCheckUrlAtom: createAtomForCheck(p2Detect.webCheckUrl, onChange('web_checkurl')),
 
@@ -64,6 +67,22 @@ export function createAtoms(initialState: FormOptionsState.ForAtoms, onChange: O
         murl_optAtom: atom(initialHOU.opt),
         murl_regexAtom: createAtomForInput(initialHOU.url, onChange('regex_url'), { validate: validateNonEmptyWithMessage('Value cannot be empty.') }),
     };
+
+    // function createMurlValidate(murl: string, atoms: FormOptionsState.AllAtoms) {
+    //     function validate(value: string) {
+    //         const isEmpty = value === '';
+    //         if (isEmpty) {
+    //             return 'Value cannot be empty.';
+    //         }
+    //         const { murl_howAtom, murl_optAtom, murl_regexAtom } = atoms;
+    //         const murlData = Matching.parseRawMatchData(value);
+    //         if (murlData.how !== get(murl_howAtom)) {
+    //             return 'Value is not valid.';
+    //         }
+    //         return 'Value is not valid.';
+    //     }
+    //     return validateNonEmptyWithMessage('Value cannot be empty.');
+    // }
 
     return rv;
 }
