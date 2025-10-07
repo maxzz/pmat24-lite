@@ -11,7 +11,11 @@ export const setHowChangedAtom = atom(
         const current: Matching.RawMatchData = { how, opt: get(murl_optAtom), url: get(murl_regexAtom).data };
         set(murl_howAtom, how);
 
-        setValue({ stateAtom: murlAtom, value: Matching.stringifyRawMatchData(current, get(ourlAtom).data), getset: { get, set } });
+        setValue({
+            stateAtom: murlAtom,
+            value: Matching.stringifyRawMatchData(current, get(ourlAtom).data),
+            getset: { get, set },
+        });
     }
 );
 
@@ -23,7 +27,11 @@ export const updateAfterRegexUrlChangeAtom = atom(
         const current: Matching.RawMatchData = { how: get(murl_howAtom), opt: get(murl_optAtom), url: get(murl_regexAtom).data };
 
         if (current.how === Matching.How.regex) {
-            setValue({ stateAtom: murlAtom, value: Matching.stringifyRawMatchData(current, get(ourlAtom).data), getset: { get, set } });
+            setValue({
+                stateAtom: murlAtom,
+                value: Matching.stringifyRawMatchData(current, get(ourlAtom).data),
+                getset: { get, set },
+            });
         }
     }
 );
