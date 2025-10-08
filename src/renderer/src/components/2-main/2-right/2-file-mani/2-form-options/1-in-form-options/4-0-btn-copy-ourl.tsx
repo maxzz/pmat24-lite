@@ -1,9 +1,8 @@
 import { useAtomValue } from "jotai";
 import { IconCopy } from "@/ui/icons";
-import { OFormProps } from "@/store/2-file-mani-atoms/9-types";
+import { RowInputState } from "@/ui/local-ui/1-input-validate";
 
-export function BtnCopyOurl({ oFormProps }: { oFormProps: OFormProps; }) {
-    const { p2Detect: { ourlAtom } } = oFormProps.oAllAtoms.options;
+export function BtnCopyOurl({ ourlAtom }: { ourlAtom: PA<RowInputState>; }) {
     const ourl = useAtomValue(ourlAtom).data;
 
     return (<>
