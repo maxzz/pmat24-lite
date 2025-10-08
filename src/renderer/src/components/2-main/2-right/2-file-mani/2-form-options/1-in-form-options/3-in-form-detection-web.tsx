@@ -24,27 +24,29 @@ export function DetectionContent_Web({ oFormProps }: { oFormProps: OFormProps; }
     return (
         <AccordionWithTrigger name='form-detection' formIdx={formIdx} triggerText="Screen detection">
             <div className={textClasses}>
-                <InputWithTitle2Rows
-                    asTextarea
-                    stateAtom={ourlAtom}
-                    label={(
-                        <div className="flex items-center gap-0.5">
-                            Original URL of the website
-                            <div className="size-2.5 cursor-pointer" onClick={() => setIsLocked(!isLocked)}>
-                                {isLocked
-                                    ? <SymbolLockClosed className="size-full" title="This setting is read-only. Only change it if you understand what you're doing." />
-                                    : <SymbolLockOpen className="size-full" title="This input can be edited. Please proceed with caution." />
-                                }
-                            </div>
+                <div className="relative">
+                    <InputWithTitle2Rows
+                        asTextarea
+                        stateAtom={ourlAtom}
+                        label={(
+                            <div className="flex items-center gap-0.5">
+                                Original URL of the website
+                                <div className="size-2.5 cursor-pointer" onClick={() => setIsLocked(!isLocked)}>
+                                    {isLocked
+                                        ? <SymbolLockClosed className="size-full" title="This setting is read-only. Only change it if you understand what you're doing." />
+                                        : <SymbolLockOpen className="size-full" title="This input can be edited. Please proceed with caution." />
+                                    }
+                                </div>
 
-                        </div>
-                    )}
-                    labelClasses="font-normal"
-                    className={classNames(isLocked ? 'opacity-75 cursor-default' : '')}
-                    readOnly={isLocked}
-                    onClick={() => isLocked && toast.info("This input is locked by default. Only change it if you understand what you're doing.")}
-                    onBlur={() => setIsLocked(true)}
-                />
+                            </div>
+                        )}
+                        labelClasses="font-normal"
+                        className={classNames(isLocked ? 'opacity-75 cursor-default' : '')}
+                        readOnly={isLocked}
+                        onClick={() => isLocked && toast.info("This input is locked by default. Only change it if you understand what you're doing.")}
+                        onBlur={() => setIsLocked(true)}
+                    />
+                </div>
 
                 <div className="mt-2 flex items-center gap-2">
                     <div className="">How to match the website URL:</div>
