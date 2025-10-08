@@ -26,7 +26,7 @@ export function BtnCopyOurl({ ourlAtom }: { ourlAtom: PA<RowInputState>; }) {
                             exit={{ scale: 0, opacity: 0 }}
                             transition={{ duration: 0.2 }}
                         >
-                            <IconL_Check className="size-4 text-green-500" title="Copied!" />
+                            <IconL_Check className="size-4 text-green-500" />
                         </motion.div>
                     ) : (
                         <motion.div

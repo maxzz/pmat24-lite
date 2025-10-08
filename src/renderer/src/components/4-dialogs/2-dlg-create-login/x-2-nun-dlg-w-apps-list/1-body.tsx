@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
 import { atom, useAtom } from "jotai";
-import { Button, ScrollArea } from "@/ui";
-import * as D from "@/ui/shadcn/dialog";
-import { detectedWindows } from "./4-test-detected-windows";
-import { ButtonCreate } from "./3-button-create";
-import { WindowsList } from "./2-windows-list";
-import { IconRefresh } from "@/ui/icons";
 import { toast } from "sonner";
+import * as D from "@/ui/shadcn/dialog";
+import { Button, ScrollArea } from "@/ui";
+import { IconRefresh } from "@/ui/icons";
+import { WindowsList } from "./2-windows-list";
+import { ButtonCreate } from "./3-button-create";
+import { detectedWindows } from "./4-test-detected-windows";
 
 export function DialogCreateManiBody({ setIsOpen }: { setIsOpen: (v: boolean) => void; }) {
     // const selectedIdxAtom = useState(() => atom(-1))[0];
