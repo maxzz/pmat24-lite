@@ -2,7 +2,7 @@ import { toast } from "sonner";
 import { appSettings } from "@/store/9-ui-state";
 import { FormIdx } from "@/store/manifest";
 import { type ManiAtoms, type ManiTabValue, type VerifyError } from "@/store/2-file-mani-atoms/9-types";
-import { getVerifyErrors_FormOptionsTab, getVerifyErrors_MainOptionsTab } from "./1-options-verify-errors";
+import { getVerifyErrors_OptionsFormTab, getVerifyErrors_OptionsMainTab } from "./1-options-verify-errors";
 import { getVerifyErrors_ManualForm, getVerifyErrors_NormalForm } from "./2-form-verify-errors";
 
 export function stopIfInvalidAny(maniAtoms: ManiAtoms, getset: GetSet): boolean | undefined {
@@ -66,7 +66,7 @@ export function getErrorsFromForm(maniAtoms: ManiAtoms, formIdx: FormIdx, getset
 
     if (!errors?.length) {
         const optionsAtoms = maniAtoms[formIdx]?.options;
-        errors = optionsAtoms && getVerifyErrors_FormOptionsTab(optionsAtoms, formIdx, getset);
+        errors = optionsAtoms && getVerifyErrors_OptionsFormTab(optionsAtoms, formIdx, getset);
     }
 
     return errors;
@@ -85,8 +85,8 @@ function getErrorsFromCpass(maniAtoms: ManiAtoms, getset: GetSet): VerifyError[]
 
 function getErrorsFromOptions(maniAtoms: ManiAtoms, getset: GetSet): VerifyError[] | undefined {
     const errors =
-        getVerifyErrors_MainOptionsTab(maniAtoms, FormIdx.login, getset) ||
-        getVerifyErrors_MainOptionsTab(maniAtoms, FormIdx.cpass, getset);
+        getVerifyErrors_OptionsMainTab(maniAtoms, FormIdx.login, getset) ||
+        getVerifyErrors_OptionsMainTab(maniAtoms, FormIdx.cpass, getset);
     return errors;
 }
 

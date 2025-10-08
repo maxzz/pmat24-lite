@@ -5,7 +5,7 @@ import { type FormOptionsState } from "@/store/2-file-mani-atoms/3-options/2-con
 
 // Main options tab
 
-export function getVerifyErrors_MainOptionsTab(maniAtoms: ManiAtoms, formIdx: FormIdx, getset: GetSet): VerifyError[] | undefined {
+export function getVerifyErrors_OptionsMainTab(maniAtoms: ManiAtoms, formIdx: FormIdx, getset: GetSet): VerifyError[] | undefined {
     const formCtx = maniAtoms[formIdx];
     if (formCtx) {
         const toValidate = getToVerify(formCtx.options, formIdx, getset);
@@ -28,7 +28,7 @@ export function getVerifyErrors_MainOptionsTab(maniAtoms: ManiAtoms, formIdx: Fo
 
 // Form options tab
 
-export function getVerifyErrors_FormOptionsTab(atoms: FormOptionsState.AllAtoms, formIdx: FormIdx, getset: GetSet): VerifyError[] | undefined {
+export function getVerifyErrors_OptionsFormTab(atoms: FormOptionsState.AllAtoms, formIdx: FormIdx, getset: GetSet): VerifyError[] | undefined {
     const toValidate: RowInputStateAtoms = getToVerify(atoms, formIdx, getset);
 
     const rv: VerifyError[] = validateRowInputStateAtoms(toValidate, formIdx === FormIdx.login ? 'login' : 'cpass', getset);
@@ -36,6 +36,8 @@ export function getVerifyErrors_FormOptionsTab(atoms: FormOptionsState.AllAtoms,
 
     function getToVerify(atoms: FormOptionsState.AllAtoms, formIdx: FormIdx, { get }: GetOnly): RowInputStateAtoms {
         const { p2Detect, p5Icon, isWebAtom, murl_howAtom, murl_regexAtom } = atoms;
+
+        console.log('howw', +get(murl_howAtom).data);
 
         const isWeb = get(isWebAtom);
         const murl = isWeb && +get(murl_howAtom).data === Matching.How.regex ? { murl_regexAtom } : undefined;
