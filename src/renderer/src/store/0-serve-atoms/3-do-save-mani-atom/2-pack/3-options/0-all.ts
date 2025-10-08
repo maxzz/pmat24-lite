@@ -10,14 +10,18 @@ export function packFormOptions(optionsAtoms: FormOptionsState.AllAtoms, formIdx
         options: optionsForMani(detectionAndOptionsRow, formIdx),
     };
     // console.log('options', JSON.stringify(rv, null, 2).replace(/"names_ext":\s".*",/, '"names_ext": "...",'));
-    
+
     return rv;
 }
 
 function getMurl(detect: FormOptionsState.ForAtoms['p2Detect']): string { // If regex is the same as original URL then reset it to empty
     const md: Matching.RawMatchData = Matching.parseRawMatchData(detect.murl);
     const invalidRegex = md.how === Matching.How.regex && (md.url === detect.ourl || !md.url.trim()); // Don't need to check md.opt === Matching.Options.undef
-    const murl = invalidRegex ? '' : detect.murl;
+    const murl = invalidRegex
+        ? ''
+        : detect.murl === detect.ourl
+            ? ''
+            : detect.murl;
     return murl;
 }
 
