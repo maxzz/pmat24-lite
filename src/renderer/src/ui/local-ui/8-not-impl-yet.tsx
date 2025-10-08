@@ -1,9 +1,9 @@
-import { toast } from "sonner";
+import { toaster } from "@/ui/local-ui";
 
 export const notImplYet = {
-    onClick: () => toast.error("Not implemented yet")
+    onClick: () => toaster.error("Not implemented yet")
 };
 
 export const checkDevTools = {
-    onClick: () => toast.info("Check result in DevTools console")
+    onClick: () => toaster.info("Check result in DevTools console")
 };

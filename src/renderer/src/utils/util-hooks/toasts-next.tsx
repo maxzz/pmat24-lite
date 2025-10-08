@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { atom, useSetAtom } from "jotai";
-import { toast } from "sonner";
+import { toaster } from "@/ui/local-ui";
 
 const _nextToastIdAtom = atom<Array<string | number | undefined>>([]);
 
@@ -16,7 +16,7 @@ export const doDissmissNextToastsAtom = atom(
     null,
     (get, set) => {
         const ids = get(_nextToastIdAtom);
-        ids.forEach(toastId => toastId && toast.dismiss(toastId));
+        ids.forEach(toastId => toastId && toaster.dismiss(toastId));
         set(_nextToastIdAtom, []);
     }
 );

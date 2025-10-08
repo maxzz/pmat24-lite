@@ -1,7 +1,7 @@
 import { atom } from "jotai";
 import { delay, doAddNextToastIdAtom } from "@/utils";
 import { createGuid } from "@/store/manifest";
-import { toast } from "sonner";
+import { toaster } from "@/ui/local-ui";
 import { R2MCalls } from "@/xternal-to-main";
 import { addToTotalManis, appSettings } from "@/store/9-ui-state";
 import { pmExtensionMani, WebFsItem } from "@shared/ipc-types";
@@ -33,7 +33,7 @@ export const doMoveToSecondDlgAtom = atom(
 
         const hwnd = get(sawHandleAtom)?.hwnd;
         if (!hwnd) {
-            set(doAddNextToastIdAtom, toast.info('No application selected', { position: "top-center" }));
+            set(doAddNextToastIdAtom, toaster.info('No application selected', { position: "top-center" }));
             return;
         }
 

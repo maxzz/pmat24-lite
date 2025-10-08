@@ -2,7 +2,7 @@ import { WebFsItem } from "@shared/ipc-types";
 import { collectDndHandles, type DndHandle } from "./3-2-collect-dnd-handles";
 import { FileWithPath, getFilesFromDataTransferItems } from "../2-legacy-entries";
 import { type FolderNode, type FolderTree, pathsToFolderTree } from "./3-3-paths-to-tree";
-import { toast } from "sonner";
+import { toaster } from "@/ui/local-ui";
 
 /**
  * This is for modern and legay DnD items.
@@ -29,7 +29,7 @@ export async function collectWebDndItems(dataTransferItems: DataTransferItem[]):
             const [fullPath, handle, ownerDir] = handles[0];
             if (!handle || handle.kind !== 'directory') {
                 const text = handle.name.endsWith('.lnk') ? 'The Windows shortcut cannot be opened by the web version of PMAT.' : 'You can only open one folder at a time.';
-                toast.warning(text);
+                toaster.warning(text);
                 return rv;
             }
             if (handle.kind === 'directory') {

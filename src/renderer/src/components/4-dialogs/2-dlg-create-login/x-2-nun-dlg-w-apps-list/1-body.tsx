@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { atom, useAtom } from "jotai";
-import { toast } from "sonner";
+import { toaster } from "@/ui/local-ui";
 import * as D from "@/ui/shadcn/dialog";
 import { Button, ScrollArea } from "@/ui";
 import { IconRefresh } from "@/ui/icons";
@@ -15,7 +15,7 @@ export function DialogCreateManiBody({ setIsOpen }: { setIsOpen: (v: boolean) =>
     const toastIdAtom = useState(() => atom<string | number | undefined>(undefined))[0];
     const [toastId, setToastId] = useAtom(toastIdAtom);
 
-    useEffect(() => () => { toastId && toast.dismiss(toastId); }, [toastId]);
+    useEffect(() => () => { toastId && toaster.dismiss(toastId); }, [toastId]);
 
     return (
         <div className="min-h-56 text-xs">
@@ -36,7 +36,7 @@ export function DialogCreateManiBody({ setIsOpen }: { setIsOpen: (v: boolean) =>
                 <div className="mb-1 flex items-center justify-between">
                     Application windows
 
-                    <Button className="font-normal" variant="outline" size="xs" onClick={() => setToastId(toast('Updated'))} tabIndex={-1}>
+                    <Button className="font-normal" variant="outline" size="xs" onClick={() => setToastId(toaster('Updated'))} tabIndex={-1}>
                         <IconRefresh className="size-3" title="Refresh windows list" />
                     </Button>
                 </div>

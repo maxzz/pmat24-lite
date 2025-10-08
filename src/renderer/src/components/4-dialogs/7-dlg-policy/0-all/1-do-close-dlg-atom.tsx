@@ -1,7 +1,7 @@
 import { atom } from "jotai";
 import { Mani } from "@/store/manifest";
 import { PolicyDlgConv, type PolicyDlgTypes } from "./0-conv";
-import { toast } from "sonner";
+import { toaster } from "@/ui/local-ui";
 import { doUpdateExplanationAtom } from "./1-util-atoms";
 
 type DoClosePolicyDlgAtomCtx = {
@@ -32,7 +32,7 @@ export const doClosePolicyDlgAtom = atom(null,
         const isCustom = state.isCustom;
         if (isCustom && !state.custom) {
             const msg = 'Custom rule is empty';
-            const toastId = toast.error(msg);
+            const toastId = toaster.error(msg);
             set(dlgUiCtx.errorTextAtom, msg);
             set(toastIdAtom, toastId);
             return;
@@ -42,7 +42,7 @@ export const doClosePolicyDlgAtom = atom(null,
         if (!isValid) {
             const msg = state.minLen.error || state.maxLen.error || 'Min length must be less than max length';
 
-            const toastId = toast.error(msg);
+            const toastId = toaster.error(msg);
             set(toastIdAtom, toastId);
 
             console.log('Dlg. close: toastId from atom', toastId);
@@ -65,7 +65,7 @@ export const doClosePolicyDlgAtom = atom(null,
 
 function resetOnCancelClose({ dlgUiCtx, policiesAtom, toastIdAtom }: DoClosePolicyDlgAtomCtx, { get, set }: GetSet) {
     const toastId = get(toastIdAtom);
-    toastId && toast.dismiss(toastId);
+    toastId && toaster.dismiss(toastId);
 
     set(policiesAtom, dlgUiCtx.original);
 

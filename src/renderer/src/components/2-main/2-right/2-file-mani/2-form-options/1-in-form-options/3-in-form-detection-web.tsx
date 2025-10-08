@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useAtomValue } from "jotai";
 import { classNames } from "@/utils";
 import { AnimatePresence, motion } from "motion/react";
-import { toast } from "sonner";
+import { toaster } from "@/ui/local-ui";
 import { Matching } from "@/store/manifest";
 import { SymbolInfo, SymbolLockClosed, SymbolLockOpen } from "@/ui/icons";
 import { type OFormProps } from "@/store/2-file-mani-atoms";
@@ -44,7 +44,7 @@ export function DetectionContent_Web({ oFormProps }: { oFormProps: OFormProps; }
                         labelClasses="font-normal"
                         className={classNames(isLocked ? 'opacity-75 cursor-default' : '')}
                         readOnly={isLocked}
-                        onClick={() => isLocked && toast.info("This input is locked by default. Only change it if you understand what you're doing.")}
+                        onClick={() => isLocked && toaster.info("This input is locked by default. Only change it if you understand what you're doing.")}
                         onBlur={() => setIsLocked(true)}
                     />
                     <BtnCopyOurl ourlAtom={ourlAtom} />

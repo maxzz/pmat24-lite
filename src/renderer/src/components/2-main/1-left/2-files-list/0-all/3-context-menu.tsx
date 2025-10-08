@@ -5,7 +5,7 @@ import { hasMain } from "@/xternal-to-main";
 import { appSettings } from "@/store/9-ui-state";
 import { rightPanelAtomGetterAtom } from "@/store/5-3-right-panel";
 import { ContextMenu, ContextMenuContent, ContextMenuItem, ContextMenuTrigger } from "@/ui/shadcn";
-import { toast } from "sonner";
+import { toaster } from "@/ui/local-ui";
 import { doDeleteFileUsAtom, doRevealInExplorerAtom, doManiNameDlgAtom, doGetFileUsPathAtom } from "@/store/0-serve-atoms";
 
 export function FilesTreeViewContextMenu({ children }: { children: ReactNode; }) {
@@ -83,5 +83,5 @@ function ContextItems() {
 }
 
 function toastError(msg: string = 'No file selected') {
-    toast.error(msg, { position: "top-center" });
+    toaster.error(msg, { position: "top-center" });
 }

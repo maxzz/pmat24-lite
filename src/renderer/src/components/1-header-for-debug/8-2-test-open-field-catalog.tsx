@@ -4,7 +4,7 @@ import { useSnapshot } from "valtio";
 import { appSettings } from "@/store/9-ui-state";
 import { type FceDlgIn, type FceDlgOut, doOpenFceDlgAtom, hasRootFceAtoms } from "@/store/3-field-catalog-atoms";
 import { Button } from "@/ui";
-import { toast } from "sonner";
+import { toaster } from "@/ui/local-ui";
 
 export function TestOpenFieldCatalog() {
     const { fcAllowed } = useSnapshot(appSettings.files.shownManis);
@@ -14,7 +14,7 @@ export function TestOpenFieldCatalog() {
 
     function onClick() {
         if (!hasRootFceAtoms()) {
-            toast.warning((
+            toaster.warning((
                 <div className="text-zinc-700">
                     The field catalog is not available until the folder is opened. Open the folder first.
                 </div>

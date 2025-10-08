@@ -1,6 +1,6 @@
 import { atom } from "jotai";
 import { delay } from "@/utils";
-import { toast } from "sonner";
+import { toaster } from "@/ui/local-ui";
 import { addToTotalManis, appSettings, busyIndicator, clearTotalManis } from "@/store/9-ui-state";
 import { doDisposeAllFilesAtomAtom } from "@/store/store-utils";
 import { type FileUs } from "@/store/store-types";
@@ -74,7 +74,7 @@ export const doSetDeliveredFilesAtom = atom(
         clearTotalManis();
 
         if (isRootDirEmpty()) { // block multiple files or folders
-            !runningClearFiles && toast.warning('Opening multiple files or folders is not allowed. Drag and drop one folder.');
+            !runningClearFiles && toaster.warning('Opening multiple files or folders is not allowed. Drag and drop one folder.');
             deliveredFileContents = [];
             runningClearFiles = true;
             setRootDir(undefinedPmatFolder());
@@ -151,7 +151,7 @@ function showUnsupportedFilesMsg(unsupported: FileUs[]) {
         </div>
     );
 
-    toast.warning(msg, {
+    toaster.warning(msg, {
         // TODO: add details popup dialog
         // action: { label: 'Details', onClick: () => { console.log('Unsupported files:', unsupported); }, }
     });

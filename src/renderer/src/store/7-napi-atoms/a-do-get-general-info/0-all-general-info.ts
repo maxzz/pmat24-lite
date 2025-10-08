@@ -1,4 +1,4 @@
-import { toast } from "sonner";
+import { toaster } from "@/ui/local-ui";
 import { hasMain, invokeMainTyped } from "@/xternal-to-main";
 
 export async function asyncGetAboutInfo(): Promise<string> {
@@ -6,7 +6,7 @@ export async function asyncGetAboutInfo(): Promise<string> {
         const rv = hasMain() ? await invokeMainTyped({ type: 'r2mi:get-general-info' }) : defAbount; // JSON.parse(rv) as GeneralInfoResult
         return rv;
     } catch (error) {
-        toast.error(`Cannot get general info: ${error}`);
+        toaster.error(`Cannot get general info: ${error}`);
         return '{}';
     }
 }

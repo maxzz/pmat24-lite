@@ -3,7 +3,7 @@ import { useSetAtom } from "jotai";
 import { classNames, doAddNextToastIdAtom, errorToString } from "@/utils";
 import { motion } from "motion/react";
 import { Button } from "@/ui/shadcn";
-import { toast } from "sonner";
+import { toaster } from "@/ui/local-ui";
 import { IconRefresh } from "@/ui/icons";
 import { ProgressFeedback } from "./3-btn-refresh-progress";
 import { newManiCtx } from "../../../0-new-mani-ctx";
@@ -22,11 +22,11 @@ export function ButtonReloadApps({ className }: ComponentProps<"button">) {
         setRefreshInProgress(true);
         try {
             await doRefreshApps();
-            setToastId(toast.info('Windows list updated'));
+            setToastId(toaster.info('Windows list updated'));
         } catch (error) {
             const msg = errorToString(error);
             console.error(`'updateApps' ${msg}`);
-            toast.error(`'updateApps' ${msg}`);
+            toaster.error(`'updateApps' ${msg}`);
         }
         setRefreshInProgress(false);
     }
