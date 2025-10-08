@@ -9,7 +9,7 @@ export function stopIfInvalidAny(maniAtoms: ManiAtoms, getset: GetSet): boolean 
     const checkOrder = new Map<ManiTabValue, ValidationFn>(defaultValidationOrder);
     const currentTab = appSettings.right.mani.activeTab;
 
-    let errors: VerifyError[] | undefined = checkOrder[currentTab]?.(maniAtoms, getset); // Start validation from the current tab and then the rest.
+    let errors: VerifyError[] | undefined = checkOrder.get(currentTab)?.(maniAtoms, getset); // Start validation from the current tab and then the rest.
 
     if (!errors?.length) {
         checkOrder.delete(currentTab);
