@@ -37,8 +37,6 @@ export function getVerifyErrors_OptionsFormTab(atoms: FormOptionsState.AllAtoms,
     function getToVerify(atoms: FormOptionsState.AllAtoms, formIdx: FormIdx, { get }: GetOnly): RowInputStateAtoms {
         const { p2Detect, p5Icon, isWebAtom, murl_howAtom, murl_regexAtom } = atoms;
 
-        console.log('howw', get(murl_howAtom));
-
         const isWeb = get(isWebAtom);
         const murl = isWeb && +get(murl_howAtom).data === Matching.How.regex ? { murl_regexAtom } : undefined;
 

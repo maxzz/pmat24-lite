@@ -12,7 +12,7 @@ export namespace OptionsState {
 
         function onChange(updateName: string): OnValueChange<RowInputState> {
             const debouncedOnChangeWithNameScope = debounce(onChangeWithScope);
-            
+
             return function OnChangeWithNameScope({ get, set, nextValue }) {
                 debouncedOnChangeWithNameScope(updateName, nextValue, { fileUsCtx, get, set });
             };
@@ -39,7 +39,6 @@ function onChangeWithScope(updateName: string, nextValue: RowInputState, { fileU
 
     if (updateName === 'murl_regex') {
         set(updateAfterRegexUrlChangeAtom, { oFormCtx }); // This will update murl and trigger onChangeWithScope
-        return;
     }
 
     if (updateName === 'murl') {
