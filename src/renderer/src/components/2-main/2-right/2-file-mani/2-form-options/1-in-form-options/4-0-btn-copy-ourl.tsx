@@ -7,7 +7,9 @@ export function BtnCopyOurl({ ourlAtom }: { ourlAtom: PA<RowInputState>; }) {
 
     return (<>
         {!!ourl && (
-            <IconCopy className="size-full" title="Copy original URL" onClick={() => navigator.clipboard.writeText(ourl)} />
+            <div className="absolute right-2 top-7 text-foreground">
+                <IconCopy className="size-4" title="Copy original URL" onClick={() => navigator.clipboard.writeText(ourl)} />
+            </div>
         )}
     </>);
 }

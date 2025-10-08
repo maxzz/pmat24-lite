@@ -26,8 +26,6 @@ export function DetectionContent_Web({ oFormProps }: { oFormProps: OFormProps; }
         <AccordionWithTrigger name='form-detection' formIdx={formIdx} triggerText="Screen detection">
             <div className={textClasses}>
                 <div className="relative">
-                    <BtnCopyOurl ourlAtom={ourlAtom} />
-                    
                     <InputWithTitle2Rows
                         asTextarea
                         stateAtom={ourlAtom}
@@ -49,6 +47,7 @@ export function DetectionContent_Web({ oFormProps }: { oFormProps: OFormProps; }
                         onClick={() => isLocked && toast.info("This input is locked by default. Only change it if you understand what you're doing.")}
                         onBlur={() => setIsLocked(true)}
                     />
+                    <BtnCopyOurl ourlAtom={ourlAtom} />
                 </div>
 
                 <div className="mt-2 flex items-center gap-2">
