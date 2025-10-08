@@ -1,4 +1,4 @@
-import { toast } from "sonner";
+import { toaster } from "@/ui/local-ui";
 import { appSettings } from "@/store/9-ui-state";
 import { FormIdx } from "@/store/manifest";
 import { type ManiAtoms, type ManiTabValue, type VerifyError } from "@/store/2-file-mani-atoms/9-types";
@@ -52,7 +52,7 @@ function showValidationErrors(verifyErrors: VerifyError[]): void {
         }
     );
 
-    toast.error(<div className="flex flex-col">{messages}</div>);
+    toaster.error(<div className="flex flex-col">{messages}</div>);
 };
 
 // Utilities
