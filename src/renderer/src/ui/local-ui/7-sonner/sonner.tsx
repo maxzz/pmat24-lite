@@ -3,7 +3,7 @@ import { IconStopCircle, SymbolInfo, SymbolWarning } from "../../icons";
 
 type ToasterProps = React.ComponentProps<typeof Sonner>;
 
-const toastClasses = "\
+const defaultToastClasses = "\
 group toast \
 group-[.toaster]:text-xs \
 group-[.toaster]:text-slate-600 \
@@ -82,15 +82,16 @@ export function Toaster(props: ToasterProps) {
             className="toaster group"
             toastOptions={{
                 classNames: {
-                    toast: toastClasses,
-                    closeButton: closeButtonClasses,
+                    toast: defaultToastClasses,
                     success: successClasses,
                     error: errorClasses,
                     info: infoClasses,
                     warning: warningClasses,
+                    
                     description: descriptionClasses,
                     actionButton: actionButtonClasses,
                     cancelButton: cancelButtonClasses,
+                    closeButton: closeButtonClasses,
                 },
             }}
             icons={{
