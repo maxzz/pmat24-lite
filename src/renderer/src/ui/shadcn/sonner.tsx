@@ -39,9 +39,11 @@ group-[.toaster]:shadow-md \
 ";
 
 const infoClasses = "\
-group-[.toaster]:text-white \
-group-[.toaster]:bg-sky-600 \
-group-[.toaster]:border-sky-700 \
+group-[.toaster]:text-foreground \
+group-[.toaster]:bg-sky-100 \
+group-[.toaster]:border-sky-500 \
+dark:group-[.toaster]:bg-sky-900 \
+dark:group-[.toaster]:border-sky-400 \
 group-[.toaster]:shadow-muted-foreground/30 \
 group-[.toaster]:shadow-md \
 ";
