@@ -1,5 +1,5 @@
 import { Toaster as Sonner } from "sonner";
-import { SymbolInfo } from "../icons";
+import { SymbolInfo, SymbolWarning } from "../icons";
 
 type ToasterProps = React.ComponentProps<typeof Sonner>;
 
@@ -40,24 +40,23 @@ group-[.toaster]:shadow-md \
 ";
 
 const infoClasses = "\
-group-[.toaster]:text-foreground \
-group-[.toaster]:bg-sky-100 \
-group-[.toaster]:border-sky-500 \
-dark:group-[.toaster]:bg-sky-900 \
-dark:group-[.toaster]:border-sky-400 \
+group-[.toaster]:text-blue-800 \
+dark:group-[.toaster]:text-blue-400 \
+group-[.toaster]:bg-sky-50 \
+group-[.toaster]:border-sky-300 \
+dark:group-[.toaster]:bg-blue-950 \
+dark:group-[.toaster]:border-blue-600 \
 group-[.toaster]:shadow-muted-foreground/30 \
 group-[.toaster]:shadow-md \
 ";
 
 const warningClasses = "\
-group-[.toaster]:text-orange-950 \
-group-[.toaster]:bg-orange-400 \
-group-[.toaster]:border-orange-500 \
+group-[.toaster]:text-orange-600 \
+group-[.toaster]:bg-yellow-50 \
+group-[.toaster]:border-yellow-500 \
 group-[.toaster]:shadow-muted-foreground/30 \
 group-[.toaster]:shadow-md \
 ";
-
-const IconInfo = <SymbolInfo className="size-5 text-blue-600" />;
 
 /**
  * To use toast() from anywhere, even wo/ hooks context, simply add <Toaster /> into <App> component.
@@ -83,10 +82,10 @@ export function Toaster(props: ToasterProps) {
             }}
             icons={{
                 // success: <SuccessIcon />,
-                info: <>{IconInfo}</>,
-                // warning: <WarningIcon />,
-                // error: <ErrorIcon />,
-                // loading: <LoadingIcon />,
+                // info: <SymbolInfo className="size-5 text-blue-600" />,
+                warning: <SymbolWarning className="size-5 text-orange-600" />,
+                // error: <IconError />,
+                // loading: <IconLoading />,
             }}
             richColors
             {...props}
