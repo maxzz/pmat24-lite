@@ -44,7 +44,8 @@ export function DetectionContent_Web({ oFormProps }: { oFormProps: OFormProps; }
                         labelClasses="font-normal"
                         className={classNames(isLocked ? 'opacity-75 cursor-default' : '')}
                         readOnly={isLocked}
-                        // onClick={() => isLocked && toaster.info("This input is locked by default. Only change it if you understand what you're doing.")}
+                        onClick={() => isLocked && toaster.info("This input is locked by default. Only change it if you understand what you're doing.")}
+                        /** /
                         onClick={() => {
                             toaster.error("This input is locked by default. Only change it if you understand what you're doing.", { duration: 270001 });
                             toaster.warning("This input is locked by default. Only change it if you understand what you're doing.", { duration: 270001 });
@@ -52,6 +53,7 @@ export function DetectionContent_Web({ oFormProps }: { oFormProps: OFormProps; }
                             toaster.info("This input is locked by default. Only change it if you understand what you're doing.", { duration: 270001 });
                             toaster("This input is locked by default. Only change it if you understand what you're doing.", { duration: 270001 });
                         }}
+                        /**/
                         onBlur={() => setIsLocked(true)}
                     />
                     <BtnCopyOurl ourlAtom={ourlAtom} />
