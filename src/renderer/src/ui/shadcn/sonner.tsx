@@ -32,8 +32,8 @@ group-[.toast]:bg-muted \
 
 const errorClasses = "\
 group-[.toaster]:text-white \
-group-[.toaster]:bg-red-600 \
-group-[.toaster]:border-red-700 \
+group-[.toaster]:bg-red-700 \
+group-[.toaster]:border-red-800 \
 group-[.toaster]:shadow-muted-foreground/30 \
 group-[.toaster]:shadow-md \
 ";
@@ -49,7 +49,7 @@ group-[.toaster]:shadow-md \
 ";
 
 const warningClasses = "\
-group-[.toaster]:text-black \
+group-[.toaster]:text-orange-950 \
 group-[.toaster]:bg-orange-400 \
 group-[.toaster]:border-orange-500 \
 group-[.toaster]:shadow-muted-foreground/30 \
