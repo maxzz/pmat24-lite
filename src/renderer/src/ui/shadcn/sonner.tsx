@@ -6,9 +6,13 @@ type ToasterProps = React.ComponentProps<typeof Sonner>;
 const toastClasses = "\
 group toast \
 group-[.toaster]:text-xs \
-group-[.toaster]:text-foreground \
-group-[.toaster]:bg-background \
-group-[.toaster]:border-border \
+group-[.toaster]:text-slate-600 \
+group-[.toaster]:bg-slate-100 \
+group-[.toaster]:border-slate-400 \
+dark:group-[.toaster]:text-slate-200 \
+dark:group-[.toaster]:bg-background \
+dark:group-[.toaster]:border-slate-500 \
+group-[.toaster]:shadow-muted-foreground/30 \
 group-[.toaster]:shadow-lg \
 ";
 
@@ -32,36 +36,36 @@ group-[.toast]:bg-muted \
 ";
 
 const successClasses = "\
-group-[.toaster]:text-green-500 \
-group-[.toaster]:bg-green-100 \
-group-[.toaster]:border-green-400 \
+group-[.toaster]:!text-green-600 \
+group-[.toaster]:!bg-green-50 \
+group-[.toaster]:!border-green-400 \
 group-[.toaster]:shadow-muted-foreground/30 \
 group-[.toaster]:shadow-md \
 ";
 
 const errorClasses = "\
-group-[.toaster]:text-red-500 \
-group-[.toaster]:bg-red-100 \
-group-[.toaster]:border-red-400 \
+group-[.toaster]:!text-red-500 \
+group-[.toaster]:!bg-red-100 \
+group-[.toaster]:!border-red-400 \
 group-[.toaster]:shadow-muted-foreground/30 \
 group-[.toaster]:shadow-md \
 ";
 
 const infoClasses = "\
-group-[.toaster]:text-blue-800 \
-dark:group-[.toaster]:text-blue-400 \
-group-[.toaster]:bg-sky-50 \
-group-[.toaster]:border-sky-300 \
-dark:group-[.toaster]:bg-blue-950 \
-dark:group-[.toaster]:border-blue-600 \
+group-[.toaster]:!text-blue-800 \
+dark:group-[.toaster]:!text-blue-400 \
+group-[.toaster]:!bg-sky-50 \
+group-[.toaster]:!border-sky-300 \
+dark:group-[.toaster]:!bg-blue-950 \
+dark:group-[.toaster]:!border-blue-600 \
 group-[.toaster]:shadow-muted-foreground/30 \
 group-[.toaster]:shadow-md \
 ";
 
 const warningClasses = "\
-group-[.toaster]:text-orange-600 \
-group-[.toaster]:bg-yellow-50 \
-group-[.toaster]:border-yellow-500 \
+group-[.toaster]:!text-orange-600 \
+group-[.toaster]:!bg-yellow-50 \
+group-[.toaster]:!border-yellow-500 \
 group-[.toaster]:shadow-muted-foreground/30 \
 group-[.toaster]:shadow-md \
 ";
