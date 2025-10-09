@@ -1,4 +1,5 @@
 import { Toaster as Sonner } from "sonner";
+import { SymbolInfo } from "../icons";
 
 type ToasterProps = React.ComponentProps<typeof Sonner>;
 
@@ -56,6 +57,8 @@ group-[.toaster]:shadow-muted-foreground/30 \
 group-[.toaster]:shadow-md \
 ";
 
+const IconInfo = <SymbolInfo className="size-5 text-blue-600" />;
+
 /**
  * To use toast() from anywhere, even wo/ hooks context, simply add <Toaster /> into <App> component.
  * https://sonner.emilkowal.ski - docs
@@ -77,6 +80,13 @@ export function Toaster(props: ToasterProps) {
                     actionButton: actionButtonClasses,
                     cancelButton: cancelButtonClasses,
                 },
+            }}
+            icons={{
+                // success: <SuccessIcon />,
+                info: <>{IconInfo}</>,
+                // warning: <WarningIcon />,
+                // error: <ErrorIcon />,
+                // loading: <LoadingIcon />,
             }}
             richColors
             {...props}
