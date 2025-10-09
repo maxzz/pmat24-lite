@@ -2,9 +2,9 @@ import { type ReactNode } from "react";
 import { useSnapshot } from "valtio";
 import { appSettings } from "@/store/9-ui-state";
 import { FormIdx } from "@/store/manifest";
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger, } from "@/ui/shadcn/accordion";
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/ui/shadcn/accordion";
 
-export function SubSection({ value, label, children }: { value: string; label: ReactNode; children: ReactNode; }) {
+/*export*/ function SubSection({ value, label, children }: { value: string; label: ReactNode; children: ReactNode; }) {
     return (
         <AccordionItem value={value} className="border-none">
             <div className="inline-block">
@@ -20,9 +20,13 @@ export function SubSection({ value, label, children }: { value: string; label: R
     );
 }
 
-export function OptionsSectionsAccordion({ formIdx, children }: { formIdx: FormIdx; children: ReactNode; }) {
-    const value = useSnapshot(appSettings).right.mani.openInForms[formIdx];
-    const onValueChange = (v: string[]) => appSettings.right.mani.openInForms[formIdx] = v;
+/*export*/ function OptionsSectionsAccordion({ formIdx, children }: { formIdx: FormIdx; children: ReactNode; }) {
+    const value = useSnapshot(appSettings).right.mani.nunOpenInForms[formIdx];
+
+    function onValueChange(v: string[]) {
+        return appSettings.right.mani.nunOpenInForms[formIdx] = v;
+    }
+
     return (
         <Accordion value={value as string[]} onValueChange={onValueChange} type="multiple">
             {children}

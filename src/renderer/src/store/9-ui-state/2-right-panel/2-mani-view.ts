@@ -9,23 +9,22 @@ type ManiEditorState = {
     nToGenerate: number;                    // Number of passwords to generate
 };
 
-type FormOpenSections = {
-    [FormIdx.login]: string[],
-    [FormIdx.cpass]: string[],
-};
-
-type FormOpenOptions = {
+type OpensAsStrBool = {
     [FormIdx.login]: Record<string, boolean>,
     [FormIdx.cpass]: Record<string, boolean>,
+};
+
+type OpensAsArray = {
+    [FormIdx.login]: string[],
+    [FormIdx.cpass]: string[],
 };
 
 export type MainViewSettings = {
     mani:
     ManiEditorState
     & {
-        openGeneral: boolean;
-        openInOptions: FormOpenOptions;
-        openInForms: FormOpenSections;
+        openInOptions: OpensAsStrBool;
+        nunOpenInForms: OpensAsArray;
     };
 };
 
@@ -37,21 +36,16 @@ const defaultManiEditorState: ManiEditorState = {
     nToGenerate: 50,
 };
 
-const defaultFormOpenSections: FormOpenSections = {
-    [FormIdx.login]: [],
-    [FormIdx.cpass]: [],
-};
-
-const defaultFormOpenOptions: FormOpenOptions = {
-    [FormIdx.login]: {},
-    [FormIdx.cpass]: {},
-};
-
 export const defaultMainViewSettings: MainViewSettings = {
     mani: {
         ...defaultManiEditorState,
-        openGeneral: false,
-        openInOptions: defaultFormOpenOptions,
-        openInForms: defaultFormOpenSections,
+        openInOptions: {
+            [FormIdx.login]: {},
+            [FormIdx.cpass]: {},
+        },
+        nunOpenInForms: {
+            [FormIdx.login]: [],
+            [FormIdx.cpass]: [],
+        },
     },
 };
