@@ -14,10 +14,7 @@ type OpensAsStrBool = {
     [FormIdx.cpass]: Record<string, boolean>,
 };
 
-type OpensAsArray = {
-    [FormIdx.login]: string[],
-    [FormIdx.cpass]: string[],
-};
+type OpensAsArray = Record<string, string[]>; // key is formIdx as 0/1, value is array of section names
 
 export type MainViewSettings = {
     mani:
