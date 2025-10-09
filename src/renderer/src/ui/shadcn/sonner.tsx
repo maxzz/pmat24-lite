@@ -1,5 +1,5 @@
 import { Toaster as Sonner } from "sonner";
-import { SymbolInfo, SymbolWarning } from "../icons";
+import { IconStopCircle, SymbolInfo, SymbolWarning } from "../icons";
 
 type ToasterProps = React.ComponentProps<typeof Sonner>;
 
@@ -31,10 +31,18 @@ group-[.toast]:text-muted-foreground \
 group-[.toast]:bg-muted \
 ";
 
+const successClasses = "\
+group-[.toaster]:text-green-500 \
+group-[.toaster]:bg-green-100 \
+group-[.toaster]:border-green-400 \
+group-[.toaster]:shadow-muted-foreground/30 \
+group-[.toaster]:shadow-md \
+";
+
 const errorClasses = "\
-group-[.toaster]:text-white \
-group-[.toaster]:bg-red-700 \
-group-[.toaster]:border-red-800 \
+group-[.toaster]:text-red-500 \
+group-[.toaster]:bg-red-100 \
+group-[.toaster]:border-red-400 \
 group-[.toaster]:shadow-muted-foreground/30 \
 group-[.toaster]:shadow-md \
 ";
@@ -72,6 +80,7 @@ export function Toaster(props: ToasterProps) {
                 classNames: {
                     toast: toastClasses,
                     closeButton: closeButtonClasses,
+                    success: successClasses,
                     error: errorClasses,
                     info: infoClasses,
                     warning: warningClasses,
@@ -84,7 +93,9 @@ export function Toaster(props: ToasterProps) {
                 // success: <SuccessIcon />,
                 // info: <SymbolInfo className="size-5 text-blue-600" />,
                 warning: <SymbolWarning className="size-5 text-orange-600" />,
-                // error: <IconError />,
+                error: <SymbolInfo className="size-5 text-orange-600" />,
+                // error: <IconStopCircle className="size-5 text-orange-600" />,
+                // error: <SymbolWarning className="size-5 text-orange-600" />,
                 // loading: <IconLoading />,
             }}
             richColors
