@@ -51,7 +51,7 @@
         "autoprefixer": "^10.4.21",
         "browser-fs-access": "^0.38.0",
         "class-variance-authority": "^0.7.1",
-        "electron": "38.2.1",
+        "electron": "38.2.2",
         "electron-builder": "^26.0.12",
         "electron-vite": "^4.0.1",
         "idb-keyval": "^6.2.2",
