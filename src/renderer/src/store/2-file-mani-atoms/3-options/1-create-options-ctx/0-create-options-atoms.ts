@@ -35,7 +35,7 @@ function onChangeWithScope(updateName: string, nextValue: RowInputState, { fileU
         return;
     }
 
-    printChanges(updateName, nextValue, oFormCtx);
+    //printChanges(updateName, nextValue, oFormCtx);
 
     if (updateName === 'murl_regex') {
         set(updateAfterRegexUrlChangeAtom, { oFormCtx }); // This will update murl and trigger onChangeWithScope
