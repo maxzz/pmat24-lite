@@ -3,7 +3,7 @@ export * from "./2-dropdown5";
 export * from "./3-ui-arrow";
 
 export * from "./4-input-select-ui";
-export * from "./7-toaster";
+export * from "./7-sonner";
 
 export * from "./8-image-holder";
 export * from "./8-not-impl-yet";
