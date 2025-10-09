@@ -1,5 +1,5 @@
 import { Toaster as Sonner } from "sonner";
-import { IconStopCircle, SymbolInfo, SymbolWarning } from "../icons";
+import { IconStopCircle, SymbolInfo, SymbolWarning } from "../../icons";
 
 type ToasterProps = React.ComponentProps<typeof Sonner>;
 

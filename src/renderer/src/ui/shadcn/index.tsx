@@ -15,7 +15,6 @@ export * from "./radio-group";
 export * from "./resizable";
 export * from "./scroll-area";
 export * from "./select";
-export * from "./sonner";
 export * from "./switch";
 export * from "./tabs";
 export * from "./textarea-auto-grow";
