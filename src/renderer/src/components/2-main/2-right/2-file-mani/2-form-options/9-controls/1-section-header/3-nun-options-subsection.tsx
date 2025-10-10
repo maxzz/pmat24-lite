@@ -1,6 +1,6 @@
 import { type ReactNode } from "react";
-import { useSnapshot } from "valtio";
-import { appSettings } from "@/store/9-ui-state";
+import { proxy, useSnapshot } from "valtio";
+//import { appSettings } from "@/store/9-ui-state";
 import { FormIdx } from "@/store/manifest";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/ui/shadcn/accordion";
 
@@ -21,11 +21,11 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/
 }
 
 /*export*/ function OptionsSectionsAccordion({ formIdx, children }: { formIdx: FormIdx; children: ReactNode; }) {
-    const { nunOpenedArrays: nunOpenInForms } = useSnapshot(appSettings.right.mani);
-    const value = nunOpenInForms[`${formIdx}`] || [];
+    const opened = useSnapshot(openedStates);
+    const value = opened[`${formIdx}`] || [];
 
     function onValueChange(v: string[]) {
-        return appSettings.right.mani.nunOpenedArrays[`${formIdx}`] = v;
+        return openedStates[`${formIdx}`] = v;
     }
 
     return (
@@ -34,3 +34,7 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/
         </Accordion>
     );
 }
+
+// Nun: here just to keep this file code working
+type OpenedArrays = Record<string, string[]>; // key is formIdx as 0/1, value is array of section names
+const openedStates = proxy<OpenedArrays>({});

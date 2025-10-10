@@ -14,7 +14,6 @@ export type MainViewSettings = {
     ManiEditorState
     & {
         opened: Record<string, boolean>;
-        nunOpenedArrays: Record<string, string[]>; // key is formIdx as 0/1, value is array of section names
     };
 };
 
@@ -30,7 +29,6 @@ export const defaultMainViewSettings: MainViewSettings = {
     mani: {
         ...defaultManiEditorState,
         opened: {},
-        nunOpenedArrays: {},
     },
 };
 
