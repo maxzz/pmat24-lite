@@ -9,18 +9,18 @@ export function opensName(formIdx: FormIdx, name: string): string { // Name of o
 
 // 1-right-panel-view
 
-export const enum RightPanelViewType {
-    forms,  // show login / password change forms
-    xml,    // show XML
+export const enum RightPanelViewAs {
+    forms,                              // show login or password change forms
+    xml,                                // show XML
 }
 
 // 2-mani-view
 
 type ManiEditorState = {
-    activeTab: ManiTabValue;                // 'options' | 'login' | 'cpass'
-    opened: Record<string, boolean>;        // Is collapse item open
-    openTestArea: boolean;                  // Password Policy Dialog: Is the test area open
-    nToGenerate: number;                    // Password Policy Dialog: Number of passwords to generate
+    activeTab: ManiTabValue;            // 'options' | 'login' | 'cpass'
+    opened: Record<string, boolean>;    // Is collapse item open
+    openTestArea: boolean;              // Password Policy Dialog: Is the test area open
+    nToGenerate: number;                // Password Policy Dialog: Number of passwords to generate
 };
 
 const defaultManiEditorState: ManiEditorState = {
@@ -33,7 +33,7 @@ const defaultManiEditorState: ManiEditorState = {
 //
 
 export const defaultRightPanelSettings = {
-    activeView: RightPanelViewType.forms,
+    activeView: RightPanelViewAs.forms,
     mani: { ...defaultManiEditorState },
 };
 

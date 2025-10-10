@@ -2,7 +2,7 @@ import { useSnapshot } from "valtio";
 import { classNames } from "@/utils";
 import { Button } from "@/ui";
 import { SymbolCode } from "@/ui/icons";
-import { appSettings, RightPanelViewType } from "@/store/9-ui-state";
+import { appSettings, RightPanelViewAs } from "@/store/9-ui-state";
 
 export function ButtonQuickXml() {
     const { activeView } = useSnapshot(appSettings).right;
@@ -12,10 +12,10 @@ export function ButtonQuickXml() {
         return null;
     }
 
-    const isXml = activeView === RightPanelViewType.xml;
+    const isXml = activeView === RightPanelViewAs.xml;
 
     function chageView() {
-        return appSettings.right.activeView = isXml ? RightPanelViewType.forms : RightPanelViewType.xml;
+        return appSettings.right.activeView = isXml ? RightPanelViewAs.forms : RightPanelViewAs.xml;
     }
 
     return (

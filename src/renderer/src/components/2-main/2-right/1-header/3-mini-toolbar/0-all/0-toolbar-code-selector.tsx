@@ -1,10 +1,10 @@
 import { type FileUs } from "@/store/store-types";
-import { appSettings, RightPanelViewType } from "@/store/9-ui-state";
+import { appSettings, RightPanelViewAs } from "@/store/9-ui-state";
 import { ButtonQuickXml } from "../3-btn-quick-xml";
 import { Button_AddItem, Button_DeleteItem, Button_Filter } from "../2-fc-tools";
 
 export function ToolbarCodeSelector({ fileUs }: { fileUs: FileUs; }) {
-    if (appSettings.right.activeView === RightPanelViewType.xml) {
+    if (appSettings.right.activeView === RightPanelViewAs.xml) {
         return <ToolbarContentForXml fileUs={fileUs} />;
     }
 

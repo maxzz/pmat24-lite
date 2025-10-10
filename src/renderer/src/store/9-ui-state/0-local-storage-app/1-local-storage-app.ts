@@ -7,7 +7,7 @@ import { type FileListSettings, defaultFileListSettings } from "../1-files-list"
 import { type RightPanelSettings, defaultRightPanelSettings } from "../2-right-panel";
 import { type AppUISettings, defaultAppUISettings } from "../8-app-ui";
 
-export { RightPanelViewType, opensName } from "../2-right-panel";
+export { RightPanelViewAs, opensName } from "../2-right-panel";
 
 const STORE_KEY = "pmat25-ui";
 const STORE_VER = 'v3.1'; // fix for network share MRU list; new opened section

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useSnapshot } from "valtio";
-import { appSettings, RightPanelViewType } from "@/store/9-ui-state";
+import { appSettings, RightPanelViewAs } from "@/store/9-ui-state";
 import { DropdownMenu, DropdownMenuCheckboxItem, DropdownMenuContent, DropdownMenuSeparator, DropdownMenuTrigger } from "@/ui/shadcn/dropdown-menu";
 import { Button } from "@/ui/shadcn";
 import { IconMenuHamburger5 } from "@/ui/icons";
@@ -32,8 +32,8 @@ export function MenuItem_ShowXML() {
     const { activeView } = useSnapshot(appSettings).right;
     return (
         <DropdownMenuCheckboxItem
-            checked={activeView === RightPanelViewType.xml}
-            onCheckedChange={(checked) => appSettings.right.activeView = checked ? RightPanelViewType.xml : RightPanelViewType.forms}
+            checked={activeView === RightPanelViewAs.xml}
+            onCheckedChange={(checked) => appSettings.right.activeView = checked ? RightPanelViewAs.xml : RightPanelViewAs.forms}
         >
             Show XML
         </DropdownMenuCheckboxItem>

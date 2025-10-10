@@ -1,6 +1,6 @@
 import { useAtomValue } from "jotai";
 import { useSnapshot } from "valtio";
-import { appSettings, RightPanelViewType } from "@/store/9-ui-state";
+import { appSettings, RightPanelViewAs } from "@/store/9-ui-state";
 import { type FileUs } from "@/store/store-types";
 import { fileUsOfRightPanelAtom } from "@/store/5-3-right-panel";
 import { panel1Classes, panel2Classes, panel3Classes } from "../../0-all/1-working-area/3-shared-classes";
@@ -49,7 +49,7 @@ function ContentSelector() {
         );
     }
 
-    if (activeView === RightPanelViewType.xml) {
+    if (activeView === RightPanelViewAs.xml) {
         return (
             fileUs
                 ? <BodyXmlGuarded fileUs={fileUs} />
