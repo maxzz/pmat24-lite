@@ -1,10 +1,11 @@
-import { PrimitiveAtom, useAtom } from "jotai";
 import { useSnapshot } from "valtio";
 import { classNames } from "@/utils";
 import { FormIdx } from "@/store/manifest";
 import { SymbolChevronDown } from "@/ui/icons";
 import { Button } from "@/ui";
-import { appSettings } from "@/store/9-ui-state";
+import { appSettings, toggleName } from "@/store/9-ui-state";
+
+// import { PrimitiveAtom, useAtom } from "jotai";
 // import { SlidersButton } from "../3-sliders-button";
 
 // const sectionClasses0 = "\
@@ -56,9 +57,9 @@ import { appSettings } from "@/store/9-ui-state";
 // ";
 
 // export function SubSectionTitle1({ label, openAtom, formIdx, name }: { label: string; openAtom: PrimitiveAtom<boolean>; formIdx: FormIdx; name: string; }) {
-//     const open = useSnapshot(appSettings).right.mani.openInOptions[formIdx][name];
+//     const open = useSnapshot(appSettings).right.mani.opens[stateName];
 //     const setToggle = () => {
-//         appSettings.right.mani.openInOptions[formIdx][name] = !appSettings.right.mani.openInOptions[formIdx][name];
+//         appSettings.right.mani.opens[stateName] = !appSettings.right.mani.opens[stateName];
 //     };
 //     return (
 //         <div className={sectionClasses1}>
@@ -78,11 +79,12 @@ import { appSettings } from "@/store/9-ui-state";
 */}
 
 export function OptionsSubSectionTitle({ label, formIdx, name }: { label: string; formIdx: FormIdx; name: string; }) {
+    const stateName = toggleName(formIdx, name);
 
-    const open = useSnapshot(appSettings).right.mani.openInOptions[formIdx][name];
+    const open = useSnapshot(appSettings.right.mani).opened[stateName];
     
     function toggleOpen() {
-        appSettings.right.mani.openInOptions[formIdx][name] = !appSettings.right.mani.openInOptions[formIdx][name];
+        appSettings.right.mani.opened[stateName] = !appSettings.right.mani.opened[stateName];
     }
 
     return (

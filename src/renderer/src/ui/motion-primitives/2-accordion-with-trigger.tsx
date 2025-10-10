@@ -4,7 +4,7 @@ import { classNames } from "@/utils";
 import { Accordion, AccordionItem, AccordionContent, useAccordion, AccordionItemAugmentedProps } from "./1-accordion"; //https://motion-primitives.com/docs/accordion
 import { Button } from "../shadcn";
 import { SymbolChevronDown } from "../icons";
-import { appSettings } from "@/store/9-ui-state";
+import { appSettings, toggleName } from "@/store/9-ui-state";
 
 type AccordionWithTriggerProps = {
     triggerText: ReactNode;
@@ -67,11 +67,13 @@ const localTriggerClasses = "w-full flex items-center justify-between gap-1";
 // Utilities
 
 function useAccordionState({ formIdx, name }: { formIdx: number; name: string; }) {
-    const open: boolean = useSnapshot(appSettings).right.mani.openInOptions[formIdx][name];
+    const stateName = toggleName(formIdx, name);
+    
+    const open: boolean = useSnapshot(appSettings.right.mani).opened[stateName];
 
     const toggleOpen = useCallback(
         () => {
-            appSettings.right.mani.openInOptions[formIdx][name] = !appSettings.right.mani.openInOptions[formIdx][name];
+            appSettings.right.mani.opened[stateName] = !appSettings.right.mani.opened[stateName];
         }, [formIdx, name]
     );
 

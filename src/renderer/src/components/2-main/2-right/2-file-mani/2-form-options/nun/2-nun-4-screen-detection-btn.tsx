@@ -1,6 +1,6 @@
 import { atom, useAtom, useSetAtom } from "jotai";
 import { useSnapshot } from "valtio";
-import { appSettings } from "@/store/9-ui-state";
+import { appSettings, toggleName } from "@/store/9-ui-state";
 import { type OFormProps } from "@/store/2-file-mani-atoms";
 import { Block4_ScreenDetection } from "./2-nun-4-screen-detection";
 import { OptionsSubSectionTitle, UiAccordion } from "../9-controls";
@@ -14,7 +14,7 @@ import { UiAccordion5Example } from "../9-controls/nun/ui-accordion5-motion";
 export function BlockWrap_Detection_Button({ oFormProps }: { oFormProps: OFormProps; }) {
     const name = "detection";
     const { formIdx } = oFormProps.oAllAtoms.options;
-    const open = useSnapshot(appSettings).right.mani.openInOptions[formIdx][name];
+    const open = useSnapshot(appSettings).right.mani.opened[toggleName(formIdx, name)];
 
     const doOpenOptionsDialog = useSetAtom(doOpenOptionsDialogAtom);
 

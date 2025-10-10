@@ -20,6 +20,7 @@ export type MainViewSettings = {
     mani:
     ManiEditorState
     & {
+        opened: Record<string, boolean>;
         openInOptions: OpensAsStrBool;
         nunOpenInForms: OpensAsArray;
     };
@@ -36,13 +37,15 @@ const defaultManiEditorState: ManiEditorState = {
 export const defaultMainViewSettings: MainViewSettings = {
     mani: {
         ...defaultManiEditorState,
+        opened: {},
         openInOptions: {
             [FormIdx.login]: {},
             [FormIdx.cpass]: {},
         },
-        nunOpenInForms: {
-            [FormIdx.login]: [],
-            [FormIdx.cpass]: [],
-        },
+        nunOpenInForms: {},
     },
 };
+
+export function toggleName(formIdx: FormIdx, name: string): string { // Name of open/closed section state
+    return `${name}-${formIdx}`;
+}

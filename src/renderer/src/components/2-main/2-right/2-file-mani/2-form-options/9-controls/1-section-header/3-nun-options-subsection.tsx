@@ -21,7 +21,8 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/
 }
 
 /*export*/ function OptionsSectionsAccordion({ formIdx, children }: { formIdx: FormIdx; children: ReactNode; }) {
-    const value = useSnapshot(appSettings).right.mani.nunOpenInForms[`${formIdx}`];
+    const { nunOpenInForms } = useSnapshot(appSettings.right.mani);
+    const value = nunOpenInForms[`${formIdx}`] || [];
 
     function onValueChange(v: string[]) {
         return appSettings.right.mani.nunOpenInForms[`${formIdx}`] = v;
