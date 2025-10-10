@@ -9,20 +9,12 @@ type ManiEditorState = {
     nToGenerate: number;                    // Number of passwords to generate
 };
 
-type OpensAsStrBool = {
-    [FormIdx.login]: Record<string, boolean>,
-    [FormIdx.cpass]: Record<string, boolean>,
-};
-
-type OpensAsArray = Record<string, string[]>; // key is formIdx as 0/1, value is array of section names
-
 export type MainViewSettings = {
     mani:
     ManiEditorState
     & {
         opened: Record<string, boolean>;
-        openInOptions: OpensAsStrBool;
-        nunOpenInForms: OpensAsArray;
+        nunOpenInForms: Record<string, string[]>; // key is formIdx as 0/1, value is array of section names
     };
 };
 
@@ -38,13 +30,11 @@ export const defaultMainViewSettings: MainViewSettings = {
     mani: {
         ...defaultManiEditorState,
         opened: {},
-        openInOptions: {
-            [FormIdx.login]: {},
-            [FormIdx.cpass]: {},
-        },
         nunOpenInForms: {},
     },
 };
+
+// Utilities
 
 export function toggleName(formIdx: FormIdx, name: string): string { // Name of open/closed section state
     return `${name}-${formIdx}`;
