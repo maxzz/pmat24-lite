@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { atom, useAtomValue } from "jotai";
 import { useSnapshot } from "valtio";
-import { appSettings, opensName } from "@/store/9-ui-state";
+import { appSettings, openedName } from "@/store/9-ui-state";
 import { type OFormProps } from "@/store/2-file-mani-atoms";
 import { Block1_General } from "./2-nun-1-general";
 import { Block2_Authentication } from "./2-nun-2-authentication";
@@ -33,7 +33,7 @@ export function GroupManiGeneral({ oFormProps }: { oFormProps: OFormProps; }) {
 export function BlockWrap_Auth({ oFormProps }: { oFormProps: OFormProps; }) {
     const name = "auth";
     const { formIdx } = oFormProps.oAllAtoms.options;
-    const open = useSnapshot(appSettings).right.mani.opened[opensName(formIdx, name)];
+    const open = useSnapshot(appSettings).right.mani.opened[openedName(formIdx, name)];
 
     return (<>
         <OptionsSubSectionTitle label="Authentication" formIdx={formIdx} name={name} />
@@ -47,7 +47,7 @@ export function BlockWrap_Auth({ oFormProps }: { oFormProps: OFormProps; }) {
 export function BlockWrap_Quicklink({ oFormProps }: { oFormProps: OFormProps; }) {
     const name = "ql";
     const { formIdx } = oFormProps.oAllAtoms.options;
-    const open = useSnapshot(appSettings).right.mani.opened[opensName(formIdx, name)];
+    const open = useSnapshot(appSettings).right.mani.opened[openedName(formIdx, name)];
 
     return (<>
         <OptionsSubSectionTitle label="Quick link" formIdx={formIdx} name={name} />
@@ -61,7 +61,7 @@ export function BlockWrap_Quicklink({ oFormProps }: { oFormProps: OFormProps; })
 export function BlockWrap_Detection({ oFormProps }: { oFormProps: OFormProps; }) {
     const name = "detection";
     const { formIdx } = oFormProps.oAllAtoms.options;
-    const open = useSnapshot(appSettings).right.mani.opened[opensName(formIdx, name)];
+    const open = useSnapshot(appSettings).right.mani.opened[openedName(formIdx, name)];
 
     return (<>
         <OptionsSubSectionTitle label="Screen detection" formIdx={formIdx} name={name} />
@@ -79,7 +79,7 @@ export function BlockWrap_Detection({ oFormProps }: { oFormProps: OFormProps; })
 export function BlockWrap_IconPosition({ oFormProps }: { oFormProps: OFormProps; }) {
     const name = "icon";
     const { formIdx, isWebAtom } = oFormProps.oAllAtoms.options;
-    const open = useSnapshot(appSettings).right.mani.opened[opensName(formIdx, name)];
+    const open = useSnapshot(appSettings).right.mani.opened[openedName(formIdx, name)];
 
     const isWeb = useAtomValue(isWebAtom);
     if (isWeb) {

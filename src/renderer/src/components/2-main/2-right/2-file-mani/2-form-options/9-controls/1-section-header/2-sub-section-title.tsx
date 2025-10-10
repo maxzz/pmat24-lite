@@ -3,7 +3,7 @@ import { classNames } from "@/utils";
 import { FormIdx } from "@/store/manifest";
 import { SymbolChevronDown } from "@/ui/icons";
 import { Button } from "@/ui";
-import { appSettings, opensName } from "@/store/9-ui-state";
+import { appSettings, openedName } from "@/store/9-ui-state";
 
 // import { PrimitiveAtom, useAtom } from "jotai";
 // import { SlidersButton } from "../3-sliders-button";
@@ -79,7 +79,7 @@ import { appSettings, opensName } from "@/store/9-ui-state";
 */}
 
 export function OptionsSubSectionTitle({ label, formIdx, name }: { label: string; formIdx: FormIdx; name: string; }) {
-    const stateName = opensName(formIdx, name);
+    const stateName = openedName(formIdx, name);
 
     const open = useSnapshot(appSettings.right.mani).opened[stateName];
     

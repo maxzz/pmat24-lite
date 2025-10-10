@@ -3,7 +3,7 @@ import { ManiTabValue } from "@/store/2-file-mani-atoms/9-types";
 
 // Utilities
 
-export function opensName(formIdx: FormIdx, name: string): string { // Name of open/closed section state
+export function openedName(formIdx: FormIdx, name: string): string { // Name of open/closed section state
     return `${name}-${formIdx}`;
 }
 
@@ -30,11 +30,14 @@ const defaultManiEditorState: ManiEditorState = {
     nToGenerate: 50,
 };
 
-//
+// All together and default
 
-export const defaultRightPanelSettings = {
+export type RightPanelSettings = {
+    activeView: RightPanelViewAs;
+    mani: ManiEditorState;
+};
+
+export const defaultRightPanelSettings: RightPanelSettings = {
     activeView: RightPanelViewAs.forms,
     mani: { ...defaultManiEditorState },
 };
-
-export type RightPanelSettings = typeof defaultRightPanelSettings;
