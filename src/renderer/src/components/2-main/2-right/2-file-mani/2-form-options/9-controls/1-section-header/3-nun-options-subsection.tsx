@@ -21,11 +21,11 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/
 }
 
 /*export*/ function OptionsSectionsAccordion({ formIdx, children }: { formIdx: FormIdx; children: ReactNode; }) {
-    const { nunOpenInForms } = useSnapshot(appSettings.right.mani);
+    const { nunOpenedArrays: nunOpenInForms } = useSnapshot(appSettings.right.mani);
     const value = nunOpenInForms[`${formIdx}`] || [];
 
     function onValueChange(v: string[]) {
-        return appSettings.right.mani.nunOpenInForms[`${formIdx}`] = v;
+        return appSettings.right.mani.nunOpenedArrays[`${formIdx}`] = v;
     }
 
     return (
