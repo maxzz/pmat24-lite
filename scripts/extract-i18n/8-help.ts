@@ -6,6 +6,10 @@ Usage:
   npx tsx scripts/extract-i18n-strings.ts [options]
   pnpm i18n:extract [options]
 
+Configuration:
+  The tool will automatically load settings from extract-i18n-config.json if it exists
+  in the current directory. CLI options override config file settings.
+
 Options:
   --src <path>         Source directory to scan (default: ./src)
   --output <path>      Output JSON file path (default: ./scripts/i18n-strings.json)
@@ -35,5 +39,16 @@ Examples:
 
   # Combine both exclusion methods
   pnpm i18n:extract --exclude types.ts --exclude-pattern "\\.spec\\."
+
+Config File (extract-i18n-config.json):
+  {
+    "srcDir": "./src/renderer",
+    "outputFile": "./i18n/strings.json",
+    "minStringLength": 5,
+    "excludeFiles": ["types.ts", "constants.ts"],
+    "excludePattern": "\\\\.(test|spec)\\\\."
+  }
+
+  Note: CLI arguments override config file settings
 `);
 }

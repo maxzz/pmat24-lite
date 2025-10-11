@@ -4,6 +4,26 @@ import { type Config, defaultConfig } from './9-config';
 import { extractI18nStrings } from './2-scan-process';
 import { help } from './8-help';
 
+const CONFIG_FILE_NAME = 'extract-i18n-config.json';
+
+function loadConfigFile(): Partial<Config> {
+    const configPath = path.resolve(CONFIG_FILE_NAME);
+    
+    if (!fs.existsSync(configPath)) {
+        return {};
+    }
+
+    try {
+        const content = fs.readFileSync(configPath, 'utf-8');
+        const config = JSON.parse(content);
+        console.log(`📄 Loaded configuration from ${CONFIG_FILE_NAME}`);
+        return config;
+    } catch (error) {
+        console.warn(`⚠️  Failed to parse ${CONFIG_FILE_NAME}:`, error instanceof Error ? error.message : error);
+        return {};
+    }
+}
+
 function main() {
     const args = process.argv.slice(2);
 
@@ -12,8 +32,10 @@ function main() {
         return;
     }
 
-    const config: Partial<Config> = {};
+    // Start with config from file (if exists)
+    const config: Partial<Config> = loadConfigFile();
 
+    // CLI arguments override config file
     for (let i = 0; i < args.length; i += 2) {
         const key = args[i].replace(/^--/, '');
         const value = args[i + 1];
