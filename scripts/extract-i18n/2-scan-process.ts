@@ -17,11 +17,31 @@ export function extractI18nStrings(config: Partial<Config> = {}): LocalizationSt
     // Compile exclude pattern regex if provided
     const excludeRegex = cfg.excludePattern ? new RegExp(cfg.excludePattern) : null;
 
+    // Normalize excluded paths for comparison
+    const normalizedExcludePaths = cfg.excludePaths.map(p => 
+        path.normalize(p).replace(/\\/g, '/')
+    );
+
+    function isPathExcluded(fullPath: string): boolean {
+        const relativePath = path.relative(process.cwd(), fullPath).replace(/\\/g, '/');
+        
+        return normalizedExcludePaths.some(excludePath => {
+            // Check if the relative path starts with the excluded path
+            // This handles both files and folders
+            return relativePath === excludePath || relativePath.startsWith(excludePath + '/');
+        });
+    }
+
     function scanDirectory(dir: string): void {
         const entries = fs.readdirSync(dir, { withFileTypes: true });
 
         for (const entry of entries) {
             const fullPath = path.join(dir, entry.name);
+
+            // Skip excluded paths (files or folders)
+            if (isPathExcluded(fullPath)) {
+                continue;
+            }
 
             if (entry.isDirectory()) {
                 if (entry.name === 'node_modules' || entry.name === '.git') {

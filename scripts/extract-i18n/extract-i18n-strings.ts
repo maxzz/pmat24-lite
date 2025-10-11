@@ -44,6 +44,7 @@ function main() {
         else if (key === 'output') config.outputFile = value;
         else if (key === 'min-length') config.minStringLength = parseInt(value, 10);
         else if (key === 'exclude') config.excludeFiles = value.split(',').map(f => f.trim());
+        else if (key === 'exclude-paths') config.excludePaths = value.split(',').map(p => p.trim());
         else if (key === 'exclude-pattern') config.excludePattern = value;
     }
 
@@ -51,7 +52,10 @@ function main() {
     console.log(`   Source: ${config.srcDir || defaultConfig.srcDir}`);
     console.log(`   Output: ${config.outputFile || defaultConfig.outputFile}`);
     if (config.excludeFiles && config.excludeFiles.length > 0) {
-        console.log(`   Excluding: ${config.excludeFiles.join(', ')}`);
+        console.log(`   Excluding files: ${config.excludeFiles.join(', ')}`);
+    }
+    if (config.excludePaths && config.excludePaths.length > 0) {
+        console.log(`   Excluding paths: ${config.excludePaths.join(', ')}`);
     }
     if (config.excludePattern) {
         console.log(`   Exclude pattern: ${config.excludePattern}`);

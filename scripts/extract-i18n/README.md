@@ -2,6 +2,15 @@
 
 A tool for automatically extracting user-facing strings from TypeScript/JavaScript source files for localization purposes.
 
+## Features
+
+- 🔍 **Smart Extraction**: Automatically identifies user-facing strings while filtering out technical strings
+- 📁 **Flexible Exclusion**: Three methods to exclude files (exact names, paths, regex patterns)
+- ⚙️ **Multiple Configuration Methods**: CLI arguments, configuration file, or both
+- 🎯 **Intelligent Filtering**: Skips imports, CSS classes, GUIDs, URLs, and more
+- 📝 **Auto-generated Keys**: Creates camelCase keys from extracted strings
+- 🔄 **Customizable**: Adjust minimum string length, output location, and more
+
 ## Overview
 
 This utility scans your source code and identifies string literals that appear to be user-facing text, while intelligently filtering out technical strings like:
@@ -67,12 +76,49 @@ pnpm i18n:extract
 | `--output <path>` | Output JSON file path | `./scripts/i18n-strings.json` |
 | `--min-length <num>` | Minimum string length to extract | `10` |
 | `--exclude <files>` | Comma-separated list of filenames to exclude | (none) |
+| `--exclude-paths <paths>` | Comma-separated list of file/folder paths to exclude (relative) | (none) |
 | `--exclude-pattern <regex>` | Regex pattern to exclude filenames | (none) |
 | `--help` | Show help message | - |
 
 **Note:** CLI arguments take precedence over configuration file settings.
 
 ### Configuration File Schema
+
+```json
+{
+  "srcDir": "string (optional)",
+  "outputFile": "string (optional)",
+  "minStringLength": "number (optional)",
+  "excludeFiles": ["string", "..."] (optional),
+  "excludePaths": ["string", "..."] (optional),
+  "excludePattern": "string (optional)"
+}
+```
+
+All fields are optional. Omitted fields will use default values.
+
+### Examples
+
+#### Using Configuration File
+
+1. Create `extract-i18n-config.json`:
+
+```json
+{
+  "srcDir": "./src/renderer",
+  "outputFile": "./i18n/en/strings.json",
+  "minStringLength": 8,
+  "excludeFiles": ["types.ts", "test-data.ts"],
+  "excludePaths": ["src/tests", "src/__mocks__", "src/utils/helpers.ts"],
+  "excludePattern": "\\.(test|spec|mock)\\."
+}
+```
+
+2. Run the extractor:
+
+```bash
+npx tsx scripts/extract-i18n/extract-i18n-strings.ts
+```
 
 #### Override Config File with CLI Arguments
 
@@ -120,16 +166,79 @@ npx tsx scripts/extract-i18n/extract-i18n-strings.ts --exclude-pattern "\\.(spec
 npx tsx scripts/extract-i18n/extract-i18n-strings.ts --exclude-pattern "^(temp|draft)"
 ```
 
+#### Exclude specific paths (files or folders)
+
+```bash
+# Exclude entire folders
+npx tsx scripts/extract-i18n/extract-i18n-strings.ts --exclude-paths src/tests,src/__mocks__
+
+# Exclude specific files with relative paths
+npx tsx scripts/extract-i18n/extract-i18n-strings.ts --exclude-paths src/utils/test-helpers.ts,src/config/dev.ts
+
+# Exclude both files and folders
+npx tsx scripts/extract-i18n/extract-i18n-strings.ts --exclude-paths "src/tests,src/mocks,src/utils/debug.ts"
+```
+
 #### Combined exclusions
 
 ```bash
-# Combine exact filenames and regex pattern
+# Combine exact filenames, paths, and regex pattern
 npx tsx scripts/extract-i18n/extract-i18n-strings.ts \
   --exclude types.ts,constants.ts \
-  --exclude-pattern "\\.test\\.tsx?$"
+  --exclude-paths src/tests,src/__mocks__ \
+  --exclude-pattern "\\.(spec|test)\\."
 ```
 
-#### Combined options
+## Exclusion Methods Explained
+
+The tool provides three complementary ways to exclude files from extraction:
+
+### 1. `--exclude` (Exact Filenames)
+Excludes files by exact filename match, regardless of their location in the source tree.
+
+**Use when:** You want to exclude all files with a specific name across the entire project.
+
+**Example:**
+```bash
+--exclude types.ts,constants.ts
+```
+Excludes `types.ts` and `constants.ts` in any folder.
+
+### 2. `--exclude-paths` (File/Folder Paths)
+Excludes specific files or entire folders by relative path from the project root.
+
+**Use when:** You want to exclude specific folders or files at specific locations.
+
+**Example:**
+```bash
+--exclude-paths src/tests,src/__mocks__,src/utils/debug.ts
+```
+- Excludes entire `src/tests` folder and all its contents
+- Excludes entire `src/__mocks__` folder
+- Excludes only `src/utils/debug.ts` file
+
+### 3. `--exclude-pattern` (Regex Pattern)
+Excludes files whose filename (not path) matches a regex pattern.
+
+**Use when:** You want to exclude files based on naming conventions.
+
+**Example:**
+```bash
+--exclude-pattern "\\.(test|spec)\\."
+```
+Excludes any file with `.test.` or `.spec.` in its name (e.g., `Component.test.tsx`, `utils.spec.ts`).
+
+### Combining Methods
+
+All three methods work together:
+```bash
+npx tsx scripts/extract-i18n/extract-i18n-strings.ts \
+  --exclude constants.ts \              # Exclude all constants.ts files
+  --exclude-paths src/tests,src/mocks \ # Exclude test and mock folders
+  --exclude-pattern "\\.spec\\."        # Exclude all .spec. files
+```
+
+## Combined options
 
 ```bash
 npx tsx scripts/extract-i18n/extract-i18n-strings.ts \
@@ -137,6 +246,7 @@ npx tsx scripts/extract-i18n/extract-i18n-strings.ts \
   --output ./locales/en/strings.json \
   --min-length 5 \
   --exclude types.ts,test-data.ts \
+  --exclude-paths src/__tests__,src/mocks \
   --exclude-pattern "\\.(spec|test)\\."
 ```
 
@@ -196,6 +306,7 @@ When no configuration file exists and no CLI arguments are provided:
   minStringLength: 10,
   extensions: ['.ts', '.tsx', '.js', '.jsx'],
   excludeFiles: [],
+  excludePaths: [],
   excludePattern: undefined
 }
 ```
@@ -295,6 +406,15 @@ npx tsx scripts/extract-i18n/extract-i18n-strings.ts --min-length 5
 Use the exclude option for exact filenames:
 ```bash
 npx tsx scripts/extract-i18n/extract-i18n-strings.ts --exclude test.ts,mock-data.ts
+```
+
+Use exclude-paths for specific files or entire folders:
+```bash
+# Exclude entire test folder
+npx tsx scripts/extract-i18n/extract-i18n-strings.ts --exclude-paths src/tests
+
+# Exclude specific files with paths
+npx tsx scripts/extract-i18n/extract-i18n-strings.ts --exclude-paths src/utils/debug.ts,src/config/dev.ts
 ```
 
 Or use regex pattern for flexible matching:
