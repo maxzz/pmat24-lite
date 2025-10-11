@@ -64,16 +64,16 @@ function totalFieldsInUse(rowCtxs: FieldRowCtx[] | undefined, { get }: GetSet) {
                     const isCurrent = rfield === 'in';
                     const isNew = rfield === 'out';
 
-                    if (isCurrent) {
-                        rv.current++;
-                    } else if (isNew) {
-                        rv.newpsw++;
-                    }
-
                     if (isCurrent || isNew) {
                         const isLinked = !!rfiledUuid;
                         if (isLinked) {
                             rv.linked++;
+
+                            if (isCurrent) {
+                                rv.current++;
+                            } else if (isNew) {
+                                rv.newpsw++;
+                            }
                         }
                     }
                 }
