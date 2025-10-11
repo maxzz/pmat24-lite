@@ -3,6 +3,7 @@ export interface Config {
     outputFile: string;
     minStringLength: number;
     extensions: string[];
+    excludeFiles: string[];
 }
 
 export const defaultConfig: Config = {
@@ -10,4 +11,5 @@ export const defaultConfig: Config = {
     outputFile: './scripts/i18n-strings.json',
     minStringLength: 10,
     extensions: ['.ts', '.tsx', '.js', '.jsx'],
+    excludeFiles: [],
 };

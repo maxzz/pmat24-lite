@@ -10,6 +10,7 @@ Options:
   --src <path>         Source directory to scan (default: ./src)
   --output <path>      Output JSON file path (default: ./scripts/i18n-strings.json)
   --min-length <num>   Minimum string length to extract (default: 10)
+  --exclude <files>    Comma-separated list of filenames to exclude (e.g., types.ts,constants.ts)
   --help               Show this help message
 
 Examples:
@@ -21,5 +22,8 @@ Examples:
 
   # Extract shorter strings
   pnpm i18n:extract --min-length 5
+
+  # Exclude specific files
+  pnpm i18n:extract --exclude types.ts,constants.ts,config.ts
 `);
 }
