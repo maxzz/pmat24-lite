@@ -52,7 +52,7 @@ function showValidationErrors(verifyErrors: VerifyError[]): void {
         }
     );
 
-    toaster.error(<div className="flex flex-col">{messages}</div>);
+    toaster.warning(<div className="flex flex-col">{messages}</div>);
 };
 
 // Utilities

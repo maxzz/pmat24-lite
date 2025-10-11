@@ -1,6 +1,8 @@
-import { FormIdx } from "@/store/manifest";
+import { FieldTyp, FormIdx } from "@/store/manifest";
 import { type ManiAtoms, type FieldRowCtx, type VerifyError } from "@/store/2-file-mani-atoms/9-types";
 import { getVerifyErrors_FromManualForm } from "./3-form-manual-verify-errors";
+import { use } from "react";
+import { is } from "@electron-toolkit/utils";
 
 // Manual form
 
@@ -25,8 +27,8 @@ export function getVerifyErrors_NormalForm(maniAtoms: ManiAtoms, formIdx: FormId
 
     const rv: VerifyError[] = [];
 
-    const totalUseIt = totalFieldsInUse(formCtx.normal.rowCtxs, getset);
-    if (!totalUseIt) {
+    const { useIt } = totalFieldsInUse(formCtx.normal.rowCtxs, getset);
+    if (!useIt) {
         rv.push({
             error: formIdx === FormIdx.login ? 'No login fields selected' : 'No password change fields selected',
             tab: formIdx === FormIdx.login ? 'login' : 'cpass',
@@ -36,14 +38,46 @@ export function getVerifyErrors_NormalForm(maniAtoms: ManiAtoms, formIdx: FormId
     return rv.length ? rv : undefined;
 }
 
-function totalFieldsInUse(rowCtxs: FieldRowCtx[] | undefined, { get }: GetSet): number {
-    let rv = 0;
+function totalFieldsInUse(rowCtxs: FieldRowCtx[] | undefined, { get }: GetSet) {
+    let rv = {
+        useIt: 0,
+        psw: 0,
+        current: 0,
+        newpsw: 0,
+        linked: 0,
+    };
 
     rowCtxs?.forEach(
         (fieldRowCtx) => {
             const useIt = get(fieldRowCtx.useItAtom);
+            const fieldTyp: FieldTyp = get(fieldRowCtx.typeAtom);
+            const isPsw = fieldTyp === FieldTyp.psw;
+            const rfield = get(fieldRowCtx.rfieldAtom);
+            const rfiledUuid = get(fieldRowCtx.rfieldUuidAtom);
+
             if (useIt) {
-                rv++;
+                rv.useIt++;
+
+                if (isPsw) {
+                    rv.psw++;
+
+                    const isCurrent = rfield === 'in';
+                    const isNew = rfield === 'out';
+
+                    if (isCurrent) {
+                        rv.current++;
+                    } else if (isNew) {
+                        rv.newpsw++;
+                    }
+
+                    if (isCurrent || isNew) {
+                        const isLinked = !!rfiledUuid;
+                        if (isLinked) {
+                            rv.linked++;
+                        }
+                    }
+                }
+
             }
         }
     );
