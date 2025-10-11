@@ -44,6 +44,10 @@ export function getVerifyErrors_NormalForm(maniAtoms: ManiAtoms, formIdx: FormId
     if (!isLogin) {
         tab = 'cpass';
 
+        if (linkedCur > 1) {
+            return [{ error: 'Only one field can be linked to the password entry in the login form.', tab, }];
+        }
+
         if (!linkedCur) {
             return [{ error: 'The password change form does not contain a link to the password entry in the login form. To create a link, you must select a field, link it to the password field on the login form, and specify it as the current confirm password.', tab, }];
         }
