@@ -46,6 +46,7 @@ Config File (extract-i18n-config.json):
     "outputFile": "./i18n/strings.json",
     "minStringLength": 5,
     "excludeFiles": ["types.ts", "constants.ts"],
+    "excludePaths": ["src/tests", "src/mocks", "src/utils/test-helpers.ts"],
     "excludePattern": "\\\\.(test|spec)\\\\."
   }
 
