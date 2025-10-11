@@ -26,25 +26,24 @@ export function getVerifyErrors_NormalForm(maniAtoms: ManiAtoms, formIdx: FormId
     const { useItAny, useItPsw, linkedCur, linkedNew } = totalFieldsInUse(formCtx.normal.rowCtxs, getset);
 
     const isLogin = formIdx === FormIdx.login;
+    let error: string | undefined;
 
-    // Checks for login and cpass forms
+    // 1. Checks for login and cpass forms
 
     let tab: ManiTabValue = isLogin ? 'login' : 'cpass';
 
     if (!useItAny) {
-        return [{ error: 'There are no fields selected', tab, }];
+        error = 'There are no fields selected';
     }
 
     if (!useItPsw) {
-        return [{ error: 'There are no password fields selected', tab, }];
+        error = 'There are no password fields selected';
     }
 
-    // Checks for cpass form only
+    // 2. Checks for cpass form only
 
-    if (!isLogin) {
+    if (!error && !isLogin) {
         tab = 'cpass';
-
-        let error: string | undefined;
 
         if (linkedCur > 1) {
             error = 'Only one field can be linked to the password entry in the login form.';
@@ -55,10 +54,10 @@ export function getVerifyErrors_NormalForm(maniAtoms: ManiAtoms, formIdx: FormId
         else if (!linkedNew) {
             error = 'The password change form does not contain links to the login form indicating where to save the new password. To create a link, you must select a field, link it to the password field on the login form, and specify it as the new password or confirm password.';
         }
+    }
 
-        if (error) {
-            return [{ error, tab, }];
-        }
+    if (error) {
+        return [{ error, tab, }];
     }
 }
 
