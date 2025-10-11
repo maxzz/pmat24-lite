@@ -15,7 +15,9 @@ Options:
   --output <path>      Output JSON file path (default: ./scripts/i18n-strings.json)
   --min-length <num>   Minimum string length to extract (default: 10)
   --exclude <files>    Comma-separated list of filenames to exclude (e.g., types.ts,constants.ts)
-  --exclude-pattern <regex>  Regex pattern to exclude filenames (e.g., "\.test\\.tsx?$" or "mock|test")
+  --exclude-paths <paths>  Comma-separated list of file/folder paths to exclude (e.g., src/tests,src/mocks/data.ts)
+  --exclude-pattern <regex>  Regex pattern to exclude filenames (e.g., "\\.test\\.tsx?$" or "mock|test")
+  --classname-suffix <suffix>  Suffix for CSS class variable names to exclude (default: Classes)
   --help               Show this help message
 
 Examples:
@@ -31,14 +33,20 @@ Examples:
   # Exclude specific files
   pnpm i18n:extract --exclude types.ts,constants.ts,config.ts
 
+  # Exclude entire folders or specific file paths
+  pnpm i18n:extract --exclude-paths src/tests,src/mocks,src/components/temp.tsx
+
   # Exclude files matching regex pattern (test files)
   pnpm i18n:extract --exclude-pattern "\\.test\\.tsx?$"
 
   # Exclude files containing "mock" or "test" in filename
   pnpm i18n:extract --exclude-pattern "mock|test"
 
-  # Combine both exclusion methods
-  pnpm i18n:extract --exclude types.ts --exclude-pattern "\\.spec\\."
+  # Custom className suffix for CSS variables
+  pnpm i18n:extract --classname-suffix Styles
+
+  # Combine all exclusion methods
+  pnpm i18n:extract --exclude types.ts --exclude-paths src/tests --exclude-pattern "\\.spec\\."
 
 Config File (extract-i18n-config.json):
   {
@@ -47,7 +55,8 @@ Config File (extract-i18n-config.json):
     "minStringLength": 5,
     "excludeFiles": ["types.ts", "constants.ts"],
     "excludePaths": ["src/tests", "src/mocks", "src/utils/test-helpers.ts"],
-    "excludePattern": "\\\\.(test|spec)\\\\."
+    "excludePattern": "\\\\.(test|spec)\\\\.",
+    "classNameSuffix": "Classes"
   }
 
   Note: CLI arguments override config file settings

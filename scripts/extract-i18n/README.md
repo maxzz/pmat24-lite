@@ -5,15 +5,21 @@ A tool for automatically extracting user-facing strings from TypeScript/JavaScri
 ## Features
 
 - 🔍 **Smart Extraction**: Automatically identifies user-facing strings while filtering out technical strings
-- 📁 **Flexible Exclusion**: Three methods to exclude files (exact names, paths, regex patterns)
+- � **Directive Filtering**: Excludes JavaScript/React directives ("use strict", "use client", "use server")
+- 🎨 **CSS Class Filtering**: Skips className attributes and CSS class variables (customizable suffix)
+- �📁 **Flexible Exclusion**: Three methods to exclude files (exact names, paths, regex patterns)
 - ⚙️ **Multiple Configuration Methods**: CLI arguments, configuration file, or both
-- 🎯 **Intelligent Filtering**: Skips imports, CSS classes, GUIDs, URLs, and more
+- 🎯 **Intelligent Filtering**: Skips imports, CSS classes, GUIDs, URLs, template interpolations, and more
 - 📝 **Auto-generated Keys**: Creates camelCase keys from extracted strings
 - 🔄 **Customizable**: Adjust minimum string length, output location, and more
 
 ## Overview
 
 This utility scans your source code and identifies string literals that appear to be user-facing text, while intelligently filtering out technical strings like:
+- **Import and export statements** (single and multi-line)
+- **JavaScript/React directives** ("use strict", "use client", "use server")
+- **Template literal interpolations** (strings with `${...}` patterns)
+- **CSS className attributes and class variables** (customizable suffix detection)
 - Import paths and module names
 - CSS classes (including Tailwind)
 - Code identifiers and variable names
@@ -78,6 +84,7 @@ pnpm i18n:extract
 | `--exclude <files>` | Comma-separated list of filenames to exclude | (none) |
 | `--exclude-paths <paths>` | Comma-separated list of file/folder paths to exclude (relative) | (none) |
 | `--exclude-pattern <regex>` | Regex pattern to exclude filenames | (none) |
+| `--classname-suffix <suffix>` | Suffix for CSS class variable names to exclude | `Classes` |
 | `--help` | Show help message | - |
 
 **Note:** CLI arguments take precedence over configuration file settings.
@@ -91,7 +98,8 @@ pnpm i18n:extract
   "minStringLength": "number (optional)",
   "excludeFiles": ["string", "..."] (optional),
   "excludePaths": ["string", "..."] (optional),
-  "excludePattern": "string (optional)"
+  "excludePattern": "string (optional)",
+  "classNameSuffix": "string (optional, default: 'Classes')"
 }
 ```
 
@@ -110,7 +118,8 @@ All fields are optional. Omitted fields will use default values.
   "minStringLength": 8,
   "excludeFiles": ["types.ts", "test-data.ts"],
   "excludePaths": ["src/tests", "src/__mocks__", "src/utils/helpers.ts"],
-  "excludePattern": "\\.(test|spec|mock)\\."
+  "excludePattern": "\\.(test|spec|mock)\\.",
+  "classNameSuffix": "Classes"
 }
 ```
 
@@ -178,6 +187,25 @@ npx tsx scripts/extract-i18n/extract-i18n-strings.ts --exclude-paths src/utils/t
 # Exclude both files and folders
 npx tsx scripts/extract-i18n/extract-i18n-strings.ts --exclude-paths "src/tests,src/mocks,src/utils/debug.ts"
 ```
+
+#### Customize CSS class variable suffix
+
+```bash
+# Default suffix is "Classes" (matches: buttonClasses, cardClasses, etc.)
+npx tsx scripts/extract-i18n/extract-i18n-strings.ts
+
+# Use custom suffix "Styles"
+npx tsx scripts/extract-i18n/extract-i18n-strings.ts --classname-suffix Styles
+
+# Use custom suffix "CSS"
+npx tsx scripts/extract-i18n/extract-i18n-strings.ts --classname-suffix CSS
+```
+
+This will exclude strings from:
+- `className="..."`
+- `const exampleClasses = "..."`
+- `let buttonStyles = "..."` (if suffix is "Styles")
+- `var cardCSS = "..."` (if suffix is "CSS")
 
 #### Combined exclusions
 
@@ -285,7 +313,22 @@ Keys are automatically generated in camelCase format from the first few words of
 - Placeholder text
 
 ❌ **Filtered Out:**
-- Import/require paths (`./components/MyComponent`, `@/utils/helper`)
+- **Import/Export statements** (all strings in `import`/`export` statements, including multi-line)
+  - `import { Component } from "./components/MyComponent"`
+  - `export * from "@/utils/helper"`
+  - `import("./dynamic-module")`
+  - `require("module-name")`
+- **JavaScript/React directives**
+  - `"use strict"`
+  - `"use client"`
+  - `"use server"`
+- **Template literal interpolations**
+  - Strings containing `${...}` patterns
+  - Variable interpolations like `${variableName}`, `${obj.prop}`, `${func()}`
+- **CSS className attributes and class variables**
+  - `className="flex items-center"`
+  - `const buttonClasses = "px-4 py-2 bg-blue-500"` (variables ending with "Classes" or custom suffix)
+  - Template literals in className
 - CSS classes (`flex items-center`, `text-lg font-bold`)
 - Technical identifiers (`userId`, `apiKey`)
 - File paths and URLs (`https://example.com`, `../assets/icon.png`)
@@ -307,7 +350,8 @@ When no configuration file exists and no CLI arguments are provided:
   extensions: ['.ts', '.tsx', '.js', '.jsx'],
   excludeFiles: [],
   excludePaths: [],
-  excludePattern: undefined
+  excludePattern: undefined,
+  classNameSuffix: 'Classes'
 }
 ```
 

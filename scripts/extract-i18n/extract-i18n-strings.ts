@@ -46,6 +46,7 @@ function main() {
         else if (key === 'exclude') config.excludeFiles = value.split(',').map(f => f.trim());
         else if (key === 'exclude-paths') config.excludePaths = value.split(',').map(p => p.trim());
         else if (key === 'exclude-pattern') config.excludePattern = value;
+        else if (key === 'classname-suffix') config.classNameSuffix = value;
     }
 
     console.log('🔍 Extracting localization strings...');
