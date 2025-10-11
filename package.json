@@ -99,6 +99,6 @@
         "typecheck:web": "tsc --noEmit -p tsconfig.web.json --composite false",
         "typecheck:node": "tsc --noEmit -p tsconfig.node.json --composite false",
         "....................................................................................5": ".......................................................",
-        "i18n:extract": "tsx scripts/extract-i18n-strings.ts"
+        "i18n:extract": "tsx scripts/extract-i18n/extract-i18n-strings.ts"
     }
 }
