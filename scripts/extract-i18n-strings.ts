@@ -1,32 +1,8 @@
 import * as fs from 'fs';
 import * as path from 'path';
-import { extractI18nStrings, defaultConfig, type Config } from './scan-process';
-
-function help() {
-    console.log(`
-📝 Extract i18n Strings - Localization String Extractor
-
-Usage:
-  npx tsx scripts/extract-i18n-strings.ts [options]
-  pnpm i18n:extract [options]
-
-Options:
-  --src <path>         Source directory to scan (default: ./src)
-  --output <path>      Output JSON file path (default: ./scripts/i18n-strings.json)
-  --min-length <num>   Minimum string length to extract (default: 10)
-  --help               Show this help message
-
-Examples:
-  # Extract with defaults
-  pnpm i18n:extract
-
-  # Custom source and output
-  pnpm i18n:extract --src ./src/renderer --output ./i18n/strings.json
-
-  # Extract shorter strings
-  pnpm i18n:extract --min-length 5
-`);
-}
+import { type Config, defaultConfig } from './9-config';
+import { extractI18nStrings } from './2-scan-process';
+import { help } from './8-help';
 
 function main() {
     const args = process.argv.slice(2);
