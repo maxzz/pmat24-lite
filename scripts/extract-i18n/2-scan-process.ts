@@ -69,7 +69,8 @@ function extractStringsFromFile(filePath: string, minLength: number): Record<str
                 isCssClass(str) ||
                 isImportPath(str) ||
                 isUrl(str) ||
-                isOnlyNumbersOrSymbols(str)
+                isOnlyNumbersOrSymbols(str) ||
+                isGuid(str)
             ) {
                 continue;
             }
@@ -118,6 +119,12 @@ function isUrl(str: string): boolean {
 function isOnlyNumbersOrSymbols(str: string): boolean {
     // Skip strings that contain only numbers, symbols, or whitespace (no letters)
     return !/[a-zA-Z]/.test(str);
+}
+
+function isGuid(str: string): boolean {
+    // Skip GUID/UUID strings (with or without braces/hyphens)
+    // Matches patterns like: {c0f864c8-7bbb-422e-98a3-e033d7360c97} or c0f864c8-7bbb-422e-98a3-e033d7360c97
+    return /^[{]?[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}[}]?$/i.test(str);
 }
 
 function generateKey(str: string): string {
