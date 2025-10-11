@@ -73,27 +73,27 @@ function totalFieldsInUse(rowCtxs: FieldRowCtx[] | undefined, { get }: GetSet) {
     rowCtxs?.forEach(
         (fieldRowCtx) => {
             const useIt = get(fieldRowCtx.useItAtom);
-            const fieldTyp: FieldTyp = get(fieldRowCtx.typeAtom);
-            const isPsw = fieldTyp === FieldTyp.psw;
-            const rfield = get(fieldRowCtx.rfieldAtom);
-            const rfiledUuid = get(fieldRowCtx.rfieldUuidAtom);
-
             if (useIt) {
                 rv.useItAny++;
 
+                const isPsw = get(fieldRowCtx.typeAtom) === FieldTyp.psw;
                 if (isPsw) {
                     rv.useItPsw++;
 
-                    const isCurrent = rfield === 'in';
-                    const isNew = rfield === 'out';
+                    const rfield = get(fieldRowCtx.rfieldAtom);
+                    if (rfield) {
+                        const isCurrent = rfield === 'in';
+                        const isNew = rfield === 'out';
 
-                    if (isCurrent || isNew) {
-                        const isLinked = !!rfiledUuid;
-                        if (isLinked) {
-                            if (isCurrent) {
-                                rv.linkedCur++;
-                            } else if (isNew) {
-                                rv.linkedNew++;
+                        if (isCurrent || isNew) {
+
+                            const isLinked = !!get(fieldRowCtx.rfieldUuidAtom);
+                            if (isLinked) {
+                                if (isCurrent) {
+                                    rv.linkedCur++;
+                                } else if (isNew) {
+                                    rv.linkedNew++;
+                                }
                             }
                         }
                     }
