@@ -4,6 +4,7 @@ export interface Config {
     minStringLength: number;
     extensions: string[];
     excludeFiles: string[];
+    excludePattern?: string;
 }
 
 export const defaultConfig: Config = {
@@ -12,4 +13,5 @@ export const defaultConfig: Config = {
     minStringLength: 10,
     extensions: ['.ts', '.tsx', '.js', '.jsx'],
     excludeFiles: [],
+    excludePattern: undefined,
 };

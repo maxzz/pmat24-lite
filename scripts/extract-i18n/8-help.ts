@@ -11,6 +11,7 @@ Options:
   --output <path>      Output JSON file path (default: ./scripts/i18n-strings.json)
   --min-length <num>   Minimum string length to extract (default: 10)
   --exclude <files>    Comma-separated list of filenames to exclude (e.g., types.ts,constants.ts)
+  --exclude-pattern <regex>  Regex pattern to exclude filenames (e.g., "\.test\\.tsx?$" or "mock|test")
   --help               Show this help message
 
 Examples:
@@ -25,5 +26,14 @@ Examples:
 
   # Exclude specific files
   pnpm i18n:extract --exclude types.ts,constants.ts,config.ts
+
+  # Exclude files matching regex pattern (test files)
+  pnpm i18n:extract --exclude-pattern "\\.test\\.tsx?$"
+
+  # Exclude files containing "mock" or "test" in filename
+  pnpm i18n:extract --exclude-pattern "mock|test"
+
+  # Combine both exclusion methods
+  pnpm i18n:extract --exclude types.ts --exclude-pattern "\\.spec\\."
 `);
 }
