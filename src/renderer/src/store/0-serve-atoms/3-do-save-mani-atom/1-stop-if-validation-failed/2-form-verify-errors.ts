@@ -23,44 +23,41 @@ export function getVerifyErrors_NormalForm(maniAtoms: ManiAtoms, formIdx: FormId
         return;
     }
 
+    const { useItAny, useItPsw, linkedCur, linkedNew } = totalFieldsInUse(formCtx.normal.rowCtxs, getset);
+
     const isLogin = formIdx === FormIdx.login;
+
+    // Checks for login and cpass forms
+
     let tab: ManiTabValue = isLogin ? 'login' : 'cpass';
 
-    const { useItAny, useItPsw, pswCur, pswNew, linkedCur, linkedNew } = totalFieldsInUse(formCtx.normal.rowCtxs, getset);
-
     if (!useItAny) {
-        return [{
-            error: isLogin ? 'No login fields selected' : 'No password change fields selected',
-            tab,
-        }];
+        return [{ error: 'There are no fields selected', tab, }];
     }
 
     if (!useItPsw) {
-        return [{
-            error: 'No password fields selected',
-            tab,
-        }];
+        return [{ error: 'There are no password fields selected', tab, }];
     }
 
-    tab = 'cpass';
+    // Checks for cpass form only
 
     if (!isLogin) {
-        if (!linkedCur || !linkedNew) {
-            return [{
-                error: 'There are no linkes from the password change form to the login form',
-                tab,
-            }];
+        tab = 'cpass';
+
+        if (!linkedCur) {
+            return [{ error: 'The password change form does not contain a link to the password entry in the login form. To create a link, you must select a field, link it to the password field on the login form, and specify it as the current confirm password.', tab, }];
+        }
+
+        if (!linkedNew) {
+            return [{ error: 'The password change form does not contain links to the login form indicating where to save the new password. To create a link, you must select a field, link it to the password field on the login form, and specify it as the new password or confirm password.', tab, }];
         }
     }
-
 }
 
 function totalFieldsInUse(rowCtxs: FieldRowCtx[] | undefined, { get }: GetSet) {
     let rv = {
         useItAny: 0,
         useItPsw: 0,
-        pswCur: 0,
-        pswNew: 0,
         linkedCur: 0,
         linkedNew: 0,
     };
@@ -86,10 +83,8 @@ function totalFieldsInUse(rowCtxs: FieldRowCtx[] | undefined, { get }: GetSet) {
                         const isLinked = !!rfiledUuid;
                         if (isLinked) {
                             if (isCurrent) {
-                                rv.pswCur++;
                                 rv.linkedCur++;
                             } else if (isNew) {
-                                rv.pswNew++;
                                 rv.linkedNew++;
                             }
                         }
