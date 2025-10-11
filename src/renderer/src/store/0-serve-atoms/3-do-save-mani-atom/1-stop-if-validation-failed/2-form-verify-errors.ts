@@ -1,6 +1,7 @@
 import { FieldTyp, FormIdx } from "@/store/manifest";
-import { type ManiAtoms, type FieldRowCtx, type VerifyError } from "@/store/2-file-mani-atoms/9-types";
+import { type ManiAtoms, type FieldRowCtx, type VerifyError, type ManiTabValue } from "@/store/2-file-mani-atoms/9-types";
 import { getVerifyErrors_FromManualForm } from "./3-form-manual-verify-errors";
+import { link } from "fs";
 
 // Manual form
 
@@ -23,21 +24,31 @@ export function getVerifyErrors_NormalForm(maniAtoms: ManiAtoms, formIdx: FormId
     }
 
     const isLogin = formIdx === FormIdx.login;
+    let tab: ManiTabValue = isLogin ? 'login' : 'cpass';
 
-    const { useItAny, useItPsw, pswCur, pswNew, linked } = totalFieldsInUse(formCtx.normal.rowCtxs, getset);
+    const { useItAny, useItPsw, pswCur, pswNew, linkedCur, linkedNew } = totalFieldsInUse(formCtx.normal.rowCtxs, getset);
 
     if (!useItAny) {
         return [{
             error: isLogin ? 'No login fields selected' : 'No password change fields selected',
-            tab: isLogin ? 'login' : 'cpass',
+            tab,
         }];
     }
 
+    if (!useItPsw) {
+        return [{
+            error: 'No password fields selected',
+            tab,
+        }];
+    }
+
+    tab = 'cpass';
+
     if (!isLogin) {
-        if (!linked) {
+        if (!linkedCur || !linkedNew) {
             return [{
                 error: 'There are no linkes from the password change form to the login form',
-                tab: 'cpass',
+                tab,
             }];
         }
     }
@@ -50,7 +61,8 @@ function totalFieldsInUse(rowCtxs: FieldRowCtx[] | undefined, { get }: GetSet) {
         useItPsw: 0,
         pswCur: 0,
         pswNew: 0,
-        linked: 0,
+        linkedCur: 0,
+        linkedNew: 0,
     };
 
     rowCtxs?.forEach(
@@ -73,12 +85,12 @@ function totalFieldsInUse(rowCtxs: FieldRowCtx[] | undefined, { get }: GetSet) {
                     if (isCurrent || isNew) {
                         const isLinked = !!rfiledUuid;
                         if (isLinked) {
-                            rv.linked++;
-
                             if (isCurrent) {
                                 rv.pswCur++;
+                                rv.linkedCur++;
                             } else if (isNew) {
                                 rv.pswNew++;
+                                rv.linkedNew++;
                             }
                         }
                     }
