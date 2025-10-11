@@ -13,6 +13,36 @@ This utility scans your source code and identifies string literals that appear t
 - GUIDs/UUIDs
 - Strings containing only numbers or symbols
 
+## Configuration
+
+The tool supports two ways to configure it:
+
+### 1. Configuration File (Recommended)
+
+Create an `extract-i18n-config.json` file in your project root:
+
+```json
+{
+  "srcDir": "./src/renderer",
+  "outputFile": "./i18n/strings.json",
+  "minStringLength": 5,
+  "excludeFiles": ["types.ts", "constants.ts", "config.ts"],
+  "excludePattern": "\\.(test|spec)\\."
+}
+```
+
+The tool will automatically load this configuration if the file exists.
+
+**Example file:** See `scripts/extract-i18n/extract-i18n-config.example.json` for a complete example.
+
+### 2. Command Line Arguments
+
+CLI arguments override configuration file settings:
+
+```bash
+npx tsx scripts/extract-i18n/extract-i18n-strings.ts --src ./src --output ./i18n/strings.json
+```
+
 ## Installation
 
 The tool is already part of your project. No additional installation required.
@@ -40,7 +70,17 @@ pnpm i18n:extract
 | `--exclude-pattern <regex>` | Regex pattern to exclude filenames | (none) |
 | `--help` | Show help message | - |
 
-### Examples
+**Note:** CLI arguments take precedence over configuration file settings.
+
+### Configuration File Schema
+
+#### Override Config File with CLI Arguments
+
+```bash
+# Config file sets srcDir to "./src/renderer"
+# This command overrides it to "./src"
+npx tsx scripts/extract-i18n/extract-i18n-strings.ts --src ./src
+```
 
 #### Custom source directory and output
 
@@ -145,9 +185,9 @@ Keys are automatically generated in camelCase format from the first few words of
 - Numbers and symbols only (`123`, `---`, `***`)
 - Short strings (less than configured minimum length)
 
-## Configuration
+## Default Configuration
 
-Default configuration is defined in `9-config.ts`:
+When no configuration file exists and no CLI arguments are provided:
 
 ```typescript
 {
@@ -159,6 +199,8 @@ Default configuration is defined in `9-config.ts`:
   excludePattern: undefined
 }
 ```
+
+Note: `extensions` field is not configurable via config file or CLI.
 
 ## Adding to package.json
 
@@ -221,12 +263,15 @@ function MyComponent() {
 
 ```
 scripts/extract-i18n/
-├── README.md                    # This file
-├── extract-i18n-strings.ts      # Main CLI entry point
-├── 2-scan-process.ts            # Core extraction logic
-├── 8-help.ts                    # Help text
-├── 9-config.ts                  # Configuration
-└── i18n-strings.json            # Generated output (default)
+├── README.md                         # This file
+├── extract-i18n-strings.ts           # Main CLI entry point
+├── extract-i18n-config.example.json  # Example configuration file
+├── 2-scan-process.ts                 # Core extraction logic
+├── 8-help.ts                         # Help text
+├── 9-config.ts                       # Configuration
+└── i18n-strings.json                 # Generated output (default)
+
+extract-i18n-config.json              # Optional config file (project root)
 ```
 
 ## Troubleshooting
