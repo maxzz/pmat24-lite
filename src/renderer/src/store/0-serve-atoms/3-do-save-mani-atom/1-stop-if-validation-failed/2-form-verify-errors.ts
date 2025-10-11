@@ -1,8 +1,6 @@
 import { FieldTyp, FormIdx } from "@/store/manifest";
 import { type ManiAtoms, type FieldRowCtx, type VerifyError } from "@/store/2-file-mani-atoms/9-types";
 import { getVerifyErrors_FromManualForm } from "./3-form-manual-verify-errors";
-import { use } from "react";
-import { is } from "@electron-toolkit/utils";
 
 // Manual form
 
@@ -13,37 +11,45 @@ export function getVerifyErrors_ManualForm(maniAtoms: ManiAtoms, formIdx: FormId
     }
 
     const rv: VerifyError[] = getVerifyErrors_FromManualForm(formCtx.manual, formIdx, getset);
-    return rv.length ? rv : undefined;
+    return rv;
 };
 
 // Normal form
 
 export function getVerifyErrors_NormalForm(maniAtoms: ManiAtoms, formIdx: FormIdx, getset: GetSet): VerifyError[] | undefined {
-
     const formCtx = maniAtoms[formIdx];
     if (!formCtx?.normal) {
         return;
     }
 
-    const rv: VerifyError[] = [];
+    const isLogin = formIdx === FormIdx.login;
 
-    const { useIt } = totalFieldsInUse(formCtx.normal.rowCtxs, getset);
-    if (!useIt) {
-        rv.push({
-            error: formIdx === FormIdx.login ? 'No login fields selected' : 'No password change fields selected',
-            tab: formIdx === FormIdx.login ? 'login' : 'cpass',
-        });
+    const { useItAny, useItPsw, pswCur, pswNew, linked } = totalFieldsInUse(formCtx.normal.rowCtxs, getset);
+
+    if (!useItAny) {
+        return [{
+            error: isLogin ? 'No login fields selected' : 'No password change fields selected',
+            tab: isLogin ? 'login' : 'cpass',
+        }];
     }
 
-    return rv.length ? rv : undefined;
+    if (!isLogin) {
+        if (!linked) {
+            return [{
+                error: 'There are no linkes from the password change form to the login form',
+                tab: 'cpass',
+            }];
+        }
+    }
+
 }
 
 function totalFieldsInUse(rowCtxs: FieldRowCtx[] | undefined, { get }: GetSet) {
     let rv = {
-        useIt: 0,
-        psw: 0,
-        current: 0,
-        newpsw: 0,
+        useItAny: 0,
+        useItPsw: 0,
+        pswCur: 0,
+        pswNew: 0,
         linked: 0,
     };
 
@@ -56,10 +62,10 @@ function totalFieldsInUse(rowCtxs: FieldRowCtx[] | undefined, { get }: GetSet) {
             const rfiledUuid = get(fieldRowCtx.rfieldUuidAtom);
 
             if (useIt) {
-                rv.useIt++;
+                rv.useItAny++;
 
                 if (isPsw) {
-                    rv.psw++;
+                    rv.useItPsw++;
 
                     const isCurrent = rfield === 'in';
                     const isNew = rfield === 'out';
@@ -70,9 +76,9 @@ function totalFieldsInUse(rowCtxs: FieldRowCtx[] | undefined, { get }: GetSet) {
                             rv.linked++;
 
                             if (isCurrent) {
-                                rv.current++;
+                                rv.pswCur++;
                             } else if (isNew) {
-                                rv.newpsw++;
+                                rv.pswNew++;
                             }
                         }
                     }
