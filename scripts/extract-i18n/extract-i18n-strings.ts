@@ -21,11 +21,15 @@ function main() {
         if (key === 'src') config.srcDir = value;
         else if (key === 'output') config.outputFile = value;
         else if (key === 'min-length') config.minStringLength = parseInt(value, 10);
+        else if (key === 'exclude') config.excludeFiles = value.split(',').map(f => f.trim());
     }
 
     console.log('🔍 Extracting localization strings...');
     console.log(`   Source: ${config.srcDir || defaultConfig.srcDir}`);
     console.log(`   Output: ${config.outputFile || defaultConfig.outputFile}`);
+    if (config.excludeFiles && config.excludeFiles.length > 0) {
+        console.log(`   Excluding: ${config.excludeFiles.join(', ')}`);
+    }
 
     const results = extractI18nStrings(config);
     const totalStrings = Object.values(results).reduce((sum, obj) => sum + Object.keys(obj).length, 0);

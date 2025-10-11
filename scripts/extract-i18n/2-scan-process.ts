@@ -26,6 +26,10 @@ export function extractI18nStrings(config: Partial<Config> = {}): LocalizationSt
                 }
                 scanDirectory(fullPath);
             } else if (entry.isFile() && cfg.extensions.some(ext => entry.name.endsWith(ext))) {
+                // Skip excluded files
+                if (cfg.excludeFiles.includes(entry.name)) {
+                    continue;
+                }
                 const relativePath = path.relative(process.cwd(), fullPath);
                 const strings = extractStringsFromFile(fullPath, cfg.minStringLength);
                 if (Object.keys(strings).length > 0) {
