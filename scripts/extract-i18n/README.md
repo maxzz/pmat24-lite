@@ -37,6 +37,7 @@ pnpm i18n:extract
 | `--output <path>` | Output JSON file path | `./scripts/i18n-strings.json` |
 | `--min-length <num>` | Minimum string length to extract | `10` |
 | `--exclude <files>` | Comma-separated list of filenames to exclude | (none) |
+| `--exclude-pattern <regex>` | Regex pattern to exclude filenames | (none) |
 | `--help` | Show help message | - |
 
 ### Examples
@@ -63,6 +64,31 @@ npx tsx scripts/extract-i18n/extract-i18n-strings.ts --exclude types.ts
 npx tsx scripts/extract-i18n/extract-i18n-strings.ts --exclude types.ts,constants.ts,config.ts
 ```
 
+#### Exclude files by regex pattern
+
+```bash
+# Exclude all test files (ending with .test.ts or .test.tsx)
+npx tsx scripts/extract-i18n/extract-i18n-strings.ts --exclude-pattern "\\.test\\.tsx?$"
+
+# Exclude files containing "mock" or "test" in filename
+npx tsx scripts/extract-i18n/extract-i18n-strings.ts --exclude-pattern "mock|test"
+
+# Exclude spec and test files
+npx tsx scripts/extract-i18n/extract-i18n-strings.ts --exclude-pattern "\\.(spec|test)\\."
+
+# Exclude files starting with "temp" or "draft"
+npx tsx scripts/extract-i18n/extract-i18n-strings.ts --exclude-pattern "^(temp|draft)"
+```
+
+#### Combined exclusions
+
+```bash
+# Combine exact filenames and regex pattern
+npx tsx scripts/extract-i18n/extract-i18n-strings.ts \
+  --exclude types.ts,constants.ts \
+  --exclude-pattern "\\.test\\.tsx?$"
+```
+
 #### Combined options
 
 ```bash
@@ -70,7 +96,8 @@ npx tsx scripts/extract-i18n/extract-i18n-strings.ts \
   --src ./src/renderer \
   --output ./locales/en/strings.json \
   --min-length 5 \
-  --exclude types.ts,test-data.ts
+  --exclude types.ts,test-data.ts \
+  --exclude-pattern "\\.(spec|test)\\."
 ```
 
 ## Output Format
@@ -128,7 +155,8 @@ Default configuration is defined in `9-config.ts`:
   outputFile: './scripts/i18n-strings.json',
   minStringLength: 10,
   extensions: ['.ts', '.tsx', '.js', '.jsx'],
-  excludeFiles: []
+  excludeFiles: [],
+  excludePattern: undefined
 }
 ```
 
@@ -219,9 +247,18 @@ npx tsx scripts/extract-i18n/extract-i18n-strings.ts --min-length 5
 
 ### Unwanted files included
 
-Use the exclude option:
+Use the exclude option for exact filenames:
 ```bash
 npx tsx scripts/extract-i18n/extract-i18n-strings.ts --exclude test.ts,mock-data.ts
+```
+
+Or use regex pattern for flexible matching:
+```bash
+# Exclude all test and spec files
+npx tsx scripts/extract-i18n/extract-i18n-strings.ts --exclude-pattern "\\.(test|spec)\\."
+
+# Exclude files with specific prefixes
+npx tsx scripts/extract-i18n/extract-i18n-strings.ts --exclude-pattern "^(test-|mock-|temp-)"
 ```
 
 ## Contributing

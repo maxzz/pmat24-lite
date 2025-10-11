@@ -22,6 +22,7 @@ function main() {
         else if (key === 'output') config.outputFile = value;
         else if (key === 'min-length') config.minStringLength = parseInt(value, 10);
         else if (key === 'exclude') config.excludeFiles = value.split(',').map(f => f.trim());
+        else if (key === 'exclude-pattern') config.excludePattern = value;
     }
 
     console.log('🔍 Extracting localization strings...');
@@ -29,6 +30,9 @@ function main() {
     console.log(`   Output: ${config.outputFile || defaultConfig.outputFile}`);
     if (config.excludeFiles && config.excludeFiles.length > 0) {
         console.log(`   Excluding: ${config.excludeFiles.join(', ')}`);
+    }
+    if (config.excludePattern) {
+        console.log(`   Exclude pattern: ${config.excludePattern}`);
     }
 
     const results = extractI18nStrings(config);

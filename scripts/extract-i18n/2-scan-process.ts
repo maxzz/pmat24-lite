@@ -14,6 +14,9 @@ export function extractI18nStrings(config: Partial<Config> = {}): LocalizationSt
     const cfg = { ...defaultConfig, ...config };
     const results: LocalizationStrings = {};
 
+    // Compile exclude pattern regex if provided
+    const excludeRegex = cfg.excludePattern ? new RegExp(cfg.excludePattern) : null;
+
     function scanDirectory(dir: string): void {
         const entries = fs.readdirSync(dir, { withFileTypes: true });
 
@@ -26,8 +29,12 @@ export function extractI18nStrings(config: Partial<Config> = {}): LocalizationSt
                 }
                 scanDirectory(fullPath);
             } else if (entry.isFile() && cfg.extensions.some(ext => entry.name.endsWith(ext))) {
-                // Skip excluded files
+                // Skip excluded files by exact filename
                 if (cfg.excludeFiles.includes(entry.name)) {
+                    continue;
+                }
+                // Skip excluded files by regex pattern
+                if (excludeRegex && excludeRegex.test(entry.name)) {
                     continue;
                 }
                 const relativePath = path.relative(process.cwd(), fullPath);
