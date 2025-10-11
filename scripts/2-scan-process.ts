@@ -1,23 +1,10 @@
 import * as fs from 'fs';
 import * as path from 'path';
+import { type Config, defaultConfig } from './9-config';
 
 interface LocalizationStrings {
     [filename: string]: Record<string, string>;
 }
-
-export interface Config {
-    srcDir: string;
-    outputFile: string;
-    minStringLength: number;
-    extensions: string[];
-}
-
-export const defaultConfig: Config = {
-    srcDir: './src',
-    outputFile: './scripts/i18n-strings.json',
-    minStringLength: 10,
-    extensions: ['.ts', '.tsx', '.js', '.jsx'],
-};
 
 /**
  * Extract user-facing strings from source files for localization.
