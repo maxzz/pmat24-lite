@@ -68,7 +68,8 @@ function extractStringsFromFile(filePath: string, minLength: number): Record<str
                 isCodeString(str) ||
                 isCssClass(str) ||
                 isImportPath(str) ||
-                isUrl(str)
+                isUrl(str) ||
+                isOnlyNumbersOrSymbols(str)
             ) {
                 continue;
             }
@@ -112,6 +113,11 @@ function isImportPath(str: string): boolean {
 
 function isUrl(str: string): boolean {
     return /^https?:\/\//.test(str);
+}
+
+function isOnlyNumbersOrSymbols(str: string): boolean {
+    // Skip strings that contain only numbers, symbols, or whitespace (no letters)
+    return !/[a-zA-Z]/.test(str);
 }
 
 function generateKey(str: string): string {
