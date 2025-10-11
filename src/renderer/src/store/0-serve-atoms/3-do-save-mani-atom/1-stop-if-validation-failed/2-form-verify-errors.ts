@@ -44,16 +44,20 @@ export function getVerifyErrors_NormalForm(maniAtoms: ManiAtoms, formIdx: FormId
     if (!isLogin) {
         tab = 'cpass';
 
+        let error: string | undefined;
+
         if (linkedCur > 1) {
-            return [{ error: 'Only one field can be linked to the password entry in the login form.', tab, }];
+            error = 'Only one field can be linked to the password entry in the login form.';
+        }
+        else if (!linkedCur) {
+            error = 'The password change form does not contain a link to the password entry in the login form. To create a link, you must select a field, link it to the password field on the login form, and specify it as the current confirm password.';
+        }
+        else if (!linkedNew) {
+            error = 'The password change form does not contain links to the login form indicating where to save the new password. To create a link, you must select a field, link it to the password field on the login form, and specify it as the new password or confirm password.';
         }
 
-        if (!linkedCur) {
-            return [{ error: 'The password change form does not contain a link to the password entry in the login form. To create a link, you must select a field, link it to the password field on the login form, and specify it as the current confirm password.', tab, }];
-        }
-
-        if (!linkedNew) {
-            return [{ error: 'The password change form does not contain links to the login form indicating where to save the new password. To create a link, you must select a field, link it to the password field on the login form, and specify it as the new password or confirm password.', tab, }];
+        if (error) {
+            return [{ error, tab, }];
         }
     }
 }
