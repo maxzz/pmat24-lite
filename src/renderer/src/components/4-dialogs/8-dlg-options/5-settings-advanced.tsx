@@ -60,7 +60,7 @@ export function AdvancedSettings() {
 
                 <Label className={classNames("col-start-1", rowClasses)}>
                     <Checkbox checked={confirmExit} onCheckedChange={(v) => liveUiAdvanced.confirmExit = !!v} />
-                    Confirm exit with changes
+                    Confirm Exit/CloseFolder with changes
                 </Label>
 
                 {/* 2nd column */}

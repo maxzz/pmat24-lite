@@ -36,6 +36,15 @@ export const confirmQuitMessages: ConfirmationUi = {
     isDafaultOk: false,
 };
 
+export const confirmCloseFolderMessages: ConfirmationUi = {
+    title: 'Discard changes and close folder?', // 'You have unsaved changes. Do you want to discard them and quit?'
+    icon: <IconStopCircle className="size-12 text-red-500" />,
+    message: 'You have unsaved changes. Are you sure you want to close folder?',
+    buttonOk: 'Discard and Close',
+    buttonCancel: 'Cancel',
+    isDafaultOk: false,
+};
+
 export const aboutMessages: ConfirmationUi = {
     title: 'About PMAT',
     message: 'PMAT is developed by the PMAT team.',
