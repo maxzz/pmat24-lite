@@ -1,6 +1,7 @@
-import { FormIdx } from "@/store/manifest";
+import { FieldTyp, FormIdx } from "@/store/manifest";
 import { type MFormCnt, type VerifyError } from "@/store/2-file-mani-atoms/9-types";
 import { type RowInputStateUuid, getChunkRawInputStatesForValidate } from "@/store/2-file-mani-atoms/2-manual-fields/2-conv-manual/2-m-from-atoms";
+import { type TotalCount } from "./7-get-total-count-error-message";
 
 export function getVerifyErrors_FromManualForm(cnt: MFormCnt, formIdx: FormIdx, { get, set }: GetSet): VerifyError[] {
     const tab = formIdx === FormIdx.login ? 'login' : 'cpass';
@@ -38,6 +39,50 @@ export function getVerifyErrors_FromManualForm(cnt: MFormCnt, formIdx: FormIdx, 
 
     chunksToSetErrorMap.forEach(
         (num: number, errorAtom: PA<boolean>) => set(errorAtom, true)
+    );
+
+    return rv;
+}
+
+function totalFieldsInUse_Manual(chunksMap: RowInputStateUuid[], get: Getter): TotalCount {
+    const rv: TotalCount = {
+        useItAny: 0,
+        useItPsw: 0,
+        linkedCur: 0,
+        linkedNew: 0,
+    };
+
+    chunksMap.forEach(
+        (chunkMapping) => {
+            if (chunkMapping.chunk.type === 'fld') {
+                rv.useItAny++;
+
+                const chunckFldAtoms = chunkMapping.chunk.rowCtx;
+
+                const isPsw = get(chunckFldAtoms.typeAtom) === FieldTyp.psw;
+                if (isPsw) {
+                    rv.useItPsw++;
+
+                    const rfield = get(chunckFldAtoms.rfieldAtom);
+                    if (rfield) {
+                        const isCurrent = rfield === 'in';
+                        const isNew = rfield === 'out';
+
+                        if (isCurrent || isNew) {
+
+                            const isLinked = !!get(chunckFldAtoms.rfieldUuidAtom);
+                            if (isLinked) {
+                                if (isCurrent) {
+                                    rv.linkedCur++;
+                                } else if (isNew) {
+                                    rv.linkedNew++;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
     );
 
     return rv;
