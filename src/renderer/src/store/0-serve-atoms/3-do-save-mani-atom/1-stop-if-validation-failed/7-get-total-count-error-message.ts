@@ -1,5 +1,5 @@
-import { FormIdx } from "@/store/manifest";
-import type { VerifyError, ManiTabValue } from "@/store/2-file-mani-atoms";
+import { FormIdx, FieldTyp } from "@/store/manifest";
+import { type VerifyError, type ManiTabValue, type FieldRowCtx } from "@/store/2-file-mani-atoms";
 
 export type TotalCount = {
     useItAny: number;
@@ -7,6 +7,37 @@ export type TotalCount = {
     linkedCur: number;
     linkedNew: number;
 };
+
+export function processFieldRowCtx(fieldRowCtx: FieldRowCtx, rv: TotalCount, get: Getter): void {
+    const useIt = get(fieldRowCtx.useItAtom);
+    if (useIt) {
+        rv.useItAny++;
+
+        const isPsw = get(fieldRowCtx.typeAtom) === FieldTyp.psw;
+        if (isPsw) {
+            rv.useItPsw++;
+
+            const rfield = get(fieldRowCtx.rfieldAtom);
+            if (rfield) {
+                const isCurrent = rfield === 'in';
+                const isNew = rfield === 'out';
+
+                if (isCurrent || isNew) {
+
+                    const isLinked = !!get(fieldRowCtx.rfieldUuidAtom);
+                    if (isLinked) {
+                        if (isCurrent) {
+                            rv.linkedCur++;
+                        } else if (isNew) {
+                            rv.linkedNew++;
+                        }
+                    }
+                }
+            }
+        }
+
+    }
+}
 
 export function getTotalCountErrorMessage({ useItAny, useItPsw, linkedCur, linkedNew }: TotalCount, formIdx: FormIdx): VerifyError[] | undefined {
     let error: string | undefined;
@@ -26,7 +57,7 @@ export function getTotalCountErrorMessage({ useItAny, useItPsw, linkedCur, linke
     }
 
     // 2. Checks for cpass form only
-    
+
     if (!error && !isLogin) {
         tab = 'cpass';
 

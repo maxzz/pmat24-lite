@@ -1,7 +1,7 @@
 import { FieldTyp, FormIdx } from "@/store/manifest";
 import { type MFormCnt, type VerifyError } from "@/store/2-file-mani-atoms/9-types";
 import { type RowInputStateUuid, getChunkRawInputStatesForValidate } from "@/store/2-file-mani-atoms/2-manual-fields/2-conv-manual/2-m-from-atoms";
-import { type TotalCount } from "./7-get-total-count-error-message";
+import { getTotalCountErrorMessage, processFieldRowCtx, type TotalCount } from "./7-get-total-count-error-message";
 
 export function getVerifyErrors_FromManualForm(cnt: MFormCnt, formIdx: FormIdx, { get, set }: GetSet): VerifyError[] {
     const tab = formIdx === FormIdx.login ? 'login' : 'cpass';
@@ -41,6 +41,14 @@ export function getVerifyErrors_FromManualForm(cnt: MFormCnt, formIdx: FormIdx, 
         (num: number, errorAtom: PA<boolean>) => set(errorAtom, true)
     );
 
+    if (!rv.length) {
+        const totalCount = totalFieldsInUse_Manual(toValidate, get);
+        const errors = getTotalCountErrorMessage(totalCount, formIdx);
+        if (errors) {
+            rv.push(...errors);
+        }
+    }
+
     return rv;
 }
 
@@ -57,30 +65,7 @@ function totalFieldsInUse_Manual(chunksMap: RowInputStateUuid[], get: Getter): T
             if (chunkMapping.chunk.type === 'fld') {
                 rv.useItAny++;
 
-                const chunckFldAtoms = chunkMapping.chunk.rowCtx;
-
-                const isPsw = get(chunckFldAtoms.typeAtom) === FieldTyp.psw;
-                if (isPsw) {
-                    rv.useItPsw++;
-
-                    const rfield = get(chunckFldAtoms.rfieldAtom);
-                    if (rfield) {
-                        const isCurrent = rfield === 'in';
-                        const isNew = rfield === 'out';
-
-                        if (isCurrent || isNew) {
-
-                            const isLinked = !!get(chunckFldAtoms.rfieldUuidAtom);
-                            if (isLinked) {
-                                if (isCurrent) {
-                                    rv.linkedCur++;
-                                } else if (isNew) {
-                                    rv.linkedNew++;
-                                }
-                            }
-                        }
-                    }
-                }
+                processFieldRowCtx(chunkMapping.chunk.rowCtx, rv, get);
             }
         }
     );

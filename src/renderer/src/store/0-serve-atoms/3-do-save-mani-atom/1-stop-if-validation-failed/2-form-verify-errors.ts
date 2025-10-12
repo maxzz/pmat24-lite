@@ -1,7 +1,7 @@
-import { type FormIdx, FieldTyp } from "@/store/manifest";
+import { type FormIdx } from "@/store/manifest";
 import { type ManiAtoms, type FieldRowCtx, type VerifyError } from "@/store/2-file-mani-atoms/9-types";
 import { getVerifyErrors_FromManualForm } from "./3-form-manual-verify-errors";
-import { type TotalCount, getTotalCountErrorMessage } from "./7-get-total-count-error-message";
+import { type TotalCount, getTotalCountErrorMessage, processFieldRowCtx } from "./7-get-total-count-error-message";
 
 // Manual form
 
@@ -39,35 +39,4 @@ function totalFieldsInUse_Normal(rowCtxs: FieldRowCtx[] | undefined, { get }: Ge
     rowCtxs?.forEach((fieldRowCtx) => processFieldRowCtx(fieldRowCtx, rv, get));
 
     return rv;
-}
-
-function processFieldRowCtx(fieldRowCtx: FieldRowCtx, rv: TotalCount, get: Getter): void {
-    const useIt = get(fieldRowCtx.useItAtom);
-    if (useIt) {
-        rv.useItAny++;
-
-        const isPsw = get(fieldRowCtx.typeAtom) === FieldTyp.psw;
-        if (isPsw) {
-            rv.useItPsw++;
-
-            const rfield = get(fieldRowCtx.rfieldAtom);
-            if (rfield) {
-                const isCurrent = rfield === 'in';
-                const isNew = rfield === 'out';
-
-                if (isCurrent || isNew) {
-
-                    const isLinked = !!get(fieldRowCtx.rfieldUuidAtom);
-                    if (isLinked) {
-                        if (isCurrent) {
-                            rv.linkedCur++;
-                        } else if (isNew) {
-                            rv.linkedNew++;
-                        }
-                    }
-                }
-            }
-        }
-
-    }
 }
