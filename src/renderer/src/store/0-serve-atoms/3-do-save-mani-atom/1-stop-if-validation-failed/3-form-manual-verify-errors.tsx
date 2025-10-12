@@ -1,4 +1,4 @@
-import { FieldTyp, FormIdx } from "@/store/manifest";
+import { FormIdx } from "@/store/manifest";
 import { type MFormCnt, type VerifyError } from "@/store/2-file-mani-atoms/9-types";
 import { type RowInputStateUuid, getChunkRawInputStatesForValidate } from "@/store/2-file-mani-atoms/2-manual-fields/2-conv-manual/2-m-from-atoms";
 import { getTotalCountErrorMessage, processFieldRowCtx, type TotalCount } from "./7-get-total-count-error-message";

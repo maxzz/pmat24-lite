@@ -13,20 +13,21 @@ export function ManualModeView({ mFormProps, className, ...rest }: { mFormProps:
         loginChangesEffectFn({ mFormProps })
     );
     //usePrintFormFields({ maniAtoms: mFormProps.maniAtoms, formIdx: guardedFormIdx(mFormProps) });
-    
-    return (
+
+    return (<>
         <div className={classNames(manualModeViewClasses, isManualManifestNew(mFormProps) ? "@[600px]:gap-y-4" : "h-full", className)} {...rest}>
             <ManualPanelActions className="@container/actions" mFormProps={mFormProps} />
             <ManualPanelProps className="@container/props min-h-[180px] text-xs" mFormProps={mFormProps} />
-
-            <div className="font-semibold">
+        </div>
+        <div className="">
+            <div className="font-semibold select-none">
                 Additional options
             </div>
             <div className="mb-1 text-xs flex flex-col items-start gap-1 select-none">
                 <InFormBlockOptions anyFormProps={mFormProps} />
             </div>
         </div>
-    );
+    </>);
 }
 
 const manualModeViewClasses = "\
