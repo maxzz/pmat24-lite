@@ -12,7 +12,9 @@ export function getVerifyErrors_FromManualForm(cnt: MFormCnt, formIdx: FormIdx, 
         return [{ error: 'The action list must contain at least one "Field" action.', tab }]; //TODO: it's better to dissmis this error when the user adds a field
     }
 
-    const toValidate: RowInputStateUuid[] = chunks.map((chunk, idx) => getChunkRawInputStatesForValidate(chunk, idx, get)).flat();
+    const toValidate: RowInputStateUuid[] = chunks.map(
+        (chunk, idx) => getChunkRawInputStatesForValidate(chunk, idx, get)
+    ).flat();
 
     const chunksToSetErrorMap = new Map<PA<boolean>, number>();
 
@@ -23,10 +25,14 @@ export function getVerifyErrors_FromManualForm(cnt: MFormCnt, formIdx: FormIdx, 
                 if (error) {
                     const chunkNum = chunksToSetErrorMap.get(chunkRow.chunk.hasErrorAtom);
                     chunksToSetErrorMap.set(chunkRow.chunk.hasErrorAtom, chunkNum === undefined ? 1 : chunkNum + 1);
+                    const rv: VerifyError = {
+                        error,
+                        tab,
+                        actionUuid: chunkRow.uuid,
+                        rowIdx: chunkRow.rowIdx,
+                    };
+                    return rv;
                 }
-
-                const rv: VerifyError | undefined = !error ? undefined : { error, tab, actionUuid: chunkRow.uuid, rowIdx: chunkRow.rowIdx, };
-                return rv;
             }
         ).filter(Boolean);
 
