@@ -1,7 +1,7 @@
 import { FormIdx } from "@/store/manifest";
 import { FieldRowCtx, type MFormCnt, type VerifyError } from "@/store/2-file-mani-atoms/9-types";
 import { type RowInputStateUuid, getChunkRawInputStatesForValidate } from "@/store/2-file-mani-atoms/2-manual-fields/2-conv-manual/2-m-from-atoms";
-import { getTotalCountErrorMessage, totalFieldsInUse } from "./7-get-total-count-error-message";
+import { getTotalCountError } from "./7-get-total-count-error-message";
 
 export function getVerifyErrors_FromManualForm(cnt: MFormCnt, formIdx: FormIdx, { get, set }: GetSet): VerifyError[] {
     const tab = formIdx === FormIdx.login ? 'login' : 'cpass';
@@ -44,8 +44,7 @@ export function getVerifyErrors_FromManualForm(cnt: MFormCnt, formIdx: FormIdx, 
     if (!rv.length) {
         const ctxs: FieldRowCtx[] = toValidate.map((chunkMapping) => chunkMapping.chunk.type === 'fld' ? chunkMapping.chunk.rowCtx : undefined).filter(Boolean);
         
-        const totalCount = totalFieldsInUse(ctxs, {get, set});
-        const errors = getTotalCountErrorMessage(totalCount, formIdx);
+        const errors = getTotalCountError(ctxs, formIdx, get);
         if (errors) {
             rv.push(...errors);
         }

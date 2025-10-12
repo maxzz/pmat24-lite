@@ -1,7 +1,7 @@
 import { type FormIdx } from "@/store/manifest";
 import { type ManiAtoms, type VerifyError } from "@/store/2-file-mani-atoms/9-types";
 import { getVerifyErrors_FromManualForm } from "./3-form-manual-verify-errors";
-import { getTotalCountErrorMessage, totalFieldsInUse } from "./7-get-total-count-error-message";
+import { getTotalCountError } from "./7-get-total-count-error-message";
 
 // Normal form
 
@@ -11,8 +11,7 @@ export function getVerifyErrors_NormalForm(maniAtoms: ManiAtoms, formIdx: FormId
         return;
     }
 
-    const totalCount = totalFieldsInUse(formCtx.normal.rowCtxs, getset);
-    const rv = getTotalCountErrorMessage(totalCount, formIdx);
+    const rv = getTotalCountError(formCtx.normal.rowCtxs, formIdx, getset.get);
     return rv;
 }
 

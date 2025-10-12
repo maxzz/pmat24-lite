@@ -8,7 +8,13 @@ type TotalCount = {
     linkedNew: number;
 };
 
-export function totalFieldsInUse(rowCtxs: FieldRowCtx[] | undefined, { get }: GetSet): TotalCount {
+export function getTotalCountError(fieldRowCtxs: FieldRowCtx[], formIdx: FormIdx, get: Getter): VerifyError[] | undefined {
+    const totalCount = totalFieldsInUse(fieldRowCtxs, get);
+    const rv = getTotalCountErrorMessage(totalCount, formIdx);
+    return rv;
+}
+
+function totalFieldsInUse(rowCtxs: FieldRowCtx[] | undefined, get: Getter): TotalCount {
     const rv: TotalCount = {
         useItAny: 0,
         useItPsw: 0,
@@ -52,7 +58,7 @@ function processFieldRowCtx(fieldRowCtx: FieldRowCtx, rv: TotalCount, get: Gette
     }
 }
 
-export function getTotalCountErrorMessage({ useItAny, useItPsw, linkedCur, linkedNew }: TotalCount, formIdx: FormIdx): VerifyError[] | undefined {
+function getTotalCountErrorMessage({ useItAny, useItPsw, linkedCur, linkedNew }: TotalCount, formIdx: FormIdx): VerifyError[] | undefined { // Only first error is returned since we use toast to show it
     let error: string | undefined;
 
     const isLogin = formIdx === FormIdx.login;
