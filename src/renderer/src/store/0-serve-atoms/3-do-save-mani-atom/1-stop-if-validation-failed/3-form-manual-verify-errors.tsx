@@ -1,7 +1,7 @@
 import { FormIdx } from "@/store/manifest";
 import { FieldRowCtx, type MFormCnt, type VerifyError } from "@/store/2-file-mani-atoms/9-types";
 import { type RowInputStateUuid, getChunkRawInputStatesForValidate } from "@/store/2-file-mani-atoms/2-manual-fields/2-conv-manual/2-m-from-atoms";
-import { getTotalCountErrorMessage, processFieldRowCtx, type TotalCount } from "./7-get-total-count-error-message";
+import { getTotalCountErrorMessage, totalFieldsInUse } from "./7-get-total-count-error-message";
 
 export function getVerifyErrors_FromManualForm(cnt: MFormCnt, formIdx: FormIdx, { get, set }: GetSet): VerifyError[] {
     const tab = formIdx === FormIdx.login ? 'login' : 'cpass';
@@ -42,36 +42,14 @@ export function getVerifyErrors_FromManualForm(cnt: MFormCnt, formIdx: FormIdx, 
     );
 
     if (!rv.length) {
-        const totalCount = totalFieldsInUse_Manual(toValidate, get);
+        const ctxs: FieldRowCtx[] = toValidate.map((chunkMapping) => chunkMapping.chunk.type === 'fld' ? chunkMapping.chunk.rowCtx : undefined).filter(Boolean);
+        
+        const totalCount = totalFieldsInUse(ctxs, {get, set});
         const errors = getTotalCountErrorMessage(totalCount, formIdx);
         if (errors) {
             rv.push(...errors);
         }
     }
-
-    return rv;
-}
-
-function totalFieldsInUse_Manual(chunksMap: RowInputStateUuid[], get: Getter): TotalCount {
-    const rv: TotalCount = {
-        useItAny: 0,
-        useItPsw: 0,
-        linkedCur: 0,
-        linkedNew: 0,
-    };
-
-    const ctxs: FieldRowCtx[] = chunksMap.map((chunkMapping) => chunkMapping.chunk.type === 'fld' ? chunkMapping.chunk.rowCtx : undefined).filter(Boolean);
-    ctxs.forEach((fieldRowCtx) => processFieldRowCtx(fieldRowCtx, rv, get));
-
-    // chunksMap.forEach(
-    //     (chunkMapping) => {
-    //         if (chunkMapping.chunk.type === 'fld') {
-    //             rv.useItAny++;
-
-    //             processFieldRowCtx(chunkMapping.chunk.rowCtx, rv, get);
-    //         }
-    //     }
-    // );
 
     return rv;
 }

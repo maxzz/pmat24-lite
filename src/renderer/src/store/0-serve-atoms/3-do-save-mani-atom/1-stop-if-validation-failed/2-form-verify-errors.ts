@@ -1,7 +1,20 @@
 import { type FormIdx } from "@/store/manifest";
-import { type ManiAtoms, type FieldRowCtx, type VerifyError } from "@/store/2-file-mani-atoms/9-types";
+import { type ManiAtoms, type VerifyError } from "@/store/2-file-mani-atoms/9-types";
 import { getVerifyErrors_FromManualForm } from "./3-form-manual-verify-errors";
-import { type TotalCount, getTotalCountErrorMessage, processFieldRowCtx } from "./7-get-total-count-error-message";
+import { getTotalCountErrorMessage, totalFieldsInUse } from "./7-get-total-count-error-message";
+
+// Normal form
+
+export function getVerifyErrors_NormalForm(maniAtoms: ManiAtoms, formIdx: FormIdx, getset: GetSet): VerifyError[] | undefined {
+    const formCtx = maniAtoms[formIdx];
+    if (!formCtx?.normal) {
+        return;
+    }
+
+    const totalCount = totalFieldsInUse(formCtx.normal.rowCtxs, getset);
+    const rv = getTotalCountErrorMessage(totalCount, formIdx);
+    return rv;
+}
 
 // Manual form
 
@@ -14,29 +27,3 @@ export function getVerifyErrors_ManualForm(maniAtoms: ManiAtoms, formIdx: FormId
     const rv: VerifyError[] = getVerifyErrors_FromManualForm(formCtx.manual, formIdx, getset);
     return rv;
 };
-
-// Normal form
-
-export function getVerifyErrors_NormalForm(maniAtoms: ManiAtoms, formIdx: FormIdx, getset: GetSet): VerifyError[] | undefined {
-    const formCtx = maniAtoms[formIdx];
-    if (!formCtx?.normal) {
-        return;
-    }
-
-    const totalCount = totalFieldsInUse_Normal(formCtx.normal.rowCtxs, getset);
-    const rv = getTotalCountErrorMessage(totalCount, formIdx);
-    return rv;
-}
-
-function totalFieldsInUse_Normal(rowCtxs: FieldRowCtx[] | undefined, { get }: GetSet): TotalCount {
-    const rv: TotalCount = {
-        useItAny: 0,
-        useItPsw: 0,
-        linkedCur: 0,
-        linkedNew: 0,
-    };
-
-    rowCtxs?.forEach((fieldRowCtx) => processFieldRowCtx(fieldRowCtx, rv, get));
-
-    return rv;
-}

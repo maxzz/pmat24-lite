@@ -1,14 +1,27 @@
 import { FormIdx, FieldTyp } from "@/store/manifest";
 import { type VerifyError, type ManiTabValue, type FieldRowCtx } from "@/store/2-file-mani-atoms";
 
-export type TotalCount = {
+type TotalCount = {
     useItAny: number;
     useItPsw: number;
     linkedCur: number;
     linkedNew: number;
 };
 
-export function processFieldRowCtx(fieldRowCtx: FieldRowCtx, rv: TotalCount, get: Getter): void {
+export function totalFieldsInUse(rowCtxs: FieldRowCtx[] | undefined, { get }: GetSet): TotalCount {
+    const rv: TotalCount = {
+        useItAny: 0,
+        useItPsw: 0,
+        linkedCur: 0,
+        linkedNew: 0,
+    };
+
+    rowCtxs?.forEach((fieldRowCtx) => processFieldRowCtx(fieldRowCtx, rv, get));
+
+    return rv;
+}
+
+function processFieldRowCtx(fieldRowCtx: FieldRowCtx, rv: TotalCount, get: Getter): void {
     const useIt = get(fieldRowCtx.useItAtom);
     if (useIt) {
         rv.useItAny++;
