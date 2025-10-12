@@ -1,5 +1,5 @@
 import { FormIdx } from "@/store/manifest";
-import { type MFormCnt, type VerifyError } from "@/store/2-file-mani-atoms/9-types";
+import { FieldRowCtx, type MFormCnt, type VerifyError } from "@/store/2-file-mani-atoms/9-types";
 import { type RowInputStateUuid, getChunkRawInputStatesForValidate } from "@/store/2-file-mani-atoms/2-manual-fields/2-conv-manual/2-m-from-atoms";
 import { getTotalCountErrorMessage, processFieldRowCtx, type TotalCount } from "./7-get-total-count-error-message";
 
@@ -60,15 +60,18 @@ function totalFieldsInUse_Manual(chunksMap: RowInputStateUuid[], get: Getter): T
         linkedNew: 0,
     };
 
-    chunksMap.forEach(
-        (chunkMapping) => {
-            if (chunkMapping.chunk.type === 'fld') {
-                rv.useItAny++;
+    const ctxs: FieldRowCtx[] = chunksMap.map((chunkMapping) => chunkMapping.chunk.type === 'fld' ? chunkMapping.chunk.rowCtx : undefined).filter(Boolean);
+    ctxs.forEach((fieldRowCtx) => processFieldRowCtx(fieldRowCtx, rv, get));
 
-                processFieldRowCtx(chunkMapping.chunk.rowCtx, rv, get);
-            }
-        }
-    );
+    // chunksMap.forEach(
+    //     (chunkMapping) => {
+    //         if (chunkMapping.chunk.type === 'fld') {
+    //             rv.useItAny++;
+
+    //             processFieldRowCtx(chunkMapping.chunk.rowCtx, rv, get);
+    //         }
+    //     }
+    // );
 
     return rv;
 }
