@@ -16,7 +16,7 @@ export function DetailsFld({ item, mFormProps }: { item: ManualFieldState.CtxFld
             : 'Text';
 
     return (
-        <div className={hideBreakpointClasses}>
+        <div className={classNames(hideBreakpointClasses, "1min-w-0")}>
             <span className={classNames(detailKbdClasses, "font-normal truncate")}>
                 {text}
             </span>
@@ -29,10 +29,10 @@ export function DetailsFld({ item, mFormProps }: { item: ManualFieldState.CtxFld
 function FieldName({ item }: { item: ManualFieldState.CtxFld; }) {
     const name = useAtomValue(item.rowCtx.labelAtom) || 'Field';
     return (
-        <div className={hideBreakpointClasses}>
-        <span className={classNames("truncate")}>
+        // <div className={hideBreakpointClasses}>
+        <span className={classNames("1shrink-1 1min-w-0 truncate", detailKbdClasses, "font-normal")}>
             {name}
         </span>
-        </div>
+        // </div>
     );
 }
