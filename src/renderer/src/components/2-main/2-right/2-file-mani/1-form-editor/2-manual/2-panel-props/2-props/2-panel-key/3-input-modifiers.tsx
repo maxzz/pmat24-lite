@@ -5,23 +5,6 @@ import { modifierKeys } from "@/store/manifest";
 import { InputSelectUi, type RowInputStateAtom } from "@/ui";
 import { type ManualFieldState } from "@/store/2-file-mani-atoms";
 
-type FrameProps = HTMLAttributes<HTMLDivElement> & {
-    label: string;
-    children: ReactNode;
-};
-
-export function GroupFrame({ label, children, className, ...rest }: FrameProps) {
-    return (
-        <div className={classNames("relative pl-1 pt-2 border-border border-dotted border rounded", className)} {...rest}>
-            <div className="absolute -left-1 -top-3 px-1 py-1 bg-muted/20 border-border border-dotted border rounded">
-                {label}
-            </div>
-
-            {children}
-        </div>
-    );
-}
-
 export function InputModifiers({ item }: { item: ManualFieldState.CtxKbd; }) {
     return (
         <GroupFrame className="@container/modifier mt-2 max-w-[220px]" label="Key modifiers:">
@@ -33,6 +16,18 @@ export function InputModifiers({ item }: { item: ManualFieldState.CtxKbd; }) {
 
             </div>
         </GroupFrame>
+    );
+}
+
+function GroupFrame({ label, children, className, ...rest }: HTMLAttributes<HTMLDivElement> & { label: string; children: ReactNode; }) {
+    return (
+        <div className={classNames("relative pl-1 pt-2 border-border border-dotted border rounded", className)} {...rest}>
+            <div className="absolute -left-1 -top-3 px-1 py-1 bg-muted/20 border-border border-dotted border rounded">
+                {label}
+            </div>
+
+            {children}
+        </div>
     );
 }
 
