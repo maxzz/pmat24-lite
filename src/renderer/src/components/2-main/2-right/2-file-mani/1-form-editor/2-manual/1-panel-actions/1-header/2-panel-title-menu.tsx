@@ -44,9 +44,9 @@ function MenuRow({ type, password, addNew }: { type: ChunkKey; password?: boolea
 }
 
 const buttonClasses = "\
-mr-2.5 size-6 \
+mr-3 size-5 \
 hover:bg-primary-200 dark:hover:bg-primary-700 \
-border-muted-foreground/20 \
+border-muted-foreground/10 dark:border-muted-foreground/30 \
 border rounded outline-none \
-shadow-sm dark:shadow-primary-900 \
+shadow-sm dark:shadow-foreground/20 \
 grid place-items-center";
