@@ -7,26 +7,14 @@ import { type ManualFieldState } from "@/store/2-file-mani-atoms";
 
 export function InputModifiers({ item }: { item: ManualFieldState.CtxKbd; }) {
     return (
-        <GroupFrame className="@container/modifier mt-2 max-w-[220px]" label="Key modifiers:">
-            <div className="my-1.5 flex flex-col justify-between @[190px]/modifier:flex-row gap-1">
+        <div className="@container/modifier max-w-[220px]">
+            <div className="1my-1.5 flex flex-col justify-between @[190px]/modifier:flex-row gap-1">
 
                 <Modifier label="Shift" valueAtom={item.shiftAtom} />
                 <Modifier label="Control" valueAtom={item.ctrlAtom} />
                 <Modifier label="Alt" valueAtom={item.altAtom} />
 
             </div>
-        </GroupFrame>
-    );
-}
-
-function GroupFrame({ label, children, className, ...rest }: HTMLAttributes<HTMLDivElement> & { label: string; children: ReactNode; }) {
-    return (
-        <div className={classNames("relative pl-1 pt-2 border-border border-dotted border rounded", className)} {...rest}>
-            <div className="absolute -left-1 -top-3 px-1 py-1 bg-muted/20 border-border border-dotted border rounded">
-                {label}
-            </div>
-
-            {children}
         </div>
     );
 }
