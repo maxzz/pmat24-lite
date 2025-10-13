@@ -31,7 +31,7 @@ function FieldName({ item }: { item: ManualFieldState.CtxFld; }) {
     return (
         // <div className={hideBreakpointClasses}>
         <span className={classNames("1shrink-1 1min-w-0 truncate", detailKbdClasses, "font-normal")}>
-            {name}
+            {name.length > 30 ? name.slice(0, 20) + '...' : name}
         </span>
         // </div>
     );

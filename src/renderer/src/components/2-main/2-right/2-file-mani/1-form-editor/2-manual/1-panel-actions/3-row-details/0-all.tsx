@@ -1,12 +1,12 @@
 import { type SVGProps } from "react";
+import { classNames } from "@/utils";
 import { type MFormProps, type ManualFieldState } from "@/store/2-file-mani-atoms";
 import { type ChunkKey } from "@/store/manifest";
+import { IconField as IconFld, IconKey, IconPos, IconDelay as IconDly } from "@/ui/icons";
 import { DetailsKbd } from "./1-details-key";
 import { DetailsFld } from "./2-details-fld";
 import { DetailsDly } from "./3-details-dly";
 import { DetailsPos } from "./4-details-pos";
-import { IconField as IconFld, IconKey, IconPos, IconDelay as IconDly } from "@/ui/icons";
-import { classNames } from "@/utils";
 
 export function rowColumnActionName(type: ChunkKey): string {
     switch (type) {
