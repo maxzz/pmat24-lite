@@ -17,7 +17,7 @@ export function ManualModeView({ mFormProps, className, ...rest }: { mFormProps:
     return (<>
         <div className={classNames(manualModeViewClasses, isManualManifestNew(mFormProps) ? "@[600px]:gap-y-4" : "h-full", className)} {...rest}>
             <ManualPanelActions className="[grid-area:actions] @container/actions" mFormProps={mFormProps} />
-            <ManualPanelProps className="[grid-area:props] @container/props min-h-[180px] text-xs" mFormProps={mFormProps} />
+            <ManualPanelProps className="[grid-area:props] @container/props min-h-[150px] text-xs" mFormProps={mFormProps} />
             <div className="[grid-area:options]">
                 <div className="font-semibold select-none">
                     Additional options
