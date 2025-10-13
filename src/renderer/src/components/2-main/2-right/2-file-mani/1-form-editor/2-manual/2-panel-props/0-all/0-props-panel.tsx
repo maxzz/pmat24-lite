@@ -1,10 +1,10 @@
 import { type HTMLAttributes } from "react";
 import { useAtomValue } from "jotai";
-import { type MFormProps } from "@/store/2-file-mani-atoms";
-import { PanelPropsTitle } from "./1-panel-props-title";
-import { ScriptItemPropsEditorSelector } from "./2-editor-selector";
-import { focusWithinClasses } from "../../8-manual-shared-styles";
 import { classNames } from "@/utils";
+import { type MFormProps, type FileUsCtx, type ManualFieldState } from "@/store/2-file-mani-atoms";
+import { PanelPropsTitle } from "./1-panel-props-title";
+import { focusWithinClasses } from "../../8-manual-shared-styles";
+import { PropsEditorDly, PropsEditorFld, PropsEditorKey, PropsEditorPos } from "../2-props";
 
 export function ManualPanelProps({ mFormProps, className, ...rest }: { mFormProps: MFormProps; } & HTMLAttributes<HTMLDivElement>) {
     const { manual: ctx, fileUsCtx } = mFormProps.mFormCtx;
@@ -22,7 +22,7 @@ export function ManualPanelProps({ mFormProps, className, ...rest }: { mFormProp
             <PanelPropsTitle type={selectedItem.type} />
 
             <div className={propsBoxClasses} {...rest}>
-                <ScriptItemPropsEditorSelector ctx={selectedItem} fileUsCtx={fileUsCtx} />
+                <PropsEditorSelector ctx={selectedItem} fileUsCtx={fileUsCtx} />
             </div>
 
         </div>
@@ -35,3 +35,16 @@ overflow-hidden \
 select-none";
 
 const propsBoxClasses = "px-1 flex flex-col gap-y-2";
+
+function PropsEditorSelector({ ctx, fileUsCtx }: { ctx: ManualFieldState.Ctx; fileUsCtx: FileUsCtx; }) {
+    switch (ctx.type) {
+        case 'fld': return <PropsEditorFld item={ctx} fileUsCtx={fileUsCtx} />;
+        case 'kbd': return <PropsEditorKey item={ctx} />;
+        case 'pos': return <PropsEditorPos item={ctx} fileUsCtx={fileUsCtx} />;
+        case 'dly': return <PropsEditorDly item={ctx} />;
+        default: {
+            const really: never = ctx;
+            return null;
+        }
+    }
+}
