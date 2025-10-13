@@ -35,14 +35,10 @@ min-w-60 min-h-0 \
 \
 grid \
 \
-[grid-template-areas:'actions_actions''props_props''options_options'] \
-@[600px]:[grid-template-areas:'actions''options''props_props'] \
+[grid-template-areas:'actions''props''options'] \
+@[600px]:[grid-template-areas:'actions_props''options_options'] \
 \
-grid-cols-1 \
-1grid-rows-[minmax(100px_1fr),auto,auto] \
-\
-@[600px]:grid-cols-2 \
-1@[600px]:gap-y-0 \
+grid-rows-[1fr,auto,auto] \
 gap-x-1 \
 gap-y-2 \
 ";
