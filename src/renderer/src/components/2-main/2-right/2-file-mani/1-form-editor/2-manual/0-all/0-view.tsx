@@ -16,9 +16,9 @@ export function ManualModeView({ mFormProps, className, ...rest }: { mFormProps:
 
     return (<>
         <div className={classNames(manualModeViewClasses, isManualManifestNew(mFormProps) ? "@[600px]:gap-y-4" : "h-full", className)} {...rest}>
-            <ManualPanelActions className="[grid-area:💻] @container/actions" mFormProps={mFormProps} />
-            <ManualPanelProps className="[grid-area:🔧] @container/props min-h-[180px] text-xs" mFormProps={mFormProps} />
-            <div className="[grid-area:📃]">
+            <ManualPanelActions className="[grid-area:actions] @container/actions" mFormProps={mFormProps} />
+            <ManualPanelProps className="[grid-area:props] @container/props min-h-[180px] text-xs" mFormProps={mFormProps} />
+            <div className="[grid-area:options]">
                 <div className="font-semibold select-none">
                     Additional options
                 </div>
@@ -35,17 +35,17 @@ min-w-60 min-h-0 \
 \
 grid \
 \
-[grid-template-areas:'💻''🔧_🔧''📃'] \
-@[600px]:[grid-template-areas:'💻''📃''🔧'] \
+[grid-template-areas:'actions_actions''props_props''options_options'] \
+@[600px]:[grid-template-areas:'actions''options''props_props'] \
 \
-grid-cols-2 \
+grid-cols-1 \
 1grid-rows-[minmax(100px_1fr),auto,auto] \
 \
 @[600px]:grid-cols-2 \
 1@[600px]:gap-y-0 \
 gap-x-1 \
 gap-y-2 \
-"; //'💻''🔧''📃' as 'actions''options''props'
+";
 
 const sectionLabelClasses = "mt-2 1-mb-1 text-xs font-semibold select-none";
 
@@ -97,3 +97,5 @@ gap-x-1 \
 const sectionLabelClasses = "mt-2 1-mb-1 text-xs font-semibold select-none";
 
 */
+
+//'💻''🔧''📃' as 'actions''options''props'
