@@ -1,8 +1,8 @@
 import { FileUsCtx, ManualFieldState } from "@/store/2-file-mani-atoms";
-import { PropsEditorDly } from "../3-panel-delay";
-import { PropsEditorFld } from "../1-panel-field";
-import { PropsEditorKey } from "../2-panel-key";
-import { PropsEditorPos } from "../4-panel-pos";
+import { PropsEditorDly } from "../2-props/3-panel-delay";
+import { PropsEditorFld } from "../2-props/1-panel-field";
+import { PropsEditorKey } from "../2-props/2-panel-key";
+import { PropsEditorPos } from "../2-props/4-panel-pos";
 
 export function ScriptItemPropsEditorSelector({ ctx, fileUsCtx }: { ctx: ManualFieldState.Ctx; fileUsCtx: FileUsCtx; }) {
     switch (ctx.type) {
