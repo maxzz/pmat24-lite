@@ -12,4 +12,4 @@ export function DetailsPos({ item }: { item: ManualFieldState.CtxPos; }) {
 }
 
 //const containerClasses = "hidden @[300px]/actions:block";
-const containerClasses = "hidden @[300px]/actions:flex items-center justify-end space-x-1";
+const containerClasses = "hidden @[380px]/actions:flex items-center justify-end space-x-1";

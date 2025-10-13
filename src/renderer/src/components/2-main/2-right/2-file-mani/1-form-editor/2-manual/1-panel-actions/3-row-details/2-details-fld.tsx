@@ -17,7 +17,7 @@ export function DetailsFld({ item, mFormProps }: { item: ManualFieldState.CtxFld
 
     return (
         <div className={containerClasses}>
-            <span className={classNames(detailKbdClasses, "font-normal")}>
+            <span className={classNames(detailKbdClasses, "font-normal truncate")}>
                 {text}
             </span>
 
@@ -30,9 +30,11 @@ function FieldName({ item }: { item: ManualFieldState.CtxFld; }) {
     const name = useAtomValue(item.rowCtx.labelAtom) || 'Field';
     return (
         <div className={containerClasses}>
+        <span className={classNames("truncate")}>
             {name}
+        </span>
         </div>
     );
 }
 
-const containerClasses = "hidden @[300px]/actions:flex items-center justify-between";
+const containerClasses = "hidden @[380px]/actions:flex items-center justify-between";

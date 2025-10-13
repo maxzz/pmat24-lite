@@ -33,4 +33,4 @@ export function TabContent_NormalForm({ nFormProps, className, ...rest }: { nFor
     );
 }
 
-const sectionLabelClasses = "ml-2 mr-2 mt-1 1-mb-1 text-xs font-semibold select-none";
+const sectionLabelClasses = "ml-2 mr-2 mt-1 text-xs font-semibold select-none";
