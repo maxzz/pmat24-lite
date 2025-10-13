@@ -32,66 +32,15 @@ export function ManualModeView({ mFormProps, className, ...rest }: { mFormProps:
 
 const manualModeViewClasses = "\
 min-w-60 min-h-0 \
-\
 grid \
-\
-[grid-template-areas:'actions''props''options'] \
-@[600px]:[grid-template-areas:'actions_props''options_options'] \
-\
 grid-rows-[1fr,auto,auto] \
+[grid-template-areas:'actions''props''options'] @[600px]:[grid-template-areas:'actions_props''options_options'] \
 gap-x-1 \
 gap-y-2 \
 ";
-
-const sectionLabelClasses = "mt-2 1-mb-1 text-xs font-semibold select-none";
 
 //TODO: check focus-within when added new item from the empty list
 
 //TODO: remove frame; leave only line inbetween
-//TODO: scroll panels independently
-//TDOO: header is not part of the scroll
-
-//04.02.25
-//TODO: label for the new manifest on the right option
-
-/*
-export function ManualModeView({ mFormProps, className, ...rest }: { mFormProps: MFormProps; } & ComponentPropsWithoutRef<'div'>) {
-    useAtomEffect(
-        loginChangesEffectFn({ mFormProps })
-    );
-    //usePrintFormFields({ maniAtoms: mFormProps.maniAtoms, formIdx: guardedFormIdx(mFormProps) });
-
-    return (<>
-        <div className={classNames(manualModeViewClasses, isManualManifestNew(mFormProps) ? "@[600px]:gap-y-4" : "h-full", className)} {...rest}>
-            <ManualPanelActions className="@container/actions" mFormProps={mFormProps} />
-            <ManualPanelProps className="@container/props min-h-[180px] text-xs" mFormProps={mFormProps} />
-        </div>
-        <div className="">
-            <div className="font-semibold select-none">
-                Additional options
-            </div>
-            <div className="mb-1 text-xs flex flex-col items-start gap-1 select-none">
-                <InFormBlockOptions anyFormProps={mFormProps} />
-            </div>
-        </div>
-    </>);
-}
-
-const manualModeViewClasses = "\
-min-w-60 min-h-0 \
-\
-grid \
-grid-cols-1 \
-grid-rows-[minmax(100px_1fr),auto,auto] \
-\
-@[600px]:grid-cols-2 \
-@[600px]:gap-y-0 \
-gap-y-2 \
-gap-x-1 \
-";
-
-const sectionLabelClasses = "mt-2 1-mb-1 text-xs font-semibold select-none";
-
-*/
-
-//'💻''🔧''📃' as 'actions''options''props'
+//TODO: scroll panels independently - done
+//TDOO: header is not part of the scroll - done
