@@ -42,7 +42,7 @@ export function getVerifyErrors_FromManualForm(cnt: MFormCnt, formIdx: FormIdx, 
     );
 
     if (!rv.length) {
-        const ctxs: FieldRowCtx[] = toValidate.map((chunkMapping) => chunkMapping.chunk.type === 'fld' ? chunkMapping.chunk.rowCtx : undefined).filter(Boolean);
+        const ctxs: FieldRowCtx[] = chunks.map((chunk) => chunk.type === 'fld' ? chunk.rowCtx : undefined).filter(Boolean);
         
         const errors = getTotalCountError(ctxs, formIdx, get);
         if (errors) {
