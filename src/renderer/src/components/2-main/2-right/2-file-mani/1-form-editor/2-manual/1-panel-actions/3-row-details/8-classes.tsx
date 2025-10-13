@@ -8,4 +8,4 @@ border-primary-300 dark:border-primary-500 \
 border border-dotted rounded-sm \
 shadow-sm dark:shadow-inner dark:shadow-primary-400/20";
 
-export const hideBreakpointClasses = "hidden @[380px]/actions:flex items-center justify-between";
+export const hideBreakpointClasses = "hidden @[360px]/actions:flex items-center justify-between";
