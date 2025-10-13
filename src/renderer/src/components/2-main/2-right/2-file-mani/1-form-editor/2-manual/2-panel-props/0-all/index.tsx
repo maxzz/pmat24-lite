@@ -1,1 +1,1 @@
-export * from "./0-all-props";
+export * from "./0-props-panel";
