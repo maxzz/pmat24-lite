@@ -61,10 +61,10 @@ export function extractI18nStrings(config: Partial<Config> = {}): LocalizationSt
                 const relativePath = path.relative(process.cwd(), fullPath);
                 const strings = extractStringsFromFile(fullPath, cfg.minStringLength, cfg.classNameSuffix);
                 if (Object.keys(strings).length > 0) {
-                    // Convert to file:// URL format with relative path from source folder
-                    const srcDirResolved = path.resolve(cfg.srcDir);
-                    const relativeFromSrc = path.relative(srcDirResolved, fullPath);
-                    const fileUrl = 'file:///' + relativeFromSrc.replace(/\\/g, '/');
+                    // Use absolute file:// URL for clickable links in VS Code
+                    // Format: file:///C:/absolute/path/to/file.ts
+                    const absolutePath = path.resolve(fullPath).replace(/\\/g, '/');
+                    const fileUrl = 'file:///' + absolutePath;
                     results[fileUrl] = strings;
                 }
             

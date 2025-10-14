@@ -11,6 +11,9 @@ export function extractStringsFromFile(filePath: string, minLength: number, clas
     // Remove className attributes and variables ending with specified suffix
     content = removeClassNameStrings(content, classNameSuffix);
 
+    // Remove console.log and console.warn calls to avoid extracting debug messages
+    content = removeConsoleStatements(content);
+
     // Match string literals (single/double quotes, template literals without interpolation)
     // Exclude: imports, requires, CSS classes, short identifiers, code-like strings
     const patterns = [
@@ -140,6 +143,35 @@ function removeClassNameStrings(content: string, classNameSuffix: string): strin
     // Remove multi-line className with template literals
     content = content.replace(/className\s*=\s*\{`[\s\S]*?`\}/g, '');
 
+    return content;
+}
+
+/**
+ * Remove console.log, console.warn, console.error, and console.debug statements.
+ * This prevents debug/logging messages from being extracted as localizable strings.
+ * Handles:
+ * - console.log("message")
+ * - console.warn("message", variable)
+ * - console.error(`template ${var}`)
+ * - Multi-line console calls
+ */
+function removeConsoleStatements(content: string): string {
+    // Remove console.log, console.warn, console.error, console.debug, console.info
+    // Handles single-line and simple multi-line cases
+    // Pattern matches: console.method(...)
+    content = content.replace(/console\.(log|warn|error|debug|info)\s*\([^)]*\)\s*;?/g, '');
+    
+    // Remove multi-line console statements with nested parentheses
+    // This handles cases like: console.log(
+    //   "message",
+    //   obj.method()
+    // );
+    let previousContent;
+    do {
+        previousContent = content;
+        content = content.replace(/console\.(log|warn|error|debug|info)\s*\([^()]*(?:\([^()]*\)[^()]*)*\)\s*;?/gs, '');
+    } while (content !== previousContent);
+    
     return content;
 }
 
