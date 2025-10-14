@@ -61,8 +61,12 @@ export function extractI18nStrings(config: Partial<Config> = {}): LocalizationSt
                 const relativePath = path.relative(process.cwd(), fullPath);
                 const strings = extractStringsFromFile(fullPath, cfg.minStringLength, cfg.classNameSuffix);
                 if (Object.keys(strings).length > 0) {
-                    results[relativePath.replace(/\\/g, '/')] = strings;
+                    // Convert to file:// URL format for clickable links
+                    const absolutePath = path.resolve(fullPath);
+                    const fileUrl = 'file:///' + absolutePath.replace(/\\/g, '/');
+                    results[fileUrl] = strings;
                 }
+            
             }
         }
     }
