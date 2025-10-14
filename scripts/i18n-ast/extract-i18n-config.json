@@ -1,0 +1,11 @@
+{
+    "srcDir": "./src",
+    "outputFile": "./scripts/i18n-strings-ast.json",
+    "minStringLength": 10,
+    "excludeFiles": [],
+    "excludePaths": [
+        "src/renderer/src/ui/icons"
+    ],
+    "excludePattern": "\\.(test|spec)\\.",
+    "classNameSuffix": "Classes"
+}
