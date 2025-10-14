@@ -39,7 +39,8 @@ export function extractStringsFromFile(filePath: string, minLength: number, clas
                 isUrl(str) ||
                 isOnlyNumbersOrSymbols(str) ||
                 isGuid(str) ||
-                isDirectiveOrInterpolation(str)
+                isDirectiveOrInterpolation(str) ||
+                isSvgPath(str)
             ) {
                 continue;
             }
@@ -205,6 +206,38 @@ function isDirectiveOrInterpolation(str: string): boolean {
     // Check for strings that are just variable names in template context
     // Like: `${variableName}` or `${obj.prop}` or `${func()}`
     if (/^\$\{[\w.()]+\}$/.test(str)) {
+        return true;
+    }
+    
+    return false;
+}
+
+/**
+ * Check if string is an SVG path data string.
+ * SVG paths contain drawing commands (M, L, C, Q, A, Z, etc.) and coordinates.
+ * Examples: "M10 10 L20 20" or "M0,0 L100,100 Z"
+ */
+function isSvgPath(str: string): boolean {
+    // Check for SVG path commands: M, m, L, l, H, h, V, v, C, c, S, s, Q, q, T, t, A, a, Z, z
+    // These commands are typically followed by numbers (coordinates)
+    const svgPathPattern = /^[MmLlHhVvCcSsQqTtAaZz][\s,\d.-]+/;
+    
+    // Check if string starts with path commands
+    if (svgPathPattern.test(str)) {
+        return true;
+    }
+    
+    // Check if string contains multiple path commands (common in complex paths)
+    // Pattern: letters followed by numbers, repeated multiple times
+    const complexPathPattern = /[MmLlHhVvCcSsQqTtAaZz][\s,\d.-]+[MmLlHhVvCcSsQqTtAaZz]/;
+    if (complexPathPattern.test(str)) {
+        return true;
+    }
+    
+    // Check if string is predominantly numbers, spaces, commas, and path command letters
+    // This catches paths that might not start with a command but are clearly path data
+    const pathChars = str.replace(/[MmLlHhVvCcSsQqTtAaZz\s,.\d-]/g, '');
+    if (pathChars.length === 0 && /[MmLlHhVvCcSsQqTtAaZz]/.test(str) && /[\d]/.test(str)) {
         return true;
     }
     
