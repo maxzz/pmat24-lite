@@ -7,9 +7,10 @@ export function help() {
 Extract user-facing strings from TypeScript/JavaScript/React files using AST.
 
 USAGE:
-  npx tsx scripts/i18n-ast/extract-i18n-ast.ts [options]
+  npx tsx scripts/i18n-ast/0-main.ts [options]
 
 OPTIONS:
+  --config <path>, -c       Custom configuration file path (default: extract-i18n-config.json)
   --src <path>              Source directory to scan (default: ./src)
   --output <path>           Output JSON file path (default: ./scripts/i18n-strings.json)
   --min-length <number>     Minimum string length to extract (default: 10)
@@ -38,16 +39,20 @@ CONFIGURATION FILE:
 
 EXAMPLES:
   # Run with defaults
-  npx tsx scripts/i18n-ast/extract-i18n-ast.ts
+  npx tsx scripts/i18n-ast/0-main.ts
+
+  # Use custom config file
+  npx tsx scripts/i18n-ast/0-main.ts --config my-config.json
+  npx tsx scripts/i18n-ast/0-main.ts -c my-config.json
 
   # Custom source and output
-  npx tsx scripts/i18n-ast/extract-i18n-ast.ts --src ./app --output ./i18n/strings.json
+  npx tsx scripts/i18n-ast/0-main.ts --src ./app --output ./i18n/strings.json
 
   # Exclude test files
-  npx tsx scripts/i18n-ast/extract-i18n-ast.ts --exclude-pattern "\\\\.test\\\\."
+  npx tsx scripts/i18n-ast/0-main.ts --exclude-pattern "\\\\.test\\\\."
 
   # Set minimum string length
-  npx tsx scripts/i18n-ast/extract-i18n-ast.ts --min-length 5
+  npx tsx scripts/i18n-ast/0-main.ts --min-length 5
 
 FEATURES:
   ✓ AST-based parsing for accurate extraction

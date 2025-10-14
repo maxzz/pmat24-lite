@@ -7,25 +7,30 @@ None required! Uses existing TypeScript dependency.
 
 ```bash
 # Extract to default location
-npx tsx scripts/i18n-ast/extract-i18n-ast.ts
+npx tsx scripts/i18n-ast/0-main.ts
 
 # Extract to custom file
-npx tsx scripts/i18n-ast/extract-i18n-ast.ts --output ./my-strings.json
+npx tsx scripts/i18n-ast/0-main.ts --output ./my-strings.json
+
+# Use custom config file
+npx tsx scripts/i18n-ast/0-main.ts --config my-config.json
+npx tsx scripts/i18n-ast/0-main.ts -c my-config.json
 
 # See all options
-npx tsx scripts/i18n-ast/extract-i18n-ast.ts --help
+npx tsx scripts/i18n-ast/0-main.ts --help
 ```
 
 ## Files Structure
 
 ```
 scripts/i18n-ast/
-├── extract-i18n-ast.ts    # Main entry point - run this
+├── 0-main.ts               # Main entry point - run this
 ├── 1-config.ts             # Configuration types
 ├── 2-help.ts               # Help message
 ├── 3-ast-parser.ts         # AST parsing logic
 ├── 4-scan-process.ts       # Directory scanning
 ├── README.md               # Full documentation
+├── QUICKSTART.md           # This file
 └── COMPARISON.md           # AST vs Regex comparison
 ```
 
@@ -55,6 +60,18 @@ scripts/i18n-ast/
 ```
 
 Click the `file://` URLs in VS Code to open files!
+
+## Debugging in VS Code
+
+Use the built-in debug configurations:
+
+1. Press `F5` or open Run and Debug panel
+2. Select a debug configuration:
+   - **Debug i18n-ast extraction** - Default settings
+   - **Debug i18n-ast extraction (custom config)** - With config file
+   - **Debug i18n-ast extraction (test output)** - Test mode
+3. Set breakpoints in `3-ast-parser.ts` to inspect the AST
+4. Step through the code to understand the extraction process
 
 ## See Also
 

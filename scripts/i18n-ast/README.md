@@ -42,9 +42,10 @@ This will:
 ### CLI Options
 
 ```bash
-npx tsx scripts/i18n-ast/extract-i18n-ast.ts [options]
+npx tsx scripts/i18n-ast/0-main.ts [options]
 
 Options:
+  --config <path>, -c       Custom configuration file path (default: extract-i18n-config.json)
   --src <path>              Source directory to scan (default: ./src)
   --output <path>           Output JSON file path (default: ./scripts/i18n-strings.json)
   --min-length <number>     Minimum string length to extract (default: 10)
@@ -59,22 +60,28 @@ Options:
 
 **Custom source and output:**
 ```bash
-npx tsx scripts/i18n-ast/extract-i18n-ast.ts --src ./app --output ./i18n/strings.json
+npx tsx scripts/i18n-ast/0-main.ts --src ./app --output ./i18n/strings.json
+```
+
+**Use custom config file:**
+```bash
+npx tsx scripts/i18n-ast/0-main.ts --config my-i18n-config.json
+npx tsx scripts/i18n-ast/0-main.ts -c my-i18n-config.json
 ```
 
 **Exclude test files:**
 ```bash
-npx tsx scripts/i18n-ast/extract-i18n-ast.ts --exclude-pattern "\\.test\\."
+npx tsx scripts/i18n-ast/0-main.ts --exclude-pattern "\\.test\\."
 ```
 
 **Set minimum string length:**
 ```bash
-npx tsx scripts/i18n-ast/extract-i18n-ast.ts --min-length 5
+npx tsx scripts/i18n-ast/0-main.ts --min-length 5
 ```
 
 **Exclude specific paths:**
 ```bash
-npx tsx scripts/i18n-ast/extract-i18n-ast.ts --exclude-paths "src/tests,src/__tests__"
+npx tsx scripts/i18n-ast/0-main.ts --exclude-paths "src/tests,src/__tests__"
 ```
 
 ## Configuration File
@@ -251,6 +258,36 @@ Adjust filters in `3-ast-parser.ts`:
 
 The tool preserves `{variable}` syntax in JSX text. For template literals with `${variable}`, those are filtered out as they're not plain strings.
 
+## Debugging
+
+VS Code launch configurations are included for debugging the extraction process:
+
+### Available Debug Configurations
+
+1. **Debug i18n-ast extraction** - Run with default settings
+2. **Debug i18n-ast extraction (custom config)** - Run with custom config file
+3. **Debug i18n-ast extraction (test output)** - Run with test output and lower min-length
+
+### How to Debug
+
+1. Open VS Code
+2. Press `F5` or go to Run and Debug panel
+3. Select one of the "Debug i18n-ast" configurations
+4. Set breakpoints in the code (e.g., in `3-ast-parser.ts`)
+5. Run the debugger
+
+The debugger will stop at breakpoints, allowing you to:
+- Inspect AST nodes
+- Check filter logic
+- See extracted strings in real-time
+- Step through the extraction process
+
+### Debug Tips
+
+- Set breakpoints in `3-ast-parser.ts` in the `visit()` function to see each node
+- Add breakpoints in filter functions to understand why strings are excluded
+- Use the Debug Console to evaluate expressions like `node.kind` or `ts.SyntaxKind[node.kind]`
+
 ## Contributing
 
 To modify the extraction logic:
@@ -258,7 +295,7 @@ To modify the extraction logic:
 1. **Add new filters** - Add functions in `3-ast-parser.ts`
 2. **Change AST traversal** - Modify the `visit()` function
 3. **Adjust JSX handling** - Update `reconstructJSXText()`
-4. **Add CLI options** - Update `extract-i18n-ast.ts` and `2-help.ts`
+4. **Add CLI options** - Update `0-main.ts` and `2-help.ts`
 
 ## License
 

@@ -73,6 +73,72 @@
             "args": [
                 "build",
             ]
+        },
+
+        {
+            "name": "Debug i18n-ast extraction",
+            "type": "node",
+            "request": "launch",
+            "cwd": "${workspaceRoot}",
+            "runtimeExecutable": "npx",
+            "runtimeArgs": [
+                "tsx",
+                "--inspect-brk"
+            ],
+            "args": [
+                "${workspaceRoot}/scripts/i18n-ast/0-main.ts"
+            ],
+            "console": "integratedTerminal",
+            "internalConsoleOptions": "neverOpen",
+            "skipFiles": [
+                "<node_internals>/**"
+            ]
+        },
+
+        {
+            "name": "Debug i18n-ast extraction (custom config)",
+            "type": "node",
+            "request": "launch",
+            "cwd": "${workspaceRoot}",
+            "runtimeExecutable": "npx",
+            "runtimeArgs": [
+                "tsx",
+                "--inspect-brk"
+            ],
+            "args": [
+                "${workspaceRoot}/scripts/i18n-ast/0-main.ts",
+                "--config",
+                "extract-i18n-config.json"
+            ],
+            "console": "integratedTerminal",
+            "internalConsoleOptions": "neverOpen",
+            "skipFiles": [
+                "<node_internals>/**"
+            ]
+        },
+
+        {
+            "name": "Debug i18n-ast extraction (test output)",
+            "type": "node",
+            "request": "launch",
+            "cwd": "${workspaceRoot}",
+            "runtimeExecutable": "npx",
+            "runtimeArgs": [
+                "tsx",
+                "--inspect-brk"
+            ],
+            "args": [
+                "${workspaceRoot}/scripts/i18n-ast/0-main.ts",
+                "--output",
+                "./scripts/i18n-strings-ast-debug.json",
+                "--min-length",
+                "5"
+            ],
+            "console": "integratedTerminal",
+            "internalConsoleOptions": "neverOpen",
+            "skipFiles": [
+                "<node_internals>/**"
+            ]
         }
     ],
     "compounds": [
