@@ -14,6 +14,10 @@ export function extractStringsFromFile(filePath: string, minLength: number, clas
     // Remove console.log and console.warn calls to avoid extracting debug messages
     content = removeConsoleStatements(content);
 
+    // Extract JSX text content with placeholders
+    // This handles text like: <div>Text with {variable} placeholder</div>
+    content = extractJSXTextContent(content, minLength, strings);
+
     // Match string literals (single/double quotes, template literals without interpolation)
     // Exclude: imports, requires, CSS classes, short identifiers, code-like strings
     const patterns = [
@@ -25,7 +29,7 @@ export function extractStringsFromFile(filePath: string, minLength: number, clas
         /`([^`$\\]*(\\.[^`$\\]*)*)`/g,
     ];
 
-    const foundStrings = new Set<string>();
+    const foundStrings = new Set<string>(Object.values(strings));
 
     for (const pattern of patterns) {
         let match;
@@ -159,7 +163,7 @@ function removeConsoleStatements(content: string): string {
     // Remove console.log, console.warn, console.error, console.debug, console.info
     // Handles single-line and simple multi-line cases
     // Pattern matches: console.method(...)
-    content = content.replace(/console\.(log|warn|error|debug|info)\s*\([^)]*\)\s*;?/g, '');
+    content = content.replace(/console\.(log|warn|error|debug|info|group|groupCollapsed)\s*\([^)]*\)\s*;?/g, '');
     
     // Remove multi-line console statements with nested parentheses
     // This handles cases like: console.log(
@@ -169,8 +173,81 @@ function removeConsoleStatements(content: string): string {
     let previousContent;
     do {
         previousContent = content;
-        content = content.replace(/console\.(log|warn|error|debug|info)\s*\([^()]*(?:\([^()]*\)[^()]*)*\)\s*;?/gs, '');
+        content = content.replace(/console\.(log|warn|error|debug|info|group|groupCollapsed)\s*\([^()]*(?:\([^()]*\)[^()]*)*\)\s*;?/gs, '');
     } while (content !== previousContent);
+    
+    return content;
+}
+
+/**
+ * Extract JSX text content that contains placeholders.
+ * Handles text like: <div>Text with {variable} placeholder</div>
+ * The text is extracted with {variable} preserved as a localization placeholder.
+ */
+function extractJSXTextContent(content: string, minLength: number, strings: Record<string, string>): string {
+    // Match JSX text content between tags that contains text with {expressions}
+    // Pattern: >text content potentially with {expressions}<
+    // Must start with letter or whitespace followed by letter to avoid code
+    const jsxTextPattern = />(\s*[A-Z][^<>]*\{[^}]+\}[^<>]*)</g;
+    
+    let match;
+    while ((match = jsxTextPattern.exec(content)) !== null) {
+        const rawText = match[1].trim();
+        
+        // Skip if it looks like code (contains newlines, return statements, etc.)
+        if (rawText.includes('\n') || rawText.includes('\r') || 
+            rawText.includes('return') || rawText.includes('=>') ||
+            rawText.includes('const ') || rawText.includes('function') ||
+            rawText.length > 200) {
+            continue;
+        }
+        
+        // Clean up the text: remove extra whitespace but preserve structure
+        const textParts: string[] = [];
+        let currentText = '';
+        let braceDepth = 0;
+        
+        for (let i = 0; i < rawText.length; i++) {
+            const char = rawText[i];
+            
+            if (char === '{') {
+                if (braceDepth === 0 && currentText.trim()) {
+                    textParts.push(currentText.trim());
+                    currentText = '';
+                }
+                braceDepth++;
+                currentText += char;
+            } else if (char === '}') {
+                braceDepth--;
+                currentText += char;
+                if (braceDepth === 0) {
+                    textParts.push(currentText);
+                    currentText = '';
+                }
+            } else {
+                currentText += char;
+            }
+        }
+        
+        if (currentText.trim()) {
+            textParts.push(currentText.trim());
+        }
+        
+        // Reconstruct the full text with placeholders
+        const fullText = textParts.join(' ').trim();
+        
+        // Only extract if it meets criteria and has at least 3 words
+        const wordCount = fullText.split(/\s+/).filter(w => /[a-zA-Z]/.test(w)).length;
+        
+        if (fullText.length >= minLength && 
+            wordCount >= 3 &&
+            /[a-zA-Z]/.test(fullText) && 
+            !isCodeString(fullText)) {
+            
+            const key = generateKey(fullText);
+            strings[key] = fullText;
+        }
+    }
     
     return content;
 }
@@ -222,6 +299,9 @@ function isGuid(str: string): boolean {
  * Check if string is a JavaScript directive or contains template interpolation.
  * Directives are special strings like "use strict", "use client", etc.
  * Interpolations are template literal placeholders like "${varName}".
+ * 
+ * Note: This does NOT filter strings with {varName} (without $) as those are
+ * localization placeholders used in i18n strings within JSX.
  */
 function isDirectiveOrInterpolation(str: string): boolean {
     // Check for JavaScript/React directives
@@ -229,15 +309,10 @@ function isDirectiveOrInterpolation(str: string): boolean {
         return true;
     }
     
-    // Check for template literal interpolation patterns
+    // Check for template literal interpolation patterns with $ prefix
     // Matches strings that look like variable interpolations: ${...}
+    // This allows {varName} without $ to pass through for i18n placeholders
     if (/\$\{[^}]*\}/.test(str)) {
-        return true;
-    }
-    
-    // Check for strings that are just variable names in template context
-    // Like: `${variableName}` or `${obj.prop}` or `${func()}`
-    if (/^\$\{[\w.()]+\}$/.test(str)) {
         return true;
     }
     
