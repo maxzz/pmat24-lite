@@ -4,7 +4,8 @@
     "minStringLength": 10,
     "excludeFiles": [],
     "excludePaths": [
-        "src/renderer/src/ui/icons"
+        "src/renderer/src/ui/icons",
+        "src/renderer/src/utils"
     ],
     "excludePattern": "\\.(test|spec)\\.",
     "classNameSuffix": "Classes"
