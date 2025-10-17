@@ -5,7 +5,9 @@
     "excludeFiles": [],
     "excludePaths": [
         "src/renderer/src/ui/icons",
-        "src/renderer/src/utils"
+        "src/renderer/src/utils",
+        "src/renderer/src/ui/local-ui/nun",
+        "src/components/2-main/2-right/2-file-mani/2-form-options/9-controls/nun-controls"
     ],
     "excludePattern": "\\.(test|spec)\\.",
     "classNameSuffix": "Classes"
