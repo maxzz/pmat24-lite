@@ -2,7 +2,9 @@
     "srcDir": "./src",
     "outputFile": "./scripts/i18n-strings-ast.json",
     "minStringLength": 10,
-    "excludeFiles": [],
+    "excludeFiles": [
+        "src/shell/xternal-to-renderer/7-napi-calls/7-get-window-pos.ts"
+    ],
     "excludePaths": [
         "src/renderer/src/ui/icons",
         "src/renderer/src/utils",

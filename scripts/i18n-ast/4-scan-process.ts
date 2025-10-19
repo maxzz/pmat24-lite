@@ -22,12 +22,34 @@ export function scanAndExtract(config: Partial<Config> = {}): LocalizationString
         path.normalize(p).replace(/\\/g, '/')
     );
 
+    // Normalize excluded files for comparison
+    const normalizedExcludeFiles = cfg.excludeFiles.map(p => 
+        path.normalize(p).replace(/\\/g, '/')
+    );
+
     function isPathExcluded(fullPath: string): boolean {
         const relativePath = path.relative(process.cwd(), fullPath).replace(/\\/g, '/');
         
         return normalizedExcludePaths.some(excludePath => {
             return relativePath === excludePath || relativePath.startsWith(excludePath + '/');
         });
+    }
+
+    function isFileExcluded(fullPath: string): boolean {
+        const relativePath = path.relative(process.cwd(), fullPath).replace(/\\/g, '/');
+        
+        // Check against exact file paths
+        if (normalizedExcludeFiles.includes(relativePath)) {
+            return true;
+        }
+
+        // Also check just the filename for convenience
+        const filename = path.basename(fullPath);
+        if (cfg.excludeFiles.includes(filename)) {
+            return true;
+        }
+
+        return false;
     }
 
     function scanDirectory(dir: string): void {
@@ -47,8 +69,8 @@ export function scanAndExtract(config: Partial<Config> = {}): LocalizationString
                 }
                 scanDirectory(fullPath);
             } else if (entry.isFile() && cfg.extensions.some(ext => entry.name.endsWith(ext))) {
-                // Skip excluded files by exact filename
-                if (cfg.excludeFiles.includes(entry.name)) {
+                // Skip excluded files by path or filename
+                if (isFileExcluded(fullPath)) {
                     continue;
                 }
                 // Skip excluded files by regex pattern
