@@ -254,18 +254,24 @@ function isGuid(str: string): boolean {
 }
 
 function isSvgPath(str: string): boolean {
+    // SVG paths must start with a command letter
     const svgPathPattern = /^[MmLlHhVvCcSsQqTtAaZz][\s,\d.-]+/;
-    if (svgPathPattern.test(str)) return true;
+    if (!svgPathPattern.test(str)) return false;
     
-    const complexPathPattern = /[MmLlHhVvCcSsQqTtAaZz][\s,\d.-]+[MmLlHhVvCcSsQqTtAaZz]/;
-    if (complexPathPattern.test(str)) return true;
+    // Check if string has a high ratio of digits to letters
+    // SVG paths should have many more digits than letters
+    const digits = (str.match(/\d/g) || []).length;
+    const letters = (str.match(/[a-zA-Z]/g) || []).length;
     
+    // SVG path should have at least 3 digits and more digits than letters
+    if (digits < 3) return false;
+    if (digits <= letters) return false;
+    
+    // Check that remaining characters after removing SVG path chars are minimal
     const pathChars = str.replace(/[MmLlHhVvCcSsQqTtAaZz\s,.\d-]/g, '');
-    if (pathChars.length === 0 && /[MmLlHhVvCcSsQqTtAaZz]/.test(str) && /[\d]/.test(str)) {
-        return true;
-    }
+    if (pathChars.length > 2) return false; // Allow a couple of unexpected chars
     
-    return false;
+    return true;
 }
 
 function isDirective(str: string): boolean {
