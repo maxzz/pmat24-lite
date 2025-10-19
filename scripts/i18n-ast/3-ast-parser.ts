@@ -38,6 +38,15 @@ export function extractStringsFromAST(
             }
         }
 
+        // Extract template literals with placeholders (e.g., `text ${variable}`)
+        if (ts.isTemplateExpression(node)) {
+            const reconstructedText = reconstructTemplateExpression(node);
+            if (reconstructedText && shouldExtractString(reconstructedText, minLength, node)) {
+                const key = generateKey(reconstructedText);
+                strings[key] = reconstructedText;
+            }
+        }
+
         // Extract JSX text with placeholders
         if (ts.isJsxText(node)) {
             const text = node.text.trim();
@@ -217,6 +226,37 @@ export function extractStringsFromAST(
         }
         
         const result = parts.join(' ').replace(/\s+/g, ' ').trim();
+        return result || null;
+    }
+
+    function reconstructTemplateExpression(template: ts.TemplateExpression): string | null {
+        const parts: string[] = [];
+        
+        // Add the head part (text before first ${...})
+        if (template.head.text) {
+            parts.push(template.head.text);
+        }
+        
+        // Process template spans (${expr}text pairs)
+        for (const span of template.templateSpans) {
+            // Add placeholder for the expression
+            const expr = span.expression;
+            if (ts.isIdentifier(expr)) {
+                parts.push(`\${${expr.text}}`);
+            } else if (ts.isPropertyAccessExpression(expr)) {
+                parts.push(`\${${expr.getText()}}`);
+            } else {
+                // Generic placeholder for complex expressions
+                parts.push('${...}');
+            }
+            
+            // Add the literal text after the expression
+            if (span.literal.text) {
+                parts.push(span.literal.text);
+            }
+        }
+        
+        const result = parts.join('');
         return result || null;
     }
 

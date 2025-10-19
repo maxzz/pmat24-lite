@@ -3,7 +3,9 @@
     "outputFile": "./scripts/i18n-strings-ast.json",
     "minStringLength": 10,
     "excludeFiles": [
-        "src/shell/xternal-to-renderer/7-napi-calls/7-get-window-pos.ts"
+        "src/shell/xternal-to-renderer/7-napi-calls/7-get-window-pos.ts",
+        "src/shell/xternal-to-renderer/2-commands-in-main/3-test-inuse/8-os-utils.ts",
+        "src/shell/xternal-to-renderer/7-napi-calls/2-get-window-icon.ts",
     ],
     "excludePaths": [
         "src/renderer/src/ui/icons",

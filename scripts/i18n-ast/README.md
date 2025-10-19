@@ -18,7 +18,8 @@ A TypeScript utility that extracts localizable strings from TypeScript, JavaScri
   - JavaScript directives
   - Numbers and symbols only
 
-✅ **Placeholder Preservation** - Keeps i18n placeholders like `{variable}` in extracted strings  
+✅ **Template Literal Support** - Extracts template strings with `${variable}` placeholders  
+✅ **Placeholder Preservation** - Keeps i18n placeholders like `{variable}` and `${variable}` in extracted strings  
 ✅ **Clickable File URLs** - Generates `file://` URLs for easy navigation in VS Code  
 ✅ **Configurable** - Via config file or CLI arguments  
 ✅ **No External Parser Dependencies** - Uses TypeScript's built-in compiler API
@@ -29,6 +30,7 @@ A TypeScript utility that extracts localizable strings from TypeScript, JavaScri
 - 🔍 [Comparison with Regex Tool](docs/COMPARISON.md) - Which tool to use?
 - 📝 [Changelog](docs/CHANGELOG.md) - Version history
 - 🐛 [Bug Fixes & Enhancements](docs/FIXES-SUMMARY.md) - Recent improvements
+- 🎨 [Feature: Template Literals](docs/FEATURE-TEMPLATE-LITERALS.md) - Extract `` `text ${var}` `` strings
 - 🎨 [Feature: className Functions](docs/FEATURE-CLASSNAME-FUNCTIONS.md) - Filter CSS classes
 - 🔧 [Enhancement: JSON5 Config](docs/ENHANCEMENT-JSON5-SUPPORT.md) - Config with comments
 - 🔧 [Enhancement: className Suffix](docs/ENHANCEMENT-CLASSNAME-SUFFIX.md) - Improved filtering
