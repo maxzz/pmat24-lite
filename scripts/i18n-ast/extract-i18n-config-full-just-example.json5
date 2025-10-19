@@ -1,0 +1,44 @@
+{
+    // Source directory to scan for localizable strings
+    srcDir: "./src",
+    
+    // Output file for extracted strings
+    outputFile: "./scripts/i18n-strings-ast.json",
+    
+    // Minimum string length to extract (shorter strings are ignored)
+    minStringLength: 10,
+    
+    // Specific files to exclude (supports both full paths and filenames)
+    excludeFiles: [
+        // Full path - excludes only this specific file
+        "src/shell/xternal-to-renderer/7-napi-calls/7-get-window-pos.ts",
+        
+        // Filename only - excludes any file with this name
+        // "constants.ts",
+    ],
+    
+    // Entire directories to exclude
+    excludePaths: [
+        "src/renderer/src/ui/icons",           // Icon components
+        "src/renderer/src/utils",              // Utility functions
+        "src/renderer/src/ui/local-ui/nun",    // Internal UI components
+        "src/components/2-main/2-right/2-file-mani/2-form-options/9-controls/nun-controls",
+        "src/renderer/src/components/2-main/2-right/2-file-mani/2-form-options/nun-form-options",
+    ],
+    
+    // Regex pattern to exclude files (e.g., test files)
+    excludePattern: "\\.(test|spec)\\.",
+    
+    // Variable/property suffix that indicates CSS class names
+    // Filters: const myClasses = "...", { circleClasses: "..." }
+    classNameSuffix: "Classes",
+    
+    // Function names that contain CSS class names
+    // Filters: cn("..."), classNames("..."), clsx("...")
+    classNameFunctions: [
+        "classNames",
+        "cn",
+        // "clsx",
+        // "twMerge",
+    ],
+}

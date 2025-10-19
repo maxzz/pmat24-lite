@@ -1,10 +1,11 @@
 import * as fs from 'fs';
 import * as path from 'path';
+import JSON5 from 'json5';
 import { type Config, defaultConfig } from './1-config';
 import { scanAndExtract } from './4-scan-process';
 import { help } from './2-help';
 
-const DEFAULT_CONFIG_FILE_NAME = 'extract-i18n-config.json';
+const DEFAULT_CONFIG_FILE_NAME = 'extract-i18n-config.json5';
 
 function loadConfigFile(configFileName?: string): Partial<Config> {
     const fileName = configFileName || DEFAULT_CONFIG_FILE_NAME;
@@ -20,7 +21,7 @@ function loadConfigFile(configFileName?: string): Partial<Config> {
 
     try {
         const content = fs.readFileSync(configPath, 'utf-8');
-        const config = JSON.parse(content);
+        const config = JSON5.parse(content);
         console.log(`📄 Loaded configuration from ${fileName}`);
         return config;
     } catch (error) {

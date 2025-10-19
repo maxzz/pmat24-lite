@@ -10,7 +10,7 @@ USAGE:
   npx tsx scripts/i18n-ast/0-main.ts [options]
 
 OPTIONS:
-  --config <path>, -c           Custom configuration file path (default: extract-i18n-config.json)
+  --config <path>, -c           Custom configuration file path (default: extract-i18n-config.json5)
   --src <path>                  Source directory to scan (default: ./src)
   --output <path>               Output JSON file path (default: ./scripts/i18n-strings.json)
   --min-length <number>         Minimum string length to extract (default: 10)
@@ -22,29 +22,49 @@ OPTIONS:
   --help, -h                    Show this help message
 
 CONFIGURATION FILE:
-  You can create a file named 'extract-i18n-config.json' in the project root
-  with the following structure:
+  You can create a file named 'extract-i18n-config.json5' in the project root.
+  The file supports JSON5 format (comments, trailing commas, unquoted keys).
+
+  Example (extract-i18n-config.json5):
 
   {
-    "srcDir": "./src",
-    "outputFile": "./scripts/i18n-strings.json",
-    "minStringLength": 10,
-    "extensions": [".ts", ".tsx", ".js", ".jsx"],
-    "excludeFiles": ["test.ts", "spec.ts"],
-    "excludePaths": ["src/tests", "src/__tests__"],
-    "excludePattern": "\\\\.test\\\\.",
-    "classNameSuffix": "Classes",
-    "classNameFunctions": ["classNames", "cn"]
+    // Source directory to scan
+    srcDir: "./src",
+    
+    // Output file for extracted strings
+    outputFile: "./scripts/i18n-strings.json",
+    
+    minStringLength: 10,
+    extensions: [".ts", ".tsx", ".js", ".jsx"],
+    
+    // Specific files to exclude (full path or filename)
+    excludeFiles: [
+      "src/path/to/file.ts",    // Full path
+      "constants.ts",            // Just filename
+    ],
+    
+    // Directories to exclude
+    excludePaths: [
+      "src/tests",
+      "src/__tests__",
+    ],
+    
+    // Regex pattern to exclude files
+    excludePattern: "\\\\.test\\\\.",
+    
+    classNameSuffix: "Classes",
+    classNameFunctions: ["classNames", "cn"],
   }
 
+  Both .json5 and .json formats are supported.
   CLI arguments override configuration file settings.
 
 EXAMPLES:
   # Run with defaults
   npx tsx scripts/i18n-ast/0-main.ts
 
-  # Use custom config file
-  npx tsx scripts/i18n-ast/0-main.ts --config my-config.json
+  # Use custom config file (JSON5 or JSON)
+  npx tsx scripts/i18n-ast/0-main.ts --config my-config.json5
   npx tsx scripts/i18n-ast/0-main.ts -c my-config.json
 
   # Custom source and output

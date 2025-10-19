@@ -58,6 +58,7 @@
         "jotai": "^2.15.0",
         "jotai-effect": "^2.1.2",
         "jotai-valtio": "^0.6.0",
+        "json5": "^2.2.3",
         "lucide-react": "^0.545.0",
         "motion": "^12.23.22",
         "pm-manifest": "^1.5.31",
@@ -100,6 +101,6 @@
         "typecheck:node": "tsc --noEmit -p tsconfig.node.json --composite false",
         "....................................................................................5": ".......................................................",
         "i18n:extract": "tsx scripts/extract-i18n/extract-i18n-strings.ts --exclude-paths src/renderer/src/ui/icons",
-        "i18n:ast": "tsx scripts/i18n-ast/0-main.ts --config scripts/i18n-ast/extract-i18n-config.json"
+        "i18n:ast": "tsx scripts/i18n-ast/0-main.ts --config scripts/i18n-ast/extract-i18n-config.json5"
     }
 }
