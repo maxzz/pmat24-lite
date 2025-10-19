@@ -170,6 +170,28 @@ export function extractStringsFromAST(
             }
         }
 
+        // Check if string is in an object property ending with suffix
+        // e.g., { circleClasses: "...", borderClasses: "..." }
+        if (parent && ts.isPropertyAssignment(parent)) {
+            const propName = parent.name;
+            if (ts.isIdentifier(propName) && propName.text.endsWith(suffix)) {
+                return true;
+            }
+        }
+
+        // Check if string is inside an object literal assigned to a variable ending with suffix
+        // e.g., const stepClasses = { complete: { circleClasses: "..." } }
+        let current: ts.Node | undefined = node;
+        while (current) {
+            if (ts.isVariableDeclaration(current)) {
+                const varName = current.name;
+                if (ts.isIdentifier(varName) && varName.text.endsWith(suffix)) {
+                    return true;
+                }
+            }
+            current = current.parent;
+        }
+
         return false;
     }
 
