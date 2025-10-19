@@ -99,5 +99,6 @@ OUTPUT FORMAT:
   }
 
 For more information, see README.md in scripts/i18n-ast/
+Additional documentation available in scripts/i18n-ast/docs/
 `);
 }

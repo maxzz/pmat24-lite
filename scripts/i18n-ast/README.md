@@ -23,6 +23,16 @@ A TypeScript utility that extracts localizable strings from TypeScript, JavaScri
 ✅ **Configurable** - Via config file or CLI arguments  
 ✅ **No External Parser Dependencies** - Uses TypeScript's built-in compiler API
 
+## Documentation
+
+- 📖 [Quick Start Guide](docs/QUICKSTART.md) - Get started in 5 minutes
+- 🔍 [Comparison with Regex Tool](docs/COMPARISON.md) - Which tool to use?
+- 📝 [Changelog](docs/CHANGELOG.md) - Version history
+- 🐛 [Bug Fixes & Enhancements](docs/FIXES-SUMMARY.md) - Recent improvements
+- 🎨 [Feature: className Functions](docs/FEATURE-CLASSNAME-FUNCTIONS.md) - Filter CSS classes
+- 🔧 [Enhancement: JSON5 Config](docs/ENHANCEMENT-JSON5-SUPPORT.md) - Config with comments
+- 🔧 [Enhancement: className Suffix](docs/ENHANCEMENT-CLASSNAME-SUFFIX.md) - Improved filtering
+
 ## Installation
 
 No installation required! Just use `npx tsx` to run the script directly.
@@ -324,5 +334,10 @@ Same as the main project.
 
 ## See Also
 
+- [Quick Start Guide](docs/QUICKSTART.md) - Get started quickly
+- [Comparison with Regex Tool](docs/COMPARISON.md) - Detailed comparison of both approaches
+- [Changelog](docs/CHANGELOG.md) - Version history and changes
+- [Bug Fixes](docs/FIXES-SUMMARY.md) - Summary of all bug fixes
+- [Feature Documentation](docs/FEATURE-CLASSNAME-FUNCTIONS.md) - className function filtering
 - [Regex-based extraction tool](../extract-i18n/README.md) - Alternative approach
 - [TypeScript Compiler API](https://github.com/microsoft/TypeScript/wiki/Using-the-Compiler-API) - Official documentation
