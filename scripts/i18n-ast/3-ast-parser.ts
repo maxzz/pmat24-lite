@@ -15,7 +15,8 @@ export function extractStringsFromAST(
     filePath: string,
     sourceCode: string,
     minLength: number,
-    classNameSuffix: string
+    classNameSuffix: string,
+    classNameFunctions: string[]
 ): Record<string, string> {
     const strings: Record<string, string> = {};
     const sourceFile = ts.createSourceFile(
@@ -79,6 +80,9 @@ export function extractStringsFromAST(
         // Check if it's in a console statement
         if (isInConsoleStatement(node)) return false;
 
+        // Check if it's in a className function call
+        if (isInClassNameFunction(node)) return false;
+
         // Check if it's a className or variable ending with classNameSuffix
         if (isClassName(node, classNameSuffix)) return false;
 
@@ -125,6 +129,21 @@ export function extractStringsFromAST(
                     ) {
                         return true;
                     }
+                }
+            }
+            current = current.parent;
+        }
+        return false;
+    }
+
+    function isInClassNameFunction(node: ts.Node): boolean {
+        let current: ts.Node | undefined = node.parent;
+        while (current) {
+            if (ts.isCallExpression(current)) {
+                const expr = current.expression;
+                // Check for direct function call like classNames() or cn()
+                if (ts.isIdentifier(expr) && classNameFunctions.includes(expr.text)) {
+                    return true;
                 }
             }
             current = current.parent;

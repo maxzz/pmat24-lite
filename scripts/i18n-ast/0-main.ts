@@ -62,6 +62,7 @@ function main() {
         else if (key === 'exclude-paths') config.excludePaths = value.split(',').map(p => p.trim());
         else if (key === 'exclude-pattern') config.excludePattern = value;
         else if (key === 'classname-suffix') config.classNameSuffix = value;
+        else if (key === 'classname-functions') config.classNameFunctions = value.split(',').map(f => f.trim());
     }
 
     console.log('🔍 Extracting localization strings (AST-based)...');

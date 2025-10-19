@@ -11,6 +11,7 @@ A TypeScript utility that extracts localizable strings from TypeScript, JavaScri
   - Import/export paths
   - Console statements (log, warn, error, debug, info)
   - CSS class names and Tailwind classes
+  - className function calls (classNames, cn, clsx, etc.)
   - GUIDs/UUIDs
   - URLs and file paths
   - SVG path data
@@ -50,10 +51,11 @@ Options:
   --output <path>           Output JSON file path (default: ./scripts/i18n-strings.json)
   --min-length <number>     Minimum string length to extract (default: 10)
   --exclude <files>         Comma-separated list of filenames to exclude
-  --exclude-paths <paths>   Comma-separated list of paths to exclude
-  --exclude-pattern <regex> Regular expression pattern to exclude files
-  --classname-suffix <str>  Suffix for className variable names (default: Classes)
-  --help, -h                Show help message
+  --exclude-paths <paths>       Comma-separated list of paths to exclude
+  --exclude-pattern <regex>     Regular expression pattern to exclude files
+  --classname-suffix <str>      Suffix for className variable names (default: Classes)
+  --classname-functions <names> Comma-separated className function names (default: classNames,cn)
+  --help, -h                    Show help message
 ```
 
 ### Examples
@@ -84,6 +86,15 @@ npx tsx scripts/i18n-ast/0-main.ts --min-length 5
 npx tsx scripts/i18n-ast/0-main.ts --exclude-paths "src/tests,src/__tests__"
 ```
 
+**Custom className function names:**
+```bash
+# Filter strings in clsx() and classnames() calls
+npx tsx scripts/i18n-ast/0-main.ts --classname-functions "clsx,classnames"
+
+# Filter strings in cn() and twMerge() calls
+npx tsx scripts/i18n-ast/0-main.ts --classname-functions "cn,twMerge"
+```
+
 ## Configuration File
 
 Create `extract-i18n-config.json` in your project root:
@@ -94,14 +105,13 @@ Create `extract-i18n-config.json` in your project root:
   "outputFile": "./scripts/i18n-strings.json",
   "minStringLength": 10,
   "extensions": [".ts", ".tsx", ".js", ".jsx"],
-  "excludeFiles": ["test.ts", "spec.ts"],
-  "excludePaths": ["src/tests", "src/__tests__"],
-  "excludePattern": "\\.test\\.",
-  "classNameSuffix": "Classes"
-}
-```
-
-**Note:** CLI arguments override configuration file settings.
+    "excludeFiles": ["test.ts", "spec.ts"],
+    "excludePaths": ["src/tests", "src/__tests__"],
+    "excludePattern": "\\.test\\.",
+    "classNameSuffix": "Classes",
+    "classNameFunctions": ["classNames", "cn"]
+  }
+```**Note:** CLI arguments override configuration file settings.
 
 ## Output Format
 
@@ -236,6 +246,17 @@ const guid = "{c0f864c8-7bbb-422e-98a3-e033d7360c97}";  // ❌ GUID
 const url = "https://example.com";  // ❌ URL
 const path = "./components/Button";  // ❌ Path
 const classes = "flex items-center gap-2";  // ❌ CSS classes
+```
+
+### className Function Calls (Filtered)
+```tsx
+// Filtered by default (classNames and cn)
+<div className={cn("text-lg", "font-bold")}>Text</div>  // ❌ Strings filtered
+<div className={classNames("flex", "gap-2")}>Content</div>  // ❌ Strings filtered
+
+// Can be customized via --classname-functions
+<div className={clsx("rounded", "border")}>Box</div>  // ✅/❌ Depends on config
+<div className={twMerge("p-4", "m-2")}>Box</div>  // ✅/❌ Depends on config
 ```
 
 ## Troubleshooting

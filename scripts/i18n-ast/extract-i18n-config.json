@@ -11,5 +11,6 @@
         "src/renderer/src/components/2-main/2-right/2-file-mani/2-form-options/nun-form-options"
     ],
     "excludePattern": "\\.(test|spec)\\.",
-    "classNameSuffix": "Classes"
+    "classNameSuffix": "Classes",
+    "classNameFunctions": ["classNames", "cn"]
 }

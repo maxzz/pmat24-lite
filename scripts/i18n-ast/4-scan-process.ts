@@ -62,7 +62,8 @@ export function scanAndExtract(config: Partial<Config> = {}): LocalizationString
                         fullPath,
                         sourceCode,
                         cfg.minStringLength,
-                        cfg.classNameSuffix
+                        cfg.classNameSuffix,
+                        cfg.classNameFunctions
                     );
 
                     if (Object.keys(strings).length > 0) {

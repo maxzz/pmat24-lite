@@ -10,15 +10,16 @@ USAGE:
   npx tsx scripts/i18n-ast/0-main.ts [options]
 
 OPTIONS:
-  --config <path>, -c       Custom configuration file path (default: extract-i18n-config.json)
-  --src <path>              Source directory to scan (default: ./src)
-  --output <path>           Output JSON file path (default: ./scripts/i18n-strings.json)
-  --min-length <number>     Minimum string length to extract (default: 10)
-  --exclude <files>         Comma-separated list of filenames to exclude
-  --exclude-paths <paths>   Comma-separated list of paths to exclude
-  --exclude-pattern <regex> Regular expression pattern to exclude files
-  --classname-suffix <str>  Suffix for className variable names (default: Classes)
-  --help, -h                Show this help message
+  --config <path>, -c           Custom configuration file path (default: extract-i18n-config.json)
+  --src <path>                  Source directory to scan (default: ./src)
+  --output <path>               Output JSON file path (default: ./scripts/i18n-strings.json)
+  --min-length <number>         Minimum string length to extract (default: 10)
+  --exclude <files>             Comma-separated list of filenames to exclude
+  --exclude-paths <paths>       Comma-separated list of paths to exclude
+  --exclude-pattern <regex>     Regular expression pattern to exclude files
+  --classname-suffix <str>      Suffix for className variable names (default: Classes)
+  --classname-functions <names> Comma-separated className function names (default: classNames,cn)
+  --help, -h                    Show this help message
 
 CONFIGURATION FILE:
   You can create a file named 'extract-i18n-config.json' in the project root
@@ -32,7 +33,8 @@ CONFIGURATION FILE:
     "excludeFiles": ["test.ts", "spec.ts"],
     "excludePaths": ["src/tests", "src/__tests__"],
     "excludePattern": "\\\\.test\\\\.",
-    "classNameSuffix": "Classes"
+    "classNameSuffix": "Classes",
+    "classNameFunctions": ["classNames", "cn"]
   }
 
   CLI arguments override configuration file settings.
@@ -53,6 +55,9 @@ EXAMPLES:
 
   # Set minimum string length
   npx tsx scripts/i18n-ast/0-main.ts --min-length 5
+
+  # Custom className function names
+  npx tsx scripts/i18n-ast/0-main.ts --classname-functions "clsx,classnames,cn"
 
 FEATURES:
   ✓ AST-based parsing for accurate extraction
