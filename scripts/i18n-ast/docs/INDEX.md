@@ -14,11 +14,13 @@ This folder contains all the detailed documentation for the AST-based i18n strin
 ## Features
 
 - [FEATURE-CLASSNAME-FUNCTIONS.md](FEATURE-CLASSNAME-FUNCTIONS.md) - Filter strings in className utility functions (cn, classNames, clsx, etc.)
+- [FEATURE-TEMPLATE-LITERALS.md](FEATURE-TEMPLATE-LITERALS.md) - Extract template literals with `${}` placeholders
 
 ## Enhancements
 
 - [ENHANCEMENT-JSON5-SUPPORT.md](ENHANCEMENT-JSON5-SUPPORT.md) - Configuration files with comments and flexible syntax
 - [ENHANCEMENT-CLASSNAME-SUFFIX.md](ENHANCEMENT-CLASSNAME-SUFFIX.md) - Improved filtering for className variables and object properties
+- [ENHANCEMENT-TEMPLATE-PLACEHOLDER-FILTER.md](ENHANCEMENT-TEMPLATE-PLACEHOLDER-FILTER.md) - Filter template literals with only placeholders (no text)
 
 ## Bug Fixes
 

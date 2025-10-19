@@ -231,10 +231,12 @@ export function extractStringsFromAST(
 
     function reconstructTemplateExpression(template: ts.TemplateExpression): string | null {
         const parts: string[] = [];
+        let hasActualText = false;
         
         // Add the head part (text before first ${...})
         if (template.head.text) {
             parts.push(template.head.text);
+            hasActualText = true;
         }
         
         // Process template spans (${expr}text pairs)
@@ -253,7 +255,14 @@ export function extractStringsFromAST(
             // Add the literal text after the expression
             if (span.literal.text) {
                 parts.push(span.literal.text);
+                hasActualText = true;
             }
+        }
+        
+        // Skip template literals that contain ONLY placeholders (e.g., `${item.id}`)
+        // These are used for type conversion, not localization
+        if (!hasActualText) {
+            return null;
         }
         
         const result = parts.join('');
