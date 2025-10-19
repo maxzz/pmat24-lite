@@ -231,12 +231,12 @@ export function extractStringsFromAST(
 
     function reconstructTemplateExpression(template: ts.TemplateExpression): string | null {
         const parts: string[] = [];
-        let hasActualText = false;
+        const textParts: string[] = []; // Collect only the literal text parts (no placeholders)
         
         // Add the head part (text before first ${...})
         if (template.head.text) {
             parts.push(template.head.text);
-            hasActualText = true;
+            textParts.push(template.head.text);
         }
         
         // Process template spans (${expr}text pairs)
@@ -255,13 +255,23 @@ export function extractStringsFromAST(
             // Add the literal text after the expression
             if (span.literal.text) {
                 parts.push(span.literal.text);
-                hasActualText = true;
+                textParts.push(span.literal.text);
             }
         }
         
         // Skip template literals that contain ONLY placeholders (e.g., `${item.id}`)
         // These are used for type conversion, not localization
-        if (!hasActualText) {
+        if (textParts.length === 0) {
+            return null;
+        }
+        
+        // Skip templates where the text is just punctuation/separators (e.g., `${x}-${y}`, `${a}/${b}`)
+        // Join all text parts and check if they contain any letters/words
+        const combinedText = textParts.join('');
+        const hasLetters = /[a-zA-Z]/.test(combinedText);
+        const hasWords = combinedText.trim().length > 0 && /\w{2,}/.test(combinedText); // At least one word with 2+ chars
+        
+        if (!hasLetters || !hasWords) {
             return null;
         }
         
