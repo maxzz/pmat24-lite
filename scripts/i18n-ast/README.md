@@ -69,6 +69,7 @@ Options:
   --exclude-pattern <regex>     Regular expression pattern to exclude files
   --classname-suffix <str>      Suffix for className variable names (default: Classes)
   --classname-functions <names> Comma-separated className function names (default: classNames,cn)
+  --verbose, -v                 Show detailed configuration and file information
   --help, -h                    Show help message
 ```
 
@@ -107,6 +108,13 @@ npx tsx scripts/i18n-ast/0-main.ts --classname-functions "clsx,classnames"
 
 # Filter strings in cn() and twMerge() calls
 npx tsx scripts/i18n-ast/0-main.ts --classname-functions "cn,twMerge"
+```
+
+**Show detailed output (verbose mode):**
+```bash
+# Show configuration details, excluded files, and paths
+npx tsx scripts/i18n-ast/0-main.ts --verbose
+npx tsx scripts/i18n-ast/0-main.ts -v
 ```
 
 ## Configuration File

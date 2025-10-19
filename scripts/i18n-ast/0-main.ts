@@ -48,12 +48,18 @@ function main() {
     // Start with config from file (if exists)
     const config: Partial<Config> = loadConfigFile(configFileName);
 
+    // Check for verbose flag
+    const verbose = args.includes('--verbose') || args.includes('-v');
+
     // CLI arguments override config file
     for (let i = 0; i < args.length; i += 2) {
         const key = args[i].replace(/^-+/, '');
         const value = args[i + 1];
 
         if (key === 'c' || key === 'config') {
+            // Already handled above, skip
+            continue;
+        } else if (key === 'v' || key === 'verbose') {
             // Already handled above, skip
             continue;
         } else if (key === 'src') config.srcDir = value;
@@ -67,16 +73,19 @@ function main() {
     }
 
     console.log('🔍 Extracting localization strings (AST-based)...');
-    console.log(`   Source: ${config.srcDir || defaultConfig.srcDir}`);
-    console.log(`   Output: ${config.outputFile || defaultConfig.outputFile}`);
-    if (config.excludeFiles && config.excludeFiles.length > 0) {
-        console.log(`   Excluding files: ${config.excludeFiles.join(', ')}`);
-    }
-    if (config.excludePaths && config.excludePaths.length > 0) {
-        console.log(`   Excluding paths: ${config.excludePaths.join(', ')}`);
-    }
-    if (config.excludePattern) {
-        console.log(`   Exclude pattern: ${config.excludePattern}`);
+    
+    if (verbose) {
+        console.log(`   Source: ${config.srcDir || defaultConfig.srcDir}`);
+        console.log(`   Output: ${config.outputFile || defaultConfig.outputFile}`);
+        if (config.excludeFiles && config.excludeFiles.length > 0) {
+            console.log(`   Excluding files: ${config.excludeFiles.join(', ')}`);
+        }
+        if (config.excludePaths && config.excludePaths.length > 0) {
+            console.log(`   Excluding paths: ${config.excludePaths.join(', ')}`);
+        }
+        if (config.excludePattern) {
+            console.log(`   Exclude pattern: ${config.excludePattern}`);
+        }
     }
 
     const results = scanAndExtract(config);
@@ -86,7 +95,7 @@ function main() {
     fs.mkdirSync(path.dirname(outputPath), { recursive: true });
     fs.writeFileSync(outputPath, JSON.stringify(results, null, 2), 'utf-8');
 
-    console.log(`✅ Extracted ${totalStrings} strings from ${Object.keys(results).length} files`);
+    console.log(`\n✅ Extracted ${totalStrings} strings from ${Object.keys(results).length} files\n`);
     console.log(`   Saved to: ${outputPath}`);
 }
 

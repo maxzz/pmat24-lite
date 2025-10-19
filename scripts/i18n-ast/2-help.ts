@@ -19,6 +19,7 @@ OPTIONS:
   --exclude-pattern <regex>     Regular expression pattern to exclude files
   --classname-suffix <str>      Suffix for className variable names (default: Classes)
   --classname-functions <names> Comma-separated className function names (default: classNames,cn)
+  --verbose, -v                 Show detailed configuration and file information
   --help, -h                    Show this help message
 
 CONFIGURATION FILE:
