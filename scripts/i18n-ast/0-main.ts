@@ -10,7 +10,7 @@ const DEFAULT_CONFIG_FILE_NAME = 'extract-i18n-config.json5';
 function loadConfigFile(configFileName?: string): Partial<Config> {
     const fileName = configFileName || DEFAULT_CONFIG_FILE_NAME;
     const configPath = path.resolve(fileName);
-    
+
     if (!fs.existsSync(configPath)) {
         if (configFileName) {
             // If explicitly specified, warn that it doesn't exist
@@ -22,7 +22,7 @@ function loadConfigFile(configFileName?: string): Partial<Config> {
     try {
         const content = fs.readFileSync(configPath, 'utf-8');
         const config = JSON5.parse(content);
-        console.log(`📄 Loaded configuration from ${fileName}`);
+        console.log(`♻️  Loaded configuration from ${fileName}`);
         return config;
     } catch (error) {
         console.warn(`⚠️  Failed to parse ${fileName}:`, error instanceof Error ? error.message : error);
@@ -45,11 +45,15 @@ function main() {
         configFileName = args[configArgIndex + 1];
     }
 
-    // Start with config from file (if exists)
-    const config: Partial<Config> = loadConfigFile(configFileName);
-
     // Check for verbose flag
     const verbose = args.includes('--verbose') || args.includes('-v');
+
+    if (verbose) {
+        console.log('♻️  Extracting localization strings (AST-based)...');
+    }
+
+    // Start with config from file (if exists)
+    const config: Partial<Config> = loadConfigFile(configFileName);
 
     // CLI arguments override config file
     for (let i = 0; i < args.length; i += 2) {
@@ -72,8 +76,6 @@ function main() {
         else if (key === 'classname-functions') config.classNameFunctions = value.split(',').map(f => f.trim());
     }
 
-    console.log('🔍 Extracting localization strings (AST-based)...');
-    
     if (verbose) {
         console.log(`   Source: ${config.srcDir || defaultConfig.srcDir}`);
         console.log(`   Output: ${config.outputFile || defaultConfig.outputFile}`);
@@ -95,8 +97,8 @@ function main() {
     fs.mkdirSync(path.dirname(outputPath), { recursive: true });
     fs.writeFileSync(outputPath, JSON.stringify(results, null, 2), 'utf-8');
 
-    console.log(`\n✅ Extracted ${totalStrings} strings from ${Object.keys(results).length} files\n`);
-    console.log(`   Saved to: ${outputPath}`);
+    console.log(`♻️  Saved to: ${outputPath}`);
+    console.log(`\n✅ Extracted ${totalStrings} strings from ${Object.keys(results).length} files`);
 }
 
 // Auto-execute when run directly
