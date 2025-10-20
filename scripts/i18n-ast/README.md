@@ -19,6 +19,7 @@ A TypeScript utility that extracts localizable strings from TypeScript, JavaScri
   - Numbers and symbols only
 
 ✅ **Template Literal Support** - Extracts template strings with `${variable}` placeholders  
+✅ **Ternary Operator Extraction** - Extracts strings from ternaries: `` `${cond ? 'text' : 'pass'}` ``  
 ✅ **Smart Placeholder Filtering** - Skips placeholder-only (`` `${id}` ``) and separator-only (`` `${x}-${y}` ``) templates  
 ✅ **Placeholder Preservation** - Keeps i18n placeholders like `{variable}` and `${variable}` in extracted strings  
 ✅ **Clickable File URLs** - Generates `file://` URLs for easy navigation in VS Code  
@@ -36,6 +37,7 @@ A TypeScript utility that extracts localizable strings from TypeScript, JavaScri
 - 🔧 [Enhancement: JSON5 Config](docs/ENHANCEMENT-JSON5-SUPPORT.md) - Config with comments
 - 🔧 [Enhancement: className Suffix](docs/ENHANCEMENT-CLASSNAME-SUFFIX.md) - Improved filtering
 - 🔧 [Enhancement: Placeholder Filter](docs/ENHANCEMENT-TEMPLATE-PLACEHOLDER-FILTER.md) - Skip `` `${var}` `` and `` `${x}-${y}` `` templates
+- 🔧 [Enhancement: Ternary Extraction](docs/ENHANCEMENT-TEMPLATE-TERNARY-EXTRACTION.md) - Extract `` `${cond ? 'a' : 'b'}` `` strings
 
 ## Installation
 

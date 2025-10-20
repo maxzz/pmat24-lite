@@ -45,6 +45,12 @@ export function extractStringsFromAST(
                 const key = generateKey(reconstructedText);
                 strings[key] = reconstructedText;
             }
+            
+            // Also recursively visit expressions inside template spans
+            // to extract string literals from ternary operators, etc.
+            for (const span of node.templateSpans) {
+                visit(span.expression);
+            }
         }
 
         // Extract JSX text with placeholders
@@ -80,7 +86,11 @@ export function extractStringsFromAST(
     }
 
     function shouldExtractString(text: string, minLength: number, node: ts.Node): boolean {
-        if (text.length < minLength) return false;
+        // Use a lower minimum length for strings inside template expressions
+        // (e.g., ternary operators like `${condition ? 'text' : 'password'}`)
+        const effectiveMinLength = isInsideTemplateExpression(node) ? 3 : minLength;
+        
+        if (text.length < effectiveMinLength) return false;
         if (!(/[a-zA-Z]/.test(text))) return false;
 
         // Check if it's in an import/export statement
@@ -105,6 +115,17 @@ export function extractStringsFromAST(
         if (isDirective(text)) return false;
 
         return true;
+    }
+
+    function isInsideTemplateExpression(node: ts.Node): boolean {
+        let current: ts.Node | undefined = node.parent;
+        while (current) {
+            if (ts.isTemplateSpan(current) || ts.isTemplateExpression(current)) {
+                return true;
+            }
+            current = current.parent;
+        }
+        return false;
     }
 
     function isInImportExport(node: ts.Node): boolean {
@@ -134,7 +155,7 @@ export function extractStringsFromAST(
                     if (
                         ts.isIdentifier(obj) &&
                         obj.text === 'console' &&
-                        ['log', 'warn', 'error', 'debug', 'info'].includes(prop)
+                        ['log', 'warn', 'error', 'debug', 'info', 'group', 'groupCollapsed'].includes(prop)
                     ) {
                         return true;
                     }
