@@ -1,6 +1,7 @@
 import * as fs from 'fs';
 import * as path from 'path';
 import JSON5 from 'json5';
+import pc from 'picocolors';
 import { type Config, defaultConfig } from './1-config';
 import { scanAndExtract } from './4-scan-process';
 import { help } from './2-help';
@@ -22,7 +23,7 @@ function loadConfigFile(configFileName?: string): Partial<Config> {
     try {
         const content = fs.readFileSync(configPath, 'utf-8');
         const config = JSON5.parse(content);
-        console.log(`♻️  Loaded configuration from ${fileName}`);
+        console.log(`📄 Loaded configuration from ${pc.cyan(fileName)}`);
         return config;
     } catch (error) {
         console.warn(`⚠️  Failed to parse ${fileName}:`, error instanceof Error ? error.message : error);
@@ -48,9 +49,7 @@ function main() {
     // Check for verbose flag
     const verbose = args.includes('--verbose') || args.includes('-v');
 
-    if (verbose) {
-        console.log('♻️  Extracting localization strings (AST-based)...');
-    }
+    console.log(`🔍 ${pc.bold('Extracting localization strings')} ${pc.dim('(AST-based)')}...`);
 
     // Start with config from file (if exists)
     const config: Partial<Config> = loadConfigFile(configFileName);
@@ -97,8 +96,8 @@ function main() {
     fs.mkdirSync(path.dirname(outputPath), { recursive: true });
     fs.writeFileSync(outputPath, JSON.stringify(results, null, 2), 'utf-8');
 
-    console.log(`♻️  Saved to: ${outputPath}`);
-    console.log(`\n✅ Extracted ${totalStrings} strings from ${Object.keys(results).length} files`);
+    console.log(`\n✅ Extracted ${pc.cyan(pc.bold(totalStrings))} strings from ${pc.cyan(pc.bold(Object.keys(results).length))} files`);
+    console.log(`📝 Saved to: ${pc.dim(outputPath)}`);
 }
 
 // Auto-execute when run directly

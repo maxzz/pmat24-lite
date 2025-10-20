@@ -61,6 +61,7 @@
         "json5": "^2.2.3",
         "lucide-react": "^0.545.0",
         "motion": "^12.23.22",
+        "picocolors": "^1.1.1",
         "pm-manifest": "^1.5.31",
         "pm-manifest-icons": "latest",
         "postcss": "^8.5.6",
