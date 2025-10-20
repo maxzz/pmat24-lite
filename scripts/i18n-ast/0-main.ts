@@ -8,7 +8,7 @@ import { help } from './2-help';
 
 const DEFAULT_CONFIG_FILE_NAME = 'extract-i18n-config.json5';
 
-function loadConfigFile(configFileName?: string): Partial<Config> {
+function loadConfigFile(configFileName: string | undefined): Partial<Config> {
     const fileName = configFileName || DEFAULT_CONFIG_FILE_NAME;
     const configPath = path.resolve(fileName);
 
@@ -23,7 +23,7 @@ function loadConfigFile(configFileName?: string): Partial<Config> {
     try {
         const content = fs.readFileSync(configPath, 'utf-8');
         const config = JSON5.parse(content);
-        console.log(`📄 Loaded configuration from ${pc.cyan(fileName)}`);
+        console.log(pc.gray(`♻️  Loaded configuration from ${fileName}`));
         return config;
     } catch (error) {
         console.warn(`⚠️  Failed to parse ${fileName}:`, error instanceof Error ? error.message : error);
@@ -49,7 +49,9 @@ function main() {
     // Check for verbose flag
     const verbose = args.includes('--verbose') || args.includes('-v');
 
-    console.log(`🔍 ${pc.bold('Extracting localization strings')} ${pc.dim('(AST-based)')}...`);
+    if (verbose) {
+        console.log(`♻️  ${pc.bold('Extracting localization strings')} ${pc.gray('(AST-based)')}...`);
+    }
 
     // Start with config from file (if exists)
     const config: Partial<Config> = loadConfigFile(configFileName);
@@ -96,8 +98,8 @@ function main() {
     fs.mkdirSync(path.dirname(outputPath), { recursive: true });
     fs.writeFileSync(outputPath, JSON.stringify(results, null, 2), 'utf-8');
 
-    console.log(`\n✅ Extracted ${pc.cyan(pc.bold(totalStrings))} strings from ${pc.cyan(pc.bold(Object.keys(results).length))} files`);
-    console.log(`📝 Saved to: ${pc.dim(outputPath)}`);
+    console.log(`✅ Extracted ${pc.cyan(pc.bold(totalStrings))} strings from ${pc.cyan(pc.bold(Object.keys(results).length))} files`);
+    console.log(pc.gray(`   Saved to: ${outputPath}`));
 }
 
 // Auto-execute when run directly
