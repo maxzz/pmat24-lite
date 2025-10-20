@@ -8,7 +8,7 @@ import { help } from './2-help';
 
 const DEFAULT_CONFIG_FILE_NAME = 'extract-i18n-config.json5';
 
-function loadConfigFile(configFileName: string | undefined): Partial<Config> {
+function loadConfigFile(configFileName: string | undefined, verbose: boolean): Partial<Config> {
     const fileName = configFileName || DEFAULT_CONFIG_FILE_NAME;
     const configPath = path.resolve(fileName);
 
@@ -23,7 +23,9 @@ function loadConfigFile(configFileName: string | undefined): Partial<Config> {
     try {
         const content = fs.readFileSync(configPath, 'utf-8');
         const config = JSON5.parse(content);
-        console.log(pc.gray(`♻️  Loaded configuration from ${fileName}`));
+        if (verbose) {
+            console.log(pc.gray(`♻️  Loaded configuration from ${fileName}`));
+        }
         return config;
     } catch (error) {
         console.warn(`⚠️  Failed to parse ${fileName}:`, error instanceof Error ? error.message : error);
@@ -54,7 +56,7 @@ function main() {
     }
 
     // Start with config from file (if exists)
-    const config: Partial<Config> = loadConfigFile(configFileName);
+    const config: Partial<Config> = loadConfigFile(configFileName, verbose);
 
     // CLI arguments override config file
     for (let i = 0; i < args.length; i += 2) {
@@ -81,13 +83,13 @@ function main() {
         console.log(`   Source: ${config.srcDir || defaultConfig.srcDir}`);
         console.log(`   Output: ${config.outputFile || defaultConfig.outputFile}`);
         if (config.excludeFiles && config.excludeFiles.length > 0) {
-            console.log(`   Excluding files: ${config.excludeFiles.join(', ')}`);
+            console.log(`   Excluding files: \n\t${config.excludeFiles.join('\n\t')}`);
         }
         if (config.excludePaths && config.excludePaths.length > 0) {
-            console.log(`   Excluding paths: ${config.excludePaths.join(', ')}`);
+            console.log(`   Excluding paths: \n\t${config.excludePaths.join('\n\t')}`);
         }
         if (config.excludePattern) {
-            console.log(`   Exclude pattern: ${config.excludePattern}`);
+            console.log(`   Exclude pattern: \n\t${config.excludePattern}`);
         }
     }
 
