@@ -102,6 +102,9 @@ export function extractStringsFromAST(
         // Check if it's in a className function call
         if (isInClassNameFunction(node)) return false;
 
+        // Check if it's in a querySelector/querySelectorAll call
+        if (isInQuerySelectorCall(node)) return false;
+
         // Check if it's a className or variable ending with classNameSuffix
         if (isClassName(node, classNameSuffix)) return false;
 
@@ -174,6 +177,24 @@ export function extractStringsFromAST(
                 // Check for direct function call like classNames() or cn()
                 if (ts.isIdentifier(expr) && classNameFunctions.includes(expr.text)) {
                     return true;
+                }
+            }
+            current = current.parent;
+        }
+        return false;
+    }
+
+    function isInQuerySelectorCall(node: ts.Node): boolean {
+        let current: ts.Node | undefined = node.parent;
+        while (current) {
+            if (ts.isCallExpression(current)) {
+                const expr = current.expression;
+                if (ts.isPropertyAccessExpression(expr)) {
+                    const prop = expr.name.text;
+                    // Check for querySelector, querySelectorAll, closest, matches, etc.
+                    if (['querySelector', 'querySelectorAll', 'closest', 'matches'].includes(prop)) {
+                        return true;
+                    }
                 }
             }
             current = current.parent;

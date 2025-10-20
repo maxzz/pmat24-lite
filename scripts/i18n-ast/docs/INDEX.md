@@ -22,6 +22,7 @@ This folder contains all the detailed documentation for the AST-based i18n strin
 - [ENHANCEMENT-CLASSNAME-SUFFIX.md](ENHANCEMENT-CLASSNAME-SUFFIX.md) - Improved filtering for className variables and object properties
 - [ENHANCEMENT-TEMPLATE-PLACEHOLDER-FILTER.md](ENHANCEMENT-TEMPLATE-PLACEHOLDER-FILTER.md) - Filter template literals with only placeholders (no text)
 - [ENHANCEMENT-TEMPLATE-TERNARY-EXTRACTION.md](ENHANCEMENT-TEMPLATE-TERNARY-EXTRACTION.md) - Extract strings from ternary operators in template literals
+- [ENHANCEMENT-QUERYSELECTOR-FILTER.md](ENHANCEMENT-QUERYSELECTOR-FILTER.md) - Filter CSS selectors in querySelector/querySelectorAll calls
 
 ## Bug Fixes
 

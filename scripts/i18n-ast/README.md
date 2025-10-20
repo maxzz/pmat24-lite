@@ -12,6 +12,7 @@ A TypeScript utility that extracts localizable strings from TypeScript, JavaScri
   - Console statements (log, warn, error, debug, info)
   - CSS class names and Tailwind classes
   - className function calls (classNames, cn, clsx, etc.)
+  - querySelector/querySelectorAll CSS selectors
   - GUIDs/UUIDs
   - URLs and file paths
   - SVG path data
@@ -38,6 +39,7 @@ A TypeScript utility that extracts localizable strings from TypeScript, JavaScri
 - 🔧 [Enhancement: className Suffix](docs/ENHANCEMENT-CLASSNAME-SUFFIX.md) - Improved filtering
 - 🔧 [Enhancement: Placeholder Filter](docs/ENHANCEMENT-TEMPLATE-PLACEHOLDER-FILTER.md) - Skip `` `${var}` `` and `` `${x}-${y}` `` templates
 - 🔧 [Enhancement: Ternary Extraction](docs/ENHANCEMENT-TEMPLATE-TERNARY-EXTRACTION.md) - Extract `` `${cond ? 'a' : 'b'}` `` strings
+- 🔧 [Enhancement: querySelector Filter](docs/ENHANCEMENT-QUERYSELECTOR-FILTER.md) - Filter CSS selectors
 
 ## Installation
 

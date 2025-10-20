@@ -24,6 +24,7 @@
         "src/components/2-main/2-right/2-file-mani/2-form-options/9-controls/nun-controls",
         "src/renderer/src/components/2-main/2-right/2-file-mani/2-form-options/nun-form-options",
         "src/renderer/src/ui/shadcn",
+        "src/renderer/src/store/3-field-catalog-atoms",
     ],
     "excludePattern": "\\.(test|spec)\\.",
     "classNameSuffix": "Classes",

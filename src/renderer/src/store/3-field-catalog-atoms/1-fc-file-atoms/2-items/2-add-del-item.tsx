@@ -14,7 +14,6 @@ export const doAddItemAtom = atom(
         set(fceCtx.fceAtoms.allAtom, newItems);
 
         const newIdx = newItems.length - 1;
-        // const newName = `New ${fType === FieldTyp.edit ? 'text' : 'password'} ${newIdx + 1}`;
         const newName = `${fType === FieldTyp.edit ? 'New text' : 'New password'} ${newIdx + 1}`;
 
         newItem.fceMeta.index = newIdx;
