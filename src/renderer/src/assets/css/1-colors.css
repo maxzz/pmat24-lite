@@ -2,52 +2,52 @@
     :root {
         --mani-title: #429062;
         /* #0ea94d */
-        --mani-foreground: theme(colors.slate.800);
-        --mani-background: theme(colors.slate.50);
-        --mani-muted-background: theme(colors.slate.200);
-        --mani-muted-foreground: theme(colors.slate.500);
+        --mani-foreground: var(--color-slate-800);
+        --mani-background: var(--color-slate-50);
+        --mani-muted-background: var(--color-slate-200);
+        --mani-muted-foreground: var(--color-slate-500);
 
-        --mani-border: theme(colors.slate.200);
-        --mani-border-muted: theme(colors.slate.300);
-        --mani-border-separator: theme(colors.slate.300);
+        --mani-border: var(--color-slate-200);
+        --mani-border-muted: var(--color-slate-300);
+        --mani-border-separator: var(--color-slate-300);
 
-        --mani-ring: theme(colors.slate.200);
-        --mani-ring-activated: theme(colors.slate.600);
+        --mani-ring: var(--color-slate-200);
+        --mani-ring-activated: var(--color-slate-600);
 
-        --list-select-focus: theme(colors.slate.200);
-        --list-select-hover: theme(colors.slate.100);
-        --list-select-selected-active: theme(colors.slate.300);
-        --list-select-selected-inactive: theme(colors.slate.200);
+        --list-select-focus: var(--color-slate-200);
+        --list-select-hover: var(--color-slate-100);
+        --list-select-selected-active: var(--color-slate-300);
+        --list-select-selected-inactive: var(--color-slate-200);
 
-        --list-select-bg-focus: theme(colors.slate.200);
-        --list-select-bg-hover: theme(colors.slate.100);
-        --list-select-bg-selected-active: theme(colors.slate.300);
-        --list-select-bg-selected-inactive: theme(colors.slate.200);
+        --list-select-bg-focus: var(--color-slate-200);
+        --list-select-bg-hover: var(--color-slate-100);
+        --list-select-bg-selected-active: var(--color-slate-300);
+        --list-select-bg-selected-inactive: var(--color-slate-200);
     }
 
     .dark {
         --mani-title: #45a194;
         /* #32ffdaa0*/
-        --mani-foreground: theme(colors.slate.200);
-        --mani-background: theme(colors.slate.800);
-        --mani-muted-background: theme(colors.slate.700);
-        --mani-muted-foreground: theme(colors.slate.500);
+        --mani-foreground: var(--color-slate-200);
+        --mani-background: var(--color-slate-800);
+        --mani-muted-background: var(--color-slate-700);
+        --mani-muted-foreground: var(--color-slate-500);
 
-        --mani-border: theme(colors.slate.600);
+        --mani-border: var(--color-slate-600);
         --mani-border-muted: transparent;
-        --mani-border-separator: theme(colors.slate.900);
+        --mani-border-separator: var(--color-slate-900);
 
-        --mani-ring: theme(colors.slate.600);
-        --mani-ring-activated: theme(colors.slate.400);
+        --mani-ring: var(--color-slate-600);
+        --mani-ring-activated: var(--color-slate-400);
 
-        --list-select-focus: theme(colors.slate.600);
-        --list-select-hover: theme(colors.slate.700);
-        --list-select-selected-active: theme(colors.slate.500);
-        --list-select-selected-inactive: theme(colors.slate.700);
+        --list-select-focus: var(--color-slate-600);
+        --list-select-hover: var(--color-slate-700);
+        --list-select-selected-active: var(--color-slate-500);
+        --list-select-selected-inactive: var(--color-slate-700);
 
-        --list-select-bg-focus: theme(colors.slate.600);
-        --list-select-bg-hover: theme(colors.slate.700);
-        --list-select-bg-selected-active: theme(colors.slate.500);
-        --list-select-bg-selected-inactive: theme(colors.slate.700);
+        --list-select-bg-focus: var(--color-slate-600);
+        --list-select-bg-hover: var(--color-slate-700);
+        --list-select-bg-selected-active: var(--color-slate-500);
+        --list-select-bg-selected-inactive: var(--color-slate-700);
     }
 }

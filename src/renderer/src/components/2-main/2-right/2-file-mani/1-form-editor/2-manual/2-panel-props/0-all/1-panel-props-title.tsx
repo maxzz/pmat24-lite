@@ -16,7 +16,7 @@ export function PanelPropsTitle({ type }: { type: ChunkKey; }) {
             </div>
 
             <div className="opacity-50">
-                <RowColumnIcon type={type} className={classNames(chunkIconClasses, "!opacity-100")} />
+                <RowColumnIcon type={type} className={classNames(chunkIconClasses, "opacity-100!")} />
             </div>
         </div>
     );

@@ -7,7 +7,7 @@ function ProblemsList({ bailOut }: { bailOut: string[]; }) {
         {bailOut.map(
             (item, key) => (
                 <div className="flex items-center" key={key}>
-                    <SymbolDot className="flex-none self-start size-5 fill-red-500 stroke-muted stroke-[1]" />
+                    <SymbolDot className="flex-none self-start size-5 fill-red-500 stroke-muted stroke-1" />
                     {item}
                 </div>
             ))

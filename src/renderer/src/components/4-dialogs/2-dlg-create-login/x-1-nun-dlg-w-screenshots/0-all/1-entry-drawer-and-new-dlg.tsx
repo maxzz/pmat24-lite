@@ -9,7 +9,7 @@ export function DialogCreateManiV2_() {
     return (
         <Dr.Drawer open={doOpenDrawer} onOpenChange={setDoOpenDrawer} shouldScaleBackground={false} direction="left" modal>
             <Dr.DrawerContent
-                className="w-full h-full max-w-3xl rounded outline-none"
+                className="w-full h-full max-w-3xl rounded outline-hidden"
                 withoutOverlay
                 hiddenTitle="Create manifest"
             >
@@ -32,10 +32,10 @@ export function DialogCreateManiV2() {
 
 const dialogClasses = "\
 p-0 \
-!w-11/12 max-w-5xl \
+w-11/12! max-w-5xl \
 h-4/5 min-h-[60vh] max-h-[90vh] \
 rounded-md \
-data-[state=open]:[animation-duration:200ms] \
+data-[state=open]:duration-ani-200 \
 ";
 
 //!1w-4/5 md:!1w-4/5 1max-w-3xl \

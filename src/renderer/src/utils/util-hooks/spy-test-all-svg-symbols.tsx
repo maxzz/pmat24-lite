@@ -29,7 +29,7 @@ export function SpyTestAllSvgSymbols({ fontID = "svgfont", className, ...rest  }
                             </svg>
                         </div>
 
-                        <div className="min-h-[2rem] text-[.65rem] text-foreground text-center">
+                        <div className="min-h-8 text-[.65rem] text-foreground text-center">
                             {id}
                         </div>
                     </div>

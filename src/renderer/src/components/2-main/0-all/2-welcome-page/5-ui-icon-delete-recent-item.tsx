@@ -9,7 +9,7 @@ export function IconCrossOnHover({ show, className, onClick, ...rest }: { show: 
             <AnimatePresence initial={false}>
                 {show && (
                     <motion.div
-                        className={classNames("p-1 origin-center rounded hover:!stroke-4 hover:text-white hover:bg-red-600", className)}
+                        className={classNames("p-1 origin-center rounded hover:stroke-4! hover:text-white hover:bg-red-600", className)}
                         initial={{ opacity: 0, x: 100 }}
                         animate={{ opacity: 1, x: 0, transition: { delay: .5, bounce: 1 } }}
                         exit={{ opacity: 0, x: 100 }}

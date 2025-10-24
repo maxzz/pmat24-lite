@@ -13,7 +13,7 @@ const MenubarRadioGroup = Prim.RadioGroup;
 const MenubarClasses = "\
 p-1 h-9 \
 bg-background \
-border rounded-md shadow-sm \
+border rounded-md shadow-xs \
 flex items-center space-x-1";
 const Menubar = forwardRef<ElementRef<typeof Prim.Root>, ComponentPropsWithoutRef<typeof Prim.Root>>(
     ({ className, ...rest }, ref) => (
@@ -31,7 +31,7 @@ focus:bg-accent \
 data-[state=open]:text-accent-foreground \
 data-[state=open]:bg-accent \
 \
-rounded-sm outline-none select-none cursor-default \
+rounded-sm outline-hidden select-none cursor-default \
 flex items-center";
 const MenubarTrigger = forwardRef<ElementRef<typeof Prim.Trigger>, ComponentPropsWithoutRef<typeof Prim.Trigger>>(
     ({ className, ...rest }, ref) => (
@@ -49,7 +49,7 @@ focus:bg-accent \
 data-[state=open]:text-accent-foreground \
 data-[state=open]:bg-accent \
 \
-rounded-sm outline-none select-none cursor-default \
+rounded-sm outline-hidden select-none cursor-default \
 flex items-center";
 const MenubarSubTrigger = forwardRef<ElementRef<typeof Prim.SubTrigger>, ComponentPropsWithoutRef<typeof Prim.SubTrigger> & { inset?: boolean; }>(
     ({ className, inset, children, ...rest }, ref) => (
@@ -62,7 +62,7 @@ const MenubarSubTrigger = forwardRef<ElementRef<typeof Prim.SubTrigger>, Compone
 MenubarSubTrigger.displayName = Prim.SubTrigger.displayName;
 
 const MenubarSubContentClasses = "\
-p-1 min-w-[8rem] z-50 \
+p-1 min-w-32 z-50 \
 \
 text-popover-foreground \
 bg-popover \
@@ -89,7 +89,7 @@ const MenubarSubContent = forwardRef<ElementRef<typeof Prim.SubContent>, Compone
 MenubarSubContent.displayName = Prim.SubContent.displayName;
 
 const MenubarContentClasses = "\
-p-1 min-w-[12rem] z-50 \
+p-1 min-w-48 z-50 \
 \
 text-popover-foreground \
 bg-popover \
@@ -130,10 +130,10 @@ relative px-2 py-1.5 text-sm \
 focus:text-accent-foreground \
 focus:bg-accent \
 \
-data-[disabled]:opacity-50 \
-data-[disabled]:pointer-events-none \
+data-disabled:opacity-50 \
+data-disabled:pointer-events-none \
 \
-rounded-sm select-none outline-none cursor-default \
+rounded-sm select-none outline-hidden cursor-default \
 flex items-center";
 const MenubarItem = forwardRef<ElementRef<typeof Prim.Item>, ComponentPropsWithoutRef<typeof Prim.Item> & { inset?: boolean; }>(
     ({ className, inset, ...rest }, ref) => (
@@ -148,10 +148,10 @@ relative pl-8 pr-2 py-1.5 text-sm \
 focus:text-accent-foreground \
 focus:bg-accent \
 \
-data-[disabled]:opacity-50 \
-data-[disabled]:pointer-events-none \
+data-disabled:opacity-50 \
+data-disabled:pointer-events-none \
 \
-rounded-sm outline-none select-none cursor-default \
+rounded-sm outline-hidden select-none cursor-default \
 flex items-center";
 
 const MenubarCheckboxItem = forwardRef<ElementRef<typeof Prim.CheckboxItem>, ComponentPropsWithoutRef<typeof Prim.CheckboxItem>>(

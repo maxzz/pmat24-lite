@@ -14,11 +14,11 @@ border-primary-500 \
 dark:border-primary-400 \
 dark:shadow-primary-500 \
 \
-border rounded shadow select-none z-[52]"; // z-[52] to stay on top of the dialog
+border rounded shadow select-none z-52"; // z-52 to stay on top of the dialog
 
-export const menuItemClasses = "pr-3 py-1 rounded-sm outline-none \
-data-[highlighted]:text-primary-800 \
-dark:data-[highlighted]:text-primary-100 \
+export const menuItemClasses = "pr-3 py-1 rounded-sm outline-hidden \
+data-highlighted:text-primary-800 \
+dark:data-highlighted:text-primary-100 \
 \
-data-[highlighted]:bg-primary-400/30 \
-dark:data-[highlighted]:bg-primary-700";
+data-highlighted:bg-primary-400/30 \
+dark:data-highlighted:bg-primary-700";

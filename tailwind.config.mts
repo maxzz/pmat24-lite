@@ -34,8 +34,8 @@ export default {
     plugins: [
         ///*problem*/debug_screens,
         debugScreensPlugin,
-        debug_styles,
-        /*problem*/tailwind_animate,
+        // debug_styles, //problem with tw4
+        // /*problem*/tailwind_animate,
 
         tailwind_shadcn,
         tailwind_shadcn_feedback,

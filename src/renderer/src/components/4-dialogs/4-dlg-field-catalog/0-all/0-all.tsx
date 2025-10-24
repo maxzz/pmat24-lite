@@ -8,18 +8,18 @@ import { overlayClasses } from "../../1-dlg-filter-files";
 import { AnimatePresence, motion, MotionConfig } from "motion/react";
 import { DialogPortalProps } from "@radix-ui/react-dialog";
 
-const contentMainClasses = "!w-4/5 max-w-4xl";
-const contentClasses = "!w-80 min-w-fit max-w-xl";
+const contentMainClasses = "w-4/5! max-w-4xl";
+const contentClasses = "w-80! min-w-fit max-w-xl";
 const contentRestClasses = "\
 p-0 \
 h-4/5 min-h-[60vh] max-h-[90vh] \
 text-xs \
 gap-0 \
 select-none \
-data-[state=open]:[animation:none] \
-data-[state=closed]:[animation:none] \
+data-[state=open]:animate-none \
+data-[state=closed]:animate-none \
 1data-[state=open]:[animation-duration:200ms] \
-data-[state=closed]:[animation-duration:200ms] \
+data-[state=closed]:duration-ani-200 \
 "; // temp.:  min-h-[60vh] to fit right panel height until it will be floated w/ absolute position
 
 export function FceDialog() {

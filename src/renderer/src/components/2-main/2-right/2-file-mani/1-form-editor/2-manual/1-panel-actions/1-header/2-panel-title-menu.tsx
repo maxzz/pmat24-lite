@@ -47,6 +47,6 @@ const buttonClasses = "\
 mr-3 size-5 \
 hover:bg-primary-200 dark:hover:bg-primary-700 \
 border-muted-foreground/10 dark:border-muted-foreground/30 \
-border rounded outline-none \
-shadow-sm dark:shadow-foreground/20 \
+border rounded outline-hidden \
+shadow-xs dark:shadow-foreground/20 \
 grid place-items-center";

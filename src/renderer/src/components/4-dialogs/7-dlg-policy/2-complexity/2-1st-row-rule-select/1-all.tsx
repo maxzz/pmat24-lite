@@ -60,7 +60,7 @@ function MinMaxInputs({ dlgUiCtx }: { dlgUiCtx: PolicyDlgTypes.PolicyUiCtx; }) {
     const hasErrorMax = !!(maxState.error && maxState.touched);
     
     function errorClasses(hasError: boolean) {
-        return classNames("px-2 h-7 text-xs max-w-[6ch]", hasError && 'outline-offset-[0px] outline-red-500', "text-xs");
+        return classNames("px-2 h-7 text-xs max-w-[6ch]", hasError && 'outline-offset-0 outline-red-500', "text-xs");
     }
 
     return (<>

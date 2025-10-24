@@ -28,14 +28,14 @@ px-3 py-1 text-sm font-medium whitespace-nowrap \
 focus-visible:ring-2 \
 focus-visible:ring-ring \
 focus-visible:ring-offset-2 \
-focus-visible:outline-none \
+focus-visible:outline-hidden \
 \
 disabled:opacity-50 \
 disabled:pointer-events-none \
 \
 data-[state=active]:text-foreground \
 data-[state=active]:bg-background \
-data-[state=active]:shadow \
+data-[state=active]:shadow-sm \
 \
 ring-offset-background \
 transition-all \
@@ -55,7 +55,7 @@ h-full \
 focus-visible:ring-2 \
 focus-visible:ring-ring \
 focus-visible:ring-offset-2 \
-focus-visible:outline-none \
+focus-visible:outline-hidden \
 \
 ring-offset-background";
 
