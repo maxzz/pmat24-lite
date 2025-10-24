@@ -8,6 +8,7 @@ export interface Config {
     excludePattern?: string;
     classNameSuffix: string;
     classNameFunctions: string[];
+    excludeFunctionPrefixes: string[];
 }
 
 export const defaultConfig: Config = {
@@ -20,4 +21,5 @@ export const defaultConfig: Config = {
     excludePattern: undefined,
     classNameSuffix: 'Classes',
     classNameFunctions: ['classNames', 'cn'],
+    excludeFunctionPrefixes: ['print', 'trace'],
 };

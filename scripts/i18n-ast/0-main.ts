@@ -77,6 +77,7 @@ function main() {
         else if (key === 'exclude-pattern') config.excludePattern = value;
         else if (key === 'classname-suffix') config.classNameSuffix = value;
         else if (key === 'classname-functions') config.classNameFunctions = value.split(',').map(f => f.trim());
+        else if (key === 'exclude-function-prefixes') config.excludeFunctionPrefixes = value.split(',').map(f => f.trim());
     }
 
     if (verbose) {

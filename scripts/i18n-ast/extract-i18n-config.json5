@@ -15,6 +15,7 @@
         "src/renderer/src/xternal-to-main/2-gates-in-client-as-atoms/3-to-main-apis.ts",
         "src/renderer/src/xternal-to-main/2-gates-in-client-as-atoms/2-gate-react-listener-atom.ts",
         "src/renderer/src/store/2-file-mani-atoms/2-manual-fields/2-conv-manual/1-m-create-atoms.tsx",
+        "src/renderer/src/components/2-main/1-left/1-header/1-menu-main/22-more/c-command-test-ping-pong.tsx",
         //"src/renderer/src/store/3-field-catalog-atoms/1-fc-file-atoms/2-items/2-add-del-item.tsx", // most but not all
     ],
     "excludePaths": [
@@ -31,5 +32,6 @@
     ],
     "excludePattern": "\\.(test|spec)\\.",
     "classNameSuffix": "Classes",
-    "classNameFunctions": ["classNames", "cn"]
+    "classNameFunctions": ["classNames", "cn"],
+    "excludeFunctionPrefixes": ["print", "trace"]
 }

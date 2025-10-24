@@ -10,13 +10,15 @@ import * as ts from 'typescript';
  * - Console statements
  * - CSS class names
  * - Technical strings (GUIDs, URLs, etc.)
+ * - Strings inside functions with excluded prefixes (e.g., printXxx, traceXxx)
  */
 export function extractStringsFromAST(
     filePath: string,
     sourceCode: string,
     minLength: number,
     classNameSuffix: string,
-    classNameFunctions: string[]
+    classNameFunctions: string[],
+    excludeFunctionPrefixes: string[]
 ): Record<string, string> {
     const strings: Record<string, string> = {};
     const processedJsxElements = new Set<ts.JsxElement>(); // Track processed JSX elements to avoid duplicates
@@ -113,6 +115,9 @@ export function extractStringsFromAST(
 
         // Check if it's in a translation function call (t(), dt())
         if (isInTranslationFunction(node)) return false;
+
+        // Check if it's inside a function with an excluded prefix (e.g., printXxx, traceXxx)
+        if (isInExcludedFunction(node)) return false;
 
         // Check if it's a className or variable ending with classNameSuffix
         if (isClassName(node, classNameSuffix)) return false;
@@ -222,6 +227,64 @@ export function extractStringsFromAST(
                     return true;
                 }
             }
+            current = current.parent;
+        }
+        return false;
+    }
+
+    function isInExcludedFunction(node: ts.Node): boolean {
+        if (excludeFunctionPrefixes.length === 0) {
+            return false;
+        }
+        
+        let current: ts.Node | undefined = node.parent;
+        while (current) {
+            // Check for function declaration: function printNames() { ... }
+            if (ts.isFunctionDeclaration(current)) {
+                const name = current.name;
+                if (name && ts.isIdentifier(name)) {
+                    const functionName = name.text;
+                    if (excludeFunctionPrefixes.some(prefix => functionName.startsWith(prefix))) {
+                        return true;
+                    }
+                }
+            }
+            // Check for arrow function or function expression assigned to variable
+            // const printNames = () => { ... }
+            // const printNames = function() { ... }
+            else if ((ts.isArrowFunction(current) || ts.isFunctionExpression(current)) && current.parent) {
+                const parent = current.parent;
+                if (ts.isVariableDeclaration(parent)) {
+                    const name = parent.name;
+                    if (ts.isIdentifier(name)) {
+                        const functionName = name.text;
+                        if (excludeFunctionPrefixes.some(prefix => functionName.startsWith(prefix))) {
+                            return true;
+                        }
+                    }
+                }
+                // Check for property assignment: { printNames: () => { ... } }
+                else if (ts.isPropertyAssignment(parent)) {
+                    const propName = parent.name;
+                    if (ts.isIdentifier(propName)) {
+                        const functionName = propName.text;
+                        if (excludeFunctionPrefixes.some(prefix => functionName.startsWith(prefix))) {
+                            return true;
+                        }
+                    }
+                }
+            }
+            // Check for method declaration: class X { printNames() { ... } }
+            else if (ts.isMethodDeclaration(current)) {
+                const name = current.name;
+                if (ts.isIdentifier(name)) {
+                    const methodName = name.text;
+                    if (excludeFunctionPrefixes.some(prefix => methodName.startsWith(prefix))) {
+                        return true;
+                    }
+                }
+            }
+            
             current = current.parent;
         }
         return false;

@@ -13,6 +13,9 @@ A TypeScript utility that extracts localizable strings from TypeScript, JavaScri
   - CSS class names and Tailwind classes
   - className function calls (classNames, cn, clsx, etc.)
   - querySelector/querySelectorAll CSS selectors
+  - Translation function arguments (t(), dt())
+  - Functions with excluded prefixes (e.g., printXxx, traceXxx)
+  - Single-word camelCase identifiers
   - GUIDs/UUIDs
   - URLs and file paths
   - SVG path data
@@ -64,17 +67,18 @@ This will:
 npx tsx scripts/i18n-ast/0-main.ts [options]
 
 Options:
-  --config <path>, -c       Custom configuration file path (default: extract-i18n-config.json)
-  --src <path>              Source directory to scan (default: ./src)
-  --output <path>           Output JSON file path (default: ./scripts/i18n-strings.json)
-  --min-length <number>     Minimum string length to extract (default: 10)
-  --exclude <files>         Comma-separated list of filenames to exclude
-  --exclude-paths <paths>       Comma-separated list of paths to exclude
-  --exclude-pattern <regex>     Regular expression pattern to exclude files
-  --classname-suffix <str>      Suffix for className variable names (default: Classes)
-  --classname-functions <names> Comma-separated className function names (default: classNames,cn)
-  --verbose, -v                 Show detailed configuration and file information
-  --help, -h                    Show help message
+  --config <path>, -c                 Custom configuration file path (default: extract-i18n-config.json)
+  --src <path>                        Source directory to scan (default: ./src)
+  --output <path>                     Output JSON file path (default: ./scripts/i18n-strings.json)
+  --min-length <number>               Minimum string length to extract (default: 10)
+  --exclude <files>                   Comma-separated list of filenames to exclude
+  --exclude-paths <paths>             Comma-separated list of paths to exclude
+  --exclude-pattern <regex>           Regular expression pattern to exclude files
+  --classname-suffix <str>            Suffix for className variable names (default: Classes)
+  --classname-functions <names>       Comma-separated className function names (default: classNames,cn)
+  --exclude-function-prefixes <names> Comma-separated function name prefixes to exclude (default: print,trace)
+  --verbose, -v                       Show detailed configuration and file information
+  --help, -h                          Show help message
 ```
 
 ### Examples
@@ -114,6 +118,15 @@ npx tsx scripts/i18n-ast/0-main.ts --classname-functions "clsx,classnames"
 npx tsx scripts/i18n-ast/0-main.ts --classname-functions "cn,twMerge"
 ```
 
+**Exclude functions by prefix:**
+```bash
+# Don't scan strings inside functions starting with "print" or "trace"
+npx tsx scripts/i18n-ast/0-main.ts --exclude-function-prefixes "print,trace"
+
+# Exclude debug and log functions
+npx tsx scripts/i18n-ast/0-main.ts --exclude-function-prefixes "debug,log,dump"
+```
+
 **Show detailed output (verbose mode):**
 ```bash
 # Show configuration details, excluded files, and paths
@@ -131,12 +144,50 @@ Create `extract-i18n-config.json` in your project root:
   "outputFile": "./scripts/i18n-strings.json",
   "minStringLength": 10,
   "extensions": [".ts", ".tsx", ".js", ".jsx"],
-    "excludeFiles": ["test.ts", "spec.ts"],
-    "excludePaths": ["src/tests", "src/__tests__"],
-    "excludePattern": "\\.test\\.",
-    "classNameSuffix": "Classes",
-    "classNameFunctions": ["classNames", "cn"]
-  }
+  "excludeFiles": ["test.ts", "spec.ts"],
+  "excludePaths": ["src/tests", "src/__tests__"],
+  "excludePattern": "\\.test\\.",
+  "classNameSuffix": "Classes",
+  "classNameFunctions": ["classNames", "cn"],
+  "excludeFunctionPrefixes": ["print", "trace"]
+}
+```
+
+**Or use JSON5 format with comments:**
+
+```json5
+{
+  // Source directory to scan
+  srcDir: "./src",
+  
+  // Output file for extracted strings
+  outputFile: "./scripts/i18n-strings.json",
+  
+  minStringLength: 10,
+  extensions: [".ts", ".tsx", ".js", ".jsx"],
+  
+  // Specific files to exclude (full path or filename)
+  excludeFiles: [
+    "src/path/to/file.ts",
+    "constants.ts",
+  ],
+  
+  // Directories to exclude
+  excludePaths: [
+    "src/tests",
+    "src/__tests__",
+  ],
+  
+  // Regex pattern to exclude files
+  excludePattern: "\\.test\\.",
+  
+  classNameSuffix: "Classes",
+  classNameFunctions: ["classNames", "cn"],
+  
+  // Function name prefixes to exclude from scanning
+  // Strings inside functions like printNames(), traceData(), etc. will be skipped
+  excludeFunctionPrefixes: ["print", "trace"],
+}
 ```**Note:** CLI arguments override configuration file settings.
 
 ## Output Format
@@ -283,6 +334,28 @@ const classes = "flex items-center gap-2";  // ❌ CSS classes
 // Can be customized via --classname-functions
 <div className={clsx("rounded", "border")}>Box</div>  // ✅/❌ Depends on config
 <div className={twMerge("p-4", "m-2")}>Box</div>  // ✅/❌ Depends on config
+```
+
+### Functions with Excluded Prefixes (Filtered)
+```tsx
+// Strings inside these functions are skipped (default prefixes: "print", "trace")
+function printNames(names: string[]) {
+  console.log("User names:");  // ❌ Filtered (inside printXxx function)
+  names.forEach(name => console.log(name));
+}
+
+function traceData(data: any) {
+  console.log("Debug data:", data);  // ❌ Filtered (inside traceXxx function)
+}
+
+const printReport = () => {
+  return "Report generated";  // ❌ Filtered (inside printXxx function)
+};
+
+// Regular functions are still scanned
+function displayMessage() {
+  return "Hello, World!";  // ✅ Extracted (not excluded prefix)
+}
 ```
 
 ## Troubleshooting
