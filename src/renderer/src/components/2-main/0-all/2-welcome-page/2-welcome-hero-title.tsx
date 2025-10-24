@@ -5,6 +5,9 @@ export function WelcomeHeroTitle({ allowHandleFiles }: { allowHandleFiles: boole
     return (<>
         <div className="text-2xl font-extrabold opacity-30 scale-y-125 select-none" style={titleStyle}>
             Welcome to the Password Manager Admin Tool
+            {/* {t("welcomeToThePasswordManagerAdminTool")} */}
+            {t("Welcome to the Password Manager Admin Tool")}
+            More info
         </div>
 
         <div className="text-xs text-balance select-none">

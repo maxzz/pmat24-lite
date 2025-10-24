@@ -19,6 +19,7 @@ export function extractStringsFromAST(
     classNameFunctions: string[]
 ): Record<string, string> {
     const strings: Record<string, string> = {};
+    const processedJsxElements = new Set<ts.JsxElement>(); // Track processed JSX elements to avoid duplicates
     const sourceFile = ts.createSourceFile(
         filePath,
         sourceCode,
@@ -64,11 +65,18 @@ export function extractStringsFromAST(
             );
             
             if (hasPlaceholders && parent && ts.isJsxElement(parent) && text.length >= minLength && /[a-zA-Z]/.test(text)) {
-                // Reconstruct the full text with placeholders
-                const fullText = reconstructJSXText(parent);
-                if (fullText && shouldExtractJSXText(fullText, minLength)) {
-                    const key = generateKey(fullText);
-                    strings[key] = fullText;
+                // Extract all text segments from the parent element
+                // Use a Set to track processed elements to avoid duplicates
+                if (!processedJsxElements.has(parent)) {
+                    processedJsxElements.add(parent);
+                    
+                    const segments = reconstructJSXTextSegments(parent);
+                    for (const segment of segments) {
+                        if (shouldExtractJSXText(segment, minLength)) {
+                            const key = generateKey(segment);
+                            strings[key] = segment;
+                        }
+                    }
                 }
             } else if (text.length >= minLength && /[a-zA-Z]/.test(text)) {
                 // Plain JSX text without placeholders
@@ -278,43 +286,75 @@ export function extractStringsFromAST(
     }
 
     function reconstructJSXText(element: ts.JsxElement): string | null {
-        const parts: string[] = [];
+        const segments = reconstructJSXTextSegments(element);
+        if (segments.length === 0) return null;
+        if (segments.length === 1) return segments[0];
+        
+        // Multiple segments - join with space
+        const result = segments.join(' ').replace(/\s+/g, ' ').trim();
+        return result || null;
+    }
+
+    /**
+     * Reconstructs JSX text, splitting into separate segments when separated by translation function calls.
+     * Returns an array of text segments.
+     * - Comments are ignored
+     * - Translation function calls (t(), dt()) act as separators
+     * - Regular placeholders are preserved as {variable}
+     */
+    function reconstructJSXTextSegments(element: ts.JsxElement): string[] {
+        const segments: string[] = [];
+        const currentParts: string[] = [];
+        
+        function flushCurrentSegment() {
+            if (currentParts.length > 0) {
+                const segment = currentParts.join(' ').replace(/\s+/g, ' ').trim();
+                if (segment) {
+                    segments.push(segment);
+                }
+                currentParts.length = 0; // Clear array
+            }
+        }
         
         for (const child of element.children) {
             if (ts.isJsxText(child)) {
                 const text = child.text.trim();
-                if (text) parts.push(text);
+                if (text) currentParts.push(text);
             } else if (ts.isJsxExpression(child)) {
                 // Skip JSX comments {/* ... */}
                 if (!child.expression) {
-                    // Empty expression is a comment
+                    // Empty expression is a comment - just skip, don't split
                     continue;
                 }
                 
                 const expr = child.expression;
                 
-                // Skip translation function calls like {t("...")} or {dt("...")}
+                // Translation function calls like {t("...")} or {dt("...")} act as separators
                 if (ts.isCallExpression(expr)) {
                     const callExpr = expr.expression;
                     if (ts.isIdentifier(callExpr) && ['t', 'dt'].includes(callExpr.text)) {
+                        // Flush current segment and start a new one
+                        flushCurrentSegment();
                         continue;
                     }
                 }
                 
-                // Extract placeholder name
+                // Extract placeholder name for regular expressions
                 if (ts.isIdentifier(expr)) {
-                    parts.push(`{${expr.text}}`);
+                    currentParts.push(`{${expr.text}}`);
                 } else if (ts.isPropertyAccessExpression(expr)) {
-                    parts.push(`{${expr.getText()}}`);
+                    currentParts.push(`{${expr.getText()}}`);
                 } else {
                     // Generic placeholder
-                    parts.push('{...}');
+                    currentParts.push('{...}');
                 }
             }
         }
         
-        const result = parts.join(' ').replace(/\s+/g, ' ').trim();
-        return result || null;
+        // Flush any remaining segment
+        flushCurrentSegment();
+        
+        return segments;
     }
 
     function reconstructTemplateExpression(template: ts.TemplateExpression): string | null {
@@ -368,10 +408,14 @@ export function extractStringsFromAST(
     }
 
     function shouldExtractJSXText(text: string, minLength: number): boolean {
-        if (text.length < minLength) return false;
+        // For JSX text segments, use a lower minimum length requirement
+        // since they might be split by translation function calls
+        const effectiveMinLength = Math.min(minLength, 8);
+        
+        if (text.length < effectiveMinLength) return false;
         
         const wordCount = text.split(/\s+/).filter(w => /[a-zA-Z]/.test(w)).length;
-        if (wordCount < 3) return false;
+        if (wordCount < 2) return false; // At least 2 words, same as plain JSX text
         
         // Skip if it looks like code
         if (text.includes('return') || text.includes('=>') || 
