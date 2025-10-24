@@ -12,10 +12,11 @@ import tailwind_container_queries from "@tailwindcss/container-queries";
 import tailwind_scrollbar from "tailwind-scrollbar";
 import tailwind_forms from '@tailwindcss/forms';
 
-//import debug_screens from "./tailwind/tailwind-plugin-debug-screens.mts";
+//import debug_screens from "./tailwind/nun-tailwind-plugin-debug-screens.mts";
 //import tailwind_overflow_overlay from "./tailwind/tailwind-plugin-overflow-overlay.mts";
+// import { overflowPlugin } from "./tailwind/tw-overflow";
 import { debugScreensPlugin } from "tailwindcss-plugin-debug-screens-tw4";
-import { overflowPlugin } from "./tailwind/tw-overflow";
+import { overflowPlugin } from "tailwindcss-plugin-overflow-tw4";
 
 /** @type {import('tailwindcss').Config} */
 export default {

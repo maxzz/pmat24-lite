@@ -180,6 +180,9 @@ importers:
       tailwindcss-plugin-debug-screens-tw4:
         specifier: ^1.0.1
         version: 1.0.1(tailwindcss@3.4.17)
+      tailwindcss-plugin-overflow-tw4:
+        specifier: ^1.0.0
+        version: 1.0.0(tailwindcss@3.4.17)
       tsx:
         specifier: ^4.20.6
         version: 4.20.6
@@ -3142,6 +3145,12 @@ packages:
     peerDependencies:
       tailwindcss: ^4.0.0-alpha || ^3.0.0
 
+  tailwindcss-plugin-overflow-tw4@1.0.0:
+    resolution: {integrity: sha512-5wD7zh7585kkFOpu0vvcwkaMd/oTBCHky6KXFRgabPUW5+nKSSj2hzJ5pxHaAtJ9VGkWbuX/sROgQe/OH2XX6g==}
+    engines: {node: '>=18.0.0', pnpm: '>=10.0.0'}
+    peerDependencies:
+      tailwindcss: ^4.0.0
+
   tailwindcss@3.4.17:
     resolution: {integrity: sha512-w33E2aCvSDP0tW9RZuNXadXlkHXqFzSkQew/aIa2i/Sj8fThxwovwlXHSPXTbAHwEIhBFXAedUhP2tueAKP8Og==}
     engines: {node: '>=14.0.0'}
@@ -3652,7 +3661,7 @@ snapshots:
       make-fetch-happen: 10.2.1
       nopt: 6.0.0
       proc-log: 2.0.1
-      semver: 7.7.2
+      semver: 7.7.3
       tar: 6.2.1
       which: 2.0.2
     transitivePeerDependencies:
@@ -3910,7 +3919,7 @@ snapshots:
   '@npmcli/fs@2.1.2':
     dependencies:
       '@gar/promisify': 1.1.3
-      semver: 7.7.2
+      semver: 7.7.3
 
   '@npmcli/move-file@2.0.1':
     dependencies:
@@ -4660,7 +4669,7 @@ snapshots:
 
   agent-base@6.0.2:
     dependencies:
-      debug: 4.4.1
+      debug: 4.4.3
     transitivePeerDependencies:
       - supports-color
 
@@ -5571,7 +5580,7 @@ snapshots:
     dependencies:
       '@tootallnate/once': 2.0.0
       agent-base: 6.0.2
-      debug: 4.4.1
+      debug: 4.4.3
     transitivePeerDependencies:
       - supports-color
 
@@ -5590,7 +5599,7 @@ snapshots:
   https-proxy-agent@5.0.1:
     dependencies:
       agent-base: 6.0.2
-      debug: 4.4.1
+      debug: 4.4.3
     transitivePeerDependencies:
       - supports-color
 
@@ -6378,8 +6387,7 @@ snapshots:
 
   semver@7.7.2: {}
 
-  semver@7.7.3:
-    optional: true
+  semver@7.7.3: {}
 
   serialize-error@7.0.1:
     dependencies:
@@ -6414,7 +6422,7 @@ snapshots:
   socks-proxy-agent@7.0.0:
     dependencies:
       agent-base: 6.0.2
-      debug: 4.4.1
+      debug: 4.4.3
       socks: 2.8.7
     transitivePeerDependencies:
       - supports-color
@@ -6527,6 +6535,10 @@ snapshots:
       tailwindcss: 3.4.17
 
   tailwindcss-plugin-debug-screens-tw4@1.0.1(tailwindcss@3.4.17):
+    dependencies:
+      tailwindcss: 3.4.17
+
+  tailwindcss-plugin-overflow-tw4@1.0.0(tailwindcss@3.4.17):
     dependencies:
       tailwindcss: 3.4.17
 
