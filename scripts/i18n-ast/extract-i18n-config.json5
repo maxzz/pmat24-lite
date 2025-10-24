@@ -25,6 +25,8 @@
         "src/renderer/src/components/2-main/2-right/2-file-mani/2-form-options/nun-form-options",
         "src/renderer/src/ui/shadcn",
         "src/renderer/src/store/3-field-catalog-atoms",
+        "src/renderer/src/components/4-dialogs/2-dlg-create-login/x-1-nun-dlg-w-screenshots",
+        "src/renderer/src/components/4-dialogs/2-dlg-create-login/x-2-nun-dlg-w-apps-list",
     ],
     "excludePattern": "\\.(test|spec)\\.",
     "classNameSuffix": "Classes",

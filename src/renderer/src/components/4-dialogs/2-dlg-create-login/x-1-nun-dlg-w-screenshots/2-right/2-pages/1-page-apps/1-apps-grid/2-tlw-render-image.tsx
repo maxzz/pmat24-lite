@@ -53,7 +53,7 @@ export function TwlRenderImage({ info, idx, ...rest }: { info: TlwScreenshotInfo
 // const itemSelectedClasses = "ring-2 ring-sky-500 1ring-offset-1 ring-o rounded";
 
 const itemSelectedClasses = "\
-outline outline-2 -outline-offset-2 outline-sky-500 outline-o \
+outline-2 -outline-offset-2 outline-sky-500 outline-o \
 ring-1 ring-sky-500 1ring-offset-1 ring-o \
 rounded-md \
 1transition-all 1duration-[300ms] \

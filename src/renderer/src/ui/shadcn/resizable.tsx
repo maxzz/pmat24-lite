@@ -68,7 +68,7 @@ export const toysArrowClasses = "\
 p-px size-4 \
 invisible group-hover:visible transition-all delay-150 \
 bg-border \
-outline outline-1 outline-muted-foreground/30 \
+outline outline-muted-foreground/30 \
 rounded-sm";
 
 export function ResizableHandleToys({ className, ...rest }: HTMLAttributes<HTMLDivElement>) {
