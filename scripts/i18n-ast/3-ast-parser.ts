@@ -64,7 +64,8 @@ export function extractStringsFromAST(
 
         // Extract JSX text with placeholders
         if (ts.isJsxText(node)) {
-            const text = node.text.trim();
+            // Normalize text: replace newlines and collapse whitespace
+            const text = node.text.replace(/\s+/g, ' ').trim();
             
             // Check if parent has JSX expressions (placeholders)
             const parent = node.parent;
@@ -391,6 +392,12 @@ export function extractStringsFromAST(
         const segments: string[] = [];
         const currentParts: string[] = [];
         
+        function normalizeText(text: string): string {
+            // Replace all newlines and normalize whitespace
+            // This converts "\r\n" and "\n" to spaces and collapses multiple spaces
+            return text.replace(/\s+/g, ' ').trim();
+        }
+        
         function flushCurrentSegment() {
             if (currentParts.length > 0) {
                 const segment = currentParts.join(' ').replace(/\s+/g, ' ').trim();
@@ -403,7 +410,7 @@ export function extractStringsFromAST(
         
         for (const child of element.children) {
             if (ts.isJsxText(child)) {
-                const text = child.text.trim();
+                const text = normalizeText(child.text);
                 if (text) currentParts.push(text);
             } else if (ts.isJsxElement(child) || ts.isJsxSelfClosingElement(child)) {
                 // Nested JSX elements act as separators

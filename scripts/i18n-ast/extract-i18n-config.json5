@@ -29,6 +29,7 @@
         "src/renderer/src/components/4-dialogs/2-dlg-create-login/x-1-nun-dlg-w-screenshots",
         "src/renderer/src/components/4-dialogs/2-dlg-create-login/x-2-nun-dlg-w-apps-list",
         "src/renderer/src/assets/tests",
+        "src/renderer/src/components/2-main/2-right/2-file-mani/2-form-options/9-controls/nun-controls",
     ],
     "excludePattern": "\\.(test|spec)\\.",
     "classNameSuffix": "Classes",
