@@ -359,10 +359,11 @@ export function extractStringsFromAST(
     }
 
     /**
-     * Reconstructs JSX text, splitting into separate segments when separated by translation function calls.
+     * Reconstructs JSX text, splitting into separate segments when separated by translation function calls or nested elements.
      * Returns an array of text segments.
      * - Comments are ignored
      * - Translation function calls (t(), dt()) act as separators
+     * - Nested JSX elements act as separators
      * - Regular placeholders are preserved as {variable}
      */
     function reconstructJSXTextSegments(element: ts.JsxElement): string[] {
@@ -383,6 +384,10 @@ export function extractStringsFromAST(
             if (ts.isJsxText(child)) {
                 const text = child.text.trim();
                 if (text) currentParts.push(text);
+            } else if (ts.isJsxElement(child) || ts.isJsxSelfClosingElement(child)) {
+                // Nested JSX elements act as separators
+                // Flush current segment before and after the nested element
+                flushCurrentSegment();
             } else if (ts.isJsxExpression(child)) {
                 // Skip JSX comments {/* ... */}
                 if (!child.expression) {
@@ -400,6 +405,17 @@ export function extractStringsFromAST(
                         flushCurrentSegment();
                         continue;
                     }
+                }
+                
+                // Handle string literals in JSX expressions like {' '} or {'text'}
+                // These are just text, not placeholders
+                if (ts.isStringLiteral(expr)) {
+                    const text = expr.text.trim();
+                    if (text) {
+                        currentParts.push(text);
+                    }
+                    // If it's just whitespace, skip it (don't add to parts)
+                    continue;
                 }
                 
                 // Extract placeholder name for regular expressions

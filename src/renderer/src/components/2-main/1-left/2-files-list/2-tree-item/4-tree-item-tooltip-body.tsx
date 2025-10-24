@@ -28,7 +28,7 @@ export function TooltipBody({ fileUs, fileIndex }: { fileUs: FileUs; fileIndex: 
                         {bailOut &&
                             (<>
                                 <div className="font-bold">
-                                    {`${idx === 0 ? 'Login' : 'Password change'} form:`}
+                                    {idx === 0 ? 'Login form:' : 'Password change form:'}
                                 </div>
 
                                 <div className="py-1">
