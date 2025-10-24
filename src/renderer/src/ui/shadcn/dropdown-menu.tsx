@@ -20,7 +20,7 @@ px-2 py-1.5 \
 focus:bg-accent \
 data-[state=open]:bg-accent \
 \
-rounded-sm outline-none select-none cursor-default \
+rounded-sm outline-hidden select-none cursor-default \
 flex items-center";
 const DropdownMenuSubTrigger = forwardRef<ElementRef<typeof Prim.SubTrigger>, ComponentPropsWithoutRef<typeof Prim.SubTrigger> & { inset?: boolean; }>(
     ({ className, inset, children, ...rest }, ref) => (
@@ -33,7 +33,7 @@ const DropdownMenuSubTrigger = forwardRef<ElementRef<typeof Prim.SubTrigger>, Co
 DropdownMenuSubTrigger.displayName = Prim.SubTrigger.displayName;
 
 const DropdownMenuSubContentClasses = `${"\
-p-1 min-w-[8rem] text-sm z-50 \
+p-1 min-w-32 text-sm z-50 \
 text-popover-foreground bg-popover \
 border rounded-md shadow-md overflow-hidden \
 "} ${popupAnimatonClasses}`;
@@ -65,11 +65,11 @@ relative px-2 py-1 min-h-[26px] \
 focus:text-accent-foreground \
 focus:bg-accent \
 \
-data-[disabled]:opacity-50 \
-data-[disabled]:pointer-events-none \
+data-disabled:opacity-50 \
+data-disabled:pointer-events-none \
 \
 transition-colors \
-rounded-sm outline-none select-none cursor-default \
+rounded-sm outline-hidden select-none cursor-default \
 flex items-center";
 const DropdownMenuItem = forwardRef<ElementRef<typeof Prim.Item>, DropdownMenuItemProps>(
     ({ className, inset, ...rest }, ref) => (
@@ -84,11 +84,11 @@ relative pl-8 pr-2 py-1.5 \
 focus:text-accent-foreground \
 focus:bg-accent \
 \
-data-[disabled]:opacity-50 \
-data-[disabled]:pointer-events-none \
+data-disabled:opacity-50 \
+data-disabled:pointer-events-none \
 \
 transition-colors \
-rounded-sm outline-none select-none cursor-default \
+rounded-sm outline-hidden select-none cursor-default \
 flex items-center";
 const DropdownMenuCheckboxItem = forwardRef<ElementRef<typeof Prim.CheckboxItem>, ComponentPropsWithoutRef<typeof Prim.CheckboxItem>>(
     ({ className, children, checked, ...rest }, ref) => (
@@ -110,11 +110,11 @@ relative pl-8 pr-2 py-1.5 \
 focus:text-accent-foreground \
 focus:bg-accent \
 \
-data-[disabled]:opacity-50 \
-data-[disabled]:pointer-events-none \
+data-disabled:opacity-50 \
+data-disabled:pointer-events-none \
 \
 transition-colors \
-rounded-sm outline-none select-none cursor-default \
+rounded-sm outline-hidden select-none cursor-default \
 flex items-center";
 const DropdownMenuRadioItem = forwardRef<ElementRef<typeof Prim.RadioItem>, ComponentPropsWithoutRef<typeof Prim.RadioItem>>(
     ({ className, children, ...rest }, ref) => (

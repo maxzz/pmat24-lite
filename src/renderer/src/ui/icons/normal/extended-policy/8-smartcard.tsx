@@ -2,9 +2,9 @@ import { HTMLAttributes } from "react";
 import { classNames } from "@/utils";
 
 const cls1Classes = "fill-current stroke-none";
-const cls2Classes = "fill-none stroke-current [stroke-linejoin:round] [stroke-linecap:round] [stroke-width:0.35px]";
-const cls5Classes = "fill-none stroke-current [stroke-linejoin:round] [stroke-linecap:round] [stroke-width:0.4]";
-const cls6Classes = "fill-none stroke-current [stroke-linejoin:round] [stroke-linecap:round] [stroke-width:0.75]";
+const cls2Classes = "fill-none stroke-current [stroke-linejoin:round] [stroke-linecap:round] stroke-[0.35px]";
+const cls5Classes = "fill-none stroke-current [stroke-linejoin:round] [stroke-linecap:round] stroke-[0.4]";
+const cls6Classes = "fill-none stroke-current [stroke-linejoin:round] [stroke-linecap:round] stroke-[0.75]";
 
 export function IconExPol08Smartcard({ className, title, ...rest }: HTMLAttributes<SVGSVGElement>) {
     return (

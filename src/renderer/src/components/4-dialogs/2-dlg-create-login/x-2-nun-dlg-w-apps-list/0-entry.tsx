@@ -11,7 +11,7 @@ export function DialogCreateManiV1() {
     return (
         <D.Dialog open={openCreateDialog} onOpenChange={() => doOpenCreateDialog(false)}>
             <D.DialogContent
-                className="p-0 !w-2/3 max-w-3xl rounded-md data-[state=open]:[animation-duration:200ms]"
+                className="p-0 w-2/3! max-w-3xl rounded-md data-[state=open]:duration-ani-200"
                 noClose
                 hiddenTitle="New Manifest"
             >

@@ -50,7 +50,7 @@ function AppOptionsDialog({ oFormProps }: { oFormProps: OFormProps; }) {
     );
 }
 
-const contentClasses = "p-0 !w-4/5 max-w-xl h-4/5 min-h-56 max-h-[700px] data-[state=open]:[animation-duration:200ms]";
+const contentClasses = "p-0 w-4/5! max-w-xl h-4/5 min-h-56 max-h-[700px] data-[state=open]:duration-ani-200";
 
 function DialogOptionsBody({ setIsOpen, oFormProps }: { setIsOpen: (v: boolean) => void; oFormProps: OFormProps; }) {
     return (

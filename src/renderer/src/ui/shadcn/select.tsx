@@ -18,14 +18,14 @@ border-input \
 \
 ring-offset-background \
 \
-focus:outline-none \
+focus:outline-hidden \
 focus:ring-1 \
 focus:ring-ring \
 \
 disabled:cursor-not-allowed \
 disabled:opacity-50 \
 \
-border rounded-md shadow-sm \
+border rounded-md shadow-xs \
 \
 whitespace-nowrap \
 [&>span]:line-clamp-1 \
@@ -65,7 +65,7 @@ const SelectScrollDownButton = forwardRef<ElementRef<typeof Prim.ScrollDownButto
 SelectScrollDownButton.displayName = Prim.ScrollDownButton.displayName;
 
 const selectContentClasses = "\
-z-50 relative min-w-[8rem] max-h-96 \
+z-50 relative min-w-32 max-h-96 \
 \
 text-popover-foreground bg-popover \
 \
@@ -93,8 +93,8 @@ data-[side=left]:-translate-x-1";
 
 const selectContentViewportPopperClasses = "\
 w-full \
-min-w-[var(--radix-select-trigger-width)] \
-h-[var(--radix-select-trigger-height)]";
+min-w-(--radix-select-trigger-width) \
+h-(--radix-select-trigger-height)";
 
 type SelectContentProps = ComponentPropsWithoutRef<typeof Prim.Content> & {
     buttonClasses?: string; // up/down button classes
@@ -139,10 +139,10 @@ relative py-1.5 pl-2 pr-8 w-full text-sm \
 focus:text-accent-foreground \
 focus:bg-accent \
 \
-data-[disabled]:opacity-50 \
-data-[disabled]:pointer-events-none \
+data-disabled:opacity-50 \
+data-disabled:pointer-events-none \
 \
-rounded-sm outline-none select-none cursor-default \
+rounded-sm outline-hidden select-none cursor-default \
 \
 flex items-center";
 

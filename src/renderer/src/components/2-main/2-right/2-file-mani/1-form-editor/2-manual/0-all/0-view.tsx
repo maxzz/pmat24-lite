@@ -33,7 +33,7 @@ export function ManualModeView({ mFormProps, className, ...rest }: { mFormProps:
 const manualModeViewClasses = "\
 min-w-60 min-h-0 \
 grid \
-grid-rows-[1fr,auto,auto] \
+grid-rows-[1fr_auto_auto] \
 [grid-template-areas:'actions''props''options'] @[600px]:[grid-template-areas:'actions_props''options_options'] \
 gap-x-1 \
 gap-y-2 \

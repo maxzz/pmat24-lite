@@ -51,7 +51,7 @@ type TreeProps<T extends DataItemWState = DataItemWState> = Prettify<
 
 /**
  * Children can be styled when parent is active:
- * [outline-width:calc(var(--parent-active)_*_1px)]
+ * [outline-width:calc(var(--parent-active)*1px)]
  */
 const treeActiveClasses = "[--parent-active:0] focus-within:[--parent-active:1]";
 
@@ -289,7 +289,7 @@ const FolderTrigger = forwardRef<ElementRef<typeof A.Trigger>, ComponentPropsWit
             <A.Header>
                 <A.Trigger
                     asChild
-                    className={cn("flex-1 w-full transition-all outline-none cursor-pointer flex items-center", arrowFirst ? "first:[&[data-state=open]>svg]:rotate-90" : "last:[&[data-state=open]>svg]:rotate-90", className)}
+                    className={cn("flex-1 w-full transition-all outline-hidden cursor-pointer flex items-center", arrowFirst ? "[&[data-state=open]>svg]:first:rotate-90" : "[&[data-state=open]>svg]:last:rotate-90", className)}
                     ref={ref}
                     {...rest}
                 >
@@ -336,7 +336,7 @@ export function TreeIconAndText({ item, Icon, iconClasses, hideFolderIcon }: Tre
     return (<>
         {IconToRender && <IconToRender className={iconClasses} aria-hidden="true" />}
 
-        <span className="flex-grow truncate">
+        <span className="grow truncate">
             {item.name}
         </span>
     </>);

@@ -76,17 +76,17 @@ function DialogBottomButtons({ onCloseDlg, className, ...rest }: ComponentPropsW
 
 const dialogClasses = "\
 p-0 \
-!w-11/12 max-w-5xl \
+w-11/12! max-w-5xl \
 h-4/5 min-h-[60vh] max-h-[90vh] \
 rounded-md \
-data-[state=open]:[animation-duration:0ms] \
+data-[state=open]:duration-ani-0 \
 ";
 // const dialogClasses = "\
 // p-0 \
-// !w-11/12 max-w-5xl \
+// w-11/12! max-w-5xl \
 // h-4/5 min-h-[60vh] max-h-[90vh] \
 // rounded-md \
-// data-[state=open]:[animation-duration:200ms] \
+// data-[state=open]:duration-ani-200 \
 // ";
 
 const closeButtonClasses = "absolute py-4 right-2 -top-0.5 hover:text-white hover:bg-red-500";

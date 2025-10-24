@@ -7,7 +7,7 @@ export function DetailsPos({ item }: { item: ManualFieldState.CtxPos; }) {
     const x = useAtomValue(item.xAtom).data;
     const y = useAtomValue(item.yAtom).data;
     return (
-        <div className={classNames(hideBreakpointClasses, "!justify-end")}>
+        <div className={classNames(hideBreakpointClasses, "justify-end!")}>
             x: {x}, y: {y}
         </div>
     );

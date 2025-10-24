@@ -24,7 +24,7 @@ export function Case_LinkToLoginForm({ rowCtx, fileUsCtx }: { rowCtx: FieldRowCt
     );
 }
 
-const inputAsRefClasses = "text-[0.6rem] !text-blue-400 cursor-pointer";
+const inputAsRefClasses = "text-[0.6rem] text-blue-400! cursor-pointer";
 
 export const onSetRefUuidAtom = atom(
     null,

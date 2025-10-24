@@ -30,7 +30,7 @@ export function FilterFilesDialogTrigger() {
 
 export const overlayClasses = "backdrop-blur-[0.5px] bg-background/80";
 
-const dialogContentClasses = "px-3 py-3 !w-4/5 max-w-3xl data-[state=open]:[animation-duration:200ms]";
+const dialogContentClasses = "px-3 py-3 w-4/5! max-w-3xl data-[state=open]:duration-ani-200";
 const filterActiveIconClasses = "text-red-500 fill-red-300 dark:text-red-500/80 dark:fill-red-500/80";
 
 //TODO: multiple prefixes; now only one effective

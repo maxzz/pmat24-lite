@@ -19,7 +19,7 @@ const ResizableHandleClasses = "\
 relative group w-px \
 \
 bg-border \
-hover:bg-sky-600 transition-colors delay-[.15s] \
+hover:bg-sky-600 transition-colors delay-150 \
 \
 after:absolute \
 after:left-1/2 \
@@ -27,7 +27,7 @@ after:-translate-x-1/2 \
 after:w-1 \
 after:inset-y-0 \
 \
-focus-visible:outline-none \
+focus-visible:outline-hidden \
 focus-visible:ring-1 \
 focus-visible:ring-ring \
 focus-visible:ring-offset-1 \

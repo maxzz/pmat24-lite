@@ -53,7 +53,7 @@ focus:ring-offset-1 \
 focus:ring-offset-mani-background \
 focus:ring-mani-ring-activated \
 \
-rounded outline-none \
+rounded outline-hidden \
 flex items-center justify-center gap-0.5";
 
 //TODO: add default text 'Give me a name' or 'No name, give me one';

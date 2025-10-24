@@ -28,7 +28,7 @@ export function RowColumnIcon({ type, className = chunkIconClasses }: { type: Ch
         case 'kbd': return <IconKey className={className} />;
         case 'fld': return <IconFld className={className} />;
         case 'dly': return <IconDly className={className} />;
-        case 'pos': return <IconPos className={classNames("!ml-1.5", className)} />;
+        case 'pos': return <IconPos className={classNames("ml-1.5!", className)} />;
         default: {
             const really: never = type;
             return null;

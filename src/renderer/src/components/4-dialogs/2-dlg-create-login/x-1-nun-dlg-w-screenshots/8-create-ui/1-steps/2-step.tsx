@@ -25,10 +25,10 @@ export function Step({ idx, currentStep, label, isLast}: StepProps) {
                     </div>
                 </div>
 
-                {!isLast && <div className={`-mb-4 w-[2px] h-10 ${lineClasses}`} />}
+                {!isLast && <div className={`-mb-4 w-0.5 h-10 ${lineClasses}`} />}
             </div>
 
-            <div className="flex-1 pt-[var(--pt)]">
+            <div className="flex-1 pt-(--pt)">
                 <div className="text-sm font-medium">{label}</div>
             </div>
         </div>

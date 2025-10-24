@@ -14,7 +14,7 @@ export function DropdownValue({ useItAtom, items, selectedIndex, onSetIndex }: D
     return (
         <M.Root>
             <M.Trigger asChild>
-                <button className="px-1.5 border-mani-border-separator border-l outline-none group/btn">
+                <button className="px-1.5 border-mani-border-separator border-l outline-hidden group/btn">
                     <SymbolChevronDown className="size-4 border-muted-foreground rounded group-focus-within/btn:border" />
                 </button>
             </M.Trigger>
@@ -45,7 +45,7 @@ rounded-lg shadow-md \
 overflow-auto smallscroll smallscroll-light \
 \
 grid grid-cols-1 \
-z-[51]"; // dialog has z-index 50, so we need to be higher
+z-51"; // dialog has z-index 50, so we need to be higher
 //TODO: maybe have a separate popop for big list and add search; or simplescroll; more fields.. put on top?; scroll to view;
 
 type MenuItemValueProps = {
@@ -69,7 +69,7 @@ function MenuItemValue({ item, idx, selectedIndex, onSetIndex }: MenuItemValuePr
                 <SymbolDot className="absolute left-1.5 size-5 fill-foreground" />
             )}
 
-            <span className="flex-grow">
+            <span className="grow">
                 {item}
             </span>
         </M.Item>
@@ -84,6 +84,6 @@ text-accent-foreground \
 focus:text-accent-foreground \
 focus:bg-accent \
 \
-rounded-md outline-none select-none cursor-default \
+rounded-md outline-hidden select-none cursor-default \
 \
 flex items-center";

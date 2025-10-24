@@ -33,7 +33,7 @@ export function InputWithTitle2Rows({ label, containerClasses, labelClasses, ...
 export function InputOrCheckWithErrorMsg({ stateAtom, asCheckbox, asTextarea, className, twoRows, ...rest }: OptionInputWTypeProps) {
     const state = useAtomValue(stateAtom);
     const hasError = state.error && state.touched;
-    const errorInputClasses = classNames(hasError && 'outline-offset-[0px] outline-red-500', className);
+    const errorInputClasses = classNames(hasError && 'outline-offset-0 outline-red-500', className);
     return (<>
         {asCheckbox
             ? <OptionAsCheckbox stateAtom={stateAtom} className={errorInputClasses} {...rest} />

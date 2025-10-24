@@ -63,4 +63,4 @@ text-mani-foreground font-normal bg-mani-background \
 border-mani-border-muted border \
 \
 rounded-sm \
-outline-none";
+outline-hidden";

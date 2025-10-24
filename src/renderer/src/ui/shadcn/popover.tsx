@@ -15,7 +15,7 @@ const PopoverContentWoPortal = Prim.Content;
 const PopoverContentClasses = `${"\
 p-4 w-72 z-50 \
 text-popover-foreground bg-popover \
-border rounded-md shadow-md outline-none \
+border rounded-md shadow-md outline-hidden \
 "} ${popupAnimatonClasses}`;
 
 const PopoverContent = forwardRef<ElementRef<typeof Prim.Content>, ComponentPropsWithoutRef<typeof Prim.Content>>(

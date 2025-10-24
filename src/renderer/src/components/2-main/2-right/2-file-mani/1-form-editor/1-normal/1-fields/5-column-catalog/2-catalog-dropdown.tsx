@@ -27,7 +27,7 @@ text-accent-foreground \
 focus:text-accent-foreground \
 focus:bg-accent \
 \
-rounded-md outline-none select-none cursor-default \
+rounded-md outline-hidden select-none cursor-default \
 \
 flex items-center";
 
@@ -41,7 +41,7 @@ export function CatalogDropdown({ items, selectedIndex, onSetIndex }: CatalogDro
     return (
         <menu.Root>
             <menu.Trigger asChild>
-                <button className="px-1.5 border-mani-border-separator border-l outline-none group/btn">
+                <button className="px-1.5 border-mani-border-separator border-l outline-hidden group/btn">
                     <SymbolChevronDown className="size-4 border-primary-500 rounded group-focus-within/btn:border" />
                 </button>
             </menu.Trigger>
@@ -76,7 +76,7 @@ function CatalogMenuItem({ item, idx, selectedIndex, onSetIndex }: CatalogMenuIt
                 <SymbolDot className={`absolute left-1.5 size-5 fill-foreground`} />
             )}
 
-            <span className="flex-grow">
+            <span className="grow">
                 {item}
             </span>
         </menu.Item>

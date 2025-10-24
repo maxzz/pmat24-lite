@@ -11,7 +11,7 @@ export function RegexTooltip() {
                     </div>
                 </TooltipTrigger>
                 <TooltipPortal>
-                    <TooltipContent className="mx-[18px] py-2 max-w-80 text-xs text-foreground/75 bg-background border-border border shadow" sideOffset={10}>
+                    <TooltipContent className="mx-[18px] py-2 max-w-80 text-xs text-foreground/75 bg-background border-border border shadow-sm" sideOffset={10}>
                         <div className="">
                             You can define the regular expression as any part of the original URL, but the website domain will be taken from the original URL.
                             For example, if the original URL is <span className={exampleClasses}>https://login.example.com</span> and the regular expression is <span className={exampleClasses}>login</span>,

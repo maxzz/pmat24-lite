@@ -58,7 +58,7 @@ function InputPosNumbers({ item, expose }: { item: ManualFieldState.CtxPos; expo
     const hasError = hasErrorX || hasErrorY;
 
     function errorClasses(hasError: boolean) {
-        return classNames("px-2 h-7 text-xs max-w-[7ch]", hasError && 'outline-offset-[0px] outline-red-500', "text-xs");
+        return classNames("px-2 h-7 text-xs max-w-[7ch]", hasError && 'outline-offset-0 outline-red-500', "text-xs");
     }
 
     return (<>

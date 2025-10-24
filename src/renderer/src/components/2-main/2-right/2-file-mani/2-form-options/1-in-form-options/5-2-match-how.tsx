@@ -39,5 +39,5 @@ const allHowNames: OptionTextValue[] = [
     ["No domain match (Exclude this login from domain match)",  /*4*/ "4"],
 ];
 
-// const inputAsRefClasses = "min-w-28 text-[0.6rem] !text-blue-400 cursor-pointer";
+// const inputAsRefClasses = "min-w-28 text-[0.6rem] text-blue-400! cursor-pointer";
 const inputAsRefClasses = "cursor-pointer";
