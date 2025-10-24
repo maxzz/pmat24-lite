@@ -11,6 +11,7 @@ import * as ts from 'typescript';
  * - CSS class names
  * - Technical strings (GUIDs, URLs, etc.)
  * - Strings inside functions with excluded prefixes (e.g., printXxx, traceXxx)
+ * - JSX attributes matching excluded suffix patterns (e.g., fooClasses, barClasses)
  */
 export function extractStringsFromAST(
     filePath: string,
@@ -18,10 +19,15 @@ export function extractStringsFromAST(
     minLength: number,
     classNameSuffix: string,
     classNameFunctions: string[],
-    excludeFunctionPrefixes: string[]
+    excludeFunctionPrefixes: string[],
+    excludeAttributeSuffixPattern: string
 ): Record<string, string> {
     const strings: Record<string, string> = {};
     const processedJsxElements = new Set<ts.JsxElement>(); // Track processed JSX elements to avoid duplicates
+    
+    // Compile the attribute suffix pattern regex
+    const attributeSuffixRegex = new RegExp(excludeAttributeSuffixPattern);
+    
     const sourceFile = ts.createSourceFile(
         filePath,
         sourceCode,
@@ -310,8 +316,23 @@ export function extractStringsFromAST(
         // Check for className attribute in JSX
         if (parent && ts.isJsxAttribute(parent)) {
             const attrName = parent.name;
-            if (ts.isIdentifier(attrName) && attrName.text === 'className') {
-                return true;
+            if (ts.isIdentifier(attrName)) {
+                // Check if attribute name is "className" or matches the excluded suffix pattern
+                if (attrName.text === 'className' || attributeSuffixRegex.test(attrName.text)) {
+                    return true;
+                }
+            }
+        }
+
+        // Check for className attribute in JSX (for template expressions and other complex values)
+        // Template expressions in className have structure: TemplateExpression -> JsxExpression -> JsxAttribute
+        if (parent && ts.isJsxExpression(parent) && parent.parent && ts.isJsxAttribute(parent.parent)) {
+            const attrName = parent.parent.name;
+            if (ts.isIdentifier(attrName)) {
+                // Check if attribute name is "className" or matches the excluded suffix pattern
+                if (attrName.text === 'className' || attributeSuffixRegex.test(attrName.text)) {
+                    return true;
+                }
             }
         }
 

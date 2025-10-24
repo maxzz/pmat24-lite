@@ -9,6 +9,7 @@ export interface Config {
     classNameSuffix: string;
     classNameFunctions: string[];
     excludeFunctionPrefixes: string[];
+    excludeAttributeSuffixPattern: string;
 }
 
 export const defaultConfig: Config = {
@@ -22,4 +23,5 @@ export const defaultConfig: Config = {
     classNameSuffix: 'Classes',
     classNameFunctions: ['classNames', 'cn'],
     excludeFunctionPrefixes: ['print', 'trace'],
+    excludeAttributeSuffixPattern: 'Classes$',
 };

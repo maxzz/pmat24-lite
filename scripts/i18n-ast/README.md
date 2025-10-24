@@ -67,18 +67,19 @@ This will:
 npx tsx scripts/i18n-ast/0-main.ts [options]
 
 Options:
-  --config <path>, -c                 Custom configuration file path (default: extract-i18n-config.json)
-  --src <path>                        Source directory to scan (default: ./src)
-  --output <path>                     Output JSON file path (default: ./scripts/i18n-strings.json)
-  --min-length <number>               Minimum string length to extract (default: 10)
-  --exclude <files>                   Comma-separated list of filenames to exclude
-  --exclude-paths <paths>             Comma-separated list of paths to exclude
-  --exclude-pattern <regex>           Regular expression pattern to exclude files
-  --classname-suffix <str>            Suffix for className variable names (default: Classes)
-  --classname-functions <names>       Comma-separated className function names (default: classNames,cn)
-  --exclude-function-prefixes <names> Comma-separated function name prefixes to exclude (default: print,trace)
-  --verbose, -v                       Show detailed configuration and file information
-  --help, -h                          Show help message
+  --config <path>, -c                       Custom configuration file path (default: extract-i18n-config.json)
+  --src <path>                              Source directory to scan (default: ./src)
+  --output <path>                           Output JSON file path (default: ./scripts/i18n-strings.json)
+  --min-length <number>                     Minimum string length to extract (default: 10)
+  --exclude <files>                         Comma-separated list of filenames to exclude
+  --exclude-paths <paths>                   Comma-separated list of paths to exclude
+  --exclude-pattern <regex>                 Regular expression pattern to exclude files
+  --classname-suffix <str>                  Suffix for className variable names (default: Classes)
+  --classname-functions <names>             Comma-separated className function names (default: classNames,cn)
+  --exclude-function-prefixes <names>       Comma-separated function name prefixes to exclude (default: print,trace)
+  --exclude-attribute-suffix-pattern <regex> Regex pattern for JSX attribute suffixes to exclude (default: Classes$)
+  --verbose, -v                             Show detailed configuration and file information
+  --help, -h                                Show help message
 ```
 
 ### Examples
@@ -125,6 +126,15 @@ npx tsx scripts/i18n-ast/0-main.ts --exclude-function-prefixes "print,trace"
 
 # Exclude debug and log functions
 npx tsx scripts/i18n-ast/0-main.ts --exclude-function-prefixes "debug,log,dump"
+```
+
+**Exclude JSX attributes by suffix pattern:**
+```bash
+# Exclude attributes ending with "Classes" or "Styles"
+npx tsx scripts/i18n-ast/0-main.ts --exclude-attribute-suffix-pattern "(Classes|Styles)$"
+
+# Exclude attributes ending with "ClassName", "Style", or "Classes"
+npx tsx scripts/i18n-ast/0-main.ts --exclude-attribute-suffix-pattern "(ClassName|Style|Classes)$"
 ```
 
 **Show detailed output (verbose mode):**
@@ -187,6 +197,11 @@ Create `extract-i18n-config.json` in your project root:
   // Function name prefixes to exclude from scanning
   // Strings inside functions like printNames(), traceData(), etc. will be skipped
   excludeFunctionPrefixes: ["print", "trace"],
+  
+  // Regex pattern for JSX attribute names to exclude
+  // Attributes matching this pattern will have their values excluded from localization
+  // Default: attributes ending with "Classes" (e.g., panelClasses, containerClasses)
+  excludeAttributeSuffixPattern: "Classes$",
 }
 ```**Note:** CLI arguments override configuration file settings.
 

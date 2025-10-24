@@ -33,5 +33,6 @@
     "excludePattern": "\\.(test|spec)\\.",
     "classNameSuffix": "Classes",
     "classNameFunctions": ["classNames", "cn"],
-    "excludeFunctionPrefixes": ["print", "trace"]
+    "excludeFunctionPrefixes": ["print", "trace"],
+    "excludeAttributeSuffixPattern": "Classes$"
 }

@@ -10,18 +10,19 @@ USAGE:
   npx tsx scripts/i18n-ast/0-main.ts [options]
 
 OPTIONS:
-  --config <path>, -c                 Custom configuration file path (default: extract-i18n-config.json5)
-  --src <path>                        Source directory to scan (default: ./src)
-  --output <path>                     Output JSON file path (default: ./scripts/i18n-strings.json)
-  --min-length <number>               Minimum string length to extract (default: 10)
-  --exclude <files>                   Comma-separated list of filenames to exclude
-  --exclude-paths <paths>             Comma-separated list of paths to exclude
-  --exclude-pattern <regex>           Regular expression pattern to exclude files
-  --classname-suffix <str>            Suffix for className variable names (default: Classes)
-  --classname-functions <names>       Comma-separated className function names (default: classNames,cn)
-  --exclude-function-prefixes <names> Comma-separated function name prefixes to exclude (default: print,trace)
-  --verbose, -v                       Show detailed configuration and file information
-  --help, -h                          Show this help message
+  --config <path>, -c                       Custom configuration file path (default: extract-i18n-config.json5)
+  --src <path>                              Source directory to scan (default: ./src)
+  --output <path>                           Output JSON file path (default: ./scripts/i18n-strings.json)
+  --min-length <number>                     Minimum string length to extract (default: 10)
+  --exclude <files>                         Comma-separated list of filenames to exclude
+  --exclude-paths <paths>                   Comma-separated list of paths to exclude
+  --exclude-pattern <regex>                 Regular expression pattern to exclude files
+  --classname-suffix <str>                  Suffix for className variable names (default: Classes)
+  --classname-functions <names>             Comma-separated className function names (default: classNames,cn)
+  --exclude-function-prefixes <names>       Comma-separated function name prefixes to exclude (default: print,trace)
+  --exclude-attribute-suffix-pattern <regex> Regex pattern for JSX attribute suffixes to exclude (default: Classes$)
+  --verbose, -v                             Show detailed configuration and file information
+  --help, -h                                Show this help message
 
 CONFIGURATION FILE:
   You can create a file named 'extract-i18n-config.json5' in the project root.
@@ -59,6 +60,9 @@ CONFIGURATION FILE:
     
     // Function name prefixes to exclude (e.g., printNames, traceData)
     excludeFunctionPrefixes: ["print", "trace"],
+    
+    // Regex pattern for JSX attribute suffixes to exclude (e.g., fooClasses, barClasses)
+    excludeAttributeSuffixPattern: "Classes$",
   }
 
   Both .json5 and .json formats are supported.

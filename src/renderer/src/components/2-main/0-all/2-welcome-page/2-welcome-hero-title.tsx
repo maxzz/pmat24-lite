@@ -1,7 +1,4 @@
 export function WelcomeHeroTitle({ allowHandleFiles }: { allowHandleFiles: boolean; }) {
-    function t(s: string) {
-        return s;
-    }
     return (<>
         <div className="text-2xl font-extrabold opacity-30 scale-y-125 select-none" style={titleStyle}>
             Welcome to the Password Manager Admin Tool

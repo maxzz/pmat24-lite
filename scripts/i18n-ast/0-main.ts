@@ -78,6 +78,7 @@ function main() {
         else if (key === 'classname-suffix') config.classNameSuffix = value;
         else if (key === 'classname-functions') config.classNameFunctions = value.split(',').map(f => f.trim());
         else if (key === 'exclude-function-prefixes') config.excludeFunctionPrefixes = value.split(',').map(f => f.trim());
+        else if (key === 'exclude-attribute-suffix-pattern') config.excludeAttributeSuffixPattern = value;
     }
 
     if (verbose) {
