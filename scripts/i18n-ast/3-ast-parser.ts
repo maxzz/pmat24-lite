@@ -285,11 +285,26 @@ export function extractStringsFromAST(
                 const text = child.text.trim();
                 if (text) parts.push(text);
             } else if (ts.isJsxExpression(child)) {
-                // Extract placeholder name
+                // Skip JSX comments {/* ... */}
+                if (!child.expression) {
+                    // Empty expression is a comment
+                    continue;
+                }
+                
                 const expr = child.expression;
-                if (expr && ts.isIdentifier(expr)) {
+                
+                // Skip translation function calls like {t("...")} or {dt("...")}
+                if (ts.isCallExpression(expr)) {
+                    const callExpr = expr.expression;
+                    if (ts.isIdentifier(callExpr) && ['t', 'dt'].includes(callExpr.text)) {
+                        continue;
+                    }
+                }
+                
+                // Extract placeholder name
+                if (ts.isIdentifier(expr)) {
                     parts.push(`{${expr.text}}`);
-                } else if (expr && ts.isPropertyAccessExpression(expr)) {
+                } else if (ts.isPropertyAccessExpression(expr)) {
                     parts.push(`{${expr.getText()}}`);
                 } else {
                     // Generic placeholder
