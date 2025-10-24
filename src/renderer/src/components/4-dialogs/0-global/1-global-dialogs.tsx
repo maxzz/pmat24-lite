@@ -42,8 +42,8 @@ function ManiCreateDialogs() {
     return (<>
         <DialogSawMonitor />
         <DialogCreateManiV3Saw />
-        <DialogCreateManiV1 />
+        {/* <DialogCreateManiV1 />
         <DialogCreateManiV1SecondPage />
-        <DialogCreateManiV2 />
+        <DialogCreateManiV2 /> */}
     </>);
 }
