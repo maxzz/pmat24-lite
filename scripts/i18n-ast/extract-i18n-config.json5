@@ -27,6 +27,7 @@
         "src/renderer/src/store/3-field-catalog-atoms",
         "src/renderer/src/components/4-dialogs/2-dlg-create-login/x-1-nun-dlg-w-screenshots",
         "src/renderer/src/components/4-dialogs/2-dlg-create-login/x-2-nun-dlg-w-apps-list",
+        "src/renderer/src/assets/tests",
     ],
     "excludePattern": "\\.(test|spec)\\.",
     "classNameSuffix": "Classes",

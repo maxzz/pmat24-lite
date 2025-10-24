@@ -59,18 +59,16 @@ export function extractStringsFromAST(
             
             // Check if parent has JSX expressions (placeholders)
             const parent = node.parent;
-            if (parent && ts.isJsxElement(parent)) {
-                const hasPlaceholders = parent.children.some(child => 
-                    ts.isJsxExpression(child)
-                );
-                
-                if (hasPlaceholders && text.length >= minLength && /[a-zA-Z]/.test(text)) {
-                    // Reconstruct the full text with placeholders
-                    const fullText = reconstructJSXText(parent);
-                    if (fullText && shouldExtractJSXText(fullText, minLength)) {
-                        const key = generateKey(fullText);
-                        strings[key] = fullText;
-                    }
+            const hasPlaceholders = parent && ts.isJsxElement(parent) && parent.children.some(child => 
+                ts.isJsxExpression(child)
+            );
+            
+            if (hasPlaceholders && parent && ts.isJsxElement(parent) && text.length >= minLength && /[a-zA-Z]/.test(text)) {
+                // Reconstruct the full text with placeholders
+                const fullText = reconstructJSXText(parent);
+                if (fullText && shouldExtractJSXText(fullText, minLength)) {
+                    const key = generateKey(fullText);
+                    strings[key] = fullText;
                 }
             } else if (text.length >= minLength && /[a-zA-Z]/.test(text)) {
                 // Plain JSX text without placeholders
