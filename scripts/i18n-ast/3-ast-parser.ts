@@ -105,11 +105,15 @@ export function extractStringsFromAST(
         // Check if it's in a querySelector/querySelectorAll call
         if (isInQuerySelectorCall(node)) return false;
 
+        // Check if it's in a translation function call (t(), dt())
+        if (isInTranslationFunction(node)) return false;
+
         // Check if it's a className or variable ending with classNameSuffix
         if (isClassName(node, classNameSuffix)) return false;
 
         // Filter out technical strings
         if (isCodeString(text)) return false;
+        if (isSingleWordCamelCase(text)) return false;
         if (isCssClass(text)) return false;
         if (isImportPath(text)) return false;
         if (isUrl(text)) return false;
@@ -200,6 +204,35 @@ export function extractStringsFromAST(
             current = current.parent;
         }
         return false;
+    }
+
+    function isInTranslationFunction(node: ts.Node): boolean {
+        let current: ts.Node | undefined = node.parent;
+        while (current) {
+            if (ts.isCallExpression(current)) {
+                const expr = current.expression;
+                // Check for direct function call like t() or dt()
+                if (ts.isIdentifier(expr) && ['t', 'dt'].includes(expr.text)) {
+                    return true;
+                }
+            }
+            current = current.parent;
+        }
+        return false;
+    }
+
+    function isSingleWordCamelCase(text: string): boolean {
+        // Skip if contains spaces or is empty
+        if (!text || text.includes(' ')) {
+            return false;
+        }
+        
+        // Check if it's camelCase: starts with lowercase, contains at least one uppercase
+        // Pattern: starts with lowercase letter, followed by letters/digits, with at least one uppercase
+        const camelCasePattern = /^[a-z][a-zA-Z0-9]*$/;
+        const hasUpperCase = /[A-Z]/.test(text);
+        
+        return camelCasePattern.test(text) && hasUpperCase;
     }
 
     function isClassName(node: ts.Node, suffix: string): boolean {
