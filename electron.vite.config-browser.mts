@@ -2,6 +2,7 @@ import { dirname, join, resolve } from "path";
 import { fileURLToPath } from "url";
 import { defineConfig, type PluginOption, type UserConfig } from "vite";
 import react from "@vitejs/plugin-react";
+import tailwindcss from "@tailwindcss/vite";
 import { visualizer } from "rollup-plugin-visualizer";
 
 const __dirnameEsm = dirname(fileURLToPath(import.meta.url));
@@ -38,6 +39,7 @@ export default defineConfig((): UserConfig => { // https://vitejs.dev/config
 
         plugins: [
             react(),
+            tailwindcss(),
             visualizer({
                 filename: 'visualization-web.html',
                 template: 'sunburst', // sunburst - d3 style (good as default as well); treemap - table (default); network - graph (slow to open).

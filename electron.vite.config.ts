@@ -3,8 +3,10 @@ import { fileURLToPath } from "url";
 import { type PluginOption, type UserConfig } from "vite";
 import { defineConfig, externalizeDepsPlugin } from "electron-vite";
 import react from "@vitejs/plugin-react";
-//console.log("------ electron.vite.config.ts:__dirname =", __dirname);
+import tailwindcss from "@tailwindcss/vite";
 import { visualizer } from "rollup-plugin-visualizer";
+
+//console.log("------ electron.vite.config.ts:__dirname =", __dirname);
 
 const __dirnameEsm = dirname(fileURLToPath(import.meta.url));
 
@@ -66,6 +68,7 @@ export default defineConfig({
         },
         plugins: [
             react(),
+            tailwindcss(),
             visualizer({
                 filename: 'visualization.html',
                 template: 'sunburst', // sunburst - d3 style (good as default as well); treemap - table (default); network - graph (slow to open).
