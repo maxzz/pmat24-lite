@@ -1,5 +1,5 @@
 import colors from "tailwindcss/colors";
-// import tailwind_animate from "./tailwind/tailwindcss-animate.mts"; // This is local copy to resolve conflict with delay, duration, and ease. It adds suffix -ani. Also use !important to override shadcn's.
+// import tailwind_animate from "./tailwind/nun/tailwindcss-animate.mts";
 // const shadcnColors = require("./tailwind/colors");
 // const shadcnTheRest = require("./tailwind/tailwind-plugin-shadcn-the-rest");
 

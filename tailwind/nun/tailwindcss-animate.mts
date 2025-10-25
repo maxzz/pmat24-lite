@@ -4,13 +4,8 @@ import type { Config } from "tailwindcss";
 type Theme = Config["theme"];
 
 // Upgrade of https://github.com/jamiebuilds/tailwindcss-animate
+// This is local copy to resolve conflict with delay, duration, and ease. It adds suffix -ani. Also use !important to override shadcn's.
 // Alternative for tw4 https://github.com/Wombosvideo/tw-animate-css 
-
-function filterDefault(values: Record<string, string>) {
-    return Object.fromEntries(
-        Object.entries(values).filter(([key]) => key !== "DEFAULT"),
-    );
-}
 
 export const animate = plugin(
     ({ addUtilities, matchUtilities, theme }) => {
@@ -64,30 +59,14 @@ export const animate = plugin(
 
         matchUtilities(
             {
-                "slide-in-from-top": (value) => ({
-                    "--tw-enter-translate-y": `-${value}`,
-                }),
-                "slide-in-from-bottom": (value) => ({
-                    "--tw-enter-translate-y": value,
-                }),
-                "slide-in-from-left": (value) => ({
-                    "--tw-enter-translate-x": `-${value}`,
-                }),
-                "slide-in-from-right": (value) => ({
-                    "--tw-enter-translate-x": value,
-                }),
-                "slide-out-to-top": (value) => ({
-                    "--tw-exit-translate-y": `-${value}`,
-                }),
-                "slide-out-to-bottom": (value) => ({
-                    "--tw-exit-translate-y": value,
-                }),
-                "slide-out-to-left": (value) => ({
-                    "--tw-exit-translate-x": `-${value}`,
-                }),
-                "slide-out-to-right": (value) => ({
-                    "--tw-exit-translate-x": value,
-                }),
+                "slide-in-from-top":    /**/ (value) => ({ "--tw-enter-translate-y": `-${value}`, }),
+                "slide-in-from-bottom": /**/ (value) => ({ "--tw-enter-translate-y": value, }),
+                "slide-in-from-left":   /**/ (value) => ({ "--tw-enter-translate-x": `-${value}`, }),
+                "slide-in-from-right":  /**/ (value) => ({ "--tw-enter-translate-x": value, }),
+                "slide-out-to-top":     /**/ (value) => ({ "--tw-exit-translate-y": `-${value}`, }),
+                "slide-out-to-bottom":  /**/ (value) => ({ "--tw-exit-translate-y": value, }),
+                "slide-out-to-left":    /**/ (value) => ({ "--tw-exit-translate-x": `-${value}`, }),
+                "slide-out-to-right":   /**/ (value) => ({ "--tw-exit-translate-x": value, }),
             },
             { values: theme("animationTranslate") },
         );
@@ -195,3 +174,9 @@ export const animate = plugin(
 );
 
 export default animate;
+
+function filterDefault(values: Record<string, string>) {
+    return Object.fromEntries(
+        Object.entries(values).filter(([key]) => key !== "DEFAULT"),
+    );
+}
