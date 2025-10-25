@@ -178,8 +178,8 @@ importers:
         specifier: ^4.1.16
         version: 4.1.16
       tailwindcss-plugin-debug-screens-tw4:
-        specifier: ^1.0.2
-        version: 1.0.2(tailwindcss@4.1.16)
+        specifier: ^1.0.3
+        version: 1.0.3(tailwindcss@4.1.16)
       tailwindcss-plugin-overflow-tw4:
         specifier: ^1.0.0
         version: 1.0.0(tailwindcss@4.1.16)
@@ -2994,8 +2994,8 @@ packages:
     peerDependencies:
       tailwindcss: 4.x
 
-  tailwindcss-plugin-debug-screens-tw4@1.0.2:
-    resolution: {integrity: sha512-JpO8wsiRZpys0n/eWO4XoZnEBcCU666RUPHsVZCeyfq4WxNQivlqoiBrvjI/adqk5RZ3JrA2SX+NhpxcM3doKw==}
+  tailwindcss-plugin-debug-screens-tw4@1.0.3:
+    resolution: {integrity: sha512-bxZ1Zaur7ZyYMc7TZMI5EKToW5raJD2oeZuNlWyPsF2YwDDU3c5ZTHLKzezBQK80vCu016iGHAxurHMEYV1fPA==}
     engines: {node: '>=18.0.0'}
     peerDependencies:
       tailwindcss: ^4.0.0-alpha || ^3.0.0
@@ -6181,7 +6181,7 @@ snapshots:
     transitivePeerDependencies:
       - react
 
-  tailwindcss-plugin-debug-screens-tw4@1.0.2(tailwindcss@4.1.16):
+  tailwindcss-plugin-debug-screens-tw4@1.0.3(tailwindcss@4.1.16):
     dependencies:
       tailwindcss: 4.1.16
 
