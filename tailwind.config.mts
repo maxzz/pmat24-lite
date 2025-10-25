@@ -1,24 +1,18 @@
 import colors from "tailwindcss/colors";
-//const colors = require("tailwindcss/colors");
+// import tailwind_animate from "./tailwind/tailwindcss-animate.mts"; // This is local copy to resolve conflict with delay, duration, and ease. It adds suffix -ani. Also use !important to override shadcn's.
 // const shadcnColors = require("./tailwind/colors");
-// const shadcnTheRest = require("./tailwind/the-rest");
+// const shadcnTheRest = require("./tailwind/tailwind-plugin-shadcn-the-rest");
 
 import tailwind_shadcn from "./tailwind/tailwind-plugin-shadcn.mts";
 import tailwind_shadcn_feedback from "./tailwind/tailwind-plugin-shadcn-feedback.mts";
 import tailwind_shadcn_mani from "./tailwind/tailwind-plugin-shadcn-mani/index.mts";
 
 import tailwind_container_queries from "@tailwindcss/container-queries";
-import tailwind_scrollbar from "tailwind-scrollbar";
 import tailwind_forms from '@tailwindcss/forms';
+import tailwind_scrollbar from "tailwind-scrollbar";
 
-// import debug_styles from "./tailwind/nun-tailwind-plugin-debug-styles.mts";
-// import tailwind_animate from "./tailwind/tailwindcss-animate.mts"; // This is local copy to resolve conflict with delay, duration, and ease. It adds suffix -ani. Also use !important to override shadcn's.
-
-//import debug_screens from "./tailwind/nun-tailwind-plugin-debug-screens.mts";
-//import tailwind_overflow_overlay from "./tailwind/tailwind-plugin-overflow-overlay.mts";
-// import { overflowPlugin } from "./tailwind/tw-overflow";
-import { debugScreensPlugin } from "tailwindcss-plugin-debug-screens-tw4";
-import { overflowPlugin } from "tailwindcss-plugin-overflow-tw4";
+import tm_debug_screens from "tailwindcss-plugin-debug-screens-tw4";
+import tm_overflow from "tailwindcss-plugin-overflow-tw4";
 
 /** @type {import('tailwindcss').Config} */
 export default {
@@ -34,20 +28,16 @@ export default {
         },
     },
     plugins: [
-        ///*problem*/debug_screens,
-        debugScreensPlugin,
-        // debug_styles, //problem with tw4
+        tm_debug_screens,
+        tm_overflow,
+
         // /*problem*/tailwind_animate,
-
-        ///*problem*/tailwind_overflow_overlay,
-        overflowPlugin,
-
         tailwind_shadcn,
         tailwind_shadcn_feedback,
         tailwind_shadcn_mani,
         
         tailwind_container_queries,
-        /*problem*/tailwind_scrollbar, // OK after upgrade
         tailwind_forms({ strategy: 'class' }),
+        tailwind_scrollbar,
     ],
 };
