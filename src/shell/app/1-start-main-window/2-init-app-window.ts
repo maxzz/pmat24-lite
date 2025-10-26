@@ -1,8 +1,11 @@
-import { join } from "path";
+import { dirname, join } from "path";
+import { fileURLToPath } from "url";
 import { BrowserWindow } from "electron";
 import { is } from "@electron-toolkit/utils";
 import icon from "../../../../resources/icon.png?asset"; // This is only for linux
 import { iniFileOptions } from "./8-ini-file-options";
+
+//const __dirnameEsm = dirname(fileURLToPath(import.meta.url)); //TODO:
 
 const preloadPath = join(__dirname, "../preload/index.mjs");
 
