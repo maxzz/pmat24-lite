@@ -5,8 +5,8 @@ export function help() {
         printHeader() +
         printUsage() +
         printOptions() +
-        printConfigurationFile() +
         printExamples() +
+        printConfigurationFile() +
         printFeatures() +
         printOutputFormat() +
         printFooter()
@@ -46,6 +46,36 @@ ${pc.bold(pc.yellow('OPTIONS:'))}
   ${pc.cyan('--exclude-attribute-suffix-pattern')} ${pc.gray('<regex>')} Regex pattern for JSX attribute suffixes to exclude (default: ${pc.dim('Classes$')})
   ${pc.cyan('--verbose')}, ${pc.cyan('-v')}                              Show detailed configuration and file information
   ${pc.cyan('--help')}, ${pc.cyan('-h')}                                 Show this help message
+`;
+}
+
+function printExamples() {
+    return `
+${pc.bold(pc.yellow('EXAMPLES:'))}
+  ${pc.dim('# Run with defaults')}
+  ${pc.green('npx tsx scripts/i18n-ast/0-main.ts')}
+
+  ${pc.dim('# Use custom config file (JSON5 or JSON)')}
+  ${pc.green('npx tsx scripts/i18n-ast/0-main.ts')} ${pc.cyan('--config')} my-config.json5
+  ${pc.green('npx tsx scripts/i18n-ast/0-main.ts')} ${pc.cyan('-c')} my-config.json
+
+  ${pc.dim('# Custom source and output')}
+  ${pc.green('npx tsx scripts/i18n-ast/0-main.ts')} ${pc.cyan('--src')} ./app ${pc.cyan('--output')} ./i18n/strings.json
+
+  ${pc.dim('# Exclude test files')}
+  ${pc.green('npx tsx scripts/i18n-ast/0-main.ts')} ${pc.cyan('--exclude-pattern')} ${pc.yellow('"\\\\.test\\\\."')}
+
+  ${pc.dim('# Exclude specific files (including files with spaces)')}
+  ${pc.green('npx tsx scripts/i18n-ast/0-main.ts')} ${pc.cyan('--exclude')} ${pc.yellow('"constants.ts,My File.tsx,config.js"')}
+
+  ${pc.dim('# Set minimum string length')}
+  ${pc.green('npx tsx scripts/i18n-ast/0-main.ts')} ${pc.cyan('--min-length')} ${pc.yellow('5')}
+
+  ${pc.dim('# Custom className function names')}
+  ${pc.green('npx tsx scripts/i18n-ast/0-main.ts')} ${pc.cyan('--classname-functions')} ${pc.yellow('"clsx,classnames,cn"')}
+
+  ${pc.dim('# Custom className suffix (e.g., to filter btnClasses, inputClasses)')}
+  ${pc.green('npx tsx scripts/i18n-ast/0-main.ts')} ${pc.cyan('--classname-suffix')} ${pc.yellow('Classes')}
 `;
 }
 
@@ -94,33 +124,6 @@ ${pc.bold(pc.yellow('CONFIGURATION FILE:'))}
 
   Both ${pc.bold('.json5')} and ${pc.bold('.json')} formats are supported.
   ${pc.dim('CLI arguments override configuration file settings.')}
-`;
-}
-
-function printExamples() {
-    return `
-${pc.bold(pc.yellow('EXAMPLES:'))}
-  ${pc.dim('# Run with defaults')}
-  ${pc.green('npx tsx scripts/i18n-ast/0-main.ts')}
-
-  ${pc.dim('# Use custom config file (JSON5 or JSON)')}
-  ${pc.green('npx tsx scripts/i18n-ast/0-main.ts')} ${pc.cyan('--config')} my-config.json5
-  ${pc.green('npx tsx scripts/i18n-ast/0-main.ts')} ${pc.cyan('-c')} my-config.json
-
-  ${pc.dim('# Custom source and output')}
-  ${pc.green('npx tsx scripts/i18n-ast/0-main.ts')} ${pc.cyan('--src')} ./app ${pc.cyan('--output')} ./i18n/strings.json
-
-  ${pc.dim('# Exclude test files')}
-  ${pc.green('npx tsx scripts/i18n-ast/0-main.ts')} ${pc.cyan('--exclude-pattern')} ${pc.yellow('"\\\\.test\\\\."')}
-
-  ${pc.dim('# Set minimum string length')}
-  ${pc.green('npx tsx scripts/i18n-ast/0-main.ts')} ${pc.cyan('--min-length')} ${pc.yellow('5')}
-
-  ${pc.dim('# Custom className function names')}
-  ${pc.green('npx tsx scripts/i18n-ast/0-main.ts')} ${pc.cyan('--classname-functions')} ${pc.yellow('"clsx,classnames,cn"')}
-
-  ${pc.dim('# Custom className suffix (e.g., to filter btnClasses, inputClasses)')}
-  ${pc.green('npx tsx scripts/i18n-ast/0-main.ts')} ${pc.cyan('--classname-suffix')} ${pc.yellow('Classes')}
 `;
 }
 
