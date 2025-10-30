@@ -1,0 +1,16 @@
+{
+    "extends": "@electron-toolkit/tsconfig/tsconfig.node.json",
+    "compilerOptions": {
+        "composite": true,
+        "noUnusedLocals": false,
+        "noUnusedParameters": false,
+        "noImplicitReturns": false,
+        
+        "moduleResolution": "bundler",
+        "forceConsistentCasingInFileNames": true,
+    },
+    "include": [
+        "electron.vite.config.*",
+        "electron.vite.config-browser.mts",
+    ],
+}

@@ -24,7 +24,6 @@
     "include": [
         "src/shell/app/**/*",
         "src/shared/**/*",
-        "electron.vite.config-browser.mts",
 
         "src/renderer/src/vite-typescript/env.d.ts",
         "src/renderer/src/vite-typescript/svg-icon-type.d.ts",

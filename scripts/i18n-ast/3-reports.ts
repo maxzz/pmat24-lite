@@ -22,9 +22,7 @@ export function createReport(scanResult: ResultOfScan, config: Partial<Config>):
     console.log(`✅ Extracted ${pc.cyan(pc.bold(totalStrings))} strings from ${pc.cyan(pc.bold(scanResult.totalOfFilesWithStrings))} files`);
     
     if (config.verbose) {
-        console.log(pc.gray(`   Total files scanned: ${scanResult.totalOfAllFiles}`));
-        console.log(pc.gray(`   Files with extractable strings: ${scanResult.totalOfFilesWithStrings}`));
-        console.log(pc.gray(`   Files without strings: ${scanResult.totalOfAllFiles - scanResult.totalOfFilesWithStrings}`));
+        console.log(pc.gray(`   Total files scanned ${pc.cyan(scanResult.totalOfAllFiles)}: with extractable strings ${pc.cyan(scanResult.totalOfFilesWithStrings)} and without ${pc.cyan(scanResult.totalOfAllFiles - scanResult.totalOfFilesWithStrings)}`));
     }
 
     console.log(pc.gray(`   Saved to: ${outputPath}`));

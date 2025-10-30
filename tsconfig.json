@@ -10,6 +10,12 @@
         },
         {
             "path": "./tsconfig.web.json"
-        }
+        },
+        {
+            "path": "./tsconfig.node.vite.json"
+        },
+        {
+            "path": "./tsconfig.node.i18n.json"
+        },
     ]
 }

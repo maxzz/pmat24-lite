@@ -17,14 +17,10 @@ export function scanAndExtract(config: Partial<Config> = {}): ResultOfScan {
     const excludeRegex = cfg.excludePattern ? new RegExp(cfg.excludePattern) : null;
 
     // Normalize excluded paths for comparison
-    const normalizedExcludePaths = cfg.excludePaths.map(p => 
-        path.normalize(p).replace(/\\/g, '/')
-    );
+    const normalizedExcludePaths = cfg.excludePaths.map(p => path.normalize(p).replace(/\\/g, '/'));
 
     // Normalize excluded files for comparison
-    const normalizedExcludeFiles = cfg.excludeFiles.map(p => 
-        path.normalize(p).replace(/\\/g, '/')
-    );
+    const normalizedExcludeFiles = cfg.excludeFiles.map(p => path.normalize(p).replace(/\\/g, '/'));
 
     function isPathExcluded(fullPath: string): boolean {
         const relativePath = path.relative(process.cwd(), fullPath).replace(/\\/g, '/');

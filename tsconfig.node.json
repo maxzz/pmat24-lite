@@ -26,7 +26,6 @@
     "include": [
         "src/shell/app/**/*",
         "src/shared/**/*",
-        "electron.vite.config.*",
 
         "src/shell/preload/index.ts",
         "src/renderer/src/vite-typescript/**/*",
