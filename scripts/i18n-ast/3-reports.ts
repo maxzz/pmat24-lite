@@ -1,7 +1,7 @@
 import * as fs from 'fs';
 import * as path from 'path';
 import pc from 'picocolors';
-import { Config, defaultConfig } from './8-types-config';
+import { Config, defaultConfig } from './7-types-config';
 import { type LocalizationStrings } from './9-types';
 
 /**

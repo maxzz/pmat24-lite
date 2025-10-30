@@ -1,8 +1,8 @@
-import { type Config } from './8-types-config';
 import { type LocalizationStrings } from './9-types';
-import { getConfig } from './1-get-config';
-import { scanAndExtract } from './4-scan-process';
-import { createReport } from './5-reports';
+import { type Config } from './7-types-config';
+import { getConfig } from './7-get-config';
+import { scanAndExtract } from './1-scan-process';
+import { createReport } from './3-reports';
 
 function main() {
     const config: Partial<Config> = getConfig();

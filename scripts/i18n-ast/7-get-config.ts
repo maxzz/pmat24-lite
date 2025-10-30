@@ -3,7 +3,7 @@ import * as path from 'path';
 import JSON5 from 'json5';
 import pc from 'picocolors';
 import { help } from './8-help';
-import { type Config, DEFAULT_CONFIG_FILE_NAME, defaultConfig } from './8-types-config';
+import { type Config, DEFAULT_CONFIG_FILE_NAME, defaultConfig } from './7-types-config';
 
 export function getConfig(): Partial<Config> {
     const args = process.argv.slice(2);
