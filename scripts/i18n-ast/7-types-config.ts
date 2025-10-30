@@ -10,6 +10,7 @@ export interface Config {
     classNameFunctions: string[];
     excludeFunctionPrefixes: string[];
     excludeAttributeSuffixPattern: string;
+    verbose: boolean;
 }
 
 export const defaultConfig: Config = {
@@ -24,6 +25,7 @@ export const defaultConfig: Config = {
     classNameFunctions: ['classNames', 'cn'],
     excludeFunctionPrefixes: ['print', 'trace'],
     excludeAttributeSuffixPattern: 'Classes$',
+    verbose: false,
 };
 
 export const DEFAULT_CONFIG_FILE_NAME = 'extract-i18n-config.json5';

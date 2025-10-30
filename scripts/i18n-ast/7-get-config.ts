@@ -30,6 +30,9 @@ export function getConfig(): Partial<Config> {
     // Start with config from file (if exists)
     const config: Partial<Config> = loadConfigFile(configFileName, verbose);
 
+    // Set verbose in config
+    config.verbose = verbose;
+
     // CLI arguments override config file
     for (let i = 0; i < args.length; i += 2) {
         const key = args[i].replace(/^-+/, '');
