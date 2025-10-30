@@ -35,12 +35,8 @@ export function getConfig(): Partial<Config> {
         const key = args[i].replace(/^-+/, '');
         const value = args[i + 1];
 
-        if (key === 'c' || key === 'config') {
-            continue; // Already handled above, skip
-        }
-        else if (key === 'v' || key === 'verbose') {
-            continue; // Already handled above, skip
-        }
+        if (key === 'c' || key === 'config') { continue; } // Already handled above, skip
+        else if (key === 'v' || key === 'verbose') { continue; } // Already handled above, skip
         else if (key === 'src') config.srcDir = value;
         else if (key === 'output') config.outputFile = value;
         else if (key === 'min-length') config.minStringLength = parseInt(value, 10);

@@ -1,7 +1,7 @@
 export function help() {
     console.log(`
 ╔═══════════════════════════════════════════════════════════════════════════╗
-║         AST-Based i18n String Extraction Utility (TypeScript)             ║
+║      AST-Based i18n String Extraction Utility (TypeScript, React)         ║
 ╚═══════════════════════════════════════════════════════════════════════════╝
 
 Extract user-facing strings from TypeScript/JavaScript/React files using AST.
@@ -10,19 +10,19 @@ USAGE:
   npx tsx scripts/i18n-ast/0-main.ts [options]
 
 OPTIONS:
-  --config <path>, -c                       Custom configuration file path (default: extract-i18n-config.json5)
-  --src <path>                              Source directory to scan (default: ./src)
-  --output <path>                           Output JSON file path (default: ./scripts/i18n-strings.json)
-  --min-length <number>                     Minimum string length to extract (default: 10)
-  --exclude <files>                         Comma-separated list of filenames to exclude
-  --exclude-paths <paths>                   Comma-separated list of paths to exclude
-  --exclude-pattern <regex>                 Regular expression pattern to exclude files
-  --classname-suffix <str>                  Suffix for className variable names (default: Classes)
-  --classname-functions <names>             Comma-separated className function names (default: classNames,cn)
-  --exclude-function-prefixes <names>       Comma-separated function name prefixes to exclude (default: print,trace)
+  --config <path>, -c                        Custom configuration file path (default: extract-i18n-config.json5)
+  --src <path>                               Source directory to scan (default: ./src)
+  --output <path>                            Output JSON file path (default: ./scripts/i18n-strings.json)
+  --min-length <number>                      Minimum string length to extract (default: 10)
+  --exclude <files>                          Comma-separated list of filenames to exclude
+  --exclude-paths <paths>                    Comma-separated list of paths to exclude
+  --exclude-pattern <regex>                  Regular expression pattern to exclude files
+  --classname-suffix <str>                   Suffix for className variable names (default: Classes)
+  --classname-functions <names>              Comma-separated className function names (default: classNames,cn)
+  --exclude-function-prefixes <names>        Comma-separated function name prefixes to exclude (default: print,trace)
   --exclude-attribute-suffix-pattern <regex> Regex pattern for JSX attribute suffixes to exclude (default: Classes$)
-  --verbose, -v                             Show detailed configuration and file information
-  --help, -h                                Show this help message
+  --verbose, -v                              Show detailed configuration and file information
+  --help, -h                                 Show this help message
 
 CONFIGURATION FILE:
   You can create a file named 'extract-i18n-config.json5' in the project root.
