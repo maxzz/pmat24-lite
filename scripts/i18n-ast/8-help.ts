@@ -13,7 +13,7 @@ export function help() {
     );
 }
 
-function printHeader() {
+function printHeader(): string {
     return `
 ${pc.cyan('╔═══════════════════════════════════════════════════════════════════════════╗')}
 ${pc.cyan('║')}      ${pc.bold('AST-Based i18n String Extraction Utility')} (TypeScript, React)         ${pc.cyan('║')}
@@ -23,14 +23,14 @@ Extract user-facing strings from TypeScript/JavaScript/React files using AST.
 `;
 }
 
-function printUsage() {
+function printUsage(): string {
     return `
 ${pc.bold(pc.yellow('USAGE:'))}
   ${pc.green('npx tsx scripts/i18n-ast/0-main.ts')} ${pc.gray('[options]')}
 `;
 }
 
-function printOptions() {
+function printOptions(): string {
     return `
 ${pc.bold(pc.yellow('OPTIONS:'))}
   ${pc.cyan('--config')} ${pc.gray('<path>')}, ${pc.cyan('-c')}                        Custom configuration file path (default: ${pc.dim('extract-i18n-config.json5')})
@@ -49,7 +49,7 @@ ${pc.bold(pc.yellow('OPTIONS:'))}
 `;
 }
 
-function printExamples() {
+function printExamples(): string {
     return `
 ${pc.bold(pc.yellow('EXAMPLES:'))}
   ${pc.dim('# Run with defaults')}
@@ -65,7 +65,7 @@ ${pc.bold(pc.yellow('EXAMPLES:'))}
   ${pc.dim('# Exclude test files')}
   ${pc.green('npx tsx scripts/i18n-ast/0-main.ts')} ${pc.cyan('--exclude-pattern')} ${pc.yellow('"\\\\.test\\\\."')}
 
-  ${pc.dim('# Exclude specific files (including files with spaces)')}
+  ${pc.dim('# Exclude specific files (spaces/commas: escape in config file or avoid in filenames)')}
   ${pc.green('npx tsx scripts/i18n-ast/0-main.ts')} ${pc.cyan('--exclude')} ${pc.yellow('"constants.ts,My File.tsx,config.js"')}
 
   ${pc.dim('# Set minimum string length')}
@@ -79,7 +79,7 @@ ${pc.bold(pc.yellow('EXAMPLES:'))}
 `;
 }
 
-function printConfigurationFile() {
+function printConfigurationFile(): string {
     return `
 ${pc.bold(pc.yellow('CONFIGURATION FILE:'))}
   You can create a file named ${pc.green('\'extract-i18n-config.json5\'')} in the project root.
@@ -101,6 +101,7 @@ ${pc.bold(pc.yellow('CONFIGURATION FILE:'))}
     ${pc.cyan('excludeFiles')}: ${pc.gray('[')}
       ${pc.green('"src/path/to/file.ts"')},    ${pc.gray('// Full path')}
       ${pc.green('"constants.ts"')},            ${pc.gray('// Just filename')}
+      ${pc.green('"My File, v2.tsx"')},         ${pc.gray('// Filename with space and comma')}
     ${pc.gray(']')},
     
     ${pc.gray('// Directories to exclude')}
@@ -127,7 +128,7 @@ ${pc.bold(pc.yellow('CONFIGURATION FILE:'))}
 `;
 }
 
-function printFeatures() {
+function printFeatures(): string {
     return `
 ${pc.bold(pc.yellow('FEATURES:'))}
   ${pc.green('✓')} AST-based parsing for accurate extraction
@@ -142,7 +143,7 @@ ${pc.bold(pc.yellow('FEATURES:'))}
 `;
 }
 
-function printOutputFormat() {
+function printOutputFormat(): string {
     return `
 ${pc.bold(pc.yellow('OUTPUT FORMAT:'))}
   ${pc.gray('{')}
@@ -154,7 +155,7 @@ ${pc.bold(pc.yellow('OUTPUT FORMAT:'))}
 `;
 }
 
-function printFooter() {
+function printFooter(): string {
     return `
 ${pc.dim('For more information, see README.md in scripts/i18n-ast/')}
 ${pc.dim('Additional documentation available in scripts/i18n-ast/docs/')}
