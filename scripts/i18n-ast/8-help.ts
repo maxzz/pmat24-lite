@@ -65,7 +65,7 @@ ${pc.bold(pc.yellow('EXAMPLES:'))}
   ${pc.dim('# Exclude test files')}
   ${pc.green('npx tsx scripts/i18n-ast/0-main.ts')} ${pc.cyan('--exclude-pattern')} ${pc.yellow('"\\\\.test\\\\."')}
 
-  ${pc.dim('# Exclude specific files (spaces/commas: escape in config file or avoid in filenames)')}
+  ${pc.dim('# Exclude specific files (use config file if filenames contain commas)')}
   ${pc.green('npx tsx scripts/i18n-ast/0-main.ts')} ${pc.cyan('--exclude')} ${pc.yellow('"constants.ts,My File.tsx,config.js"')}
 
   ${pc.dim('# Set minimum string length')}

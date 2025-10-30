@@ -100,6 +100,14 @@ npx tsx scripts/i18n-ast/0-main.ts -c my-i18n-config.json
 npx tsx scripts/i18n-ast/0-main.ts --exclude-pattern "\\.test\\."
 ```
 
+**Exclude specific files:**
+```bash
+# Works for filenames with spaces, but NOT filenames containing commas
+npx tsx scripts/i18n-ast/0-main.ts --exclude "constants.ts,My File.tsx,config.js"
+```
+
+> **Note:** If your filenames contain commas, use the configuration file with the `excludeFiles` array instead of the `--exclude` CLI option, since commas are used as delimiters in the CLI.
+
 **Set minimum string length:**
 ```bash
 npx tsx scripts/i18n-ast/0-main.ts --min-length 5
@@ -177,9 +185,11 @@ Create `extract-i18n-config.json` in your project root:
   extensions: [".ts", ".tsx", ".js", ".jsx"],
   
   // Specific files to exclude (full path or filename)
+  // Use this array format for filenames with spaces, commas, or other special characters
   excludeFiles: [
     "src/path/to/file.ts",
     "constants.ts",
+    "My File, v2.tsx",  // Filenames with spaces and commas work here
   ],
   
   // Directories to exclude
