@@ -1,6 +1,6 @@
 import * as fs from 'fs';
 import * as path from 'path';
-import { type Config, defaultConfig } from './1-config';
+import { type Config, defaultConfig } from './8-types-config';
 import { extractStringsFromAST } from './3-ast-parser';
 import { type LocalizationStrings } from './9-types';
 
