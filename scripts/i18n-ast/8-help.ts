@@ -1,16 +1,37 @@
 import pc from 'picocolors';
 
 export function help() {
-    console.log(`
+    console.log(
+        printHeader() +
+        printUsage() +
+        printOptions() +
+        printConfigurationFile() +
+        printExamples() +
+        printFeatures() +
+        printOutputFormat() +
+        printFooter()
+    );
+}
+
+function printHeader() {
+    return `
 ${pc.cyan('╔═══════════════════════════════════════════════════════════════════════════╗')}
 ${pc.cyan('║')}      ${pc.bold('AST-Based i18n String Extraction Utility')} (TypeScript, React)         ${pc.cyan('║')}
 ${pc.cyan('╚═══════════════════════════════════════════════════════════════════════════╝')}
 
 Extract user-facing strings from TypeScript/JavaScript/React files using AST.
+`;
+}
 
+function printUsage() {
+    return `
 ${pc.bold(pc.yellow('USAGE:'))}
   ${pc.green('npx tsx scripts/i18n-ast/0-main.ts')} ${pc.gray('[options]')}
+`;
+}
 
+function printOptions() {
+    return `
 ${pc.bold(pc.yellow('OPTIONS:'))}
   ${pc.cyan('--config')} ${pc.gray('<path>')}, ${pc.cyan('-c')}                        Custom configuration file path (default: ${pc.dim('extract-i18n-config.json5')})
   ${pc.cyan('--src')} ${pc.gray('<path>')}                               Source directory to scan (default: ${pc.dim('./src')})
@@ -25,7 +46,11 @@ ${pc.bold(pc.yellow('OPTIONS:'))}
   ${pc.cyan('--exclude-attribute-suffix-pattern')} ${pc.gray('<regex>')} Regex pattern for JSX attribute suffixes to exclude (default: ${pc.dim('Classes$')})
   ${pc.cyan('--verbose')}, ${pc.cyan('-v')}                              Show detailed configuration and file information
   ${pc.cyan('--help')}, ${pc.cyan('-h')}                                 Show this help message
+`;
+}
 
+function printConfigurationFile() {
+    return `
 ${pc.bold(pc.yellow('CONFIGURATION FILE:'))}
   You can create a file named ${pc.green('\'extract-i18n-config.json5\'')} in the project root.
   The file supports ${pc.bold('JSON5')} format (comments, trailing commas, unquoted keys).
@@ -69,7 +94,11 @@ ${pc.bold(pc.yellow('CONFIGURATION FILE:'))}
 
   Both ${pc.bold('.json5')} and ${pc.bold('.json')} formats are supported.
   ${pc.dim('CLI arguments override configuration file settings.')}
+`;
+}
 
+function printExamples() {
+    return `
 ${pc.bold(pc.yellow('EXAMPLES:'))}
   ${pc.dim('# Run with defaults')}
   ${pc.green('npx tsx scripts/i18n-ast/0-main.ts')}
@@ -92,7 +121,11 @@ ${pc.bold(pc.yellow('EXAMPLES:'))}
 
   ${pc.dim('# Custom className suffix (e.g., to filter btnClasses, inputClasses)')}
   ${pc.green('npx tsx scripts/i18n-ast/0-main.ts')} ${pc.cyan('--classname-suffix')} ${pc.yellow('Classes')}
+`;
+}
 
+function printFeatures() {
+    return `
 ${pc.bold(pc.yellow('FEATURES:'))}
   ${pc.green('✓')} AST-based parsing for accurate extraction
   ${pc.green('✓')} TypeScript and JavaScript support
@@ -103,7 +136,11 @@ ${pc.bold(pc.yellow('FEATURES:'))}
   ${pc.green('✓')} Handles string literals and JSX text
   ${pc.green('✓')} Generates clickable ${pc.cyan('file://')} URLs
   ${pc.green('✓')} Configurable via file or CLI
+`;
+}
 
+function printOutputFormat() {
+    return `
 ${pc.bold(pc.yellow('OUTPUT FORMAT:'))}
   ${pc.gray('{')}
     ${pc.cyan('"file:///C:/path/to/file.tsx"')}: ${pc.gray('{')}
@@ -111,8 +148,12 @@ ${pc.bold(pc.yellow('OUTPUT FORMAT:'))}
       ${pc.cyan('"anotherKey"')}: ${pc.green('"Text with {placeholder}"')}
     ${pc.gray('}')}
   ${pc.gray('}')}
+`;
+}
 
+function printFooter() {
+    return `
 ${pc.dim('For more information, see README.md in scripts/i18n-ast/')}
 ${pc.dim('Additional documentation available in scripts/i18n-ast/docs/')}
-`);
+`;
 }
