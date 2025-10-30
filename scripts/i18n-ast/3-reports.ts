@@ -11,7 +11,7 @@ import { type ResultOfScan } from './9-types';
  * @param scanResult - The scan results with statistics from scanAndExtract()
  * @param config - Optional configuration for output path
  */
-export function createReport(scanResult: ResultOfScan, config?: Partial<Config>): void {
+export function createReport(scanResult: ResultOfScan, config: Partial<Config>): void {
     // 1. Write report file
     const outputPath = path.resolve(config?.outputFile || defaultConfig.outputFile);
     writeReportFile(scanResult.strings, outputPath);
@@ -20,9 +20,11 @@ export function createReport(scanResult: ResultOfScan, config?: Partial<Config>)
     const totalStrings = Object.values(scanResult.strings).reduce((sum, obj) => sum + Object.keys(obj).length, 0);
 
     console.log(`✅ Extracted ${pc.cyan(pc.bold(totalStrings))} strings from ${pc.cyan(pc.bold(scanResult.totalOfFilesWithStrings))} files`);
+    
     console.log(pc.gray(`   Total files scanned: ${scanResult.totalOfAllFiles}`));
     console.log(pc.gray(`   Files with extractable strings: ${scanResult.totalOfFilesWithStrings}`));
     console.log(pc.gray(`   Files without strings: ${scanResult.totalOfAllFiles - scanResult.totalOfFilesWithStrings}`));
+    
     console.log(pc.gray(`   Saved to: ${outputPath}`));
 }
 

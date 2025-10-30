@@ -2,14 +2,16 @@ import * as fs from 'fs';
 import * as path from 'path';
 import { type Config, defaultConfig } from './7-types-config';
 import { extractStringsFromAST } from './2-ast-parser';
-import { type LocalizationStrings } from './9-types';
+import { type LocalizationStrings, type ResultOfScan } from './9-types';
 
 /**
  * Scan directory and extract i18n strings using AST parsing.
  */
-export function scanAndExtract(config: Partial<Config> = {}): LocalizationStrings {
+export function scanAndExtract(config: Partial<Config> = {}): ResultOfScan {
     const cfg = { ...defaultConfig, ...config };
     const results: LocalizationStrings = {};
+    let totalOfAllFiles = 0;
+    let totalOfFilesWithStrings = 0;
 
     // Compile exclude pattern regex if provided
     const excludeRegex = cfg.excludePattern ? new RegExp(cfg.excludePattern) : null;
@@ -66,6 +68,8 @@ export function scanAndExtract(config: Partial<Config> = {}): LocalizationString
                 }
                 scanDirectory(fullPath);
             } else if (entry.isFile() && cfg.extensions.some(ext => entry.name.endsWith(ext))) {
+                totalOfAllFiles++;
+                
                 // Skip excluded files by path or filename
                 if (isFileExcluded(fullPath)) {
                     continue;
@@ -88,6 +92,7 @@ export function scanAndExtract(config: Partial<Config> = {}): LocalizationString
                     );
 
                     if (Object.keys(strings).length > 0) {
+                        totalOfFilesWithStrings++;
                         // Create file:// URL with absolute path
                         const absolutePath = path.resolve(fullPath).replace(/\\/g, '/');
                         const fileUrl = 'file:///' + absolutePath;
@@ -101,5 +106,10 @@ export function scanAndExtract(config: Partial<Config> = {}): LocalizationString
     }
 
     scanDirectory(path.resolve(cfg.srcDir));
-    return results;
+    
+    return {
+        totalOfAllFiles,
+        totalOfFilesWithStrings,
+        strings: results
+    };
 }

@@ -1,7 +1,7 @@
 import { getConfig } from './7-get-config';
 import { type Config } from './7-types-config';
 import { type ResultOfScan } from './9-types';
-import { scanAndExtract } from './4-scan-process';
+import { scanAndExtract } from './1-scan-process';
 import { createReport } from './3-reports';
 
 function main() {
