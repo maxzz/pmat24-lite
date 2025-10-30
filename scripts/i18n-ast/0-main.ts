@@ -65,12 +65,12 @@ function main() {
         const value = args[i + 1];
 
         if (key === 'c' || key === 'config') {
-            // Already handled above, skip
-            continue;
-        } else if (key === 'v' || key === 'verbose') {
-            // Already handled above, skip
-            continue;
-        } else if (key === 'src') config.srcDir = value;
+            continue; // Already handled above, skip
+        }
+        else if (key === 'v' || key === 'verbose') {
+            continue; // Already handled above, skip
+        }
+        else if (key === 'src') config.srcDir = value;
         else if (key === 'output') config.outputFile = value;
         else if (key === 'min-length') config.minStringLength = parseInt(value, 10);
         else if (key === 'exclude') config.excludeFiles = value.split(',').map(f => f.trim());
@@ -97,7 +97,7 @@ function main() {
     }
 
     const results = scanAndExtract(config);
-    createReport(results, config.outputFile);
+    createReport(results, config);
 }
 
 // Auto-execute when run directly

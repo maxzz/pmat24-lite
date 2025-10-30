@@ -2,10 +2,7 @@ import * as fs from 'fs';
 import * as path from 'path';
 import { type Config, defaultConfig } from './1-config';
 import { extractStringsFromAST } from './3-ast-parser';
-
-interface LocalizationStrings {
-    [filename: string]: Record<string, string>;
-}
+import { type LocalizationStrings } from './9-types';
 
 /**
  * Scan directory and extract i18n strings using AST parsing.
