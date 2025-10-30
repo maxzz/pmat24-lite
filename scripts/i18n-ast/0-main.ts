@@ -4,6 +4,7 @@ import JSON5 from 'json5';
 import pc from 'picocolors';
 import { type Config, defaultConfig } from './1-config';
 import { scanAndExtract } from './4-scan-process';
+import { createReport } from './5-reports';
 import { help } from './2-help';
 
 const DEFAULT_CONFIG_FILE_NAME = 'extract-i18n-config.json5';
@@ -96,14 +97,7 @@ function main() {
     }
 
     const results = scanAndExtract(config);
-    const totalStrings = Object.values(results).reduce((sum, obj) => sum + Object.keys(obj).length, 0);
-
-    const outputPath = path.resolve(config.outputFile || defaultConfig.outputFile);
-    fs.mkdirSync(path.dirname(outputPath), { recursive: true });
-    fs.writeFileSync(outputPath, JSON.stringify(results, null, 2), 'utf-8');
-
-    console.log(`✅ Extracted ${pc.cyan(pc.bold(totalStrings))} strings from ${pc.cyan(pc.bold(Object.keys(results).length))} files`);
-    console.log(pc.gray(`   Saved to: ${outputPath}`));
+    createReport(results, config.outputFile);
 }
 
 // Auto-execute when run directly
