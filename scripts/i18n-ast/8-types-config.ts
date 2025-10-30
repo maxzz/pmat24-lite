@@ -25,3 +25,5 @@ export const defaultConfig: Config = {
     excludeFunctionPrefixes: ['print', 'trace'],
     excludeAttributeSuffixPattern: 'Classes$',
 };
+
+export const DEFAULT_CONFIG_FILE_NAME = 'extract-i18n-config.json5';

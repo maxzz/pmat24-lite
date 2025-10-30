@@ -2,42 +2,15 @@ import * as fs from 'fs';
 import * as path from 'path';
 import JSON5 from 'json5';
 import pc from 'picocolors';
-import { type Config, defaultConfig } from './8-types-config';
 import { help } from './8-help';
+import { type Config, DEFAULT_CONFIG_FILE_NAME, defaultConfig } from './8-types-config';
 
-const DEFAULT_CONFIG_FILE_NAME = 'extract-i18n-config.json5';
-
-function loadConfigFile(configFileName: string | undefined, verbose: boolean): Partial<Config> {
-    const fileName = configFileName || DEFAULT_CONFIG_FILE_NAME;
-    const configPath = path.resolve(fileName);
-
-    if (!fs.existsSync(configPath)) {
-        if (configFileName) {
-            // If explicitly specified, warn that it doesn't exist
-            console.warn(`⚠️  Config file not found: ${configPath}`);
-        }
-        return {};
-    }
-
-    try {
-        const content = fs.readFileSync(configPath, 'utf-8');
-        const config = JSON5.parse(content);
-        if (verbose) {
-            console.log(pc.gray(`♻️  Loaded configuration from ${fileName}`));
-        }
-        return config;
-    } catch (error) {
-        console.warn(`⚠️  Failed to parse ${fileName}:`, error instanceof Error ? error.message : error);
-        return {};
-    }
-}
-
-export function getConfig(): Partial<Config> | undefined {
+export function getConfig(): Partial<Config> {
     const args = process.argv.slice(2);
 
     if (args.includes('--help') || args.includes('-h')) {
         help();
-        return;
+        process.exit(0);
     }
 
     // Check for custom config file
@@ -93,6 +66,32 @@ export function getConfig(): Partial<Config> | undefined {
             console.log(`   Exclude pattern: \n\t${config.excludePattern}`);
         }
     }
-    
+
     return config;
+}
+
+function loadConfigFile(configFileName: string | undefined, verbose: boolean): Partial<Config> {
+    const fileName = configFileName || DEFAULT_CONFIG_FILE_NAME;
+    const configPath = path.resolve(fileName);
+
+    if (!fs.existsSync(configPath)) {
+        if (configFileName) {
+            // If explicitly specified, warn that it doesn't exist
+            console.warn(`⚠️  Config file not found: ${configPath}`);
+            process.exit(1);
+        }
+        return {};
+    }
+
+    try {
+        const content = fs.readFileSync(configPath, 'utf-8');
+        const config = JSON5.parse(content);
+        if (verbose) {
+            console.log(pc.gray(`♻️  Loaded configuration from ${fileName}`));
+        }
+        return config;
+    } catch (error) {
+        console.warn(`⚠️  Failed to parse ${fileName}:`, error instanceof Error ? error.message : error);
+        process.exit(1);
+    }
 }
