@@ -90,6 +90,9 @@ ${pc.bold(pc.yellow('EXAMPLES:'))}
   ${pc.dim('# Custom className function names')}
   ${pc.green('npx tsx scripts/i18n-ast/0-main.ts')} ${pc.cyan('--classname-functions')} ${pc.yellow('"clsx,classnames,cn"')}
 
+  ${pc.dim('# Custom className suffix (e.g., to filter btnClasses, inputClasses)')}
+  ${pc.green('npx tsx scripts/i18n-ast/0-main.ts')} ${pc.cyan('--classname-suffix')} ${pc.yellow('Classes')}
+
 ${pc.bold(pc.yellow('FEATURES:'))}
   ${pc.green('✓')} AST-based parsing for accurate extraction
   ${pc.green('✓')} TypeScript and JavaScript support
