@@ -1,113 +1,115 @@
+import pc from 'picocolors';
+
 export function help() {
     console.log(`
-╔═══════════════════════════════════════════════════════════════════════════╗
-║      AST-Based i18n String Extraction Utility (TypeScript, React)         ║
-╚═══════════════════════════════════════════════════════════════════════════╝
+${pc.cyan('╔═══════════════════════════════════════════════════════════════════════════╗')}
+${pc.cyan('║')}      ${pc.bold('AST-Based i18n String Extraction Utility')} (TypeScript, React)         ${pc.cyan('║')}
+${pc.cyan('╚═══════════════════════════════════════════════════════════════════════════╝')}
 
 Extract user-facing strings from TypeScript/JavaScript/React files using AST.
 
-USAGE:
-  npx tsx scripts/i18n-ast/0-main.ts [options]
+${pc.bold(pc.yellow('USAGE:'))}
+  ${pc.green('npx tsx scripts/i18n-ast/0-main.ts')} ${pc.gray('[options]')}
 
-OPTIONS:
-  --config <path>, -c                        Custom configuration file path (default: extract-i18n-config.json5)
-  --src <path>                               Source directory to scan (default: ./src)
-  --output <path>                            Output JSON file path (default: ./scripts/i18n-strings.json)
-  --min-length <number>                      Minimum string length to extract (default: 10)
-  --exclude <files>                          Comma-separated list of filenames to exclude
-  --exclude-paths <paths>                    Comma-separated list of paths to exclude
-  --exclude-pattern <regex>                  Regular expression pattern to exclude files
-  --classname-suffix <str>                   Suffix for className variable names (default: Classes)
-  --classname-functions <names>              Comma-separated className function names (default: classNames,cn)
-  --exclude-function-prefixes <names>        Comma-separated function name prefixes to exclude (default: print,trace)
-  --exclude-attribute-suffix-pattern <regex> Regex pattern for JSX attribute suffixes to exclude (default: Classes$)
-  --verbose, -v                              Show detailed configuration and file information
-  --help, -h                                 Show this help message
+${pc.bold(pc.yellow('OPTIONS:'))}
+  ${pc.cyan('--config')} ${pc.gray('<path>')}, ${pc.cyan('-c')}                        Custom configuration file path (default: ${pc.dim('extract-i18n-config.json5')})
+  ${pc.cyan('--src')} ${pc.gray('<path>')}                               Source directory to scan (default: ${pc.dim('./src')})
+  ${pc.cyan('--output')} ${pc.gray('<path>')}                            Output JSON file path (default: ${pc.dim('./scripts/i18n-strings.json')})
+  ${pc.cyan('--min-length')} ${pc.gray('<number>')}                      Minimum string length to extract (default: ${pc.dim('10')})
+  ${pc.cyan('--exclude')} ${pc.gray('<files>')}                          Comma-separated list of filenames to exclude
+  ${pc.cyan('--exclude-paths')} ${pc.gray('<paths>')}                    Comma-separated list of paths to exclude
+  ${pc.cyan('--exclude-pattern')} ${pc.gray('<regex>')}                  Regular expression pattern to exclude files
+  ${pc.cyan('--classname-suffix')} ${pc.gray('<str>')}                   Suffix for className variable names (default: ${pc.dim('Classes')})
+  ${pc.cyan('--classname-functions')} ${pc.gray('<names>')}              Comma-separated className function names (default: ${pc.dim('classNames,cn')})
+  ${pc.cyan('--exclude-function-prefixes')} ${pc.gray('<names>')}        Comma-separated function name prefixes to exclude (default: ${pc.dim('print,trace')})
+  ${pc.cyan('--exclude-attribute-suffix-pattern')} ${pc.gray('<regex>')} Regex pattern for JSX attribute suffixes to exclude (default: ${pc.dim('Classes$')})
+  ${pc.cyan('--verbose')}, ${pc.cyan('-v')}                              Show detailed configuration and file information
+  ${pc.cyan('--help')}, ${pc.cyan('-h')}                                 Show this help message
 
-CONFIGURATION FILE:
-  You can create a file named 'extract-i18n-config.json5' in the project root.
-  The file supports JSON5 format (comments, trailing commas, unquoted keys).
+${pc.bold(pc.yellow('CONFIGURATION FILE:'))}
+  You can create a file named ${pc.green('\'extract-i18n-config.json5\'')} in the project root.
+  The file supports ${pc.bold('JSON5')} format (comments, trailing commas, unquoted keys).
 
-  Example (extract-i18n-config.json5):
+  ${pc.dim('Example (extract-i18n-config.json5):')}
 
-  {
-    // Source directory to scan
-    srcDir: "./src",
+  ${pc.gray('{')}
+    ${pc.gray('// Source directory to scan')}
+    ${pc.cyan('srcDir')}: ${pc.green('"./src"')},
     
-    // Output file for extracted strings
-    outputFile: "./scripts/i18n-strings.json",
+    ${pc.gray('// Output file for extracted strings')}
+    ${pc.cyan('outputFile')}: ${pc.green('"./scripts/i18n-strings.json"')},
     
-    minStringLength: 10,
-    extensions: [".ts", ".tsx", ".js", ".jsx"],
+    ${pc.cyan('minStringLength')}: ${pc.yellow('10')},
+    ${pc.cyan('extensions')}: ${pc.gray('[".ts", ".tsx", ".js", ".jsx"]')},
     
-    // Specific files to exclude (full path or filename)
-    excludeFiles: [
-      "src/path/to/file.ts",    // Full path
-      "constants.ts",            // Just filename
-    ],
+    ${pc.gray('// Specific files to exclude (full path or filename)')}
+    ${pc.cyan('excludeFiles')}: ${pc.gray('[')}
+      ${pc.green('"src/path/to/file.ts"')},    ${pc.gray('// Full path')}
+      ${pc.green('"constants.ts"')},            ${pc.gray('// Just filename')}
+    ${pc.gray(']')},
     
-    // Directories to exclude
-    excludePaths: [
-      "src/tests",
-      "src/__tests__",
-    ],
+    ${pc.gray('// Directories to exclude')}
+    ${pc.cyan('excludePaths')}: ${pc.gray('[')}
+      ${pc.green('"src/tests"')},
+      ${pc.green('"src/__tests__"')},
+    ${pc.gray(']')},
     
-    // Regex pattern to exclude files
-    excludePattern: "\\\\.test\\\\.",
+    ${pc.gray('// Regex pattern to exclude files')}
+    ${pc.cyan('excludePattern')}: ${pc.green('"\\\\.test\\\\."')},
     
-    classNameSuffix: "Classes",
-    classNameFunctions: ["classNames", "cn"],
+    ${pc.cyan('classNameSuffix')}: ${pc.green('"Classes"')},
+    ${pc.cyan('classNameFunctions')}: ${pc.gray('["classNames", "cn"]')},
     
-    // Function name prefixes to exclude (e.g., printNames, traceData)
-    excludeFunctionPrefixes: ["print", "trace"],
+    ${pc.gray('// Function name prefixes to exclude (e.g., printNames, traceData)')}
+    ${pc.cyan('excludeFunctionPrefixes')}: ${pc.gray('["print", "trace"]')},
     
-    // Regex pattern for JSX attribute suffixes to exclude (e.g., fooClasses, barClasses)
-    excludeAttributeSuffixPattern: "Classes$",
-  }
+    ${pc.gray('// Regex pattern for JSX attribute suffixes to exclude (e.g., fooClasses, barClasses)')}
+    ${pc.cyan('excludeAttributeSuffixPattern')}: ${pc.green('"Classes$"')},
+  ${pc.gray('}')}
 
-  Both .json5 and .json formats are supported.
-  CLI arguments override configuration file settings.
+  Both ${pc.bold('.json5')} and ${pc.bold('.json')} formats are supported.
+  ${pc.dim('CLI arguments override configuration file settings.')}
 
-EXAMPLES:
-  # Run with defaults
-  npx tsx scripts/i18n-ast/0-main.ts
+${pc.bold(pc.yellow('EXAMPLES:'))}
+  ${pc.dim('# Run with defaults')}
+  ${pc.green('npx tsx scripts/i18n-ast/0-main.ts')}
 
-  # Use custom config file (JSON5 or JSON)
-  npx tsx scripts/i18n-ast/0-main.ts --config my-config.json5
-  npx tsx scripts/i18n-ast/0-main.ts -c my-config.json
+  ${pc.dim('# Use custom config file (JSON5 or JSON)')}
+  ${pc.green('npx tsx scripts/i18n-ast/0-main.ts')} ${pc.cyan('--config')} my-config.json5
+  ${pc.green('npx tsx scripts/i18n-ast/0-main.ts')} ${pc.cyan('-c')} my-config.json
 
-  # Custom source and output
-  npx tsx scripts/i18n-ast/0-main.ts --src ./app --output ./i18n/strings.json
+  ${pc.dim('# Custom source and output')}
+  ${pc.green('npx tsx scripts/i18n-ast/0-main.ts')} ${pc.cyan('--src')} ./app ${pc.cyan('--output')} ./i18n/strings.json
 
-  # Exclude test files
-  npx tsx scripts/i18n-ast/0-main.ts --exclude-pattern "\\\\.test\\\\."
+  ${pc.dim('# Exclude test files')}
+  ${pc.green('npx tsx scripts/i18n-ast/0-main.ts')} ${pc.cyan('--exclude-pattern')} ${pc.yellow('"\\\\.test\\\\."')}
 
-  # Set minimum string length
-  npx tsx scripts/i18n-ast/0-main.ts --min-length 5
+  ${pc.dim('# Set minimum string length')}
+  ${pc.green('npx tsx scripts/i18n-ast/0-main.ts')} ${pc.cyan('--min-length')} ${pc.yellow('5')}
 
-  # Custom className function names
-  npx tsx scripts/i18n-ast/0-main.ts --classname-functions "clsx,classnames,cn"
+  ${pc.dim('# Custom className function names')}
+  ${pc.green('npx tsx scripts/i18n-ast/0-main.ts')} ${pc.cyan('--classname-functions')} ${pc.yellow('"clsx,classnames,cn"')}
 
-FEATURES:
-  ✓ AST-based parsing for accurate extraction
-  ✓ TypeScript and JavaScript support
-  ✓ React/JSX text content extraction
-  ✓ Preserves i18n placeholders like {variable}
-  ✓ Filters out technical strings (imports, CSS classes, etc.)
-  ✓ Excludes console.log/warn/error messages
-  ✓ Handles string literals and JSX text
-  ✓ Generates clickable file:// URLs
-  ✓ Configurable via file or CLI
+${pc.bold(pc.yellow('FEATURES:'))}
+  ${pc.green('✓')} AST-based parsing for accurate extraction
+  ${pc.green('✓')} TypeScript and JavaScript support
+  ${pc.green('✓')} React/JSX text content extraction
+  ${pc.green('✓')} Preserves i18n placeholders like ${pc.cyan('{variable}')}
+  ${pc.green('✓')} Filters out technical strings (imports, CSS classes, etc.)
+  ${pc.green('✓')} Excludes console.log/warn/error messages
+  ${pc.green('✓')} Handles string literals and JSX text
+  ${pc.green('✓')} Generates clickable ${pc.cyan('file://')} URLs
+  ${pc.green('✓')} Configurable via file or CLI
 
-OUTPUT FORMAT:
-  {
-    "file:///C:/path/to/file.tsx": {
-      "stringKey": "String value",
-      "anotherKey": "Text with {placeholder}"
-    }
-  }
+${pc.bold(pc.yellow('OUTPUT FORMAT:'))}
+  ${pc.gray('{')}
+    ${pc.cyan('"file:///C:/path/to/file.tsx"')}: ${pc.gray('{')}
+      ${pc.cyan('"stringKey"')}: ${pc.green('"String value"')},
+      ${pc.cyan('"anotherKey"')}: ${pc.green('"Text with {placeholder}"')}
+    ${pc.gray('}')}
+  ${pc.gray('}')}
 
-For more information, see README.md in scripts/i18n-ast/
-Additional documentation available in scripts/i18n-ast/docs/
+${pc.dim('For more information, see README.md in scripts/i18n-ast/')}
+${pc.dim('Additional documentation available in scripts/i18n-ast/docs/')}
 `);
 }
