@@ -1,5 +1,70 @@
 # Changes Summary - i18n-ast Tool Updates
 
+## Date: October 31, 2025
+
+## Added Features
+
+### 1. Dual Operation Modes
+
+Added `--mode` / `-m` CLI option to support two operation modes: **scan** (default) and **translated**.
+
+**Scan Mode (Default):**
+Extracts untranslated strings that need to be localized:
+```bash
+npx tsx scripts/i18n-ast/0-main.ts --mode scan
+# or simply
+npx tsx scripts/i18n-ast/0-main.ts
+```
+
+**Translated Mode:**
+Collects already-translated strings from `t()` and `dt()` function calls:
+```bash
+npx tsx scripts/i18n-ast/0-main.ts --mode translated
+npx tsx scripts/i18n-ast/0-main.ts -m translated
+```
+
+**Implementation Details:**
+- Added `mode: 'scan' | 'translated'` property to `Config` interface
+- Default mode is `'scan'` for backward compatibility
+- CLI parsing validates that mode is either `'scan'` or `'translated'`
+- Implemented `collectTranslatedStrings()` function using AST to find `t()` and `dt()` calls
+- Both modes use the same configuration for source directory, output file, and exclusions
+- Results stored in separate properties: `strings` for scan mode, `translatedStrings` for translated mode
+
+**Use Cases:**
+- **Scan mode**: Initial i18n setup, finding new strings to translate
+- **Translated mode**: Auditing existing translations, generating list of strings in use
+
+**Files Modified:**
+- `scripts/i18n-ast/7-config-types.ts` - Added `mode` property to Config interface
+- `scripts/i18n-ast/7-get-config.ts` - Added CLI parsing for `--mode` / `-m` option
+- `scripts/i18n-ast/1-scan-process.ts` - Added mode branching and `collectTranslatedStrings()` function
+- `scripts/i18n-ast/8-help.ts` - Added `--mode` option to help documentation
+- `scripts/i18n-ast/README.md` - Added "Operation Modes" section and examples
+
+**Testing:**
+```bash
+# Test scan mode (default)
+npx tsx scripts/i18n-ast/0-main.ts
+✅ Extracts untranslated strings as before
+
+# Test translated mode
+npx tsx scripts/i18n-ast/0-main.ts -m translated
+✅ Finds and extracts strings from t() and dt() calls
+
+# Test invalid mode
+npx tsx scripts/i18n-ast/0-main.ts -m invalid
+✅ Shows error: "Invalid mode: invalid. Must be 'scan' or 'translated'"
+```
+
+**Backward Compatibility:**
+✅ **Fully backward compatible**  
+- Default mode is `'scan'`, preserving existing behavior
+- No changes to existing CLI options or output format
+- `mode` is optional in config files
+
+---
+
 ## Date: October 14, 2025
 
 ## Added Features

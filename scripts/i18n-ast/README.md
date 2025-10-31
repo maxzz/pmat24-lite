@@ -30,6 +30,36 @@ A TypeScript utility that extracts localizable strings from TypeScript, JavaScri
 ✅ **Configurable** - Via config file or CLI arguments  
 ✅ **No External Parser Dependencies** - Uses TypeScript's built-in compiler API
 
+## Operation Modes
+
+The utility supports two operation modes:
+
+### Scan Mode (Default)
+Extracts **untranslated strings** that need to be localized. This mode:
+- Finds string literals and JSX text content
+- Filters out technical strings (imports, console logs, CSS classes, etc.)
+- Generates keys for translation mapping
+- **Use case**: Initial i18n setup or finding new strings to translate
+
+```bash
+npx tsx scripts/i18n-ast/0-main.ts --mode scan
+# or simply
+npx tsx scripts/i18n-ast/0-main.ts
+```
+
+### Translated Mode
+Collects **already-translated strings** from `t()` and `dt()` function calls. This mode:
+- Finds all `t('string')` and `dt('string')` calls in the codebase
+- Extracts the string arguments from these translation functions
+- **Use case**: Auditing existing translations or generating a list of strings already in use
+
+```bash
+npx tsx scripts/i18n-ast/0-main.ts --mode translated
+npx tsx scripts/i18n-ast/0-main.ts -m translated
+```
+
+Both modes share the same configuration for `srcDir`, `outputFile`, file exclusions, etc.
+
 ## Documentation
 
 - 📖 [Quick Start Guide](docs/QUICKSTART.md) - Get started in 5 minutes
@@ -70,6 +100,7 @@ Options:
   --config <path>, -c                       Custom configuration file path (default: extract-i18n-config.json)
   --src <path>                              Source directory to scan (default: ./src)
   --output <path>                           Output JSON file path (default: ./scripts/i18n-ast-strings.json)
+  --mode <mode>, -m                         Operation mode: scan or translated (default: scan)
   --min-length <number>                     Minimum string length to extract (default: 10)
   --exclude <files>                         Comma-separated list of filenames to exclude
   --exclude-paths <paths>                   Comma-separated list of paths to exclude
@@ -87,6 +118,12 @@ Options:
 **Custom source and output:**
 ```bash
 npx tsx scripts/i18n-ast/0-main.ts --src ./app --output ./i18n/strings.json
+```
+
+**Collect already-translated strings from t() and dt() calls:**
+```bash
+npx tsx scripts/i18n-ast/0-main.ts --mode translated
+npx tsx scripts/i18n-ast/0-main.ts -m translated
 ```
 
 **Use custom config file:**
@@ -160,6 +197,7 @@ Create `extract-i18n-config.json` in your project root:
 {
   "srcDir": "./src",
   "outputFile": "./scripts/i18n-ast-strings.json",
+  "mode": "scan",
   "minStringLength": 10,
   "extensions": [".ts", ".tsx", ".js", ".jsx"],
   "excludeFiles": ["test.ts", "spec.ts"],
@@ -180,6 +218,9 @@ Create `extract-i18n-config.json` in your project root:
   
   // Output file for extracted strings
   outputFile: "./scripts/i18n-ast-strings.json",
+  
+  // Mode: "scan" extracts strings to translate, "translated" collects already translated strings
+  mode: "scan",
   
   minStringLength: 10,
   extensions: [".ts", ".tsx", ".js", ".jsx"],

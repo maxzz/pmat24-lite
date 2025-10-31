@@ -6,8 +6,12 @@ None required! Uses existing TypeScript dependency.
 ## Basic Usage
 
 ```bash
-# Extract to default location
+# Extract untranslated strings (default scan mode)
 npx tsx scripts/i18n-ast/0-main.ts
+
+# Collect already-translated strings from t() and dt() calls
+npx tsx scripts/i18n-ast/0-main.ts --mode translated
+npx tsx scripts/i18n-ast/0-main.ts -m translated
 
 # Extract to custom file
 npx tsx scripts/i18n-ast/0-main.ts --output ./my-strings.json
@@ -19,6 +23,13 @@ npx tsx scripts/i18n-ast/0-main.ts -c my-config.json
 # See all options
 npx tsx scripts/i18n-ast/0-main.ts --help
 ```
+
+## Operation Modes
+
+**Scan Mode (default)**: Extracts untranslated strings that need localization  
+**Translated Mode**: Collects strings from `t()` and `dt()` function calls
+
+Both modes share the same source directory and file exclusion settings.
 
 ## Files Structure
 
