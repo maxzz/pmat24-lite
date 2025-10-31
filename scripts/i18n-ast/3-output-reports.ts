@@ -22,8 +22,8 @@ export function createReport(scanResult: ResultOfScan, config: Partial<Config>):
         console.log(
             `${totalStrings ? '✅' : '⚠️'} Extracted ${pc.cyan(pc.bold(totalStrings))} ` +
             `strings from ${pc.cyan(pc.bold(scanResult.totalOfFilesWithStrings))} files. ` +
-            `Total files scanned ${pc.cyan(scanResult.totalOfAllFiles)}. ` +
-            `Skipped ${pc.cyan(scanResult.totalOfAllFiles - scanResult.totalOfFilesWithStrings)} files without extractable strings.`
+            `Total scanned ${pc.cyan(scanResult.totalOfAllFiles)} files ` +
+            `(${pc.cyan(scanResult.totalOfAllFiles - scanResult.totalOfFilesWithStrings)} of them without extractable strings).`
         );
 
         if (totalStrings) {
@@ -39,8 +39,8 @@ export function createReport(scanResult: ResultOfScan, config: Partial<Config>):
         console.log(
             `${totalStrings ? '✅' : '⚠️'}  Collected ${pc.cyan(pc.bold(totalStrings))} ` +
             `strings from ${pc.cyan(pc.bold(scanResult.totalOfFilesWithStrings))} files. ` +
-            `Total files scanned ${pc.cyan(scanResult.totalOfAllFiles)}. ` +
-            `Skipped ${pc.cyan(scanResult.totalOfAllFiles - scanResult.totalOfFilesWithStrings)} files without translated strings.`
+            `Total scanned ${pc.cyan(scanResult.totalOfAllFiles)} files ` +
+            `(${pc.cyan(scanResult.totalOfAllFiles - scanResult.totalOfFilesWithStrings)} of them without translated strings).`
         );
 
         if (totalStrings) {
