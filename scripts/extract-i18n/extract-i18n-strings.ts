@@ -79,7 +79,7 @@ main();
 /*
 Usage:
 
-# Run with defaults (./src → ./scripts/i18n-strings.json)
+# Run with defaults (./src → ./scripts/i18n-ast-strings.json)
 npx tsx scripts/extract-i18n-strings.ts
 
 # Custom options
@@ -87,7 +87,7 @@ npx tsx scripts/extract-i18n-strings.ts --src ./src/renderer --output ./i18n/str
 */
 
 /*
-Example output (i18n-strings.json):
+Example output (i18n-ast-strings.json):
 
 {
   "src/renderer/src/components/2-main/2-right/2-file-mani/2-form-options/1-in-form-options/5-9-use-is-show-example.tsx": {

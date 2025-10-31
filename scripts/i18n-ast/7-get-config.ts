@@ -5,7 +5,7 @@ import pc from 'picocolors';
 import { help } from './8-help';
 import { type Config, DEFAULT_CONFIG_FILE_NAME, defaultConfig } from './7-types-config';
 
-export function getConfig(): Partial<Config> {
+export function getConfig(): Config {
     const args = process.argv.slice(2);
 
     if (args.includes('--help') || args.includes('-h')) {
@@ -66,7 +66,8 @@ export function getConfig(): Partial<Config> {
         }
     }
 
-    return config;
+    const cfg = { ...defaultConfig, ...config }
+    return cfg;
 }
 
 function loadConfigFile(configFileName: string | undefined, verbose: boolean): Partial<Config> {

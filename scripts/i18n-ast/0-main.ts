@@ -5,7 +5,7 @@ import { scanAndExtract } from './1-scan-process';
 import { createReport } from './3-reports';
 
 function main() {
-    const config: Partial<Config> = getConfig();
+    const config: Config = getConfig();
     const results: ResultOfScan = scanAndExtract(config);
     createReport(results, config);
 }

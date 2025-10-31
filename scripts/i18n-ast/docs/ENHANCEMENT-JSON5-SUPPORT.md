@@ -56,14 +56,14 @@ const config = JSON5.parse(content);
 const DEFAULT_CONFIG_FILE_NAME = 'extract-i18n-config.json';
 
 // NEW
-const DEFAULT_CONFIG_FILE_NAME = 'extract-i18n-config.json5';
+const DEFAULT_CONFIG_FILE_NAME = 'config-i18n-ast.json5';
 ```
 
 ## Usage
 
 ### New Format (Recommended)
 
-**File: `extract-i18n-config.json5`**
+**File: `config-i18n-ast.json5`**
 
 ```json5
 {
@@ -198,7 +198,7 @@ Both formats work! JSON5 parser is backward compatible with standard JSON.
 ### Using JSON5 Config
 
 ```bash
-# Default - looks for extract-i18n-config.json5
+# Default - looks for config-i18n-ast.json5
 pnpm i18n:ast
 
 # Explicit JSON5 file
@@ -213,7 +213,7 @@ npx tsx scripts/i18n-ast/0-main.ts --config my-config.json
 ```json
 {
   "scripts": {
-    "i18n:ast": "tsx scripts/i18n-ast/0-main.ts --config scripts/i18n-ast/extract-i18n-config.json5"
+    "i18n:ast": "tsx scripts/i18n-ast/0-main.ts --config scripts/i18n-ast/config-i18n-ast.json5"
   }
 }
 ```
@@ -244,7 +244,7 @@ npx tsx scripts/i18n-ast/0-main.ts --config my-config.json
 ### Step 1: Rename File (Optional)
 
 ```bash
-mv extract-i18n-config.json extract-i18n-config.json5
+mv extract-i18n-config.json config-i18n-ast.json5
 ```
 
 ### Step 2: Add Comments
@@ -286,7 +286,7 @@ mv extract-i18n-config.json extract-i18n-config.json5
 JSON5 parser will report helpful errors:
 
 ```bash
-⚠️  Failed to parse extract-i18n-config.json5: 
+⚠️  Failed to parse config-i18n-ast.json5: 
     JSON5: invalid character 'x' at 3:5
 ```
 
@@ -306,7 +306,7 @@ Much clearer than standard JSON parser errors!
 3. **`package.json`**
    - Updated `i18n:ast` script to use `.json5` config
 
-4. **Created `extract-i18n-config.json5`**
+4. **Created `config-i18n-ast.json5`**
    - New config file with comments and examples
 
 ## Dependencies
@@ -322,7 +322,7 @@ All tests pass:
 ```bash
 # With JSON5 config
 pnpm i18n:ast
-✅ Loaded configuration from scripts/i18n-ast/extract-i18n-config.json5
+✅ Loaded configuration from scripts/i18n-ast/config-i18n-ast.json5
 ✅ Extracted 394 strings from 161 files
 
 # With JSON config (backward compatibility)

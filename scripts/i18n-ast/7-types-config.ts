@@ -1,21 +1,21 @@
 export interface Config {
-    srcDir: string;
-    outputFile: string;
-    minStringLength: number;
-    extensions: string[];
-    excludeFiles: string[];
-    excludePaths: string[];
-    excludePattern?: string;
-    classNameSuffix: string;
-    classNameFunctions: string[];
-    excludeFunctionPrefixes: string[];
-    excludeAttributeSuffixPattern: string;
+    srcDir: string;                             // Source directory to scan
+    outputFile: string;                         // Output JSON file path
+    minStringLength: number;                    // Minimum string length to extract
+    extensions: string[];                       // File extensions to include
+    excludeFiles: string[];                     // File names to exclude
+    excludePaths: string[];                     // Paths to exclude
+    excludePattern?: string;                    // Regex pattern to exclude files
+    classNameSuffix: string;                    // Suffix for CSS class variable names to exclude
+    classNameFunctions: string[];               // ClassName function names
+    excludeFunctionPrefixes: string[];          // Function name prefixes to exclude
+    excludeAttributeSuffixPattern: string;      // Regex pattern for JSX attribute suffixes to exclude
     verbose: boolean;
 }
 
 export const defaultConfig: Config = {
     srcDir: './src',
-    outputFile: './scripts/i18n-strings.json',
+    outputFile: './scripts/i18n-ast-strings.json',
     minStringLength: 10,
     extensions: ['.ts', '.tsx', '.js', '.jsx'],
     excludeFiles: [],
@@ -28,4 +28,4 @@ export const defaultConfig: Config = {
     verbose: false,
 };
 
-export const DEFAULT_CONFIG_FILE_NAME = 'extract-i18n-config.json5';
+export const DEFAULT_CONFIG_FILE_NAME = 'config-i18n-ast.json5';

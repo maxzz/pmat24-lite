@@ -26,7 +26,7 @@ scripts/i18n-ast/
 ├── ENHANCEMENT-CLASSNAME-SUFFIX.md   ← Moved
 ├── FEATURE-CLASSNAME-FUNCTIONS.md    ← Moved
 ├── FIXES-SUMMARY.md                  ← Moved
-└── extract-i18n-config.json5
+└── config-i18n-ast.json5
 ```
 
 ### After
@@ -38,7 +38,7 @@ scripts/i18n-ast/
 ├── 3-ast-parser.ts
 ├── 4-scan-process.ts
 ├── README.md                          ← Main docs (updated with links)
-├── extract-i18n-config.json5
+├── config-i18n-ast.json5
 └── docs/                              ← New folder
     ├── INDEX.md                       ← New: Documentation index
     ├── QUICKSTART.md

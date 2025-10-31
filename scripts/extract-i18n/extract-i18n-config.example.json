@@ -1,6 +1,6 @@
 {
   "srcDir": "./src",
-  "outputFile": "./scripts/i18n-strings.json",
+  "outputFile": "./scripts/i18n-ast-strings.json",
   "minStringLength": 10,
   "excludeFiles": [
     "types.ts",

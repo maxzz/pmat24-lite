@@ -12,7 +12,7 @@ Configuration:
 
 Options:
   --src <path>         Source directory to scan (default: ./src)
-  --output <path>      Output JSON file path (default: ./scripts/i18n-strings.json)
+  --output <path>      Output JSON file path (default: ./scripts/i18n-ast-strings.json)
   --min-length <num>   Minimum string length to extract (default: 10)
   --exclude <files>    Comma-separated list of filenames to exclude (e.g., types.ts,constants.ts)
   --exclude-paths <paths>  Comma-separated list of file/folder paths to exclude (e.g., src/tests,src/mocks/data.ts)

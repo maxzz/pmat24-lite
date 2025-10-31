@@ -11,7 +11,7 @@ export interface Config {
 
 export const defaultConfig: Config = {
     srcDir: './src',
-    outputFile: './scripts/i18n-strings.json',
+    outputFile: './scripts/i18n-ast-strings.json',
     minStringLength: 10,
     extensions: ['.ts', '.tsx', '.js', '.jsx'],
     excludeFiles: [],

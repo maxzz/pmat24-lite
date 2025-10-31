@@ -33,9 +33,9 @@ ${pc.bold(pc.yellow('USAGE:'))}
 function printOptions(): string {
     return `
 ${pc.bold(pc.yellow('OPTIONS:'))}
-  ${pc.cyan('--config')} ${pc.gray('<path>')}, ${pc.cyan('-c')}                        Custom configuration file path (default: ${pc.dim('extract-i18n-config.json5')})
+  ${pc.cyan('--config')} ${pc.gray('<path>')}, ${pc.cyan('-c')}                        Custom configuration file path (default: ${pc.dim('config-i18n-ast.json5')})
   ${pc.cyan('--src')} ${pc.gray('<path>')}                               Source directory to scan (default: ${pc.dim('./src')})
-  ${pc.cyan('--output')} ${pc.gray('<path>')}                            Output JSON file path (default: ${pc.dim('./scripts/i18n-strings.json')})
+  ${pc.cyan('--output')} ${pc.gray('<path>')}                            Output JSON file path (default: ${pc.dim('./scripts/i18n-ast-strings.json')})
   ${pc.cyan('--min-length')} ${pc.gray('<number>')}                      Minimum string length to extract (default: ${pc.dim('10')})
   ${pc.cyan('--exclude')} ${pc.gray('<files>')}                          Comma-separated list of filenames to exclude
   ${pc.cyan('--exclude-paths')} ${pc.gray('<paths>')}                    Comma-separated list of paths to exclude
@@ -82,17 +82,17 @@ ${pc.bold(pc.yellow('EXAMPLES:'))}
 function printConfigurationFile(): string {
     return `
 ${pc.bold(pc.yellow('CONFIGURATION FILE:'))}
-  You can create a file named ${pc.green('\'extract-i18n-config.json5\'')} in the project root.
+  You can create a file named ${pc.green('\'config-i18n-ast.json5\'')} in the project root.
   The file supports ${pc.bold('JSON5')} format (comments, trailing commas, unquoted keys).
 
-  ${pc.dim('Example (extract-i18n-config.json5):')}
+  ${pc.dim('Example (config-i18n-ast.json5):')}
 
   ${pc.gray('{')}
     ${pc.gray('// Source directory to scan')}
     ${pc.cyan('srcDir')}: ${pc.green('"./src"')},
     
     ${pc.gray('// Output file for extracted strings')}
-    ${pc.cyan('outputFile')}: ${pc.green('"./scripts/i18n-strings.json"')},
+    ${pc.cyan('outputFile')}: ${pc.green('"./scripts/i18n-ast-strings.json"')},
     
     ${pc.cyan('minStringLength')}: ${pc.yellow('10')},
     ${pc.cyan('extensions')}: ${pc.gray('[".ts", ".tsx", ".js", ".jsx"]')},

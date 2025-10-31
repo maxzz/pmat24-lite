@@ -1,4 +1,5 @@
 import * as ts from 'typescript';
+import { type Config } from './7-types-config';
 
 /**
  * Extract localizable strings from TypeScript/JavaScript source code using AST.
@@ -13,21 +14,15 @@ import * as ts from 'typescript';
  * - Strings inside functions with excluded prefixes (e.g., printXxx, traceXxx)
  * - JSX attributes matching excluded suffix patterns (e.g., fooClasses, barClasses)
  */
-export function extractStringsFromAST(
-    filePath: string,
-    sourceCode: string,
-    minLength: number,
-    classNameSuffix: string,
-    classNameFunctions: string[],
-    excludeFunctionPrefixes: string[],
-    excludeAttributeSuffixPattern: string
-): Record<string, string> {
+export function extractStringsFromAST(filePath: string, sourceCode: string, config: Config): Record<string, string> {
+    const { minStringLength, classNameSuffix, classNameFunctions, excludeFunctionPrefixes, excludeAttributeSuffixPattern } = config;
+
     const strings: Record<string, string> = {};
     const processedJsxElements = new Set<ts.JsxElement>(); // Track processed JSX elements to avoid duplicates
-    
+
     // Compile the attribute suffix pattern regex
     const attributeSuffixRegex = new RegExp(excludeAttributeSuffixPattern);
-    
+
     const sourceFile = ts.createSourceFile(
         filePath,
         sourceCode,
@@ -40,8 +35,8 @@ export function extractStringsFromAST(
         // Extract string literals
         if (ts.isStringLiteral(node) || ts.isNoSubstitutionTemplateLiteral(node)) {
             const text = node.text;
-            
-            if (shouldExtractString(text, minLength, node)) {
+
+            if (shouldExtractString(text, minStringLength, node)) {
                 const key = generateKey(text);
                 strings[key] = text;
             }
@@ -50,11 +45,11 @@ export function extractStringsFromAST(
         // Extract template literals with placeholders (e.g., `text ${variable}`)
         if (ts.isTemplateExpression(node)) {
             const reconstructedText = reconstructTemplateExpression(node);
-            if (reconstructedText && shouldExtractString(reconstructedText, minLength, node)) {
+            if (reconstructedText && shouldExtractString(reconstructedText, minStringLength, node)) {
                 const key = generateKey(reconstructedText);
                 strings[key] = reconstructedText;
             }
-            
+
             // Also recursively visit expressions inside template spans
             // to extract string literals from ternary operators, etc.
             for (const span of node.templateSpans) {
@@ -66,28 +61,28 @@ export function extractStringsFromAST(
         if (ts.isJsxText(node)) {
             // Normalize text: replace newlines and collapse whitespace
             const text = node.text.replace(/\s+/g, ' ').trim();
-            
+
             // Check if parent has JSX expressions (placeholders)
             const parent = node.parent;
-            const hasPlaceholders = parent && ts.isJsxElement(parent) && parent.children.some(child => 
+            const hasPlaceholders = parent && ts.isJsxElement(parent) && parent.children.some(child =>
                 ts.isJsxExpression(child)
             );
-            
-            if (hasPlaceholders && parent && ts.isJsxElement(parent) && text.length >= minLength && /[a-zA-Z]/.test(text)) {
+
+            if (hasPlaceholders && parent && ts.isJsxElement(parent) && text.length >= minStringLength && /[a-zA-Z]/.test(text)) {
                 // Extract all text segments from the parent element
                 // Use a Set to track processed elements to avoid duplicates
                 if (!processedJsxElements.has(parent)) {
                     processedJsxElements.add(parent);
-                    
+
                     const segments = reconstructJSXTextSegments(parent);
                     for (const segment of segments) {
-                        if (shouldExtractJSXText(segment, minLength)) {
+                        if (shouldExtractJSXText(segment, minStringLength)) {
                             const key = generateKey(segment);
                             strings[key] = segment;
                         }
                     }
                 }
-            } else if (text.length >= minLength && /[a-zA-Z]/.test(text)) {
+            } else if (text.length >= minStringLength && /[a-zA-Z]/.test(text)) {
                 // Plain JSX text without placeholders
                 const wordCount = text.split(/\s+/).filter(w => /[a-zA-Z]/.test(w)).length;
                 if (wordCount >= 2) {
@@ -104,7 +99,7 @@ export function extractStringsFromAST(
         // Use a lower minimum length for strings inside template expressions
         // (e.g., ternary operators like `${condition ? 'text' : 'password'}`)
         const effectiveMinLength = isInsideTemplateExpression(node) ? 3 : minLength;
-        
+
         if (text.length < effectiveMinLength) return false;
         if (!(/[a-zA-Z]/.test(text))) return false;
 
@@ -243,7 +238,7 @@ export function extractStringsFromAST(
         if (excludeFunctionPrefixes.length === 0) {
             return false;
         }
-        
+
         let current: ts.Node | undefined = node.parent;
         while (current) {
             // Check for function declaration: function printNames() { ... }
@@ -291,7 +286,7 @@ export function extractStringsFromAST(
                     }
                 }
             }
-            
+
             current = current.parent;
         }
         return false;
@@ -302,12 +297,12 @@ export function extractStringsFromAST(
         if (!text || text.includes(' ')) {
             return false;
         }
-        
+
         // Check if it's camelCase: starts with lowercase, contains at least one uppercase
         // Pattern: starts with lowercase letter, followed by letters/digits, with at least one uppercase
         const camelCasePattern = /^[a-z][a-zA-Z0-9]*$/;
         const hasUpperCase = /[A-Z]/.test(text);
-        
+
         return camelCasePattern.test(text) && hasUpperCase;
     }
 
@@ -374,7 +369,7 @@ export function extractStringsFromAST(
         const segments = reconstructJSXTextSegments(element);
         if (segments.length === 0) return null;
         if (segments.length === 1) return segments[0];
-        
+
         // Multiple segments - join with space
         const result = segments.join(' ').replace(/\s+/g, ' ').trim();
         return result || null;
@@ -391,13 +386,13 @@ export function extractStringsFromAST(
     function reconstructJSXTextSegments(element: ts.JsxElement): string[] {
         const segments: string[] = [];
         const currentParts: string[] = [];
-        
+
         function normalizeText(text: string): string {
             // Replace all newlines and normalize whitespace
             // This converts "\r\n" and "\n" to spaces and collapses multiple spaces
             return text.replace(/\s+/g, ' ').trim();
         }
-        
+
         function flushCurrentSegment() {
             if (currentParts.length > 0) {
                 const segment = currentParts.join(' ').replace(/\s+/g, ' ').trim();
@@ -407,7 +402,7 @@ export function extractStringsFromAST(
                 currentParts.length = 0; // Clear array
             }
         }
-        
+
         for (const child of element.children) {
             if (ts.isJsxText(child)) {
                 const text = normalizeText(child.text);
@@ -422,9 +417,9 @@ export function extractStringsFromAST(
                     // Empty expression is a comment - just skip, don't split
                     continue;
                 }
-                
+
                 const expr = child.expression;
-                
+
                 // Translation function calls like {t("...")} or {dt("...")} act as separators
                 if (ts.isCallExpression(expr)) {
                     const callExpr = expr.expression;
@@ -434,7 +429,7 @@ export function extractStringsFromAST(
                         continue;
                     }
                 }
-                
+
                 // Handle string literals in JSX expressions like {' '} or {'text'}
                 // These are just text, not placeholders
                 if (ts.isStringLiteral(expr)) {
@@ -445,7 +440,7 @@ export function extractStringsFromAST(
                     // If it's just whitespace, skip it (don't add to parts)
                     continue;
                 }
-                
+
                 // Extract placeholder name for regular expressions
                 if (ts.isIdentifier(expr)) {
                     currentParts.push(`{${expr.text}}`);
@@ -457,23 +452,23 @@ export function extractStringsFromAST(
                 }
             }
         }
-        
+
         // Flush any remaining segment
         flushCurrentSegment();
-        
+
         return segments;
     }
 
     function reconstructTemplateExpression(template: ts.TemplateExpression): string | null {
         const parts: string[] = [];
         const textParts: string[] = []; // Collect only the literal text parts (no placeholders)
-        
+
         // Add the head part (text before first ${...})
         if (template.head.text) {
             parts.push(template.head.text);
             textParts.push(template.head.text);
         }
-        
+
         // Process template spans (${expr}text pairs)
         for (const span of template.templateSpans) {
             // Add placeholder for the expression
@@ -486,30 +481,30 @@ export function extractStringsFromAST(
                 // Generic placeholder for complex expressions
                 parts.push('${...}');
             }
-            
+
             // Add the literal text after the expression
             if (span.literal.text) {
                 parts.push(span.literal.text);
                 textParts.push(span.literal.text);
             }
         }
-        
+
         // Skip template literals that contain ONLY placeholders (e.g., `${item.id}`)
         // These are used for type conversion, not localization
         if (textParts.length === 0) {
             return null;
         }
-        
+
         // Skip templates where the text is just punctuation/separators (e.g., `${x}-${y}`, `${a}/${b}`)
         // Join all text parts and check if they contain any letters/words
         const combinedText = textParts.join('');
         const hasLetters = /[a-zA-Z]/.test(combinedText);
         const hasWords = combinedText.trim().length > 0 && /\w{2,}/.test(combinedText); // At least one word with 2+ chars
-        
+
         if (!hasLetters || !hasWords) {
             return null;
         }
-        
+
         const result = parts.join('');
         return result || null;
     }
@@ -518,18 +513,18 @@ export function extractStringsFromAST(
         // For JSX text segments, use a lower minimum length requirement
         // since they might be split by translation function calls
         const effectiveMinLength = Math.min(minLength, 8);
-        
+
         if (text.length < effectiveMinLength) return false;
-        
+
         const wordCount = text.split(/\s+/).filter(w => /[a-zA-Z]/.test(w)).length;
         if (wordCount < 2) return false; // At least 2 words, same as plain JSX text
-        
+
         // Skip if it looks like code
-        if (text.includes('return') || text.includes('=>') || 
+        if (text.includes('return') || text.includes('=>') ||
             text.includes('const ') || text.includes('function')) {
             return false;
         }
-        
+
         return true;
     }
 
@@ -577,20 +572,20 @@ function isSvgPath(str: string): boolean {
     // SVG paths must start with a command letter
     const svgPathPattern = /^[MmLlHhVvCcSsQqTtAaZz][\s,\d.-]+/;
     if (!svgPathPattern.test(str)) return false;
-    
+
     // Check if string has a high ratio of digits to letters
     // SVG paths should have many more digits than letters
     const digits = (str.match(/\d/g) || []).length;
     const letters = (str.match(/[a-zA-Z]/g) || []).length;
-    
+
     // SVG path should have at least 3 digits and more digits than letters
     if (digits < 3) return false;
     if (digits <= letters) return false;
-    
+
     // Check that remaining characters after removing SVG path chars are minimal
     const pathChars = str.replace(/[MmLlHhVvCcSsQqTtAaZz\s,.\d-]/g, '');
     if (pathChars.length > 2) return false; // Allow a couple of unexpected chars
-    
+
     return true;
 }
 

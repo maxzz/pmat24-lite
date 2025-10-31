@@ -67,7 +67,7 @@ The tool is already part of your project. No additional installation required.
 ### Basic Usage
 
 ```bash
-# Run with defaults (scans ./src, outputs to ./scripts/i18n-strings.json)
+# Run with defaults (scans ./src, outputs to ./scripts/i18n-ast-strings.json)
 npx tsx scripts/extract-i18n/extract-i18n-strings.ts
 
 # Or using pnpm script (if configured in package.json)
@@ -79,7 +79,7 @@ pnpm i18n:extract
 | Option | Description | Default |
 |--------|-------------|---------|
 | `--src <path>` | Source directory to scan | `./src` |
-| `--output <path>` | Output JSON file path | `./scripts/i18n-strings.json` |
+| `--output <path>` | Output JSON file path | `./scripts/i18n-ast-strings.json` |
 | `--min-length <num>` | Minimum string length to extract | `10` |
 | `--exclude <files>` | Comma-separated list of filenames to exclude | (none) |
 | `--exclude-paths <paths>` | Comma-separated list of file/folder paths to exclude (relative) | (none) |
@@ -345,7 +345,7 @@ When no configuration file exists and no CLI arguments are provided:
 ```typescript
 {
   srcDir: './src',
-  outputFile: './scripts/i18n-strings.json',
+  outputFile: './scripts/i18n-ast-strings.json',
   minStringLength: 10,
   extensions: ['.ts', '.tsx', '.js', '.jsx'],
   excludeFiles: [],
@@ -424,7 +424,7 @@ scripts/extract-i18n/
 ├── 2-scan-process.ts                 # Core extraction logic
 ├── 8-help.ts                         # Help text
 ├── 9-config.ts                       # Configuration
-└── i18n-strings.json                 # Generated output (default)
+└── i18n-ast-strings.json                 # Generated output (default)
 
 extract-i18n-config.json              # Optional config file (project root)
 ```

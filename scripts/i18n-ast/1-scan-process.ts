@@ -1,30 +1,29 @@
 import * as fs from 'fs';
 import * as path from 'path';
-import { type Config, defaultConfig } from './7-types-config';
+import { type Config } from './7-types-config';
 import { extractStringsFromAST } from './2-ast-parser';
 import { type LocalizationStrings, type ResultOfScan } from './9-types';
 
 /**
  * Scan directory and extract i18n strings using AST parsing.
  */
-export function scanAndExtract(config: Partial<Config> = {}): ResultOfScan {
-    const cfg = { ...defaultConfig, ...config };
+export function scanAndExtract(config: Config): ResultOfScan {
     const results: LocalizationStrings = {};
     let totalOfAllFiles = 0;
     let totalOfFilesWithStrings = 0;
 
     // Compile exclude pattern regex if provided
-    const excludeRegex = cfg.excludePattern ? new RegExp(cfg.excludePattern) : null;
+    const excludeRegex = config.excludePattern ? new RegExp(config.excludePattern) : null;
 
     // Normalize excluded paths for comparison
-    const normalizedExcludePaths = cfg.excludePaths.map(p => path.normalize(p).replace(/\\/g, '/'));
+    const normalizedExcludePaths = config.excludePaths.map(p => path.normalize(p).replace(/\\/g, '/'));
 
     // Normalize excluded files for comparison
-    const normalizedExcludeFiles = cfg.excludeFiles.map(p => path.normalize(p).replace(/\\/g, '/'));
+    const normalizedExcludeFiles = config.excludeFiles.map(p => path.normalize(p).replace(/\\/g, '/'));
 
     function isPathExcluded(fullPath: string): boolean {
         const relativePath = path.relative(process.cwd(), fullPath).replace(/\\/g, '/');
-        
+
         return normalizedExcludePaths.some(excludePath => {
             return relativePath === excludePath || relativePath.startsWith(excludePath + '/');
         });
@@ -32,7 +31,7 @@ export function scanAndExtract(config: Partial<Config> = {}): ResultOfScan {
 
     function isFileExcluded(fullPath: string): boolean {
         const relativePath = path.relative(process.cwd(), fullPath).replace(/\\/g, '/');
-        
+
         // Check against exact file paths
         if (normalizedExcludeFiles.includes(relativePath)) {
             return true;
@@ -40,7 +39,7 @@ export function scanAndExtract(config: Partial<Config> = {}): ResultOfScan {
 
         // Also check just the filename for convenience
         const filename = path.basename(fullPath);
-        if (cfg.excludeFiles.includes(filename)) {
+        if (config.excludeFiles.includes(filename)) {
             return true;
         }
 
@@ -63,13 +62,20 @@ export function scanAndExtract(config: Partial<Config> = {}): ResultOfScan {
                     continue;
                 }
                 scanDirectory(fullPath);
-            } else if (entry.isFile() && cfg.extensions.some(ext => entry.name.endsWith(ext))) {
+            }
+            else if (entry.isFile()) {
                 totalOfAllFiles++;
-                
+
+                // Skip files by extension
+                if (!config.extensions.some(ext => entry.name.endsWith(ext))) {
+                    continue;
+                }
+
                 // Skip excluded files by path or filename
                 if (isFileExcluded(fullPath)) {
                     continue;
                 }
+
                 // Skip excluded files by regex pattern
                 if (excludeRegex && excludeRegex.test(entry.name)) {
                     continue;
@@ -77,15 +83,7 @@ export function scanAndExtract(config: Partial<Config> = {}): ResultOfScan {
 
                 try {
                     const sourceCode = fs.readFileSync(fullPath, 'utf-8');
-                    const strings = extractStringsFromAST(
-                        fullPath,
-                        sourceCode,
-                        cfg.minStringLength,
-                        cfg.classNameSuffix,
-                        cfg.classNameFunctions,
-                        cfg.excludeFunctionPrefixes,
-                        cfg.excludeAttributeSuffixPattern
-                    );
+                    const strings = extractStringsFromAST(fullPath, sourceCode, config);
 
                     if (Object.keys(strings).length > 0) {
                         totalOfFilesWithStrings++;
@@ -101,8 +99,8 @@ export function scanAndExtract(config: Partial<Config> = {}): ResultOfScan {
         }
     }
 
-    scanDirectory(path.resolve(cfg.srcDir));
-    
+    scanDirectory(path.resolve(config.srcDir));
+
     return {
         totalOfAllFiles,
         totalOfFilesWithStrings,

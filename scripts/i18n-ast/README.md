@@ -59,7 +59,7 @@ npx tsx scripts/i18n-ast/extract-i18n-ast.ts
 This will:
 - Scan the `./src` directory
 - Extract strings 10+ characters long
-- Save results to `./scripts/i18n-strings.json`
+- Save results to `./scripts/i18n-ast-strings.json`
 
 ### CLI Options
 
@@ -69,7 +69,7 @@ npx tsx scripts/i18n-ast/0-main.ts [options]
 Options:
   --config <path>, -c                       Custom configuration file path (default: extract-i18n-config.json)
   --src <path>                              Source directory to scan (default: ./src)
-  --output <path>                           Output JSON file path (default: ./scripts/i18n-strings.json)
+  --output <path>                           Output JSON file path (default: ./scripts/i18n-ast-strings.json)
   --min-length <number>                     Minimum string length to extract (default: 10)
   --exclude <files>                         Comma-separated list of filenames to exclude
   --exclude-paths <paths>                   Comma-separated list of paths to exclude
@@ -159,7 +159,7 @@ Create `extract-i18n-config.json` in your project root:
 ```json
 {
   "srcDir": "./src",
-  "outputFile": "./scripts/i18n-strings.json",
+  "outputFile": "./scripts/i18n-ast-strings.json",
   "minStringLength": 10,
   "extensions": [".ts", ".tsx", ".js", ".jsx"],
   "excludeFiles": ["test.ts", "spec.ts"],
@@ -179,7 +179,7 @@ Create `extract-i18n-config.json` in your project root:
   srcDir: "./src",
   
   // Output file for extracted strings
-  outputFile: "./scripts/i18n-strings.json",
+  outputFile: "./scripts/i18n-ast-strings.json",
   
   minStringLength: 10,
   extensions: [".ts", ".tsx", ".js", ".jsx"],
