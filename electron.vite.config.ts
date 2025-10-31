@@ -65,6 +65,14 @@ export default defineConfig({
         build: {
             rollupOptions: { output: { manualChunks, } },
             //minify: false,
+
+            /**/
+            // sudgested by sonnet45
+            chunkSizeWarningLimit: 1000, // Warn for chunks > 1MB
+            sourcemap: false, // Disable sourcemaps in production for smaller size
+            minify: 'esbuild', // Ensure minification is enabled
+            target: 'esnext', // Use modern JS for better tree shaking
+            /**/
         },
         plugins: [
             react(),
