@@ -25,7 +25,8 @@ export function createReport(scanResult: ResultOfScan, config: Partial<Config>):
             console.log(pc.gray(`   Total files scanned ${pc.cyan(scanResult.totalOfAllFiles)}: with extractable strings ${pc.cyan(scanResult.totalOfFilesWithStrings)} and without ${pc.cyan(scanResult.totalOfAllFiles - scanResult.totalOfFilesWithStrings)}`));
         }
 
-        writeReportFile(scanResult.strings, outputPath);
+        const cnt = JSON.stringify(scanResult.strings, null, 2);
+        writeReportFile(cnt, outputPath);
         console.log(pc.gray(`   Saved to: ${outputPath}`));
     }
     else if (config.mode === 'translated') {
@@ -38,12 +39,13 @@ export function createReport(scanResult: ResultOfScan, config: Partial<Config>):
             console.log(pc.gray(`   Total files scanned ${pc.cyan(scanResult.totalOfAllFiles)}: with extractable strings ${pc.cyan(scanResult.totalOfFilesWithStrings)} and without ${pc.cyan(scanResult.totalOfAllFiles - scanResult.totalOfFilesWithStrings)}`));
         }
 
-        writeReportFile(scanResult.translatedStrings, outputPath);
+        const cnt = JSON.stringify(scanResult.translatedStrings, null, 2);
+        writeReportFile(cnt, outputPath);
         console.log(pc.gray(`   Saved to: ${outputPath}`));
     }
 }
 
-function writeReportFile(results: ResultOfScan['strings'], outputPath: string): void {
+function writeReportFile(cnt: string, outputPath: string): void {
     fs.mkdirSync(path.dirname(outputPath), { recursive: true });
-    fs.writeFileSync(outputPath, JSON.stringify(results, null, 2), 'utf-8');
+    fs.writeFileSync(outputPath, cnt, 'utf-8');
 }
