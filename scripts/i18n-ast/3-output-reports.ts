@@ -19,11 +19,18 @@ export function createReport(scanResult: ResultOfScan, config: Partial<Config>):
         // 2. Display summary with all statistics
         const totalStrings = Object.values(scanResult.strings).reduce((sum, obj) => sum + Object.keys(obj).length, 0);
 
-        console.log(`✅ Extracted ${pc.cyan(pc.bold(totalStrings))} strings from ${pc.cyan(pc.bold(scanResult.totalOfFilesWithStrings))} files`);
+        console.log(
+            `✅ Extracted ${pc.cyan(pc.bold(totalStrings))} ` +
+            `strings from ${pc.cyan(pc.bold(scanResult.totalOfFilesWithStrings))} files. ` +
+            `Total files scanned ${pc.cyan(scanResult.totalOfAllFiles)}. ` +
+            `Skipped ${pc.cyan(scanResult.totalOfAllFiles - scanResult.totalOfFilesWithStrings)} files without extractable strings.`
+        );
 
-        if (config.verbose) {
-            console.log(pc.gray(`   Total files scanned ${pc.cyan(scanResult.totalOfAllFiles)}: with extractable strings ${pc.cyan(scanResult.totalOfFilesWithStrings)} and without ${pc.cyan(scanResult.totalOfAllFiles - scanResult.totalOfFilesWithStrings)}`));
-        }
+        // console.log(`✅ Extracted ${pc.cyan(pc.bold(totalStrings))} strings from ${pc.cyan(pc.bold(scanResult.totalOfFilesWithStrings))} files`);
+
+        // if (config.verbose) {
+        //     console.log(pc.gray(`   Total files scanned ${pc.cyan(scanResult.totalOfAllFiles)}: with extractable strings ${pc.cyan(scanResult.totalOfFilesWithStrings)} and without ${pc.cyan(scanResult.totalOfAllFiles - scanResult.totalOfFilesWithStrings)}`));
+        // }
 
         if (totalStrings) {
             const cnt = JSON.stringify(scanResult.strings, null, 2);
@@ -35,11 +42,16 @@ export function createReport(scanResult: ResultOfScan, config: Partial<Config>):
         // 2. Display summary with all statistics
         const totalStrings = Object.values(scanResult.translatedStrings).reduce((sum, obj) => sum + Object.keys(obj).length, 0);
 
-        console.log(`✅ Collected ${pc.cyan(pc.bold(totalStrings))} strings from ${pc.cyan(pc.bold(scanResult.totalOfFilesWithStrings))} files`);
+        console.log(
+            `✅ Collected ${pc.cyan(pc.bold(totalStrings))} ` +
+            `strings from ${pc.cyan(pc.bold(scanResult.totalOfFilesWithStrings))} files. ` +
+            `Total files scanned ${pc.cyan(scanResult.totalOfAllFiles)}. ` +
+            `Skipped ${pc.cyan(scanResult.totalOfAllFiles - scanResult.totalOfFilesWithStrings)} files without translated strings.`
+        );
 
-        if (config.verbose) {
-            console.log(pc.gray(`   Total files scanned ${pc.cyan(scanResult.totalOfAllFiles)}: with extractable strings ${pc.cyan(scanResult.totalOfFilesWithStrings)} and without ${pc.cyan(scanResult.totalOfAllFiles - scanResult.totalOfFilesWithStrings)}`));
-        }
+        // if (config.verbose) {
+        //     console.log(pc.gray(`   Total files scanned ${pc.cyan(scanResult.totalOfAllFiles)}: with extractable strings ${pc.cyan(scanResult.totalOfFilesWithStrings)} and without ${pc.cyan(scanResult.totalOfAllFiles - scanResult.totalOfFilesWithStrings)}`));
+        // }
 
         if (totalStrings) {
             const cnt = JSON.stringify(scanResult.translatedStrings, null, 2);
