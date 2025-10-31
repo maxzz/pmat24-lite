@@ -1,7 +1,7 @@
-import * as fs from 'fs';
-import * as path from 'path';
-import { type Config, defaultConfig } from './9-config';
-import { extractStringsFromFile } from './3-extract-strings';
+import * as fs from "fs";
+import * as path from "path";
+import { type Config, defaultConfig } from "./9-config";
+import { extractStringsFromFile } from "./3-extract-strings";
 
 interface LocalizationStrings {
     [filename: string]: Record<string, string>;

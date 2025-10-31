@@ -384,7 +384,7 @@ The output can be easily integrated with popular i18n libraries:
 ### react-i18next
 
 ```typescript
-import en from './i18n/strings.json';
+import en from "./i18n/strings.json";
 
 i18n.use(initReactI18next).init({
   resources: {
@@ -397,7 +397,7 @@ i18n.use(initReactI18next).init({
 ### Usage in components:
 
 ```tsx
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from "react-i18next";
 
 function MyComponent() {
   const { t } = useTranslation();

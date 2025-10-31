@@ -38,7 +38,7 @@ Learn more: https://json5.org/
 
 1. **Added JSON5 import:**
 ```typescript
-import JSON5 from 'json5';
+import JSON5 from "json5";
 ```
 
 2. **Updated parser:**

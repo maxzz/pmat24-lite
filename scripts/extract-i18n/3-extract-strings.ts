@@ -1,4 +1,4 @@
-import * as fs from 'fs';
+import * as fs from "fs";
 
 export function extractStringsFromFile(filePath: string, minLength: number, classNameSuffix: string): Record<string, string> {
     let content = fs.readFileSync(filePath, 'utf-8');

@@ -1,33 +1,33 @@
-import * as fs from 'fs';
-import * as path from 'path';
-import { type Config } from './7-types-config';
-import { extractStringsFromAST } from './2-ast-parser';
-import { type LocalizationStrings, type ResultOfScan } from './9-types';
+import * as fs from "fs";
+import * as path from "path";
+import { type Config } from "./7-config-types";
+import { extractStringsFromAST } from "./2-ast-parser";
+import { type ResultOfScan } from "./9-types";
 
 /**
  * Scan directory and extract i18n strings using AST parsing.
  */
 export function scanAndExtract(config: Config): ResultOfScan {
-    const results: LocalizationStrings = {};
-    let totalOfAllFiles = 0;
-    let totalOfFilesWithStrings = 0;
-
-    // Compile exclude pattern regex if provided
-    const excludeRegex = config.excludePattern ? new RegExp(config.excludePattern) : null;
+    const rv: ResultOfScan = {
+        totalOfAllFiles: 0,
+        totalOfFilesWithStrings: 0,
+        strings: {},
+    };
 
     // Normalize excluded paths for comparison
     const normalizedExcludePaths = config.excludePaths.map(p => path.normalize(p).replace(/\\/g, '/'));
 
-    // Normalize excluded files for comparison
-    const normalizedExcludeFiles = config.excludeFiles.map(p => path.normalize(p).replace(/\\/g, '/'));
-
     function isPathExcluded(fullPath: string): boolean {
         const relativePath = path.relative(process.cwd(), fullPath).replace(/\\/g, '/');
-
-        return normalizedExcludePaths.some(excludePath => {
-            return relativePath === excludePath || relativePath.startsWith(excludePath + '/');
-        });
+        return normalizedExcludePaths.some(
+            (excludePath) => {
+                return relativePath === excludePath || relativePath.startsWith(excludePath + '/');
+            }
+        );
     }
+
+    // Normalize excluded files for comparison
+    const normalizedExcludeFiles = config.excludeFiles.map(p => path.normalize(p).replace(/\\/g, '/'));
 
     function isFileExcluded(fullPath: string): boolean {
         const relativePath = path.relative(process.cwd(), fullPath).replace(/\\/g, '/');
@@ -45,6 +45,9 @@ export function scanAndExtract(config: Config): ResultOfScan {
 
         return false;
     }
+
+    // Compile exclude pattern regex if provided
+    const excludeRegex = config.excludePattern ? new RegExp(config.excludePattern) : null;
 
     function scanDirectory(dir: string): void {
         const entries = fs.readdirSync(dir, { withFileTypes: true });
@@ -64,12 +67,7 @@ export function scanAndExtract(config: Config): ResultOfScan {
                 scanDirectory(fullPath);
             }
             else if (entry.isFile()) {
-                totalOfAllFiles++;
-
-                // Skip files by extension
-                if (!config.extensions.some(ext => entry.name.endsWith(ext))) {
-                    continue;
-                }
+                rv.totalOfAllFiles++;
 
                 // Skip excluded files by path or filename
                 if (isFileExcluded(fullPath)) {
@@ -81,16 +79,21 @@ export function scanAndExtract(config: Config): ResultOfScan {
                     continue;
                 }
 
+                // Skip files by filename extension
+                if (!config.extensions.some(ext => entry.name.endsWith(ext))) {
+                    continue;
+                }
+
                 try {
                     const sourceCode = fs.readFileSync(fullPath, 'utf-8');
                     const strings = extractStringsFromAST(fullPath, sourceCode, config);
 
                     if (Object.keys(strings).length > 0) {
-                        totalOfFilesWithStrings++;
+                        rv.totalOfFilesWithStrings++;
                         // Create file:// URL with absolute path
                         const absolutePath = path.resolve(fullPath).replace(/\\/g, '/');
                         const fileUrl = 'file:///' + absolutePath;
-                        results[fileUrl] = strings;
+                        rv.strings[fileUrl] = strings;
                     }
                 } catch (error) {
                     console.warn(`⚠️  Failed to process ${fullPath}:`, error instanceof Error ? error.message : error);
@@ -101,9 +104,5 @@ export function scanAndExtract(config: Config): ResultOfScan {
 
     scanDirectory(path.resolve(config.srcDir));
 
-    return {
-        totalOfAllFiles,
-        totalOfFilesWithStrings,
-        strings: results
-    };
+    return rv;
 }

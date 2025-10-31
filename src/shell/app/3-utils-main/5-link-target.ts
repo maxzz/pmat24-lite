@@ -1,6 +1,6 @@
-import path from 'path';
-import { promisify } from 'util';
-import { exec } from 'child_process';
+import path from "path";
+import { promisify } from "util";
+import { exec } from "child_process";
 
 // Promisify the exec function to use with async/await
 const execPromise = promisify(exec);

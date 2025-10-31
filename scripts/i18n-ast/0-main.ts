@@ -1,8 +1,8 @@
-import { getConfig } from './7-get-config';
-import { type Config } from './7-types-config';
-import { type ResultOfScan } from './9-types';
-import { scanAndExtract } from './1-scan-process';
-import { createReport } from './3-reports';
+import { getConfig } from "./7-config-get";
+import { type Config } from "./7-config-types";
+import { type ResultOfScan } from "./9-types";
+import { scanAndExtract } from "./1-scan-process";
+import { createReport } from "./3-reports";
 
 function main() {
     const config: Config = getConfig();

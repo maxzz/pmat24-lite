@@ -10,6 +10,6 @@
         "forceConsistentCasingInFileNames": true,
     },
     "include": [
-        "scripts/i18n-ast/**/*.ts",
+        "scripts/i18n-ast/**/*.ts", "scripts/i18n-ast/7-config-get.ts",
     ],
 }

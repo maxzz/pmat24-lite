@@ -1,8 +1,8 @@
-import * as fs from 'fs';
-import * as path from 'path';
-import { type Config, defaultConfig } from './9-config';
-import { extractI18nStrings } from './2-scan-process';
-import { help } from './8-help';
+import * as fs from "fs";
+import * as path from "path";
+import { type Config, defaultConfig } from "./9-config";
+import { extractI18nStrings } from "./2-scan-process";
+import { help } from "./8-help";
 
 const CONFIG_FILE_NAME = 'extract-i18n-config.json';
 

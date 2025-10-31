@@ -8,7 +8,7 @@ import tailwind_shadcn_feedback from "./tailwind/tailwind-plugin-shadcn-feedback
 import tailwind_shadcn_mani from "./tailwind/tailwind-plugin-shadcn-mani/index.mts";
 
 import tailwind_container_queries from "@tailwindcss/container-queries";
-import tailwind_forms from '@tailwindcss/forms';
+import tailwind_forms from "@tailwindcss/forms";
 import tailwind_scrollbar from "tailwind-scrollbar";
 
 import tm_debug_screens from "tailwindcss-plugin-debug-screens-tw4";

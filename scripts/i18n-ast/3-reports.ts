@@ -1,8 +1,8 @@
-import * as fs from 'fs';
-import * as path from 'path';
-import pc from 'picocolors';
-import { Config, defaultConfig } from './7-types-config';
-import { type ResultOfScan } from './9-types';
+import * as fs from "fs";
+import * as path from "path";
+import pc from "picocolors";
+import { Config, defaultConfig } from "./7-config-types";
+import { type ResultOfScan } from "./9-types";
 
 /**
  * Process extraction results and create a report.

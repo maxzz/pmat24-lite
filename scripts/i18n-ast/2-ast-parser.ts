@@ -1,5 +1,5 @@
-import * as ts from 'typescript';
-import { type Config } from './7-types-config';
+import * as ts from "typescript";
+import { type Config } from "./7-config-types";
 
 /**
  * Extract localizable strings from TypeScript/JavaScript source code using AST.
