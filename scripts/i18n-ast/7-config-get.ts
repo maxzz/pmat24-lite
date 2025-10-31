@@ -1,9 +1,9 @@
-import * as fs from "fs";
-import * as path from "path";
-import JSON5 from "json5";
-import pc from "picocolors";
-import { help } from "./8-help";
-import { type Config, DEFAULT_CONFIG_FILE_NAME, defaultConfig } from "./7-config-types";
+import * as fs from 'fs';
+import * as path from 'path';
+import JSON5 from 'json5';
+import pc from 'picocolors';
+import { help } from './8-help';
+import { type Config, DEFAULT_CONFIG_FILE_NAME, defaultConfig } from './7-config-types';
 
 export function getConfig(): Config {
     const args = process.argv.slice(2);
@@ -50,9 +50,18 @@ export function getConfig(): Config {
         else if (key === 'classname-functions') config.classNameFunctions = value.split(',').map(f => f.trim());
         else if (key === 'exclude-function-prefixes') config.excludeFunctionPrefixes = value.split(',').map(f => f.trim());
         else if (key === 'exclude-attribute-suffix-pattern') config.excludeAttributeSuffixPattern = value;
+        else if (key === 'mode' || key === 'm') {
+            if (value === 'scan' || value === 'translated') {
+                config.mode = value;
+            } else {
+                console.error(`❌ Invalid mode: "${value}". Valid values are: "scan", "translated"`);
+                process.exit(1);
+            }
+        }
     }
 
     if (verbose) {
+        console.log(`   Mode: ${config.mode || defaultConfig.mode}`);
         console.log(`   Source: ${config.srcDir || defaultConfig.srcDir}`);
         console.log(`   Output: ${config.outputFile || defaultConfig.outputFile}`);
         if (config.excludeFiles && config.excludeFiles.length > 0) {
