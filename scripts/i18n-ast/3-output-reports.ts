@@ -12,11 +12,11 @@ import { type ResultOfScan } from "./9-types";
  * @param config - Optional configuration for output path
  */
 export function createReport(scanResult: ResultOfScan, config: Partial<Config>): void {
-    // 1. Write report file
+    // 1. Report file path
     const outputPath = path.resolve(config?.outputFile || defaultConfig.outputFile);
 
+    // 2. Display summary with all statistics
     if (config.mode === 'scan') {
-        // 2. Display summary with all statistics
         const totalStrings = countSubKeys(scanResult.strings);
 
         console.log(
@@ -33,7 +33,6 @@ export function createReport(scanResult: ResultOfScan, config: Partial<Config>):
         }
     }
     else if (config.mode === 'translated') {
-        // 2. Display summary with all statistics
         const totalStrings = countKeys(scanResult.translatedStrings);
 
         console.log(
