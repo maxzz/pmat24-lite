@@ -17,7 +17,7 @@ export function createReport(scanResult: ResultOfScan, config: Partial<Config>):
 
     if (config.mode === 'scan') {
         // 2. Display summary with all statistics
-        const totalStrings = Object.values(scanResult.strings).reduce((sum, obj) => sum + Object.keys(obj).length, 0);
+        const totalStrings = countSubKeys(scanResult.strings);
 
         console.log(
             `${totalStrings ? '✅' : '⚠️'} Extracted ${pc.cyan(pc.bold(totalStrings))} ` +
@@ -54,4 +54,8 @@ export function createReport(scanResult: ResultOfScan, config: Partial<Config>):
 function writeReportFile(cnt: string, outputPath: string): void {
     fs.mkdirSync(path.dirname(outputPath), { recursive: true });
     fs.writeFileSync(outputPath, cnt, 'utf-8');
+}
+
+function countSubKeys(obj: Record<string, Record<string, string>>): number {
+    return Object.values(obj).reduce((acc, cur) => acc + Object.keys(cur).length, 0);
 }
