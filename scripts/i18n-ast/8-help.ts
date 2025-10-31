@@ -36,6 +36,7 @@ ${pc.bold(pc.yellow('OPTIONS:'))}
   ${pc.cyan('--config')} ${pc.gray('<path>')}, ${pc.cyan('-c')}                        Custom configuration file path (default: ${pc.dim('config-i18n-ast.json5')})
   ${pc.cyan('--src')} ${pc.gray('<path>')}                               Source directory to scan (default: ${pc.dim('./src')})
   ${pc.cyan('--output')} ${pc.gray('<path>')}                            Output JSON file path (default: ${pc.dim('./scripts/i18n-ast-strings.json')})
+  ${pc.cyan('--mode')} ${pc.gray('<mode>')}, ${pc.cyan('-m')}                          Operation mode: ${pc.green('scan')} or ${pc.green('translated')} (default: ${pc.dim('scan')})
   ${pc.cyan('--min-length')} ${pc.gray('<number>')}                      Minimum string length to extract (default: ${pc.dim('10')})
   ${pc.cyan('--exclude')} ${pc.gray('<files>')}                          Comma-separated list of filenames to exclude
   ${pc.cyan('--exclude-paths')} ${pc.gray('<paths>')}                    Comma-separated list of paths to exclude
@@ -52,8 +53,12 @@ ${pc.bold(pc.yellow('OPTIONS:'))}
 function printExamples(): string {
     return `
 ${pc.bold(pc.yellow('EXAMPLES:'))}
-  ${pc.dim('# Run with defaults')}
+  ${pc.dim('# Run with defaults (scan for untranslated strings)')}
   ${pc.green('npx tsx scripts/i18n-ast/0-main.ts')}
+
+  ${pc.dim('# Collect already-translated strings from t() and dt() calls')}
+  ${pc.green('npx tsx scripts/i18n-ast/0-main.ts')} ${pc.cyan('--mode')} translated
+  ${pc.green('npx tsx scripts/i18n-ast/0-main.ts')} ${pc.cyan('-m')} translated
 
   ${pc.dim('# Use custom config file (JSON5 or JSON)')}
   ${pc.green('npx tsx scripts/i18n-ast/0-main.ts')} ${pc.cyan('--config')} my-config.json5
@@ -93,6 +98,9 @@ ${pc.bold(pc.yellow('CONFIGURATION FILE:'))}
     
     ${pc.gray('// Output file for extracted strings')}
     ${pc.cyan('outputFile')}: ${pc.green('"./scripts/i18n-ast-strings.json"')},
+    
+    ${pc.gray('// Mode: "scan" extracts strings to translate, "translated" collects already translated strings')}
+    ${pc.cyan('mode')}: ${pc.green('"scan"')},
     
     ${pc.cyan('minStringLength')}: ${pc.yellow('10')},
     ${pc.cyan('extensions')}: ${pc.gray('[".ts", ".tsx", ".js", ".jsx"]')},

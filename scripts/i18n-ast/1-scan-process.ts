@@ -1,5 +1,6 @@
 import * as fs from "fs";
 import * as path from "path";
+import * as ts from "typescript";
 import { type Config } from "./7-config-types";
 import { extractStringsFromAST } from "./2-ast-parser";
 import { type LocalizationStrings, type ResultOfScan } from "./9-types";
@@ -88,9 +89,7 @@ export function scanAndExtract(config: Config): ResultOfScan {
                 try {
                     const sourceCode = fs.readFileSync(fullPath, 'utf-8');
 
-                    const mod: "scan" | "translated" = "scan"; // TODO: implement as CLI option
-
-                    if (mod === "scan") {
+                    if (config.mode === "scan") {
                         const strings = extractStringsFromAST(fullPath, sourceCode, config);
 
                         if (Object.keys(strings).length > 0) {
@@ -101,10 +100,15 @@ export function scanAndExtract(config: Config): ResultOfScan {
                             rv.strings[fileUrl] = strings;
                         }
                     }
-                    else if (mod === "translated") {
-                        const strings = collectTranslatedStrings(config);
+                    else if (config.mode === "translated") {
+                        const strings = collectTranslatedStrings(fullPath, sourceCode, config);
+                        
                         if (Object.keys(strings).length > 0) {
-                            // TODO: implement
+                            rv.totalOfFilesWithStrings++;
+                            // Create file:// URL with absolute path
+                            const absolutePath = path.resolve(fullPath).replace(/\\/g, '/');
+                            const fileUrl = 'file:///' + absolutePath;
+                            rv.translatedStrings[fileUrl] = strings;
                         }
                     }
                 } catch (error) {
@@ -119,8 +123,49 @@ export function scanAndExtract(config: Config): ResultOfScan {
     return rv;
 }
 
-function collectTranslatedStrings(config: Partial<Config> = {}): LocalizationStrings {
-    // TODO: implement
-    const rv: LocalizationStrings = {};
-    return rv;
+/**
+ * Collect already-translated strings from t() and dt() function calls.
+ * This function parses the code and extracts string arguments from:
+ * - t(key) or t('literal string')
+ * - dt(key) or dt('literal string')
+ */
+function collectTranslatedStrings(filePath: string, sourceCode: string, config: Config): Record<string, string> {
+    const strings: Record<string, string> = {};
+
+    const sourceFile = ts.createSourceFile(
+        filePath,
+        sourceCode,
+        ts.ScriptTarget.Latest,
+        true,
+        filePath.endsWith('.tsx') || filePath.endsWith('.jsx') ? ts.ScriptKind.TSX : ts.ScriptKind.TS
+    );
+
+    function visit(node: ts.Node) {
+        // Look for call expressions like t('string') or dt('string')
+        if (ts.isCallExpression(node)) {
+            const { expression, arguments: args } = node;
+
+            // Check if it's a call to t() or dt()
+            if (ts.isIdentifier(expression) && (expression.text === 't' || expression.text === 'dt')) {
+                // Extract the first argument if it's a string literal
+                if (args.length > 0 && (ts.isStringLiteral(args[0]) || ts.isNoSubstitutionTemplateLiteral(args[0]))) {
+                    const text = args[0].text;
+                    if (text.length >= config.minStringLength) {
+                        const key = generateKey(text);
+                        strings[key] = text;
+                    }
+                }
+            }
+        }
+
+        ts.forEachChild(node, visit);
+    }
+
+    visit(sourceFile);
+    return strings;
+}
+
+function generateKey(text: string): string {
+    // Simple key generation - use the first 50 chars, normalized
+    return text.substring(0, 50).replace(/\s+/g, ' ').trim();
 }

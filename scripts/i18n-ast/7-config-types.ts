@@ -10,6 +10,7 @@ export interface Config {
     classNameFunctions: string[];               // ClassName function names
     excludeFunctionPrefixes: string[];          // Function name prefixes to exclude
     excludeAttributeSuffixPattern: string;      // Regex pattern for JSX attribute suffixes to exclude
+    mode: 'scan' | 'translated';                // Mode: 'scan' extracts strings to translate, 'translated' collects already translated strings
     verbose: boolean;
 }
 
@@ -25,6 +26,7 @@ export const defaultConfig: Config = {
     classNameFunctions: ['classNames', 'cn'],
     excludeFunctionPrefixes: ['print', 'trace'],
     excludeAttributeSuffixPattern: 'Classes$',
+    mode: 'scan',
     verbose: false,
 };
 
