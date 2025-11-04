@@ -36,6 +36,8 @@
             "webRoot": "${workspaceFolder}/src/renderer",
             "runtimeArgs": ["--preserve-symlinks"],
             "timeout": 60000,
+            "userDataDir": "C:/x/settings/tm-chrome-debug-profile/.profile",
+            //"userDataDir": "c:/Users/maxzz/AppData/Roaming/Code/User/workspaceStorage/2bd09df41c757ca0ea1d0935b57d0cc7/ms-vscode.js-debug/.profile",
         },
 
         {
