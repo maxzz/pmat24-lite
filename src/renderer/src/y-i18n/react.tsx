@@ -10,12 +10,7 @@ const TranslationContext = createContext<
     | null
 >(null);
 
-export function TranslationProvider({
-    defaultLocale,
-    translations,
-    fallbackLocale,
-    children,
-}: {
+export function TranslationProvider({ defaultLocale, translations, fallbackLocale, children, }: {
     defaultLocale?: string;
     translations: Record<Lowercase<string>, LanguageMessages>;
     fallbackLocale: string | string[];
@@ -27,13 +22,11 @@ export function TranslationProvider({
             return defaultLocale;
         }
     );
-    const initRes = useMemo(() => {
-        return initI18n({
-            locale,
-            fallbackLocale,
-            translations,
-        });
-    }, [locale, fallbackLocale, translations]);
+    const initRes = useMemo(
+        () => {
+            return initI18n({ locale, fallbackLocale, translations, });
+        }, [locale, fallbackLocale, translations]
+    );
 
     return (
         <TranslationContext value={{ ...initRes, setLocale, locale, userLocale: navigator.language }}>
@@ -54,17 +47,14 @@ export function LocaleChooser({ locales }: { locales: string[]; }) {
     const { setLocale, locale: selectedLocale, userLocale } = useTranslation();
 
     return (
-        <select
-            onChange={e => {
-                setLocale(e.target.value);
-            }}
-            value={selectedLocale.toLowerCase()}
-        >
-            {[...new Set([userLocale, ...locales])].map(locale => (
-                <option key={locale} value={locale.toLowerCase()}>
-                    {locale}
-                </option>
-            ))}
+        <select value={selectedLocale.toLowerCase()} onChange={e => { setLocale(e.target.value); }}>
+            {[...new Set([userLocale, ...locales])].map(
+                (locale) => (
+                    <option value={locale.toLowerCase()} key={locale}>
+                        {locale}
+                    </option>
+                )
+            )}
         </select>
     );
 }
