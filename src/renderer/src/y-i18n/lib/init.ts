@@ -65,7 +65,7 @@ type NormalizedTranslationAtKey<T> = T extends ReturnType<typeof defineTranslati
 
 type NormalizedTranslationAtKeyWithParams<Key extends string> = NormalizedTranslationAtKey<
     TranslationAtKeyWithParams<RegisteredTranslations, Key>
-    //& (string | ReturnType<typeof defineTranslation>)
+    & (string | ReturnType<typeof defineTranslation>)
 >;
 
 type Params<S extends DotPathsFor> = ExtractParamArgs<
