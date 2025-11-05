@@ -1,14 +1,7 @@
 import { createContext, useContext, useMemo, useState, type ReactNode, } from "react";
 import { initI18n, type LanguageMessages } from "./lib";
 
-const TranslationContext = createContext<
-    | (ReturnType<typeof initI18n> & {
-        setLocale: (locale: string) => void;
-        locale: string;
-        userLocale: string;
-    })
-    | null
->(null);
+const TranslationContext = createContext<(ReturnType<typeof initI18n> & { setLocale: (locale: string) => void; locale: string; userLocale: string; }) | null>(null);
 
 export function TranslationProvider({ defaultLocale, translations, fallbackLocale, children, }: {
     defaultLocale?: string;

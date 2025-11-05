@@ -7,7 +7,7 @@ import "./assets/css/index.css";
 import esES from "./y-i18n/translations/es-ES";
 import enUS from "./y-i18n/translations/en-US";
 import en from "./y-i18n/translations/en";
-import { TranslationProvider } from "./y-i18n/react";
+import { TranslationProvider } from "./y-i18n/demo-react";
 import type translations from "./y-i18n/translations/en";
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(

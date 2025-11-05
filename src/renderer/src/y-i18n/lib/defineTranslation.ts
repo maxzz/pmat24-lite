@@ -1,7 +1,5 @@
-type ParseOptionType<
-    ParamType extends string,
-    ParamName extends string
-> = ParamType extends "number"
+type ParseOptionType<ParamType extends string, ParamName extends string> =
+    ParamType extends "number"
     ? { number?: { [K in ParamName]?: Intl.NumberFormatOptions }; }
     : ParamType extends "plural"
     ? {
@@ -45,9 +43,6 @@ export type ParamOptions = {
     list?: Record<string, Intl.ListFormatOptions>;
 };
 
-export function defineTranslation<
-    S extends string,
-    O extends ExtractParamOptions<S>
->(string: S, options: O): [S, O] {
+export function defineTranslation<S extends string, O extends ExtractParamOptions<S>>(string: S, options: O): [S, O] {
     return [string, options];
 }

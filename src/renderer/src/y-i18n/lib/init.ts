@@ -1,4 +1,4 @@
-import type { defineTranslation, ParamOptions } from "./defineTranslation";
+import { type defineTranslation, type ParamOptions } from "./defineTranslation";
 import type { Register } from "./my-translations";
 
 export type RegisteredTranslations =
@@ -63,10 +63,15 @@ type NormalizedTranslationAtKey<T> = T extends ReturnType<typeof defineTranslati
     ? T
     : [T, ReturnType<typeof defineTranslation>[1]];
 
-type NormalizedTranslationAtKeyWithParams<Key extends string> = NormalizedTranslationAtKey<
-    TranslationAtKeyWithParams<RegisteredTranslations, Key>
-    & (string | ReturnType<typeof defineTranslation>)
->;
+type NormalizedTranslationAtKeyWithParams<Key extends string> =
+    NormalizedTranslationAtKey<
+        TranslationAtKeyWithParams<RegisteredTranslations, Key>
+    >;
+
+// type NormalizedTranslationAtKeyWithParams<Key extends string> = NormalizedTranslationAtKey<
+//     TranslationAtKeyWithParams<RegisteredTranslations, Key>
+//     //& (string | ReturnType<typeof defineTranslation>)
+// >;
 
 type Params<S extends DotPathsFor> = ExtractParamArgs<
     NormalizedTranslationAtKeyWithParams<S>[0],
