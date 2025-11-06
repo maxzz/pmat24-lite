@@ -1,7 +1,7 @@
 import { type HTMLAttributes } from "react";
 import { classNames } from "@/utils";
 
-export function IconRadixChevronUp({ className, title, ...rest }: HTMLAttributes<SVGSVGElement>) {
+export function IconRadix_ChevronUp({ className, title, ...rest }: HTMLAttributes<SVGSVGElement>) {
     return (
         <svg className={classNames("fill-current", className)} viewBox="0 0 15 15" {...rest}>
             {title && <title>{title}</title>}

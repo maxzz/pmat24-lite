@@ -21,3 +21,4 @@ export * from "./editor-manual-fields";
 export * from "./editor-swap-popup";
 export * from "./logos";
 export * from "./lucid-react";
+export * from "./radix-icons";

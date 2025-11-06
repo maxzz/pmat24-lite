@@ -42,6 +42,8 @@ p add -D @radix-ui/react-accordion @radix-ui/react-icons @radix-ui/react-slot cl
 sizable-panels @radix-ui/react-scroll-area @radix-ui/react-select sonner @radix-ui/react-switch @radix-ui/react-tooltip
 ```
 
+<!-- https://github.com/radix-ui/icons/blob/main/packages/radix-icons/icons/dot-filled.svg -->
+
 ## asar archive
 
 [G: how to view node js asar](https://stackoverflow.com/questions/38523617/how-to-unpack-an-asar-file)
