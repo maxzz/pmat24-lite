@@ -1,7 +1,7 @@
 //"use client"; // rollup does not like this
 import { ComponentPropsWithoutRef, ElementRef, HTMLAttributes, forwardRef } from "react";
 import * as Prim from "@radix-ui/react-dialog";
-import { Cross2Icon } from "@radix-ui/react-icons";
+import { IconRadix_Cross2 } from "@/ui/icons/normal";
 import { cn } from "@/utils";
 
 const Dialog = Prim.Root;
@@ -112,7 +112,7 @@ disabled:pointer-events-none";
 function DialogCloseButton({ className, ...rest }: HTMLAttributes<HTMLButtonElement>) {
     return (
         <Prim.Close className={cn(dialogCloseButtonClasses, className)} {...rest}>
-            <Cross2Icon className="size-4" />
+            <IconRadix_Cross2 className="size-4" />
             <span className="sr-only">Close</span>
         </Prim.Close>
     );

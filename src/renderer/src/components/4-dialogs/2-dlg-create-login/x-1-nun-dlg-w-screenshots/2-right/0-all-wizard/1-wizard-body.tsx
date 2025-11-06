@@ -3,7 +3,7 @@ import { useSetAtom } from "jotai";
 import { doDissmissNextToastsAtom } from "@/utils";
 import * as D from "@/ui/shadcn/dialog";
 import { Button } from "@/ui";
-import { Cross2Icon } from "@radix-ui/react-icons";
+import { IconRadix_Cross2 } from "@/ui/icons/normal";
 import { hasMain } from "@/xternal-to-main";
 import { doOpenCreateManiAtom } from "@/store/4-dialogs-atoms";
 import { LeftPanelProgress } from "../../8-create-ui";
@@ -36,7 +36,7 @@ export function WizardBody() {
                     className="absolute py-4 right-2 -top-0.5 hover:text-white hover:bg-red-500" variant="ghost" size="xs" tabIndex={-1}
                     onClick={() => doOpenCreateMani(false)}
                 >
-                    <Cross2Icon className="size-4" />
+                    <IconRadix_Cross2 className="size-4" />
                 </Button>
             </D.DialogHeader>
 

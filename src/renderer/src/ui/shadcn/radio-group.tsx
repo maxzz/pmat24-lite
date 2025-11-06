@@ -1,7 +1,7 @@
 //"use client"; // rollup does not like this
 import { ComponentPropsWithoutRef, ElementRef, forwardRef } from "react";
 import * as Prim from "@radix-ui/react-radio-group";
-import { CheckIcon } from "@radix-ui/react-icons";
+import { IconRadix_Check } from "@/ui/icons/normal";
 import { cn } from "@/utils";
 
 const RadioGroup = forwardRef<ElementRef<typeof Prim.Root>, ComponentPropsWithoutRef<typeof Prim.Root>>(
@@ -38,7 +38,7 @@ const RadioGroupItem = forwardRef<ElementRef<typeof Prim.Item>, ComponentPropsWi
             <Prim.Item ref={ref} className={cn(RadioGroupItemClasses, className)} {...rest}>
 
                 <Prim.Indicator className="flex items-center justify-center">
-                    <CheckIcon className="h-3.5 w-3.5 fill-primary" />
+                    <IconRadix_Check className="size-3.5 fill-primary" />
                 </Prim.Indicator>
 
             </Prim.Item>

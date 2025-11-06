@@ -1,6 +1,6 @@
 import { ComponentPropsWithoutRef, ElementRef, forwardRef } from "react";
 import * as Prim from "@radix-ui/react-checkbox";
-import { CheckIcon } from "@radix-ui/react-icons";
+import { IconRadix_Check } from "@/ui/icons/normal";
 import { cn } from "@/utils";
 
 const CheckboxClasses = "\
@@ -25,7 +25,7 @@ const Checkbox = forwardRef<ElementRef<typeof Prim.Root>, ComponentPropsWithoutR
     ({ className, ...rest }, ref) => (
         <Prim.Root ref={ref} className={cn(CheckboxClasses, className)} {...rest}>
             <Prim.Indicator className={cn("flex items-center justify-center text-current")}>
-                <CheckIcon className="h-4 w-4" />
+                <IconRadix_Check className="size-4" />
             </Prim.Indicator>
         </Prim.Root>
     )

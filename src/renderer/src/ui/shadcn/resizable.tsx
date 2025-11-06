@@ -1,6 +1,6 @@
 import { ComponentProps, HTMLAttributes, RefObject } from "react";
 import * as R from "react-resizable-panels";
-import { DragHandleDots2Icon } from "@radix-ui/react-icons";
+import { IconRadix_DragHandleDots2 } from "@/ui/icons/normal";
 import { classNames, cn } from "@/utils";
 
 /**
@@ -74,8 +74,8 @@ rounded-sm";
 export function ResizableHandleToys({ className, ...rest }: HTMLAttributes<HTMLDivElement>) {
     return (
         <div className={classNames("w-3 h-4 rounded-sm border bg-border flex items-center justify-center z-10", className)} {...rest}>
-            <DragHandleDots2Icon className="h-2.5 w-2.5" />
+            <IconRadix_DragHandleDots2 className="size-2.5" />
         </div>
     );
 }
-//https://github.com/radix-ui/icons/blob/main/packages/radix-icons/icons/drag-handle-dots-2.svg DragHandleDots2Icon
+//https://github.com/radix-ui/icons/blob/main/packages/radix-icons/icons/drag-handle-dots-2.svg IconRadix_DragHandleDots2

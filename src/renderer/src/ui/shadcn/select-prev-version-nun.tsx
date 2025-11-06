@@ -1,7 +1,7 @@
 //"use client"; // rollup does not like this
 import { ComponentPropsWithoutRef, ElementRef, forwardRef } from "react";
 import * as Prim from "@radix-ui/react-select";
-import { CaretSortIcon, CheckIcon } from "@radix-ui/react-icons";
+import { IconRadix_CaretSort, IconRadix_Check } from "@/ui/icons/normal";
 import { cn } from "@/utils";
 
 const Select = Prim.Root;
@@ -34,7 +34,7 @@ const SelectTrigger = forwardRef<ElementRef<typeof Prim.Trigger>, ComponentProps
         <Prim.Trigger ref={ref} className={cn(selectTriggerClasses, className)} {...rest}>
             {children}
             <Prim.Icon asChild>
-                <CaretSortIcon className="h-4 w-4 opacity-50" />
+                <IconRadix_CaretSort className="h-4 w-4 opacity-50" />
             </Prim.Icon>
         </Prim.Trigger>
     )
@@ -93,7 +93,7 @@ SelectContent.displayName = Prim.Content.displayName;
 
 //
 
-import { ChevronDownIcon, ChevronUpIcon } from "@radix-ui/react-icons";
+import { IconRadix_ChevronDown, IconRadix_ChevronUp } from "@/ui/icons/normal";
 
 const popupColorClasses = "\
 bg-primary-100 dark:bg-primary-900 \
@@ -112,7 +112,7 @@ export const SelectContentWBtns = forwardRef<ElementRef<typeof Prim.Content>, Co
             >
 
                 <Prim.ScrollUpButton className={scrollButtonClasses}>
-                    <ChevronUpIcon className="size-3" />
+                    <IconRadix_ChevronUp className="size-3" />
                 </Prim.ScrollUpButton>
 
                 <Prim.Viewport className={cn("p-1", position === "popper" && selectContentViewportPopperClasses)}>
@@ -120,7 +120,7 @@ export const SelectContentWBtns = forwardRef<ElementRef<typeof Prim.Content>, Co
                 </Prim.Viewport>
 
                 <Prim.ScrollDownButton className={scrollButtonClasses}>
-                    <ChevronDownIcon className="size-3" />
+                    <IconRadix_ChevronDown className="size-3" />
                 </Prim.ScrollDownButton>
 
             </Prim.Content>
@@ -173,7 +173,7 @@ const SelectItem = forwardRef<ElementRef<typeof Prim.Item>, SelectItemProps>(
             <Prim.Item ref={ref} className={cn(selectItemClasses, itemClasses, className)} {...rest} >
                 <span className={cn("absolute size-3.5 flex items-center justify-center", indiClasses)}>
                     <Prim.ItemIndicator>
-                        <CheckIcon className="size-4" />
+                        <IconRadix_Check className="size-4" />
                     </Prim.ItemIndicator>
                 </span>
                 <Prim.ItemText>{children}</Prim.ItemText>

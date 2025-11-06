@@ -2,7 +2,7 @@ import { useAtomValue } from "jotai";
 import { classNames, useDissmissNextToasts } from "@/utils";
 import * as D from "@/ui/shadcn/dialog";
 import { Button } from "@/ui";
-import { Cross2Icon } from "@radix-ui/react-icons";
+import { IconRadix_Cross2 } from "@/ui/icons/normal";
 import { type NewManiDlgData, dataToOpen_NewManiDlgAtom } from "@/store/4-dialogs-atoms";
 import { NewManiContentEditorSelector } from "../../2-mani-content-editor";
 import { SawPageHeader } from "./2-saw-page-header";
@@ -46,7 +46,7 @@ function DialogSawBody({ onCloseDlg }: { onCloseDlg: (ok: boolean) => void; }) {
                 </D.DialogTitle>
 
                 <Button className={closeButtonClasses} variant="ghost" size="xs" tabIndex={-1} onClick={() => onCloseDlg(false)}>
-                    <Cross2Icon className="size-4" />
+                    <IconRadix_Cross2 className="size-4" />
                 </Button>
             </D.DialogHeader>
 

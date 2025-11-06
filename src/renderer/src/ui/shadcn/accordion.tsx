@@ -1,6 +1,6 @@
 import { ComponentPropsWithoutRef, ElementRef, forwardRef } from "react";
 import * as Prim from "@radix-ui/react-accordion";
-import { ChevronDownIcon } from "@radix-ui/react-icons";
+import { IconRadix_ChevronDown } from "@/ui/icons/normal";
 import { cn } from "@/utils";
 
 const Accordion = Prim.Root;
@@ -32,7 +32,7 @@ const leftDownClasses = "[&>svg]:-rotate-90 [&[data-state=open]>svg]:rotate-0";
  */
 const AccordionTrigger = forwardRef<ElementRef<typeof Prim.Trigger>, AccordionTriggerProps>(
     ({ className, children, iconFirst, leftDown, ...rest }, ref) => {
-        const Icon = <ChevronDownIcon className="shrink-0 size-4 text-muted-foreground transition-transform duration-200" />;
+        const Icon = <IconRadix_ChevronDown className="shrink-0 size-4 text-muted-foreground transition-transform duration-200" />;
         return (
             <Prim.Header className="flex">
                 <Prim.Trigger

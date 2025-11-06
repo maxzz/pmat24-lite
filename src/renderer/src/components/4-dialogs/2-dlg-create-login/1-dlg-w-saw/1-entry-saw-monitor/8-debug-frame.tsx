@@ -2,7 +2,7 @@ import { type ComponentPropsWithoutRef } from "react";
 import { useSetAtom } from "jotai";
 import { classNames } from "@/utils";
 import { Button } from "@/ui";
-import { Cross2Icon } from "@radix-ui/react-icons";
+import { IconRadix_Cross2 } from "@/ui/icons/normal";
 import { hasMain } from "@/xternal-to-main";
 import { doMoveToSecondDlgAtom } from "@/store/4-dialogs-atoms";
 import { DebugButtonsForSaw } from "../../8-test-buttons";
@@ -31,7 +31,7 @@ export function DebugFrame({ className, children, ...rest }: ComponentPropsWitho
                         className="absolute right-2 top-1/2 -translate-y-1/2 hover:text-white hover:bg-red-500" variant="ghost" size="xs" tabIndex={-1}
                         onClick={() => doMoveToSecondDlg({ cancel: true })}
                     >
-                        <Cross2Icon className="size-4" />
+                        <IconRadix_Cross2 className="size-4" />
                     </Button>
                 </div>
 

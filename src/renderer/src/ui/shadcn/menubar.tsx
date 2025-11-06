@@ -1,7 +1,7 @@
 //"use client"; // rollup does not like this
 import { ComponentPropsWithoutRef, ElementRef, HTMLAttributes, forwardRef } from "react";
 import * as Prim from "@radix-ui/react-menubar";
-import { CheckIcon, ChevronRightIcon, DotFilledIcon, } from "@radix-ui/react-icons";
+import { IconRadix_Check, IconRadix_ChevronRight, IconRadix_DotFilled } from "@/ui/icons/normal";
 import { cn } from "@/utils";
 
 const MenubarMenu = Prim.Menu;
@@ -55,7 +55,7 @@ const MenubarSubTrigger = forwardRef<ElementRef<typeof Prim.SubTrigger>, Compone
     ({ className, inset, children, ...rest }, ref) => (
         <Prim.SubTrigger ref={ref} className={cn(MenubarSubTriggerClasses, inset && "pl-8", className)} {...rest}>
             {children}
-            <ChevronRightIcon className="ml-auto h-4 w-4" />
+            <IconRadix_ChevronRight className="ml-auto h-4 w-4" />
         </Prim.SubTrigger>
     )
 );
@@ -159,7 +159,7 @@ const MenubarCheckboxItem = forwardRef<ElementRef<typeof Prim.CheckboxItem>, Com
         <Prim.CheckboxItem ref={ref} className={cn(MenubarCheckboxRadioItemClasses, className)} checked={checked} {...rest}>
             <span className="absolute left-2 flex h-3.5 w-3.5 items-center justify-center">
                 <Prim.ItemIndicator>
-                    <CheckIcon className="h-4 w-4" />
+                    <IconRadix_Check className="h-4 w-4" />
                 </Prim.ItemIndicator>
             </span>
             {children}
@@ -173,7 +173,7 @@ const MenubarRadioItem = forwardRef<ElementRef<typeof Prim.RadioItem>, Component
         <Prim.RadioItem ref={ref} className={cn(MenubarCheckboxRadioItemClasses, className)} {...rest}>
             <span className="absolute left-2 flex h-3.5 w-3.5 items-center justify-center">
                 <Prim.ItemIndicator>
-                    <DotFilledIcon className="h-4 w-4 fill-current" />
+                    <IconRadix_DotFilled className="h-4 w-4 fill-current" />
                 </Prim.ItemIndicator>
             </span>
             {children}

@@ -1,7 +1,7 @@
 //"use client";
 import { ComponentPropsWithoutRef, ElementRef, forwardRef } from "react";
 import * as Prim from "@radix-ui/react-select";
-import { CaretSortIcon, CheckIcon, ChevronDownIcon, ChevronUpIcon, } from "@radix-ui/react-icons";
+import { IconRadix_CaretSort, IconRadix_Check, IconRadix_ChevronDown, IconRadix_ChevronUp, } from "@/ui/icons/normal";
 import { cn } from "@/utils";
 
 const Select = Prim.Root;
@@ -37,7 +37,7 @@ const SelectTrigger = forwardRef<ElementRef<typeof Prim.Trigger>, ComponentProps
         <Prim.Trigger ref={ref} className={cn(selectTriggerClasses, className)} {...rest}>
             {children}
             <Prim.Icon asChild>
-                <CaretSortIcon className="flex-none h-4 w-4 opacity-50" />
+                <IconRadix_CaretSort className="flex-none h-4 w-4 opacity-50" />
             </Prim.Icon>
         </Prim.Trigger>
     )
@@ -49,7 +49,7 @@ const SelectScrollButtonClasses = "py-1 cursor-default flex items-center justify
 const SelectScrollUpButton = forwardRef<ElementRef<typeof Prim.ScrollUpButton>, ComponentPropsWithoutRef<typeof Prim.ScrollUpButton>>(
     ({ className, ...rest }, ref) => (
         <Prim.ScrollUpButton ref={ref} className={cn(SelectScrollButtonClasses, className)} {...rest}>
-            <ChevronUpIcon />
+            <IconRadix_ChevronUp className="size-[15px]" />
         </Prim.ScrollUpButton>
     )
 );
@@ -58,7 +58,7 @@ SelectScrollUpButton.displayName = Prim.ScrollUpButton.displayName;
 const SelectScrollDownButton = forwardRef<ElementRef<typeof Prim.ScrollDownButton>, ComponentPropsWithoutRef<typeof Prim.ScrollDownButton>>(
     ({ className, ...rest }, ref) => (
         <Prim.ScrollDownButton ref={ref} className={cn(SelectScrollButtonClasses, className)} {...rest}>
-            <ChevronDownIcon />
+            <IconRadix_ChevronDown className="size-[15px]" />
         </Prim.ScrollDownButton>
     )
 );
@@ -168,7 +168,7 @@ const SelectItem = forwardRef<ElementRef<typeof Prim.Item>, SelectItemProps>(
             >
                 <span className={cn("absolute right-2 flex h-3.5 w-3.5 items-center justify-center", indiClasses)}>
                     <Prim.ItemIndicator>
-                        <CheckIcon className="h-4 w-4" />
+                        <IconRadix_Check className="h-4 w-4" />
                     </Prim.ItemIndicator>
                 </span>
                 <Prim.ItemText>{children}</Prim.ItemText>

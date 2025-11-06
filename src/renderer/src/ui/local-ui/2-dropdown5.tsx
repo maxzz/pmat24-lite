@@ -1,7 +1,7 @@
 import { type HTMLAttributes, type ReactNode } from "react";
 import * as Select from "@radix-ui/react-select";
 import { SymbolChevronDown } from "@ui/icons";
-import { CheckIcon } from "@radix-ui/react-icons";
+import { IconRadix_Check } from "@/ui/icons/normal";
 import { classNames } from "@/utils";
 import { inputFocusClasses, inputRingClasses } from "@/ui";
 
@@ -79,7 +79,7 @@ export function Dropdown5({ items, valueAsLabel, value, onValueChange, className
                                         <Select.ItemText>{label}</Select.ItemText>
 
                                         <Select.ItemIndicator className="absolute left-2 inline-flex items-center">
-                                            <CheckIcon />
+                                            <IconRadix_Check />
                                         </Select.ItemIndicator>
                                     </Select.Item>
                                 );
