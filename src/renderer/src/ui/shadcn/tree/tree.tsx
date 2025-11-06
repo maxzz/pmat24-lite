@@ -284,7 +284,7 @@ Folder.displayName = 'Tree.Folder';
 
 const FolderTrigger = forwardRef<ElementRef<typeof A.Trigger>, ComponentPropsWithoutRef<typeof A.Trigger> & Pick<TreeIconOptions, 'arrowFirst'>>(
     ({ className, children, arrowFirst, ...rest }, ref) => {
-        const ArrowIcon = <IconL_ChevronRight className={classNames("shrink-0 ml-auto h-4 w-4 text-accent-foreground/50 transition-transform duration-200", arrowFirst && "mr-2")} />;
+        const ArrowIcon = <IconL_ChevronRight className={classNames("shrink-0 ml-auto size-4 text-accent-foreground/50 transition-transform duration-200", arrowFirst && "mr-2")} />;
         return (
             <A.Header>
                 <A.Trigger

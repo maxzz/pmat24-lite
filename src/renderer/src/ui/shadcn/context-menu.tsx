@@ -27,7 +27,7 @@ const ContextMenuSubTrigger = forwardRef<ElementRef<typeof Prim.SubTrigger>, Com
     ({ className, inset, children, ...rest }, ref) => (
         <Prim.SubTrigger ref={ref} className={cn(ContextMenuSubTriggerClasses, inset && "pl-8", className)} {...rest}>
             {children}
-            <IconRadix_ChevronRight className="ml-auto h-4 w-4" />
+            <IconRadix_ChevronRight className="ml-auto size-4" />
         </Prim.SubTrigger>
     )
 );
@@ -91,7 +91,7 @@ const ContextMenuCheckboxItem = forwardRef<ElementRef<typeof Prim.CheckboxItem>,
         <Prim.CheckboxItem ref={ref} className={cn(ContextMenuCheckboxRadioItemClasses, className)} checked={checked} {...rest}>
             <span className="absolute left-2 flex h-3.5 w-3.5 items-center justify-center">
                 <Prim.ItemIndicator>
-                    <IconRadix_Check className="h-4 w-4" />
+                    <IconRadix_Check className="size-4" />
                 </Prim.ItemIndicator>
             </span>
             {children}
@@ -105,7 +105,7 @@ const ContextMenuRadioItem = forwardRef<ElementRef<typeof Prim.RadioItem>, Compo
         <Prim.RadioItem ref={ref} className={cn(ContextMenuCheckboxRadioItemClasses, className)} {...rest}>
             <span className="absolute left-2 flex h-3.5 w-3.5 items-center justify-center">
                 <Prim.ItemIndicator>
-                    <IconRadix_DotFilled className="h-4 w-4 fill-current" />
+                    <IconRadix_DotFilled className="size-4 fill-current" />
                 </Prim.ItemIndicator>
             </span>
             {children}

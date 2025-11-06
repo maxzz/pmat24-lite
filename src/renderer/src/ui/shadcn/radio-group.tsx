@@ -18,7 +18,7 @@ const RadioGroup = forwardRef<ElementRef<typeof Prim.Root>, ComponentPropsWithou
 RadioGroup.displayName = Prim.Root.displayName;
 
 const RadioGroupItemClasses = "\
-h-4 w-4 aspect-square \
+size-4 aspect-square \
 \
 text-primary \
 border-primary \

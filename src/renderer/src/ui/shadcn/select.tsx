@@ -37,7 +37,7 @@ const SelectTrigger = forwardRef<ElementRef<typeof Prim.Trigger>, ComponentProps
         <Prim.Trigger ref={ref} className={cn(selectTriggerClasses, className)} {...rest}>
             {children}
             <Prim.Icon asChild>
-                <IconRadix_CaretSort className="flex-none h-4 w-4 opacity-50" />
+                <IconRadix_CaretSort className="flex-none size-4 opacity-50" />
             </Prim.Icon>
         </Prim.Trigger>
     )
@@ -168,7 +168,7 @@ const SelectItem = forwardRef<ElementRef<typeof Prim.Item>, SelectItemProps>(
             >
                 <span className={cn("absolute right-2 flex h-3.5 w-3.5 items-center justify-center", indiClasses)}>
                     <Prim.ItemIndicator>
-                        <IconRadix_Check className="h-4 w-4" />
+                        <IconRadix_Check className="size-4" />
                     </Prim.ItemIndicator>
                 </span>
                 <Prim.ItemText>{children}</Prim.ItemText>

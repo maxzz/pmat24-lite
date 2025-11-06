@@ -34,7 +34,7 @@ const SelectTrigger = forwardRef<ElementRef<typeof Prim.Trigger>, ComponentProps
         <Prim.Trigger ref={ref} className={cn(selectTriggerClasses, className)} {...rest}>
             {children}
             <Prim.Icon asChild>
-                <IconRadix_CaretSort className="h-4 w-4 opacity-50" />
+                <IconRadix_CaretSort className="size-4 opacity-50" />
             </Prim.Icon>
         </Prim.Trigger>
     )
