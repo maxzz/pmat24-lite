@@ -32,7 +32,7 @@ function MenuItem_About() {
 
 function MenuItem_OpenOnlineHelp({label, url}: { label: string; url: string; }) {
     function OpenOlineHelpUrl() {
-        window.open(url, "_blank");
+        window.open(url, "_blank", "noopener,noreferrer");
     }
     return (<>
         <DropdownMenuItem onClick={OpenOlineHelpUrl}>
