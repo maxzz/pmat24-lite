@@ -45,7 +45,10 @@ function SawMonitorDlgBody() {
 
                     <Label className="place-self-start text-xs flex items-center gap-2 select-none cursor-pointer">
                         <Checkbox className="size-4" checked={checkboxCreateManualMode} onCheckedChange={(v) => setCheckboxCreateManualMode(!!v)} />
-                        Set up a managed logon manually
+                            {isCpassMode
+                                ? "Set up a change password screen manually"
+                                : "Set up a managed logon manually"
+                            }
                     </Label>
 
                     <ButtonContinue />
