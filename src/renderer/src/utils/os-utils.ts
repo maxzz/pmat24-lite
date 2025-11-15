@@ -1,4 +1,4 @@
-// v.08.10.25
+// v.08.10.25, v.11.15.25
 
 export function returnFileSize(number: number): string {
     if (number < 1024) {

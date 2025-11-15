@@ -49,6 +49,7 @@
         "@types/react-dom": "^19.2.3",
         "@types/wicg-file-system-access": "^2023.10.7",
         "@vitejs/plugin-react": "^5.1.1",
+        "@vitest/ui": "^4.0.9",
         "browser-fs-access": "^0.38.0",
         "class-variance-authority": "^0.7.1",
         "electron": "39.2.0",
@@ -79,13 +80,18 @@
         "upen": "^1.0.2",
         "valtio": "^2.2.0",
         "vaul": "^1.1.2",
-        "vite": "^7.2.2"
+        "vite": "^7.2.2",
+        "vitest": "^4.0.9"
     },
     "scripts": {
         "dev": "electron-vite dev",
         "web": "vite --config electron.vite.config-browser.mts",
         "can-i-use": "pnpx update-browserslist-db@latest",
         "....................................................................................1": ".......................................................",
+        "test": "vitest",
+        "test:ui": "vitest --ui",
+        "test:run": "vitest run",
+        "test:coverage": "vitest run --coverage",
         "build": "pnpm run tsc:build:all && upen && electron-vite build",
         "preview": "electron-vite preview",
         "postinstall": "electron-builder install-app-deps",
