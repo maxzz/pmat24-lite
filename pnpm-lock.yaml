@@ -10,10 +10,10 @@ importers:
     dependencies:
       '@electron-toolkit/preload':
         specifier: ^3.0.2
-        version: 3.0.2(electron@39.1.0)
+        version: 3.0.2(electron@39.2.0)
       '@electron-toolkit/utils':
         specifier: ^4.0.0
-        version: 4.0.0(electron@39.1.0)
+        version: 4.0.0(electron@39.2.0)
       electron-updater:
         specifier: ^6.6.2
         version: 6.6.2
@@ -112,8 +112,8 @@ importers:
         specifier: ^0.7.1
         version: 0.7.1
       electron:
-        specifier: 39.1.0
-        version: 39.1.0
+        specifier: 39.2.0
+        version: 39.2.0
       electron-builder:
         specifier: ^26.0.12
         version: 26.0.12(electron-builder-squirrel-windows@26.0.12)
@@ -1974,8 +1974,8 @@ packages:
     resolution: {integrity: sha512-bO3y10YikuUwUuDUQRM4KfwNkKhnpVO7IPdbsrejwN9/AABJzzTQ4GeHwyzNSrVO+tEH3/Np255a3sVZpZDjvg==}
     engines: {node: '>=8.0.0'}
 
-  electron@39.1.0:
-    resolution: {integrity: sha512-vPRbKKQUzKWZZX68fuYdz4iS/eavGcQkHOGK4ylv0YJLbBRxxUlflPRdqRGflFjwid+sja7gbNul2lArevYwrw==}
+  electron@39.2.0:
+    resolution: {integrity: sha512-iISf3nmZYOBb2WZXETNr46Ot7Ny5nq7aTAWxkPnpaFvdVnDTk9ixK4JgC9NNctKR+VS/pXP1Ryp86mudny3sDQ==}
     engines: {node: '>= 12.20.55'}
     hasBin: true
 
@@ -3559,17 +3559,17 @@ snapshots:
       ajv: 6.12.6
       ajv-keywords: 3.5.2(ajv@6.12.6)
 
-  '@electron-toolkit/preload@3.0.2(electron@39.1.0)':
+  '@electron-toolkit/preload@3.0.2(electron@39.2.0)':
     dependencies:
-      electron: 39.1.0
+      electron: 39.2.0
 
   '@electron-toolkit/tsconfig@2.0.0(@types/node@24.10.1)':
     dependencies:
       '@types/node': 24.10.1
 
-  '@electron-toolkit/utils@4.0.0(electron@39.1.0)':
+  '@electron-toolkit/utils@4.0.0(electron@39.2.0)':
     dependencies:
-      electron: 39.1.0
+      electron: 39.2.0
 
   '@electron/asar@3.2.18':
     dependencies:
@@ -5242,7 +5242,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  electron@39.1.0:
+  electron@39.2.0:
     dependencies:
       '@electron/get': 2.0.3
       '@types/node': 22.19.1
