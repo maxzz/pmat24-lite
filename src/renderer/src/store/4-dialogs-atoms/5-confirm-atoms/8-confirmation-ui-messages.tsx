@@ -58,7 +58,7 @@ export const aboutMessages: ConfirmationUi = {
  * MRU item maybe not available now, but it will be available later.
  */
 export const confirmRemoveFromMruMessages: ConfirmationUi = {
-    title: 'Folder does not exist',
+    title: 'The target folder does not exist',
     message: 'Do you want to remove this name from the most recently used list?',
     buttonOk: 'Remove',
     buttonCancel: 'Cancel',
