@@ -54,6 +54,18 @@ describe('pathWithoutFilename', () => {
     it('should handle path with spaces in folder names', () => {
         expect(pathWithoutFilename('/my folder/sub folder/file.txt')).toBe('my folder/sub folder');
     });
+
+    it('should handle UNC network path', () => {
+        expect(pathWithoutFilename('//server/share/folder/file.txt')).toBe('/server/share/folder');
+    });
+
+    it('should handle UNC network path with backslashes', () => {
+        expect(pathWithoutFilename('\\\\server\\share\\folder\\file.txt')).toBe('//server/share/folder');
+    });
+
+    it('should handle UNC network path with trailing slash', () => {
+        expect(pathWithoutFilename('//server/share/folder/')).toBe('/server/share');
+    });
 });
 
 describe('filenameWithoutPath', () => {
@@ -123,5 +135,21 @@ describe('filenameWithoutPath', () => {
 
     it('should return last folder name when path ends with slash', () => {
         expect(filenameWithoutPath('/home/user/projects/')).toBe('projects');
+    });
+
+    it('should handle UNC network path', () => {
+        expect(filenameWithoutPath('//server/share/folder/file.txt')).toBe('file.txt');
+    });
+
+    it('should handle UNC network path with backslashes', () => {
+        expect(filenameWithoutPath('\\\\server\\share\\folder\\file.txt')).toBe('file.txt');
+    });
+
+    it('should handle UNC network path root', () => {
+        expect(filenameWithoutPath('//server/share')).toBe('share');
+    });
+
+    it('should handle UNC network path with trailing slash', () => {
+        expect(filenameWithoutPath('//server/share/folder/')).toBe('folder');
     });
 });
