@@ -5,6 +5,7 @@ import { useDissmissNextToasts } from "@/utils";
 import { Button, Checkbox, Label } from "@/ui";
 import { stateNapiAccess, useSawRectMonitor } from "@/store/7-napi-atoms";
 import { checkboxCreateManualModeAtom, doMoveToSecondDlgAtom, isOpen_SawMonitorAtom } from "@/store/4-dialogs-atoms";
+import { newManiContent } from "@/store/0-serve-atoms/0-create/1-create-new-mani-ctx";
 import { CurrentApp } from "./1-current-app";
 import { RuntimeCounter } from "./2-runtime-counter";
 import { DebugFrame } from "./8-debug-frame";
@@ -26,6 +27,7 @@ export function DialogSawMonitor() {
 
 function SawMonitorDlgBody() {
     const [checkboxCreateManualMode, setCheckboxCreateManualMode] = useAtom(checkboxCreateManualModeAtom);
+    const isCpassMode = !!newManiContent.maniForCpassAtom;
     useDissmissNextToasts();
     useSawRectMonitor();
     return (
@@ -33,8 +35,10 @@ function SawMonitorDlgBody() {
             <DebugFrame>
                 <div className="relative px-3 pt-3 pb-4 grid gap-y-4 place-items-center">
                     <div className="1text-center 1text-balance select-none">
-                        Launch the program or browse to the Web site that
-                        contains the login screen for which you want to create a managed logon.
+                        {isCpassMode
+                            ? "Launch the program or browse to the Web site that contains the change password screen you want to set up."
+                            : "Launch the program or browse to the Web site that contains the login screen for which you want to create a managed logon."
+                        }
                     </div>
 
                     <CurrentApp />
