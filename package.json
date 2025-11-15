@@ -69,7 +69,7 @@
         "react-use": "^17.6.0",
         "rollup-plugin-visualizer": "^6.0.3",
         "sonner": "^2.0.7",
-        "tailwind-merge": "^2.6.0",
+        "tailwind-merge": "^3.4.0",
         "tailwind-scrollbar": "^4.0.2",
         "tailwindcss": "^4.1.17",
         "tailwindcss-plugin-debug-screens-tw4": "^1.0.3",
