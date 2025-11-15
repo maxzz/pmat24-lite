@@ -57,8 +57,9 @@ export function getFilenameAndExt(filename: string): [string, string] {
 export function pathWithoutFilename(path: string | undefined): string {
     const rv =
         (path || '')
-            .replace(/^\//, '') // remove first slash
-            .split(/[\\\/]/);   // split by slashes
+            .replace(/[\\\/\s]+$/, '') // remove last slashes and whitespaces
+            .replace(/^\//, '')        // remove first slash
+            .split(/[\\\/]/);          // split by slashes
     rv.pop(); // remove filename as the last item
     return rv.join('/');
 }
@@ -69,8 +70,9 @@ export function pathWithoutFilename(path: string | undefined): string {
 export function filenameWithoutPath(path: string | undefined): string {
     const rv =
         (path || '')
-            .replace(/^[\\\/]+/, '') // remove first slashes
-            .split(/[\\\/]/);        // split by slashes
+            .replace(/[\\\/\s]+$/, '') // remove last slashes and whitespaces
+            .replace(/^[\\\/]+/, '')   // remove first slashes
+            .split(/[\\\/]/);          // split by slashes
     return rv.pop() || '';
 }
 
