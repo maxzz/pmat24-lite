@@ -234,4 +234,53 @@ describe('getFilenameAndExt', () => {
     it('should handle filename with spaces and extension', () => {
         expect(getFilenameAndExt('my file.txt')).toEqual(['my file', 'txt']);
     });
+
+    // Tests with full paths
+    it('should handle Unix absolute path', () => {
+        expect(getFilenameAndExt('/home/user/documents/file.txt')).toEqual(['/home/user/documents/file', 'txt']);
+    });
+
+    it('should handle Windows absolute path', () => {
+        expect(getFilenameAndExt('C:\\Users\\Documents\\file.txt')).toEqual(['C:\\Users\\Documents\\file', 'txt']);
+    });
+
+    it('should handle relative path with extension', () => {
+        expect(getFilenameAndExt('./documents/file.txt')).toEqual(['./documents/file', 'txt']);
+    });
+
+    it('should handle nested path with multiple dots in folders', () => {
+        expect(getFilenameAndExt('/folder.name/sub.folder/file.txt')).toEqual(['/folder', 'name/sub.folder/file.txt']);
+    });
+
+    it('should handle path with dots in folder names', () => {
+        expect(getFilenameAndExt('C:\\My.Documents\\project.v2\\readme.md')).toEqual(['C:\\My', 'Documents\\project.v2\\readme.md']);
+    });
+
+    it('should handle Unix path with hidden file', () => {
+        expect(getFilenameAndExt('/home/user/.gitignore')).toEqual(['/home/user/', 'gitignore']);
+    });
+
+    it('should handle Windows path with file without extension', () => {
+        expect(getFilenameAndExt('C:\\Users\\Documents\\README')).toEqual(['', 'C:\\Users\\Documents\\README']);
+    });
+
+    it('should handle deep nested Unix path', () => {
+        expect(getFilenameAndExt('/var/www/html/public/assets/images/logo.png')).toEqual(['/var/www/html/public/assets/images/logo', 'png']);
+    });
+
+    it('should handle Windows UNC path', () => {
+        expect(getFilenameAndExt('\\\\server\\share\\folder\\document.docx')).toEqual(['\\\\server\\share\\folder\\document', 'docx']);
+    });
+
+    it('should handle path with mixed slashes', () => {
+        expect(getFilenameAndExt('C:/Users\\Documents/file.txt')).toEqual(['C:/Users\\Documents/file', 'txt']);
+    });
+
+    it('should handle path with double extension', () => {
+        expect(getFilenameAndExt('/backup/archive.tar.gz')).toEqual(['/backup/archive.tar', 'gz']);
+    });
+
+    it('should handle Windows path with spaces', () => {
+        expect(getFilenameAndExt('C:\\Program Files\\My App\\config.json')).toEqual(['C:\\Program Files\\My App\\config', 'json']);
+    });
 });
