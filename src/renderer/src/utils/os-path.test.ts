@@ -10,10 +10,13 @@ import {
   extname,
   format,
   parse,
+  parseWindowsPath,
+  formatWindowsPath,
   sep,
   delimiter,
   type PathObject,
   type ParsedPath,
+  type ParsedWindowsPath,
 } from './os-path';
 
 describe('os-path', () => {
@@ -467,6 +470,145 @@ describe('os-path', () => {
         name: '..',
       });
     });
+
+    describe('Windows paths (POSIX parsing)', () => {
+      it('should parse Windows path with backslashes as a single filename', () => {
+        // POSIX treats backslashes as regular characters, not path separators
+        const result = parse('C:\\Users\\John\\file.txt');
+        expect(result).toEqual({
+          root: '',
+          dir: '',
+          base: 'C:\\Users\\John\\file.txt',
+          ext: '.txt',
+          name: 'C:\\Users\\John\\file',
+        });
+      });
+
+      it('should parse Windows path with forward slashes', () => {
+        // Forward slashes are treated as path separators in POSIX
+        const result = parse('C:/Users/John/file.txt');
+        expect(result).toEqual({
+          root: '',
+          dir: 'C:/Users/John',
+          base: 'file.txt',
+          ext: '.txt',
+          name: 'file',
+        });
+      });
+
+      it('should parse Windows absolute path with forward slashes', () => {
+        const result = parse('/C:/Users/John/Documents/report.pdf');
+        expect(result).toEqual({
+          root: '/',
+          dir: '/C:/Users/John/Documents',
+          base: 'report.pdf',
+          ext: '.pdf',
+          name: 'report',
+        });
+      });
+
+      it('should parse Windows drive letter as directory name', () => {
+        const result = parse('C:/file.txt');
+        expect(result).toEqual({
+          root: '',
+          dir: 'C:',
+          base: 'file.txt',
+          ext: '.txt',
+          name: 'file',
+        });
+      });
+
+      it('should parse Windows UNC path with backslashes', () => {
+        // UNC paths with backslashes are treated as a single filename
+        const result = parse('\\\\server\\share\\file.txt');
+        expect(result).toEqual({
+          root: '',
+          dir: '',
+          base: '\\\\server\\share\\file.txt',
+          ext: '.txt',
+          name: '\\\\server\\share\\file',
+        });
+      });
+
+      it('should parse Windows UNC path with forward slashes', () => {
+        // Forward slashes make it look like a deep POSIX path
+        const result = parse('//server/share/file.txt');
+        expect(result).toEqual({
+          root: '/',
+          dir: '//server/share',
+          base: 'file.txt',
+          ext: '.txt',
+          name: 'file',
+        });
+      });
+
+      it('should parse mixed Windows path separators', () => {
+        // Backslashes are treated as regular characters
+        const result = parse('C:/Users\\John/file.txt');
+        expect(result).toEqual({
+          root: '',
+          dir: 'C:/Users\\John',
+          base: 'file.txt',
+          ext: '.txt',
+          name: 'file',
+        });
+      });
+
+      it('should parse Windows path with drive only', () => {
+        const result = parse('C:');
+        expect(result).toEqual({
+          root: '',
+          dir: '',
+          base: 'C:',
+          ext: '',
+          name: 'C:',
+        });
+      });
+
+      it('should parse Windows path with multiple extensions', () => {
+        const result = parse('C:/Documents/archive.tar.gz');
+        expect(result).toEqual({
+          root: '',
+          dir: 'C:/Documents',
+          base: 'archive.tar.gz',
+          ext: '.gz',
+          name: 'archive.tar',
+        });
+      });
+
+      it('should parse Windows path with spaces', () => {
+        const result = parse('C:/Program Files/My App/file.exe');
+        expect(result).toEqual({
+          root: '',
+          dir: 'C:/Program Files/My App',
+          base: 'file.exe',
+          ext: '.exe',
+          name: 'file',
+        });
+      });
+
+      it('should parse Windows path with trailing slash', () => {
+        const result = parse('C:/Users/John/Documents/');
+        expect(result).toEqual({
+          root: '',
+          dir: 'C:/Users/John',
+          base: 'Documents',
+          ext: '',
+          name: 'Documents',
+        });
+      });
+
+      it('should handle Windows path starting with backslash', () => {
+        const result = parse('\\Users\\file.txt');
+        expect(result).toEqual({
+          root: '',
+          dir: '',
+          base: '\\Users\\file.txt',
+          ext: '.txt',
+          name: '\\Users\\file',
+        });
+      });
+    });
   });
 
   describe('format and parse symmetry', () => {
@@ -573,6 +715,393 @@ describe('os-path', () => {
     it('should handle paths with special characters', () => {
       expect(normalize('/foo-bar_baz/file.txt')).toBe('/foo-bar_baz/file.txt');
       expect(basename('/foo@bar/file#1.txt')).toBe('file#1.txt');
+    });
+  });
+
+  describe('parseWindowsPath', () => {
+    describe('basic Windows paths', () => {
+      it('should parse absolute path with drive letter', () => {
+        const result = parseWindowsPath('C:\\Users\\John\\file.txt');
+        expect(result).toEqual({
+          root: 'C:\\',
+          dir: 'C:\\Users\\John',
+          base: 'file.txt',
+          ext: '.txt',
+          name: 'file',
+          drive: 'C:',
+          isUNC: false,
+        });
+      });
+
+      it('should parse path with forward slashes', () => {
+        const result = parseWindowsPath('C:/Users/John/file.txt');
+        expect(result).toEqual({
+          root: 'C:\\',
+          dir: 'C:\\Users\\John',
+          base: 'file.txt',
+          ext: '.txt',
+          name: 'file',
+          drive: 'C:',
+          isUNC: false,
+        });
+      });
+
+      it('should parse mixed separators', () => {
+        const result = parseWindowsPath('C:\\Users/John\\Documents/file.txt');
+        expect(result).toEqual({
+          root: 'C:\\',
+          dir: 'C:\\Users\\John\\Documents',
+          base: 'file.txt',
+          ext: '.txt',
+          name: 'file',
+          drive: 'C:',
+          isUNC: false,
+        });
+      });
+
+      it('should parse drive letter only', () => {
+        const result = parseWindowsPath('C:');
+        expect(result).toEqual({
+          root: 'C:',
+          dir: 'C:',
+          base: '',
+          ext: '',
+          name: '',
+          drive: 'C:',
+          isUNC: false,
+        });
+      });
+
+      it('should parse drive with file', () => {
+        const result = parseWindowsPath('C:file.txt');
+        expect(result).toEqual({
+          root: 'C:',
+          dir: 'C:',
+          base: 'file.txt',
+          ext: '.txt',
+          name: 'file',
+          drive: 'C:',
+          isUNC: false,
+        });
+      });
+
+      it('should parse relative path', () => {
+        const result = parseWindowsPath('folder\\file.txt');
+        expect(result).toEqual({
+          root: '',
+          dir: 'folder',
+          base: 'file.txt',
+          ext: '.txt',
+          name: 'file',
+          drive: '',
+          isUNC: false,
+        });
+      });
+
+      it('should parse file only', () => {
+        const result = parseWindowsPath('file.txt');
+        expect(result).toEqual({
+          root: '',
+          dir: '',
+          base: 'file.txt',
+          ext: '.txt',
+          name: 'file',
+          drive: '',
+          isUNC: false,
+        });
+      });
+
+      it('should parse empty string', () => {
+        const result = parseWindowsPath('');
+        expect(result).toEqual({
+          root: '',
+          dir: '',
+          base: '',
+          ext: '',
+          name: '',
+          drive: '',
+          isUNC: false,
+        });
+      });
+    });
+
+    describe('UNC paths', () => {
+      it('should parse UNC path with file', () => {
+        const result = parseWindowsPath('\\\\server\\share\\folder\\file.txt');
+        expect(result).toEqual({
+          root: '\\\\server\\share\\',
+          dir: '\\\\server\\share\\folder',
+          base: 'file.txt',
+          ext: '.txt',
+          name: 'file',
+          drive: '',
+          isUNC: true,
+        });
+      });
+
+      it('should parse UNC path with forward slashes', () => {
+        const result = parseWindowsPath('//server/share/folder/file.txt');
+        expect(result).toEqual({
+          root: '\\\\server\\share\\',
+          dir: '\\\\server\\share\\folder',
+          base: 'file.txt',
+          ext: '.txt',
+          name: 'file',
+          drive: '',
+          isUNC: true,
+        });
+      });
+
+      it('should parse UNC path with mixed slashes', () => {
+        const result = parseWindowsPath('\\\\server/share\\folder/file.txt');
+        expect(result).toEqual({
+          root: '\\\\server\\share\\',
+          dir: '\\\\server\\share\\folder',
+          base: 'file.txt',
+          ext: '.txt',
+          name: 'file',
+          drive: '',
+          isUNC: true,
+        });
+      });
+
+      it('should parse UNC root only', () => {
+        const result = parseWindowsPath('\\\\server\\share');
+        expect(result).toEqual({
+          root: '\\\\server\\share\\',
+          dir: '\\\\server\\share\\',
+          base: '',
+          ext: '',
+          name: '',
+          drive: '',
+          isUNC: true,
+        });
+      });
+
+      it('should parse UNC with trailing backslash', () => {
+        const result = parseWindowsPath('\\\\server\\share\\');
+        expect(result).toEqual({
+          root: '\\\\server\\share\\',
+          dir: '\\\\server\\share\\',
+          base: '',
+          ext: '',
+          name: '',
+          drive: '',
+          isUNC: true,
+        });
+      });
+    });
+
+    describe('special cases', () => {
+      it('should parse path without extension', () => {
+        const result = parseWindowsPath('C:\\Users\\John\\file');
+        expect(result).toEqual({
+          root: 'C:\\',
+          dir: 'C:\\Users\\John',
+          base: 'file',
+          ext: '',
+          name: 'file',
+          drive: 'C:',
+          isUNC: false,
+        });
+      });
+
+      it('should parse path with multiple extensions', () => {
+        const result = parseWindowsPath('C:\\archive.tar.gz');
+        expect(result).toEqual({
+          root: 'C:\\',
+          dir: 'C:\\',
+          base: 'archive.tar.gz',
+          ext: '.gz',
+          name: 'archive.tar',
+          drive: 'C:',
+          isUNC: false,
+        });
+      });
+
+      it('should parse path with spaces', () => {
+        const result = parseWindowsPath('C:\\Program Files\\My App\\file.exe');
+        expect(result).toEqual({
+          root: 'C:\\',
+          dir: 'C:\\Program Files\\My App',
+          base: 'file.exe',
+          ext: '.exe',
+          name: 'file',
+          drive: 'C:',
+          isUNC: false,
+        });
+      });
+
+      it('should parse path with trailing backslash', () => {
+        const result = parseWindowsPath('C:\\Users\\John\\Documents\\');
+        expect(result).toEqual({
+          root: 'C:\\',
+          dir: 'C:\\Users\\John',
+          base: 'Documents',
+          ext: '',
+          name: 'Documents',
+          drive: 'C:',
+          isUNC: false,
+        });
+      });
+
+      it('should parse root-relative path', () => {
+        const result = parseWindowsPath('\\Users\\file.txt');
+        expect(result).toEqual({
+          root: '\\',
+          dir: '\\Users',
+          base: 'file.txt',
+          ext: '.txt',
+          name: 'file',
+          drive: '',
+          isUNC: false,
+        });
+      });
+
+      it('should parse hidden file', () => {
+        const result = parseWindowsPath('C:\\.gitignore');
+        expect(result).toEqual({
+          root: 'C:\\',
+          dir: 'C:\\',
+          base: '.gitignore',
+          ext: '',
+          name: '.gitignore',
+          drive: 'C:',
+          isUNC: false,
+        });
+      });
+
+      it('should parse different drive letters', () => {
+        const resultD = parseWindowsPath('D:\\folder\\file.txt');
+        expect(resultD.drive).toBe('D:');
+        expect(resultD.root).toBe('D:\\');
+
+        const resultZ = parseWindowsPath('Z:\\data.json');
+        expect(resultZ.drive).toBe('Z:');
+        expect(resultZ.root).toBe('Z:\\');
+      });
+
+      it('should handle lowercase drive letters', () => {
+        const result = parseWindowsPath('c:\\users\\john\\file.txt');
+        expect(result).toEqual({
+          root: 'c:\\',
+          dir: 'c:\\users\\john',
+          base: 'file.txt',
+          ext: '.txt',
+          name: 'file',
+          drive: 'c:',
+          isUNC: false,
+        });
+      });
+    });
+
+    describe('error handling', () => {
+      it('should throw for non-string paths', () => {
+        expect(() => parseWindowsPath(123 as any)).toThrow(TypeError);
+        expect(() => parseWindowsPath(null as any)).toThrow(TypeError);
+        expect(() => parseWindowsPath(undefined as any)).toThrow(TypeError);
+      });
+    });
+  });
+
+  describe('formatWindowsPath', () => {
+    it('should format Windows path object', () => {
+      const pathObject: ParsedWindowsPath = {
+        root: 'C:\\',
+        dir: 'C:\\Users\\John',
+        base: 'file.txt',
+        ext: '.txt',
+        name: 'file',
+        drive: 'C:',
+        isUNC: false,
+      };
+      expect(formatWindowsPath(pathObject)).toBe('C:\\Users\\John\\file.txt');
+    });
+
+    it('should format with name and ext', () => {
+      const pathObject = {
+        dir: 'C:\\Users\\John',
+        name: 'file',
+        ext: '.txt',
+      };
+      expect(formatWindowsPath(pathObject)).toBe('C:\\Users\\John\\file.txt');
+    });
+
+    it('should format UNC path', () => {
+      const pathObject: ParsedWindowsPath = {
+        root: '\\\\server\\share\\',
+        dir: '\\\\server\\share\\folder',
+        base: 'file.txt',
+        ext: '.txt',
+        name: 'file',
+        drive: '',
+        isUNC: true,
+      };
+      expect(formatWindowsPath(pathObject)).toBe('\\\\server\\share\\folder\\file.txt');
+    });
+
+    it('should format root only', () => {
+      const pathObject = {
+        root: 'C:\\',
+        base: 'file.txt',
+      };
+      expect(formatWindowsPath(pathObject)).toBe('C:\\file.txt');
+    });
+
+    it('should format base only', () => {
+      const pathObject = {
+        base: 'file.txt',
+      };
+      expect(formatWindowsPath(pathObject)).toBe('file.txt');
+    });
+
+    it('should prefer base over name and ext', () => {
+      const pathObject = {
+        dir: 'C:\\Users',
+        base: 'file.txt',
+        name: 'other',
+        ext: '.js',
+      };
+      expect(formatWindowsPath(pathObject)).toBe('C:\\Users\\file.txt');
+    });
+
+    it('should handle empty object', () => {
+      expect(formatWindowsPath({})).toBe('');
+    });
+
+    it('should throw error for non-object', () => {
+      expect(() => formatWindowsPath(null as any)).toThrow(TypeError);
+      expect(() => formatWindowsPath('string' as any)).toThrow(TypeError);
+    });
+  });
+
+  describe('parseWindowsPath and formatWindowsPath symmetry', () => {
+    it('should be symmetric for drive paths', () => {
+      const path = 'C:\\Users\\John\\file.txt';
+      const parsed = parseWindowsPath(path);
+      const formatted = formatWindowsPath(parsed);
+      expect(formatted).toBe(path);
+    });
+
+    it('should be symmetric for UNC paths', () => {
+      const path = '\\\\server\\share\\folder\\file.txt';
+      const parsed = parseWindowsPath(path);
+      const formatted = formatWindowsPath(parsed);
+      expect(formatted).toBe(path);
+    });
+
+    it('should be symmetric for relative paths', () => {
+      const path = 'folder\\subfolder\\file.txt';
+      const parsed = parseWindowsPath(path);
+      const formatted = formatWindowsPath(parsed);
+      expect(formatted).toBe(path);
+    });
+
+    it('should normalize forward slashes to backslashes', () => {
+      const path = 'C:/Users/John/file.txt';
+      const parsed = parseWindowsPath(path);
+      const formatted = formatWindowsPath(parsed);
+      expect(formatted).toBe('C:\\Users\\John\\file.txt');
     });
   });
 });

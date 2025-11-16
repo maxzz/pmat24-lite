@@ -22,7 +22,7 @@ import { join, resolve, dirname, basename } from './utils/os-path';
 
 ### Types
 
-#### `PathObject`
+#### `PathObject` (POSIX)
 
 ```typescript
 interface PathObject {
@@ -34,7 +34,7 @@ interface PathObject {
 }
 ```
 
-#### `ParsedPath`
+#### `ParsedPath` (POSIX)
 
 ```typescript
 interface ParsedPath {
@@ -43,6 +43,20 @@ interface ParsedPath {
   base: string;   // File name including extension
   ext: string;    // File extension including dot
   name: string;   // File name without extension
+}
+```
+
+#### `ParsedWindowsPath`
+
+```typescript
+interface ParsedWindowsPath {
+  root: string;      // Root: 'C:\' or '\\server\share\' or '\'
+  dir: string;       // Directory path
+  base: string;      // File name including extension
+  ext: string;       // File extension including dot
+  name: string;      // File name without extension
+  drive: string;     // Drive letter: 'C:' or empty for UNC/relative
+  isUNC: boolean;    // True if UNC path (\\server\share)
 }
 ```
 
@@ -455,6 +469,141 @@ parse('');
 
 ---
 
+#### `parseWindowsPath(path: string): ParsedWindowsPath`
+
+Parses a Windows path string into its components. Properly handles drive letters, backslashes, UNC paths, and mixed separators.
+
+**Parameters:**
+- `path` - The Windows path to parse
+
+**Returns:** A `ParsedWindowsPath` object with Windows-specific components
+
+**Behavior:**
+- Recognizes Windows drive letters (A-Z, case-insensitive)
+- Treats backslashes (`\`) as path separators
+- Normalizes forward slashes to backslashes
+- Identifies UNC paths (`\\server\share`)
+- Extracts drive letter information
+- Handles mixed separators
+
+**Examples:**
+
+```typescript
+parseWindowsPath('C:\\Users\\John\\file.txt');
+// Returns: {
+//   root: 'C:\\',
+//   dir: 'C:\\Users\\John',
+//   base: 'file.txt',
+//   ext: '.txt',
+//   name: 'file',
+//   drive: 'C:',
+//   isUNC: false
+// }
+
+parseWindowsPath('C:/Users/John/file.txt');
+// Returns: {
+//   root: 'C:\\',
+//   dir: 'C:\\Users\\John',
+//   base: 'file.txt',
+//   ext: '.txt',
+//   name: 'file',
+//   drive: 'C:',
+//   isUNC: false
+// }
+
+parseWindowsPath('\\\\server\\share\\folder\\file.txt');
+// Returns: {
+//   root: '\\\\server\\share\\',
+//   dir: '\\\\server\\share\\folder',
+//   base: 'file.txt',
+//   ext: '.txt',
+//   name: 'file',
+//   drive: '',
+//   isUNC: true
+// }
+
+parseWindowsPath('C:');
+// Returns: {
+//   root: 'C:',
+//   dir: 'C:',
+//   base: '',
+//   ext: '',
+//   name: '',
+//   drive: 'C:',
+//   isUNC: false
+// }
+
+parseWindowsPath('\\Users\\file.txt');
+// Returns: {
+//   root: '\\',
+//   dir: '\\Users',
+//   base: 'file.txt',
+//   ext: '.txt',
+//   name: 'file',
+//   drive: '',
+//   isUNC: false
+// }
+```
+
+**Throws:** `TypeError` if path is not a string
+
+---
+
+#### `formatWindowsPath(pathObject: Partial<ParsedWindowsPath>): string`
+
+Formats a ParsedWindowsPath object back into a Windows path string.
+
+**Parameters:**
+- `pathObject` - A Windows path object with components
+
+**Returns:** The formatted Windows path string with backslashes
+
+**Behavior:**
+- Uses backslash (`\`) as separator
+- `base` takes precedence over `name` + `ext`
+- `dir` is used if provided, otherwise `root` is used
+- Concatenates components appropriately
+
+**Examples:**
+
+```typescript
+formatWindowsPath({
+  root: 'C:\\',
+  dir: 'C:\\Users\\John',
+  base: 'file.txt',
+  ext: '.txt',
+  name: 'file',
+  drive: 'C:',
+  isUNC: false
+});
+// Returns: 'C:\\Users\\John\\file.txt'
+
+formatWindowsPath({
+  dir: 'C:\\Users\\John',
+  name: 'file',
+  ext: '.txt'
+});
+// Returns: 'C:\\Users\\John\\file.txt'
+
+formatWindowsPath({
+  root: '\\\\server\\share\\',
+  dir: '\\\\server\\share\\folder',
+  base: 'file.txt',
+  drive: '',
+  isUNC: true
+});
+// Returns: '\\\\server\\share\\folder\\file.txt'
+
+formatWindowsPath({
+  base: 'file.txt'
+});
+// Returns: 'file.txt'
+```
+
+**Throws:** `TypeError` if pathObject is null or not an object
+
+---
+
 ### Constants
 
 #### `sep: string`
@@ -573,6 +722,50 @@ normalize(userPath);
 // Returns: 'foo/baz/qux'
 ```
 
+#### Working with Windows paths
+
+```typescript
+import { parseWindowsPath, formatWindowsPath } from './utils/os-path';
+
+// Parse a Windows path
+const winPath = 'C:\\Users\\John\\Documents\\report.pdf';
+const parsed = parseWindowsPath(winPath);
+console.log(parsed);
+// {
+//   root: 'C:\\',
+//   dir: 'C:\\Users\\John\\Documents',
+//   base: 'report.pdf',
+//   ext: '.pdf',
+//   name: 'report',
+//   drive: 'C:',
+//   isUNC: false
+// }
+
+// Works with forward slashes too
+const winPathForward = 'C:/Users/John/Documents/report.pdf';
+const parsed2 = parseWindowsPath(winPathForward);
+// Normalizes to backslashes internally
+
+// Handle UNC paths
+const uncPath = '\\\\server\\share\\folder\\file.txt';
+const parsedUNC = parseWindowsPath(uncPath);
+console.log(parsedUNC.isUNC);  // true
+console.log(parsedUNC.drive);  // '' (no drive letter for UNC)
+
+// Format back to Windows path
+formatWindowsPath(parsed);
+// Returns: 'C:\\Users\\John\\Documents\\report.pdf'
+
+// Modify and format
+const modified = {
+  ...parsed,
+  name: 'invoice',
+  ext: '.docx'
+};
+formatWindowsPath(modified);
+// Returns: 'C:\\Users\\John\\Documents\\invoice.docx'
+```
+
 ---
 
 ## Error Handling
@@ -597,20 +790,35 @@ Always ensure inputs are strings (or objects for `format()`).
 ## Differences from Node.js `path`
 
 This implementation:
-- **POSIX-only**: No Windows path support (no `path.win32`)
+- **POSIX by default**: Main functions use POSIX paths (forward slashes)
+- **Windows support added**: `parseWindowsPath()` and `formatWindowsPath()` handle Windows paths
 - **No `process.cwd()` polyfill**: Uses Node.js/environment `process.cwd()` when available
 - **Browser-compatible**: Works in environments with `process` polyfill
 - **Tree-shakable**: Individual functions can be imported
+
+### POSIX vs Windows Functions
+
+| Feature | POSIX Functions | Windows Functions |
+|---------|----------------|-------------------|
+| Separator | `/` (forward slash) | `\` (backslash) |
+| Functions | `parse()`, `format()`, etc. | `parseWindowsPath()`, `formatWindowsPath()` |
+| Drive letters | Not recognized | Recognized (C:, D:, etc.) |
+| UNC paths | Not supported | Supported (`\\server\share`) |
+| Mixed slashes | Treats `\` as regular character | Normalizes `/` to `\` |
 
 ---
 
 ## Testing
 
-The module includes 89 comprehensive tests covering:
-- ✅ All public functions
+The module includes 135 comprehensive tests covering:
+- ✅ All POSIX functions (resolve, normalize, join, etc.)
+- ✅ Windows path functions (parseWindowsPath, formatWindowsPath)
+- ✅ Drive letter handling (C:, D:, etc.)
+- ✅ UNC path support (\\server\share)
 - ✅ Error handling and type validation
 - ✅ Edge cases (empty strings, special characters, long paths)
-- ✅ Format/Parse symmetry
+- ✅ Format/Parse symmetry for both POSIX and Windows
+- ✅ Mixed separator handling
 - ✅ POSIX compliance
 
 Run tests:
@@ -618,6 +826,11 @@ Run tests:
 ```bash
 npm test os-path
 ```
+
+Test coverage:
+- 101 POSIX tests
+- 34 Windows path tests
+- All tests passing ✅
 
 ---
 
