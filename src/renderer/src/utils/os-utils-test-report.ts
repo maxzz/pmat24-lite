@@ -7,6 +7,17 @@ interface TestCase {
     expected: [string, string];
 }
 
+// ANSI color codes
+const colors = {
+    reset: '\x1b[0m',
+    blue: '\x1b[34m',
+    yellow: '\x1b[33m',
+    green: '\x1b[32m',
+    red: '\x1b[31m',
+    gray: '\x1b[90m',
+    bold: '\x1b[1m',
+};
+
 const testCases: TestCase[] = [
     // Basic filename tests
     { description: 'Simple filename with extension', input: 'file.txt', expected: ['file', 'txt'] },
@@ -46,9 +57,9 @@ const testCases: TestCase[] = [
 ];
 
 function runTests() {
-    console.log('\n='.repeat(120));
-    console.log('getFilenameAndExt() Test Report');
-    console.log('='.repeat(120));
+    console.log('\n' + colors.gray + '='.repeat(120) + colors.reset);
+    console.log(colors.bold + 'getFilenameAndExt() Test Report' + colors.reset);
+    console.log(colors.gray + '='.repeat(120) + colors.reset);
     console.log();
 
     let passed = 0;
@@ -64,23 +75,23 @@ function runTests() {
             failed++;
         }
 
-        const status = isPass ? '✓' : '✗';
-        const statusColor = isPass ? '' : '⚠️ ';
+        const status = isPass ? colors.green + '✓' : colors.red + '✗';
+        const statusIcon = isPass ? '' : '⚠️  ';
         
-        console.log(`${statusColor}${status} Test ${(index + 1).toString().padStart(2)}: ${testCase.description}`);
-        console.log(`   Input:    "${testCase.input}"`);
-        console.log(`   Result:   [${actual[0] ? `"${actual[0]}"` : '""'}, ${actual[1] ? `"${actual[1]}"` : '""'}]`);
+        console.log(`${statusIcon}${status}${colors.reset} Test ${colors.gray}${(index + 1).toString().padStart(2)}${colors.reset}: ${testCase.description}`);
+        console.log(`   Input:    ${colors.blue} "${testCase.input}"${colors.reset}`);
+        console.log(`   Result:   ${colors.yellow}[${actual[0] ? `"${actual[0]}"` : '""'}, ${actual[1] ? `"${actual[1]}"` : '""'}]${colors.reset}`);
         
         if (!isPass) {
-            console.log(`   Expected: [${testCase.expected[0] ? `"${testCase.expected[0]}"` : '""'}, ${testCase.expected[1] ? `"${testCase.expected[1]}"` : '""'}]`);
+            console.log(`   Expected: ${colors.red}[${testCase.expected[0] ? `"${testCase.expected[0]}"` : '""'}, ${testCase.expected[1] ? `"${testCase.expected[1]}"` : '""'}]${colors.reset}`);
         }
         
         console.log();
     });
 
-    console.log('='.repeat(120));
-    console.log(`Summary: ${passed} passed, ${failed} failed, ${testCases.length} total`);
-    console.log('='.repeat(120));
+    console.log(colors.gray + '='.repeat(120) + colors.reset);
+    console.log(`Summary: ${colors.green}${passed} passed${colors.reset}, ${failed > 0 ? colors.red : colors.green}${failed} failed${colors.reset}, ${testCases.length} total`);
+    console.log(colors.gray + '='.repeat(120) + colors.reset);
     console.log();
 }
 
