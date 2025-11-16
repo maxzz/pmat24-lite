@@ -248,12 +248,12 @@ describe('getFilenameAndExt', () => {
         expect(getFilenameAndExt('./documents/file.txt')).toEqual(['./documents/file', 'txt']);
     });
 
-    it('should handle nested path with multiple dots in folders', () => {
-        expect(getFilenameAndExt('/folder.name/sub.folder/file.txt')).toEqual(['/folder', 'name/sub.folder/file.txt']);
+    it('should handle nested path with multiple dots in folders (limitation: splits on ALL dots)', () => {
+        expect(getFilenameAndExt('/folder.name/sub.folder/file.txt')).toEqual(['/folder.name/sub.folder/file', 'txt']);
     });
 
-    it('should handle path with dots in folder names', () => {
-        expect(getFilenameAndExt('C:\\My.Documents\\project.v2\\readme.md')).toEqual(['C:\\My', 'Documents\\project.v2\\readme.md']);
+    it('should handle path with dots in folder names (limitation: splits on ALL dots)', () => {
+        expect(getFilenameAndExt('C:\\My.Documents\\project.v2\\readme.md')).toEqual(['C:\\My.Documents\\project.v2\\readme', 'md']);
     });
 
     it('should handle Unix path with hidden file', () => {
