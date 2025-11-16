@@ -1,6 +1,6 @@
 // v.11.15.25
 import { describe, it, expect } from 'vitest';
-import { pathWithoutFilename, filenameWithoutPath } from './os-utils';
+import { pathWithoutFilename, filenameWithoutPath, getFilenameAndExt } from './os-utils';
 
 describe('pathWithoutFilename', () => {
     it('should remove filename from Unix path', () => {
@@ -151,5 +151,87 @@ describe('filenameWithoutPath', () => {
 
     it('should handle UNC network path with trailing slash', () => {
         expect(filenameWithoutPath('//server/share/folder/')).toBe('folder');
+    });
+});
+
+describe('getFilenameAndExt', () => {
+    it('should split simple filename with extension', () => {
+        expect(getFilenameAndExt('file.txt')).toEqual(['file', 'txt']);
+    });
+
+    it('should handle filename with multiple dots', () => {
+        expect(getFilenameAndExt('file.test.ts')).toEqual(['file.test', 'ts']);
+    });
+
+    it('should handle filename without extension', () => {
+        expect(getFilenameAndExt('README')).toEqual(['', 'README']);
+    });
+
+    it('should handle hidden file with dot prefix', () => {
+        expect(getFilenameAndExt('.gitignore')).toEqual(['', 'gitignore']);
+    });
+
+    it('should handle hidden file with extension', () => {
+        expect(getFilenameAndExt('.env.local')).toEqual(['.env', 'local']);
+    });
+
+    it('should handle empty string', () => {
+        expect(getFilenameAndExt('')).toEqual(['', '']);
+    });
+
+    it('should handle filename with many dots', () => {
+        expect(getFilenameAndExt('my.file.name.here.txt')).toEqual(['my.file.name.here', 'txt']);
+    });
+
+    it('should handle single dot', () => {
+        expect(getFilenameAndExt('.')).toEqual(['', '']);
+    });
+
+    it('should handle filename with trailing dot', () => {
+        expect(getFilenameAndExt('file.')).toEqual(['file', '']);
+    });
+
+    it('should handle double extension', () => {
+        expect(getFilenameAndExt('archive.tar.gz')).toEqual(['archive.tar', 'gz']);
+    });
+
+    it('should handle filename with dots in name', () => {
+        expect(getFilenameAndExt('my.document.v2.docx')).toEqual(['my.document.v2', 'docx']);
+    });
+
+    it('should handle filename with no name only extension', () => {
+        expect(getFilenameAndExt('.txt')).toEqual(['', 'txt']);
+    });
+
+    it('should handle complex filename', () => {
+        expect(getFilenameAndExt('file-name_v1.0.final.pdf')).toEqual(['file-name_v1.0.final', 'pdf']);
+    });
+
+    it('should handle filename with special characters', () => {
+        expect(getFilenameAndExt('my-file_name (1).txt')).toEqual(['my-file_name (1)', 'txt']);
+    });
+
+    it('should handle very long extension', () => {
+        expect(getFilenameAndExt('file.extension')).toEqual(['file', 'extension']);
+    });
+
+    it('should handle multiple consecutive dots', () => {
+        expect(getFilenameAndExt('file..txt')).toEqual(['file.', 'txt']);
+    });
+
+    it('should handle filename starting with multiple dots', () => {
+        expect(getFilenameAndExt('..config')).toEqual(['.', 'config']);
+    });
+
+    it('should handle numeric filename with extension', () => {
+        expect(getFilenameAndExt('12345.txt')).toEqual(['12345', 'txt']);
+    });
+
+    it('should handle filename with uppercase extension', () => {
+        expect(getFilenameAndExt('document.PDF')).toEqual(['document', 'PDF']);
+    });
+
+    it('should handle filename with spaces and extension', () => {
+        expect(getFilenameAndExt('my file.txt')).toEqual(['my file', 'txt']);
     });
 });
