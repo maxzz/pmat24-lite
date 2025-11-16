@@ -1,4 +1,4 @@
-# os-path
+# os-path-posix
 
 A TypeScript implementation of POSIX path utilities, extracted from Node.js v8.11.1 and converted to tree-shakable ES modules.
 
@@ -8,21 +8,22 @@ A TypeScript implementation of POSIX path utilities, extracted from Node.js v8.1
 
 - 🌳 **Tree-shakable** - Import only what you need
 - 📘 **TypeScript** - Full type definitions included
-- 🧪 **Well-tested** - 89 comprehensive tests
+- 🧪 **Well-tested** - 101 comprehensive tests
 - 🔧 **POSIX-compliant** - Consistent behavior across platforms
 - 📦 **Zero dependencies** - Lightweight implementation
+- 🚀 **Forward slashes** - Uses `/` as path separator
 
 ## Installation
 
 ```typescript
-import { join, resolve, dirname, basename } from './utils/os-path';
+import { join, resolve, dirname, basename } from './utils/os-path-posix';
 ```
 
 ## API Reference
 
 ### Types
 
-#### `PathObject` (POSIX)
+#### `PathObject`
 
 ```typescript
 interface PathObject {
@@ -34,7 +35,7 @@ interface PathObject {
 }
 ```
 
-#### `ParsedPath` (POSIX)
+#### `ParsedPath`
 
 ```typescript
 interface ParsedPath {
@@ -43,20 +44,6 @@ interface ParsedPath {
   base: string;   // File name including extension
   ext: string;    // File extension including dot
   name: string;   // File name without extension
-}
-```
-
-#### `ParsedWindowsPath`
-
-```typescript
-interface ParsedWindowsPath {
-  root: string;      // Root: 'C:\' or '\\server\share\' or '\'
-  dir: string;       // Directory path
-  base: string;      // File name including extension
-  ext: string;       // File extension including dot
-  name: string;      // File name without extension
-  drive: string;     // Drive letter: 'C:' or empty for UNC/relative
-  isUNC: boolean;    // True if UNC path (\\server\share)
 }
 ```
 
@@ -469,141 +456,6 @@ parse('');
 
 ---
 
-#### `parseWindowsPath(path: string): ParsedWindowsPath`
-
-Parses a Windows path string into its components. Properly handles drive letters, backslashes, UNC paths, and mixed separators.
-
-**Parameters:**
-- `path` - The Windows path to parse
-
-**Returns:** A `ParsedWindowsPath` object with Windows-specific components
-
-**Behavior:**
-- Recognizes Windows drive letters (A-Z, case-insensitive)
-- Treats backslashes (`\`) as path separators
-- Normalizes forward slashes to backslashes
-- Identifies UNC paths (`\\server\share`)
-- Extracts drive letter information
-- Handles mixed separators
-
-**Examples:**
-
-```typescript
-parseWindowsPath('C:\\Users\\John\\file.txt');
-// Returns: {
-//   root: 'C:\\',
-//   dir: 'C:\\Users\\John',
-//   base: 'file.txt',
-//   ext: '.txt',
-//   name: 'file',
-//   drive: 'C:',
-//   isUNC: false
-// }
-
-parseWindowsPath('C:/Users/John/file.txt');
-// Returns: {
-//   root: 'C:\\',
-//   dir: 'C:\\Users\\John',
-//   base: 'file.txt',
-//   ext: '.txt',
-//   name: 'file',
-//   drive: 'C:',
-//   isUNC: false
-// }
-
-parseWindowsPath('\\\\server\\share\\folder\\file.txt');
-// Returns: {
-//   root: '\\\\server\\share\\',
-//   dir: '\\\\server\\share\\folder',
-//   base: 'file.txt',
-//   ext: '.txt',
-//   name: 'file',
-//   drive: '',
-//   isUNC: true
-// }
-
-parseWindowsPath('C:');
-// Returns: {
-//   root: 'C:',
-//   dir: 'C:',
-//   base: '',
-//   ext: '',
-//   name: '',
-//   drive: 'C:',
-//   isUNC: false
-// }
-
-parseWindowsPath('\\Users\\file.txt');
-// Returns: {
-//   root: '\\',
-//   dir: '\\Users',
-//   base: 'file.txt',
-//   ext: '.txt',
-//   name: 'file',
-//   drive: '',
-//   isUNC: false
-// }
-```
-
-**Throws:** `TypeError` if path is not a string
-
----
-
-#### `formatWindowsPath(pathObject: Partial<ParsedWindowsPath>): string`
-
-Formats a ParsedWindowsPath object back into a Windows path string.
-
-**Parameters:**
-- `pathObject` - A Windows path object with components
-
-**Returns:** The formatted Windows path string with backslashes
-
-**Behavior:**
-- Uses backslash (`\`) as separator
-- `base` takes precedence over `name` + `ext`
-- `dir` is used if provided, otherwise `root` is used
-- Concatenates components appropriately
-
-**Examples:**
-
-```typescript
-formatWindowsPath({
-  root: 'C:\\',
-  dir: 'C:\\Users\\John',
-  base: 'file.txt',
-  ext: '.txt',
-  name: 'file',
-  drive: 'C:',
-  isUNC: false
-});
-// Returns: 'C:\\Users\\John\\file.txt'
-
-formatWindowsPath({
-  dir: 'C:\\Users\\John',
-  name: 'file',
-  ext: '.txt'
-});
-// Returns: 'C:\\Users\\John\\file.txt'
-
-formatWindowsPath({
-  root: '\\\\server\\share\\',
-  dir: '\\\\server\\share\\folder',
-  base: 'file.txt',
-  drive: '',
-  isUNC: true
-});
-// Returns: '\\\\server\\share\\folder\\file.txt'
-
-formatWindowsPath({
-  base: 'file.txt'
-});
-// Returns: 'file.txt'
-```
-
-**Throws:** `TypeError` if pathObject is null or not an object
-
----
-
 ### Constants
 
 #### `sep: string`
@@ -615,7 +467,7 @@ The platform-specific path segment separator.
 **Example:**
 
 ```typescript
-import { sep } from './utils/os-path';
+import { sep } from './utils/os-path-posix';
 
 const parts = ['foo', 'bar', 'baz'];
 const path = parts.join(sep);
@@ -633,7 +485,7 @@ The platform-specific path delimiter used to separate paths in environment varia
 **Example:**
 
 ```typescript
-import { delimiter } from './utils/os-path';
+import { delimiter } from './utils/os-path-posix';
 
 const paths = ['/usr/bin', '/usr/local/bin', '/bin'];
 const pathEnv = paths.join(delimiter);
@@ -649,7 +501,7 @@ const pathEnv = paths.join(delimiter);
 #### Building file paths
 
 ```typescript
-import { join } from './utils/os-path';
+import { join } from './utils/os-path-posix';
 
 const configPath = join('config', 'settings.json');
 // Returns: 'config/settings.json'
@@ -661,7 +513,7 @@ const absolutePath = join('/app', 'public', 'images', 'logo.png');
 #### Getting file information
 
 ```typescript
-import { basename, dirname, extname } from './utils/os-path';
+import { basename, dirname, extname } from './utils/os-path-posix';
 
 const filePath = '/home/user/documents/report.pdf';
 
@@ -674,7 +526,7 @@ extname(filePath);          // '.pdf'
 #### Working with relative paths
 
 ```typescript
-import { relative, resolve } from './utils/os-path';
+import { relative, resolve } from './utils/os-path-posix';
 
 const from = '/data/projects/app';
 const to = '/data/projects/lib/utils';
@@ -689,7 +541,7 @@ resolve(from, relative(from, to));
 #### Parsing and formatting paths
 
 ```typescript
-import { parse, format } from './utils/os-path';
+import { parse, format } from './utils/os-path-posix';
 
 // Parse a path
 const parsed = parse('/home/user/file.txt');
@@ -715,55 +567,11 @@ format(modified);
 #### Normalizing user input
 
 ```typescript
-import { normalize } from './utils/os-path';
+import { normalize } from './utils/os-path-posix';
 
 const userPath = 'foo//bar/../baz/./qux';
 normalize(userPath);
 // Returns: 'foo/baz/qux'
-```
-
-#### Working with Windows paths
-
-```typescript
-import { parseWindowsPath, formatWindowsPath } from './utils/os-path';
-
-// Parse a Windows path
-const winPath = 'C:\\Users\\John\\Documents\\report.pdf';
-const parsed = parseWindowsPath(winPath);
-console.log(parsed);
-// {
-//   root: 'C:\\',
-//   dir: 'C:\\Users\\John\\Documents',
-//   base: 'report.pdf',
-//   ext: '.pdf',
-//   name: 'report',
-//   drive: 'C:',
-//   isUNC: false
-// }
-
-// Works with forward slashes too
-const winPathForward = 'C:/Users/John/Documents/report.pdf';
-const parsed2 = parseWindowsPath(winPathForward);
-// Normalizes to backslashes internally
-
-// Handle UNC paths
-const uncPath = '\\\\server\\share\\folder\\file.txt';
-const parsedUNC = parseWindowsPath(uncPath);
-console.log(parsedUNC.isUNC);  // true
-console.log(parsedUNC.drive);  // '' (no drive letter for UNC)
-
-// Format back to Windows path
-formatWindowsPath(parsed);
-// Returns: 'C:\\Users\\John\\Documents\\report.pdf'
-
-// Modify and format
-const modified = {
-  ...parsed,
-  name: 'invoice',
-  ext: '.docx'
-};
-formatWindowsPath(modified);
-// Returns: 'C:\\Users\\John\\Documents\\invoice.docx'
 ```
 
 ---
@@ -773,7 +581,7 @@ formatWindowsPath(modified);
 All functions validate their inputs and throw `TypeError` for invalid arguments:
 
 ```typescript
-import { join, basename, format } from './utils/os-path';
+import { join, basename, format } from './utils/os-path-posix';
 
 // These will throw TypeError
 join('/foo', 123);           // path must be string
@@ -787,50 +595,20 @@ Always ensure inputs are strings (or objects for `format()`).
 
 ---
 
-## Differences from Node.js `path`
-
-This implementation:
-- **POSIX by default**: Main functions use POSIX paths (forward slashes)
-- **Windows support added**: `parseWindowsPath()` and `formatWindowsPath()` handle Windows paths
-- **No `process.cwd()` polyfill**: Uses Node.js/environment `process.cwd()` when available
-- **Browser-compatible**: Works in environments with `process` polyfill
-- **Tree-shakable**: Individual functions can be imported
-
-### POSIX vs Windows Functions
-
-| Feature | POSIX Functions | Windows Functions |
-|---------|----------------|-------------------|
-| Separator | `/` (forward slash) | `\` (backslash) |
-| Functions | `parse()`, `format()`, etc. | `parseWindowsPath()`, `formatWindowsPath()` |
-| Drive letters | Not recognized | Recognized (C:, D:, etc.) |
-| UNC paths | Not supported | Supported (`\\server\share`) |
-| Mixed slashes | Treats `\` as regular character | Normalizes `/` to `\` |
-
----
-
 ## Testing
 
-The module includes 135 comprehensive tests covering:
-- ✅ All POSIX functions (resolve, normalize, join, etc.)
-- ✅ Windows path functions (parseWindowsPath, formatWindowsPath)
-- ✅ Drive letter handling (C:, D:, etc.)
-- ✅ UNC path support (\\server\share)
+The module includes 101 comprehensive tests covering:
+- ✅ All public functions
 - ✅ Error handling and type validation
 - ✅ Edge cases (empty strings, special characters, long paths)
-- ✅ Format/Parse symmetry for both POSIX and Windows
-- ✅ Mixed separator handling
+- ✅ Format/Parse symmetry
 - ✅ POSIX compliance
 
 Run tests:
 
 ```bash
-npm test os-path
+npm test os-path-posix
 ```
-
-Test coverage:
-- 101 POSIX tests
-- 34 Windows path tests
-- All tests passing ✅
 
 ---
 
@@ -856,5 +634,6 @@ See the full license text in the source file.
 
 - [Node.js Path Documentation](https://nodejs.org/api/path.html)
 - [path-browserify on GitHub](https://github.com/browserify/path-browserify)
-- Test file: `os-path.test.ts`
+- Test file: `os-path-posix.test.ts`
+- Windows version: `os-path-windows.ts`
 
