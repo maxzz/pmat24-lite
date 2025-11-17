@@ -17,6 +17,7 @@ export type SetDeliveredFiles = {
     deliveredFileContents: FileContent[] | undefined;
     root: PmatFolder;
     noItemsJustDir: boolean; // to allow to open an empty folder
+    error: string | undefined;
 };
 
 /**

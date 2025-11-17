@@ -22,6 +22,7 @@ export const doCloseRootDirAtom = atom(
             deliveredFileContents: undefined,
             root: undefinedPmatFolder(),
             noItemsJustDir: false,
+            error: undefined,
         });
 
         await inTest_DeleteDir();

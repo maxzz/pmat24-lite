@@ -161,6 +161,7 @@ export namespace R2MInvoke { // Main from Renderer invoke and get result
         ? {
             filesCnt: MainFileContent[];
             emptyFolder: string;
+            error: string | undefined;
         }
 
         : T extends SaveFile                 //'r2mi:save-file'

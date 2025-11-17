@@ -23,6 +23,7 @@ export async function createFileContents_WebAfterDnd(fileDataTransferItems: Data
             },
             deliveredFileContents: [],
             noItemsJustDir: false,
+            error: undefined,
         };
         return rv;
     } else {
@@ -35,6 +36,7 @@ export async function createFileContents_WebAfterDnd(fileDataTransferItems: Data
             },
             deliveredFileContents,
             noItemsJustDir: false,
+            error: undefined,
         };
         return rv;
     }

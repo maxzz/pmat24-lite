@@ -64,7 +64,7 @@ export const doSetFilesFrom_LegacyDlg_Atom = atom(
                 fromMain: false,
             };
             if (deliveredFileContents) {
-                set(doSetDeliveredFilesAtom, { deliveredFileContents, root, noItemsJustDir: false, });
+                set(doSetDeliveredFilesAtom, { deliveredFileContents, root, noItemsJustDir: false, error: undefined, });
             }
         }
     }
@@ -79,7 +79,7 @@ export const doSetFilesFrom_ModernDlg_Atom = atom(
 
             if (!hasMain()) { // This is not supported by electron due to electronGetPaths() limitations (used legacy dlg instead)
                 const deliveredFileContents: FileContent[] = files ? await createFileContents_WebAfterDlgOpen(files) : [];
-                set(doSetDeliveredFilesAtom, { deliveredFileContents, root: { ...root, fromMain: false }, noItemsJustDir: false, });
+                set(doSetDeliveredFilesAtom, { deliveredFileContents, root: { ...root, fromMain: false }, noItemsJustDir: false, error: undefined, });
             }
         } catch (error) {
             !errorToString(error).includes('user aborted') && console.error(error);
@@ -121,7 +121,7 @@ export const doSetFilesFrom_MruFolder_Atom = atom(
             //printFiles(files);
 
             let deliveredFileContents: FileContent[] = files ? await createFileContents_WebAfterDlgOpen(files) : [];
-            set(doSetDeliveredFilesAtom, { deliveredFileContents, root: folder, noItemsJustDir: false, });
+            set(doSetDeliveredFilesAtom, { deliveredFileContents, root: folder, noItemsJustDir: false, error: undefined, });
 
         } catch (error) {
             console.log('MRU.item.invalid', folder, error); // we don't call setRootDir(undefined); here to keep already open folder or welcome screen

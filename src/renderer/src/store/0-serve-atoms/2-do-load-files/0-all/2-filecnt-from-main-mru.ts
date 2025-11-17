@@ -5,12 +5,13 @@ import { type SetDeliveredFiles } from "../../1-do-set-files";
 
 export async function createFileContents_FromMru_Main(folder: PmatFolder): Promise<SetDeliveredFiles | undefined> {
     if (folder.fpath) {
-        const { filesCnt: deliveredFileContents, emptyFolder } = await invokeLoadFiles([folder.fpath], pmAllowedToOpenExt);
+        const { filesCnt: deliveredFileContents, emptyFolder, error } = await invokeLoadFiles([folder.fpath], pmAllowedToOpenExt);
         
         const rv: SetDeliveredFiles = {
             root: folder,
             deliveredFileContents,
-            noItemsJustDir: false,
+            noItemsJustDir: !!emptyFolder,
+            error,
         };
         return rv;
     }
