@@ -42,7 +42,7 @@ export function isAllowedExt(filename: string | undefined, allowedExt: string[])
 // }
 
 export function getFilenameAndExt(filename: string): [string, string] {
-    const parts = filename.split('.'); // not good if dot is the folder name and last part is the file name wo/ dot.
+    const parts = filename.replace(/[\\\/\s]+$/, '').split('.'); // not good if dot is the folder name and last part is the file name wo/ dot. remove last slashes and whitespaces
     const ext = parts.pop() || '';
     const name = parts.join('.');
     return [name, ext];

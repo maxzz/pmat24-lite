@@ -89,9 +89,9 @@ describe('getFilenameAndExt', () => {
         { fn: getFilenameAndExt, description: 'should handle hidden file with extension',                                                 /**/ in: '.env.local', toBe: ['.env', 'local'] },
         { fn: getFilenameAndExt, description: 'should handle empty string',                                                               /**/ in: '', toBe: ['', ''] },
 
-        { fn: getFilenameAndExt, description: 'should handle empty string \\',                                                            /**/ in: '\\', toBe: ['', '\\'] },
-        { fn: getFilenameAndExt, description: 'should handle empty string name\\',                                                        /**/ in: 'name\\', toBe: ['', 'name\\'] },
-        { fn: getFilenameAndExt, description: 'should handle empty string \\\\name\\',                                                        /**/ in: '\\\\name\\', toBe: ['', '\\\\name\\'] },
+        { fn: getFilenameAndExt, description: 'should handle empty string \\',                                                            /**/ in: '\\', toBe: ['', ''] },
+        { fn: getFilenameAndExt, description: 'should handle empty string name\\',                                                        /**/ in: 'name\\', toBe: ['', 'name'] },
+        { fn: getFilenameAndExt, description: 'should handle empty string \\\\name\\',                                                        /**/ in: '\\\\name\\', toBe: ['', '\\\\name'] },
 
         { fn: getFilenameAndExt, description: 'should handle filename with many dots',                                                    /**/ in: 'my.file.name.here.txt', toBe: ['my.file.name.here', 'txt'] },
         { fn: getFilenameAndExt, description: 'should handle single dot',                                                                 /**/ in: '.', toBe: ['', ''] },
