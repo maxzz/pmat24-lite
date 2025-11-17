@@ -11,7 +11,7 @@ import { getLinkTargetPath } from "@shell/3-utils-main";
  *  - filesCnt - MainFileContent casted to FileContent. They should be filled from renderer.
  *  - emptyFolder - if call open folder and no files found then we return empty folder path
  */
-export async function asyncLoadWin32FilesContent(filenames: string[], allowedExt?: string[]): Promise<{ filesCnt: MainFileContent[]; emptyFolder: string; }> { // call 'r2mi:load-files' in main
+export async function asyncLoadWin32FilesContent(filenames: string[], allowedExt?: string[]): Promise<{ filesCnt: MainFileContent[]; emptyFolder: string; error: string | undefined; }> { // call 'r2mi:load-files' in main
     let isLink = false;
 
     if (filenames.length === 1) { // resolve shortcut link to target only if it's a single file from drag and drop
@@ -20,8 +20,15 @@ export async function asyncLoadWin32FilesContent(filenames: string[], allowedExt
         filenames[0] = linkTarget;
     }
 
-    const loaded: MainFileContent[] = await collectNames(filenames);
+    const loaded: MainFileContent[] = await collectNames(filenames, allowedExt);
     readFilesCnt(loaded);
+
+    if (isLink && loaded.length === 1) { // if link target not found then return error message stared with "ENOENT: no such file or directory, stat '\\\\Tanam11\\c\\Y\\w\\112'"
+        const {failed, notOur, rawLoaded} = loaded[0];
+        if (failed || notOur) {
+            return { filesCnt: [], emptyFolder: '', error: rawLoaded };
+        }
+    }
 
     let emptyFolder = '';
 
@@ -35,7 +42,7 @@ export async function asyncLoadWin32FilesContent(filenames: string[], allowedExt
         }
     }
 
-    return { filesCnt: loaded, emptyFolder };
+    return { filesCnt: loaded, emptyFolder, error: undefined };
 }
 
 // Collect files and folders recursively
