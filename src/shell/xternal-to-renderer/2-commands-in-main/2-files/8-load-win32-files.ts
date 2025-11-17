@@ -5,28 +5,30 @@ import { getLinkTargetPath } from "@shell/3-utils-main";
 
 /**
  * @param filenames - filenames with path
+ * It can be files and/or directories. A single directory or Windows shortcut link to a directory is also possible.
  * @param allowedExt - allowed extensions
  * @returns { filesCnt: MainFileContent[]; emptyFolder: string; } - 
  *  - filesCnt - MainFileContent casted to FileContent. They should be filled from renderer.
  *  - emptyFolder - if call open folder and no files found then we return empty folder path
  */
 export async function asyncLoadWin32FilesContent(filenames: string[], allowedExt?: string[]): Promise<{ filesCnt: MainFileContent[]; emptyFolder: string; }> { // call 'r2mi:load-files' in main
+    let isLink = false;
+
     if (filenames.length === 1) { // resolve shortcut link to target only if it's a single file from drag and drop
-        filenames[0] = await getLinkTargetPath(filenames[0]);
+        const linkTarget = await getLinkTargetPath(filenames[0]);
+        isLink = linkTarget !== filenames[0];
+        filenames[0] = linkTarget;
     }
 
-    const ctx: CollectCtx = { numberOfLevels: 1, allowedSubfolders: ["a", "b", "c"], rv: [] };
-    collectNamesRecursively(filenames, 0, ctx);
-
-    allowedExt && ctx.rv.forEach((item) => item.notOur = !isAllowedExt(item.fname, allowedExt));
+    const ctx: CollectCtx = await collectNames(filenames);
 
     ctx.rv.forEach(
-        (fileContent, idx) => { // read file content
+        (fileContent, idx) => {
             fileContent.idx = idx;
             if (fileContent.failed || fileContent.notOur) {
                 return;
             }
-
+            // read file content if not failed and our
             try {
                 const fullName = join(fileContent.fpath!, fileContent.fname);
                 fileContent.rawLoaded = readFileSync(fullName).toString();
@@ -58,6 +60,14 @@ type CollectCtx = {
     rv: MainFileContent[];
 };
 
+async function collectNames(filenames: string[], allowedExt?: string[]): Promise<CollectCtx> {
+    const ctx: CollectCtx = { numberOfLevels: 1, allowedSubfolders: ["a", "b", "c"], rv: [] };
+    await collectNamesRecursively(filenames, 0, ctx);
+    
+    allowedExt && ctx.rv.forEach((item) => item.notOur = !isAllowedExt(item.fname, allowedExt));
+    return ctx;
+}
+
 async function collectNamesRecursively(filenames: string[], level: number, ctx: CollectCtx) {
     for (const fname of (filenames || [])) {
         const filename = normalize(fname);
@@ -77,7 +87,7 @@ async function collectNamesRecursively(filenames: string[], level: number, ctx: 
                     const entries = readdirSync(filename).map(
                         (entry) => join(filename, entry)
                     );
-                    collectNamesRecursively(entries, level + 1, ctx);
+                    await collectNamesRecursively(entries, level + 1, ctx);
                 }
             }
         } catch (error) {
