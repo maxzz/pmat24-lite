@@ -41,6 +41,13 @@ export function isAllowedExt(filename: string | undefined, allowedExt: string[])
 //     return filename.replace(/\.[^/.]+$/, ''); // replace last extension; ("name.ext") -> 'name'; ("name") -> 'name'
 // }
 
+/**
+ * !! Used only to produce test names for debug only !!.
+ * 
+ * Returns the filename and extension from a path or filename. Hot handles propery all edge cases when name w/o path.
+ * @param filename - The path or filename to extract the filename and extension from
+ * @returns An array with the filename and extension
+ */
 export function getFilenameAndExt(filename: string): [string, string] {
     const parts = filename.replace(/[\\\/\s]+$/, '').split('.'); // not good if dot is the folder name and last part is the file name wo/ dot. remove last slashes and whitespaces
     const ext = parts.pop() || '';
@@ -57,10 +64,10 @@ export function getFilenameAndExt(filename: string): [string, string] {
 export function pathWithoutFilename(path: string | undefined): string {
     const rv =
         (path || '')
-            .replace(/[\\\/\s]+$/, '') // remove last slashes and whitespaces
-            .replace(/^\//, '')        // remove first slash
-            .split(/[\\\/]/);          // split by slashes
-    rv.pop(); // remove filename as the last item
+            .replace(/[\\\/\s]+$/, '')          // remove last slashes and whitespaces
+            .replace(/^\//, '')                 // remove first slash
+            .split(/[\\\/]/);                   // split by slashes
+    rv.pop();                                   // remove filename as the last item
     return rv.join('/');
 }
 
@@ -70,10 +77,14 @@ export function pathWithoutFilename(path: string | undefined): string {
 export function filenameWithoutPath(path: string | undefined): string {
     const rv =
         (path || '')
-            .replace(/[\\\/\s]+$/, '') // remove last slashes and whitespaces
-            .replace(/^[\\\/]+/, '')   // remove first slashes
-            .split(/[\\\/]/);          // split by slashes
+            .replace(/[\\\/\s]+$/, '')          // remove last slashes and whitespaces
+            .replace(/^[\\\/]+/, '')            // remove first slashes
+            .split(/[\\\/]/);                   // split by slashes
     return rv.pop() || '';
+}
+
+export function replaceLastSlash(filename: string): string {
+    return filename.replace(/[\\\/\s]+$/, '');  // remove last slashes and whitespaces
 }
 
 // -----------------------------
