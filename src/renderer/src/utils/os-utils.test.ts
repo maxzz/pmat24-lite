@@ -2,13 +2,6 @@
 import { describe, it, expect } from 'vitest';
 import { pathWithoutFilename, filenameWithoutPath, getFilenameAndExt } from './os-utils';
 
-type TestCase = {
-    fn: (input: string | undefined) => string | string[];
-    description: string;
-    in: (string | undefined)[];
-    toBe: string | string[];
-};
-
 describe('pathWithoutFilename', () => {
     type TestCase = {
         fn: (input: string | undefined) => string;
@@ -43,40 +36,51 @@ describe('pathWithoutFilename', () => {
 });
 
 describe('filenameWithoutPath', () => {
+    type TestCase = {
+        fn: (input: string | undefined) => string;
+        description: string;
+        in: string | undefined;
+        toBe: string;
+    };
+
     const testCases: TestCase[] = [
-        { fn: filenameWithoutPath, description: 'should extract filename from Unix path', in: ['/home/user/documents/file.txt'], toBe: 'file.txt' },
-        { fn: filenameWithoutPath, description: 'should extract filename from Windows path', in: ['C:\\Users\\Documents\\file.txt'], toBe: 'file.txt' },
-        { fn: filenameWithoutPath, description: 'should handle path with trailing slash', in: ['/home/user/documents/'], toBe: 'documents' },
-        { fn: filenameWithoutPath, description: 'should handle path with multiple trailing slashes', in: ['/home/user/documents///'], toBe: 'documents' },
-        { fn: filenameWithoutPath, description: 'should handle path with trailing whitespace', in: ['/home/user/documents/file.txt   '], toBe: 'file.txt' },
-        { fn: filenameWithoutPath, description: 'should handle mixed slashes', in: ['C:/Users\\Documents/file.txt'], toBe: 'file.txt' },
-        { fn: filenameWithoutPath, description: 'should return filename when no path', in: ['file.txt'], toBe: 'file.txt' },
-        { fn: filenameWithoutPath, description: 'should handle empty string', in: [''], toBe: '' },
-        { fn: filenameWithoutPath, description: 'should handle undefined', in: [undefined], toBe: '' },
-        { fn: filenameWithoutPath, description: 'should handle path with only slashes', in: ['///'], toBe: '' },
-        { fn: filenameWithoutPath, description: 'should handle leading slashes', in: ['/file.txt'], toBe: 'file.txt' },
-        { fn: filenameWithoutPath, description: 'should handle filename with dots', in: ['/path/to/file.test.ts'], toBe: 'file.test.ts' },
-        { fn: filenameWithoutPath, description: 'should handle filename without extension', in: ['/path/to/README'], toBe: 'README' },
-        { fn: filenameWithoutPath, description: 'should handle deep nested path', in: ['/a/b/c/d/e/f/file.txt'], toBe: 'file.txt' },
-        { fn: filenameWithoutPath, description: 'should handle path with spaces in filename', in: ['/my folder/my file.txt'], toBe: 'my file.txt' },
-        { fn: filenameWithoutPath, description: 'should handle Windows drive letter only', in: ['C:\\'], toBe: 'C:' },
-        { fn: filenameWithoutPath, description: 'should return last folder name when path ends with slash', in: ['/home/user/projects/'], toBe: 'projects' },
-        { fn: filenameWithoutPath, description: 'should handle UNC network path', in: ['//server/share/folder/file.txt'], toBe: 'file.txt' },
-        { fn: filenameWithoutPath, description: 'should handle UNC network path with backslashes', in: ['\\\\server\\share\\folder\\file.txt'], toBe: 'file.txt' },
-        { fn: filenameWithoutPath, description: 'should handle UNC network path root', in: ['//server/share'], toBe: 'share' },
-        { fn: filenameWithoutPath, description: 'should handle UNC network path with trailing slash', in: ['//server/share/folder/'], toBe: 'folder' },
+        { fn: filenameWithoutPath, description: 'should extract filename from Unix path', in: '/home/user/documents/file.txt', toBe: 'file.txt' },
+        { fn: filenameWithoutPath, description: 'should extract filename from Windows path', in: 'C:\\Users\\Documents\\file.txt', toBe: 'file.txt' },
+        { fn: filenameWithoutPath, description: 'should handle path with trailing slash', in: '/home/user/documents/', toBe: 'documents' },
+        { fn: filenameWithoutPath, description: 'should handle path with multiple trailing slashes', in: '/home/user/documents///', toBe: 'documents' },
+        { fn: filenameWithoutPath, description: 'should handle path with trailing whitespace', in: '/home/user/documents/file.txt   ', toBe: 'file.txt' },
+        { fn: filenameWithoutPath, description: 'should handle mixed slashes', in: 'C:/Users\\Documents/file.txt', toBe: 'file.txt' },
+        { fn: filenameWithoutPath, description: 'should return filename when no path', in: 'file.txt', toBe: 'file.txt' },
+        { fn: filenameWithoutPath, description: 'should handle empty string', in: '', toBe: '' },
+        { fn: filenameWithoutPath, description: 'should handle undefined', in: undefined, toBe: '' },
+        { fn: filenameWithoutPath, description: 'should handle path with only slashes', in: '///', toBe: '' },
+        { fn: filenameWithoutPath, description: 'should handle leading slashes', in: '/file.txt', toBe: 'file.txt' },
+        { fn: filenameWithoutPath, description: 'should handle filename with dots', in: '/path/to/file.test.ts', toBe: 'file.test.ts' },
+        { fn: filenameWithoutPath, description: 'should handle filename without extension', in: '/path/to/README', toBe: 'README' },
+        { fn: filenameWithoutPath, description: 'should handle deep nested path', in: '/a/b/c/d/e/f/file.txt', toBe: 'file.txt' },
+        { fn: filenameWithoutPath, description: 'should handle path with spaces in filename', in: '/my folder/my file.txt', toBe: 'my file.txt' },
+        { fn: filenameWithoutPath, description: 'should handle Windows drive letter only', in: 'C:\\', toBe: 'C:' },
+        { fn: filenameWithoutPath, description: 'should return last folder name when path ends with slash', in: '/home/user/projects/', toBe: 'projects' },
+        { fn: filenameWithoutPath, description: 'should handle UNC network path', in: '//server/share/folder/file.txt', toBe: 'file.txt' },
+        { fn: filenameWithoutPath, description: 'should handle UNC network path with backslashes', in: '\\\\server\\share\\folder\\file.txt', toBe: 'file.txt' },
+        { fn: filenameWithoutPath, description: 'should handle UNC network path root', in: '//server/share', toBe: 'share' },
+        { fn: filenameWithoutPath, description: 'should handle UNC network path with trailing slash', in: '//server/share/folder/', toBe: 'folder' },
     ];
     testCases.forEach((testCase) => {
         it(testCase.description, () => {
-            testCase.in.forEach((input) => {
-                expect(testCase.fn(input)).toBe(testCase.toBe);
-            });
+            expect(testCase.fn(testCase.in)).toBe(testCase.toBe);
         });
     });
 });
 
 describe('getFilenameAndExt', () => {
-
+    type TestCase = {
+        fn: (input: string) => string[];
+        description: string;
+        in: string;
+        toBe: string[];
+    };    
+    
     it('should split simple filename with extension', () => {
         expect(getFilenameAndExt('file.txt')).toEqual(['file', 'txt']);
     });
