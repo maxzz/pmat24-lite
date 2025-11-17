@@ -1,3 +1,5 @@
+import { replaceLastSlash } from "./os-utils";
+
 // slashes back and forward
 
 export function toUnix(fileName: string | undefined): string {
@@ -19,7 +21,7 @@ export function toWindows(fileName: string | undefined): string {
 //
 
 export function normalizeFpath(fpath: string | undefined): string {
-    return toUnix(fpath).toLowerCase();
+    return replaceLastSlash(toUnix(fpath).toLowerCase());
 }
 
 export function filenameForRegex(filename: string | undefined): string {

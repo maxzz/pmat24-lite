@@ -83,8 +83,14 @@ export function filenameWithoutPath(path: string | undefined): string {
     return rv.pop() || '';
 }
 
-export function replaceLastSlash(filename: string): string {
-    return filename.replace(/[\\\/\s]+$/, '');  // remove last slashes and whitespaces
+/**
+ * Removes the last slash and whitespaces from a filename or path.
+ * QA provided path '\\10.40.36.91\logins\' and it should be 'logins' instead of '\' after call.
+ * @param filename - The filename or path to remove the last slash and whitespaces from
+ * @returns The filename or path without the last slash and whitespaces
+ */
+export function replaceLastSlash(filename: string | undefined): string {
+    return (filename || '').replace(/[\\\/\s]+$/, '');  // remove last slashes and whitespaces
 }
 
 // -----------------------------
