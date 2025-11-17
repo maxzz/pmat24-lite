@@ -20,28 +20,12 @@ export async function asyncLoadWin32FilesContent(filenames: string[], allowedExt
         filenames[0] = linkTarget;
     }
 
-    const ctx: CollectCtx = await collectNames(filenames);
-
-    ctx.rv.forEach(
-        (fileContent, idx) => {
-            fileContent.idx = idx;
-            if (fileContent.failed || fileContent.notOur) {
-                return;
-            }
-            // read file content if not failed and our
-            try {
-                const fullName = join(fileContent.fpath!, fileContent.fname);
-                fileContent.rawLoaded = readFileSync(fullName).toString();
-            } catch (error) {
-                fileContent.rawLoaded = error instanceof Error ? error.message : JSON.stringify(error);
-                fileContent.failed = true;
-            }
-        }
-    );
+    const loaded: MainFileContent[] = await collectNames(filenames);
+    readFilesCnt(loaded);
 
     let emptyFolder = '';
 
-    if (!ctx.rv.length && filenames.length === 1) {
+    if (!loaded.length && filenames.length === 1) {
         try {
             if (statSync(filenames[0]).isDirectory()) {
                 emptyFolder = filenames[0];
@@ -51,8 +35,10 @@ export async function asyncLoadWin32FilesContent(filenames: string[], allowedExt
         }
     }
 
-    return { filesCnt: ctx.rv, emptyFolder };
+    return { filesCnt: loaded, emptyFolder };
 }
+
+// Collect files and folders recursively
 
 type CollectCtx = {
     numberOfLevels: number; // number of levels to collect: 1 - only root as allowedSubfolders, 2 - root and subfolders of 1st level and allowedSubfolders
@@ -60,12 +46,12 @@ type CollectCtx = {
     rv: MainFileContent[];
 };
 
-async function collectNames(filenames: string[], allowedExt?: string[]): Promise<CollectCtx> {
+async function collectNames(filenames: string[], allowedExt?: string[]): Promise<MainFileContent[]> {
     const ctx: CollectCtx = { numberOfLevels: 1, allowedSubfolders: ["a", "b", "c"], rv: [] };
     await collectNamesRecursively(filenames, 0, ctx);
-    
+
     allowedExt && ctx.rv.forEach((item) => item.notOur = !isAllowedExt(item.fname, allowedExt));
-    return ctx;
+    return ctx.rv;
 }
 
 async function collectNamesRecursively(filenames: string[], level: number, ctx: CollectCtx) {
@@ -118,4 +104,25 @@ function makeNewItem(filename: string): MainFileContent {
 function isAllowedExt(filename: string | undefined, allowedExt: string[]): boolean | undefined { // the same as in renderer
     const ext = extname(filename || '').replace('.', '').toLowerCase();
     return allowedExt.includes(ext);
+}
+
+// Read files content
+
+function readFilesCnt(filesCnt: MainFileContent[]): void {
+    filesCnt.forEach(
+        (fileContent, idx) => {
+            fileContent.idx = idx;
+            if (fileContent.failed || fileContent.notOur) {
+                return;
+            }
+            // read file content if not failed and our
+            try {
+                const fullName = join(fileContent.fpath!, fileContent.fname);
+                fileContent.rawLoaded = readFileSync(fullName).toString();
+            } catch (error) {
+                fileContent.rawLoaded = error instanceof Error ? error.message : JSON.stringify(error);
+                fileContent.failed = true;
+            }
+        }
+    );
 }
