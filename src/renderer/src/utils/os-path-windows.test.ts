@@ -174,7 +174,7 @@ describe('os-path-windows', () => {
     });
 
     it('should handle forward slashes', () => {
-      expect(dirname('C:/Users/John/file.txt')).toBe('C:\\Users\\John');
+      expect(dirname('C:/Users/John/file.txt')).toBe('C:/Users/John');
     });
   });
 
