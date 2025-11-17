@@ -4,12 +4,12 @@ import { type MainFileContent } from "@shared/ipc-types";
 import { getLinkTargetPath } from "@shell/3-utils-main";
 
 /**
- * @param filenames - filenames with path
- * It can be files and/or directories. A single directory or Windows shortcut link to a directory is also possible.
+ * @param filenames - filename(s), folders, folder, or Windows shortcut. (BTW it can be two .lnk files dropped, but that one is not supported)
  * @param allowedExt - allowed extensions
- * @returns { filesCnt: MainFileContent[]; emptyFolder: string; } - 
+ * @returns { filesCnt: MainFileContent[]; emptyFolder: string; error: string | undefined; }
  *  - filesCnt - MainFileContent casted to FileContent. They should be filled from renderer.
  *  - emptyFolder - if call open folder and no files found then we return empty folder path
+ *  - error - error message if link target not found or other error happened
  */
 export async function asyncLoadWin32FilesContent(filenames: string[], allowedExt?: string[]): Promise<{ filesCnt: MainFileContent[]; emptyFolder: string; error: string | undefined; }> { // call 'r2mi:load-files' in main
     let isLink = false;
@@ -24,18 +24,15 @@ export async function asyncLoadWin32FilesContent(filenames: string[], allowedExt
     readFilesCnt(loaded);
 
     if (isLink && loaded.length === 1) { // If link target not found then return error message stared with "ENOENT: no such file or directory, stat '\\\\Tanam11\\c\\Y\\w\\112'"
-        const {failed, notOur, rawLoaded} = loaded[0];
+        const {failed, rawLoaded} = loaded[0];
         if (failed) {
             return { filesCnt: [], emptyFolder: '', error: rawLoaded.replace(', stat ', ':') }; // No nned to localize error message
-        }
-        else if (notOur) {
-            return { filesCnt: [], emptyFolder: '', error: 'The file type is not supported' };
-        }
+        } // else if (notOur) { return { filesCnt: [], emptyFolder: '', error: 'The file type is not supported' }; } // In that case we open contained folder normally
     }
 
     let emptyFolder = '';
 
-    if (!loaded.length && filenames.length === 1) {
+    if (!loaded.length && filenames.length === 1) { // Check if the user dropped an empty folder
         try {
             if (statSync(filenames[0]).isDirectory()) {
                 emptyFolder = filenames[0];
