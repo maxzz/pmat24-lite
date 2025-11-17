@@ -14,7 +14,7 @@ import { getLinkTargetPath } from "@shell/3-utils-main";
 export async function asyncLoadWin32FilesContent(filenames: string[], allowedExt?: string[]): Promise<{ filesCnt: MainFileContent[]; emptyFolder: string; error: string | undefined; }> { // call 'r2mi:load-files' in main
     let isLink = false;
 
-    if (filenames.length === 1) { // resolve shortcut link to target only if it's a single file from drag and drop
+    if (filenames.length === 1) { // resolve shortcut link to target only if it's a single item from drag and drop: can be a link to valid/invalid file or directory.
         const linkTarget = await getLinkTargetPath(filenames[0]);
         isLink = linkTarget !== filenames[0];
         filenames[0] = linkTarget;
@@ -23,10 +23,13 @@ export async function asyncLoadWin32FilesContent(filenames: string[], allowedExt
     const loaded: MainFileContent[] = await collectNames(filenames, allowedExt);
     readFilesCnt(loaded);
 
-    if (isLink && loaded.length === 1) { // if link target not found then return error message stared with "ENOENT: no such file or directory, stat '\\\\Tanam11\\c\\Y\\w\\112'"
+    if (isLink && loaded.length === 1) { // If link target not found then return error message stared with "ENOENT: no such file or directory, stat '\\\\Tanam11\\c\\Y\\w\\112'"
         const {failed, notOur, rawLoaded} = loaded[0];
-        if (failed || notOur) {
-            return { filesCnt: [], emptyFolder: '', error: rawLoaded };
+        if (failed) {
+            return { filesCnt: [], emptyFolder: '', error: rawLoaded.replace(', stat ', ':') }; // No nned to localize error message
+        }
+        else if (notOur) {
+            return { filesCnt: [], emptyFolder: '', error: 'The file type is not supported' };
         }
     }
 
