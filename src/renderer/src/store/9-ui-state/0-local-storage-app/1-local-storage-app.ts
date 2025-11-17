@@ -10,7 +10,7 @@ import { type AppUISettings, defaultAppUISettings } from "../8-app-ui";
 export { RightPanelViewAs, openedName } from "../2-right-panel";
 
 const STORE_KEY = "pmat25-ui";
-const STORE_VER = 'v3.1'; // fix for network share MRU list; new opened section
+const STORE_VER = 'v3.2'; // fix for network share MRU list; new opened section; fix for mru list path w/ trailing slash
 
 export type AppSettings = {
     appUi: AppUISettings;           // App UI settings: theme, divider, etc.
