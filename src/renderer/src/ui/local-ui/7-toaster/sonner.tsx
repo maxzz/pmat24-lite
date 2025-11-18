@@ -82,7 +82,7 @@ export function Toaster(props: ToasterProps) {
             className="toaster group"
             toastOptions={{
                 classNames: {
-                    toast: defaultToastClasses,
+                    // toast: defaultToastClasses,
                     success: successClasses,
                     error: errorClasses,
                     info: infoClasses,
