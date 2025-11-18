@@ -124,11 +124,14 @@ export function initializeMru(hasMainReal: boolean) {
 // Utilities
 
 function printRootDir(newFolder: PmatFolder | undefined, folder: PmatFolder, title: string) {
-    console.log(`%c ${title} ${newFolder ? 'updated' : 'added'} `, 'background-color: magenta; color: white', newFolder || folder);
+    console.log(`%c ${title}${newFolder ? '' : ' updated'} `, 'background-color: magenta; color: white', newFolder || folder);
 }
 
 function printMruList(folders: PmatFolder[]) {
+    const title = 'MRU folders';
     folders.forEach(
-        (folder) => printRootDir(undefined, folder, 'MRU')
+        (folder) => {
+            console.log(`%c ${title} `, 'background-color: violet; color: white', folder);
+        }
     );
 }
