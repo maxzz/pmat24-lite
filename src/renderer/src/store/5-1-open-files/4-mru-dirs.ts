@@ -1,5 +1,5 @@
 import { ref, snapshot, subscribe } from "valtio";
-import { get, set } from "idb-keyval";
+import { get as getDB, set as setDB } from "idb-keyval";
 import { errorToString, normalizeFpath, showStack, toWindows } from "@/utils";
 import { appSettings } from "@/store/9-ui-state";
 import { type PmatFolder } from "./9-types";
@@ -9,6 +9,7 @@ export function addToDirsMru(folder: PmatFolder) {
     try {
         const newFolder = updateMruList(appSettings.appUi.mru.folders, folder);
         printRootDir(newFolder, folder, 'setRootDir');
+        printMruList();
     } catch (error) {
         console.error(errorToString(error));
     }
@@ -17,7 +18,7 @@ export function addToDirsMru(folder: PmatFolder) {
 export function removeFromDirsMru(folder: PmatFolder) {
     try {
         removeMruListItem(appSettings.appUi.mru.folders, folder);
-        printMruList(appSettings.appUi.mru.folders);
+        printMruList();
     } catch (error) {
         console.error(errorToString(error));
     }
@@ -63,8 +64,6 @@ function removeMruListItem(items: PmatFolder[], folder: PmatFolder): boolean {
         return false;
     }
 
-    folder.fpath = normalizeFpath(folder.fpath);
-
     const idx = findPathIndex(items, folder.fpath);
     if (idx >= 0) {
         items.splice(idx, 1);
@@ -89,7 +88,7 @@ function findPathIndex(items: PmatFolder[], path: string): number {
 export function initializeMru(hasMainReal: boolean) {
     //showStack('initializeMru hasMainReal', hasMainReal);
     if (hasMainReal) {
-        printMruList(appSettings.appUi.mru.folders);
+        printMruList();
         return;
     }
 
@@ -113,13 +112,13 @@ export function initializeMru(hasMainReal: boolean) {
             return;
         }
 
-        const folders = await get<PmatFolder[]>('pmat25-mru-web') || [];
+        const folders = await getDB<PmatFolder[]>('pmat25-mru-web') || [];
         appSettings.appUi.mru.folders = folders.filter(item => item.fpath).map(ref); // filter out empty folders, somehow we had rpath instead of fpath and set items as valtio refs
 
         subscribe(appSettings.appUi.mru, () => {
             const snapFoloders = snapshot(appSettings.appUi.mru).folders as PmatFolder[];
-            printMruList(snapFoloders);
-            set('pmat25-mru-web', snapFoloders);
+            setDB('pmat25-mru-web', snapFoloders);
+            printMruList();
         });
     }
 }
@@ -130,11 +129,11 @@ function printRootDir(newFolder: PmatFolder | undefined, folder: PmatFolder, tit
     console.log(`%c ${title}${newFolder ? '' : ' updated'} `, 'background-color: magenta; color: white', newFolder || folder);
 }
 
-function printMruList(folders: PmatFolder[]) {
-    const title = 'MRU folders';
-    folders.forEach(
-        (folder) => {
-            console.log(`%c ${title} `, 'background-color: violet; color: white', folder);
-        }
-    );
+function printMruList() {
+    const folders = appSettings.appUi.mru.folders;
+    if (!folders.length) {
+        return;
+    }
+    const dirs = folders.map((folder) => folder.fpath);
+    console.log(`%c MRU \n%c%s`, 'background-color: magenta; color: white', 'color: purple', `  ${dirs.join('\n  ')}`);
 }
