@@ -20,7 +20,7 @@ export const doFromMainAtom = atom(
                     ? { fpath: emptyFolder, handle: undefined, fromMain: true }
                     : getRootFromFpath({ files: deliveredFileContents, fromMain: true });
 
-                set(doSetDeliveredFilesAtom, { deliveredFileContents, root, noItemsJustDir: !!emptyFolder, });
+                set(doSetDeliveredFilesAtom, { deliveredFileContents, root, noItemsJustDir: !!emptyFolder, error: undefined, });
                 break;
             }
 
