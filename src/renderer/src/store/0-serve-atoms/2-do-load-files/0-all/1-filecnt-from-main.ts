@@ -29,7 +29,7 @@ export async function createFileContents_From_Main(files: File[]): Promise<SetDe
             !droppedEmptyFolder
                 ? getRootFromFpath({ files: deliveredFileContents, fromMain: true })
                 : {
-                    fpath: emptyFolder, //filePathAndDirs[0][1],
+                    fpath: emptyFolder, //was filePathAndDirs[0][1],
                     handle: undefined,
                     fromMain: true,
                 },
@@ -39,3 +39,5 @@ export async function createFileContents_From_Main(files: File[]): Promise<SetDe
     };
     return rv;
 }
+
+//TODO: review change emptyFolder vs. filePathAndDirs[0][1]
