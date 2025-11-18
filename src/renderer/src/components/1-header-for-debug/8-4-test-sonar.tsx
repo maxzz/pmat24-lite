@@ -12,9 +12,13 @@ export function TestSonner() {
         ));
     }
 
-    return (
+    return (<>
         <Button className="text-[.65rem]" onClick={onClick}>
-            Sonnar
+            Sonnar1
         </Button>
-    );
+
+        <Button className="text-[.65rem]" onClick={onClick}>
+            Sonnar2
+        </Button>
+    </>);
 }
