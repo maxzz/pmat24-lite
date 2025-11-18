@@ -1,6 +1,8 @@
 import { Button } from "@/ui";
 import { SymbolWarning } from "@/ui/icons";
-import { toast } from "sonner";
+import { toast, type ToastT } from "sonner";
+
+type ToastTypes = NonNullable<ToastT['type']>;
 
 export function TestSonner() {
 
