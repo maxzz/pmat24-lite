@@ -33,12 +33,10 @@ function updateMruList(items: PmatFolder[], folder: PmatFolder): PmatFolder | un
     }
 
     folder = { ...folder }; // copy because it can be ref and as result frozen
-
-    folder.fpath = toWindows(folder.fpath).toLowerCase(); // normalize fpath
-
+    
     const newFolder = ref(folder); // It should be ref() otherwise we'll loose the handle type and as result won't be able to restore handle from indexedDB
 
-    const idx = items.findIndex((item) => item.fpath === newFolder.fpath);
+    const idx = findPathIndex(items, folder.fpath);
 
     if (idx === 0) { // already in the list as first item
         const replace = newFolder.handle && !items[0].handle; // It's kind of dangerous, we relly only on the last folder name.
@@ -67,13 +65,18 @@ function removeMruListItem(items: PmatFolder[], folder: PmatFolder): boolean {
 
     folder.fpath = normalizeFpath(folder.fpath);
 
-    const idx = items.findIndex((item) => item.fpath === folder.fpath);
+    const idx = findPathIndex(items, folder.fpath);
     if (idx >= 0) {
         items.splice(idx, 1);
         return true;
     }
 
     return false;
+}
+
+function findPathIndex(items: PmatFolder[], path: string): number {
+    const pathToFind = normalizeFpath(path);
+    return items.findIndex((item) => normalizeFpath(item.fpath) === pathToFind);
 }
 
 // Initialize
@@ -111,7 +114,7 @@ export function initializeMru(hasMainReal: boolean) {
         }
 
         const folders = await get<PmatFolder[]>('pmat25-mru-web') || [];
-        appSettings.appUi.mru.folders = folders.filter(item => normalizeFpath(item.fpath)).map(ref); // filter out empty folders, somehow we had rpath instead of fpath and set items as valtio refs
+        appSettings.appUi.mru.folders = folders.filter(item => item.fpath).map(ref); // filter out empty folders, somehow we had rpath instead of fpath and set items as valtio refs
 
         subscribe(appSettings.appUi.mru, () => {
             const snapFoloders = snapshot(appSettings.appUi.mru).folders as PmatFolder[];

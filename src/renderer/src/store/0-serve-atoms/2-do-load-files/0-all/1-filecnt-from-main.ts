@@ -17,21 +17,25 @@ export async function createFileContents_From_Main(files: File[]): Promise<SetDe
     const fnames = filePathAndDirs.map((item) => item[1]);
     //printElectronFnameFiles(fnames, files);
 
-    const { filesCnt: deliveredFileContents, emptyFolder } = await invokeLoadFiles(fnames, pmAllowedToOpenExt);
+    const { filesCnt: deliveredFileContents, emptyFolder, error } = await invokeLoadFiles(fnames, pmAllowedToOpenExt);
 
-    const droppedEmptyFolder = !deliveredFileContents.length && filePathAndDirs.length === 1 && filePathAndDirs[0][2]; // filePathAndDirs[0][2] is true file is a directory
+    const droppedEmptyFolder = !deliveredFileContents.length
+        && (filePathAndDirs.length === 1 && filePathAndDirs[0][2] // filePathAndDirs[0][2] is true file is a directory
+            || !!emptyFolder
+        );
 
     const rv: SetDeliveredFiles = {
         root:
             !droppedEmptyFolder
                 ? getRootFromFpath({ files: deliveredFileContents, fromMain: true })
                 : {
-                    fpath: filePathAndDirs[0][1],
+                    fpath: emptyFolder, //filePathAndDirs[0][1],
                     handle: undefined,
                     fromMain: true,
                 },
         deliveredFileContents,
         noItemsJustDir: droppedEmptyFolder,
+        error,
     };
     return rv;
 }
