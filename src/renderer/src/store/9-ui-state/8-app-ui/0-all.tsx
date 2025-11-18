@@ -13,9 +13,9 @@ export type AppUISettings = {
 };
 
 export const defaultAppUISettings: AppUISettings = {
+    mru: defaultMruLists, // update order to ease modify in devTools
     theme: 'light',
     divider: defaultDividerState,
     uiGeneral: defaultUiGeneralState,
     uiAdvanced: defaultUiAdvancedState,
-    mru: defaultMruLists,
 };
