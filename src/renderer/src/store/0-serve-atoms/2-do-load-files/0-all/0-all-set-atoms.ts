@@ -12,6 +12,7 @@ import { createFileContents_WebAfterDlgOpen } from "./4-filecnt-from-web-dlg";
 import { createFileContents_WebAfterDnd } from "./3-filecnt-from-web-dnd";
 import { printFiles } from "./9-types";
 import { asyncRemoveMruItemAtom } from "@/store/4-dialogs-atoms";
+import { toast } from "sonner";
 
 export type DoSetFilesFrom_Dnd_Atom = typeof doSetFilesFrom_Dnd_Atom;
 
@@ -23,6 +24,11 @@ export const doSetFilesFrom_Dnd_Atom = atom(                    // used by DropI
             const dropFiles: File[] = [...dataTransfer.files];
             if (dropFiles.length) {                            // avoid drop-and-drop drop without files
                 const res = await createFileContents_From_Main(dropFiles);
+
+                if (res?.error) {
+                    toast.error(`Error loading files: ${res.error}`);
+                    return;
+                }
 
                 if (res?.deliveredFileContents?.length || res?.noItemsJustDir) { // avoid drop-and-drop drop without files
                     set(doSetDeliveredFilesAtom, res);
@@ -42,7 +48,7 @@ export const doSetFilesFrom_Dnd_Atom = atom(                    // used by DropI
     }
 );
 
-export const doSetFilesFrom_LegacyDlg_Atom = atom(
+export const doSetFilesFrom_LegacyDlg_Atom = atom( // with input type="file" element
     null,
     async (get, set, fileList: FileList | null) => {
         const files = fileList ? [...fileList] : [];
@@ -70,7 +76,7 @@ export const doSetFilesFrom_LegacyDlg_Atom = atom(
     }
 );
 
-export const doSetFilesFrom_ModernDlg_Atom = atom(
+export const doSetFilesFrom_ModernDlg_Atom = atom( // with directory open dialog from "browser-fs-access" package
     null,
     async (get, set, { openAsFolder }: { openAsFolder: boolean; }) => {
         try {
