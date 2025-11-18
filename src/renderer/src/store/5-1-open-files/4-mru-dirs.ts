@@ -7,8 +7,8 @@ import { isPmatFolderEmpty } from "@/store/5-1-open-files";
 
 export function addToDirsMru(folder: PmatFolder) {
     try {
-        updateMruList(appSettings.appUi.mru.folders, folder);
-        printRootDir(folder, 'setRootDir');
+        const newFolder = updateMruList(appSettings.appUi.mru.folders, folder);
+        printRootDir(newFolder, folder, 'setRootDir');
     } catch (error) {
         console.error(errorToString(error));
     }
@@ -17,7 +17,7 @@ export function addToDirsMru(folder: PmatFolder) {
 export function removeFromDirsMru(folder: PmatFolder) {
     try {
         removeMruListItem(appSettings.appUi.mru.folders, folder);
-        //printMruList(appSettings.appUi.mru.folders);
+        printMruList(appSettings.appUi.mru.folders);
     } catch (error) {
         console.error(errorToString(error));
     }
@@ -27,9 +27,9 @@ export function removeFromDirsMru(folder: PmatFolder) {
  * Add folder to the list and remove it from the list if it is already there or update folder position in the list.
  * @returns True if the list was updated.
  */
-function updateMruList(items: PmatFolder[], folder: PmatFolder): boolean {
+function updateMruList(items: PmatFolder[], folder: PmatFolder): PmatFolder | undefined {
     if (isPmatFolderEmpty(folder)) {
-        return false;
+        return;
     }
 
     folder = { ...folder }; // copy because it can be ref and as result frozen
@@ -45,7 +45,7 @@ function updateMruList(items: PmatFolder[], folder: PmatFolder): boolean {
         if (replace) {
             items.splice(idx, 1);
         } else {
-            return false;
+            return;
         }
     }
     else if (idx >= 0) { // remove from the list at current position
@@ -57,7 +57,7 @@ function updateMruList(items: PmatFolder[], folder: PmatFolder): boolean {
     }
 
     items.unshift(newFolder);
-    return true;
+    return newFolder;
 }
 
 function removeMruListItem(items: PmatFolder[], folder: PmatFolder): boolean {
@@ -86,6 +86,7 @@ function removeMruListItem(items: PmatFolder[], folder: PmatFolder): boolean {
 export function initializeMru(hasMainReal: boolean) {
     //showStack('initializeMru hasMainReal', hasMainReal);
     if (hasMainReal) {
+        printMruList(appSettings.appUi.mru.folders);
         return;
     }
 
@@ -114,7 +115,7 @@ export function initializeMru(hasMainReal: boolean) {
 
         subscribe(appSettings.appUi.mru, () => {
             const snapFoloders = snapshot(appSettings.appUi.mru).folders as PmatFolder[];
-            //printMruList(snapFoloders);
+            printMruList(snapFoloders);
             set('pmat25-mru-web', snapFoloders);
         });
     }
@@ -122,10 +123,12 @@ export function initializeMru(hasMainReal: boolean) {
 
 // Utilities
 
-function printRootDir(folder: PmatFolder, title: string) {
-    console.log(`%c ${title} `, 'background-color: magenta; color: white', folder);
+function printRootDir(newFolder: PmatFolder | undefined, folder: PmatFolder, title: string) {
+    console.log(`%c ${title} ${newFolder ? 'updated' : 'added'} `, 'background-color: magenta; color: white', newFolder || folder);
 }
 
 function printMruList(folders: PmatFolder[]) {
-    folders.forEach((folder) => printRootDir(folder, 'MRU'));
+    folders.forEach(
+        (folder) => printRootDir(undefined, folder, 'MRU')
+    );
 }
