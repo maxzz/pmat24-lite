@@ -47,6 +47,15 @@ export function toastSuccess(message: React.ReactNode) {
     myToast("success", message);
 }
 
+export const notice = {
+    error: toastError,
+    warning: toastWarning,
+    info: toastInfo,
+    success: toastSuccess,
+}
+
+notice.error("Hello from a custom component!");
+
 function myToast(type: ToastTypes, message: React.ReactNode) {
     const id = toast.custom(
         () => (
