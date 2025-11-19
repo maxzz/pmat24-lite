@@ -24,7 +24,7 @@ export function TestSonner() {
 
         <Button className="text-[.65rem]" onClick={
             () => {
-                const id = toast.error("Hello from a custom component!", { duration: 423000, action: { label: 'Dismiss', onClick: () => toast.dismiss(id) } });
+                const id = toast.error("Hello from a custom component!", { duration: 5000, action: { label: 'Dismiss', onClick: () => toast.dismiss(id) } });
             }}>
             standard error
         </Button>
@@ -40,7 +40,7 @@ function myToast(type: ToastTypes, message: React.ReactNode) {
                         : '';
     const id = toast.custom(
         () => (
-            <div className="text-xs text-background bg-foreground border-foreground/10 dark:border-background border rounded-md shadow-md overflow-hidden">
+            <div className="text-xs text-background bg-foreground border-foreground/10 dark:border-background border rounded-md shadow-md dark:shadow-foreground/30 overflow-hidden">
 
                 <div className="min-h-12 grid grid-cols-[4rem_1fr_auto]">
                     <div className={`shrink-0 relative flex flex-col items-center justify-center ${iconClasses}`}>
@@ -48,7 +48,6 @@ function myToast(type: ToastTypes, message: React.ReactNode) {
                         {type === 'info' && <SymbolInfo className="size-5" />}
                         {type === 'warning' && <SymbolWarning className="size-5" />}
                         {type === 'error' && <IconStopCircle className="size-5 stroke-background!" />}
-                        {/* <button className="absolute bottom-2 px-2 py-1 bg-foreground text-background border-background/50 border rounded shadow" onClick={() => toast.dismiss(id)}>Dismiss</button> */}
                     </div>
 
                     <div className="place-self-center pl-2 py-3 hyphens-auto text-pretty" data-content>
@@ -56,19 +55,16 @@ function myToast(type: ToastTypes, message: React.ReactNode) {
                     </div>
 
                     <div className="place-self-center">
-                        <Button className="m-1 1ml-0 p-1 aspect-square active:scale-[.97]" variant="ghost" onClick={() => toast.dismiss(id)}>
-                            <SymbolCross className="size-4 p-1" onClick={() => toast.dismiss(id)} />
+                        <Button className="m-1 p-1 aspect-square active:scale-[.97]" variant="ghost" onClick={() => toast.dismiss(id)}>
+                            <SymbolCross className="size-3" onClick={() => toast.dismiss(id)} />
                         </Button>
-
-                        {/* <button className="srink-0 px-2 py-1 bg-foreground text-background border-background/50 border rounded shadow" onClick={() => toast.dismiss(id)}>Dismiss</button> */}
-                        {/* <button className="srink-0 px-2 py-1 text-foreground bg-background border-foreground 1border rounded shadow" onClick={() => toast.dismiss(id)}>Dismiss</button> */}
                     </div>
                 </div>
 
             </div>
         ),
         {
-            duration: 423000,
+            duration: 5000,
         }
     );
 }
