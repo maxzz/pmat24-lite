@@ -43,11 +43,12 @@ function myToast(type: ToastTypes, message: React.ReactNode) {
             <div className="text-xs text-background bg-foreground border-foreground/10 border rounded-md shadow-md overflow-hidden">
 
                 <div className="min-h-12 grid grid-cols-[4rem_1fr_auto]">
-                    <div className={`shrink-0 flex items-center justify-center ${iconClasses}`}>
+                    <div className={`shrink-0 relative flex flex-col items-center justify-center ${iconClasses}`}>
                         {type === 'success' && <SymbolInfo className="size-5 " />}
                         {type === 'info' && <SymbolInfo className="size-5 " />}
                         {type === 'warning' && <SymbolWarning className="size-5 " />}
                         {type === 'error' && <IconStopCircle className="size-5 " />}
+                        <button className="absolute bottom-2 px-2 py-1 bg-foreground text-background border-background/50 border rounded shadow" onClick={() => toast.dismiss(id)}>Dismiss</button>
                     </div>
 
                     <div className="px-2 py-3 hyphens-auto text-pretty" data-content>
@@ -55,7 +56,8 @@ function myToast(type: ToastTypes, message: React.ReactNode) {
                     </div>
 
                     <div className="place-self-center px-2">
-                        <button className="srink-0 px-2 py-1 text-foreground bg-background border-foreground border rounded shadow" onClick={() => toast.dismiss(id)}>Dismiss</button>
+                        {/* <button className="srink-0 px-2 py-1 bg-foreground text-background border-background/50 border rounded shadow" onClick={() => toast.dismiss(id)}>Dismiss</button> */}
+                        {/* <button className="srink-0 px-2 py-1 text-foreground bg-background border-foreground 1border rounded shadow" onClick={() => toast.dismiss(id)}>Dismiss</button> */}
                     </div>
                 </div>
 
