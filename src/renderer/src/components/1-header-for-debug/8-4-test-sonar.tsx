@@ -31,12 +31,29 @@ export function TestSonner() {
     </>);
 }
 
+export function toastError(message: React.ReactNode) {
+    myToast("error", message);
+}
+
+export function toastWarning(message: React.ReactNode) {
+    myToast("warning", message);
+}
+
+export function toastInfo(message: React.ReactNode) {
+    myToast("info", message);
+}
+
+export function toastSuccess(message: React.ReactNode) {
+    myToast("success", message);
+}
+
 function myToast(type: ToastTypes, message: React.ReactNode) {
     const id = toast.custom(
         () => (
             <div className="text-xs text-background bg-foreground border-foreground/10 dark:border-background border rounded-md shadow-md dark:shadow-foreground/30 overflow-hidden">
 
                 <div className="min-h-12 grid grid-cols-[4rem_1fr_auto]">
+                    
                     <div className={`shrink-0 relative flex flex-col items-center justify-center ${toastIconClasses(type)}`}>
                         {type === 'success' && <SymbolInfo className="size-5" />}
                         {type === 'info' && <SymbolInfo className="size-5" />}
