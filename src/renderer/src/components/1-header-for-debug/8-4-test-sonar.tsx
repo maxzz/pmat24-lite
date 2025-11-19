@@ -10,7 +10,7 @@ export function TestSonner() {
             <SymbolInfo className="size-4 text-blue-500" />
         </Button>
 
-        <Button className="text-[.65rem]" onClick={() => myToast("success", "Hello from a custom component!")}>
+        <Button className="text-[.65rem]" onClick={() => myToast("success", "Hello from a custom component!", { duration: 3000 })}>
             <div className="text-green-500">OK</div>
         </Button>
 
@@ -31,32 +31,7 @@ export function TestSonner() {
     </>);
 }
 
-export function toastError(message: React.ReactNode) {
-    myToast("error", message);
-}
-
-export function toastWarning(message: React.ReactNode) {
-    myToast("warning", message);
-}
-
-export function toastInfo(message: React.ReactNode) {
-    myToast("info", message);
-}
-
-export function toastSuccess(message: React.ReactNode) {
-    myToast("success", message);
-}
-
-export const notice = {
-    error: toastError,
-    warning: toastWarning,
-    info: toastInfo,
-    success: toastSuccess,
-}
-
-notice.error("Hello from a custom component!");
-
-function myToast(type: ToastTypes, message: React.ReactNode) {
+function myToast(type: ToastTypes, message: React.ReactNode, options: Partial<ToastT> = {}) {
     const id = toast.custom(
         () => (
             <div className="text-xs text-background bg-foreground border-foreground/10 dark:border-background border rounded-md shadow-md dark:shadow-foreground/30 overflow-hidden">
@@ -85,6 +60,7 @@ function myToast(type: ToastTypes, message: React.ReactNode) {
         ),
         {
             duration: 555000,
+            ...options,
         }
     );
 }
@@ -98,3 +74,30 @@ function toastIconClasses(type: ToastTypes): string {
                         : ''
     );
 }
+
+// Exports
+
+function toastError(message: React.ReactNode, options: Partial<ToastT> = {}) {
+    myToast("error", message, options);
+}
+
+function toastWarning(message: React.ReactNode, options: Partial<ToastT> = {}) {
+    myToast("warning", message, options);
+}
+
+function toastInfo(message: React.ReactNode, options: Partial<ToastT> = {}) {
+    myToast("info", message, options);
+}
+
+function toastSuccess(message: React.ReactNode, options: Partial<ToastT> = {}) {
+    myToast("success", message, options);
+}
+
+export const notice = {
+    error: toastError,
+    warning: toastWarning,
+    info: toastInfo,
+    success: toastSuccess,
+}
+
+//notice.error("Hello from a custom component!");
