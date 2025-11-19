@@ -32,18 +32,12 @@ export function TestSonner() {
 }
 
 function myToast(type: ToastTypes, message: React.ReactNode) {
-    const iconClasses =
-        type === 'success' ? 'bg-green-600 stroke-background'
-            : type === 'info' ? 'bg-blue-600 stroke-background'
-                : type === 'warning' ? 'bg-orange-600 stroke-background'
-                    : type === 'error' ? 'bg-red-500 stroke-background'
-                        : '';
     const id = toast.custom(
         () => (
             <div className="text-xs text-background bg-foreground border-foreground/10 dark:border-background border rounded-md shadow-md dark:shadow-foreground/30 overflow-hidden">
 
                 <div className="min-h-12 grid grid-cols-[4rem_1fr_auto]">
-                    <div className={`shrink-0 relative flex flex-col items-center justify-center ${iconClasses}`}>
+                    <div className={`shrink-0 relative flex flex-col items-center justify-center ${toastIconClasses(type)}`}>
                         {type === 'success' && <SymbolInfo className="size-5" />}
                         {type === 'info' && <SymbolInfo className="size-5" />}
                         {type === 'warning' && <SymbolWarning className="size-5" />}
@@ -64,7 +58,17 @@ function myToast(type: ToastTypes, message: React.ReactNode) {
             </div>
         ),
         {
-            duration: 5000,
+            duration: 555000,
         }
+    );
+}
+
+function toastIconClasses(type: ToastTypes): string {
+    return (
+        type === 'success' ? 'bg-green-600 stroke-background'
+            : type === 'info' ? 'bg-blue-600 stroke-background'
+                : type === 'warning' ? 'bg-orange-600 stroke-background'
+                    : type === 'error' ? 'bg-red-500 stroke-background'
+                        : ''
     );
 }
