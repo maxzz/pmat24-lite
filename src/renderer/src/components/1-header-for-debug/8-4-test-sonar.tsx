@@ -2,15 +2,13 @@ import { Button } from "@/ui";
 import { IconStopCircle, SymbolCross, SymbolInfo, SymbolWarning } from "@/ui/icons";
 import { toast, type ToastT } from "sonner";
 
-type ToastTypes = Exclude<NonNullable<ToastT['type']>, 'normal' | 'action' | 'default' | 'loading'>; // 'success' | 'info' | 'warning' | 'error';
-
 export function TestSonner() {
     return (<>
-        <Button className="text-[.65rem]" onClick={() => myToast("info", "lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.")}>
+        <Button className="text-[.65rem]" onClick={() => notice.info("lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.")}>
             <SymbolInfo className="size-4 text-blue-500" />
         </Button>
 
-        <Button className="text-[.65rem]" onClick={() => notice.success("Hello from a custom component! Hello 231 from a custom component!", { duration: 333000 })}>
+        <Button className="text-[.65rem]" onClick={() => notice.success("Hello from a custom component! Hello 231 from a custom component!", { duration: 5000 })}>
             <div className="text-green-500">OK</div>
         </Button>
 
@@ -18,18 +16,17 @@ export function TestSonner() {
             <SymbolWarning className="size-4 text-orange-500" />
         </Button>
 
-        <Button className="text-[.65rem]" onClick={() => myToast("error", "Hello from a custom component!")}>
+        <Button className="text-[.65rem]" onClick={() => notice.error("Hello from a custom component!")}>
             <IconStopCircle className="size-4" />
         </Button>
 
-        <Button className="text-[.65rem]" onClick={
-            () => {
-                const id = toast.error("Hello from a custom component!", { duration: 5000, action: { label: 'Dismiss', onClick: () => toast.dismiss(id) } });
-            }}>
+        <Button className="text-[.65rem]" onClick={ () => { const id = toast.error("Hello from a custom component!", { duration: 5000, action: { label: 'Dismiss', onClick: () => toast.dismiss(id) } }); }}>
             standard error
         </Button>
     </>);
 }
+
+type ToastTypes = Exclude<NonNullable<ToastT['type']>, 'normal' | 'action' | 'default' | 'loading'>; // 'success' | 'info' | 'warning' | 'error';
 
 function myToast(type: ToastTypes, message: React.ReactNode, options: Partial<ToastT> = {}) {
     const id = toast.custom(
@@ -57,7 +54,7 @@ function myToast(type: ToastTypes, message: React.ReactNode, options: Partial<To
             </div>
         ),
         {
-            duration: 555000,
+            duration: 5000,
             ...options,
         }
     );
@@ -65,10 +62,10 @@ function myToast(type: ToastTypes, message: React.ReactNode, options: Partial<To
 
 function toastIconClasses(type: ToastTypes): string {
     return (
-        type === 'success' ? 'bg-green-600 stroke-background'
-            : type === 'info' ? 'bg-blue-600 stroke-background'
-                : type === 'warning' ? 'bg-orange-600 stroke-background'
-                    : type === 'error' ? 'bg-red-500 stroke-background'
+        type === 'success' ? 'bg-green-600 text-background'
+            : type === 'info' ? 'bg-blue-600 text-background'
+                : type === 'warning' ? 'bg-orange-600 text-background'
+                    : type === 'error' ? 'bg-red-500 text-background'
                         : ''
     );
 }
