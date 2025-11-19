@@ -10,11 +10,11 @@ export function TestSonner() {
             <SymbolInfo className="size-4 text-blue-500" />
         </Button>
 
-        <Button className="text-[.65rem]" onClick={() => myToast("success", "Hello from a custom component!", { duration: 3000 })}>
+        <Button className="text-[.65rem]" onClick={() => notice.success("Hello from a custom component! Hello 231 from a custom component!", { duration: 333000 })}>
             <div className="text-green-500">OK</div>
         </Button>
 
-        <Button className="text-[.65rem]" onClick={() => myToast("warning", "Hello from a custom component!")}>
+        <Button className="text-[.65rem]" onClick={() => notice.warning("Hello from a custom component! Hello from 312 a custom component! Hello 2132 from a custom component!")}>
             <SymbolWarning className="size-4 text-orange-500" />
         </Button>
 
@@ -36,24 +36,22 @@ function myToast(type: ToastTypes, message: React.ReactNode, options: Partial<To
         () => (
             <div className="text-xs text-background bg-foreground border-foreground/10 dark:border-background border rounded-md shadow-md dark:shadow-foreground/30 overflow-hidden">
 
-                <div className="min-h-12 grid grid-cols-[4rem_1fr_auto]">
-                    
-                    <div className={`shrink-0 relative flex flex-col items-center justify-center ${toastIconClasses(type)}`}>
+                <div className="min-h-12 grid grid-cols-[4rem_1fr_auto] place-items-center">
+
+                    <div className={`self-stretch w-full grid place-items-center ${toastIconClasses(type)}`}>
                         {type === 'success' && <SymbolInfo className="size-5" />}
                         {type === 'info' && <SymbolInfo className="size-5" />}
                         {type === 'warning' && <SymbolWarning className="size-5" />}
                         {type === 'error' && <IconStopCircle className="size-5 stroke-background!" />}
                     </div>
 
-                    <div className="place-self-center pl-2 py-3 hyphens-auto text-pretty" data-content>
+                    <div className="pl-3 py-3 text-balance hyphens-auto" data-content>
                         {message}
                     </div>
 
-                    <div className="place-self-center">
-                        <Button className="m-1 p-1 aspect-square active:scale-[.97]" variant="ghost" onClick={() => toast.dismiss(id)}>
-                            <SymbolCross className="size-3" onClick={() => toast.dismiss(id)} />
-                        </Button>
-                    </div>
+                    <Button className="m-1 p-1 aspect-square active:scale-[.97]" variant="ghost" onClick={() => toast.dismiss(id)}>
+                        <SymbolCross className="size-3" onClick={() => toast.dismiss(id)} />
+                    </Button>
                 </div>
 
             </div>
@@ -98,6 +96,6 @@ export const notice = {
     warning: toastWarning,
     info: toastInfo,
     success: toastSuccess,
-}
+};
 
 //notice.error("Hello from a custom component!");
