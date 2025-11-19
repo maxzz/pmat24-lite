@@ -26,14 +26,14 @@ export function TestSonner() {
             () => {
                 const id = toast.error("Hello from a custom component!", { duration: 423000, action: { label: 'Dismiss', onClick: () => toast.dismiss(id) } });
             }}>
-            error
+            standard error
         </Button>
     </>);
 }
 
 function myToast(type: ToastTypes, message: React.ReactNode) {
     const iconClasses =
-        type === 'success' ? 'bg-green-600 text-slate-800'
+        type === 'success' ? 'bg-green-600 text-green-900'
             : type === 'info' ? 'bg-blue-600 text-slate-100'
                 : type === 'warning' ? 'bg-orange-600 text-slate-100'
                     : type === 'error' ? 'bg-red-500 text-slate-800'
@@ -50,7 +50,7 @@ function myToast(type: ToastTypes, message: React.ReactNode) {
                         {type === 'error' && <IconStopCircle className="size-5 " />}
                     </div>
 
-                    <div className="px-2 py-3 hyphens-auto text-pretty">
+                    <div className="px-2 py-3 hyphens-auto text-pretty" data-content>
                         {message}
                     </div>
 
