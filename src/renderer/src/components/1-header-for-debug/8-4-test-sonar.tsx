@@ -6,20 +6,20 @@ type ToastTypes = Exclude<NonNullable<ToastT['type']>, 'normal' | 'action' | 'de
 
 export function TestSonner() {
     return (<>
-        <Button className="text-[.65rem]" onClick={() => myToast("success", "Hello from a custom component!")}>
-            success
+        <Button className="text-[.65rem]" onClick={() => myToast("info", "lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.")}>
+            <SymbolInfo className="size-4 text-blue-500" />
         </Button>
 
-        <Button className="text-[.65rem]" onClick={() => myToast("info", "lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.")}>
-            info
+        <Button className="text-[.65rem]" onClick={() => myToast("success", "Hello from a custom component!")}>
+            <div className="text-green-500">OK</div>
         </Button>
 
         <Button className="text-[.65rem]" onClick={() => myToast("warning", "Hello from a custom component!")}>
-            warning
+            <SymbolWarning className="size-4 text-orange-500" />
         </Button>
 
         <Button className="text-[.65rem]" onClick={() => myToast("error", "Hello from a custom component!")}>
-            error
+            <IconStopCircle className="size-4" />
         </Button>
 
         <Button className="text-[.65rem]" onClick={
