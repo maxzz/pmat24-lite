@@ -21,6 +21,13 @@ export function TestSonner() {
         <Button className="text-[.65rem]" onClick={() => myToast("error", "Hello from a custom component!")}>
             error
         </Button>
+
+        <Button className="text-[.65rem]" onClick={
+            () => {
+                const id = toast.error("Hello from a custom component!", { duration: 423000, action: { label: 'Dismiss', onClick: () => toast.dismiss(id) } });
+            }}>
+            error
+        </Button>
     </>);
 }
 
@@ -35,7 +42,7 @@ function myToast(type: ToastTypes, message: React.ReactNode) {
         () => (
             <div className="text-xs text-background bg-foreground border-foreground/10 border rounded-md shadow-md overflow-hidden">
 
-                <div className="grid grid-cols-[4rem_1fr_auto] 1gap-2">
+                <div className="min-h-12 grid grid-cols-[4rem_1fr_auto]">
                     <div className={`shrink-0 flex items-center justify-center ${iconClasses}`}>
                         {type === 'success' && <SymbolInfo className="size-5 " />}
                         {type === 'info' && <SymbolInfo className="size-5 " />}
@@ -43,12 +50,8 @@ function myToast(type: ToastTypes, message: React.ReactNode) {
                         {type === 'error' && <IconStopCircle className="size-5 " />}
                     </div>
 
-                    <div className="px-2 py-3 flex items-center gap-2">
-                        <div className="hyphens-auto text-pretty">
-                            {message}
-                        </div>
-
-
+                    <div className="px-2 py-3 hyphens-auto text-pretty">
+                        {message}
                     </div>
 
                     <div className="place-self-center px-2">
