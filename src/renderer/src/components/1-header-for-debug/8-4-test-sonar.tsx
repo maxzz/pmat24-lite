@@ -1,5 +1,5 @@
 import { Button } from "@/ui";
-import { SymbolWarning } from "@/ui/icons";
+import { IconStopCircle, SymbolInfo, SymbolWarning } from "@/ui/icons";
 import { toast, type ToastT } from "sonner";
 
 type ToastTypes = Exclude<NonNullable<ToastT['type']>, 'normal' | 'action' | 'default' | 'loading'>; // 'success' | 'info' | 'warning' | 'error';
@@ -25,13 +25,22 @@ export function TestSonner() {
 }
 
 function myToast(type: ToastTypes, message: React.ReactNode) {
+    const iconClasses =
+        type === 'success' ? 'bg-green-600 text-slate-800'
+            : type === 'info' ? 'bg-blue-600 text-slate-100'
+                : type === 'warning' ? 'bg-orange-600 text-slate-800'
+                    : type === 'error' ? 'bg-red-500 text-slate-800'
+                        : '';
     const id = toast.custom(
         () => (
             <div className="text-xs text-background bg-foreground border-foreground/10 border rounded-md shadow-md overflow-hidden">
 
                 <div className="grid grid-cols-[4rem_1fr] gap-2">
-                    <div className="shrink-0 flex items-center justify-center bg-orange-500 text-slate-800">
-                        <SymbolWarning className="size-5 " />
+                    <div className={`shrink-0 flex items-center justify-center ${iconClasses}`}>
+                        {type === 'success' && <SymbolInfo className="size-5 " />}
+                        {type === 'info' && <SymbolInfo className="size-5 " />}
+                        {type === 'warning' && <SymbolWarning className="size-5 " />}
+                        {type === 'error' && <IconStopCircle className="size-5 " />}
                     </div>
 
                     <div className="px-2 py-3 flex items-center gap-2">
@@ -44,7 +53,7 @@ function myToast(type: ToastTypes, message: React.ReactNode) {
             </div>
         ),
         {
-            duration: 3000,
+            duration: 423000,
         }
     );
 }
