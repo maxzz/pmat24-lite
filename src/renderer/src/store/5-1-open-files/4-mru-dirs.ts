@@ -9,7 +9,7 @@ export function addToDirsMru(folder: PmatFolder) {
     try {
         const newFolder = updateMruList(appSettings.appUi.mru.folders, folder);
         printRootDir(newFolder, folder, 'setRootDir');
-        printMruList();
+        //printMruList();
     } catch (error) {
         console.error(errorToString(error));
     }
@@ -18,7 +18,7 @@ export function addToDirsMru(folder: PmatFolder) {
 export function removeFromDirsMru(folder: PmatFolder) {
     try {
         removeMruListItem(appSettings.appUi.mru.folders, folder);
-        printMruList();
+        //printMruList();
     } catch (error) {
         console.error(errorToString(error));
     }
@@ -88,7 +88,7 @@ function findPathIndex(items: PmatFolder[], path: string): number {
 export function initializeMru(hasMainReal: boolean) {
     //showStack('initializeMru hasMainReal', hasMainReal);
     if (hasMainReal) {
-        printMruList();
+        //printMruList();
         return;
     }
 
@@ -118,7 +118,7 @@ export function initializeMru(hasMainReal: boolean) {
         subscribe(appSettings.appUi.mru, () => {
             const snapFoloders = snapshot(appSettings.appUi.mru).folders as PmatFolder[];
             setDB('pmat25-mru-web', snapFoloders);
-            printMruList();
+            //printMruList();
         });
     }
 }
@@ -126,7 +126,7 @@ export function initializeMru(hasMainReal: boolean) {
 // Utilities
 
 function printRootDir(newFolder: PmatFolder | undefined, folder: PmatFolder, title: string) {
-    console.log(`%c ${title}${newFolder ? '' : ' updated'} `, 'background-color: magenta; color: white', newFolder || folder);
+    console.log(`%c ${title}${newFolder ? ' new' : ''} %o`, 'background-color: magenta; color: white', newFolder || folder);
 }
 
 function printMruList() {

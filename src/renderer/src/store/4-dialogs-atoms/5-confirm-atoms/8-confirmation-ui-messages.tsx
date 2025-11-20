@@ -4,8 +4,8 @@ import { type ConfirmationUi, doAsyncExecuteConfirmDialogAtom } from "./9-types-
 import { type PmatFolder, removeFromDirsMru } from "@/store/5-1-open-files";
 
 export const confirmDeleteMessages: ConfirmationUi = {
-    title: 'Delete file?',
-    message: 'Are you sure you want to delete the manifest file?',
+    title: 'Delete template file?',
+    message: 'Are you sure you want to delete the template file?',
     buttonOk: 'Delete',
     buttonCancel: 'Cancel',
     isDafaultOk: false,

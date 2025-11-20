@@ -5,22 +5,24 @@ import { type FileUs } from "@/store/store-types";
 import { type FileMani, type Mani } from "@/store/manifest";
 
 export function notificationSaveError(fname: string, errorText: string) {
-    notice.error((<>
-        <div>
-            Cannot save file ${fname}.
-        </div>
-        <div className="mt-4 text-[.6rem]">
-            {`${errorText}`}
-        </div>
-    </>), { duration: 5000 }
+    notice.error(
+        (<>
+            <div>
+                Cannot save file ${fname}.
+            </div>
+            <div className="mt-4 text-[.6rem]">
+                {`${errorText}`}
+            </div>
+        </>
+        ), { duration: 5000 }
     );
 }
 
 export function notificationNewSaved(fileUs: FileUs) {
     if (appSettings.appUi.uiGeneral.notifyNewFile) {
-        notice.info(`File "${fileUs.fileCnt.fname}" saved`);
+        notice.info(`A new template has been created.`);
     }
-    console.log('saved', fileUs.fileCnt.fname);
+    //console.log('Created', fileUs.fileCnt.fname);
 }
 
 /**
