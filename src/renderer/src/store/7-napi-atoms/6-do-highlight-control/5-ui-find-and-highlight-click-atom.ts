@@ -1,5 +1,5 @@
 import { atom } from "jotai";
-import { toaster } from "@/ui/local-ui";
+import { notice } from "@/ui/local-ui/7-toaster";
 import { FormIdx } from "@/store/manifest";
 import { type FileUsCtx, type ManualFieldState } from "@/store/2-file-mani-atoms";
 import { doHighlightControlAtom } from "./1-do-highlight-control";
@@ -17,7 +17,7 @@ export const doHighlightPosClickAtom = atom(
 
         const hwndHandle = get(hwndAtom);
         if (!hwndHandle) {
-            toaster.info('Open target window first');
+            notice.info('Open target window first');
             return;
         }
 

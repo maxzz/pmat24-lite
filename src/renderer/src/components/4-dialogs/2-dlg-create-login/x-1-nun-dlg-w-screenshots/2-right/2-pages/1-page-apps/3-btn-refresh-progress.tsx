@@ -1,5 +1,5 @@
 import { AnimatePresence, motion } from "motion/react";
-import { BarsLoader } from "@/ui";
+import { BarsLoader } from "@/ui/local-ui";
 
 export function ProgressFeedback({ refreshInProgress }: { refreshInProgress: boolean; }) {
     return (

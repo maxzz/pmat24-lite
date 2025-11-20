@@ -1,2 +1,2 @@
 export * from "./shadcn";
-export * from "./local-ui";
+//export * from "./local-ui";

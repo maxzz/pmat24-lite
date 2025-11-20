@@ -1,5 +1,5 @@
 import { type AtomizeWithType } from "@/utils";
-import { type RowInputState } from "@/ui";
+import { type RowInputState } from "@/ui/local-ui";
 import { type Matching, type FormIdx } from "@/store/manifest";
 
 export namespace FormOptionsState {

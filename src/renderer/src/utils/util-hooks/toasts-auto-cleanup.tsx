@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { atom, useAtom } from "jotai";
-import { toaster } from "@/ui/local-ui";
+import { toaster } from "@/ui/local-ui/7-toaster";
 
 /**
  * Cleans up toast when component unmounts, as useal for dialogs

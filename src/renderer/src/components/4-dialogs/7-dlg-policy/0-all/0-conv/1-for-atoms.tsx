@@ -1,7 +1,7 @@
 import { type Mani, Poli, namesConstrainSet } from "@/store/manifest";
 import { type PolicyDlgTypes } from "./9-types";
 import { policyFromStrings } from "@/store/manifest";
-import { initRowInputState, validateMaxLen, validateMinLen } from "@/ui";
+import { initRowInputState, validateMaxLen, validateMinLen } from "@/ui/local-ui";
 
 // Inital policy
 

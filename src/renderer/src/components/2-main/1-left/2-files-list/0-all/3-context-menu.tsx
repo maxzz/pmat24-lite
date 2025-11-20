@@ -5,7 +5,7 @@ import { hasMain } from "@/xternal-to-main";
 import { appSettings } from "@/store/9-ui-state";
 import { rightPanelAtomGetterAtom } from "@/store/5-3-right-panel";
 import { ContextMenu, ContextMenuContent, ContextMenuItem, ContextMenuTrigger } from "@/ui/shadcn";
-import { toaster } from "@/ui/local-ui";
+import { notice } from "@/ui/local-ui/7-toaster";
 import { doDeleteFileUsAtom, doRevealInExplorerAtom, doManiNameDlgAtom, doGetFileUsPathAtom } from "@/store/0-serve-atoms";
 
 export function FilesTreeViewContextMenu({ children }: { children: ReactNode; }) {
@@ -59,7 +59,7 @@ function ContextItems() {
         }
         const { fpath, fname } = doGetFileUsPath(currentAtom) || {};
         if (!fname) {
-            toastError('The filename is not set');
+            notice.error('The filename is not set');
             return;
         }
         navigator.clipboard.writeText(fname);
@@ -82,6 +82,6 @@ function ContextItems() {
     </>);
 }
 
-function toastError(msg: string = 'No file selected') {
-    toaster.error(msg, { position: "top-center" });
+function toastError() {
+    notice.error('No file selected', { position: "top-center" });
 }

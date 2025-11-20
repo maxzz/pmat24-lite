@@ -1,7 +1,7 @@
 import { type ChangeEvent, type FocusEvent } from "react";
 import { useAtom } from "jotai";
 import { classNames, turnOffAutoComplete } from "@/utils";
-import { inputRingClasses } from "@/ui";
+import { inputRingClasses } from "@/ui/local-ui";
 import { type OptionInputProps, type RowInputState } from "./9-types";
 
 export function OptionAsTextarea({ stateAtom, className, onValueStateChange, onBlur, ...rest }: OptionInputProps) {

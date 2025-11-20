@@ -1,5 +1,5 @@
 import { atom } from "jotai";
-import { toaster } from "@/ui/local-ui";
+import { notice } from "@/ui/local-ui/7-toaster";
 import { FormIdx, rebuildMetaFormsWithoutCpassForm } from "@/store/manifest";
 import { type FileUsAtom } from "@/store/store-types";
 import { removeFromTotalManis } from "@/store/9-ui-state";
@@ -34,7 +34,7 @@ export const doDeleteFileUsAtom = atom(null,
         // 3. delete phisical file from file system
         const res = await deleteFileFromFileSystem(fileUs);
         if (res) {
-            toaster.error(`Cannot delete file: ${res}`);
+            notice.error(`Cannot delete file: ${res}`);
             return;
         }
 

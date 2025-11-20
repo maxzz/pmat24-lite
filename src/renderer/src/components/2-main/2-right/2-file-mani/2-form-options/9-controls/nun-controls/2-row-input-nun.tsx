@@ -1,6 +1,6 @@
 import { type InputHTMLAttributes } from "react";
 import { classNames } from "@/utils";
-import { inputRingClasses } from "@/ui";
+import { inputRingClasses } from "@/ui/local-ui";
 
 export function RowInput({ className, ...rest }: InputHTMLAttributes<HTMLInputElement>) {
     return (

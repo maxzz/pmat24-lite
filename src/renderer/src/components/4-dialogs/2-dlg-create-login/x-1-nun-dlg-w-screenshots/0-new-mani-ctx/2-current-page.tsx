@@ -1,6 +1,6 @@
 import { type Atom, atom } from "jotai";
 import { clamp, doAddNextToastIdAtom, doDissmissNextToastsAtom } from "@/utils";
-import { toaster } from "@/ui/local-ui";
+import { notice } from "@/ui/local-ui/7-toaster";
 import { stateNapiAccess } from "@/store/7-napi-atoms";
 import { createFileUsFromNewXml, newManiContent } from "@/store/0-serve-atoms/0-create/1-create-new-mani-ctx";
 import { checkboxCreateManualModeAtom } from "@/store/4-dialogs-atoms/2-create-dialog-atoms";
@@ -34,7 +34,7 @@ export function create_DoAdvancePageAtom() {
         async (get, set, { next }: { next: boolean; }) => {
 
             if (stateNapiAccess.buildRunning) {
-                set(doAddNextToastIdAtom, toaster.info('Build running...'));
+                set(doAddNextToastIdAtom, notice.info('Build running...'));
                 return;
             }
 
@@ -43,7 +43,7 @@ export function create_DoAdvancePageAtom() {
             const currentPage = get(_pageAndDirectionAtom)[0];
 
             if (next && currentPage === wizardLastPage) {
-                set(doAddNextToastIdAtom, toaster.error('Cannot save yet.'));
+                set(doAddNextToastIdAtom, notice.error('Cannot save yet.'));
                 return;
             }
 
@@ -53,7 +53,7 @@ export function create_DoAdvancePageAtom() {
                 if (newPage === WizardPage.fields) {
                     const selectedApp = get(appSelectedAppAtom);
                     if (!selectedApp) {
-                        set(doAddNextToastIdAtom, toaster.error('First, select the application window.'));
+                        set(doAddNextToastIdAtom, notice.error('First, select the application window.'));
                         return false;
                     }
 

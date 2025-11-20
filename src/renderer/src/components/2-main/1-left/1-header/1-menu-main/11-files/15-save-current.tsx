@@ -2,7 +2,8 @@ import { useAtomValue, useSetAtom } from "jotai";
 import { rightPanelAtomAtom } from "@/store/5-3-right-panel";
 import { doSaveOneAtom } from "@/store/0-serve-atoms";
 import { appShortcuts } from "@/components/4-dialogs/0-global";
-import { DropdownMenuItem, DropdownMenuShortcut, menuShortcutClasses } from "@/ui";
+import { DropdownMenuItem, DropdownMenuShortcut } from "@/ui/shadcn";
+import { menuShortcutClasses } from "@/ui/local-ui";
 
 export function MenuItem_SaveCurrent() {
 

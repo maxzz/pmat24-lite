@@ -1,6 +1,7 @@
 import { useAtom, useAtomValue, useSetAtom } from "jotai";
 import { classNames } from "@/utils";
-import { Dropdown5, InputErrorPopupMessage, Label, OptionAsString } from "@/ui";
+import { Label } from "@/ui/shadcn";
+import { Dropdown5, InputErrorPopupMessage, OptionAsString } from "@/ui/local-ui";
 import { type PolicyDlgTypes, doUpdateExplanationAtom, PolicyDlgConv } from "../../0-all";
 
 export function FirstRowSection({ dlgUiCtx }: { dlgUiCtx: PolicyDlgTypes.PolicyUiCtx; }) {

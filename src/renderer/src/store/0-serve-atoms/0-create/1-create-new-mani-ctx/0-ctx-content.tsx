@@ -1,5 +1,5 @@
 import { atom } from "jotai";
-import { type RowInputStateAtom } from "@/ui";
+import { type RowInputStateAtom } from "@/ui/local-ui";
 import { type FileUsAtom, type FileUs } from "@/store/store-types";
 import { type NewManiContentType } from "./9-types";
 import { doDisposeFileUsAtomAtom } from "@/store/store-utils";

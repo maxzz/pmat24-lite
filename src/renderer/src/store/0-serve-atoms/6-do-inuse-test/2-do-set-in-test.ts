@@ -1,6 +1,6 @@
 import { atom } from "jotai";
 import { errorToString } from "@/utils";
-import { toaster } from "@/ui/local-ui";
+import { notice } from "@/ui/local-ui/7-toaster";
 import { type FileUsCtx, fileUsChanges } from "@/store/2-file-mani-atoms/9-types";
 import { inTest_Set } from "./8-in-test-commands";
 import { moveByInTestFileSystem } from "../7-file-system-manipulation";
@@ -27,7 +27,7 @@ export const doSetManiInTestAtom = atom(
 
             await inTest_Set({ fileUs, inTest, deleteFile: false });
         } catch (error) {
-            toaster.error(`Error setting test mode: ${errorToString(error)}`);
+            notice.error(`Error setting test mode: ${errorToString(error)}`);
         }
     },
 );

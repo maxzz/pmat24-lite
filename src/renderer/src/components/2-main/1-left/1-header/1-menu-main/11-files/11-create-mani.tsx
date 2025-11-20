@@ -1,6 +1,7 @@
 import { useSetAtom } from "jotai";
 import { useSnapshot } from "valtio";
-import { DropdownMenuItem, DropdownMenuShortcut, menuShortcutClasses } from "@/ui";
+import { DropdownMenuItem, DropdownMenuShortcut } from "@/ui/shadcn";
+import { menuShortcutClasses } from "@/ui/local-ui";
 import { open_SawMonitorAtom } from "@/store/4-dialogs-atoms";
 import { rootDir } from "@/store/5-1-open-files";
 import { appShortcuts } from "@/components/4-dialogs/0-global";

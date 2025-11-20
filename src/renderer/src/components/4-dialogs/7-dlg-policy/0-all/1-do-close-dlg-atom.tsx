@@ -1,7 +1,7 @@
 import { atom } from "jotai";
 import { Mani } from "@/store/manifest";
 import { PolicyDlgConv, type PolicyDlgTypes } from "./0-conv";
-import { toaster } from "@/ui/local-ui";
+import { toaster } from "@/ui/local-ui/7-toaster";
 import { doUpdateExplanationAtom } from "./1-util-atoms";
 
 type DoClosePolicyDlgAtomCtx = {

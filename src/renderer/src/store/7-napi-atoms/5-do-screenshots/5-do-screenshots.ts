@@ -1,6 +1,6 @@
 import { atom } from "jotai";
 import { proxy } from "valtio";
-import { toaster } from "@/ui/local-ui";
+import { notice } from "@/ui/local-ui/7-toaster";
 import { uuid } from "@/store/manifest";
 import { debugSettings } from "@/store/9-ui-state";
 import { hasMain, invokeMainTyped } from "@/xternal-to-main";
@@ -72,7 +72,7 @@ async function doLiveScreenshots(width: number, { set }: SetOnly) {
         set(allScreenshotAtom, addScreenshotsExtra(screenshots));
     } catch (error) {
         console.error(`'doLiveScreenshots' ${errorToString(error)}`);
-        toaster.error(`'doLiveScreenshots' ${errorToString(error)}`);
+        notice.error(`'doLiveScreenshots' ${errorToString(error)}`);
         set(allScreenshotAtom, []);
     }
 }

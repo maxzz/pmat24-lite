@@ -3,7 +3,7 @@ import * as Select from "@radix-ui/react-select";
 import { SymbolChevronDown } from "@ui/icons";
 import { IconRadix_Check } from "@/ui/icons/normal";
 import { classNames } from "@/utils";
-import { inputFocusClasses, inputRingClasses } from "@/ui";
+import { inputFocusClasses, inputRingClasses } from "@/ui/local-ui";
 
 const viewportClasses = "\
 px-1.5 py-1 \

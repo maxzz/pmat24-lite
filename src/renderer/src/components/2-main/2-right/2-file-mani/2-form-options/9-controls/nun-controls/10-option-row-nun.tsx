@@ -1,7 +1,7 @@
 import { type InputHTMLAttributes } from "react";
 import { type PrimitiveAtom, useAtom } from "jotai";
 import { classNames } from "@/utils";
-import { inputRingClasses } from "@/ui";
+import { inputRingClasses } from "@/ui/local-ui";
 
 export type AccessAtom = PrimitiveAtom<string | number>;
 

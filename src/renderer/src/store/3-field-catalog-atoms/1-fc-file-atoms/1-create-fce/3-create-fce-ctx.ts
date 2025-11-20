@@ -2,7 +2,7 @@ import { type Atom, atom } from "jotai";
 import { atomWithCallback, type OnValueChangeParams } from "@/utils";
 import { createEmptyValueLife, FieldTyp, type ValueLife } from "@/store/manifest";
 import { type FceItem, type FceCtx, type FceDlgIn, type FceAtoms, type FcePropAtoms, type OnChangeFcePropParams, type FceFilterOptions, type FceDlgOut } from "../../9-types";
-import { type OnChangeValueWithUpdateName } from "@/ui";
+import { type OnChangeValueWithUpdateName } from "@/ui/local-ui";
 import { doFcePropChangesAtom } from "../3-changes";
 import { createFceFilterOptions, createHasSelectedScopedAtom, filterFceItems } from "../2-items";
 import { printFceItems } from "../../3-fc-mru";

@@ -2,7 +2,7 @@ import { HTMLAttributes, ReactNode } from "react";
 import { useAtom } from "jotai";
 import { classNames } from "@/utils";
 import { modifierKeys } from "@/store/manifest";
-import { InputSelectUi, type RowInputStateAtom } from "@/ui";
+import { InputSelectUi, type RowInputStateAtom } from "@/ui/local-ui";
 import { type ManualFieldState } from "@/store/2-file-mani-atoms";
 
 export function InputModifiers({ item }: { item: ManualFieldState.CtxKbd; }) {

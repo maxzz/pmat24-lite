@@ -1,7 +1,7 @@
 import { type AtomizeWithType } from "@/utils";
 import { type EditorDataForKbd, type EditorDataForPos, type EditorDataForDly, type EditorDataForFld, type ChunkKey } from "@/store/manifest";
 import { type FieldRowCtx } from "../../9-types";
-import { type RowInputState } from "@/ui";
+import { type RowInputState } from "@/ui/local-ui";
 
 export namespace ManualFieldState {
 

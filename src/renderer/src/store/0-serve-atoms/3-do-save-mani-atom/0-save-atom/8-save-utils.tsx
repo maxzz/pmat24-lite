@@ -1,11 +1,11 @@
 import { appSettings } from "@/store/9-ui-state";
 import { getFilenameAndExt } from "@/utils";
-import { toaster } from "@/ui/local-ui";
+import { notice } from "@/ui/local-ui/7-toaster";
 import { type FileUs } from "@/store/store-types";
 import { type FileMani, type Mani } from "@/store/manifest";
 
 export function notificationSaveError(fname: string, errorText: string) {
-    toaster.error((<>
+    notice.error((<>
         <div>
             Cannot save file ${fname}.
         </div>
@@ -18,7 +18,7 @@ export function notificationSaveError(fname: string, errorText: string) {
 
 export function notificationNewSaved(fileUs: FileUs) {
     if (appSettings.appUi.uiGeneral.notifyNewFile) {
-        toaster.info(`File "${fileUs.fileCnt.fname}" saved`);
+        notice.info(`File "${fileUs.fileCnt.fname}" saved`);
     }
     console.log('saved', fileUs.fileCnt.fname);
 }

@@ -1,6 +1,6 @@
 import { useAtomValue, useSetAtom } from "jotai";
 import { DropdownMenuItem } from "@/ui";
-import { toaster } from "@/ui/local-ui";
+import { notice } from "@/ui/local-ui/7-toaster";
 import { hasMain } from "@/xternal-to-main";
 import { rightPanelAtomAtom } from "@/store/5-3-right-panel";
 import { doGetFileUsPathAtom, doRevealInExplorerAtom } from "@/store/0-serve-atoms";
@@ -13,7 +13,7 @@ export function MenuItem_RevealInExplorerCurrent() {
 
     function revealInExplorer() {
         if (!fileUsAtom) {
-            toastError();
+            toastError('No file selected');
             return;
         }
         if (hasMain()) {
@@ -35,6 +35,6 @@ export function MenuItem_RevealInExplorerCurrent() {
     );
 }
 
-function toastError(msg: string = 'No file selected') {
-    toaster.error(msg, { position: "top-center" });
+function toastError(msg: string) {
+    notice.error(msg, { position: "top-center" });
 }

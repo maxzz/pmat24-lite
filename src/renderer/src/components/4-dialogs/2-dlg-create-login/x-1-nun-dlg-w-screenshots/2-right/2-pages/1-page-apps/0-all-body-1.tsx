@@ -1,5 +1,6 @@
 import { useAtom } from "jotai";
-import { Checkbox, Label, PreserveScrollArea } from "@/ui";
+import { Checkbox, Label } from "@/ui/shadcn";
+import { PreserveScrollArea } from "@/ui/local-ui";
 import { newManiCtx, WizardPage } from "../../../0-new-mani-ctx";
 import { WizardPageHeader } from "../../../8-create-ui";
 import { AppsGrid } from "./1-apps-grid";

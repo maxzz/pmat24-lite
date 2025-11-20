@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { PrimitiveAtom, useAtom, useAtomValue, useSetAtom } from "jotai";
 import { Button } from "@/ui";
-import { toaster } from "@/ui/local-ui";
+import { toaster, notice } from "@/ui/local-ui/7-toaster";
 import { SecondPage, doOpenCreateDialogAtom, doOpenCreateDialogSecondAtom, doOpenCreateManiAtom } from "@/store/4-dialogs-atoms";
 
 export function ButtonCreate({ selectedIdxAtom, toastIdAtom }: { selectedIdxAtom: PrimitiveAtom<number>; toastIdAtom: PrimitiveAtom<string | number | undefined>; }) {
@@ -19,7 +19,7 @@ export function ButtonCreate({ selectedIdxAtom, toastIdAtom }: { selectedIdxAtom
             onClick={() => {
                 let id: string | number | undefined;
                 if (selectedIdx === -1) {
-                    id = toaster('Select application window first.');
+                    id = notice.warning('Select application window first.');
                 } else if (selectedIdx === 1) {
                     // doOpenCreateDialogSecond(SecondPage.grab);
                     // doOpenDrawer(true);
@@ -27,7 +27,7 @@ export function ButtonCreate({ selectedIdxAtom, toastIdAtom }: { selectedIdxAtom
                     doOpenCreateDialog(false);
                     return;
                 } else {
-                    id = toaster('No login fields detected.');
+                    id = notice.warning('No login fields detected.');
                 }
                 id && setToastId(id);
             }}

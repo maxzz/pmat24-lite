@@ -8,7 +8,7 @@ import {
     SelectTrigger,
     SelectValue
 } from "@/ui/shadcn/select";
-import { notImplYet } from "@/ui";
+import { notice_notImplYet } from "@/ui/local-ui";
 
 export function ButtonCreateFormSelector({ triggerLabel, subLabel }: { triggerLabel: string; subLabel?: string; }) {
 
@@ -20,7 +20,7 @@ export function ButtonCreateFormSelector({ triggerLabel, subLabel }: { triggerLa
     function onSelect(value: string) {
         // console.log(value); 
         // setSelected(value);
-        notImplYet.onClick();
+        notice_notImplYet.onClick();
     }
 
     return (

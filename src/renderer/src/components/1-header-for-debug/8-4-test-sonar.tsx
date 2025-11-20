@@ -1,6 +1,7 @@
-import { Button, notice } from "@/ui";
-import { IconStopCircle, SymbolCross, SymbolInfo, SymbolWarning } from "@/ui/icons";
-import { toast, type ToastT } from "sonner";
+import { Button } from "@/ui";
+import { notice } from "@/ui/local-ui/7-toaster";
+import { toast } from "sonner";
+import { IconStopCircle, SymbolInfo, SymbolWarning } from "@/ui/icons";
 
 export function TestSonner() {
     return (<>

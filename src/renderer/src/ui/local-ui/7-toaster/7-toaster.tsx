@@ -6,7 +6,7 @@ export { toast as toaster };
 
 type ToastTypes = Exclude<NonNullable<ToastT['type']>, 'normal' | 'action' | 'default' | 'loading'>; // 'success' | 'info' | 'warning' | 'error';
 
-function myToast(type: ToastTypes, message: React.ReactNode, options: Partial<ToastT> = {}) {
+function myToast(type: ToastTypes, message: React.ReactNode, options: Partial<ToastT> = {}): string | number {
     const id = toast.custom(
         () => (
             <div className={`text-xs text-background bg-foreground border-foreground/10 dark:border-background border rounded-md shadow-md 1dark:shadow-foreground/20 1dark:shadow-red-500/60 overflow-hidden ${toastShadowClasses(type)}`}>
@@ -36,6 +36,7 @@ function myToast(type: ToastTypes, message: React.ReactNode, options: Partial<To
             ...options,
         }
     );
+    return id;
 }
 
 function toastIconClasses(type: ToastTypes): string {
@@ -60,20 +61,20 @@ function toastShadowClasses(type: ToastTypes): string {
 
 // Exports
 
-function toastError(message: React.ReactNode, options: Partial<ToastT> = {}) {
-    myToast("error", message, options);
+function toastError(message: React.ReactNode, options: Partial<ToastT> = {}): string | number {
+    return myToast("error", message, options);
 }
 
-function toastWarning(message: React.ReactNode, options: Partial<ToastT> = {}) {
-    myToast("warning", message, options);
+function toastWarning(message: React.ReactNode, options: Partial<ToastT> = {}): string | number {
+    return myToast("warning", message, options);
 }
 
-function toastInfo(message: React.ReactNode, options: Partial<ToastT> = {}) {
-    myToast("info", message, options);
+function toastInfo(message: React.ReactNode, options: Partial<ToastT> = {}): string | number {
+    return myToast("info", message, options);
 }
 
-function toastSuccess(message: React.ReactNode, options: Partial<ToastT> = {}) {
-    myToast("success", message, options);
+function toastSuccess(message: React.ReactNode, options: Partial<ToastT> = {}): string | number {
+    return myToast("success", message, options);
 }
 
 export const notice = {
@@ -82,3 +83,9 @@ export const notice = {
     info: toastInfo,
     success: toastSuccess,
 };
+
+//TODO: add notice.dismiss(id);
+//TODO: import { Dropdown5, SelectNameValueItem } from "@/ui/local-ui"; global classes as separate import
+//TODO: import { InputSelectUi } from "@/ui/local-ui";
+//TODO: import { InputSelectUi, type RowInputStateAtom } from "@/ui/local-ui";
+//TODO: import { InputSelectUi } from "@/ui/local-ui";

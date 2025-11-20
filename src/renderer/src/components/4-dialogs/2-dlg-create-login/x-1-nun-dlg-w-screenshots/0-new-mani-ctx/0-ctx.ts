@@ -1,5 +1,5 @@
 import { atom, type Atom, type PrimitiveAtom as PA } from "jotai";
-import { type PositionStorage, createVarStorage } from "@/ui";
+import { type PositionStorage, createVarStorage } from "@/ui/local-ui";
 import { type WizardPage } from "./8-step-items-data";
 import { type DoInitNewManiCtxAtom, create_DoInitNewManiCtxAtom } from "./1-init-ctx";
 import { type DoRefreshAppsAtom, create_DoRefreshAppsAtom } from "./1-refresh-apps";

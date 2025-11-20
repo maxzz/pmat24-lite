@@ -1,8 +1,9 @@
-import { DropdownMenuItem, notImplYet } from "@/ui";
+import { DropdownMenuItem } from "@/ui";
+import { notice_notImplYet } from "@/ui/local-ui";
 
 export function MenuItem_More() {
     return (<>
-        <DropdownMenuItem {...notImplYet}>
+        <DropdownMenuItem {...notice_notImplYet}>
             More...
         </DropdownMenuItem>
     </>);

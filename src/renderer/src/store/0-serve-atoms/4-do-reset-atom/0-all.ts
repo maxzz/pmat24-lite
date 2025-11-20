@@ -1,5 +1,5 @@
 import { atom } from "jotai";
-import { toaster } from "@/ui/local-ui";
+import { notice } from "@/ui/local-ui/7-toaster";
 import { type FileUs, type FileUsAtom } from "@/store/store-types";
 import { fileUsChanges } from "@/store/2-file-mani-atoms/9-types";
 import { updateManiAtomsAfterSaveOrResetAtom } from "../3-do-save-mani-atom/0-save-atom";
@@ -42,7 +42,7 @@ function resetManifestTake1(fileUsAtom: FileUsAtom, fileUs: FileUs, { get, set }
 }
 
 function resetFieldCatalog(fileUsAtom: FileUsAtom, fileUs: FileUs, getset: GetSet) {
-    toaster.info('Resetting field catalog is not a good idea. Do it only if you know what you are doing.');
+    notice.info('Resetting field catalog is not a good idea. Do it only if you know what you are doing.');
     /*
     // Good but deprecated (see notes inside resetFc()):
     resetFc(fileUs, fileUsAtom, get, set);

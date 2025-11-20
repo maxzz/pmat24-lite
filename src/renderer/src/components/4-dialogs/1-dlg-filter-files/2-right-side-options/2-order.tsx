@@ -1,7 +1,7 @@
 import { useSnapshot } from "valtio";
 import { appSettings } from "@/store/9-ui-state";
 import { Order } from "@/store/store-types";
-import { Dropdown5, SelectNameValueItem } from "@/ui";
+import { Dropdown5, SelectNameValueItem } from "@/ui/local-ui";
 
 export function CheckAscending() {
     const { order } = useSnapshot(appSettings.files.sortOrder);

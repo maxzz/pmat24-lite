@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { atom, useAtom } from "jotai";
-import { toaster } from "@/ui/local-ui";
+import { toaster, notice } from "@/ui/local-ui/7-toaster";
 import * as D from "@/ui/shadcn/dialog";
 import { Button, ScrollArea } from "@/ui";
 import { IconRefresh } from "@/ui/icons";
@@ -36,7 +36,7 @@ export function DialogCreateManiBody({ setIsOpen }: { setIsOpen: (v: boolean) =>
                 <div className="mb-1 flex items-center justify-between">
                     Application windows
 
-                    <Button className="font-normal" variant="outline" size="xs" onClick={() => setToastId(toaster('Updated'))} tabIndex={-1}>
+                    <Button className="font-normal" variant="outline" size="xs" onClick={() => setToastId(notice.info('Updated'))} tabIndex={-1}>
                         <IconRefresh className="size-3" title="Refresh windows list" />
                     </Button>
                 </div>

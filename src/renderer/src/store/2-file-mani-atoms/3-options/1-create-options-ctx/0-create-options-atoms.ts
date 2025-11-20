@@ -1,4 +1,4 @@
-import { type RowInputState } from "@/ui";
+import { type RowInputState } from "@/ui/local-ui";
 import { type OnValueChange, debounce } from "@/utils";
 import { type OnChangeProps, type FileUsCtx, safeManiAtomsFromFileUsCtx, fileUsChanges } from "../../9-types";
 import { type FormOptionsState, FormOptionsConv } from "../2-conv-options";
