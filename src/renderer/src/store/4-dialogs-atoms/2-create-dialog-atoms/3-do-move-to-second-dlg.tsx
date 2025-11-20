@@ -6,7 +6,7 @@ import { R2MCalls } from "@/xternal-to-main";
 import { addToTotalManis, appSettings } from "@/store/9-ui-state";
 import { pmExtensionMani, WebFsItem } from "@shared/ipc-types";
 import { type FileUs, type FileUsAtom } from "@/store/store-types";
-import { doSaveOneAtom, notificationNewSaved } from "@/store/0-serve-atoms";
+import { doSaveOneAtom, notice_NewSaved } from "@/store/0-serve-atoms";
 import { createFileUsFromNewXml, newManiContent } from "@/store/0-serve-atoms/0-create/1-create-new-mani-ctx";
 import { filesAtom, rootDir } from "@/store/5-1-open-files";
 import { fileUsChanges } from "@/store/2-file-mani-atoms/9-types";
@@ -125,7 +125,7 @@ function addToFilesTree({ fileUsAtom, fileUs, makingCpass, getset: { get, set } 
 
     set(doSelectFileUsTreeAtom, fileUsAtom);
 
-    notificationNewSaved(fileUs);
+    notice_NewSaved(fileUs);
 }
 
 function setHighlightAtoms({ fileUs, makingCpass, getset: { get, set } }: { fileUs: FileUs; makingCpass: boolean; getset: GetSet; }): void {

@@ -7,7 +7,7 @@ import { saveToFileSystem } from "@/store/0-serve-atoms/7-file-system-manipulati
 import { inTest_Set } from "@/store/0-serve-atoms/6-do-inuse-test";
 import { fileUsToXmlString } from "./7-fileus-to-xml-string";
 import { updateManiAtomsAfterSaveOrResetAtom } from "./3-save-or-rst-maniatoms";
-import { debugTestFilename, notificationSaveError } from "./8-save-utils";
+import { makeDebugTestFilename, notice_SaveError } from "./8-save-utils";
 //import { printXmlManiFile } from "./8-save-utils";
 
 /**
@@ -34,11 +34,11 @@ export const doSaveOneAtom = atom(
 
         // 2. Save to file system
 
-        const fname = debugTestFilename(newFilename || fileUs.fileCnt.fname);
+        const fname = makeDebugTestFilename(newFilename || fileUs.fileCnt.fname);
 
         const errorText = await saveToFileSystem(fileUs, xml, fname);
         if (errorText) {
-            notificationSaveError(fname, errorText);
+            notice_SaveError(fname, errorText);
             return false;
         }
 

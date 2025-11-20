@@ -4,7 +4,7 @@ import { notice } from "@/ui/local-ui/7-toaster";
 import { type FileUs } from "@/store/store-types";
 import { type FileMani, type Mani } from "@/store/manifest";
 
-export function notificationSaveError(fname: string, errorText: string) {
+export function notice_SaveError(fname: string, errorText: string): void {
     notice.error(
         (<>
             <div>
@@ -18,7 +18,7 @@ export function notificationSaveError(fname: string, errorText: string) {
     );
 }
 
-export function notificationNewSaved(fileUs: FileUs) {
+export function notice_NewSaved(fileUs: FileUs): void {
     if (appSettings.appUi.uiGeneral.notifyNewFile) {
         notice.info(`A new template has been created.`);
     }
@@ -28,7 +28,7 @@ export function notificationNewSaved(fileUs: FileUs) {
 /**
  * Generate debug only filename
  */
-export function debugTestFilename(fileName: string) {
+export function makeDebugTestFilename(fileName: string): string {
     if (!appSettings.appUi.uiAdvanced.saveWDebugExt) {
         return fileName;
     }
