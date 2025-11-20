@@ -1,6 +1,5 @@
 import { Button } from "@/ui";
 import { notice } from "@/ui/local-ui/7-toaster";
-import { toast } from "sonner";
 import { IconStopCircle, SymbolInfo, SymbolWarning } from "@/ui/icons";
 
 export function TestSonner() {
@@ -21,7 +20,7 @@ export function TestSonner() {
             <IconStopCircle className="size-4" />
         </Button>
 
-        <Button className="text-[.65rem]" onClick={ () => { const id = toast.error("Hello from a custom component!", { duration: 5000, action: { label: 'Dismiss', onClick: () => toast.dismiss(id) } }); }}>
+        <Button className="text-[.65rem]" onClick={ () => { const id = notice.error("Hello from a custom component!", { duration: 5000, action: { label: 'Dismiss', onClick: () => notice.dismiss(id) } }); }}>
             standard error
         </Button>
     </>);

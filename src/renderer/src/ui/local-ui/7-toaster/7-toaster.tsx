@@ -24,8 +24,8 @@ function myToast(type: ToastTypes, message: React.ReactNode, options: Partial<To
                         {message}
                     </div>
 
-                    <Button className="m-1 p-1 aspect-square active:scale-[.97]" variant="ghost" onClick={() => toast.dismiss(id)}>
-                        <SymbolCross className="size-3" onClick={() => toast.dismiss(id)} />
+                    <Button className="m-1 p-1 aspect-square active:scale-[.97]" variant="ghost" onClick={() => notice.dismiss(id)}>
+                        <SymbolCross className="size-3" onClick={() => notice.dismiss(id)} />
                     </Button>
                 </div>
 
@@ -82,6 +82,7 @@ export const notice = {
     warning: toastWarning,
     info: toastInfo,
     success: toastSuccess,
+    dismiss: toast.dismiss,
 };
 
 //TODO: add notice.dismiss(id);

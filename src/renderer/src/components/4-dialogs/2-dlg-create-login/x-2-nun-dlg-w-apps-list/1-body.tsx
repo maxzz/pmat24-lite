@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { atom, useAtom } from "jotai";
-import { toaster, notice } from "@/ui/local-ui/7-toaster";
+import { notice } from "@/ui/local-ui/7-toaster";
 import * as D from "@/ui/shadcn/dialog";
 import { Button, ScrollArea } from "@/ui";
 import { IconRefresh } from "@/ui/icons";
@@ -15,7 +15,7 @@ export function DialogCreateManiBody({ setIsOpen }: { setIsOpen: (v: boolean) =>
     const toastIdAtom = useState(() => atom<string | number | undefined>(undefined))[0];
     const [toastId, setToastId] = useAtom(toastIdAtom);
 
-    useEffect(() => () => { toastId && toaster.dismiss(toastId); }, [toastId]);
+    useEffect(() => () => { toastId && notice.dismiss(toastId); }, [toastId]);
 
     return (
         <div className="min-h-56 text-xs">

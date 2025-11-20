@@ -1,14 +1,14 @@
 import { useEffect } from "react";
 import { PrimitiveAtom, useAtom, useAtomValue, useSetAtom } from "jotai";
 import { Button } from "@/ui";
-import { toaster, notice } from "@/ui/local-ui/7-toaster";
+import { notice } from "@/ui/local-ui/7-toaster";
 import { SecondPage, doOpenCreateDialogAtom, doOpenCreateDialogSecondAtom, doOpenCreateManiAtom } from "@/store/4-dialogs-atoms";
 
 export function ButtonCreate({ selectedIdxAtom, toastIdAtom }: { selectedIdxAtom: PrimitiveAtom<number>; toastIdAtom: PrimitiveAtom<string | number | undefined>; }) {
     const selectedIdx = useAtomValue(selectedIdxAtom);
     const [toastId, setToastId] = useAtom(toastIdAtom);
 
-    useEffect(() => () => { toastId && toaster.dismiss(toastId); }, [toastId, selectedIdx]);
+    useEffect(() => () => { toastId && notice.dismiss(toastId); }, [toastId, selectedIdx]);
 
     const doOpenCreateDialog = useSetAtom(doOpenCreateDialogAtom);
     const doOpenCreateDialogSecond = useSetAtom(doOpenCreateDialogSecondAtom);

@@ -12,7 +12,7 @@ import { createFileContents_WebAfterDlgOpen } from "./4-filecnt-from-web-dlg";
 import { createFileContents_WebAfterDnd } from "./3-filecnt-from-web-dnd";
 import { printFiles } from "./9-types";
 import { asyncRemoveMruItemAtom } from "@/store/4-dialogs-atoms";
-import { toast } from "sonner";
+import { notice } from "@/ui/local-ui/7-toaster";
 
 export type DoSetFilesFrom_Dnd_Atom = typeof doSetFilesFrom_Dnd_Atom;
 
@@ -26,7 +26,7 @@ export const doSetFilesFrom_Dnd_Atom = atom(                    // used by DropI
                 const res = await createFileContents_From_Main(dropFiles);
 
                 if (res?.error) {
-                    toast.error(`Error loading files: ${res.error}`);
+                    notice.error(`Error loading files: ${res.error}`);
                     return;
                 }
 
