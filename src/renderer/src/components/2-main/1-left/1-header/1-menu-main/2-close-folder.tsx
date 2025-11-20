@@ -9,9 +9,9 @@ import { DropdownMenuItem } from "@/ui/shadcn";
  * so history will be available when folder is closed.
  */
 export function MenuItem_CloseFolder() {
-    const doClearFileContent = useSetAtom(doCloseRootDirAtom);
+    const doCloseRootDir = useSetAtom(doCloseRootDirAtom);
     return (
-        <DropdownMenuItem onClick={() => { doClearFileContent(); }}>
+        <DropdownMenuItem onClick={() => { doCloseRootDir(); }}>
             Close Folder
         </DropdownMenuItem>
     );

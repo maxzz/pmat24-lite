@@ -4,10 +4,10 @@ import { Button } from "@/ui";
 import { doCloseRootDirAtom, rootDir } from "@/store/5-1-open-files";
 
 export function TestCloseFolder() {
-    const doClearFileContent = useSetAtom(doCloseRootDirAtom);
+    const doCloseRootDir = useSetAtom(doCloseRootDirAtom);
     const hasRootDir = useSnapshot(rootDir).fpath.length;
     return (
-        <Button variant="outline" className="text-[.65rem]" onClick={doClearFileContent} disabled={!hasRootDir}>
+        <Button variant="outline" className="text-[.65rem]" onClick={doCloseRootDir} disabled={!hasRootDir}>
             Close Folder
         </Button>
     );

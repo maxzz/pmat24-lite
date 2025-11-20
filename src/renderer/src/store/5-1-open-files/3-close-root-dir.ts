@@ -11,11 +11,8 @@ export const doCloseRootDirAtom = atom(
     async (get, set) => {
         const { confirmExit } = appSettings.appUi.uiAdvanced;
 
-        if (allFileUsChanges.size) {
-            const ok = !confirmExit || await set(doAsyncExecuteConfirmDialogAtom, confirmCloseFolderMessages);
-            if (!ok) {
-                return;
-            }
+        if (!await asyncConfirmToCloseUnsavedFolder(confirmExit, set)) {
+            return;
         }
 
         set(doSetDeliveredFilesAtom, {
@@ -28,3 +25,13 @@ export const doCloseRootDirAtom = atom(
         await inTest_DeleteDir();
     }
 );
+
+async function asyncConfirmToCloseUnsavedFolder(confirmExit: boolean, set: Setter): Promise<boolean> {
+    if (allFileUsChanges.size) {
+        const ok = !confirmExit || await set(doAsyncExecuteConfirmDialogAtom, confirmCloseFolderMessages);
+        if (!ok) {
+            return false;
+        }
+    }
+    return true;
+}
