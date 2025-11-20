@@ -8,7 +8,7 @@ export function TestSonner() {
             <SymbolInfo className="size-4 text-blue-500" />
         </Button>
 
-        <Button className="text-[.65rem]" onClick={() => notice.success("Hello from a custom component! Hello 231 from a custom component!", { duration: 5000 })}>
+        <Button className="text-[.65rem]" onClick={() => notice.success("Hello from a custom component! Hello 231 from a custom component!")}>
             <div className="text-green-500">OK</div>
         </Button>
 
@@ -31,11 +31,11 @@ type ToastTypes = Exclude<NonNullable<ToastT['type']>, 'normal' | 'action' | 'de
 function myToast(type: ToastTypes, message: React.ReactNode, options: Partial<ToastT> = {}) {
     const id = toast.custom(
         () => (
-            <div className="text-xs text-background bg-foreground border-foreground/10 dark:border-background border rounded-md shadow-md dark:shadow-foreground/30 overflow-hidden">
+            <div className={`text-xs text-background bg-foreground border-foreground/10 dark:border-background border rounded-md shadow-md 1dark:shadow-foreground/20 1dark:shadow-red-500/60 overflow-hidden ${toastShadowClasses(type)}`}>
 
                 <div className="min-h-12 grid grid-cols-[4rem_1fr_auto] place-items-center">
 
-                    <div className={`self-stretch w-full grid place-items-center ${toastIconClasses(type)}`}>
+                    <div className={`self-stretch w-full grid place-items-center text-background ${toastIconClasses(type)}`}>
                         {type === 'success' && <SymbolInfo className="size-5" />}
                         {type === 'info' && <SymbolInfo className="size-5" />}
                         {type === 'warning' && <SymbolWarning className="size-5" />}
@@ -54,7 +54,7 @@ function myToast(type: ToastTypes, message: React.ReactNode, options: Partial<To
             </div>
         ),
         {
-            duration: 5000,
+            duration: 555000,
             ...options,
         }
     );
@@ -62,10 +62,20 @@ function myToast(type: ToastTypes, message: React.ReactNode, options: Partial<To
 
 function toastIconClasses(type: ToastTypes): string {
     return (
-        type === 'success' ? 'bg-green-600 text-background'
-            : type === 'info' ? 'bg-blue-600 text-background'
-                : type === 'warning' ? 'bg-orange-600 text-background'
-                    : type === 'error' ? 'bg-red-500 text-background'
+        type === 'success' ? 'bg-green-600'
+            : type === 'info' ? 'bg-blue-600'
+                : type === 'warning' ? 'bg-orange-600'
+                    : type === 'error' ? 'bg-red-500'
+                        : ''
+    );
+}
+
+function toastShadowClasses(type: ToastTypes): string {
+    return (
+        type === 'success' ? 'dark:shadow-green-600/60'
+            : type === 'info' ? 'dark:shadow-sky-600/60'
+                : type === 'warning' ? 'dark:shadow-orange-600/60'
+                    : type === 'error' ? 'dark:shadow-red-500/60'
                         : ''
     );
 }
