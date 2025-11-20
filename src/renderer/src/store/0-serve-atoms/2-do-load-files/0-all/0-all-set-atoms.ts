@@ -26,7 +26,8 @@ export const doSetFilesFrom_Dnd_Atom = atom(                    // used by DropI
                 const res = await createFileContents_From_Main(dropFiles);
 
                 if (res?.error) {
-                    notice.error(`Error loading files: ${res.error}`);
+                    const m = res.error.match(/ENOENT: no such file or directory:'([^']*)'/); //ENOENT: no such file or directory:'\\Tanam11\c\Y\w\112'
+                    notice.error(m ? `Unable to access "${m[1]}"` : res.error);
                     return;
                 }
 
