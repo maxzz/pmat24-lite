@@ -1,8 +1,9 @@
 import { atom } from "jotai";
 import { asyncVerifyPermission, errorToString } from "@/utils";
 import { hasMain, invokeMainTyped } from "@/xternal-to-main";
+import { notice } from "@/ui/local-ui/7-toaster";
 import { type FileContent } from "@shared/ipc-types";
-import { type PmatFolder } from "@/store/5-1-open-files";
+import { doCloseRootDirAtom, type PmatFolder } from "@/store/5-1-open-files";
 import { filerDirectoryHandles, findShortestPathInFnames } from "@/store/store-utils";
 import { doSetDeliveredFilesAtom } from "../../1-do-set-files";
 import { openDirectoryHandle, openModernHandlesDlg, type OpenModernHandlesDlgResult } from "../1-modern-handles";
@@ -10,15 +11,18 @@ import { createFileContents_From_Main } from "./1-filecnt-from-main";
 import { createFileContents_FromMru_Main } from "./2-filecnt-from-main-mru";
 import { createFileContents_WebAfterDlgOpen } from "./4-filecnt-from-web-dlg";
 import { createFileContents_WebAfterDnd } from "./3-filecnt-from-web-dnd";
-import { printFiles } from "./9-types";
 import { asyncRemoveMruItemAtom } from "@/store/4-dialogs-atoms";
-import { notice } from "@/ui/local-ui/7-toaster";
+import { printFiles } from "./9-types";
 
 export type DoSetFilesFrom_Dnd_Atom = typeof doSetFilesFrom_Dnd_Atom;
 
 export const doSetFilesFrom_Dnd_Atom = atom(                    // used by DropItDoc only
     null,
     async (get, set, dataTransfer: DataTransfer) => {
+
+        if (!await set(doCloseRootDirAtom)) {
+            return;
+        }
 
         if (hasMain()) {
             const dropFiles: File[] = [...dataTransfer.files];

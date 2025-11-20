@@ -8,11 +8,11 @@ import { undefinedPmatFolder } from "@/store/5-1-open-files";
 
 export const doCloseRootDirAtom = atom(
     null,
-    async (get, set) => {
+    async (get, set): Promise<boolean> => {
         const { confirmExit } = appSettings.appUi.uiAdvanced;
 
         if (!await asyncConfirmToCloseUnsavedFolder(confirmExit, set)) {
-            return;
+            return false;
         }
 
         set(doSetDeliveredFilesAtom, {
@@ -23,6 +23,7 @@ export const doCloseRootDirAtom = atom(
         });
 
         await inTest_DeleteDir();
+        return true;
     }
 );
 
