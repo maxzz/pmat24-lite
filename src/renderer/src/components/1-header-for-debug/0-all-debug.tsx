@@ -10,10 +10,10 @@ import { TestDeleteCpass, TestDeleteFile } from "./8-3-test-delete-file";
 import { TestManiName } from "./8-4-test-mani-name";
 import { TestAboutDialog } from "./6-about-dlg";
 import { TestSonner } from "./8-4-test-sonar";
-// import { TestCreateManiWithAppsList } from "./7-1-create-mani-w-apps-list";
-// import { TestCreateWithSnapshots } from "./7-2-create-mani-w-snapshots";
-// import { TopMainDropdownMenu } from "./1-nun-old-main-menu-all";
-// import { TestPolicyIcons } from "./8-3-test-policy-icons";
+import { TestCreateManiWithAppsList } from "./7-1-create-mani-w-apps-list";
+import { TestCreateWithSnapshots } from "./7-2-create-mani-w-snapshots";
+import { TopMainDropdownMenu } from "./1-nun-old-main-menu-all";
+import { TestPolicyIcons } from "./8-8-test-policy-icons";
 
 export function DebugMainHeader() {
     const { fcAllowed } = useSnapshot(appSettings.files.shownManis);
@@ -44,7 +44,7 @@ export function DebugMainHeader() {
                 <TestDeleteFile />
                 <TestDeleteCpass />
 
-                <TestSonner />
+                {/* <TestSonner /> */}
 
                 {/* <TestAboutDialog /> */}
                 {/* <TestManiName /> */}

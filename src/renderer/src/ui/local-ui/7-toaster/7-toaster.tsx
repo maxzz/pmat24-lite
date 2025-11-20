@@ -2,7 +2,7 @@ import { toast, type ToastT } from "sonner";
 import { Button } from "@/ui";
 import { IconStopCircle, SymbolCross, SymbolInfo, SymbolWarning } from "@/ui/icons";
 
-export { toast as toaster };
+//export { toast as toaster };
 
 type ToastTypes = Exclude<NonNullable<ToastT['type']>, 'normal' | 'action' | 'default' | 'loading'>; // 'success' | 'info' | 'warning' | 'error';
 
