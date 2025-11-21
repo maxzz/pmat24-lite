@@ -41,16 +41,17 @@ export function FilterFilesBody() {
     return (
         <AnimatePresence initial={false}>
             {isOpen && (
-                <motion.div initial={false} className="fixed inset-0 bg-background 1bg-sky-300 z-100" {...animationProps}>
-                    {isOpen && (
-                        <D.Dialog open={isOpen} onOpenChange={() => setIsOpen(false)}>
-                            <D.DialogContent className={dialogContentClasses} noClose hiddenTitle="Files filter" overlayClasses={overlayClasses}>
+                <motion.div initial={false}>
+                 {/* <motion.div initial={false} className="fixed inset-0 bg-background 1bg-sky-300 z-100" {...animationProps}> */}
+                    {/* {isOpen && ( */}
+                    <D.Dialog open={isOpen} onOpenChange={() => setIsOpen(false)}>
+                        <D.DialogContent className={dialogContentClasses} noClose hiddenTitle="Files filter" overlayClasses={overlayClasses}>
 
-                                <DialogFilterBody setIsOpen={setIsOpen} />
+                            <DialogFilterBody setIsOpen={setIsOpen} />
 
-                            </D.DialogContent>
-                        </D.Dialog>
-                    )}
+                        </D.DialogContent>
+                    </D.Dialog>
+                    {/* )} */}
                 </motion.div>
             )}
         </AnimatePresence>
