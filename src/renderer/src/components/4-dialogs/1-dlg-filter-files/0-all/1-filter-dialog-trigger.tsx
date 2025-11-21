@@ -1,4 +1,4 @@
-import { useAtom, useAtomValue } from "jotai";
+import { useAtom, useAtomValue, useSetAtom } from "jotai";
 import { classNames } from "@/utils";
 import * as D from "@/ui/shadcn/dialog";
 import { Button } from "@/ui/shadcn";
@@ -9,12 +9,12 @@ import { appShortcuts } from "../../0-global/2-global-shortcuts";
 import { DialogFilterBody } from "./2-body";
 
 export function FilterFilesDialogTrigger() {
-
-    const [isOpen, setIsOpen] = useAtom(filterDialogOpenAtom);
     const isFilterActive = useAtomValue(isFilterActiveAtom);
+    const setIsOpen = useSetAtom(filterDialogOpenAtom);
+    const title = `Filter Templates (${appShortcuts.openFilter.text})`;
 
     return (<>
-        <Button className="flex-none" variant="ghost" onClick={() => setIsOpen(true)} tabIndex={-1} title={`Filter Templates (${appShortcuts.openFilter.text})`}>
+        <Button className="flex-none" variant="ghost" tabIndex={-1} title={title} onClick={() => setIsOpen(true)}>
             <IconFilter className={classNames("p-px size-4", isFilterActive && filterActiveIconClasses)} />
         </Button>
 
@@ -37,7 +37,7 @@ const filterActiveIconClasses = "text-red-500 fill-red-300 dark:text-red-500/80 
 
 export function FilterFilesBody() {
     const [isOpen, setIsOpen] = useAtom(filterDialogOpenAtom);
-    return (<>
+    return (
         <D.Dialog open={isOpen} onOpenChange={() => setIsOpen(false)}>
             <D.DialogContent className={dialogContentClasses} noClose hiddenTitle="Files filter" overlayClasses={overlayClasses}>
 
@@ -45,5 +45,5 @@ export function FilterFilesBody() {
 
             </D.DialogContent>
         </D.Dialog>
-    </>);
+    );
 }
