@@ -18,13 +18,7 @@ export function FilterFilesDialogTrigger() {
             <IconFilter className={classNames("p-px size-4", isFilterActive && filterActiveIconClasses)} />
         </Button>
 
-        <D.Dialog open={isOpen} onOpenChange={() => setIsOpen(false)}>
-            <D.DialogContent className={dialogContentClasses} noClose hiddenTitle="Files filter" overlayClasses={overlayClasses}>
-
-                <DialogFilterBody setIsOpen={setIsOpen} />
-
-            </D.DialogContent>
-        </D.Dialog>
+        <FilterFilesBody />
     </>);
 }
 
@@ -40,3 +34,16 @@ const filterActiveIconClasses = "text-red-500 fill-red-300 dark:text-red-500/80 
 //TODO: filename for win apps
 //TODO: tree custom leafs
 //TODO: options page
+
+export function FilterFilesBody() {
+    const [isOpen, setIsOpen] = useAtom(filterDialogOpenAtom);
+    return (<>
+        <D.Dialog open={isOpen} onOpenChange={() => setIsOpen(false)}>
+            <D.DialogContent className={dialogContentClasses} noClose hiddenTitle="Files filter" overlayClasses={overlayClasses}>
+
+                <DialogFilterBody setIsOpen={setIsOpen} />
+
+            </D.DialogContent>
+        </D.Dialog>
+    </>);
+}
