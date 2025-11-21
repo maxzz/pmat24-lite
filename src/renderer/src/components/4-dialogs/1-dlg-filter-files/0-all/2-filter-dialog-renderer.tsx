@@ -21,7 +21,7 @@ const contentClasses = "fixed left-[50%] top-[50%] z-50 grid w-4/5! max-w-3xl ga
 //TODO: tree custom leafs
 //TODO: options page
 
-export function FilterFilesBody() {
+export function DialogFilterFilesRenderer() {
     const [isOpen, setIsOpen] = useAtom(filterDialogOpenAtom);
     return (
         <D.Dialog open={isOpen} onOpenChange={setIsOpen}>

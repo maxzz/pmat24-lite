@@ -9,7 +9,7 @@ import { isFilterActiveAtom } from "@/store/5-2-tree-files";
 import { filterDialogOpenAtom } from "@/store/4-dialogs-atoms";
 import { appShortcuts } from "../../0-global/2-global-shortcuts";
 import { DialogFilterBody } from "./3-body";
-import { FilterFilesBody } from "./2-filter-dialog-render";
+import { DialogFilterFilesRenderer } from "./2-filter-dialog-renderer";
 
 export function FilterFilesDialogTrigger() {
     const isFilterActive = useAtomValue(isFilterActiveAtom);
@@ -21,7 +21,7 @@ export function FilterFilesDialogTrigger() {
             <IconFilter className={classNames("p-px size-4", isFilterActive && filterActiveIconClasses)} />
         </Button>
 
-        <FilterFilesBody />
+        <DialogFilterFilesRenderer />
     </>);
 }
 

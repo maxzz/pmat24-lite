@@ -33,16 +33,16 @@ export function FceDialog() {
             {/* <MotionConfig transition={{ type: "spring", duration: .7 }}> */}
             <AnimatePresence>
 
-            {!!fceCtx && (
-                <DialogContentPortal>
-                        //{/* We need to scale Prim.Content right after DialogPortal */ }
+                {!!fceCtx && (
+                    <DialogContentPortal>
+                        //{/* We need to scale Prim.Content right after DialogPortal */}
                         <motion.div
-                            // initial={{ opacity: 0, scale: .9 }}
-                            // animate={{ opacity: 1, scale: 1 }}
-                            // exit={{ opacity: 0, scale: .9 }}
-                            // transition={{ duration: .3 }}
-                            // layout
-                            // layoutId="fc-dlg-body"
+                        // initial={{ opacity: 0, scale: .9 }}
+                        // animate={{ opacity: 1, scale: 1 }}
+                        // exit={{ opacity: 0, scale: .9 }}
+                        // transition={{ duration: .3 }}
+                        // layout
+                        // layoutId="fc-dlg-body"
 
                         // className="w-full h-full"
                         >
@@ -63,8 +63,8 @@ export function FceDialog() {
                         </motion.div>
 
                         // {/* </motion.div> */}
-                </DialogContentPortal>
-                    )}
+                    </DialogContentPortal>
+                )}
             </AnimatePresence>
             {/* </MotionConfig> */}
         </D.Dialog >
