@@ -1,4 +1,6 @@
 import { useAtom, useAtomValue, useSetAtom } from "jotai";
+import { AnimatePresence, motion } from "motion/react";
+import * as DialogPrimitive from "@radix-ui/react-dialog";
 import { classNames } from "@/utils";
 import * as D from "@/ui/shadcn/dialog";
 import { Button } from "@/ui/shadcn";
@@ -24,7 +26,8 @@ export function FilterFilesDialogTrigger() {
 
 export const overlayClasses = "backdrop-blur-[0.5px] bg-background/80";
 
-const dialogContentClasses = "px-3 py-3 w-4/5! max-w-3xl data-[state=open]:duration-ani-200";
+const overlayClasses2 = "fixed inset-0 z-50 backdrop-blur-[0.5px] bg-background/80";
+const contentClasses = "fixed left-[50%] top-[50%] z-50 grid w-4/5! max-w-3xl gap-4 border bg-background px-3 py-3 shadow-lg sm:rounded-lg";
 const filterActiveIconClasses = "text-red-500 fill-red-300 dark:text-red-500/80 dark:fill-red-500/80";
 
 //TODO: multiple prefixes; now only one effective
@@ -37,13 +40,36 @@ const filterActiveIconClasses = "text-red-500 fill-red-300 dark:text-red-500/80 
 
 export function FilterFilesBody() {
     const [isOpen, setIsOpen] = useAtom(filterDialogOpenAtom);
-    return (<>
-        <D.Dialog open={isOpen} onOpenChange={() => setIsOpen(false)}>
-            <D.DialogContent className={dialogContentClasses} noClose hiddenTitle="Files filter" overlayClasses={overlayClasses}>
-
-                <DialogFilterBody setIsOpen={setIsOpen} />
-
-            </D.DialogContent>
+    return (
+        <D.Dialog open={isOpen} onOpenChange={setIsOpen}>
+            <AnimatePresence>
+                {isOpen && (
+                    <D.DialogPortal forceMount>
+                        <DialogPrimitive.Overlay asChild>
+                            <motion.div
+                                className={overlayClasses2}
+                                initial={{ opacity: 0 }}
+                                animate={{ opacity: 1 }}
+                                exit={{ opacity: 0 }}
+                                transition={{ duration: 0.2 }}
+                            />
+                        </DialogPrimitive.Overlay>
+                        
+                        <DialogPrimitive.Content asChild>
+                            <motion.div
+                                className={contentClasses}
+                                initial={{ opacity: 0, scale: 0.95, x: "-50%", y: "-48%" }}
+                                animate={{ opacity: 1, scale: 1, x: "-50%", y: "-50%" }}
+                                exit={{ opacity: 0, scale: 0.95, x: "-50%", y: "-48%" }}
+                                transition={{ duration: 0.2 }}
+                            >
+                                <DialogPrimitive.Title className="sr-only">Files filter</DialogPrimitive.Title>
+                                <DialogFilterBody setIsOpen={setIsOpen} />
+                            </motion.div>
+                        </DialogPrimitive.Content>
+                    </D.DialogPortal>
+                )}
+            </AnimatePresence>
         </D.Dialog>
-    </>);
+    );
 }
