@@ -4,7 +4,7 @@ import { classNames, cn } from "@/utils";
 import * as D from "@/ui/shadcn/dialog";
 import { doCancelFceDlgAtom, fceDlgTriggerAtom } from "@/store/3-field-catalog-atoms";
 import { FceDialogBodySelector } from "./1-dialog-body";
-import { overlayClasses } from "../../1-dlg-filter-files";
+import { overlayClasses } from "@/ui/local-ui/8-classes";
 import { AnimatePresence, motion, MotionConfig } from "motion/react";
 import { DialogPortalProps } from "@radix-ui/react-dialog";
 

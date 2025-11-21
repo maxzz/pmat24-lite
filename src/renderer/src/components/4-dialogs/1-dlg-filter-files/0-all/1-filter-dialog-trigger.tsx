@@ -27,4 +27,3 @@ export function FilterFilesDialogTrigger() {
 
 const filterActiveIconClasses = "text-red-500 fill-red-300 dark:text-red-500/80 dark:fill-red-500/80";
 
-export const overlayClasses = "backdrop-blur-[0.5px] bg-background/80";

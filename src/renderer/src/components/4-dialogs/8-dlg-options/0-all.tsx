@@ -2,7 +2,7 @@ import { useAtom } from "jotai";
 import { useSnapshot } from "valtio";
 import * as D from "@/ui/shadcn/dialog";
 import { Button, ScrollArea } from "@/ui";
-import { overlayClasses } from "../1-dlg-filter-files";
+import { overlayClasses } from "@/ui/local-ui/8-classes";
 import { doOpenOptionsDialogAtom } from "@/store/4-dialogs-atoms";
 import { FileListSettings } from "./2-settings-file-list";
 import { UiUxSettings } from "./3-settings-ux-ui";
