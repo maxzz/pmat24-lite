@@ -1,14 +1,10 @@
-import { useAtom, useAtomValue, useSetAtom } from "jotai";
-import { AnimatePresence, motion } from "motion/react";
-import * as DialogPrimitive from "@radix-ui/react-dialog";
+import { useAtomValue, useSetAtom } from "jotai";
 import { classNames } from "@/utils";
-import * as D from "@/ui/shadcn/dialog";
 import { Button } from "@/ui/shadcn";
 import { IconFilter } from "@/ui/icons";
 import { isFilterActiveAtom } from "@/store/5-2-tree-files";
 import { filterDialogOpenAtom } from "@/store/4-dialogs-atoms";
 import { appShortcuts } from "../../0-global/2-global-shortcuts";
-import { DialogFilterBody } from "./3-body";
 import { DialogFilterFilesRenderer } from "./2-filter-dialog-renderer";
 
 export function FilterFilesDialogTrigger() {
