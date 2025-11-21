@@ -39,28 +39,30 @@ const filterActiveIconClasses = "text-red-500 fill-red-300 dark:text-red-500/80 
 export function FilterFilesBody() {
     const [isOpen, setIsOpen] = useAtom(filterDialogOpenAtom);
     return (
+        <D.Dialog open={isOpen} onOpenChange={() => setIsOpen(false)}>
         <AnimatePresence initial={false}>
             {isOpen && (
-                <motion.div initial={false}>
+                <motion.div {...animationProps}>
                  {/* <motion.div initial={false} className="fixed inset-0 bg-background 1bg-sky-300 z-100" {...animationProps}> */}
                     {/* {isOpen && ( */}
-                    <D.Dialog open={isOpen} onOpenChange={() => setIsOpen(false)}>
+                    
                         <D.DialogContent className={dialogContentClasses} noClose hiddenTitle="Files filter" overlayClasses={overlayClasses}>
 
                             <DialogFilterBody setIsOpen={setIsOpen} />
 
                         </D.DialogContent>
-                    </D.Dialog>
+                    
                     {/* )} */}
                 </motion.div>
             )}
         </AnimatePresence>
+        </D.Dialog>
     );
 }
 
 const animationProps: MotionNodeOptions = {
-    // initial: { opacity: 0, scale: 0.75, transition: { delay: .2, duration: 2.2 }  },
-    animate: { opacity: 1, scale: 1 },
+    initial: { opacity: 0, scale: 0.75, transition: { delay: .2, duration: 2.2 }  },
+    animate: { opacity: 1, scale: 1, transition: { duration: 2 } },
     // exit: { opacity: 0, scale: 0.75, transition: { delay: .2, duration: .2 } },
     exit: { opacity: 0, scale: 0.75, transition: { duration: 0 } }, //TODO: do we need 'exit' animation and AnimatePresence here?
 };
