@@ -1,4 +1,4 @@
-import { HTMLAttributes, SVGProps } from "react";
+import { type HTMLAttributes, type SVGProps } from "react";
 import { classNames } from "@/utils"; // https://heroicons.com/outline/trash
 
 export function IconTrash24({ className, title, ...rest }: HTMLAttributes<SVGSVGElement> & SVGProps<SVGSVGElement>) {
