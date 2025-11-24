@@ -1,5 +1,5 @@
 import { classNames } from "@/utils";
-import { HTMLAttributes } from "react";
+import { type HTMLAttributes } from "react";
 
 export function IconMenu({ className, ...rest }: HTMLAttributes<SVGElement>) {
     return (

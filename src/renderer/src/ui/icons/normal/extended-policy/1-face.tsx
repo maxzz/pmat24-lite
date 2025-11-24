@@ -1,4 +1,4 @@
-import { HTMLAttributes } from "react";
+import { type HTMLAttributes } from "react";
 import { classNames } from "@/utils";
 
 export function IconExPol01Face({ className, title, ...rest }: HTMLAttributes<SVGSVGElement>) {

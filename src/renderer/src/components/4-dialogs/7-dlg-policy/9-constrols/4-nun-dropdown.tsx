@@ -1,4 +1,4 @@
-import { HTMLAttributes } from "react";
+import { type HTMLAttributes } from "react";
 import * as Select from "@radix-ui/react-select";
 import { SymbolChevronDown } from "@ui/icons";
 import { IconRadix_Check } from "@/ui/icons/normal";

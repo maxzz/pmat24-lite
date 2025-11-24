@@ -1,4 +1,4 @@
-import { HTMLAttributes } from "react";
+import { type HTMLAttributes } from "react";
 import { classNames } from "@/utils";
 
 export function IconExPol03Bluetooth({ className, title, ...rest }: HTMLAttributes<SVGSVGElement>) {

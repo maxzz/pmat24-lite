@@ -1,4 +1,4 @@
-import { HTMLAttributes } from "react";
+import { type HTMLAttributes } from "react";
 import { useSnapshot } from "valtio";
 import { classNames } from "@/utils";
 import { Checkbox, Label } from "@/ui";

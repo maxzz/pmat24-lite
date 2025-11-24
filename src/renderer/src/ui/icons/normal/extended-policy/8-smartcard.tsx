@@ -1,4 +1,4 @@
-import { HTMLAttributes } from "react";
+import { type HTMLAttributes } from "react";
 import { classNames } from "@/utils";
 
 const cls1Classes = "fill-current stroke-none";

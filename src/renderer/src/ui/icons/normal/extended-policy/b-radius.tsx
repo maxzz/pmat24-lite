@@ -1,4 +1,4 @@
-import { HTMLAttributes } from "react";
+import { type HTMLAttributes } from "react";
 import { classNames } from "@/utils";
 
 export function IconExPol11Radius({ className, title, ...rest }: HTMLAttributes<SVGSVGElement>) {
