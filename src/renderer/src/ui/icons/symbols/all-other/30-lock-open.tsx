@@ -1,4 +1,4 @@
-import { HTMLAttributes, SVGAttributes } from "react"; //https://heroicons.com lock
+import { type HTMLAttributes, type SVGAttributes } from "react"; //https://heroicons.com lock
 import { classNames } from "@/utils";
 
 export function SvgSymbolLockOpen() {

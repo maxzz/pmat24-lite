@@ -1,4 +1,4 @@
-import { HTMLAttributes, SVGAttributes } from "react"; //https://heroicons.com/fire
+import { type HTMLAttributes, type SVGAttributes } from "react"; //https://heroicons.com/fire
 import { classNames } from "@/utils";
 
 export function SvgSymbolFire() {

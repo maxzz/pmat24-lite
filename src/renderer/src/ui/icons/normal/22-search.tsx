@@ -1,5 +1,5 @@
 import { classNames } from "@/utils";
-import { HTMLAttributes, SVGAttributes } from "react";
+import { type HTMLAttributes, type SVGAttributes } from "react";
 
 export function IconSearch({ className, title, ...rest }: SVGAttributes<SVGSVGElement> & HTMLAttributes<SVGSVGElement>) {
     return (

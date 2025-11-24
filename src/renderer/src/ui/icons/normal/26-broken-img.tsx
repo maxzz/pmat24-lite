@@ -1,4 +1,4 @@
-import { HTMLAttributes, SVGAttributes } from "react";
+import { type HTMLAttributes, type SVGAttributes } from "react";
 import { classNames } from "@/utils"; // https://react-icons.github.io/react-icons/search/#q=broken PiImageBrokenThin
 
 // export function IconBrokenImage({ className, title, ...rest }: SVGAttributes<SVGSVGElement> & HTMLAttributes<SVGSVGElement>) {

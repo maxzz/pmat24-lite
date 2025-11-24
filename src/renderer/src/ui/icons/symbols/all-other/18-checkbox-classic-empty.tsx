@@ -1,4 +1,4 @@
-import { HTMLAttributes, SVGAttributes } from "react";
+import { type HTMLAttributes, type SVGAttributes } from "react";
 
 export function SvgSymbolClassicCheckEmpty() {
     return (<>

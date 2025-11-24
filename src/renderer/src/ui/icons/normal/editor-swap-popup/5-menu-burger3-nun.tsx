@@ -1,4 +1,4 @@
-import { HTMLAttributes, SVGAttributes } from "react";
+import { type HTMLAttributes, type SVGAttributes } from "react";
 
 export function IconMenuHamburger3({ title, ...rest }: SVGAttributes<SVGSVGElement> & HTMLAttributes<SVGSVGElement>) {
     return (

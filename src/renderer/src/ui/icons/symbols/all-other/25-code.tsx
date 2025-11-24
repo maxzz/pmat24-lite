@@ -1,4 +1,4 @@
-import { HTMLAttributes, SVGAttributes } from "react"; // https://www.radix-ui.com/icons
+import { type HTMLAttributes, type SVGAttributes } from "react"; // https://www.radix-ui.com/icons
 import { classNames } from "@/utils";
 
 export function SvgSymbolCode() {

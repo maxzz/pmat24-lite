@@ -1,4 +1,4 @@
-import { HTMLAttributes, SVGAttributes } from "react";
+import { type HTMLAttributes, type SVGAttributes } from "react";
 import { classNames } from "@/utils"; // https://heroicons.com/close
 
 export function IconRefresh({ className, title, ...rest }: SVGAttributes<SVGSVGElement> & HTMLAttributes<SVGSVGElement>) {
