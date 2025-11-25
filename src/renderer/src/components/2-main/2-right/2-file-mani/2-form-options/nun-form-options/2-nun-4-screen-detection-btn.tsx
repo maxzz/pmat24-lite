@@ -6,7 +6,7 @@ import { Block4_ScreenDetection } from "./2-nun-4-screen-detection";
 import { OptionsSubSectionTitle, UiAccordion } from "../9-controls";
 import * as D from "@/ui/shadcn/dialog";
 import { Button, ScrollArea } from "@/ui";
-import { overlayClasses } from "@/components/4-dialogs";
+import { overlayClasses } from "@/ui/local-ui/8-classes/common"; //import { overlayClasses } from "@/components/4-dialogs";
 import { UiAccordion3Example } from "../9-controls/nun-controls/ui-accordion3-motion";
 import { UiAccordion4Example } from "../9-controls/nun-controls/ui-accordion4-motion";
 import { UiAccordion5Example } from "../9-controls/nun-controls/ui-accordion5-motion";
