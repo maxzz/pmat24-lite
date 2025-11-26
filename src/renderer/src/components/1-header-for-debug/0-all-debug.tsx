@@ -4,7 +4,7 @@ import { TestOpenFiles } from "./8-1-test-open-files";
 import { TestOpenFieldCatalog } from "./8-2-test-open-field-catalog";
 import { ThemeSwitch } from "@/ui/shadcn/theme-toggle-switch";
 import { TestCreateWithSaw, TestCreateWithSawForCpass } from "./7-3-create-mani-w-saw";
-import { TestCloseFolder, TestReloadLastFolder } from "./7-4-close-folder";
+import { TestCloseFolder, TestReloadLastFolder } from "./7-4-close-reload-folder";
 import { L_PanelMenuTrigger } from "@/components/2-main/1-left/1-header/1-menu-main";
 import { TestDeleteCpass, TestDeleteFile } from "./8-3-test-delete-file";
 import { TestManiName } from "./8-4-test-mani-name";
