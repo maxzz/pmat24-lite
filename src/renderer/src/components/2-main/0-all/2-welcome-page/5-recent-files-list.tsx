@@ -3,13 +3,13 @@ import { useSetAtom } from "jotai";
 import { useSnapshot } from "valtio";
 import { motion } from "motion/react";
 import { classNames, filenameWithoutPath } from "@/utils";
-import { Button } from "@/ui";
-import { IconFolderClosed } from "@/ui/icons/normal/temp2";
+import { Button } from "@/ui/shadcn/button";
 import { appSettings } from "@/store/9-ui-state";
 import { type PmatFolder } from "@/store/5-1-open-files";
-import { IconCrossOnHover } from "./5-ui-icon-delete-recent-item";
 import { doSetFilesFrom_MruFolder_Atom } from "@/store/0-serve-atoms/2-do-load-files";
 import { asyncRemoveMruItemAtom } from "@/store/4-dialogs-atoms/5-confirm-atoms";
+import { IconCrossOnHover } from "./5-ui-icon-delete-recent-item";
+import { IconFolderClosed } from "@/ui/icons/normal/temp2";
 
 export function RecentFilesList({ className, ...rest }: ComponentPropsWithoutRef<typeof motion.div>) {
     const { folders } = useSnapshot(appSettings.appUi.mru);

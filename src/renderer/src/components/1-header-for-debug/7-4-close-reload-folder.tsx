@@ -1,10 +1,10 @@
 import { useSetAtom } from "jotai";
 import { useSnapshot } from "valtio";
-import { Button } from "@/ui";
+import { Button } from "@/ui/shadcn/button";
+import { IconRefresh } from "@/ui/icons/normal";
+import { appSettings } from "@/store/9-ui-state";
 import { doCloseRootDirAtom, rootDir } from "@/store/5-1-open-files";
 import { doSetFilesFrom_MruFolder_Atom } from "@/store/0-serve-atoms/2-do-load-files";
-import { appSettings } from "@/store/9-ui-state";
-import { IconRefresh } from "@/ui/icons/normal";
 
 export function TestCloseFolder() {
     const doCloseRootDir = useSetAtom(doCloseRootDirAtom);
