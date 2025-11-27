@@ -18,12 +18,13 @@ export function TestCloseFolder() {
 
 export function TestReloadLastFolder() {
     const doSetFilesFrom_MruFolder = useSetAtom(doSetFilesFrom_MruFolder_Atom);
+    const hasRootDir = useSnapshot(rootDir).fpath.length;
     const { folders } = useSnapshot(appSettings.appUi.mru);
     const lastOpened = folders[0];
-    const isDisabled = !lastOpened;
+    const isDisabled = !lastOpened || !hasRootDir;
     return (
-        <Button variant="outline" className="text-[.65rem]" title="Reload open folder" onClick={() => doSetFilesFrom_MruFolder({ folder: lastOpened })} disabled={isDisabled}>
-            <IconRefresh className="size-3" />
+        <Button variant="outline" title="Reload open folder" onClick={() => doSetFilesFrom_MruFolder({ folder: lastOpened })} disabled={isDisabled}>
+            <IconRefresh className={"size-3" + (isDisabled ? " opacity-25" : "")} />
         </Button>
     );
 }
