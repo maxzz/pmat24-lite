@@ -11,6 +11,7 @@ import {
     IconExPol09Fingerprint,
     IconExPol10Password,
     IconExPol11Radius,
+    IconExPol11Radius2,
 } from "@/ui/icons/normal/extended-policy";
 
 export type ExtPolTokenKey =
@@ -44,7 +45,7 @@ export const extPolicyTokens: ExtPolTokenType[] = [ // This defines the order of
     { displayName: 'One-Time Password',         /**/ value: /**/  '800', icon: 'otp', },
     { displayName: 'Contactless ID Card',       /**/ value: /**/  '100', icon: 'prox', },       // renamed 'Proximity ID card'. IAMSDP-2233
     { displayName: 'Device-bound Passkey',      /**/ value: /**/ '8000', icon: 'fido', },       // renamed 'FIDO Key'. IAMSDP-2233
-    { displayName: 'RADIUS Authentication',     /**/ value: /**/'20000', icon: 'radius', },
+    { displayName: 'RADIUS',                    /**/ value: /**/'20000', icon: 'radius', },
     //{ displayName: 'Bluetooth',               /**/ value: /**/  '200', icon: 'bluetooth', },  // removed Bluetooth authentication policy. IAMSDP-2233
     { displayName: 'Face',                      /**/ value: /**/   '10', icon: 'face', },
 ];
@@ -58,7 +59,8 @@ export const extPolicyIcons: ExtPolTokenIcons = {
     otp:            /**/ (props: HTMLAttributes<SVGSVGElement>) => <IconExPol05Otp          /**/ {...props} />,
     prox:           /**/ (props: HTMLAttributes<SVGSVGElement>) => <IconExPol04Proxy        /**/ {...props} />,
     fido:           /**/ (props: HTMLAttributes<SVGSVGElement>) => <IconExPol02Fido         /**/ {...props} />,
-    radius:         /**/ (props: HTMLAttributes<SVGSVGElement>) => <IconExPol11Radius       /**/ {...props} />,
+    // radius:         /**/ (props: HTMLAttributes<SVGSVGElement>) => <IconExPol11Radius       /**/ {...props} />,
+    radius:         /**/ (props: HTMLAttributes<SVGSVGElement>) => <IconExPol11Radius2      /**/ {...props} />,
     bluetooth:      /**/ (props: HTMLAttributes<SVGSVGElement>) => <IconExPol03Bluetooth    /**/ {...props} />,
     face:           /**/ (props: HTMLAttributes<SVGSVGElement>) => <IconExPol01Face         /**/ {...props} />,
 };

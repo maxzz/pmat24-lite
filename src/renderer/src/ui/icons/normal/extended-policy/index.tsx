@@ -9,3 +9,4 @@ export * from "./8-smartcard";
 export * from "./9-fingerprint";
 export * from "./a-password";
 export * from "./b-radius";
+export * from "./b-radius2";
