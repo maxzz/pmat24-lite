@@ -111,7 +111,7 @@ export const doSetFilesFrom_MruFolder_Atom = atom(
         if (hasMain()) {
             const { exists } = await invokeMainTyped({ type: 'r2mi:file-exists', fileName: folder.fpath });
             if (!exists) {
-                await set(asyncRemoveMruItemAtom, folder);
+                await set(asyncRemoveMruItemAtom, folder, true);
                 return;
             }
 
@@ -142,7 +142,7 @@ export const doSetFilesFrom_MruFolder_Atom = atom(
 
         } catch (error) {
             console.log('MRU.item.invalid', folder, error); // we don't call setRootDir(undefined); here to keep already open folder or welcome screen
-            await set(asyncRemoveMruItemAtom, folder);
+            await set(asyncRemoveMruItemAtom, folder, true);
         }
     }
 );

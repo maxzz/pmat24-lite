@@ -66,29 +66,11 @@ const confirmRemoveFromMruMessages: ConfirmationUi = {
 };
 
 function getConfirmRemoveFromMruMessages(failed: boolean): ConfirmationUi {
-    const rv = {
+    const rv: ConfirmationUi = {
         ...confirmRemoveFromMruMessages,
-        title: failed ? 'The target folder does not exist' : 'Remove from MRU list?',
+        title: failed ? 'The target folder does not exist' : 'Remove item from MRU list?',
     };
     return rv;
-
-    // if (failed) {
-    //     return {
-    //         title: 'The target folder does not exist',
-    //         message: 'Do you want to remove this name from the most recently used list?',
-    //         buttonOk: 'Remove',
-    //         buttonCancel: 'Cancel',
-    //         isDafaultOk: true,
-    //     };
-    // } else {
-    //     return {
-    //         title: 'Remove from MRU list?',
-    //         message: 'Do you want to remove this name from the most recently used list?',
-    //         buttonOk: 'Remove',
-    //         buttonCancel: 'Cancel',
-    //         isDafaultOk: true,
-    //     };
-    // }
 }
 
 export const asyncRemoveMruItemAtom = atom(null,

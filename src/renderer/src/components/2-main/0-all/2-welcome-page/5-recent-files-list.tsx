@@ -46,7 +46,7 @@ function FolderItem({ folder }: { folder: PmatFolder; }) {
 
     async function onCrossClick(event: React.MouseEvent) {
         event.stopPropagation(); 
-        await removeFromMru(folder);
+        await removeFromMru(folder, false);
     }
 
     return (
