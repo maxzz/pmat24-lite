@@ -8,9 +8,9 @@ import { appShortcuts } from "@/components/4-dialogs/0-global";
 
 export function MenuItem_CreateMani() {
     const openDlg = useSetAtom(open_SawMonitorAtom);
-    const disabled = !useSnapshot(rootDir).fpath;
+    const hasOpenFolder = !useSnapshot(rootDir).fpath;
     return (<>
-        <DropdownMenuItem onClick={openDlg} disabled={disabled}>
+        <DropdownMenuItem onClick={openDlg} disabled={hasOpenFolder}>
             New Template
             <DropdownMenuShortcut className={menuShortcutClasses}>{appShortcuts.openCreate.text}</DropdownMenuShortcut>
         </DropdownMenuItem>

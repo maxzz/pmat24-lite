@@ -6,9 +6,9 @@ import { allowedToCreateCpassAtom, open_SawMonitorAtom, open_SawMonitorForCpassA
 
 export function TestCreateWithSaw() {
     const openDlg = useSetAtom(open_SawMonitorAtom);
-    const disabled = !useSnapshot(rootDir).fpath;
+    const hasOpenFolder = !useSnapshot(rootDir).fpath;
     return (
-        <Button variant="outline" className="text-[.65rem]" disabled={disabled} onClick={openDlg}>
+        <Button variant="outline" className="text-[.65rem]" disabled={hasOpenFolder} onClick={openDlg}>
             Create New...
         </Button>
     );
