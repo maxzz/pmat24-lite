@@ -53,16 +53,16 @@ function GroupFormLogin({ oFormProps }: { oFormProps: OFormProps; }) {
 
         <InputWithTitle2Cols stateAtom={aimAtom} label="Authenticate immediately" asCheckbox />
 
-        {/* <InputWithTitle2Cols stateAtom={lockAtom} label="Lock out login fields" asCheckbox /> */}
-        <ChildrenWithLabel2Cols label="Show first login notification">
-            <BalloonCounterSelect stateAtom={balloonAtom} className="w-max" />
-        </ChildrenWithLabel2Cols>
+        <InputWithTitle2Cols stateAtom={lockAtom} label="Lock out login fields" asCheckbox />
 
         <ChildrenWithLabel2Cols label="Extended authentication policy">
             <ExtPolicySelect stateAtom={auth_plAtom} />
         </ChildrenWithLabel2Cols>
 
-        <InputWithTitle2Cols stateAtom={balloonAtom} label="First login notification counter" className="w-16!" />
+        {/* <InputWithTitle2Cols stateAtom={balloonAtom} label="First login notification counter" className="w-16!" /> */}
+        <ChildrenWithLabel2Cols label="Show first login notification">
+            <BalloonCounterSelect stateAtom={balloonAtom} className="w-max" />
+        </ChildrenWithLabel2Cols>
 
         {/* <BlockWrap_Auth ctx={oFormProps} /> */}
         {/* <BlockWrap_Quicklink ctx={oFormProps} /> */}
