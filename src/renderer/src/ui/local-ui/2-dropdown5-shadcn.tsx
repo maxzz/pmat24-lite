@@ -15,10 +15,11 @@ type DropdownProps = HTMLAttributes<HTMLButtonElement> & {
 export function Dropdown5Shadcn({ items, valueAsLabel, value, onValueChange, className }: DropdownProps) {
     return (
         <Select.Select value={value} onValueChange={onValueChange}>
-            <Select.SelectTrigger asChild>
-                <div className={classNames(className)} tabIndex={0}>
+            <Select.SelectTrigger>
+                {value}
+                {/* <div className={classNames(className)} tabIndex={0}>
                     <Select.SelectValue className={inputFocusClasses} />
-                </div>
+                </div> */}
             </Select.SelectTrigger>
 
             <Select.SelectContent className="z-50">
