@@ -15,7 +15,7 @@ export function BalloonCounterSelect({ stateAtom, onValueStateChange: onValueCha
     }
 
     return (
-        <Dropdown5Shadcn items={balloonCounterItems} value={state.data || '0'} onValueChange={onChange} className={rest.className} />
+        <Dropdown5Shadcn items={balloonCounterItems} value={state.data || '0'} onValueChange={onChange} className={rest.className} valueAsLabel />
     );
 }
 
