@@ -57,17 +57,43 @@ export const aboutMessages: ConfirmationUi = {
  * We need to confirm removing item from the MRU list.
  * MRU item maybe not available now, but it will be available later.
  */
-export const confirmRemoveFromMruMessages: ConfirmationUi = {
-    title: 'The target folder does not exist',
+const confirmRemoveFromMruMessages: ConfirmationUi = {
+    title: '',
     message: 'Do you want to remove this name from the most recently used list?',
     buttonOk: 'Remove',
     buttonCancel: 'Cancel',
     isDafaultOk: true,
 };
 
+function getConfirmRemoveFromMruMessages(failed: boolean): ConfirmationUi {
+    const rv = {
+        ...confirmRemoveFromMruMessages,
+        title: failed ? 'The target folder does not exist' : 'Remove from MRU list?',
+    };
+    return rv;
+
+    // if (failed) {
+    //     return {
+    //         title: 'The target folder does not exist',
+    //         message: 'Do you want to remove this name from the most recently used list?',
+    //         buttonOk: 'Remove',
+    //         buttonCancel: 'Cancel',
+    //         isDafaultOk: true,
+    //     };
+    // } else {
+    //     return {
+    //         title: 'Remove from MRU list?',
+    //         message: 'Do you want to remove this name from the most recently used list?',
+    //         buttonOk: 'Remove',
+    //         buttonCancel: 'Cancel',
+    //         isDafaultOk: true,
+    //     };
+    // }
+}
+
 export const asyncRemoveMruItemAtom = atom(null,
-    async (get, set, folder: PmatFolder) => {
-        const ok = await set(doAsyncExecuteConfirmDialogAtom, confirmRemoveFromMruMessages);
+    async (get, set, folder: PmatFolder, failed: boolean) => {
+        const ok = await set(doAsyncExecuteConfirmDialogAtom, getConfirmRemoveFromMruMessages(failed));
         if (ok) {
             removeFromDirsMru(folder);
         }
