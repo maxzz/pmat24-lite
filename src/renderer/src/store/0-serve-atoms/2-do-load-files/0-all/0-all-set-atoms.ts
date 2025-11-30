@@ -25,7 +25,12 @@ export const doSetFilesFrom_Dnd_Atom = atom(                    // used by DropI
         }
 
         if (hasMain()) {
-            const dropFiles: File[] = [...dataTransfer.files];
+            // Use dataTransfer.items instead of dataTransfer.files for compatibility with newer Electron versions
+            // where dataTransfer.files can be empty when dragging from Windows File Explorer
+            // See: https://github.com/electron/electron/issues/47284
+            const fileDataTransferItems = [...dataTransfer.items].filter((item) => item.kind === 'file');
+            const dropFiles: File[] = fileDataTransferItems.map((item) => item.getAsFile()).filter((file): file is File => file !== null);
+
             if (dropFiles.length) {                            // avoid drop-and-drop drop without files
                 const res = await createFileContents_From_Main(dropFiles);
 
