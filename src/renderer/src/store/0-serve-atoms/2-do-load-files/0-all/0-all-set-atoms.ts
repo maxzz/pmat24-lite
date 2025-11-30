@@ -16,6 +16,12 @@ import { printFiles } from "./9-types";
 
 export type DoSetFilesFrom_Dnd_Atom = typeof doSetFilesFrom_Dnd_Atom;
 
+/**
+ * Accepts File[] extracted synchronously from the drop event.
+ * IMPORTANT: Files must be extracted synchronously in the drop handler because 
+ * dataTransfer.files/items become empty after the event completes (browser clears them).
+ * This is especially critical in Electron where async access fails.
+ */
 export const doSetFilesFrom_Dnd_Atom = atom(                    // used by DropItDoc only
     null,
     async (get, set, dataTransfer: DataTransfer, dropFiles: File[]) => {

@@ -42,15 +42,15 @@ export function useDragHandlers({ doSetFilesFromDropAtom, activeAtom }: DragHand
                 event.preventDefault();
                 activeListenersRef.current = 0;
                 setDropActive(false);
-                
-                // Extract files synchronously - dataTransfer.files/items are only available during the event
-                // and will be empty if accessed asynchronously (e.g., in async Jotai atom)
+
+                // Extract files synchronously - dataTransfer.files/items are only available during the event and will be empty if accessed asynchronously (e.g., in async Jotai atom)
                 if (event.dataTransfer) {
-                    const files: File[] = [...event.dataTransfer.items]
-                        .filter((item) => item.kind === 'file')
-                        .map((item) => item.getAsFile())
-                        .filter((file): file is File => file !== null);
-                    
+                    const files: File[] =
+                        [...event.dataTransfer.items]
+                            .filter((item) => item.kind === 'file')
+                            .map((item) => item.getAsFile())
+                            .filter((file): file is File => file !== null);
+
                     if (files.length) {
                         droppedFiles(event.dataTransfer, files);
                     }
