@@ -1,14 +1,14 @@
 import { useAtomValue, useSetAtom } from "jotai";
 import { useSnapshot } from "valtio";
-import { Button } from "@/ui";
+import { Button } from "@/ui/shadcn/button";
 import { rootDir } from "@/store/5-1-open-files/2-root-dir";
 import { allowedToCreateCpassAtom, open_SawMonitorAtom, open_SawMonitorForCpassAtom } from "@/store/4-dialogs-atoms";
 
 export function TestCreateWithSaw() {
     const openDlg = useSetAtom(open_SawMonitorAtom);
-    const hasOpenFolder = !useSnapshot(rootDir).fpath;
+    const noOpenFolder = !useSnapshot(rootDir).fpath;
     return (
-        <Button variant="outline" className="text-[.65rem]" disabled={hasOpenFolder} onClick={openDlg}>
+        <Button variant="outline" className="text-[.65rem]" disabled={noOpenFolder} onClick={openDlg}>
             Create New...
         </Button>
     );
