@@ -16,45 +16,38 @@ import { printFiles } from "./9-types";
 
 export type DoSetFilesFrom_Dnd_Atom = typeof doSetFilesFrom_Dnd_Atom;
 
-/**
- * Accepts File[] extracted synchronously from the drop event.
- * IMPORTANT: Files must be extracted synchronously in the drop handler because 
- * dataTransfer.files/items become empty after the event completes (browser clears them).
- * This is especially critical in Electron where async access fails.
- */
 export const doSetFilesFrom_Dnd_Atom = atom(                    // used by DropItDoc only
     null,
-    async (get, set, dropFiles: File[]) => {
-
-        if (!dropFiles.length) {
-            return;
-        }
+    async (get, set, dataTransfer: DataTransfer, dropFiles: File[]) => {
 
         if (!await set(doCloseRootDirAtom)) {
             return;
         }
 
         if (hasMain()) {
-            const res = await createFileContents_From_Main(dropFiles);
+            // const dropFiles: File[] = [...dataTransfer.files];
+            if (dropFiles.length) {                            // avoid drop-and-drop drop without files
+                const res = await createFileContents_From_Main(dropFiles);
 
-            if (res?.error) {
-                const m = res.error.match(/ENOENT: no such file or directory:'([^']*)'/); //ENOENT: no such file or directory:'\\Tanam11\c\Y\w\112'
-                notice.error(m ? `Unable to access "${m[1]}"` : res.error);
-                return;
-            }
+                if (res?.error) {
+                    const m = res.error.match(/ENOENT: no such file or directory:'([^']*)'/); //ENOENT: no such file or directory:'\\Tanam11\c\Y\w\112'
+                    notice.error(m ? `Unable to access "${m[1]}"` : res.error);
+                    return;
+                }
 
-            if (res?.deliveredFileContents?.length || res?.noItemsJustDir) { // avoid drop-and-drop drop without files
-                set(doSetDeliveredFilesAtom, res);
+                if (res?.deliveredFileContents?.length || res?.noItemsJustDir) { // avoid drop-and-drop drop without files
+                    set(doSetDeliveredFilesAtom, res);
+                }
             }
         } else {
-            const deliveredFileContents = await createFileContents_WebAfterDlgOpen(dropFiles);
-            const root = {
-                fpath: findShortestPathInFnames(deliveredFileContents.map((item) => item.fpath)),
-                handle: undefined,
-                fromMain: false,
-            };
-            if (deliveredFileContents.length) {
-                set(doSetDeliveredFilesAtom, { deliveredFileContents, root, noItemsJustDir: false, error: undefined, });
+            const fileDataTransferItems = [...dataTransfer.items].filter((item) => item.kind === 'file');
+            if (fileDataTransferItems.length) {                // avoid drop-and-drop drop without files
+                const res = await createFileContents_WebAfterDnd(fileDataTransferItems);
+                const hasFolder = res?.root?.handle?.kind === 'directory';
+
+                if (res?.deliveredFileContents?.length || hasFolder) { // avoid drop-and-drop drop without files
+                    set(doSetDeliveredFilesAtom, res);
+                }
             }
         }
     }

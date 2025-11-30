@@ -52,7 +52,7 @@ export function useDragHandlers({ doSetFilesFromDropAtom, activeAtom }: DragHand
                         .filter((file): file is File => file !== null);
                     
                     if (files.length) {
-                        droppedFiles(files);
+                        droppedFiles(event.dataTransfer, files);
                     }
                 }
             }
