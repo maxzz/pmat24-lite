@@ -1,6 +1,7 @@
 import { useAtom } from "jotai";
 import { type OptionInputProps } from "@/ui/local-ui/1-input-validate";
 import { Dropdown5, SelectNameValueItem } from "@/ui/local-ui/2-dropdown5";
+import { Dropdown5Shadcn } from "@/ui/local-ui/2-dropdown5-shadcn";
 
 export function BalloonCounterSelect({ stateAtom, onValueStateChange: onValueChange, ...rest }: OptionInputProps) {
     const [state, setState] = useAtom(stateAtom);
@@ -14,7 +15,7 @@ export function BalloonCounterSelect({ stateAtom, onValueStateChange: onValueCha
     }
 
     return (
-        <Dropdown5 items={balloonCounterItems} value={state.data || '0'} onValueChange={onChange} className={rest.className} />
+        <Dropdown5Shadcn items={balloonCounterItems} value={state.data || '0'} onValueChange={onChange} className={rest.className} />
     );
 }
 
