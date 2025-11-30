@@ -4,7 +4,7 @@ import { type FileUs } from "@/store/store-types";
 import { type OFormProps } from "@/store/2-file-mani-atoms";
 import { ExtPolicySelect } from "../9-controls";
 import { PanelTestInUse } from "./1-panel-test-inuse-state";
-import { BalloonCounterSelect } from "../9-controls/1-input-select";
+import { BalloonCounterSelect } from "../9-controls/5-balloon-counter";
 
 export function ManiEditorAllOptions({ fileUs }: { fileUs: FileUs; }) {
     const maniAtoms = useAtomValue(fileUs.maniAtomsAtom);
