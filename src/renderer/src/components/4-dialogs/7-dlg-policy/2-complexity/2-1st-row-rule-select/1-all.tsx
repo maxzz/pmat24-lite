@@ -1,7 +1,7 @@
 import { useAtom, useAtomValue, useSetAtom } from "jotai";
 import { classNames } from "@/utils";
 import { Label } from "@/ui/shadcn";
-import { Dropdown5, InputErrorPopupMessage, OptionAsString } from "@/ui/local-ui";
+import { SelectTm, Dropdown5, InputErrorPopupMessage, OptionAsString } from "@/ui/local-ui";
 import { type PolicyDlgTypes, doUpdateExplanationAtom, PolicyDlgConv } from "../../0-all";
 
 export function FirstRowSection({ dlgUiCtx }: { dlgUiCtx: PolicyDlgTypes.PolicyUiCtx; }) {
@@ -41,6 +41,7 @@ function RuleSelect({ dlgUiCtx }: { dlgUiCtx: PolicyDlgTypes.PolicyUiCtx; }) {
     return (
         <Label className="flex-1 text-xs">
             <Dropdown5 className="min-h-7 h-auto" items={PolicyDlgConv.chSetRuleNames} value={selected} onValueChange={onValueChange} />
+            {/* <SelectTm triggerClasses="min-h-7 h-auto" items={PolicyDlgConv.chSetRuleNames} value={selected} onValueChange={onValueChange} /> */}
         </Label>
     );
 }
