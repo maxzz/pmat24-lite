@@ -6,7 +6,7 @@ import { type PolicyDlgTypes, doUpdateExplanationAtom, PolicyDlgConv } from "../
 
 export function FirstRowSection({ dlgUiCtx }: { dlgUiCtx: PolicyDlgTypes.PolicyUiCtx; }) {
     return (
-        <div className="grid grid-cols-[1fr_auto_auto] gap-x-2" style={{ gridTemplateAreas: "'r11 r12' 'r21 r22' 'r33 r33'" }}>
+        <div className="grid grid-cols-[1fr_auto] gap-x-2" style={{ gridTemplateAreas: "'r11 r12' 'r21 r22' 'r33 r33'" }}>
             <div className="pb-0.5" style={{ gridArea: 'r11' }}>
                 Password complexity rule
             </div>
