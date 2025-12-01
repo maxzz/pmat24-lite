@@ -1,7 +1,7 @@
 import { useAtom } from "jotai";
+import { FieldTyp } from "@/store/manifest";
 import { type FileUsCtx, type ManualFieldState } from "@/store/2-file-mani-atoms";
-import { FieldTyp, type OptionTextValue } from "@/store/manifest";
-import { SelectTm } from "@/ui/local-ui";
+import { type SelectTmTextValue, SelectTm } from "@/ui/local-ui";
 import { InputLabel } from "../8-props-ui";
 import { Column3_Label } from "../../../../1-normal/1-fields";
 
@@ -35,7 +35,7 @@ function Col_ManualFieldType({ item }: { item: ManualFieldState.CtxFld; }) {
     );
 }
 
-const inputTypeNames: OptionTextValue[] = [
+const inputTypeNames: SelectTmTextValue[] = [
     ["Text", `${FieldTyp.edit}`], 
     ["Passowrd", `${FieldTyp.psw}`],
 ];

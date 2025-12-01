@@ -2,6 +2,8 @@ import { classNames } from "@/utils";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/ui/shadcn/select";
 import { type OptionTextValue } from "@/store/manifest";
 
+export type SelectTmTextValue = OptionTextValue;
+
 type StringValueChangeProps = {
     value: string;
     onValueChange: (value: string) => void;
@@ -9,7 +11,7 @@ type StringValueChangeProps = {
 
 type InputSelectUiProps = Prettify<
     & {
-        items: OptionTextValue[];
+        items: SelectTmTextValue[];
         placeholder?: string;
         triggerClasses?: string;
         asPopover?: boolean;

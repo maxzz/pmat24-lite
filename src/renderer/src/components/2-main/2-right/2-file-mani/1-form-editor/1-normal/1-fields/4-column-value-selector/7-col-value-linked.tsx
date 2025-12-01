@@ -1,7 +1,6 @@
 import { useAtom } from "jotai";
-import { type OptionTextValue } from "@/store/manifest";
 import { type FieldRowCtx } from "@/store/2-file-mani-atoms";
-import { SelectTm } from "@/ui/local-ui";
+import { type SelectTmTextValue, SelectTm } from "@/ui/local-ui";
 
 export function Case_ValueForLinked({ rowCtx }: { rowCtx: FieldRowCtx; }) {
     const [rfield, setRfield] = useAtom(rowCtx.rfieldAtom);
@@ -15,10 +14,10 @@ export function Case_ValueForLinked({ rowCtx }: { rowCtx: FieldRowCtx; }) {
     );
 }
 
-const inputTypes: OptionTextValue[] = [
-    ["Current password", "in"], // old password
-    ["New passowrd", "out"], // new password
-    //["Confirm new passowrd", "out"], // new password //TODO: confirm new password, so far two new passwords are the same
+const inputTypes: SelectTmTextValue[] = [
+    ["Current password", "in"],         // old password
+    ["New passowrd", "out"],            // new password
+    //["Confirm new passowrd", "out"],  // new password //TODO: confirm new password, so far two new passwords are the same
 ];
 
 const inputAsRefClasses = "w-full text-[0.6rem] text-blue-400! cursor-pointer";

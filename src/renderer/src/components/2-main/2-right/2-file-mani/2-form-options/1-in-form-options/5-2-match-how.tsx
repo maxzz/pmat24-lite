@@ -1,6 +1,6 @@
 import { useAtomValue, useSetAtom } from "jotai";
-import { SelectTm } from "@/ui/local-ui";
-import { Matching, type OptionTextValue } from "@/store/manifest";
+import { Matching } from "@/store/manifest";
+import { type SelectTmTextValue, SelectTm } from "@/ui/local-ui";
 import { type OFormProps } from "@/store/2-file-mani-atoms/9-types";
 import { setHowChangedAtom } from "@/store/2-file-mani-atoms/3-options/1-create-options-ctx/1-update-parts-of-murl";
 
@@ -26,12 +26,12 @@ function getNamesList(how: Matching.How) {
     return how !== Matching.How.undef && how !== Matching.How.regex ? allHowNames : shortHowNames;
 }
 
-const shortHowNames: OptionTextValue[] = [
+const shortHowNames: SelectTmTextValue[] = [
     ["As original URL",                                         /*0*/ "0"],
     ["Regular expression",                                      /*2*/ "2"],
 ];
 
-const allHowNames: OptionTextValue[] = [
+const allHowNames: SelectTmTextValue[] = [
     ["Same as original url",                                    /*0*/ "0"],
     ["Match only domain of original url",                       /*1*/ "1"],
     ["Wildcard match",                                          /*3*/ "3"],
