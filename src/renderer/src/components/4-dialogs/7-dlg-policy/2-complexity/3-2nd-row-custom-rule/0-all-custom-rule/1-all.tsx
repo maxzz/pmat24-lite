@@ -25,6 +25,7 @@ export function CustomRuleSection({ dlgUiCtx }: { dlgUiCtx: PolicyDlgTypes.Polic
                         <div className="absolute right-0.5 flex items-center gap-0.5">
                             <ButtonErrorInfo dlgUiCtx={dlgUiCtx} />
                             <ButtonMenuAddTemplatePart dlgUiCtx={dlgUiCtx} />
+                            {/* <ButtonRulesHelp /> */}
                             <ButtonRulesHelp />
                             <ButtonTestArea />
                         </div>
@@ -53,7 +54,7 @@ function CustomRuleInput({ dlgUiCtx }: { dlgUiCtx: PolicyDlgTypes.PolicyUiCtx; }
 
     return (
         <Input
-            className="pr-48 h-7 font-mono text-xs text-mani-foreground bg-mani-background border-mani-border-muted"
+            className="mr-0 pr-48 h-7 font-mono text-xs text-mani-foreground bg-mani-background border-mani-border-muted"
             value={custom}
             onChange={(e) => onChange(e.target.value)}
             {...turnOffAutoComplete}
