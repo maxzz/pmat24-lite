@@ -30,7 +30,8 @@ function RuleSelect({ dlgUiCtx }: { dlgUiCtx: PolicyDlgTypes.PolicyUiCtx; }) {
     const setIsCustom = useSetAtom(dlgUiCtx.isCustomAtom);
 
     function onValueChange(value: string) {
-        const isCustom = +value === PolicyDlgConv.chSetRuleNames.length - 1;
+        // const isCustom = +value === PolicyDlgConv.chSetRuleNames.length - 1;
+        const isCustom = +value === PolicyDlgConv.chSetRuleNameValues.length - 1;
         if (!isCustom) {
             setSelectedPrev(value);
         }

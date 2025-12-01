@@ -24,20 +24,22 @@ const initialForAtoms: PolicyDlgTypes.ForAtoms = {
 
 // Atoms
 
-export const chSetRuleNames = [...namesConstrainSet, 'Use custom rule'];
+//export const chSetRuleNames = [...namesConstrainSet, 'Use custom rule'];
 export const chSetRuleNameValues: (readonly [string, string])[] = [...nameValuesConstrainSet, ['Use custom rule', `${nameValuesConstrainSet.length}`]];
 
 export function forAtoms(policies: Mani.FieldPolicy): PolicyDlgTypes.ForAtoms {
     const policy = policyFromStrings(policies.policy, policies.policy2, policies.options);
 
     const hasPolicy = policy.useAs !== Poli.UseAs.none;
-    const isCustom = policy.custom !== '';
+    // const isCustom = policy.custom !== '';
+    const lastEnum = Object.keys(Poli.ConstrainSet).filter(key => isNaN(Number(key))).length - 1;
+    const isCustom = policy.constrainSet > lastEnum;
 
     if (hasPolicy) {
         const rv: PolicyDlgTypes.ForAtoms = {
             ...initialForAtoms,
             enabled: hasPolicy,
-            constrainSet: isCustom ? `${chSetRuleNames.length - 1}` : `${policy.constrainSet}`,
+            constrainSet: isCustom ? `${chSetRuleNameValues.length - 1}` : `${policy.constrainSet}`,
             constrainSet0: `${policy.constrainSet}`,
             isCustom: isCustom,
             custom: policy.custom,
