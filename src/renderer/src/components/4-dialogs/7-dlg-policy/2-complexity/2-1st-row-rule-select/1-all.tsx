@@ -40,8 +40,9 @@ function RuleSelect({ dlgUiCtx }: { dlgUiCtx: PolicyDlgTypes.PolicyUiCtx; }) {
 
     return (
         <Label className="flex-1 text-xs">
-            <Dropdown5 className="min-h-7 h-auto" items={PolicyDlgConv.chSetRuleNames} value={selected} onValueChange={onValueChange} />
+            {/* <Dropdown5 className="min-h-7 h-auto" items={PolicyDlgConv.chSetRuleNames} value={selected} onValueChange={onValueChange} /> */}
             {/* <SelectTm triggerClasses="min-h-7 h-auto" items={PolicyDlgConv.chSetRuleNames} value={selected} onValueChange={onValueChange} /> */}
+            <SelectTm triggerClasses="min-h-7 h-auto" items={PolicyDlgConv.chSetRuleNameValues} value={selected} onValueChange={onValueChange} />
         </Label>
     );
 }

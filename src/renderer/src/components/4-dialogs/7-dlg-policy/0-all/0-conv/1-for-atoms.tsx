@@ -1,4 +1,4 @@
-import { type Mani, Poli, namesConstrainSet } from "@/store/manifest";
+import { type Mani, Poli, nameValuesConstrainSet, namesConstrainSet } from "@/store/manifest";
 import { type PolicyDlgTypes } from "./9-types";
 import { policyFromStrings } from "@/store/manifest";
 import { initRowInputState, validateMaxLen, validateMinLen } from "@/ui/local-ui";
@@ -25,6 +25,7 @@ const initialForAtoms: PolicyDlgTypes.ForAtoms = {
 // Atoms
 
 export const chSetRuleNames = [...namesConstrainSet, 'Use custom rule'];
+export const chSetRuleNameValues: (readonly [string, string])[] = [...nameValuesConstrainSet, ['Use custom rule', `${nameValuesConstrainSet.length}`]];
 
 export function forAtoms(policies: Mani.FieldPolicy): PolicyDlgTypes.ForAtoms {
     const policy = policyFromStrings(policies.policy, policies.policy2, policies.options);
