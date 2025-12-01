@@ -31,9 +31,7 @@ export function forAtoms(policies: Mani.FieldPolicy): PolicyDlgTypes.ForAtoms {
     const policy = policyFromStrings(policies.policy, policies.policy2, policies.options);
 
     const hasPolicy = policy.useAs !== Poli.UseAs.none;
-    // const isCustom = policy.custom !== '';
-    const lastEnum = Object.keys(Poli.ConstrainSet).filter(key => isNaN(Number(key))).length - 1;
-    const isCustom = policy.constrainSet > lastEnum;
+    const isCustom = policy.custom !== '';
 
     if (hasPolicy) {
         const rv: PolicyDlgTypes.ForAtoms = {

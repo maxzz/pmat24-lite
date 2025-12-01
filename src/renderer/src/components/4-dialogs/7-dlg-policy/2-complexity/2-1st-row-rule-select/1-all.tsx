@@ -26,6 +26,7 @@ export function FirstRowSection({ dlgUiCtx }: { dlgUiCtx: PolicyDlgTypes.PolicyU
 
 function RuleSelect({ dlgUiCtx }: { dlgUiCtx: PolicyDlgTypes.PolicyUiCtx; }) {
     const [selected, setSelected] = useAtom(dlgUiCtx.constrainSetAtom);
+    const setCustom = useSetAtom(dlgUiCtx.customAtom);
     const setSelectedPrev = useSetAtom(dlgUiCtx.constrainSet0Atom);
     const setIsCustom = useSetAtom(dlgUiCtx.isCustomAtom);
 
@@ -34,6 +35,7 @@ function RuleSelect({ dlgUiCtx }: { dlgUiCtx: PolicyDlgTypes.PolicyUiCtx; }) {
         const isCustom = +value === PolicyDlgConv.chSetRuleNameValues.length - 1;
         if (!isCustom) {
             setSelectedPrev(value);
+            setCustom('');
         }
         setIsCustom(isCustom);
         setSelected(value);
