@@ -17,7 +17,7 @@ type InputSelectUiProps = Prettify<
     & StringValueChangeProps
 >;
 
-export function InputSelectUi({ items, value, onValueChange, triggerClasses, placeholder, asPopover }: InputSelectUiProps) {
+export function SelectTm({ items, value, onValueChange, triggerClasses, placeholder, asPopover }: InputSelectUiProps) {
     return (
         <Select value={value} onValueChange={onValueChange}>
 

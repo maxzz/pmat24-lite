@@ -1,7 +1,7 @@
 import { useAtom } from "jotai";
 import { type FileUsCtx, type ManualFieldState } from "@/store/2-file-mani-atoms";
 import { FieldTyp, type OptionTextValue } from "@/store/manifest";
-import { InputSelectUi } from "@/ui/local-ui";
+import { SelectTm } from "@/ui/local-ui";
 import { InputLabel } from "../8-props-ui";
 import { Column3_Label } from "../../../../1-normal/1-fields";
 
@@ -27,7 +27,7 @@ export function FirstRow({ item, fileUsCtx }: { item: ManualFieldState.CtxFld; f
 function Col_ManualFieldType({ item }: { item: ManualFieldState.CtxFld; }) {
     const [type, setType] = useAtom(item.rowCtx.typeAtom);
     return (
-        <InputSelectUi
+        <SelectTm
             items={inputTypeNames}
             value={`${type}`}
             onValueChange={(value) => setType(+value as FieldTyp)}

@@ -1,12 +1,12 @@
 import { useAtom } from "jotai";
 import { type OptionTextValue } from "@/store/manifest";
 import { type FieldRowCtx } from "@/store/2-file-mani-atoms";
-import { InputSelectUi } from "@/ui/local-ui";
+import { SelectTm } from "@/ui/local-ui";
 
 export function Case_ValueForLinked({ rowCtx }: { rowCtx: FieldRowCtx; }) {
     const [rfield, setRfield] = useAtom(rowCtx.rfieldAtom);
     return (
-        <InputSelectUi
+        <SelectTm
             triggerClasses={inputAsRefClasses}
             items={inputTypes}
             value={rfield}

@@ -1,7 +1,7 @@
 import { useAtom } from "jotai";
 import { type OptionTextValue } from "pm-manifest";
 import { type OptionInputProps } from "@/ui/local-ui/1-input-validate";
-import { InputSelectUi } from "@/ui/local-ui/4-input-select-ui";
+import { SelectTm } from "@/ui/local-ui/4-select-tm";
 
 export function BalloonCounterSelect({ stateAtom, onValueStateChange: onValueChange, ...rest }: OptionInputProps) {
     const [state, setState] = useAtom(stateAtom);
@@ -15,7 +15,7 @@ export function BalloonCounterSelect({ stateAtom, onValueStateChange: onValueCha
     }
 
     return (
-        <InputSelectUi items={balloonCounterItems} value={state.data || '0'} onValueChange={onChange} />
+        <SelectTm items={balloonCounterItems} value={state.data || '0'} onValueChange={onChange} />
     );
 }
 
