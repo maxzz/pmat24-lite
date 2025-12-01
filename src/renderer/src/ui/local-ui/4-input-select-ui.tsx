@@ -10,13 +10,14 @@ type StringValueChangeProps = {
 type InputSelectUiProps = Prettify<
     & {
         items: OptionTextValue[];
-        triggerClasses?: string;
         placeholder?: string;
+        triggerClasses?: string;
+        asPopover?: boolean;
     }
     & StringValueChangeProps
 >;
 
-export function InputSelectUi({ items, value, onValueChange, triggerClasses, placeholder }: InputSelectUiProps) {
+export function InputSelectUi({ items, value, onValueChange, triggerClasses, placeholder, asPopover }: InputSelectUiProps) {
     return (
         <Select value={value} onValueChange={onValueChange}>
 
@@ -24,7 +25,7 @@ export function InputSelectUi({ items, value, onValueChange, triggerClasses, pla
                 <SelectValue placeholder={placeholder} />
             </SelectTrigger>
 
-            <SelectContent align="start" buttonClasses={popupColorClasses} position="item-aligned">
+            <SelectContent align="start" buttonClasses={popupColorClasses} position={asPopover ? "popper" : "item-aligned"}>
                 {items.map(
                     (item, idx) => {
                         const isString = typeof item === 'string';
