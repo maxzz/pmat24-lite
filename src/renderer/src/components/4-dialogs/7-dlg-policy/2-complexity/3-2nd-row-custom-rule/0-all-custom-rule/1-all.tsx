@@ -1,4 +1,5 @@
 import { useAtom, useAtomValue, useSetAtom } from "jotai";
+import { AnimatePresence, motion } from "motion/react";
 import { classNames, turnOffAutoComplete } from "@/utils";
 import { Input } from "@/ui";
 import { type PolicyDlgTypes, doUpdateExplanationAtom } from "../../../0-all";
@@ -7,7 +8,6 @@ import { ButtonMenuAddTemplatePart } from "../3-btn-add-menu-template-part/1-all
 import { TestAreaBody } from "../../3-3rd-row-test-area";
 import { ButtonRulesHelp } from "../4-btn-explanation/1-all";
 import { ButtonTestArea } from "../5-btn-show-test-area-trigger/2-button-test-area";
-import { AccordionSingle } from "../3-accordion";
 
 export function CustomRuleSection({ dlgUiCtx }: { dlgUiCtx: PolicyDlgTypes.PolicyUiCtx; }) {
     const isCustom = useAtomValue(dlgUiCtx.isCustomAtom);
@@ -33,11 +33,18 @@ export function CustomRuleSection({ dlgUiCtx }: { dlgUiCtx: PolicyDlgTypes.Polic
                 </div>
             </div>
 
-            {isCustom && (
-                <AccordionSingle>
-                    <TestAreaBody dlgUiCtx={dlgUiCtx} />
-                </AccordionSingle>
-            )}
+            <AnimatePresence initial={false}>
+                {isCustom && (
+                    <motion.div
+                        initial={{ height: 0, opacity: 0 }}
+                        animate={{ height: "auto", opacity: 1 }}
+                        exit={{ height: 0, opacity: 0 }}
+                        className="overflow-hidden"
+                    >
+                        <TestAreaBody dlgUiCtx={dlgUiCtx} />
+                    </motion.div>
+                )}
+            </AnimatePresence>
         </div>
     );
 }
