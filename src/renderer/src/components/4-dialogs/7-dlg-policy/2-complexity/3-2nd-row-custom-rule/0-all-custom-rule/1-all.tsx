@@ -48,6 +48,10 @@ export function CustomRuleSection({ dlgUiCtx }: { dlgUiCtx: PolicyDlgTypes.Polic
         </div>
     );
 }
+//TODO: add custom rule history dropdown
+//TODO: do something with Test Area button, now it does nothing
+//TODO: combine buttons on '+' and '?' into dropdown menu or not?
+//TODO: remove reserved height since now we have Test Area motion.
 
 function CustomRuleInput({ dlgUiCtx }: { dlgUiCtx: PolicyDlgTypes.PolicyUiCtx; }) {
 
