@@ -1,8 +1,9 @@
+import { type ReactNode } from "react";
 import { classNames } from "@/utils";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/ui/shadcn/select";
 import { type OptionTextValue } from "@/store/manifest";
 
-export type SelectTmTextValue = OptionTextValue;
+export type SelectTmTextValue = string | readonly [label: ReactNode, value: string];
 
 type StringValueChangeProps = {
     value: string;
@@ -11,7 +12,7 @@ type StringValueChangeProps = {
 
 type InputSelectUiProps = Prettify<
     & {
-        items: SelectTmTextValue[];
+        items: readonly SelectTmTextValue[];
         placeholder?: string;
         triggerClasses?: string;
         asPopover?: boolean;
@@ -23,7 +24,7 @@ export function SelectTm({ items, value, onValueChange, triggerClasses, placehol
     return (
         <Select value={value} onValueChange={onValueChange}>
 
-            <SelectTrigger className={classNames("px-2 py-1 w-max h-7 text-xs gap-1", triggerClasses)}>
+            <SelectTrigger className={classNames("px-2 py-1 w-max h-7 text-xs gap-1", triggerClasses, "text-mani-foreground bg-mani-background")}>
                 <SelectValue placeholder={placeholder} />
             </SelectTrigger>
 
