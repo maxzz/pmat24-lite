@@ -63,11 +63,11 @@ function PMIcon_W32({ oFormProps }: { oFormProps: OFormProps; }) {
 }
 
 const balloonCounterItems: OptionTextValue[] = [
-    ['Never', '0' ],
-    ['Once', '1' ],
-    ['3 times', '3' ],
-    ['5 times', '5' ],
-    ['Always', '-1' ],
+    ['Default', '0' ],
+    ['Top left', 'Q:0:0:0' ],
+    ['Top right', 'Q:1:0:0' ],
+    ['Bottom left', 'Q:2:0:0' ],
+    ['Bottom right', 'Q:3:0:0' ],
 ];
 
 const textClasses = "pl-6 pr-0.5";
