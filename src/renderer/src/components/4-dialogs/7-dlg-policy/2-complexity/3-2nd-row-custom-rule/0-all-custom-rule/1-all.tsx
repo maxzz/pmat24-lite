@@ -53,6 +53,9 @@ export function CustomRuleSection({ dlgUiCtx }: { dlgUiCtx: PolicyDlgTypes.Polic
 //TODO: combine buttons on '+' and '?' into dropdown menu or not?
 //TODO: remove reserved height since now we have Test Area motion.
 
+//TODO: for web app created with edge, we show warning as it was created with old version
+//TODO: we show PM icon location for web apps, but did not save it, so it is allways default.
+
 function CustomRuleInput({ dlgUiCtx }: { dlgUiCtx: PolicyDlgTypes.PolicyUiCtx; }) {
 
     const [custom, setCustom] = useAtom(dlgUiCtx.customAtom);
