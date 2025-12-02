@@ -5,7 +5,7 @@ import { Check } from "../../9-constrols";
 import { type PolicyDlgTypes } from "../0-conv";
 import { DialogTitleHeader } from "../../../5-confirm/8-dialog-title-header";
 import { SectionRuleTypes } from "../../2-complexity";
-import { SectionHistory } from "../../3-history";
+import { SectionHistory } from "../../3-password-history";
 import { SectionGenerationBy } from "../../4-generate-by";
 
 type PolicyEditorBodyProps = {
