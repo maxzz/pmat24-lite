@@ -2,6 +2,7 @@ import { useAtom } from "jotai";
 import { type OptionInputProps } from "@/ui/local-ui/1-input-validate";
 import { type SelectNameValueItem, ExtPolicySelectUi } from "./2-ext-policy-select-ui";
 import { extPolicyIcons, extPolicyTokens } from "./9-types";
+import { SelectTm, SelectTmTextValue } from "@/ui/local-ui";
 
 export function ExtPolicySelect({ stateAtom, onValueStateChange: onValueChange, ...rest }: OptionInputProps) {
     const [state, setState] = useAtom(stateAtom);
@@ -16,7 +17,7 @@ export function ExtPolicySelect({ stateAtom, onValueStateChange: onValueChange, 
     }
 
     return (
-        <ExtPolicySelectUi
+        <SelectTm
             items={tokenReactNodes}
             value={state.data || '0'}
             onValueChange={onChange} {...rest}
@@ -24,7 +25,7 @@ export function ExtPolicySelect({ stateAtom, onValueStateChange: onValueChange, 
     );
 }
 
-const tokenReactNodes: SelectNameValueItem[] = extPolicyTokens.map(
+const tokenReactNodes: SelectTmTextValue[] = extPolicyTokens.map(
     (token, idx) => {
         const Icon = token.icon && extPolicyIcons[token.icon];
         return [
