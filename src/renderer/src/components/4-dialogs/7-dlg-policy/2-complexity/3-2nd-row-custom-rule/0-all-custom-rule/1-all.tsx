@@ -54,7 +54,8 @@ export function CustomRuleSection({ dlgUiCtx }: { dlgUiCtx: PolicyDlgTypes.Polic
 //TODO: remove reserved height since now we have Test Area motion.
 
 //TODO: for web app created with edge, we show warning as it was created with old version
-//TODO: we show PM icon location for web apps, but did not save it, so it is allways default.
+//TODO: we show PM icon location for web apps, but did not save it, so it is allways default
+//TODO: for PM icon location default we save '0', but should be empty string.
 
 function CustomRuleInput({ dlgUiCtx }: { dlgUiCtx: PolicyDlgTypes.PolicyUiCtx; }) {
 
