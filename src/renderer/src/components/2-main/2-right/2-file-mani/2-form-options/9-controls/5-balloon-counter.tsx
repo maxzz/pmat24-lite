@@ -1,5 +1,5 @@
 import { useAtom } from "jotai";
-import { type OptionTextValue } from "pm-manifest";
+import { type OptionTextValue } from "@/store/manifest";
 import { type OptionInputProps } from "@/ui/local-ui/1-input-validate";
 import { SelectTm } from "@/ui/local-ui/4-select-tm";
 

@@ -1,7 +1,8 @@
-import { useAtomValue } from "jotai";
+import { useAtom, useAtomValue } from "jotai";
 import { AccordionWithTrigger } from "@/ui/motion-primitives";
-import { InputWithTitle2Rows } from "@/ui/local-ui";
+import { InputWithTitle2Rows, SelectTm } from "@/ui/local-ui";
 import { type OFormProps } from "@/store/2-file-mani-atoms";
+import { type OptionTextValue } from "@/store/manifest";
 
 export function DetectionContent_W32({ oFormProps }: { oFormProps: OFormProps; }) {
     const formIdx = oFormProps.oAllAtoms.options.formIdx;
@@ -41,12 +42,32 @@ function FormW32IconPosition({ oFormProps }: { oFormProps: OFormProps; }) {
 
 function PMIcon_W32({ oFormProps }: { oFormProps: OFormProps; }) {
     const { idAtom, locAtom } = oFormProps.oAllAtoms.options.p5Icon;
+
+    const [state, setState] = useAtom(locAtom);
+    
+    function onChange(newValue: string) {
+        setState((prev) => {
+            const rv = { ...prev, data: newValue, dirty: prev.initialData !== newValue, };
+            return rv;
+        });
+    }
+
     return (
         <div className={textClasses}>
             <InputWithTitle2Rows stateAtom={idAtom} label="Location ID" />
-            <InputWithTitle2Rows stateAtom={locAtom} label="Location" />
+            
+            {/* <InputWithTitle2Rows stateAtom={locAtom} label="Location" /> */}
+            <SelectTm items={balloonCounterItems} value={state.data || '0'} onValueChange={onChange} />
         </div>
     );
 }
+
+const balloonCounterItems: OptionTextValue[] = [
+    ['Never', '0' ],
+    ['Once', '1' ],
+    ['3 times', '3' ],
+    ['5 times', '5' ],
+    ['Always', '-1' ],
+];
 
 const textClasses = "pl-6 pr-0.5";
