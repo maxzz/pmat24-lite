@@ -10,15 +10,15 @@ export type StringValueChangeProps = {
 
 type ExtPolicySelectUiProps = StringValueChangeProps & {
     items: SelectNameValueItem[];
-    defaultLabel?: string;
+    placeholder?: string;
 };
 
-export function ExtPolicySelectUi({ items, defaultLabel, value, onValueChange }: ExtPolicySelectUiProps) {
+export function ExtPolicySelectUi({ items, placeholder, value, onValueChange }: ExtPolicySelectUiProps) {
     return (
         <Select value={value} onValueChange={onValueChange}>
 
             <SelectTrigger className="px-2 py-1 w-max h-7 text-xs gap-1">
-                <SelectValue placeholder={defaultLabel} />
+                <SelectValue placeholder={placeholder} />
             </SelectTrigger>
 
             <SelectContent align="start" buttonClasses={popupContentClasses} position="item-aligned">
