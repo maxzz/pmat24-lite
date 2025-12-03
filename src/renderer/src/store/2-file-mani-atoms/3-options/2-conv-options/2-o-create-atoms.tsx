@@ -3,6 +3,7 @@ import { atomWithCallback } from "@/utils";
 import { type FormOptionsState } from "./9-types";
 import { type OnChangeValueWithUpdateName, createAtomForCheck, createAtomForInput, resetRowInputState, validateManifestName, validateNonEmpty, validateNonEmptyWithMessage, validateNumber } from "@/ui/local-ui";
 import { Matching } from "@/store/manifest";
+import { defaultIconLocation, type IconLocation, iconLocationFromStr, iconLocationToStr, parseIconLocation } from "@/store/manifest/4-icon-location/8-icon-location-io";
 
 export function createAtoms(initialState: FormOptionsState.ForAtoms, onChange: OnChangeValueWithUpdateName): FormOptionsState.AllAtoms {
     const { p1General, p2Detect, p3Auth, p4QL, p5Icon } = initialState;
@@ -10,6 +11,7 @@ export function createAtoms(initialState: FormOptionsState.ForAtoms, onChange: O
     const murl = p2Detect.murl === '[m0]:2:0:' ? '' : p2Detect.murl; // if by some reason url from murl is empty then we need to reset it to empty
     const initialHOU = Matching.parseRawMatchData(murl || p2Detect.ourl); // murl can be empty if it is the same as ourl
 
+    const iconLocation: IconLocation = parseIconLocation(initialState.iconLocFromFile); 
 
     const rv: FormOptionsState.AllAtoms = {
         p1General: {
@@ -56,16 +58,20 @@ export function createAtoms(initialState: FormOptionsState.ForAtoms, onChange: O
         },
         p5Icon: {
             idAtom: createAtomForInput(p5Icon.id, onChange('id')),
-            locAtom: createAtomForInput(p5Icon.loc, onChange('loc')),
+            quadrandAtom: createAtomForInput(`${iconLocation.quadrand}`, onChange('quadrand')),
+            xAtom: createAtomForInput(`${iconLocation.x}`, onChange('icon_x')),
+            yAtom: createAtomForInput(`${iconLocation.y}`, onChange('icon_y')),
         },
 
-        isWebAtom: atomWithCallback(initialState.isFormWeb, onChange('isWeb')),
         formIdx: initialState.formIdx,
+        isWebAtom: atomWithCallback(initialState.isFormWeb, onChange('isWeb')),
 
         fromFileHOU: initialHOU,
         murl_howAtom: createAtomForInput(initialHOU.how, onChange('murl_how')),
         murl_optAtom: createAtomForInput(initialHOU.opt, onChange('murl_opt')),
         murl_regexAtom: createAtomForInput(initialHOU.url, onChange('murl_regex'), { validate: validateNonEmptyWithMessage('Value cannot be empty.') }),
+
+        iconLocFromFile: initialState.iconLocFromFile,
     };
 
     return rv;
@@ -109,7 +115,9 @@ export function valuesToAtoms(values: FormOptionsState.ForAtoms, atoms: FormOpti
     set(atoms.p4QL.qUseAtom,             /**/(v) => resetRowInputState(v, boo(p4QL.qUse)));
 
     set(atoms.p5Icon.idAtom,             /**/(v) => resetRowInputState(v, p5Icon.id));
-    set(atoms.p5Icon.locAtom,            /**/(v) => resetRowInputState(v, p5Icon.loc));
+    set(atoms.p5Icon.quadrandAtom,      /**/(v) => resetRowInputState(v, p5Icon.quadrand));
+    set(atoms.p5Icon.xAtom,             /**/(v) => resetRowInputState(v, p5Icon.x));
+    set(atoms.p5Icon.yAtom,             /**/(v) => resetRowInputState(v, p5Icon.y));
 }
 
 function boo(value: boolean): string {

@@ -48,7 +48,9 @@ export function fromAtoms(atoms: FormOptionsState.AllAtoms, { get }: GetOnly): F
         },
         p5Icon: {
             id: get(p5Icon.idAtom).data,
-            loc: get(p5Icon.locAtom).data,
+            quadrand: get(p5Icon.quadrandAtom).data,
+            x: get(p5Icon.xAtom).data,
+            y: get(p5Icon.yAtom).data,
         },
 
         isFormWeb: get(atoms.isWebAtom),
@@ -58,6 +60,8 @@ export function fromAtoms(atoms: FormOptionsState.AllAtoms, { get }: GetOnly): F
         murl_how: +get(atoms.murl_howAtom).data,
         murl_opt: +get(atoms.murl_optAtom).data,
         murl_regex: get(atoms.murl_regexAtom).data,
+
+        iconLocFromFile: atoms.iconLocFromFile,
     };
 
     return rv;
