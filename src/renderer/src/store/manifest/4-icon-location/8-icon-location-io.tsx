@@ -10,14 +10,14 @@ export function isDefault(loc: string): boolean {
     return loc === defaultIconLocation;
 }
 
-export function getQuadrant(iconLocation: string | undefined): number {
+export function getQuadrand(iconLocation: string | undefined): number {
     const s = iconLocationFromStr(iconLocation);
     return s?.quadrand || 0;
 }
 
-export function setQuadrant(iconLocation: string | undefined, quadrant: number): string {
+export function setQuadrand(iconLocation: string | undefined, quadrand: number): string {
     const s = iconLocationFromStr(iconLocation) || { quadrand: 0, x: 0, y: 0 };
-    s.quadrand = quadrant;
+    s.quadrand = quadrand;
     return iconLocationToStr(s);
 }
 
