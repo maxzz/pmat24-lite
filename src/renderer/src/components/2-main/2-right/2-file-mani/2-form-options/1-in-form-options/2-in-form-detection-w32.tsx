@@ -41,9 +41,9 @@ function FormW32IconPosition({ oFormProps }: { oFormProps: OFormProps; }) {
 }
 
 function PMIcon_W32({ oFormProps }: { oFormProps: OFormProps; }) {
-    const { idAtom, locAtom } = oFormProps.oAllAtoms.options.p5Icon;
+    const { idAtom, quadrandAtom } = oFormProps.oAllAtoms.options.p5Icon;
 
-    const [state, setState] = useAtom(locAtom);
+    const [state, setState] = useAtom(quadrandAtom);
     
     function onChange(newValue: string) {
         setState((prev) => {
