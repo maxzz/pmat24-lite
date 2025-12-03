@@ -6,6 +6,10 @@ export type IconLocation = {
 
 export const defaultIconLocation = 'Q:0:0:0';
 
+export function isDefault(loc: string): boolean {
+    return loc === defaultIconLocation;
+}
+
 export function getQuadrant(iconLocation: string | undefined): number {
     const s = iconLocationFromStr(iconLocation);
     return s?.quadrant || 0;
@@ -16,6 +20,12 @@ export function setQuadrant(iconLocation: string | undefined, quadrant: number):
     s.quadrant = quadrant;
     return iconLocationToStr(s);
 }
+
+// function sameQuadrants(locA: string, locB: string): boolean {
+//     return getQuadrant(locA) === getQuadrant(locB);
+// }
+
+// Low-level access
 
 function iconLocationFromStr(iconLoc: string | undefined): IconLocation | undefined {
     if (!iconLoc) {
