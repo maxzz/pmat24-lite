@@ -64,10 +64,10 @@ function PMIcon_W32({ oFormProps }: { oFormProps: OFormProps; }) {
 
 const balloonCounterItems: OptionTextValue[] = [
     ['Default', '0' ],
-    ['Top left', 'Q:0:0:0' ],
-    ['Top right', 'Q:1:0:0' ],
-    ['Bottom left', 'Q:2:0:0' ],
-    ['Bottom right', 'Q:3:0:0' ],
+    ['Top left', '1' ],
+    ['Top right', '2' ],
+    ['Bottom left', '3' ],
+    ['Bottom right', '4' ],
 ];
 
 const textClasses = "pl-6 pr-0.5";
