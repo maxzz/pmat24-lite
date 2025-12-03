@@ -1,6 +1,7 @@
 import { type AtomizeWithType } from "@/utils";
 import { type RowInputState } from "@/ui/local-ui";
 import { type Matching, type FormIdx } from "@/store/manifest";
+import { IconLocation } from "@/store/manifest/4-icon-location/8-icon-location-io";
 
 export namespace FormOptionsState {
 
@@ -52,7 +53,9 @@ export namespace FormOptionsState {
 
     type p5Icon = {                             // Part Password Manager Icon
         id: string;                             // Location ID
-        loc: string;                            // Location
+        quadrand: string;                       // Location of icon over window and offset x/y
+        x: string;
+        y: string;
     };
 
     export type ForAtoms = {
@@ -62,12 +65,15 @@ export namespace FormOptionsState {
         p4QL: p4QL;
         p5Icon: p5Icon;
 
-        isFormWeb: boolean;
         formIdx: FormIdx;
+        isFormWeb: boolean;
+
         fromFileHOU: Matching.RawMatchData;     // Initial values of how, opt, url (HOW) for murl from file
         murl_how: Matching.How;                 // how to match URL
         murl_opt: Matching.Options;             // how to match URL
         murl_regex: string;                     // Regex matching (or any other like wildcards) URL (as usual regex); This is internal value to show validation errors
+
+        iconLocFromFile: string;                // Initial value of icon location from file
     };
 
     export type AllAtoms = {
@@ -77,11 +83,14 @@ export namespace FormOptionsState {
         p4QL: AtomizeWithType<p4QL, RowInputState>;
         p5Icon: AtomizeWithType<p5Icon, RowInputState>;
 
-        isWebAtom: PA<boolean>;
         formIdx: FormIdx;
+        isWebAtom: PA<boolean>;
+        
         fromFileHOU: Matching.RawMatchData;     // Initial values of how, opt, url (HOW) for murl from file
         murl_howAtom: PA<RowInputState>;        // how to match URL as Matching.How
         murl_optAtom: PA<RowInputState>;        // how to match URL options as Matching.Options
         murl_regexAtom: PA<RowInputState>;      // Regex matching (or any other like wildcards) URL (as usual regex); This is internal value to show validation errors
+
+        iconLocFromFile: string;                // Initial value of icon location from file
     };
 }
