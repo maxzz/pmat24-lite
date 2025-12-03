@@ -38,3 +38,8 @@ export function setQuadrant(iconLocation: string | undefined, quadrant: number):
     s.quadrant = quadrant;
     return iconLocationToStr(s);
 }
+
+export function getQuadrant(iconLocation: string | undefined): number {
+    const s = iconLocationFromStr(iconLocation);
+    return s?.quadrant || 0;
+}
