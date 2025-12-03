@@ -1,6 +1,7 @@
 import { Matching } from "@/store/manifest";
 import { type FileUsCtx } from "../../9-types";
 import { type FormOptionsState } from "./9-types";
+import { parseIconLocation } from "@/store/manifest/4-icon-location/8-icon-location-io";
 
 export function forAtoms(fileUsCtx: FileUsCtx): FormOptionsState.ForAtoms {
     const { fileUs, formIdx } = fileUsCtx;
@@ -13,6 +14,7 @@ export function forAtoms(fileUsCtx: FileUsCtx): FormOptionsState.ForAtoms {
     const isFormWeb = !!detection.web_ourl;
 
     const fromFileHOU = Matching.parseRawMatchData(detection.web_murl || '');
+    const iconLocation = parseIconLocation(options.iconlocation);
 
     const rv: FormOptionsState.ForAtoms = {
         p1General: {
@@ -59,7 +61,9 @@ export function forAtoms(fileUsCtx: FileUsCtx): FormOptionsState.ForAtoms {
         },
         p5Icon: {
             id: options.iconkey || '',
-            loc: options.iconlocation || '',
+            quadrand: `${iconLocation.quadrand}`,
+            x: `${iconLocation.x}`,
+            y: `${iconLocation.y}`,
         },
 
         isFormWeb,
@@ -69,6 +73,8 @@ export function forAtoms(fileUsCtx: FileUsCtx): FormOptionsState.ForAtoms {
         murl_how: fromFileHOU.how,
         murl_opt: fromFileHOU.opt,
         murl_regex: fromFileHOU.url,
+
+        iconLocFromFile: options.iconlocation || '',
     };
 
     return rv;

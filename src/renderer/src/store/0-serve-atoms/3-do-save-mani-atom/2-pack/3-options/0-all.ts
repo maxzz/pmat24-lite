@@ -1,6 +1,7 @@
 import { type Mani, FormIdx, Matching } from "@/store/manifest";
 import { type FormOptionsState, FormOptionsConv } from "@/store/2-file-mani-atoms/3-options";
 import { type PackManifestDataParams } from "../9-types";
+import { iconLocationToStr } from "@/store/manifest/4-icon-location/8-icon-location-io";
 
 export function packFormOptions(optionsAtoms: FormOptionsState.AllAtoms, formIdx: FormIdx, packParams: PackManifestDataParams) {
     const detectionAndOptionsRow = FormOptionsConv.fromAtoms(optionsAtoms, packParams.getset);
@@ -60,6 +61,8 @@ function optionsForMani(values: FormOptionsState.ForAtoms, formIdx: FormIdx): Ma
 
     const authPolicy = formIdx === FormIdx.cpass || p3Auth.auth_pl === '0' ? undefined : p3Auth.auth_pl;
 
+    const iconLocation = +p5Icon.quadrand === 0 ? '' : iconLocationToStr({ quadrand: +p5Icon.quadrand, x: +p5Icon.x, y: +p5Icon.y });
+
     const rv: Mani.Options = {
         choosename: general.name,
         sidekick: general.desc,
@@ -72,7 +75,7 @@ function optionsForMani(values: FormOptionsState.ForAtoms, formIdx: FormIdx): Ma
         lockfields: p3Auth.lock ? '1' : undefined,
         submittype: submitType,
         iconkey: p5Icon.id,
-        iconlocation: p5Icon.loc,
+        iconlocation: iconLocation,
 
         usequicklink: p4QL.qUse ? '1' : '2',
         recheckwindowafterfillin: p2Detect.reCheck ? '1' : undefined,
