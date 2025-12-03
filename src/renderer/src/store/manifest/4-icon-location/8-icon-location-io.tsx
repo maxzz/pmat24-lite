@@ -4,11 +4,27 @@ export type IconLocation = {
     y: number;
 };
 
-export function iconLocationToStr({ quadrant, x, y }: IconLocation): string {
-    return quadrant < 1 || quadrant > 4 ? '' : `Q:${quadrant - 1}:${x}:${y}`;
+export const defaultIconLocation = 'Q:0:0:0';
+
+export function getQuadrant(iconLocation: string | undefined): number {
+    const s = iconLocationFromStr(iconLocation);
+    return s?.quadrant || 0;
 }
 
-export function iconLocationFromStr(iconLoc: string | undefined): IconLocation | undefined {
+export function setQuadrant(iconLocation: string | undefined, quadrant: number): string {
+    const s = iconLocationFromStr(iconLocation);
+    if (!s) {
+        return defaultIconLocation;
+    }
+    s.quadrant = quadrant;
+    return iconLocationToStr(s);
+}
+
+function iconLocationToStr({ quadrant, x, y }: IconLocation): string {
+    return quadrant < 1 || quadrant > 4 ? defaultIconLocation : `Q:${quadrant - 1}:${x}:${y}`;
+}
+
+function iconLocationFromStr(iconLoc: string | undefined): IconLocation | undefined {
     if (!iconLoc) {
         return;
     }
@@ -28,18 +44,4 @@ export function iconLocationFromStr(iconLoc: string | undefined): IconLocation |
     }
 
     return { quadrant, x, y };
-}
-
-export function setQuadrant(iconLocation: string | undefined, quadrant: number): string | undefined {
-    const s = iconLocationFromStr(iconLocation);
-    if (!s) {
-        return iconLocation;
-    }
-    s.quadrant = quadrant;
-    return iconLocationToStr(s);
-}
-
-export function getQuadrant(iconLocation: string | undefined): number {
-    const s = iconLocationFromStr(iconLocation);
-    return s?.quadrant || 0;
 }
