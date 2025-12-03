@@ -4,11 +4,11 @@ export type IconLocation = {
     y: number;
 };
 
-export function iconLocationToString({ quadrant, x, y }: IconLocation): string {
+export function iconLocationToStr({ quadrant, x, y }: IconLocation): string {
     return quadrant < 1 || quadrant > 4 ? '' : `Q:${quadrant - 1}:${x}:${y}`;
 }
 
-export function iconLocationFromString(iconLoc?: string): IconLocation | undefined {
+export function iconLocationFromStr(iconLoc?: string): IconLocation | undefined {
     if (!iconLoc) {
         return undefined;
     }
@@ -19,11 +19,11 @@ export function iconLocationFromString(iconLoc?: string): IconLocation | undefin
     }
 
     // Note: Add 1 to the input location (quadrant) to match with our internal list (None,quad 0,quad 1,quad 2,quad 3) etc.
-    const quadrant = parseInt(parts[1], 10) + 1;
-    const x = parseInt(parts[2], 10);
-    const y = parseInt(parts[3], 10);
+    const quadrant = +parts[1] + 1;
+    const x = +parts[2];
+    const y = +parts[3];
 
-    if (isNaN(quadrant) || isNaN(x) || isNaN(y)) {
+    if (Number.isNaN(quadrant) || Number.isNaN(x) || Number.isNaN(y)) {
         return undefined;
     }
 
