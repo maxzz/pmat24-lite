@@ -54,6 +54,6 @@ export function iconLocationFromStr(iconLoc: string | undefined): IconLocation |
     return { quadrand: quadrant, x, y };
 }
 
-export function iconLocationToStr({ quadrand: quadrant, x, y }: IconLocation): string {
-    return quadrant < 1 || quadrant > 4 ? defaultIconLocation : `Q:${quadrant - 1}:${x}:${y}`;
+export function iconLocationToStr({ quadrand, x, y }: IconLocation): string {
+    return quadrand < 1 || quadrand > 4 ? defaultIconLocation : `Q:${quadrand - 1}:${x}:${y}`;
 }
