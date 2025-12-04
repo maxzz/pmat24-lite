@@ -1,5 +1,5 @@
 import { useAtom, useAtomValue, useSetAtom } from "jotai";
-import { type PolicyDlgTypes, doVerifyPswAtom } from "../../0-all";
+import { type PolicyDlgTypes, doVerifyPswAtom } from "../../../0-all";
 import { Input } from "@/ui";
 import { classNames, turnOffAutoComplete } from "@/utils";
 

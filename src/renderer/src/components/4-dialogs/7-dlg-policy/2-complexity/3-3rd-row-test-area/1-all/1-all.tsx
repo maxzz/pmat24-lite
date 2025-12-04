@@ -1,8 +1,8 @@
 import { type PolicyDlgTypes } from "../../../0-all";
-import { RuleExplanation } from "../4-rule-explanation";
-import { InputWithCounter } from "../2-input-with-counter";
-import { ButtonGenerate } from "../3-button-generate";
-import { ErrorInfo } from "./2-error-info";
+import { RuleExplanation } from "./4-rule-explanation";
+import { InputWithCounter } from "./2-input-with-counter";
+import { ButtonGenerate } from "./3-button-generate";
+import { ErrorInfo } from "./5-error-info";
 
 export function TestAreaBody({ dlgUiCtx }: { dlgUiCtx: PolicyDlgTypes.PolicyUiCtx; }) {
     return (
