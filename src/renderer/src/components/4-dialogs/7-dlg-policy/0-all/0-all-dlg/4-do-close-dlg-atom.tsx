@@ -16,14 +16,17 @@ type DoClosePolicyDlgAtomCtx = {
 export const doClosePolicyDlgAtom = atom(null,
     (get: Getter, set: Setter, ctx: DoClosePolicyDlgAtomCtx) => {
         const { dlgUiCtx, policiesAtom, openAtom, toastIdAtom, byOkButton } = ctx;
+        const errorText = get(dlgUiCtx.errorTextAtom);
 
-        if (!dlgUiCtx.changed) {
+        if (!byOkButton) {
+            notice.dismiss();
+            dlgUiCtx.changed && resetOnCancelClose(ctx, { get, set });
             set(openAtom, false);
             return;
         }
 
-        if (!byOkButton) {
-            resetOnCancelClose(ctx, { get, set });
+        if (!dlgUiCtx.changed && !errorText) {
+            notice.dismiss();
             set(openAtom, false);
             return;
         }
@@ -33,7 +36,7 @@ export const doClosePolicyDlgAtom = atom(null,
         const isCustom = state.isCustom;
         if (isCustom) {
             if (!state.custom) {
-                const msg = 'Custom rule cannot be empty';
+                const msg = 'The custom rule must not be empty.';
                 const toastId = notice.error(msg);
                 set(dlgUiCtx.errorTextAtom, msg);
                 set(toastIdAtom, toastId);
@@ -41,9 +44,8 @@ export const doClosePolicyDlgAtom = atom(null,
             }
 
             if (state.errorText) {
-                const msg = 'Custom rule should not have errors';
+                const msg = 'There are errors in the custom rule. Please correct them before closing the dialog box.';
                 const toastId = notice.error(msg);
-                set(dlgUiCtx.errorTextAtom, msg);
                 set(toastIdAtom, toastId);
                 return;
             }
@@ -56,18 +58,16 @@ export const doClosePolicyDlgAtom = atom(null,
         const isValid = !state.minLen.error && !state.maxLen.error && +state.minLen.data <= +state.maxLen.data;
         if (!isValid) {
             const msg = state.minLen.error || state.maxLen.error || 'Min length must be less than max length';
-
             const toastId = notice.error(msg);
             set(toastIdAtom, toastId);
-
-            console.log('Dlg. close: toastId from atom', toastId);
+            //console.log('Dlg. close: toastId from atom', toastId);
             return;
         }
 
         const policyStrings = PolicyDlgConv.forMani(state);
         set(policiesAtom, policyStrings);
 
-        /**/
+        /** /
         const str1 = JSON.stringify(state, null, 2);
         const str2 = JSON.stringify(policyStrings, null, 2);
         const str3 = dlgUiCtx.changed ? `\nstate ${str1}\nfile ${str2}` : '';
