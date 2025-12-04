@@ -74,7 +74,7 @@ function CustomRuleInput({ dlgUiCtx }: { dlgUiCtx: PolicyDlgTypes.PolicyUiCtx; }
 
     return (
         <Input
-            className="mr-0 pr-28 h-7 font-mono text-xs text-mani-foreground bg-mani-background border-mani-border-muted" // pr-28 = 24*4(buttons width) + 3*4(inbetween space) + 4(right border)
+            className="mr-0 pr-32 h-7 font-mono text-xs text-mani-foreground bg-mani-background border-mani-border-muted" // pr-35 = for 24*4(buttons width) + 24(error icon) + 4*4(inbetween space) + 4(right border)
             value={custom}
             onChange={(e) => onChange(e.target.value)}
             {...turnOffAutoComplete}
