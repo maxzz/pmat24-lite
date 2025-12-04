@@ -5,7 +5,7 @@ import { SymbolWarning } from "@/ui/icons";
 import { classNames } from "@/utils";
 import { inlineButtonClasses } from "../8-inline-styles";
 //import { ErrorInfo } from "../../3-3rd-row-test-area/4-rule-explanation";
-import { ErrorInfo } from "../../3-3rd-row-test-area/1-all/1-all";
+import { ErrorInfo } from "../../3-3rd-row-test-area/1-all/2-error-info";
 
 export function ButtonErrorInfo({ dlgUiCtx }: { dlgUiCtx: PolicyDlgTypes.PolicyUiCtx; }) {
     const errorText = useAtomValue(dlgUiCtx.errorTextAtom);

@@ -1,10 +1,8 @@
-import { type HTMLAttributes } from "react";
-import { useAtomValue } from "jotai";
-import { classNames } from "@/utils";
 import { type PolicyDlgTypes } from "../../../0-all";
 import { RuleExplanation } from "../4-rule-explanation";
 import { InputWithCounter } from "../2-input-with-counter";
 import { ButtonGenerate } from "../3-button-generate";
+import { ErrorInfo } from "./2-error-info";
 
 export function TestAreaBody({ dlgUiCtx }: { dlgUiCtx: PolicyDlgTypes.PolicyUiCtx; }) {
     return (
@@ -28,15 +26,6 @@ export function TestAreaBody({ dlgUiCtx }: { dlgUiCtx: PolicyDlgTypes.PolicyUiCt
 
                 <ErrorInfo className="font-semibold" errorTextAtom={dlgUiCtx.errorTextAtom} />
             </div>
-        </div>
-    );
-}
-
-export function ErrorInfo({ className, errorTextAtom, ...rest }: { errorTextAtom: PA<string>; } & HTMLAttributes<HTMLDivElement>) {
-    const errorText = useAtomValue(errorTextAtom);
-    return (
-        <div className={classNames("mt-1 min-h-4 text-red-500 select-text", !errorText && "invisible", className)} {...rest}>
-            {errorText}
         </div>
     );
 }
