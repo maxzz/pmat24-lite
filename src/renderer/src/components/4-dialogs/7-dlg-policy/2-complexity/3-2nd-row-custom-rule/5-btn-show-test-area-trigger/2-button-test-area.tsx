@@ -1,6 +1,6 @@
 import { useSnapshot } from "valtio";
 import { Button } from "@/ui";
-import { IconTestTube, SymbolChevronDown } from "@/ui/icons";
+import { IconTestTube } from "@/ui/icons";
 import { classNames } from "@/utils";
 import { appSettings } from "@/store/9-ui-state";
 import { inlineButtonClasses } from "../8-inline-styles";
@@ -10,7 +10,7 @@ export function ButtonTestArea() {
     const { openTestArea } = useSnapshot(open);
     return (
         <Button
-            className={classNames(inlineButtonClasses, "px-1 space-x-0.5")}
+            className={classNames(inlineButtonClasses, "px-1 space-x-0.5", openTestArea && "bg-muted border-muted-foreground/20 ")}
             size="xs"
             onClick={() => open.openTestArea = !open.openTestArea}
             title="Test area"
@@ -18,7 +18,7 @@ export function ButtonTestArea() {
             <span>
                 <IconTestTube className="size-3" />
             </span>
-            <SymbolChevronDown className={classNames("size-3 transition-all", openTestArea && "rotate-180")} />
+            {/* <SymbolChevronDown className={classNames("size-3 transition-all", openTestArea && "rotate-180")} /> */}
         </Button>
     );
 }

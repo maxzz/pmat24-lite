@@ -1,5 +1,4 @@
 import { useSetAtom } from "jotai";
-import { classNames } from "@/utils";
 import { Button, DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuItemProps, DropdownMenuTrigger } from "@/ui";
 import { type PolicyDlgTypes, doUpdateExplanationAtom } from "../../../0-all";
 import { inlineButtonClasses } from "../8-inline-styles";
@@ -36,7 +35,7 @@ export function ButtonMenuAddTemplatePart({ dlgUiCtx }: { dlgUiCtx: PolicyDlgTyp
 function MenuAddTrigger() {
     return (
         <DropdownMenuTrigger asChild>
-            <Button className={classNames(inlineButtonClasses, "aspect-square")} size="sm" tabIndex={-1} title="Add template parts">
+            <Button className={inlineButtonClasses} size="sm" tabIndex={-1} title="Add template parts">
                 <span>+</span>
             </Button>
         </DropdownMenuTrigger>

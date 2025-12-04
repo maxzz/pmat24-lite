@@ -8,9 +8,12 @@ import { ButtonMenuAddTemplatePart } from "../3-btn-add-menu-template-part/1-all
 import { TestAreaBody } from "../../3-3rd-row-test-area";
 import { ButtonRulesHelp } from "../4-btn-explanation/1-all";
 import { ButtonTestArea } from "../5-btn-show-test-area-trigger/2-button-test-area";
+import { useSnapshot } from "valtio";
+import { appSettings } from "@/store/9-ui-state";
 
 export function CustomRuleSection({ dlgUiCtx }: { dlgUiCtx: PolicyDlgTypes.PolicyUiCtx; }) {
     const isCustom = useAtomValue(dlgUiCtx.isCustomAtom);
+    const isTestAreaOpen = useSnapshot(appSettings.right.mani).openTestArea;
     return (
         <div>
             <div className={classNames("flex items-center gap-2", !isCustom && "invisible pointer-events-none")}>
@@ -22,7 +25,7 @@ export function CustomRuleSection({ dlgUiCtx }: { dlgUiCtx: PolicyDlgTypes.Polic
                     <div className={classNames("relative h-7 flex items-center justify-between space-x-2")}>
                         <CustomRuleInput dlgUiCtx={dlgUiCtx} />
 
-                        <div className="absolute right-0.5 flex items-center gap-0.5">
+                        <div className="absolute right-1 flex items-center gap-0.5">
                             <ButtonErrorInfo dlgUiCtx={dlgUiCtx} />
                             <ButtonMenuAddTemplatePart dlgUiCtx={dlgUiCtx} />
                             {/* <ButtonRulesHelp /> */}
@@ -34,7 +37,7 @@ export function CustomRuleSection({ dlgUiCtx }: { dlgUiCtx: PolicyDlgTypes.Polic
             </div>
 
             <AnimatePresence initial={false}>
-                {isCustom && (
+                {isCustom && isTestAreaOpen && (
                     <motion.div
                         initial={{ height: 0, opacity: 0 }}
                         animate={{ height: "auto", opacity: 1 }}

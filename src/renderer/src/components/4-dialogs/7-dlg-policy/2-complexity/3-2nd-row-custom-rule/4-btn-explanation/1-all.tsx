@@ -1,6 +1,5 @@
 import { Fragment } from "react";
 import { Popover, PopoverArrorWoBottom, PopoverClose, PopoverContent, PopoverPortal, ScrollArea } from "@/ui";
-import { classNames } from "@/utils";
 import { Button, PopoverTrigger } from "@/ui";
 import { SymbolCross } from "@/ui/icons";
 import { inlineButtonClasses } from "../8-inline-styles";
@@ -39,7 +38,7 @@ export function ButtonRulesHelp() {
 function HelpTrigger() {
     return (
         <PopoverTrigger asChild>
-            <Button className={classNames(inlineButtonClasses, "aspect-square")} size="sm" tabIndex={-1} title="Explanation">
+            <Button className={inlineButtonClasses} size="sm" tabIndex={-1} title="Explanation">
                 ?
             </Button>
         </PopoverTrigger>
