@@ -1,5 +1,5 @@
 import { useAtom } from "jotai";
-import { Poli } from "@/store/manifest";
+import { Poli } from "@/store/8-manifest";
 import { type PolicyDlgTypes } from "../0-all";
 import { Radio } from "../9-constrols";
 

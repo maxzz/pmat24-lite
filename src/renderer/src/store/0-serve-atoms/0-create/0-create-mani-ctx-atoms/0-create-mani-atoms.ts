@@ -1,5 +1,5 @@
 import { atom } from "jotai";
-import { FormIdx } from "@/store/manifest";
+import { FormIdx } from "@/store/8-manifest";
 import { type FileUs, type FileUsAtom } from "@/store/store-types";
 import { type MFormCnt, type NFormCnt, type FileUsCtx, type AnyFormCtx, type ManiAtoms, safeByContext, lFieldsIdx, cFieldsIdx } from "@/store/2-file-mani-atoms/9-types";
 import { createFormFieldsAtom, ManualFieldsState, NormalModeState, OptionsState } from "@/store/2-file-mani-atoms";

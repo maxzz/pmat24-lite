@@ -1,5 +1,5 @@
 import { type FileUs } from "@/store/store-types";
-import { isAnyWhy, isFormWeb, isFormIe6, isFormManual } from "@/store/manifest";
+import { isAnyWhy, isFormWeb, isFormIe6, isFormManual } from "@/store/8-manifest";
 import { FormIconEnum } from "./8-form-type-to-icon";
 
 export type IconEnumWithWarning = {

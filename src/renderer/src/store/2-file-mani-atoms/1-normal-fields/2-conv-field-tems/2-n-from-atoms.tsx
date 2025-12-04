@@ -1,4 +1,4 @@
-import { type EditorField } from "@/store/manifest";
+import { type EditorField } from "@/store/8-manifest";
 import { type NormalField } from "./9-types";
 
 export function fromAtoms(rowCtx: NormalField.RowCtx, { get }: GetOnly): EditorField.ForAtoms {

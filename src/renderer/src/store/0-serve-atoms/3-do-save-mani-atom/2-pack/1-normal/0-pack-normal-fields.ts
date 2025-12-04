@@ -1,4 +1,4 @@
-import { type Mani, FormIdx, SUBMIT } from "@/store/manifest";
+import { type Mani, FormIdx, SUBMIT } from "@/store/8-manifest";
 import { type PackManifestDataParams } from "../9-types";
 import { type SubmitFieldTypes, type NFormCnt } from "@/store/2-file-mani-atoms";
 import { type RecordOldNewFieldByUuid } from "./9-types";

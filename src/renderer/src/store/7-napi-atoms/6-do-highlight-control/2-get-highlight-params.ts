@@ -1,5 +1,5 @@
 import { type Getter } from "jotai";
-import { type Meta } from "@/store/manifest";
+import { type Meta } from "@/store/8-manifest";
 import { type Rect4, type R2MInvokeParams } from "@shared/ipc-types";
 import { type FieldHighlightCtx } from "@/store/2-file-mani-atoms/9-types";
 

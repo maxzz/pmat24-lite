@@ -1,4 +1,4 @@
-import { type EditorDataForDly, type EditorDataForFld, type EditorDataForKbd, type EditorDataForPos, type EditorDataForOne, type EditorField } from "@/store/manifest";
+import { type EditorDataForDly, type EditorDataForFld, type EditorDataForKbd, type EditorDataForPos, type EditorDataForOne, type EditorField } from "@/store/8-manifest";
 import { type ManualFieldState } from "../9-types";
 import { type RowInputState } from "@/ui/local-ui/1-input-validate";
 import { NormalFieldConv } from "../../1-normal-fields";

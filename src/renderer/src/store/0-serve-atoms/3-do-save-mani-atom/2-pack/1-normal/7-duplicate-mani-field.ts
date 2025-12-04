@@ -1,4 +1,4 @@
-import { Mani } from "@/store/manifest";
+import { Mani } from "@/store/8-manifest";
 
 /**
  * Mani.Field has no nested objects, so we can use destructuring to copy the object

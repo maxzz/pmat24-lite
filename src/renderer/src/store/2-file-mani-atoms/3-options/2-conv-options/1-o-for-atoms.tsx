@@ -1,7 +1,7 @@
-import { Matching } from "@/store/manifest";
+import { Matching } from "@/store/8-manifest";
 import { type FileUsCtx } from "../../9-types";
 import { type FormOptionsState } from "./9-types";
-import { parseIconLocation } from "@/store/manifest/4-icon-location/8-icon-location-io";
+import { parseIconLocation } from "@/store/8-manifest/4-icon-location/8-icon-location-io";
 
 export function forAtoms(fileUsCtx: FileUsCtx): FormOptionsState.ForAtoms {
     const { fileUs, formIdx } = fileUsCtx;

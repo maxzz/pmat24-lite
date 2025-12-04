@@ -1,4 +1,4 @@
-import { type ValueLife, sameValueLife, valueAs2Str } from "@/store/manifest";
+import { type ValueLife, sameValueLife, valueAs2Str } from "@/store/8-manifest";
 import { ConsoleStyles } from "@/utils";
 import { type FceItem } from "../../9-types";
 import { type FcePropChangesProps } from "./1-prop-changes-atom";

@@ -1,5 +1,5 @@
 import { useAtomValue, useSetAtom } from "jotai";
-import { Matching } from "@/store/manifest";
+import { Matching } from "@/store/8-manifest";
 import { type SelectTmTextValue, SelectTm } from "@/ui/local-ui";
 import { type OFormProps } from "@/store/2-file-mani-atoms/9-types";
 import { setHowChangedAtom } from "@/store/2-file-mani-atoms/3-options/1-create-options-ctx/1-update-parts-of-murl";

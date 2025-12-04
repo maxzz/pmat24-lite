@@ -1,5 +1,5 @@
 import { delay } from "@/utils";
-import { FormIdx } from "@/store/manifest";
+import { FormIdx } from "@/store/8-manifest";
 
 // Actions list panel activation
 

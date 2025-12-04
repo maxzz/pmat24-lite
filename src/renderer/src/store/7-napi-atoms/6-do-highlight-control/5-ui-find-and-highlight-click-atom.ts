@@ -1,6 +1,6 @@
 import { atom } from "jotai";
 import { notice } from "@/ui/local-ui/7-toaster";
-import { FormIdx } from "@/store/manifest";
+import { FormIdx } from "@/store/8-manifest";
 import { type FileUsCtx, type ManualFieldState } from "@/store/2-file-mani-atoms";
 import { doHighlightControlAtom } from "./1-do-highlight-control";
 import { doFindHwndAtom } from "./6-find-hwnd";

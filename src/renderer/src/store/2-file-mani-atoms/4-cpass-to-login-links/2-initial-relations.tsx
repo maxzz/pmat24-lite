@@ -1,5 +1,5 @@
 import { atom } from "jotai";
-import { FieldTyp } from "@/store/manifest";
+import { FieldTyp } from "@/store/8-manifest";
 import { type FieldRowCtx, type ManiAtoms, getAllFormsFields_byManiAtoms } from "../9-types";
 
 // Initial relations for newly created password change form

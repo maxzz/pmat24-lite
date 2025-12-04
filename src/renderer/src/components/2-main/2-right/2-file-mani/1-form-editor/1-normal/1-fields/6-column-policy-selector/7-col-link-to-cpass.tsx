@@ -1,6 +1,6 @@
 import { atom, useAtomValue, useSetAtom } from "jotai";
 import { classNames } from "@/utils";
-import { FieldTyp } from "@/store/manifest";
+import { FieldTyp } from "@/store/8-manifest";
 import { type FieldRowCtx, type FileUsCtx, buildLoginFieldsDropdownAtom, getAllFormsFields_byFileUsCtx } from "@/store/2-file-mani-atoms";
 import { SelectTm } from "@/ui/local-ui";
 

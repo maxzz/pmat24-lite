@@ -1,6 +1,6 @@
 import { atom } from "jotai";
 import { atomWithCallback, debounce } from "@/utils";
-import { type EditorDataForOne, parseForEditor } from "@/store/manifest";
+import { type EditorDataForOne, parseForEditor } from "@/store/8-manifest";
 import { type MFormCnt, type FileUsCtx, type OnChangeProps, fileUsChanges, safeByContext, safeManiAtomsFromFileUsCtx } from "../../9-types";
 import { type ManualFieldState, ManualFieldConv } from "../2-conv-manual";
 import { NormalFieldConv } from "../../1-normal-fields";

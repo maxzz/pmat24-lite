@@ -1,4 +1,4 @@
-import { EditorDataForDly, EditorDataForKbd, EditorDataForOne, EditorDataForPos } from "@/store/manifest";
+import { EditorDataForDly, EditorDataForKbd, EditorDataForOne, EditorDataForPos } from "@/store/8-manifest";
 import { ManualFieldState } from "../9-types";
 
 //

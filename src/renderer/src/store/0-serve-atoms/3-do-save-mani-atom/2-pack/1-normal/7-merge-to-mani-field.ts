@@ -1,4 +1,4 @@
-import { FieldTyp, Mani, type EditorField } from "@/store/manifest";
+import { FieldTyp, Mani, type EditorField } from "@/store/8-manifest";
 
 type MergeManiFieldsProps = {
     from: EditorField.Members;  // from editor

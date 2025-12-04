@@ -1,5 +1,5 @@
 import { atom } from "jotai";
-import { type CatalogFile, type Mani, type Meta, buildManiMetaForms, parseXMLFile } from "@/store/manifest";
+import { type CatalogFile, type Mani, type Meta, buildManiMetaForms, parseXMLFile } from "@/store/8-manifest";
 import { maniXmlStrAtom } from "./1-do-get-mani";
 
 export type XmlParseResult = {

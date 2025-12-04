@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { atom, useAtomValue, useSetAtom } from "jotai";
-import { FormIdx } from "@/store/manifest";
+import { FormIdx } from "@/store/8-manifest";
 import { type FileUsCtx } from "@/store/2-file-mani-atoms";
 import { type HighlightHwnd } from "@/store/store-types";
 

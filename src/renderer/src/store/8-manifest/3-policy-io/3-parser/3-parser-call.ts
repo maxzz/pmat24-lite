@@ -1,4 +1,4 @@
-import { type Poli } from "@/store/manifest";
+import { type Poli } from "@/store/8-manifest";
 import { RulesAndMeta } from "./1-parser-types";
 import { ParseError, ParseErrorType } from "./4-parser-error";
 import { PolicyParser } from "./2-parser";

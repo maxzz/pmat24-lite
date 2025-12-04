@@ -1,6 +1,6 @@
 import { atom } from "jotai";
 import { type PolicyDlgTypes } from "../0-conv";
-import { generatePswByRules, verifyPassword } from "@/store/manifest/3-policy-io";
+import { generatePswByRules, verifyPassword } from "@/store/8-manifest/3-policy-io";
 import { appSettings } from "@/store/9-ui-state";
 
 export type GenNPasswordsItem = {

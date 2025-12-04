@@ -1,7 +1,7 @@
 import { type Atom, atom } from "jotai";
 import { type FceItem, type FceCtx } from "../../9-types";
-import { createEmptyValueLife } from "@/store/manifest";
-import { FieldTyp } from "@/store/manifest";
+import { createEmptyValueLife } from "@/store/8-manifest";
+import { FieldTyp } from "@/store/8-manifest";
 
 /**
  * Select item by index

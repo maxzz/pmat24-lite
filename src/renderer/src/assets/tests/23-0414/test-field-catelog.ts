@@ -1,4 +1,4 @@
-import { CatalogFile } from "@/store/manifest";
+import { CatalogFile } from "@/store/8-manifest";
 
 type XmlName = Omit<CatalogFile.ItemInFile, 'password' | 'askalways' | 'onetvalue'> & {
     password?: boolean | '1';     // undefined : '1'

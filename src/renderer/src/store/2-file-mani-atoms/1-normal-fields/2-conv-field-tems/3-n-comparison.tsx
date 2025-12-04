@@ -1,4 +1,4 @@
-import { sameValueLife, type EditorField, type Mani } from "@/store/manifest";
+import { sameValueLife, type EditorField, type Mani } from "@/store/8-manifest";
 
 // Comparison
 

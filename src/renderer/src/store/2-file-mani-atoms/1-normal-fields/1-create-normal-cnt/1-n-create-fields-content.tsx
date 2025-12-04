@@ -1,6 +1,6 @@
 import { atom } from "jotai";
 import { type OnValueChangeAny, debounce } from "@/utils";
-import { type Meta, convFieldForEditor, FieldTyp } from "@/store/manifest";
+import { type Meta, convFieldForEditor, FieldTyp } from "@/store/8-manifest";
 import { type FileUsCtx, type OnChangeProps, fileUsChanges, type FieldRowCtx, safeManiAtomsFromFileUsCtx, safeByContext } from "../../9-types";
 import { NormalFieldConv } from "../2-conv-field-tems";
 

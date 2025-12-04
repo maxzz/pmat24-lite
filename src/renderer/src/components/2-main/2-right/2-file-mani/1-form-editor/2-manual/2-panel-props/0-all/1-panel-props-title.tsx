@@ -1,4 +1,4 @@
-import { type ChunkKey } from "@/store/manifest";
+import { type ChunkKey } from "@/store/8-manifest";
 import { classNames } from "@/utils";
 import { panelEditorTitleClasses } from "../../8-manual-shared-styles";
 import { chunkIconClasses, RowColumnIcon, rowColumnActionName } from "../../1-panel-actions/3-row-details";

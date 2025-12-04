@@ -1,4 +1,4 @@
-import { type Mani, type Meta, type CatalogFile } from "../manifest";
+import { type Mani, type Meta, type CatalogFile } from "../8-manifest";
 import { type FileContent, type TlwInfo } from "@shared/ipc-types";
 import { type ManiAtoms } from "@/store/2-file-mani-atoms";
 import { type FceAtoms } from "../3-field-catalog-atoms";

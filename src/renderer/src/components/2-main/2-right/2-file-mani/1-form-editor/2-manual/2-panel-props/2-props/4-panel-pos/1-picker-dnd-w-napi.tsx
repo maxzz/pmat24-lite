@@ -3,7 +3,7 @@ import { useSnapshot } from "valtio";
 import { classNames } from "@/utils";
 import { motion } from "motion/react";
 import { IconDndTarget } from "@/ui/icons";
-import { FormIdx } from "@/store/manifest";
+import { FormIdx } from "@/store/8-manifest";
 import { dndActionInitAtom, dndActionAtom, stateNapiPosTracker } from "@/store/7-napi-atoms";
 import { type HighlightHwnd } from "@/store/store-types";
 import { type FileUsCtx, type ManualFieldState } from "@/store/2-file-mani-atoms";

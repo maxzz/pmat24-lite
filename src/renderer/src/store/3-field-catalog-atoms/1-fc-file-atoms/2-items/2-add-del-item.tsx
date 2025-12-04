@@ -1,5 +1,5 @@
 import { atom } from "jotai";
-import { createEmptyFceItem, FieldTyp } from "@/store/manifest";
+import { createEmptyFceItem, FieldTyp } from "@/store/8-manifest";
 import { type FceItem, type FceCtx } from "@/store/3-field-catalog-atoms";
 import { fileUsChanges } from "@/store/2-file-mani-atoms";
 import { doSelectIdxFcAtom } from "./1-do-set-selected";

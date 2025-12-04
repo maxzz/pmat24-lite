@@ -1,5 +1,5 @@
 import { type AtomizeWithType } from "@/utils";
-import { type EditorDataForKbd, type EditorDataForPos, type EditorDataForDly, type EditorDataForFld, type ChunkKey } from "@/store/manifest";
+import { type EditorDataForKbd, type EditorDataForPos, type EditorDataForDly, type EditorDataForFld, type ChunkKey } from "@/store/8-manifest";
 import { type FieldRowCtx } from "../../9-types";
 import { type RowInputState } from "@/ui/local-ui";
 

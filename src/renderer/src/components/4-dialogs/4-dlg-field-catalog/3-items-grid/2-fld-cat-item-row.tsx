@@ -1,8 +1,8 @@
 import { type HTMLAttributes } from "react";
 import { useSnapshot } from "valtio";
 import { classNames } from "@/utils";
-import { FieldTyp } from "@/store/manifest";
-import { fieldIcons } from "@/store/manifest/manifest-field-icons";
+import { FieldTyp } from "@/store/8-manifest";
+import { fieldIcons } from "@/store/8-manifest/manifest-field-icons";
 import { type FceCtx, type FceItem } from "@/store/3-field-catalog-atoms";
 
 type FldCatItemProps = HTMLAttributes<HTMLDivElement> & {

@@ -1,6 +1,6 @@
 import { proxySet } from "valtio/utils";
 import { toWindows } from "@/utils";
-import { uuid } from "@/store/manifest";
+import { uuid } from "@/store/8-manifest";
 import { type FileContent, type MainFileContent } from "@shared/ipc-types";
 import { invokeMainTyped } from "../3-to-main-apis";
 

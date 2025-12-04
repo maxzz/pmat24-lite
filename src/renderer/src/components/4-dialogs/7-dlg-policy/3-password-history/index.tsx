@@ -1,5 +1,5 @@
 import { useAtom } from "jotai";
-import { nameValuesConstrainPsw } from "@/store/manifest";
+import { nameValuesConstrainPsw } from "@/store/8-manifest";
 import { type PolicyDlgTypes } from "../0-all";
 import { SelectTm } from "@/ui/local-ui";
 

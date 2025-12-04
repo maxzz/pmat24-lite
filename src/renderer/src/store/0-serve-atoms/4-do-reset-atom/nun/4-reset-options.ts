@@ -1,4 +1,4 @@
-import { FormIdx } from "@/store/manifest";
+import { FormIdx } from "@/store/8-manifest";
 import { type FormOptionsState, FormOptionsConv } from "@/store/2-file-mani-atoms/3-options";
 import { type FileUsCtx } from "@/store/2-file-mani-atoms/9-types";
 import { type ResetManifestCtx } from "./9-types";

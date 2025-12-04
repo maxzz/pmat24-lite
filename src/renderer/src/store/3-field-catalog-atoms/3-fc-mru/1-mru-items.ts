@@ -1,6 +1,6 @@
 import { type Atom, atom } from "jotai";
 import { type FceCtx, type FceItem } from "../9-types/1-types-fce-atoms";
-import { FieldTyp } from "@/store/manifest";
+import { FieldTyp } from "@/store/8-manifest";
 
 //*********************************************************************************
 // All field catalog items

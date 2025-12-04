@@ -1,6 +1,6 @@
 import { type PrimitiveAtom as PA } from "jotai";
 import { type Atomize } from "@/utils";
-import { type EditorField, type Meta } from "@/store/manifest";
+import { type EditorField, type Meta } from "@/store/8-manifest";
 import { FceItem } from "@/store/3-field-catalog-atoms";
 
 export namespace NormalField {

@@ -1,4 +1,4 @@
-import { type Mani, Poli } from "@/store/manifest";
+import { type Mani, Poli } from "@/store/8-manifest";
 import { charset_str, constrains_str } from "./4-casting";
 //import { POLICY_SEPARATOR } from "./nun/0-defs";
 

@@ -1,4 +1,4 @@
-import { type Mani, Poli, policyToStrings } from "@/store/manifest";
+import { type Mani, Poli, policyToStrings } from "@/store/8-manifest";
 import { type PolicyDlgTypes } from "./9-types";
 
 // Back to manifest

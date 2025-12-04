@@ -1,6 +1,6 @@
 import { useSnapshot } from "valtio";
 import { appSettings } from "@/store/9-ui-state";
-import { FormIdx } from "@/store/manifest";
+import { FormIdx } from "@/store/8-manifest";
 import { type NFormProps } from "@/store/2-file-mani-atoms";
 import { FieldRow } from "./2-field-row";
 import { TableHeader, getFieldsGridClasses } from "./3-fields-header";

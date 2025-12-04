@@ -1,4 +1,4 @@
-import { FieldTyp, SUBMIT, type Meta } from "@/store/manifest";
+import { FieldTyp, SUBMIT, type Meta } from "@/store/8-manifest";
 import { type SubmitFieldTypes } from "./9-types";
 
 export function forAtoms(metaForm: Meta.Form): SubmitFieldTypes.ForAtoms {

@@ -1,6 +1,6 @@
 import { atom } from "jotai";
 import { debounce } from "@/utils";
-import { FormIdx } from "@/store/manifest";
+import { FormIdx } from "@/store/8-manifest";
 import { hasMain, R2MInvokes } from "@/xternal-to-main";
 import { napiLock } from "../9-napi-build-state";
 import { type R2MInvokeParams } from "@shared/ipc-types";

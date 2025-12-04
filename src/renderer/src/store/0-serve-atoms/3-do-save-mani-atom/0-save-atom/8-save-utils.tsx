@@ -2,7 +2,7 @@ import { appSettings } from "@/store/9-ui-state";
 import { getFilenameAndExt } from "@/utils";
 import { notice } from "@/ui/local-ui/7-toaster";
 import { type FileUs } from "@/store/store-types";
-import { type FileMani, type Mani } from "@/store/manifest";
+import { type FileMani, type Mani } from "@/store/8-manifest";
 
 export function notice_SaveError(fname: string, errorText: string): void {
     notice.error(

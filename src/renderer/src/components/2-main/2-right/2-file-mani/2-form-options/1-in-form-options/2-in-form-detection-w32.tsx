@@ -2,7 +2,7 @@ import { useAtom, useAtomValue } from "jotai";
 import { AccordionWithTrigger } from "@/ui/motion-primitives";
 import { InputWithTitle2Rows, SelectTm } from "@/ui/local-ui";
 import { type OFormProps } from "@/store/2-file-mani-atoms";
-import { type OptionTextValue } from "@/store/manifest";
+import { type OptionTextValue } from "@/store/8-manifest";
 
 export function DetectionContent_W32({ oFormProps }: { oFormProps: OFormProps; }) {
     const formIdx = oFormProps.oAllAtoms.options.formIdx;

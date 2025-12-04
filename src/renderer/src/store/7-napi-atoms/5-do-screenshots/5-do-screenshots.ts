@@ -1,7 +1,7 @@
 import { atom } from "jotai";
 import { proxy } from "valtio";
 import { notice } from "@/ui/local-ui/7-toaster";
-import { uuid } from "@/store/manifest";
+import { uuid } from "@/store/8-manifest";
 import { debugSettings } from "@/store/9-ui-state";
 import { hasMain, invokeMainTyped } from "@/xternal-to-main";
 import { type GetTlwInfoResult, type TlwInfo, type GetTlwScreenshotsParams, type TlwScreenshot } from "@shared/ipc-types";

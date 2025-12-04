@@ -2,7 +2,7 @@ import { subscribe } from "valtio";
 import { proxySet } from "valtio/utils";
 import { type ChangesSet } from "@shared/ipc-types";
 import { type FileUs } from "@/store/store-types";
-import { type FormIdx } from "@/store/manifest";
+import { type FormIdx } from "@/store/8-manifest";
 import { hasMain, R2MCalls } from "@/xternal-to-main";
 
 // All files changes. It is important to show that some files have changes due to tree view scrolling.

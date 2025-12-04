@@ -1,6 +1,6 @@
 import { type FileUsAtom } from "@/store/store-types";
 import { getAllFormsFields_byManiAtoms, type FieldRowCtx, type ManiAtoms } from "@/store/2-file-mani-atoms/9-types";
-import { type Mani } from "@/store/manifest";
+import { type Mani } from "@/store/8-manifest";
 
 export function printFileUsAtomLinks(atm: PA<FileUsAtom | undefined>, { get }: GetOnly, label: string = 'rightPanelAtomAtom') {
     const thisAtom = get(atm);

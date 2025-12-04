@@ -1,6 +1,6 @@
 import { atom } from "jotai";
 import { type Atomize, type OnValueChangeAny, atomWithCallback } from "@/utils";
-import { EditorField } from "@/store/manifest";
+import { EditorField } from "@/store/8-manifest";
 
 export function createAtoms(initialState: EditorField.ForAtoms, onChange: OnValueChangeAny): Atomize<EditorField.ForAtoms> {
     const { useIt, label, type, dbname, valueLife, policies, rfield, rfieldUuid, rfieldForm, memOnly } = initialState;

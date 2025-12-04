@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useSetAtom } from "jotai";
 import { Button } from "@/ui/shadcn";
-import { FieldTyp } from "@/store/manifest";
+import { FieldTyp } from "@/store/8-manifest";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/ui/shadcn/dropdown-menu";
 import { IconAdd } from "@/ui/icons";
 import { type FceCtx, doAddItemAtom } from "@/store/3-field-catalog-atoms";

@@ -1,4 +1,4 @@
-import { type EditorField } from "@/store/manifest";
+import { type EditorField } from "@/store/8-manifest";
 import { type FileUsCtx, type NFormCnt } from "@/store/2-file-mani-atoms/9-types";
 import { type ResetManifestCtx } from "./9-types";
 import { type SubmitFieldTypes, NormalFieldConv, SubmitConv } from "@/store/2-file-mani-atoms/1-normal-fields";

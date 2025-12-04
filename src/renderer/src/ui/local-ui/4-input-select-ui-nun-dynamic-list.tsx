@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { classNames } from "@/utils";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/ui/shadcn/select";
-import { type OptionTextValue } from "@/store/manifest";
+import { type OptionTextValue } from "@/store/8-manifest";
 
 type StringValueChangeProps = {
     value: string;

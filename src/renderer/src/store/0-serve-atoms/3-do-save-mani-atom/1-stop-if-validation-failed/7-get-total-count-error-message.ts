@@ -1,4 +1,4 @@
-import { FormIdx, FieldTyp } from "@/store/manifest";
+import { FormIdx, FieldTyp } from "@/store/8-manifest";
 import { type VerifyError, type ManiTabValue, type FieldRowCtx } from "@/store/2-file-mani-atoms";
 
 type TotalCount = {

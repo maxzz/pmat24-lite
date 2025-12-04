@@ -1,4 +1,4 @@
-import { Poli } from "@/store/manifest";
+import { Poli } from "@/store/8-manifest";
 import { genUtils } from "../9-gen-utils";
 
 // class generate_t

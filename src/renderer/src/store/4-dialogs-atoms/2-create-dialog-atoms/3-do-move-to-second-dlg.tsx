@@ -1,6 +1,6 @@
 import { atom } from "jotai";
 import { delay, doAddNextToastIdAtom } from "@/utils";
-import { createGuid } from "@/store/manifest";
+import { createGuid } from "@/store/8-manifest";
 import { notice } from "@/ui/local-ui/7-toaster";
 import { R2MCalls } from "@/xternal-to-main";
 import { addToTotalManis, appSettings } from "@/store/9-ui-state";

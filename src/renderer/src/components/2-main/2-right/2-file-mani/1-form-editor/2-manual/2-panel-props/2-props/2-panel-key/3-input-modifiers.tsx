@@ -1,7 +1,7 @@
 import { HTMLAttributes, ReactNode } from "react";
 import { useAtom } from "jotai";
 import { classNames } from "@/utils";
-import { modifierKeys } from "@/store/manifest";
+import { modifierKeys } from "@/store/8-manifest";
 import { SelectTm, type RowInputStateAtom } from "@/ui/local-ui";
 import { type ManualFieldState } from "@/store/2-file-mani-atoms";
 

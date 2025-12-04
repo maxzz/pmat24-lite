@@ -2,7 +2,7 @@ import { type PrimitiveAtom } from "jotai";
 import { type OnValueChangeAny } from "@/utils";
 import { type OnChangeValueWithUpdateName } from "@/ui/local-ui";
 import { type ManualFieldState } from "./2-manual-field-state";
-import { type EditorDataForOne } from "@/store/manifest";
+import { type EditorDataForOne } from "@/store/8-manifest";
 
 export namespace ManualEditorTypes {
     

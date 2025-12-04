@@ -1,6 +1,6 @@
 import { atom } from "jotai";
 import { type PolicyDlgTypes } from "../0-conv";
-import { verifyPassword } from "@/store/manifest/3-policy-io";
+import { verifyPassword } from "@/store/8-manifest/3-policy-io";
 
 export const doVerifyPswAtom = atom(
     null,

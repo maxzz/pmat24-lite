@@ -1,4 +1,4 @@
-import { FormIdx } from "@/store/manifest";
+import { FormIdx } from "@/store/8-manifest";
 import { appSettings } from "@/store/9-ui-state";
 import { type ManiTabValue } from "@/store/2-file-mani-atoms/9-types";
 

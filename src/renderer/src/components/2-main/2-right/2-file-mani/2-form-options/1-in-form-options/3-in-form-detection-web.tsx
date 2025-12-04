@@ -3,7 +3,7 @@ import { useAtomValue } from "jotai";
 import { classNames } from "@/utils";
 import { AnimatePresence, motion } from "motion/react";
 import { notice } from "@/ui/local-ui/7-toaster";
-import { Matching } from "@/store/manifest";
+import { Matching } from "@/store/8-manifest";
 import { SymbolInfo, SymbolLockClosed, SymbolLockOpen } from "@/ui/icons";
 import { type OFormProps } from "@/store/2-file-mani-atoms";
 import { AccordionWithTrigger } from "@/ui/motion-primitives";

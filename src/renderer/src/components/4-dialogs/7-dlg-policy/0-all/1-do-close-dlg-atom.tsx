@@ -1,5 +1,5 @@
 import { atom } from "jotai";
-import { Mani } from "@/store/manifest";
+import { Mani } from "@/store/8-manifest";
 import { PolicyDlgConv, type PolicyDlgTypes } from "./0-conv";
 import { notice } from "@/ui/local-ui/7-toaster";
 import { doUpdateExplanationAtom } from "./1-util-atoms";

@@ -1,6 +1,6 @@
 import { classNames } from "@/utils";
 import { IconAdd } from "@/ui/icons";
-import { type ChunkKey } from "@/store/manifest";
+import { type ChunkKey } from "@/store/8-manifest";
 import { type CreateNewManualAction } from "../0-all/9-types";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuPortal, DropdownMenuTrigger } from "@/ui/shadcn/dropdown-menu";
 import { focusClasses, menuItemClasses } from "../../8-manual-shared-styles";

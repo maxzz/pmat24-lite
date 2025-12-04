@@ -1,5 +1,5 @@
 import { atom } from "jotai";
-import { FormIdx } from "@/store/manifest";
+import { FormIdx } from "@/store/8-manifest";
 import { type RowInputStateAtom } from "@/ui/local-ui";
 import { type ManiAtoms } from "../../9-types";
 import { type FileUsAtom } from "@/store/store-types";

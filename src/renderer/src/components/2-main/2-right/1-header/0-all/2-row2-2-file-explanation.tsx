@@ -1,5 +1,5 @@
 import { FileUs } from "@/store/store-types";
-import { isAnyManual } from "@/store/manifest";
+import { isAnyManual } from "@/store/8-manifest";
 import { SymbolOpenLink } from "@/ui/icons";
 
 export function Row2_Explanation({ fileUs }: { fileUs: FileUs; }) {

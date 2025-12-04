@@ -1,6 +1,6 @@
 import { type ComponentPropsWithoutRef } from "react";
 import { useAtomValue } from "jotai";
-import { type FormIdx } from "@/store/manifest";
+import { type FormIdx } from "@/store/8-manifest";
 import { type FileUs } from "@/store/store-types";
 import { type ManiAtoms, type MFormCtx, type MFormProps, type NFormCtx, type NFormProps } from "@/store/2-file-mani-atoms";
 import { TabContent_NormalForm } from "./2-tab-content-normal";

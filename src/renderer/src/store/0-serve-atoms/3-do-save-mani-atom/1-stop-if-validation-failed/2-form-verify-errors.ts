@@ -1,4 +1,4 @@
-import { type FormIdx } from "@/store/manifest";
+import { type FormIdx } from "@/store/8-manifest";
 import { type ManiAtoms, type VerifyError } from "@/store/2-file-mani-atoms/9-types";
 import { getVerifyErrors_FromManualForm } from "./3-form-manual-verify-errors";
 import { getTotalCountError } from "./7-get-total-count-error-message";

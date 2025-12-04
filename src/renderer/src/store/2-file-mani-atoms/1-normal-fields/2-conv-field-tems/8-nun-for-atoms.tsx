@@ -1,4 +1,4 @@
-// import { type NormalField, type Mani, type Meta, TransformValue, fieldTyp4Str } from "@/store/manifest";
+// import { type NormalField, type Mani, type Meta, TransformValue, fieldTyp4Str } from "@/store/8-manifest";
 
 // export function forAtoms(maniField: Mani.Field): EditorField.ForAtoms {
 //     const { useit, displayname } = maniField;

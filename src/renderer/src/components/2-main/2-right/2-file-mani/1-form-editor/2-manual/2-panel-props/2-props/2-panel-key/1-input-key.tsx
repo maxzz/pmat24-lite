@@ -1,7 +1,7 @@
 import { useAtom } from "jotai";
 import { SelectTm, type RowInputStateAtom } from "@/ui/local-ui";
 import { InputLabel } from "../8-props-ui";
-import { actionKeys } from "@/store/manifest";
+import { actionKeys } from "@/store/8-manifest";
 
 export function InputKey({ valueAtom, triggerClasses }: { valueAtom: RowInputStateAtom; triggerClasses?: string; }) {
     const [value, setValue] = useAtom(valueAtom);

@@ -1,4 +1,4 @@
-import { FormIdx, Matching } from "@/store/manifest";
+import { FormIdx, Matching } from "@/store/8-manifest";
 import { type ManiAtoms, type VerifyError } from "@/store/2-file-mani-atoms/9-types";
 import { type RowInputStateAtoms, validateRowInputStateAtoms } from "@/ui/local-ui";
 import { type FormOptionsState } from "@/store/2-file-mani-atoms/3-options/2-conv-options/9-types";

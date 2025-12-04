@@ -1,6 +1,6 @@
 import { useAtomValue } from "jotai";
 import { classNames } from "@/utils";
-import { FieldTyp } from "@/store/manifest";
+import { FieldTyp } from "@/store/8-manifest";
 import { type MFormProps, type ManualFieldState, useIsLinkedToLogin } from "@/store/2-file-mani-atoms";
 import { detailKbdClasses, hideBreakpointClasses } from "./8-classes";
 

@@ -1,7 +1,7 @@
 import { type AtomizeWithType } from "@/utils";
 import { type RowInputState } from "@/ui/local-ui";
-import { type Matching, type FormIdx } from "@/store/manifest";
-import { IconLocation } from "@/store/manifest/4-icon-location/8-icon-location-io";
+import { type Matching, type FormIdx } from "@/store/8-manifest";
+import { IconLocation } from "@/store/8-manifest/4-icon-location/8-icon-location-io";
 
 export namespace FormOptionsState {
 

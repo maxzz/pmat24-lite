@@ -1,6 +1,6 @@
 import { type FileUs } from "@/store/store-types";
 import { type TreenIconComponent } from "@/ui/shadcn/tree";
-import { isAnyIe6, isFormManual, isFormWeb, isFormWhy } from "@/store/manifest";
+import { isAnyIe6, isFormManual, isFormWeb, isFormWhy } from "@/store/8-manifest";
 import { type IconEnumWithWarning, getFormIconEnum } from "./7-file-us-to-app-type";
 import { FormIconEnum, formTypeToIcon } from "./8-form-type-to-icon";
 

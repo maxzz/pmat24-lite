@@ -1,7 +1,7 @@
 import { type ComponentPropsWithoutRef } from "react";
 import { useSetAtom } from "jotai";
 import { classNames } from "@/utils";
-import { FormIdx } from "@/store/manifest";
+import { FormIdx } from "@/store/8-manifest";
 import { Button } from "@/ui";
 import { open_SawMonitorForCpassAtom } from "@/store/4-dialogs-atoms";
 

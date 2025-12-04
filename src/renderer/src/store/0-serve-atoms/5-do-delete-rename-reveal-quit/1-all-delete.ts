@@ -1,6 +1,6 @@
 import { atom } from "jotai";
 import { notice } from "@/ui/local-ui/7-toaster";
-import { FormIdx, rebuildMetaFormsWithoutCpassForm } from "@/store/manifest";
+import { FormIdx, rebuildMetaFormsWithoutCpassForm } from "@/store/8-manifest";
 import { type FileUsAtom } from "@/store/store-types";
 import { removeFromTotalManis } from "@/store/9-ui-state";
 import { fileUsChanges, type ManiAtoms } from "@/store/2-file-mani-atoms/9-types";

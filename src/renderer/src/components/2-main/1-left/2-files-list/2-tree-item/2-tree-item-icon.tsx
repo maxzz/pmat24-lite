@@ -2,7 +2,7 @@ import { useAtomValue } from "jotai";
 import { useSnapshot } from "valtio";
 import { type FileUs } from "@/store/store-types";
 import { type TreenIconComponent } from "@ui/shadcn/tree";
-import { FormIdx, isAnyWhy } from "@/store/manifest";
+import { FormIdx, isAnyWhy } from "@/store/8-manifest";
 import { TreeItemTooltip } from "./3-tree-item-tooltip-wrap";
 import { TooltipBody } from "./4-tree-item-tooltip-body";
 import { SymbolFire } from "@/ui/icons";

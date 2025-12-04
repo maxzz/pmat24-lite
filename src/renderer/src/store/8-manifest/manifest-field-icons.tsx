@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { FieldTyp, Mani } from "@/store/manifest";
+import { FieldTyp, Mani } from "@/store/8-manifest";
 import { SymbolFieldBtn, SymbolFieldTxt, SymbolFieldChk, SymbolFieldLst, SymbolFieldPsw, SymbolFieldEdt } from "@ui/icons";
 import { EngineControl } from "@shared/ipc-types";
 

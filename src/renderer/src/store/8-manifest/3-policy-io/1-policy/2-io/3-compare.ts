@@ -1,4 +1,4 @@
-import { type Poli } from "@/store/manifest";
+import { type Poli } from "@/store/8-manifest";
 
 export function theSame(a: Poli.Policy, b: Poli.Policy): boolean {
     const rv =

@@ -1,4 +1,4 @@
-import { FormIdx } from "@/store/manifest";
+import { FormIdx } from "@/store/8-manifest";
 import { type OFormProps } from "@/store/2-file-mani-atoms";
 import { ChildrenWithLabel2Cols, InputWithTitle2Cols } from "@/ui/local-ui";
 import { ExtPolicySelect } from "../9-controls";

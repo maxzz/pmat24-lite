@@ -1,4 +1,4 @@
-import { type Mani, type FileMani, type CatalogFile, type ConvertToXmlStringResult, convertToXmlString, createGuid, filterOneLevelEmptyValues, showError, toManiFileFormat } from "@/store/manifest";
+import { type Mani, type FileMani, type CatalogFile, type ConvertToXmlStringResult, convertToXmlString, createGuid, filterOneLevelEmptyValues, showError, toManiFileFormat } from "@/store/8-manifest";
 import { type FileUs, type FileUsAtom  } from "@/store/store-types";
 import { type FceAtoms } from "@/store/3-field-catalog-atoms";
 import { type ManiAtoms } from "@/store/2-file-mani-atoms/9-types";

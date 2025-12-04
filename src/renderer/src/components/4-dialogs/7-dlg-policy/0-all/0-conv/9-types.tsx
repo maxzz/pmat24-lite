@@ -1,7 +1,7 @@
 import { type Atomize } from "@/utils";
-import { type Mani } from "@/store/manifest";
+import { type Mani } from "@/store/8-manifest";
 import { type RowInputState } from "@/ui/local-ui";
-import { type PolicyParser } from "@/store/manifest/3-policy-io";
+import { type PolicyParser } from "@/store/8-manifest/3-policy-io";
 
 export namespace PolicyDlgTypes {
 

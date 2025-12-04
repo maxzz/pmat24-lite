@@ -1,4 +1,4 @@
-import { FieldPath, splitPool, uuid } from "@/store/manifest";
+import { FieldPath, splitPool, uuid } from "@/store/8-manifest";
 import { type EngineControl, type WindowControlsCollectFinalAfterParse } from "@shared/ipc-types";
 import { type EngineControlMeta, type EngineControlWithMeta, type EngineControlsWithMeta } from "./9-types";
 import { getControlTaretRect, getRoleAndStates } from "./8-utils-conv";

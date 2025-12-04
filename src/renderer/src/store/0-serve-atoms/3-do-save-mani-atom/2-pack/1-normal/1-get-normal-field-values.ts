@@ -1,4 +1,4 @@
-import { type EditorField, type Meta } from "@/store/manifest";
+import { type EditorField, type Meta } from "@/store/8-manifest";
 import { type PackManifestDataParams } from "../9-types";
 import { type NFormCnt, type FieldRowCtx, NormalFieldConv } from "@/store/2-file-mani-atoms";
 

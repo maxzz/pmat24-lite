@@ -1,7 +1,7 @@
 import { type ComponentPropsWithoutRef, useMemo } from "react";
 import { type PrimitiveAtom, useAtom, useAtomValue, useSetAtom } from "jotai";
 import { classNames, turnOffAutoComplete } from "@/utils";
-import { type ValueLife, ValueAs } from "@/store/manifest";
+import { type ValueLife, ValueAs } from "@/store/8-manifest";
 import { getValueUiState, mapIndexToValueLife } from "./3-select-uitils";
 import { DropdownValue } from "./2-dropdown-value";
 import { inputRingClasses } from "@/ui/local-ui";

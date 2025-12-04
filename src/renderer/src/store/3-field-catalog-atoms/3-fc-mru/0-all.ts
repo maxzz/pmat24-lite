@@ -1,5 +1,5 @@
 import { atom } from "jotai";
-import { FieldTyp } from "@/store/manifest";
+import { FieldTyp } from "@/store/8-manifest";
 import { type FceItem } from "../9-types";
 import { getRootFceAtoms, hasRootFceAtoms } from "../1-fc-file-atoms";
 

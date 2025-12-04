@@ -1,4 +1,4 @@
-import { Poli } from "@/store/manifest";
+import { Poli } from "@/store/8-manifest";
 import { stringsPolicy, stringsPolicy3 } from "./9-strings";
 import { genUtils } from "../9-gen-utils";
 

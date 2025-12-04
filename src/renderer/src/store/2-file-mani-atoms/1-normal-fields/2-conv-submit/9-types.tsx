@@ -1,5 +1,5 @@
 import { type Atomize } from "@/utils";
-import { type Meta } from "@/store/manifest";
+import { type Meta } from "@/store/8-manifest";
 
 export namespace SubmitFieldTypes {
 

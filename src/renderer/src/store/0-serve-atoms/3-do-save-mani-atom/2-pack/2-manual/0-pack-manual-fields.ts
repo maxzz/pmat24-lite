@@ -1,4 +1,4 @@
-import { stringifyFromEditor, type FormIdx, type Mani, type EditorDataForOneAndSn, type EditorField, fieldTyp4Str, mergeSn } from "@/store/manifest";
+import { stringifyFromEditor, type FormIdx, type Mani, type EditorDataForOneAndSn, type EditorField, fieldTyp4Str, mergeSn } from "@/store/8-manifest";
 import { type PackManifestDataParams } from "../9-types";
 import { ManualFieldConv, NormalFieldConv, type MFormCnt } from "@/store/2-file-mani-atoms";
 import { mergeToManiField } from "../1-normal";

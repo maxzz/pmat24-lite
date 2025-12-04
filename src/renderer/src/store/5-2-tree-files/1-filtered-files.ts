@@ -1,7 +1,7 @@
 import { atom } from "jotai";
 import { type FileUsAtom } from "@/store/store-types";
 import { filesAtom } from "@/store/5-1-open-files";
-import { isAnyMatchedCap, isAnyMatchedCls, isAnyWeb, isAnyWhy, isAnyEmpty, isAnyManual } from "@/store/manifest";
+import { isAnyMatchedCap, isAnyMatchedCls, isAnyWeb, isAnyWhy, isAnyEmpty, isAnyManual } from "@/store/8-manifest";
 import { optionsAppUiProxyAtom, optionsFilesProxyAtom } from "@/store/9-ui-state";
 import { createRegexByFilter, useFileUsByFilter } from "@/store/store-utils";
 import { searchFilterData } from "@/store/9-ui-state/04-filters-search";

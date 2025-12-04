@@ -1,4 +1,4 @@
-import { FormIdx } from "@/store/manifest";
+import { FormIdx } from "@/store/8-manifest";
 import { type FileUsStats } from "@/store/store-types";
 
 // Miscellaneous

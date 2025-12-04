@@ -1,4 +1,4 @@
-import { Poli } from "@/store/manifest";
+import { Poli } from "@/store/8-manifest";
 
 export function str_charset(v: string): Poli.ConstrainSet {
     let rv: Poli.ConstrainSet;

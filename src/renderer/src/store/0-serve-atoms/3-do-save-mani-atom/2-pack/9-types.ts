@@ -1,4 +1,4 @@
-import { type Mani } from "@/store/manifest";
+import { type Mani } from "@/store/8-manifest";
 import { type FileUs } from "@/store/store-types";
 import { type ManiAtoms } from "@/store/2-file-mani-atoms/9-types";
 

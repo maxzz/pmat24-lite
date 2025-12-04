@@ -1,5 +1,5 @@
 import { useAtom, useAtomValue } from "jotai";
-import { type FormIdx, type Meta } from "@/store/manifest";
+import { type FormIdx, type Meta } from "@/store/8-manifest";
 import { type NFormProps, type NFormCnt } from "@/store/2-file-mani-atoms";
 import { RadioGroup } from "./3-nun-radio-group-for";
 

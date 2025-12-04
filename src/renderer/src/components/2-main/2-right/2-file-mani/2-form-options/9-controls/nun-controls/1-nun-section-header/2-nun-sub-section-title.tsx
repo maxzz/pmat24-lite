@@ -1,6 +1,6 @@
 import { useSnapshot } from "valtio";
 import { classNames } from "@/utils";
-import { FormIdx } from "@/store/manifest";
+import { FormIdx } from "@/store/8-manifest";
 import { SymbolChevronDown } from "@/ui/icons";
 import { Button } from "@/ui";
 import { appSettings, openedName } from "@/store/9-ui-state";

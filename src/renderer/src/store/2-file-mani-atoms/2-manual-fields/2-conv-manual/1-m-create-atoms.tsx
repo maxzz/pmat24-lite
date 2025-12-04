@@ -1,7 +1,7 @@
 import { atom } from "jotai";
 import { type Atomize, atomWithCallback } from "@/utils";
 import { type ManualFieldState } from "../9-types";
-import { type EditorDataForOne, type EditorField, convFieldForEditor, uuid } from "@/store/manifest";
+import { type EditorDataForOne, type EditorField, convFieldForEditor, uuid } from "@/store/8-manifest";
 import { type FieldRowCtx } from "../../9-types";
 import { NormalFieldConv } from "../../1-normal-fields";
 import { createAtomForCheck, createAtomForInput, createDataForStateAtom, type OnChangeValueWithUpdateName, validateNumber, validateNumberMinMax } from "@/ui/local-ui/1-input-validate";

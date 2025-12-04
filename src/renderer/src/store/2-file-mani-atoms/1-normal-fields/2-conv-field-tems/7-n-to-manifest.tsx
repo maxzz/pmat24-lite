@@ -1,4 +1,4 @@
-import { type EditorField, TransformValue, fieldTyp2Obj } from "@/store/manifest";
+import { type EditorField, TransformValue, fieldTyp2Obj } from "@/store/8-manifest";
 
 // Back to manifest
 

@@ -1,4 +1,4 @@
-import { FieldTyp, type Mani, type FileMani, type EditorField } from "@/store/manifest";
+import { FieldTyp, type Mani, type FileMani, type EditorField } from "@/store/8-manifest";
 
 type FieldForFileManiProps = {
     from: EditorField.Members;  // from editor

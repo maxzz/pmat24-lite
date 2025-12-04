@@ -2,8 +2,8 @@ import { atom } from "jotai";
 import { atomWithCallback } from "@/utils";
 import { type FormOptionsState } from "./9-types";
 import { type OnChangeValueWithUpdateName, createAtomForCheck, createAtomForInput, resetRowInputState, validateManifestName, validateNonEmpty, validateNonEmptyWithMessage, validateNumber } from "@/ui/local-ui";
-import { Matching } from "@/store/manifest";
-import { defaultIconLocation, type IconLocation, iconLocationFromStr, iconLocationToStr, parseIconLocation } from "@/store/manifest/4-icon-location/8-icon-location-io";
+import { Matching } from "@/store/8-manifest";
+import { defaultIconLocation, type IconLocation, iconLocationFromStr, iconLocationToStr, parseIconLocation } from "@/store/8-manifest/4-icon-location/8-icon-location-io";
 
 export function createAtoms(initialState: FormOptionsState.ForAtoms, onChange: OnChangeValueWithUpdateName): FormOptionsState.AllAtoms {
     const { p1General, p2Detect, p3Auth, p4QL, p5Icon } = initialState;

@@ -1,7 +1,7 @@
 import { useAtomValue } from "jotai";
 import { useSnapshot } from "valtio";
 import { classNames } from "@/utils";
-import { FieldTyp, FormIdx } from "@/store/manifest";
+import { FieldTyp, FormIdx } from "@/store/8-manifest";
 import { appSettings } from "@/store/9-ui-state";
 import { type FileUsCtx, type ManualFieldState } from "@/store/2-file-mani-atoms";
 import { type FieldRowCtx, useIsLinkedToLogin } from "@/store/2-file-mani-atoms";

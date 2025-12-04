@@ -1,4 +1,4 @@
-import { SUBMIT } from "@/store/manifest";
+import { SUBMIT } from "@/store/8-manifest";
 import { type OldNewField, type RecordOldNewFieldByUuid } from "./9-types";
 
 export function printFieldsAsTable(label: string, fields: OldNewField[]) {

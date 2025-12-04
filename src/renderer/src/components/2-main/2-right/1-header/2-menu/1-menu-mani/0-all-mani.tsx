@@ -1,5 +1,5 @@
 import { useSnapshot } from "valtio";
-import { FormIdx } from "@/store/manifest";
+import { FormIdx } from "@/store/8-manifest";
 import { appSettings } from "@/store/9-ui-state";
 import { maniAtiveTabToFormIdx } from "@/store/5-3-right-panel";
 import { type FileUsCtx, type ManiAtoms, isManualForm, isNormalForm } from "@/store/2-file-mani-atoms";

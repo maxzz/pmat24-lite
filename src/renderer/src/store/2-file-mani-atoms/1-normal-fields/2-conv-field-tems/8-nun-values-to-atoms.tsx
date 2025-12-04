@@ -1,4 +1,4 @@
-import { EditorField } from "@/store/manifest";
+import { EditorField } from "@/store/8-manifest";
 import { Atomize } from "@/utils";
 
 export function valuesToAtoms(values: EditorField.ForAtoms, atoms: Atomize<EditorField.ForAtoms>, { set }: SetOnly): void {

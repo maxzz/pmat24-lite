@@ -1,6 +1,6 @@
 import { atom } from "jotai";
 import { type PolicyDlgTypes } from "../0-conv";
-import { generatePswByRules } from "@/store/manifest/3-policy-io";
+import { generatePswByRules } from "@/store/8-manifest/3-policy-io";
 import { doVerifyPswAtom } from "./2-do-verify-psw";
 
 export const doGeneratePswAtom = atom(

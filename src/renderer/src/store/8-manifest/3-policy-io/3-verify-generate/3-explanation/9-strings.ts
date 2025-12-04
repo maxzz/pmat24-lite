@@ -1,4 +1,4 @@
-import { Poli, namesConstrainPsw } from "@/store/manifest";
+import { Poli, namesConstrainPsw } from "@/store/8-manifest";
 
 // export namespace PolicyStrings {
 //     export const IDS_PSW_POLICY_LENGTH     /**/ = "   Password length must be between %d and %d characters.\n";

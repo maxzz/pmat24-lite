@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { atom, useAtomValue, useSetAtom } from "jotai";
 import { SymbolWarning } from "@/ui/icons";
-import { Matching } from "@/store/manifest";
+import { Matching } from "@/store/8-manifest";
 import { type RowInputStateAtom } from "@/ui/local-ui/1-input-validate/9-types";
 import { type FormOptionsState } from "@/store/2-file-mani-atoms/3-options";
 

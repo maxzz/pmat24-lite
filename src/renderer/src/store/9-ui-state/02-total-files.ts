@@ -1,6 +1,6 @@
 import { proxy } from "valtio";
 import { type FileUs } from "@/store/store-types";
-import { isAnyEmpty, isAnyManual } from "@/store/manifest";
+import { isAnyEmpty, isAnyManual } from "@/store/8-manifest";
 
 export type TotalManis = {
     manual: number;         // manual mode manifests

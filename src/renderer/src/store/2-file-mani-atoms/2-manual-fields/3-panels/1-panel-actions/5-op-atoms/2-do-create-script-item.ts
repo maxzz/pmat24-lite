@@ -1,6 +1,6 @@
 import { atom } from "jotai";
 import { clamp } from "@/utils";
-import { type EditorDataForOne, type ChunkKey, cpassEditorData, createScriptItemByType, FormIdx, loginEditorData } from "@/store/manifest";
+import { type EditorDataForOne, type ChunkKey, cpassEditorData, createScriptItemByType, FormIdx, loginEditorData } from "@/store/8-manifest";
 import { type MFormProps, type MFormCnt, type MFormCtx } from "@/store/2-file-mani-atoms/9-types";
 import { ManualFieldConv } from "../../../2-conv-manual";
 import { deselectCurrent, doSelectIdxAtom } from "./1-select-atoms";

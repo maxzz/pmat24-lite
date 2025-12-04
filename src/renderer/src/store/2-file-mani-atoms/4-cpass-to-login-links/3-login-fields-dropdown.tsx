@@ -1,5 +1,5 @@
 import { atom } from "jotai";
-import { type OptionTextValue, FieldTyp, FormIdx } from "@/store/manifest";
+import { type OptionTextValue, FieldTyp, FormIdx } from "@/store/8-manifest";
 import { type FieldRowCtx, type FileUsCtx, getAllFormsFields_byFileUsCtx } from "../9-types";
 
 // Build dropdown login form fields for cpass form

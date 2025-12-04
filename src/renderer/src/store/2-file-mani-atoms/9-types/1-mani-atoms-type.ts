@@ -1,6 +1,6 @@
 import { type Atom } from "jotai";
 import { type FileUs, type FileUsAtom } from "@/store/store-types";
-import { type FormIdx } from "@/store/manifest";
+import { type FormIdx } from "@/store/8-manifest";
 import { type SubmitFieldTypes, type NormalField } from "../1-normal-fields";
 import { type ManualFieldState, type ManualEditorTypes } from "../2-manual-fields";
 import { type OptionsState } from "../3-options";

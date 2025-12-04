@@ -1,7 +1,7 @@
 import { atom } from "jotai";
 import { type PolicyDlgTypes } from "../0-conv";
-import { parserErrorToString } from "@/store/manifest/3-policy-io";
-import { checkRulesBoundsForGenerate, getCustomRuleExplanation } from "@/store/manifest/3-policy-io";
+import { parserErrorToString } from "@/store/8-manifest/3-policy-io";
+import { checkRulesBoundsForGenerate, getCustomRuleExplanation } from "@/store/8-manifest/3-policy-io";
 import { doVerifyPswAtom } from "./2-do-verify-psw";
 import { checkBoundsRange, checkMinMax } from "./8-utility-check-fns";
 

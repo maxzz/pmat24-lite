@@ -1,5 +1,5 @@
 import { proxySet } from "valtio/utils";
-import { uuid } from "@/store/manifest";
+import { uuid } from "@/store/8-manifest";
 import { isAllowedExt } from "@/utils";
 import { textFileReaderPromisify } from "@/store/store-utils";
 import { type FileContent, pmAllowedToOpenExt } from "@shared/ipc-types";

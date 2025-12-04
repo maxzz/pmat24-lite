@@ -1,5 +1,5 @@
 import { atom } from "jotai";
-import { FormIdx } from "@/store/manifest";
+import { FormIdx } from "@/store/8-manifest";
 import { hasMain } from "@/xternal-to-main";
 import { type FileUs } from "@/store/store-types";
 import { type TlwInfo } from "@shared/ipc-types";
