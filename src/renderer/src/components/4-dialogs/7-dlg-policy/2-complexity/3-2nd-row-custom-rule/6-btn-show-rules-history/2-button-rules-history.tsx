@@ -12,7 +12,7 @@ export function ButtonRulesHistory({ dlgUiCtx }: { dlgUiCtx: PolicyDlgTypes.Poli
     const updateExplanation = useSetAtom(doUpdateExplanationAtom);
     const setCustom = useSetAtom(dlgUiCtx.customAtom);
 
-    const handleSelect = (rule: string) => {
+    const handleHistoryItemSelect = (rule: string) => {
         setCustom(rule);
         updateExplanation({ dlgUiCtx, custom: rule });
     };
@@ -25,29 +25,35 @@ export function ButtonRulesHistory({ dlgUiCtx }: { dlgUiCtx: PolicyDlgTypes.Poli
                 </Button>
             </DropdownMenuTrigger>
 
-            <DropdownMenuContent align="end" className="w-64 p-0">
-                <ScrollArea className="max-h-[300px] p-1">
+            <DropdownMenuContent className="p-0! min-w-auto!" align="end">
+                <ScrollArea className="py-1 max-h-[300px]">
                     {(!rulesHistory || rulesHistory.length === 0) && (
-                        <div className="p-2 text-xs text-muted-foreground text-center">No history</div>
+                        <div className="px-2 py-1 text-xs text-center text-muted-foreground">
+                            No history
+                        </div>
                     )}
-                    {rulesHistory?.map((rule, idx) => (
-                        <DropdownMenuItem
-                            key={`${idx}-${rule}`}
-                            onClick={() => handleSelect(rule)}
-                            className="text-xs font-mono flex items-center justify-between group cursor-pointer"
-                        >
-                            <span className="truncate mr-2">{rule}</span>
-                            <div
-                                role="button"
-                                tabIndex={0}
-                                className="opacity-0 group-hover:opacity-100 hover:bg-destructive/10 p-0.5 rounded-sm transition-all"
-                                onClick={(e) => removeRuleFromHistory(e, rule)}
-                                title="Remove from history"
+                    {rulesHistory?.map(
+                        (rule, idx) => (
+                            <DropdownMenuItem
+                                className="group text-xs font-mono flex items-center justify-between cursor-pointer"
+                                onClick={() => handleHistoryItemSelect(rule)}
+                                key={`${idx}-${rule}`}
                             >
-                                <IconRadix_Cross2 className="size-3 text-muted-foreground hover:text-destructive" />
-                            </div>
-                        </DropdownMenuItem>
-                    ))}
+                                <span className="mr-2 truncate">
+                                    {rule}
+                                </span>
+                                <div
+                                    className="p-0.5 opacity-0 group-hover:opacity-100 hover:text-red-500"
+                                    onClick={(e) => removeRuleFromHistory(e, rule)}
+                                    title="Remove from history"
+                                    role="button"
+                                    tabIndex={0}
+                                >
+                                    <IconRadix_Cross2 className="size-3" />
+                                </div>
+                            </DropdownMenuItem>
+                        )
+                    )}
                 </ScrollArea>
             </DropdownMenuContent>
         </DropdownMenu>
@@ -80,6 +86,7 @@ export function addRuleToHistory(rule: string) {
 
 function removeRuleFromHistory(e: React.MouseEvent, rule: string) {
     e.stopPropagation();
+
     const history = appSettings.appUi.rulesHistory;
     const idx = history.indexOf(rule);
     if (idx > -1) {
@@ -87,6 +94,6 @@ function removeRuleFromHistory(e: React.MouseEvent, rule: string) {
     }
 }
 
-//TODO: check that rule is valid before closing dialog
-//TODO: adjust popup size and position.
-//TODO: check that rule is different from the rule at the dialog start.
+//TODO: check that rule is valid before closing dialog - done
+//TODO: adjust popup size and position - done
+//TODO: check that rule is different from the rule at the dialog start - done
