@@ -1,4 +1,5 @@
 import { type PrimitiveAtom, useAtom, useAtomValue } from "jotai";
+import { AnimatePresence, motion } from "motion/react";
 import { Button, Popover, PopoverArrorWoBottom, PopoverContent, PopoverPortal, PopoverTrigger, ScrollArea } from "@/ui";
 import { IconCopy } from "@/ui/icons";
 import { getGenNPasswordsListAtom } from "../../../0-all";
@@ -32,11 +33,20 @@ function ListBody({ open }: { open: boolean; }) {
                 {getGenNPasswordsList.length} generated passwords
             </div>
 
-            <ScrollArea className="my-2 h-64" fullHeight horizontal>
+            <AnimatePresence initial={false}>
                 {open && (
-                    <GeneratedListBody generatedList={getGenNPasswordsList} />
+                    <motion.div
+                        initial={{ height: 0, opacity: 0 }}
+                        animate={{ height: "16rem", opacity: 1 }}
+                        exit={{ height: 0, opacity: 0 }}
+                        className="overflow-hidden"
+                    >
+                        <ScrollArea className="my-2 h-full" fullHeight horizontal>
+                            <GeneratedListBody generatedList={getGenNPasswordsList} />
+                        </ScrollArea>
+                    </motion.div>
                 )}
-            </ScrollArea>
+            </AnimatePresence>
 
             <div className="text-center bg-muted rounded-b select-none overflow-hidden">
                 <Button
