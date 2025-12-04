@@ -1,6 +1,8 @@
 import { useAtom, useAtomValue, useSetAtom } from "jotai";
+import { useSnapshot } from "valtio";
 import { AnimatePresence, motion } from "motion/react";
 import { classNames, turnOffAutoComplete } from "@/utils";
+import { appSettings } from "@/store/9-ui-state";
 import { Input } from "@/ui";
 import { type PolicyDlgTypes, doUpdateExplanationAtom } from "../../../0-all";
 import { ButtonErrorInfo } from "../2-btn-error-info";
@@ -8,8 +10,7 @@ import { ButtonMenuAddTemplatePart } from "../3-btn-add-menu-template-part/1-all
 import { TestAreaBody } from "../../3-3rd-row-test-area";
 import { ButtonRulesHelp } from "../4-btn-explanation/1-all";
 import { ButtonTestArea } from "../5-btn-show-test-area-trigger/2-button-test-area";
-import { useSnapshot } from "valtio";
-import { appSettings } from "@/store/9-ui-state";
+import { ButtonRulesHistory } from "../6-btn-show-rules-history/2-button-rules-history";
 
 export function CustomRuleSection({ dlgUiCtx }: { dlgUiCtx: PolicyDlgTypes.PolicyUiCtx; }) {
     const isCustom = useAtomValue(dlgUiCtx.isCustomAtom);
@@ -31,6 +32,7 @@ export function CustomRuleSection({ dlgUiCtx }: { dlgUiCtx: PolicyDlgTypes.Polic
                             {/* <ButtonRulesHelp /> */}
                             <ButtonRulesHelp />
                             <ButtonTestArea />
+                            <ButtonRulesHistory />
                         </div>
                     </div>
                 </div>
@@ -72,7 +74,7 @@ function CustomRuleInput({ dlgUiCtx }: { dlgUiCtx: PolicyDlgTypes.PolicyUiCtx; }
 
     return (
         <Input
-            className="mr-0 pr-48 h-7 font-mono text-xs text-mani-foreground bg-mani-background border-mani-border-muted"
+            className="mr-0 pr-28 h-7 font-mono text-xs text-mani-foreground bg-mani-background border-mani-border-muted" // pr-28 = 24*4(buttons width) + 3*4(inbetween space) + 4(right border)
             value={custom}
             onChange={(e) => onChange(e.target.value)}
             {...turnOffAutoComplete}

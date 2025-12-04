@@ -23,9 +23,11 @@ export function ButtonMenuAddTemplatePart({ dlgUiCtx }: { dlgUiCtx: PolicyDlgTyp
                 <MenuAddTrigger />
 
                 <DropdownMenuContent align="start">
-                    {menuItems.map((item, idx) => (
-                        <MenuItem label={item.label} onSelect={() => applyRule(idx)} key={idx} />
-                    ))}
+                    {menuItems.map(
+                        (item, idx) => (
+                            <MenuItem label={item.label} onSelect={() => applyRule(idx)} key={idx} />
+                        )
+                    )}
                 </DropdownMenuContent>
             </DropdownMenu>
         </div>
@@ -35,7 +37,7 @@ export function ButtonMenuAddTemplatePart({ dlgUiCtx }: { dlgUiCtx: PolicyDlgTyp
 function MenuAddTrigger() {
     return (
         <DropdownMenuTrigger asChild>
-            <Button className={inlineButtonClasses} size="sm" tabIndex={-1} title="Add template parts">
+            <Button className={inlineButtonClasses} size="sm" tabIndex={-1} title="Add rule part">
                 <span>+</span>
             </Button>
         </DropdownMenuTrigger>

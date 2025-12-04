@@ -38,7 +38,7 @@ export function ButtonRulesHelp() {
 function HelpTrigger() {
     return (
         <PopoverTrigger asChild>
-            <Button className={inlineButtonClasses} size="sm" tabIndex={-1} title="Explanation">
+            <Button className={inlineButtonClasses} size="sm" tabIndex={-1} title="Rules explanation">
                 ?
             </Button>
         </PopoverTrigger>
