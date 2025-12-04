@@ -4,7 +4,7 @@ import { useSnapshot } from "valtio";
 import { Button } from "@/ui";
 import { appSettings } from "@/store/9-ui-state";
 import { type PolicyDlgTypes, doGeneratePswAtom, doGenNPasswordsAtom } from "../../0-all";
-import { ButtonGeneratedList } from "./7-generate-list/1-all";
+import { ButtonGeneratedList } from "./7-generate-list-popup-dlg/1-all";
 
 export function ButtonGenerate({ dlgUiCtx }: { dlgUiCtx: PolicyDlgTypes.PolicyUiCtx; }) {
     const nToGenerate = useSnapshot(appSettings).right.mani.nToGenerate;
