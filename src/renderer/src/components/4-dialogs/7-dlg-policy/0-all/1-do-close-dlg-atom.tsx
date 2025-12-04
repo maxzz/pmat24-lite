@@ -3,6 +3,7 @@ import { Mani } from "@/store/8-manifest";
 import { PolicyDlgConv, type PolicyDlgTypes } from "./0-conv";
 import { notice } from "@/ui/local-ui/7-toaster";
 import { doUpdateExplanationAtom } from "./1-util-atoms";
+import { addRuleToHistory } from "../2-complexity/3-2nd-row-custom-rule/6-btn-show-rules-history/2-button-rules-history";
 
 type DoClosePolicyDlgAtomCtx = {
     dlgUiCtx: PolicyDlgTypes.PolicyUiCtx;
@@ -51,6 +52,10 @@ export const doClosePolicyDlgAtom = atom(null,
 
         const policyStrings = PolicyDlgConv.forMani(state);
         set(policiesAtom, policyStrings);
+
+        if (isCustom) {
+            addRuleToHistory(state.custom);
+        }
 
         /**/
         const str1 = JSON.stringify(state, null, 2);

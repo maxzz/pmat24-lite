@@ -1,11 +1,10 @@
 import { useState } from "react";
-import { atom, useSetAtom, useAtomValue } from "jotai";
+import { atom, useSetAtom } from "jotai";
 import { useSnapshot } from "valtio";
 import { Button } from "@/ui";
 import { appSettings } from "@/store/9-ui-state";
 import { type PolicyDlgTypes, doGeneratePswAtom, doGenNPasswordsAtom } from "../../../0-all";
 import { ButtonGeneratedList } from "../7-generate-list-popup-dlg/1-all";
-import { addRuleToHistory } from "../../3-2nd-row-custom-rule/6-btn-show-rules-history/2-button-rules-history";
 
 export function ButtonGenerate({ dlgUiCtx }: { dlgUiCtx: PolicyDlgTypes.PolicyUiCtx; }) {
     const nToGenerate = useSnapshot(appSettings).right.mani.nToGenerate;
@@ -15,15 +14,8 @@ export function ButtonGenerate({ dlgUiCtx }: { dlgUiCtx: PolicyDlgTypes.PolicyUi
 
     const doGenNPasswords = useSetAtom(doGenNPasswordsAtom);
     const doGeneratePsw = useSetAtom(doGeneratePswAtom);
-    
-    const isCustom = useAtomValue(dlgUiCtx.isCustomAtom);
-    const custom = useAtomValue(dlgUiCtx.customAtom);
 
     function onClick(e: React.MouseEvent<HTMLButtonElement>) {
-        if (isCustom) {
-            addRuleToHistory(custom);
-        }
-
         if (e.ctrlKey) {
             doGenNPasswords({ dlgUiCtx: dlgUiCtx });
             doOpenPopupGenNPasswords(true);
