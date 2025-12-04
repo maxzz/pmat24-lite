@@ -4,7 +4,8 @@ import { type PolicyDlgTypes } from "../../../0-all";
 import { SymbolWarning } from "@/ui/icons";
 import { classNames } from "@/utils";
 import { inlineButtonClasses } from "../8-inline-styles";
-import { ErrorInfo } from "../../3-3rd-row-test-area/4-rule-explanation";
+//import { ErrorInfo } from "../../3-3rd-row-test-area/4-rule-explanation";
+import { ErrorInfo } from "../../3-3rd-row-test-area/1-all/1-all";
 
 export function ButtonErrorInfo({ dlgUiCtx }: { dlgUiCtx: PolicyDlgTypes.PolicyUiCtx; }) {
     const errorText = useAtomValue(dlgUiCtx.errorTextAtom);
@@ -18,7 +19,7 @@ export function ButtonErrorInfo({ dlgUiCtx }: { dlgUiCtx: PolicyDlgTypes.PolicyU
                 <PopoverContent className="relative mx-4 py-0 w-auto text-red-500 border-red-500 border shadow-sm" sideOffset={5} align="center">
 
                     <div className="my-3 text-xs">
-                        <ErrorInfo errorText={errorText} />
+                        <ErrorInfo errorTextAtom={dlgUiCtx.errorTextAtom} />
                     </div>
 
                     <PopoverArrorWoBottom className="fill-background stroke-red-500" />
