@@ -10,10 +10,12 @@ export type AppUISettings = {
     uiGeneral: UiGeneralState;     
     uiAdvanced: UiAdvancedState;
     mru: MruLists;   
+    rulesHistory: string[];
 };
 
 export const defaultAppUISettings: AppUISettings = {
     mru: defaultMruLists, // update order to ease modify in devTools
+    rulesHistory: [],
     theme: 'light',
     divider: defaultDividerState,
     uiGeneral: defaultUiGeneralState,

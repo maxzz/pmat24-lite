@@ -32,7 +32,7 @@ export function CustomRuleSection({ dlgUiCtx }: { dlgUiCtx: PolicyDlgTypes.Polic
                             {/* <ButtonRulesHelp /> */}
                             <ButtonRulesHelp />
                             <ButtonTestArea />
-                            <ButtonRulesHistory />
+                            <ButtonRulesHistory dlgUiCtx={dlgUiCtx} />
                         </div>
                     </div>
                 </div>
