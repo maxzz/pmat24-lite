@@ -1,9 +1,9 @@
 import { atom } from "jotai";
 import { Mani } from "@/store/8-manifest";
-import { PolicyDlgConv, type PolicyDlgTypes } from "./0-conv";
+import { PolicyDlgConv, type PolicyDlgTypes } from "../0-conv";
 import { notice } from "@/ui/local-ui/7-toaster";
-import { doUpdateExplanationAtom } from "./1-util-atoms";
-import { addRuleToHistory } from "../2-complexity/3-2nd-row-custom-rule/6-btn-show-rules-history/2-button-rules-history";
+import { doUpdateExplanationAtom } from "../1-util-atoms";
+import { addRuleToHistory } from "../../2-complexity/3-2nd-row-custom-rule/6-btn-show-rules-history/2-button-rules-history";
 
 type DoClosePolicyDlgAtomCtx = {
     dlgUiCtx: PolicyDlgTypes.PolicyUiCtx;
@@ -31,12 +31,26 @@ export const doClosePolicyDlgAtom = atom(null,
         const state = PolicyDlgConv.fromAtoms(dlgUiCtx, { get });
 
         const isCustom = state.isCustom;
-        if (isCustom && !state.custom) {
-            const msg = 'Custom rule is empty';
-            const toastId = notice.error(msg);
-            set(dlgUiCtx.errorTextAtom, msg);
-            set(toastIdAtom, toastId);
-            return;
+        if (isCustom) {
+            if (!state.custom) {
+                const msg = 'Custom rule cannot be empty';
+                const toastId = notice.error(msg);
+                set(dlgUiCtx.errorTextAtom, msg);
+                set(toastIdAtom, toastId);
+                return;
+            }
+
+            if (state.errorText) {
+                const msg = 'Custom rule should not have errors';
+                const toastId = notice.error(msg);
+                set(dlgUiCtx.errorTextAtom, msg);
+                set(toastIdAtom, toastId);
+                return;
+            }
+
+            if (state.custom !== dlgUiCtx.fromFile.custom) {
+                addRuleToHistory(state.custom);
+            }
         }
 
         const isValid = !state.minLen.error && !state.maxLen.error && +state.minLen.data <= +state.maxLen.data;
@@ -52,10 +66,6 @@ export const doClosePolicyDlgAtom = atom(null,
 
         const policyStrings = PolicyDlgConv.forMani(state);
         set(policiesAtom, policyStrings);
-
-        if (isCustom) {
-            addRuleToHistory(state.custom);
-        }
 
         /**/
         const str1 = JSON.stringify(state, null, 2);

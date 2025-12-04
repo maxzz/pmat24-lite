@@ -36,11 +36,11 @@ export function atomLoader(loader: (get: Getter, set: Setter) => void) {
 }
 
 export type Atomize<T> = {
-    [key in keyof T & string as `${key}Atom`]: PrimitiveAtom<T[key]>;
+    [key in keyof T & string as `${key}Atom`]: PA<T[key]>;
 };
 
 export type AtomizeWithType<T, Value> = {
-    [key in keyof T & string as `${key}Atom`]: PrimitiveAtom<Value>;
+    [key in keyof T & string as `${key}Atom`]: PA<Value>;
 };
 
 export type LoadingDataState<T> = {
@@ -54,8 +54,8 @@ export const loadingDataStateInit = () => ({ loading: true, error: null, data: n
 // Atoms family
 
 type AtomsFamilyResult<T> = {
-    (key: string): PrimitiveAtom<T>;
-    setValues: (values: Record<string, T>) => Map<string, PrimitiveAtom<T>>;
+    (key: string): PA<T>;
+    setValues: (values: Record<string, T>) => Map<string, PA<T>>;
     getValues: (get: Getter) => Record<string, T>;
 };
 

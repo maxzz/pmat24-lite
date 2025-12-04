@@ -2,8 +2,8 @@ import { useEffect, useMemo } from "react";
 import { type PrimitiveAtom, useAtomValue, useSetAtom } from "jotai";
 import { Dialog } from "@/ui";
 import { type Mani } from "@/store/8-manifest";
-import { createUiAtoms, debouncedOnChangeWithScope } from "../0-create-ui-atoms";
-import { doClosePolicyDlgAtom } from "../1-do-close-dlg-atom";
+import { createUiAtoms, debouncedOnChangeWithScope } from "./3-create-ui-atoms";
+import { doClosePolicyDlgAtom } from "./4-do-close-dlg-atom";
 import { doUpdateExplanationAtom } from "../1-util-atoms";
 import { PolicyEditorBody } from "./2-dlg-body";
 

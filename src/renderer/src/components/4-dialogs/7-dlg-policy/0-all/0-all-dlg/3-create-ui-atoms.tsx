@@ -1,6 +1,6 @@
 import { type OnValueChangeAny, debounce } from "@/utils";
 import { type Mani } from "@/store/8-manifest";
-import { PolicyDlgConv, type PolicyDlgTypes } from "./0-conv";
+import { PolicyDlgConv, type PolicyDlgTypes } from "../0-conv";
 import { PolicyParser } from "@/store/8-manifest/3-policy-io";
 
 export function createUiAtoms(policies: Mani.FieldPolicy, onChange: OnValueChangeAny): PolicyDlgTypes.PolicyUiCtx {
