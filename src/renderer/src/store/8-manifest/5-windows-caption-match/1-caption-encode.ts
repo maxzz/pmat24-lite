@@ -98,58 +98,58 @@ export function internal_pack_beforesave_detection(windowtitle_: windowtitle_t):
 }
 
 /*
-	namespace WINDOWTITLETYPE		// window string match, this is for window caption
-	{
-		enum type_t
-		{
-			full,
-			left,
-			right,
-			both,
-		};
+    namespace WINDOWTITLETYPE		// window string match, this is for window caption
+    {
+        enum type_t
+        {
+            full,
+            left,
+            right,
+            both,
+        };
 
-		inline string_t toString(const WINDOWTITLETYPE::type_t& v_)
-		{
-			const char* rv;
-			switch (v_)
-			{
-				case WINDOWTITLETYPE::full : rv = "full"; break;
-				case WINDOWTITLETYPE::left : rv = "left"; break;
-				case WINDOWTITLETYPE::right: rv = "right"; break;
-				case WINDOWTITLETYPE::both : rv = "both"; break;
-				default: return sformat("NEW %d", (unsigned int)v_);
-			}
-			return rv;
-		}
-	}
+        inline string_t toString(const WINDOWTITLETYPE::type_t& v_)
+        {
+            const char* rv;
+            switch (v_)
+            {
+                case WINDOWTITLETYPE::full : rv = "full"; break;
+                case WINDOWTITLETYPE::left : rv = "left"; break;
+                case WINDOWTITLETYPE::right: rv = "right"; break;
+                case WINDOWTITLETYPE::both : rv = "both"; break;
+                default: return sformat("NEW %d", (unsigned int)v_);
+            }
+            return rv;
+        }
+    }
 
 
 class windowtitle_t				// window caption
 {
 public:
-	WINDOWTITLETYPE::type_t matchtype;
-	string_t caption;
-	string_t variablecaption;	// if variablecaption is not empty and different from caption field then we are using vcm (variable cation match)
+    WINDOWTITLETYPE::type_t matchtype;
+    string_t caption;
+    string_t variablecaption;	// if variablecaption is not empty and different from caption field then we are using vcm (variable cation match)
 
-	windowtitle_t() : matchtype(WINDOWTITLETYPE::full)
-	{
-	}
+    windowtitle_t() : matchtype(WINDOWTITLETYPE::full)
+    {
+    }
 
-	bool operator==(const windowtitle_t& r) const
-	{
-		return
-			matchtype == r.matchtype &&
-			caption == r.caption &&
-			variablecaption == r.variablecaption;
-	}
+    bool operator==(const windowtitle_t& r) const
+    {
+        return
+            matchtype == r.matchtype &&
+            caption == r.caption &&
+            variablecaption == r.variablecaption;
+    }
 
-	bool blank() const
-	{
-		return
-			matchtype == WINDOWTITLETYPE::full &&
-			caption.empty() &&
-			variablecaption.empty();
-	}
+    bool blank() const
+    {
+        return
+            matchtype == WINDOWTITLETYPE::full &&
+            caption.empty() &&
+            variablecaption.empty();
+    }
 
 }; //class windowtitle_t
 
