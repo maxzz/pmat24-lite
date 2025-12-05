@@ -24,7 +24,7 @@ export function SelectTm({ items, value, onValueChange, triggerClasses, placehol
     return (
         <Select value={value} onValueChange={onValueChange}>
 
-            <SelectTrigger className={classNames("px-2 py-1 w-max h-7 text-xs gap-1", triggerClasses, "text-mani-foreground bg-mani-background")}>
+            <SelectTrigger className={classNames("px-2 py-1 w-max h-7 text-xs gap-1 cursor-pointer", triggerClasses, "text-mani-foreground bg-mani-background")}>
                 <SelectValue placeholder={placeholder} />
             </SelectTrigger>
 

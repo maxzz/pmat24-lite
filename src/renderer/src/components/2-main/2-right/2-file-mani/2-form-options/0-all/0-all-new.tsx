@@ -59,7 +59,6 @@ function GroupFormLogin({ oFormProps }: { oFormProps: OFormProps; }) {
             <ExtPolicySelect stateAtom={auth_plAtom} />
         </ChildrenWithLabel2Cols>
 
-        {/* <InputWithTitle2Cols stateAtom={balloonAtom} label="First login notification counter" className="w-16!" /> */}
         <ChildrenWithLabel2Cols label="Show first login notification">
             <BalloonCounterSelect stateAtom={balloonAtom} className="w-max" />
         </ChildrenWithLabel2Cols>
