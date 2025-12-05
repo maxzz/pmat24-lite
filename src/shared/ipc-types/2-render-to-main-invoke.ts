@@ -4,21 +4,17 @@ import { type TestInUseParams_Start, type TestInUseParams_Set, type TestInUseRes
 
 export namespace R2MInvoke { // Main from Renderer invoke and get result
 
-    // load files
+    // files
 
     export type DoLoadfiles = {
         type: 'r2mi:load-files';
         filenames: string[];
         allowedExt?: string[];
     };
-    // type DoLoadfiles2 = { type: 'r2mi:load-files2'; filenames: string[]; };
-    // type DoLoadfiles3 = { type: 'r2mi:load-files3'; filenames: string[]; };
-
-    // save file
 
     export type SaveFile = {
         type: 'r2mi:save-file';
-        fileName: string;               // file name with path
+        fileName: string;                       // file name with path
         content: string;
     };
 
@@ -44,7 +40,7 @@ export namespace R2MInvoke { // Main from Renderer invoke and get result
 
     export type RevealInExplorer = {
         type: 'r2mi:reveal-in-explorer';
-        fpath: string;  // full path to file or folder
+        fpath: string;                          // full path to file or folder
     };
 
     // napi
@@ -131,115 +127,113 @@ export namespace R2MInvoke { // Main from Renderer invoke and get result
     };
 
     export type AllInvokes =
-        | DoLoadfiles
-        // | DoLoadfiles2/* | DoLoadfiles3*/
-        | SaveFile
-        | Deletefile
-        | ExecFile
-        | FileExists
-        | GetUniqueFilename
-        | RevealInExplorer
+        | DoLoadfiles                           // 'r2mi:load-files'
+        | SaveFile                              // 'r2mi:save-file'
+        | Deletefile                            // 'r2mi:delete-file'
+        | ExecFile                              // 'r2mi:exec-file'
+        | FileExists                            // 'r2mi:file-exists'
+        | GetUniqueFilename                     // 'r2mi:get-unique-filename'
+        | RevealInExplorer                      // 'r2mi:reveal-in-explorer'
 
-        | GetSecondWindowHandle
-        | GetSecondWindowContent
-        | GetSecondWindowIcon
-        | GetSecondWindowMani
-        | GetWindowPosInit
-        | GetTlwInfos
-        | GetTlwScreenshots
-        | HighlightField
-        | HighlightTarget
-        | GetWindowExtras
-        
-        | GeneralInfo
-        | PerformCommand
+        | GetSecondWindowHandle                 // 'r2mi:get-target-hwnd'
+        | GetSecondWindowContent                // 'r2mi:get-window-controls'
+        | GetSecondWindowIcon                   // 'r2mi:get-window-icon'
+        | GetSecondWindowMani                   // 'r2mi:get-window-mani'
+        | GetWindowPosInit                      // 'r2mi:get-window-pos-init'
+        | GetTlwInfos                           // 'r2mi:get-tlw-infos'
+        | GetTlwScreenshots                     // 'r2mi:get-tlw-screenshots'
+        | HighlightField                        // 'r2mi:highlight-field'
+        | HighlightTarget                       // 'r2mi:highlight-target'
+        | GetWindowExtras                       // 'r2mi:get-window-extras'
 
-        | TestInUse_Start
-        | TestInUse_Set
-        | TestInUse_DeleteDir
+        | GeneralInfo                           // 'r2mi:get-general-info'
+        | PerformCommand                        // 'r2mi:perform-command'
+
+        | TestInUse_Start                       // 'r2mi:test-in-use-start'
+        | TestInUse_Set                         // 'r2mi:test-in-use-set'
+        | TestInUse_DeleteDir                   // 'r2mi:test-in-use-delete-dir'
         ;
 
     export type EmptyOkOrError = string | undefined;
 
     export type InvokeResult<T extends R2MInvoke.AllInvokes> =
-        T extends DoLoadfiles                //'r2mi:load-files'
-        // T['type'] extends 'r2mi:load-files'               //'r2mi:load-files' // This is OK but not for now
+        T extends DoLoadfiles                   //'r2mi:load-files'
         ? {
             filesCnt: MainFileContent[];
             emptyFolder: string;
             error: string | undefined;
         }
 
-        : T extends SaveFile                 //'r2mi:save-file'
+        : T extends SaveFile                    //'r2mi:save-file'
         ? EmptyOkOrError
 
-        : T extends Deletefile               //'r2mi:delete-file'
+        : T extends Deletefile                  //'r2mi:delete-file'
         ? EmptyOkOrError
 
-        : T extends ExecFile                 //'r2mi:exec-file'
+        : T extends ExecFile                    //'r2mi:exec-file'
         ? EmptyOkOrError
 
-        : T extends FileExists               //'r2mi:file-exists'
+        : T extends FileExists                  //'r2mi:file-exists'
         ? {
             exists: boolean;
             error: string;
         }
 
-        : T extends GetUniqueFilename        //'r2mi:get-unique-filename'
+        : T extends GetUniqueFilename           //'r2mi:get-unique-filename'
         ? {
             newFilename: string;
             error: string;
         }
 
-        : T extends RevealInExplorer         //'r2mi:reveal-in-explorer'
+        : T extends RevealInExplorer            //'r2mi:reveal-in-explorer'
         ? EmptyOkOrError
 
         // napi
 
-        : T extends GetSecondWindowHandle    //'r2mi:get-target-hwnd'
+        : T extends GetSecondWindowHandle       //'r2mi:get-target-hwnd'
         ? string
 
-        : T extends GetSecondWindowContent   //'r2mi:get-window-controls'
+        : T extends GetSecondWindowContent      //'r2mi:get-window-controls'
         ? string
 
-        : T extends GetSecondWindowIcon      //'r2mi:get-window-icon'
+        : T extends GetSecondWindowIcon         //'r2mi:get-window-icon'
         ? string
 
-        : T extends GetSecondWindowMani      //'r2mi:get-window-mani'
+        : T extends GetSecondWindowMani         //'r2mi:get-window-mani'
         ? string
 
-        : T extends GetWindowPosInit         //'r2mi:get-window-pos-init'
+        : T extends GetWindowPosInit            //'r2mi:get-window-pos-init'
         ? OkIfEmptyString
 
-        : T extends GetTlwInfos              //'r2mi:get-tlw-infos'
+        : T extends GetTlwInfos                 //'r2mi:get-tlw-infos'
         ? string
 
-        : T extends GetTlwScreenshots        //'r2mi:get-tlw-screenshots'
+        : T extends GetTlwScreenshots           //'r2mi:get-tlw-screenshots'
         ? string
 
-        : T extends HighlightField           //'r2mi:highlight-field'
+        : T extends HighlightField              //'r2mi:highlight-field'
         ? string
 
-        : T extends HighlightTarget          //'r2mi:highlight-target'
+        : T extends HighlightTarget             //'r2mi:highlight-target'
         ? OkIfEmptyString
 
-        : T extends GetWindowExtras          //'r2mi:get-window-extras'
+        : T extends GetWindowExtras             //'r2mi:get-window-extras'
         ? string
 
-        : T extends GeneralInfo              //'r2mi:get-general-info'
+        : T extends GeneralInfo                 //'r2mi:get-general-info'
         ? string
 
-        : T extends PerformCommand           //'r2mi:perform-command'
+        : T extends PerformCommand              //'r2mi:perform-command'
         ? string
 
-        : T extends TestInUse_Start          //'r2mi:test-in-use-start'
-        ? string                             // as TestInUseResultItem[]
+        : T extends TestInUse_Start             //'r2mi:test-in-use-start'
+        ? string                                // as TestInUseResultItem[]
 
-        : T extends TestInUse_Set            //'r2mi:test-in-use-set'
-        ? string                             // as TestInUseResultItem[]
+        : T extends TestInUse_Set               //'r2mi:test-in-use-set'
+        ? string                                // as TestInUseResultItem[]
 
-        : T extends TestInUse_DeleteDir      //'r2mi:test-in-use-delete-dir'
-        ? EmptyOkOrError                     // as TestInUseResultItem[]
+        : T extends TestInUse_DeleteDir         //'r2mi:test-in-use-delete-dir'
+        ? EmptyOkOrError                        // as TestInUseResultItem[]
 
         : never;
 
