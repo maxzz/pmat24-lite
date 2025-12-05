@@ -11,7 +11,7 @@ import { createFileContents_From_Main } from "./1-filecnt-from-main";
 import { createFileContents_FromMru_Main } from "./2-filecnt-from-main-mru";
 import { createFileContents_WebAfterDlgOpen } from "./4-filecnt-from-web-dlg";
 import { createFileContents_WebAfterDnd } from "./3-filecnt-from-web-dnd";
-import { asyncRemoveMruItemAtom } from "@/store/4-dialogs-atoms";
+import { asyncRemoveMruItemDialogAtom } from "@/store/4-dialogs-atoms";
 import { printFiles } from "./9-types";
 
 export type DoSetFilesFrom_Dnd_Atom = typeof doSetFilesFrom_Dnd_Atom;
@@ -111,7 +111,7 @@ export const doSetFilesFrom_MruFolder_Atom = atom(
         if (hasMain()) {
             const { exists } = await invokeMainTyped({ type: 'r2mi:file-exists', fileName: folder.fpath });
             if (!exists) {
-                await set(asyncRemoveMruItemAtom, folder, true);
+                await set(asyncRemoveMruItemDialogAtom, folder, true);
                 return;
             }
 
@@ -142,7 +142,7 @@ export const doSetFilesFrom_MruFolder_Atom = atom(
 
         } catch (error) {
             console.log('MRU.item.invalid', folder, error); // we don't call setRootDir(undefined); here to keep already open folder or welcome screen
-            await set(asyncRemoveMruItemAtom, folder, true);
+            await set(asyncRemoveMruItemDialogAtom, folder, true);
         }
     }
 );

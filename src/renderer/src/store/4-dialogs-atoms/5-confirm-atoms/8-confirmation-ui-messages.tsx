@@ -73,7 +73,7 @@ function getConfirmRemoveFromMruMessages(failed: boolean): ConfirmationUi {
     return rv;
 }
 
-export const asyncRemoveMruItemAtom = atom(null,
+export const asyncRemoveMruItemDialogAtom = atom(null,
     async (get, set, folder: PmatFolder, failed: boolean) => {
         const ok = await set(doAsyncExecuteConfirmDialogAtom, getConfirmRemoveFromMruMessages(failed));
         if (ok) {

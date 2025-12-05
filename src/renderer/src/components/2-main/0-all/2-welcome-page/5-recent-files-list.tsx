@@ -7,7 +7,7 @@ import { Button } from "@/ui/shadcn/button";
 import { appSettings } from "@/store/9-ui-state";
 import { type PmatFolder } from "@/store/5-1-open-files";
 import { doSetFilesFrom_MruFolder_Atom } from "@/store/0-serve-atoms/2-do-load-files";
-import { asyncRemoveMruItemAtom } from "@/store/4-dialogs-atoms/5-confirm-atoms";
+import { asyncRemoveMruItemDialogAtom } from "@/store/4-dialogs-atoms/5-confirm-atoms";
 import { IconCrossOnHover } from "./5-ui-icon-delete-recent-item";
 import { IconFolderClosed } from "@/ui/icons/normal/temp2";
 
@@ -40,7 +40,7 @@ export function RecentFilesList({ className, ...rest }: ComponentPropsWithoutRef
 function FolderItem({ folder }: { folder: PmatFolder; }) {
     const short = filenameWithoutPath(folder.fpath);
     const doSetFilesFrom_MruFolder = useSetAtom(doSetFilesFrom_MruFolder_Atom);
-    const removeFromMru = useSetAtom(asyncRemoveMruItemAtom);
+    const removeFromMru = useSetAtom(asyncRemoveMruItemDialogAtom);
     
     const [hover, setHover] = useState(false);
 
