@@ -27,6 +27,11 @@ export namespace R2MInvoke { // Main from Renderer invoke and get result
         fileName: string;
     };
 
+    export type ExecFile = {
+        type: 'r2mi:exec-file';
+        fileName: string;
+    };
+
     export type FileExists = {
         type: 'r2mi:file-exists';
         fileName: string;
@@ -130,6 +135,7 @@ export namespace R2MInvoke { // Main from Renderer invoke and get result
         // | DoLoadfiles2/* | DoLoadfiles3*/
         | SaveFile
         | Deletefile
+        | ExecFile
         | FileExists
         | GetUniqueFilename
         | RevealInExplorer
@@ -168,6 +174,9 @@ export namespace R2MInvoke { // Main from Renderer invoke and get result
         ? EmptyOkOrError
 
         : T extends Deletefile               //'r2mi:delete-file'
+        ? EmptyOkOrError
+
+        : T extends ExecFile                 //'r2mi:exec-file'
         ? EmptyOkOrError
 
         : T extends FileExists               //'r2mi:file-exists'
@@ -240,6 +249,7 @@ export namespace R2MInvokeParams {
     export type DoLoadfiles = Omit<R2MInvoke.DoLoadfiles, 'type'>;
     export type SaveFile = Omit<R2MInvoke.SaveFile, 'type'>;
     export type Deletefile = Omit<R2MInvoke.Deletefile, 'type'>;
+    export type ExecFile = Omit<R2MInvoke.ExecFile, 'type'>;
     export type FileExists = Omit<R2MInvoke.FileExists, 'type'>;
     export type GetUniqueFilename = Omit<R2MInvoke.GetUniqueFilename, 'type'>;
     export type RevealInExplorer = Omit<R2MInvoke.RevealInExplorer, 'type'>;

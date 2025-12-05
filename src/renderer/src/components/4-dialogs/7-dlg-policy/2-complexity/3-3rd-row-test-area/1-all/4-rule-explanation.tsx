@@ -2,7 +2,7 @@ import { Fragment } from "react";
 import { useAtomValue } from "jotai";
 import { AnimatePresence, motion } from "motion/react";
 import { SymbolDot } from "@/ui/icons";
-import { type PolicyDlgTypes } from "../../0-all";
+import { type PolicyDlgTypes } from "../../../0-all";
 
 export function RuleExplanation({ dlgUiCtx }: { dlgUiCtx: PolicyDlgTypes.PolicyUiCtx; }) {
     const explanation = useAtomValue(dlgUiCtx.explanationAtom);
