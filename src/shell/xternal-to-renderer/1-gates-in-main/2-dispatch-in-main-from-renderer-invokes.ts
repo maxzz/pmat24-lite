@@ -3,7 +3,7 @@ import { getTargetHwnd, getWindowIcon, getWindowControls, getWindowMani, getTlwI
 import { asyncLoadWin32FilesContent } from "../2-commands-in-main/2-files/8-load-win32-files";
 import { existsFileInMain, deleteFileInMain, generateUniqueFilename, revealInExplorer, saveFileInMain } from "../2-commands-in-main/2-files";
 import { testInUseInMain_DeleteDir, testInUseInMain_Start, testInUseInMain_Set } from "../2-commands-in-main/3-test-inuse";
-import { execFileInMain } from "../2-commands-in-main/2-files/3-exec-file";
+import { execFileInMain } from "../2-commands-in-main/2-files/4-exec-file";
 
 // export async function invokeFromRendererInMain<TInvoke extends R2MInvoke.AllInvokes>(data: TInvoke): Promise<R2MInvoke.InvokeResult<TInvoke>> {
 export async function invokeFromRendererInMain(data: R2MInvoke.AllInvokes): Promise<any> {
