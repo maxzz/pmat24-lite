@@ -1,3 +1,4 @@
+import { manifest_io } from './2-manifest-io';
 
 export namespace WINDOWTITLETYPE {
     export enum type_t {
@@ -14,20 +15,6 @@ export namespace WINDOWTITLETYPE {
             case type_t.right: return "right";
             case type_t.both: return "both";
             default: return `NEW ${v_}`;
-        }
-    }
-}
-
-// Placeholder for missing dependencies
-namespace manifest_io {
-    export namespace textchars {
-        export namespace match {
-            export function restore_illegal(s: string): string {
-                return s; // TODO: Implement restoration logic
-            }
-            export function remove_illegal(s: string): string {
-                return s; // TODO: Implement removal logic
-            }
         }
     }
 }
