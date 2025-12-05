@@ -1,7 +1,7 @@
 import { spawn } from 'child_process';
 
 export function runProcess(fullPath: string): Promise<string | null> {
-    return new Promise((resolve) => {
+    const rv = new Promise<string | null>((resolve) => {
         try {
             const child = spawn(fullPath, [], {
                 detached: true,
@@ -28,5 +28,6 @@ export function runProcess(fullPath: string): Promise<string | null> {
             resolve(e.message || 'Unknown error');
         }
     });
+    return rv;
 }
 
