@@ -1,18 +1,22 @@
-import { useSetAtom } from "jotai";
+import { useAtomValue, useSetAtom } from "jotai";
 import { Button, DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuItemProps, DropdownMenuTrigger } from "@/ui";
 import { type PolicyDlgTypes, doUpdateExplanationAtom } from "../../../0-all";
 import { inlineButtonClasses } from "../8-inline-styles";
 
 export function ButtonMenuAddTemplatePart({ dlgUiCtx }: { dlgUiCtx: PolicyDlgTypes.PolicyUiCtx; }) {
 
+    const minLength = useAtomValue(dlgUiCtx.minLenAtom).data;
     const setCustom = useSetAtom(dlgUiCtx.customAtom);
     const updateExplanation = useSetAtom(doUpdateExplanationAtom);
 
     function applyRule(idx: number) {
-        setCustom((prev) => {
-            const item = menuItems[idx];
-            const custom = item.action ? `${prev}${item.action}` : `(${prev})`;
-            updateExplanation({ dlgUiCtx: dlgUiCtx, custom });
+        setCustom((prevCustom) => {
+            let { action } = menuItems[idx];
+            if (!prevCustom && action) { // only if custom rule is empty nad new is not group then make rule like "a{1,2}" to "a{8,}"
+                action = action.replace('{1,', `{${minLength},`).replace(',2}', ',}');
+            }
+            const custom = action ? `${prevCustom}${action}` : `(${prevCustom})`;
+            updateExplanation({ dlgUiCtx, custom });
             return custom;
         });
     }
