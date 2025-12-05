@@ -11,9 +11,12 @@ export function ButtonMenuAddTemplatePart({ dlgUiCtx }: { dlgUiCtx: PolicyDlgTyp
 
     function applyRule(idx: number) {
         setCustom((prevCustom) => {
-            let { action } = menuItems[idx];
-            if (!prevCustom && action) { // only if custom rule is empty nad new is not group then make rule like "a{1,2}" to "a{8,}"
+            let { action, strong } = menuItems[idx];
+            if (!prevCustom && action) { // only if custom rule is empty and new is not group then make rule like "a{1,2}" to "a{8,}"
                 action = action.replace('{1,', `{${minLength},`).replace(',2}', ',}');
+            }
+            if (strong) {
+                action = strong;
             }
             const custom = action ? `${prevCustom}${action}` : `(${prevCustom})`;
             updateExplanation({ dlgUiCtx, custom });
@@ -56,11 +59,12 @@ function MenuItem({ label, ...rest }: { label: string; } & DropdownMenuItemProps
     );
 }
 
-const menuItems: ({ label: string; action: string; })[] = [
+const menuItems: ({ label: string; action: string; strong?: string })[] = [
     { label: "Add characters set [A-Z]", /**/ action: "A{1,2}" },
     { label: "Add characters set [a-z]", /**/ action: "a{1,2}" },
     { label: "Add set of numbers",       /**/ action: "d{1,2}" },
     { label: "Add special characters",   /**/ action: "s{1,2}" },
     { label: "Add characters set",       /**/ action: "[X-Z]{1,2}" }, //"[X-Z!-/]{1,2}"
     { label: "Add group",                /**/ action: "" }, // add group as "(...)" //TODO: do we need to prevent adding group if it's already there?
+    { label: "Add strong rule for 8-12", /**/ action: "", strong: "(A{1,}s{1,}d{1,}a{5,})" },
 ];
