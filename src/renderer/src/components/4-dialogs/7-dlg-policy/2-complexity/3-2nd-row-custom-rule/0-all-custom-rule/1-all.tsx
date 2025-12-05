@@ -53,10 +53,10 @@ export function CustomRuleSection({ dlgUiCtx }: { dlgUiCtx: PolicyDlgTypes.Polic
         </div>
     );
 }
-//TODO: add custom rule history dropdown
-//TODO: do something with Test Area button, now it does nothing
-//TODO: combine buttons on '+' and '?' into dropdown menu or not?
-//TODO: remove reserved height since now we have Test Area motion.
+//TODO: add custom rule history dropdown - done
+//TODO: do something with Test Area button, now it does nothing - done
+//TODO: combine buttons on '+' and '?' into dropdown menu or not? - no need now
+//TODO: remove reserved height since now we have Test Area motion - no need now, it is animated
 
 //TODO: for web app created with edge, we show warning as it was created with old version
 //TODO: we show PM icon location for web apps, but did not save it, so it is allways default

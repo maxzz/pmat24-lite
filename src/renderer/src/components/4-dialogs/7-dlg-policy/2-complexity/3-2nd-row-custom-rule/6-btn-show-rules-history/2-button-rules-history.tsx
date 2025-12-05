@@ -93,7 +93,3 @@ function removeRuleFromHistory(e: React.MouseEvent, rule: string) {
         history.splice(idx, 1);
     }
 }
-
-//TODO: check that rule is valid before closing dialog - done
-//TODO: adjust popup size and position - done
-//TODO: check that rule is different from the rule at the dialog start - done
