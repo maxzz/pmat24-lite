@@ -1,7 +1,11 @@
 import { spawn } from 'child_process';
 
-export function runProcess(fullPath: string): Promise<string | null> {
-    const rv = new Promise<string | null>((resolve) => {
+/**
+ * @param fullPath - full path to the file to run
+ * @returns empty string on success, error message on failure
+ */
+export function runProcess(fullPath: string): Promise<string> {
+    const rv = new Promise<string>((resolve) => {
         try {
             const child = spawn(fullPath, [], {
                 detached: true,
@@ -21,7 +25,7 @@ export function runProcess(fullPath: string): Promise<string | null> {
                 if (!resolved) {
                     resolved = true;
                     child.unref();
-                    resolve(null);
+                    resolve('');
                 }
             });
         } catch (e: any) {
@@ -30,4 +34,3 @@ export function runProcess(fullPath: string): Promise<string | null> {
     });
     return rv;
 }
-
