@@ -12,7 +12,7 @@ export function ButtonRulesHelp() {
 
             <PopoverContent className="relative mx-4 p-0 w-[380px] text-foreground bg-background border-border border shadow-sm" sideOffset={5} align="center">
 
-                <PopoverClose className="group absolute size-5 p-1 top-2 right-2.5 hover:stroke-2 hover:text-white hover:bg-red-500 rounded transition-colors active:scale-[.97]">
+                <PopoverClose className="group absolute size-7 p-2 top-1 right-1.5 hover:stroke-2 hover:text-white hover:bg-red-500 rounded transition-colors active:scale-[.97]">
                     <SymbolCross className="size-full group-hover:stroke-3" />
                 </PopoverClose>
 
