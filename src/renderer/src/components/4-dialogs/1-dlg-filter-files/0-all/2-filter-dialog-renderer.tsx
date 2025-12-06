@@ -33,7 +33,7 @@ export function DialogFilterFilesRenderer() {
                                 transition={{ duration: 0.2 }}
                             >
                                 <DialogPrimitive.Title className="sr-only">Files filter</DialogPrimitive.Title>
-                                <D.DialogDescription className="sr-only">Files filter</D.DialogDescription>
+                                <D.DialogDescription className="sr-only"></D.DialogDescription>
                                 
                                 <DialogFilterBody setIsOpen={setIsOpen} />
                             </motion.div>
