@@ -39,8 +39,8 @@ export function ButtonGenerate({ dlgUiCtx }: { dlgUiCtx: PolicyDlgTypes.PolicyUi
                 </DropdownMenuTrigger>
 
                 <DropdownMenuContent align="end">
-                    <DropdownMenuItem onClick={onGenerateMany}>
-                        generate {nToGenerate} passwords
+                    <DropdownMenuItem className="text-xs" onClick={onGenerateMany}>
+                        Generate {nToGenerate} passwords
                     </DropdownMenuItem>
                 </DropdownMenuContent>
             </DropdownMenu>
