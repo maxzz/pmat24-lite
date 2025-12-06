@@ -7,10 +7,10 @@ import { initRowInputState, validateMaxLen, validateMinLen } from "@/ui/local-ui
 
 const initialForAtoms: PolicyDlgTypes.ForAtoms = {
     enabled: false,
-    constrainSet: `${Poli.ConstrainSet.withspecial}`,
-    constrainSet0: `${Poli.ConstrainSet.withspecial}`,
-    isCustom: false,
-    custom: '',
+    constrainSet: `${nameValuesConstrainSet.length}`, //`${Poli.ConstrainSet.withspecial}`, // now we use custom rule
+    constrainSet0: `${nameValuesConstrainSet.length}`, //`${Poli.ConstrainSet.withspecial}`, // now we use custom rule
+    isCustom: true,
+    custom: '(A{1,}s{1,}d{1,}a{5,})',
     minLen: initRowInputState('8', { type: 'number' }),
     maxLen: initRowInputState('12', { type: 'number' }),
     explanation: '',
