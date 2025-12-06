@@ -7,17 +7,6 @@ import * as D from "@/ui/shadcn/dialog";
 import { filterDialogOpenAtom } from "@/store/4-dialogs-atoms";
 import { DialogFilterBody } from "./3-body";
 
-const overlayClasses2 = "fixed inset-0 z-50 backdrop-blur-[0.5px] bg-background/80";
-const contentClasses = "fixed left-[50%] top-[50%] z-50 grid w-4/5! max-w-3xl gap-4 border bg-background px-3 py-3 shadow-lg sm:rounded-lg";
-
-//TODO: multiple prefixes; now only one effective
-//TODO: add (15 last) prefixes history dropdown
-
-//TODO: icons const instances
-//TODO: filename for win apps
-//TODO: tree custom leafs
-//TODO: options page
-
 export function DialogFilterFilesRenderer() {
     const [isOpen, setIsOpen] = useAtom(filterDialogOpenAtom);
     return (
@@ -44,6 +33,7 @@ export function DialogFilterFilesRenderer() {
                                 transition={{ duration: 0.2 }}
                             >
                                 <DialogPrimitive.Title className="sr-only">Files filter</DialogPrimitive.Title>
+                                <D.DialogDescription className="sr-only">Files filter</D.DialogDescription>
                                 
                                 <DialogFilterBody setIsOpen={setIsOpen} />
                             </motion.div>
@@ -54,3 +44,14 @@ export function DialogFilterFilesRenderer() {
         </D.Dialog>
     );
 }
+
+const overlayClasses2 = "fixed inset-0 z-50 backdrop-blur-[0.5px] bg-background/80";
+const contentClasses = "fixed left-[50%] top-[50%] z-50 grid w-4/5! max-w-3xl gap-4 border bg-background px-3 py-3 shadow-lg sm:rounded-lg";
+
+//TODO: multiple prefixes; now only one effective
+//TODO: add (15 last) prefixes history dropdown
+
+//TODO: icons const instances
+//TODO: filename for win apps
+//TODO: tree custom leafs
+//TODO: options page
