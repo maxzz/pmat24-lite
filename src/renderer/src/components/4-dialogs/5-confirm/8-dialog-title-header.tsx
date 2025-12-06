@@ -1,12 +1,13 @@
 import { DialogContent, DialogHeader, DialogCloseButton } from "@/ui/shadcn/dialog";
 
-export function DialogTitleHeader({ title, className, children, onDlgClose }: DialogTitleHeaderProps) {
+export function DialogTitleHeader({ title, className, children, onDlgClose, modal }: DialogTitleHeaderProps) {
     return (
         <DialogContent
             className={className}
             overlayClasses="bg-background/10 backdrop-blur-[1px]"
             hiddenTitle={title}
             noClose
+            modal={modal}
         >
             <DialogHeader className="relative pl-4 pr-2 py-1 text-sm font-bold border-border border-b flex flex-row items-center justify-between space-y-0">
                 <div>
@@ -26,4 +27,5 @@ type DialogTitleHeaderProps = {
     className: string;
     children: React.ReactNode;
     onDlgClose: (ok: boolean) => void;
+    modal?: boolean;
 };

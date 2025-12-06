@@ -16,7 +16,7 @@ type PolicyEditorBodyProps = {
 export function PolicyEditorBody({ dlgUiCtx, closeDlg }: PolicyEditorBodyProps) {
     const [enabled, setEnabled] = useAtom(dlgUiCtx.enabledAtom);
     return (
-        <DialogTitleHeader title="Password Policy Editor" className={contentClasses} onDlgClose={closeDlg}>
+        <DialogTitleHeader title="Password Policy Editor" className={contentClasses} onDlgClose={closeDlg} modal>
             <div className="px-4 pb-2 grid gap-4">
 
                 <div className="text-xs font-light text-foreground">

@@ -51,7 +51,7 @@ function PolicyEditorDlgIsOpen({ openAtom, toastIdAtom, policiesAtom }: PolicyEd
     );
 
     return (
-        <Dialog open={isOpen} onOpenChange={() => closeDlg(false)} modal>
+        <Dialog open={isOpen} onOpenChange={() => closeDlg(false)} modal={true} >
             <PolicyEditorBody dlgUiCtx={dlgUiCtx} closeDlg={closeDlg} />
         </Dialog>
     );
