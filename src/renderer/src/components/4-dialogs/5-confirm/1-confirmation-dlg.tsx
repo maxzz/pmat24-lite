@@ -2,7 +2,7 @@ import { useAtom } from "jotai";
 import { classNames } from "@/utils";
 import { Button, Dialog, DialogFooter } from "@/ui/shadcn";
 import { type ConfirmationData, isOpenConfirmDialogAtom } from "@/store/4-dialogs-atoms";
-import { DialogTitleHeader } from "./8-dialog-title-header";
+import { DialogContentWithTitleHeader } from "./8-dialog-title-header";
 
 export function ConfirmationDialog() {
     const [confirmData, doCloseDialog] = useAtom(isOpenConfirmDialogAtom);
@@ -20,12 +20,12 @@ export function ConfirmationDialog() {
 
     return (
         <Dialog open={!!confirmData} onOpenChange={() => onDlgClose(false)}>
-            <DialogTitleHeader title={confirmData.ui.title} className={contentClasses} onDlgClose={onDlgClose}>
+            <DialogContentWithTitleHeader title={confirmData.ui.title} className={contentClasses} onDlgClose={onDlgClose}>
                 <DialogBody
                     confirmDialogOpen={confirmData}
                     onDlgClose={onDlgClose}
                 />
-            </DialogTitleHeader>
+            </DialogContentWithTitleHeader>
         </Dialog>
     );
 }

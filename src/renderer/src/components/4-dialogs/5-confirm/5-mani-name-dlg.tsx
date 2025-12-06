@@ -3,7 +3,7 @@ import { useKey } from "react-use";
 import { Dialog, DialogDescription, DialogFooter, Button } from "@/ui/shadcn";
 import { InputWithTitle2Rows } from "@/ui/local-ui";
 import { type ManiNameDlgData, maniNameDlgDataAtom, maniNameDlgCloseAtom } from "@/store/0-serve-atoms";
-import { DialogTitleHeader } from "./8-dialog-title-header";
+import { DialogContentWithTitleHeader } from "./8-dialog-title-header";
 
 export function ManiNameDialog() {
     const maniNameDlgClose = useSetAtom(maniNameDlgCloseAtom);
@@ -15,9 +15,9 @@ export function ManiNameDialog() {
 
     return (
         <Dialog open={!!dlgData} onOpenChange={() => maniNameDlgClose(false)}>
-            <DialogTitleHeader title="Managed login name" className={contentClasses} onDlgClose={maniNameDlgClose}>
+            <DialogContentWithTitleHeader title="Managed login name" className={contentClasses} onDlgClose={maniNameDlgClose}>
                 <DialogBody dlgData={dlgData} onCloseDlg={maniNameDlgClose} />
-            </DialogTitleHeader>
+            </DialogContentWithTitleHeader>
         </Dialog>
     );
 }

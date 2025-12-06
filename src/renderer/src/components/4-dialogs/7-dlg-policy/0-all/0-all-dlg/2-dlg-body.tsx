@@ -3,7 +3,7 @@ import { classNames } from "@/utils";
 import { Button } from "@/ui";
 import { Check } from "../../9-constrols";
 import { type PolicyDlgTypes } from "../0-conv";
-import { DialogTitleHeader } from "../../../5-confirm/8-dialog-title-header";
+import { DialogContentWithTitleHeader } from "../../../5-confirm/8-dialog-title-header";
 import { SectionRuleTypes } from "../../2-complexity";
 import { SectionHistory } from "../../3-password-history";
 import { SectionGenerationBy } from "../../4-generate-by";
@@ -16,7 +16,7 @@ type PolicyEditorBodyProps = {
 export function PolicyEditorBody({ dlgUiCtx, closeDlg }: PolicyEditorBodyProps) {
     const [enabled, setEnabled] = useAtom(dlgUiCtx.enabledAtom);
     return (
-        <DialogTitleHeader title="Password Policy Editor" className={contentClasses} onDlgClose={closeDlg} modal>
+        <DialogContentWithTitleHeader title="Password Policy Editor" className={contentClasses} onDlgClose={closeDlg} modal>
             <div className="px-4 pb-2 grid gap-4">
 
                 <div className="text-xs font-light text-foreground">
@@ -58,7 +58,7 @@ export function PolicyEditorBody({ dlgUiCtx, closeDlg }: PolicyEditorBodyProps) 
                 </div>
 
             </div>
-        </DialogTitleHeader>
+        </DialogContentWithTitleHeader>
     );
 }
 

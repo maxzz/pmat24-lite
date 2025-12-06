@@ -1,6 +1,6 @@
 import { DialogContent, DialogHeader, DialogCloseButton } from "@/ui/shadcn/dialog";
 
-export function DialogTitleHeader({ title, className, children, onDlgClose, modal }: DialogTitleHeaderProps) {
+export function DialogContentWithTitleHeader({ title, className, children, onDlgClose, modal }: DialogTitleHeaderProps) {
     return (
         <DialogContent
             className={className}
