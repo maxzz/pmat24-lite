@@ -6,6 +6,7 @@ import { createUiAtoms, debouncedOnChangeWithScope } from "./3-create-ui-atoms";
 import { doClosePolicyDlgAtom } from "./4-do-close-dlg-atom";
 import { doUpdateExplanationAtom } from "../1-util-atoms";
 import { PolicyEditorBody } from "./2-dlg-body";
+import { DialogContentWithTitleHeader } from "@/components/4-dialogs/5-confirm/8-dialog-title-header";
 
 export function PolicyEditorDlg({ openAtom, toastIdAtom, policiesAtom }: PolicyEditorNewDlgProps) {
     const isOpen = useAtomValue(openAtom);
@@ -52,7 +53,11 @@ function PolicyEditorDlgIsOpen({ openAtom, toastIdAtom, policiesAtom }: PolicyEd
 
     return (
         <Dialog open={isOpen} onOpenChange={() => closeDlg(false)}>
-            <PolicyEditorBody dlgUiCtx={dlgUiCtx} closeDlg={closeDlg} />
+            <DialogContentWithTitleHeader title="Password Policy Editor" className={contentClasses} onDlgClose={closeDlg} modal>
+                <PolicyEditorBody dlgUiCtx={dlgUiCtx} closeDlg={closeDlg} />
+            </DialogContentWithTitleHeader>
         </Dialog>
     );
 }
+
+const contentClasses = "p-0 pb-2 w-fit min-w-[440px] max-w-[500px] text-xs gap-1 select-none";
