@@ -45,6 +45,9 @@ export function Row2_Explanation({ fileUs }: { fileUs: FileUs; }) {
     );
 }
 
+//TODO: It is wrong to use meta data here
+//TODO: why in XML view there is no open/launch menu items?
+
 function DomainAndOpenIcon({ domain, url, title }: { domain?: string; url: string | undefined; title: string; }) {
     return (
         <a href={url} className={DomainAndOpenIconClasses} target="_blank" rel="noreferrer noopener" title={title}>
