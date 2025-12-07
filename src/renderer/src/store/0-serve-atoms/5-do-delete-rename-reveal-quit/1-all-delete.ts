@@ -3,7 +3,7 @@ import { notice } from "@/ui/local-ui/7-toaster";
 import { FormIdx, rebuildMetaFormsWithoutCpassForm } from "@/store/8-manifest";
 import { type FileUsAtom } from "@/store/store-types";
 import { removeFromTotalManis } from "@/store/9-ui-state";
-import { fileUsChanges, type ManiAtoms } from "@/store/2-file-mani-atoms/9-types";
+import { fileUsChanges, launchDataIdx, type ManiAtoms } from "@/store/2-file-mani-atoms/9-types";
 import { filesAtom } from "@/store/5-1-open-files";
 import { doDisposeFileUsAtomAtom } from "@/store/store-utils";
 import { confirmDeleteCpassMessages, confirmDeleteMessages, doAsyncExecuteConfirmDialogAtom } from "@/store/4-dialogs-atoms";
@@ -84,7 +84,7 @@ export const doDeleteCpassFromFileUsAtom = atom(null,
 
         // update maniAtoms
         const loginForm = maniAtoms[FormIdx.login];
-        const newManiAtoms: ManiAtoms = [loginForm, undefined, loginForm?.fieldsAtom || atom([]), atom([])];
+        const newManiAtoms: ManiAtoms = [loginForm, undefined, loginForm?.fieldsAtom || atom([]), atom([]), maniAtoms[launchDataIdx]];
         set(fileUs.maniAtomsAtom, newManiAtoms);
 
         // set file changed

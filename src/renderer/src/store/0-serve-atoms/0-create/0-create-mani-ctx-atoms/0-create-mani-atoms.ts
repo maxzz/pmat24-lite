@@ -1,8 +1,10 @@
-import { atom } from "jotai";
+import { type Atom, atom } from "jotai";
 import { FormIdx } from "@/store/8-manifest";
 import { type FileUs, type FileUsAtom } from "@/store/store-types";
 import { type MFormCnt, type NFormCnt, type FileUsCtx, type AnyFormCtx, type ManiAtoms, safeByContext, lFieldsIdx, cFieldsIdx } from "@/store/2-file-mani-atoms/9-types";
-import { createFormFieldsAtom, ManualFieldsState, NormalModeState, OptionsState } from "@/store/2-file-mani-atoms";
+import { createFormFieldsAtom, launchDataIdx, ManualFieldsState, NormalModeState, OptionsState } from "@/store/2-file-mani-atoms";
+import { type LaunchDataAll } from "../../8-launch-data/9-launch-types";
+import { getLaunchData } from "../../8-launch-data/1-get-launch-data";
 
 /**
  * @param embeddTo - If defined then new atoms will be added to existing ManiAtoms. This is used when we create new manifest and use it for cpass.
@@ -14,7 +16,7 @@ import { createFormFieldsAtom, ManualFieldsState, NormalModeState, OptionsState 
  *          (maniAtomsAtom deleted on savebut render function will use old mFormProps. We call from updateManiAtomsAfterSaveOrReset() createManiAtoms and disposeFileUsManiAtoms).
  */
 export function createManiAtoms({ fileUs, fileUsAtom, embeddTo }: { fileUs: FileUs; fileUsAtom: FileUsAtom; embeddTo?: ManiAtoms | undefined | null; }): ManiAtoms {
-    if (!embeddTo) {
+    if (!embeddTo) { // i.e. login form not embedded cpass form into login form
         const rv: any = [];
         const maniAtoms = rv as ManiAtoms;
 
@@ -25,6 +27,7 @@ export function createManiAtoms({ fileUs, fileUsAtom, embeddTo }: { fileUs: File
         rv.push(cpassFormCtx);
         rv.push(loginFormCtx?.fieldsAtom || atom([]));
         rv.push(cpassFormCtx?.fieldsAtom || atom([]));
+        rv.push(createLaunchDataAtom(maniAtoms)); // This is not good, because we of self referencing. Later we will fix it.
 
         //printCreateManiAtoms(fileUsAtom, fileUs, maniAtoms);
         return rv;
@@ -44,6 +47,7 @@ export function createManiAtoms({ fileUs, fileUsAtom, embeddTo }: { fileUs: File
         rv[FormIdx.cpass] = cpassFormCtx;
         rv[lFieldsIdx] = loginFormCtx.fieldsAtom || atom([]);
         rv[cFieldsIdx] = cpassFormCtx.fieldsAtom || atom([]);
+        rv[launchDataIdx] = embeddTo[launchDataIdx];
 
         //printCreateManiAtoms(fileUsAtom, fileUs, maniAtoms);
         return rv;
@@ -77,6 +81,10 @@ function createFormCtx(fileUsCtx: FileUsCtx): AnyFormCtx | undefined {
     };
 
     return rv;
+}
+
+function createLaunchDataAtom(maniAtoms: ManiAtoms): Atom<LaunchDataAll> {
+    return atom((get): LaunchDataAll => getLaunchData(maniAtoms, get));
 }
 
 function printCreateManiAtoms(fileUsAtom: FileUsAtom, fileUs: FileUs, maniAtoms: ManiAtoms) {
