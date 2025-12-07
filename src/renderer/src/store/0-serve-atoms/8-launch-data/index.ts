@@ -2,12 +2,15 @@ import { atom } from "jotai";
 import { type ManiAtoms } from "@/store/2-file-mani-atoms/9-types";
 import { FormIdx } from "@/store/8-manifest";
 
-export type LaunchData = {
-    loginUrl?: string;
-    cpassUrl?: string;
-    loginExe?: string;
-    cpassExe?: string;
+export type LaunchDataForm = {
+    url?: string;
+    exe?: string;
     isWeb: boolean;
+};
+
+export type LaunchData = {
+    login: LaunchDataForm;
+    cpass: LaunchDataForm;
 };
 
 export const launchDataAtom = atom(
@@ -16,30 +19,41 @@ export const launchDataAtom = atom(
         const loginFormCtx = maniAtoms[FormIdx.login];
         const cpassFormCtx = maniAtoms[FormIdx.cpass];
 
-        let loginUrl: string | undefined;
-        let cpassUrl: string | undefined;
-        let loginExe: string | undefined;
-        let cpassExe: string | undefined;
-        let isWeb: boolean = false;
+        let login: {
+            url?: string;
+            exe?: string;
+            isWeb: boolean;
+        } = {
+            url: undefined,
+            exe: undefined,
+            isWeb: false,
+        };
+        let cpass: {
+            url?: string;
+            exe?: string;
+            isWeb: boolean;
+        } = {
+            url: undefined,
+            exe: undefined,
+            isWeb: false,
+        };
 
         if (loginFormCtx) {
-            loginUrl = get(loginFormCtx.options.p2Detect.murlAtom).data;
-            loginExe = get(loginFormCtx.options.p2Detect.processnameAtom).data;
+            login.url = get(loginFormCtx.options.p2Detect.murlAtom).data;
+            login.exe = get(loginFormCtx.options.p2Detect.processnameAtom).data;
+            login.isWeb = get(loginFormCtx.options.isWebAtom);
             
-            isWeb = get(loginFormCtx.options.isWebAtom);
         }
 
         if (cpassFormCtx) {
-            cpassUrl = get(cpassFormCtx.options.p2Detect.murlAtom).data;
-            cpassExe = get(cpassFormCtx.options.p2Detect.processnameAtom).data;
+            cpass.url = get(cpassFormCtx.options.p2Detect.murlAtom).data;
+            cpass.exe = get(cpassFormCtx.options.p2Detect.processnameAtom).data;
+            cpass.isWeb = get(cpassFormCtx.options.isWebAtom);
         }
 
         return {
-            loginUrl,
-            cpassUrl,
-            loginExe,
-            cpassExe,
-            isWeb,
+            login,
+            cpass,
         };
     }
 );

@@ -1,61 +1,39 @@
 import { useSetAtom } from "jotai";
 import { DropdownMenuItem } from "@/ui/shadcn";
-import { type ManiAtoms, type FileUsCtx } from "@/store/2-file-mani-atoms";
-import { type LaunchData, launchDataAtom } from "@/store/0-serve-atoms/8-launch-data";
+import { type ManiAtoms } from "@/store/2-file-mani-atoms";
+import { launchDataAtom, type LaunchDataForm } from "@/store/0-serve-atoms/8-launch-data";
 
 export function MenuItems_Launch({ maniAtoms }: { maniAtoms: ManiAtoms; }) {
     const getLaunchData = useSetAtom(launchDataAtom);
     const launchData = getLaunchData({ maniAtoms });
     return (<>
-        <MenuItem_Launch launchData={launchData} />
+        <MenuItem_LaunchForm launchDataForm={launchData.login} />
+        <MenuItem_LaunchForm launchDataForm={launchData.cpass} />
     </>);
 }
 
-function MenuItem_Launch({ launchData }: { launchData: LaunchData; }) {
-    if (launchData.isWeb) {
-        return (<>
+function MenuItem_LaunchForm({ launchDataForm }: { launchDataForm: LaunchDataForm; }) {
+    return (<>
+        {launchDataForm.isWeb ? (
             <DropdownMenuItem
                 className="pl-8"
-                disabled={!launchData.loginUrl}
+                disabled={!launchDataForm.url}
                 onClick={(event) => {
-
+                    console.log('launch URL', launchDataForm.url);
                 }}
             >
-                Launch login URL
+                Launch URL
             </DropdownMenuItem>
-
+        ) : (
             <DropdownMenuItem
                 className="pl-8"
-                disabled={!launchData.cpassUrl}
+                disabled={!launchDataForm.exe}
                 onClick={(event) => {
-
+                    console.log('launch exe', launchDataForm.exe);
                 }}
             >
-                Launch Password Change URL
+                Launch Process
             </DropdownMenuItem>
-        </>);
-    }
-    else {
-        return (<>
-            <DropdownMenuItem
-                className="pl-8"
-                disabled={!launchData.loginExe}
-                onClick={(event) => {
-
-                }}
-            >
-                Launch login URL
-            </DropdownMenuItem>
-
-            <DropdownMenuItem
-                className="pl-8"
-                disabled={!launchData.cpassExe}
-                onClick={(event) => {
-
-                }}
-            >
-                Launch Password Change URL
-            </DropdownMenuItem>
-        </>);
-    }
+        )}
+    </>);
 }
