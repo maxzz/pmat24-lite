@@ -1,37 +1,61 @@
-import { useAtomValue, useSetAtom } from "jotai";
-import { DropdownMenuCheckboxItem, DropdownMenuItem } from "@/ui/shadcn";
+import { useSetAtom } from "jotai";
+import { DropdownMenuItem } from "@/ui/shadcn";
 import { type ManiAtoms, type FileUsCtx } from "@/store/2-file-mani-atoms";
-import { FormIdx } from "@/store/8-manifest";
+import { type LaunchData, launchDataAtom } from "@/store/0-serve-atoms/8-launch-data";
 
-export function MenuItems_Launch({ maniAtoms, fileUsCtx }: { maniAtoms: ManiAtoms; fileUsCtx: FileUsCtx; }) {
-    const loginFormCtx = maniAtoms[FormIdx.login];
-    const ctx = loginFormCtx?.options.isWebAtom;
-    const isWeb = useAtomValue();
+export function MenuItems_Launch({ maniAtoms }: { maniAtoms: ManiAtoms; }) {
+    const getLaunchData = useSetAtom(launchDataAtom);
+    const launchData = getLaunchData({ maniAtoms });
     return (<>
-        {/* <MenuItem_InUseMode fileUsCtx={fileUsCtx} /> */}
-        <MenuItem_Launch fileUsCtx={fileUsCtx} />
+        <MenuItem_Launch launchData={launchData} />
     </>);
 }
 
-function MenuItem_Launch({ fileUsCtx }: { fileUsCtx: FileUsCtx; }) {
-    const isWeb = useAtomValue(fileUsCtx.fileUs.isWebAtom);
-    return (<>
-        <DropdownMenuItem
-            className="pl-8"
-            onClick={(event) => {
+function MenuItem_Launch({ launchData }: { launchData: LaunchData; }) {
+    if (launchData.isWeb) {
+        return (<>
+            <DropdownMenuItem
+                className="pl-8"
+                disabled={!launchData.loginUrl}
+                onClick={(event) => {
 
-            }}
-        >
-            Launch login URL
-        </DropdownMenuItem>
+                }}
+            >
+                Launch login URL
+            </DropdownMenuItem>
 
-        <DropdownMenuItem
-            className="pl-8"
-            onClick={(event) => {
+            <DropdownMenuItem
+                className="pl-8"
+                disabled={!launchData.cpassUrl}
+                onClick={(event) => {
 
-            }}
-        >
-            Launch Password Change URL
-        </DropdownMenuItem>
-    </>);
+                }}
+            >
+                Launch Password Change URL
+            </DropdownMenuItem>
+        </>);
+    }
+    else {
+        return (<>
+            <DropdownMenuItem
+                className="pl-8"
+                disabled={!launchData.loginExe}
+                onClick={(event) => {
+
+                }}
+            >
+                Launch login URL
+            </DropdownMenuItem>
+
+            <DropdownMenuItem
+                className="pl-8"
+                disabled={!launchData.cpassExe}
+                onClick={(event) => {
+
+                }}
+            >
+                Launch Password Change URL
+            </DropdownMenuItem>
+        </>);
+    }
 }

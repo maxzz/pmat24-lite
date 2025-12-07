@@ -7,6 +7,7 @@ export type LaunchData = {
     cpassUrl?: string;
     loginExe?: string;
     cpassExe?: string;
+    isWeb: boolean;
 };
 
 export const launchDataAtom = atom(
@@ -19,10 +20,13 @@ export const launchDataAtom = atom(
         let cpassUrl: string | undefined;
         let loginExe: string | undefined;
         let cpassExe: string | undefined;
+        let isWeb: boolean = false;
 
         if (loginFormCtx) {
             loginUrl = get(loginFormCtx.options.p2Detect.murlAtom).data;
             loginExe = get(loginFormCtx.options.p2Detect.processnameAtom).data;
+            
+            isWeb = get(loginFormCtx.options.isWebAtom);
         }
 
         if (cpassFormCtx) {
@@ -35,6 +39,7 @@ export const launchDataAtom = atom(
             cpassUrl,
             loginExe,
             cpassExe,
+            isWeb,
         };
     }
 );
