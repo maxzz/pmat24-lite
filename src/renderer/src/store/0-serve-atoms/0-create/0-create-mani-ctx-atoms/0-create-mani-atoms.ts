@@ -27,7 +27,7 @@ export function createManiAtoms({ fileUs, fileUsAtom, embeddTo }: { fileUs: File
         rv.push(cpassFormCtx);
         rv.push(loginFormCtx?.fieldsAtom || atom([]));
         rv.push(cpassFormCtx?.fieldsAtom || atom([]));
-        rv.push(createLaunchDataAtom(maniAtoms)); // This is not good, because we of self referencing. Later we will fix it.
+        rv.push(createLaunchDataAtom(maniAtoms)); // TODO: This is not good, because we of self referencing. Later we will fix it.
 
         //printCreateManiAtoms(fileUsAtom, fileUs, maniAtoms);
         return rv;

@@ -42,7 +42,7 @@ export type ManiAtoms = readonly [
     lFields: Atom<FieldRowCtx[]>,               // 2. login fields // login and cpass fields are always defined (if no form then it's []), read only, and reactive
     cFields: Atom<FieldRowCtx[]>,               // 3. cpass fields
 
-    launchDataAtom: Atom<LaunchDataAll>,        // 4. Launch data for login and password change forms
+    launchDataAtom: Atom<LaunchDataAll>,        // 4. Launch data for login and password change forms. TODO: it may object with more fields in the future instead of single atom
 ];
 
 // Props given to children of form editor
