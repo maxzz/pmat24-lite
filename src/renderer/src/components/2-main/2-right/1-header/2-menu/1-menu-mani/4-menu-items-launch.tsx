@@ -4,6 +4,8 @@ import { DropdownMenuItem } from "@/ui/shadcn";
 import { type ManiAtoms } from "@/store/2-file-mani-atoms";
 import { launchDataAtom, type LaunchData } from "@/store/0-serve-atoms/8-launch-data";
 import { execFile } from "@/store/0-serve-atoms/7-file-system-manipulation/4-exec-file";
+import { hasMain } from "@/xternal-to-main";
+import { classNames } from "@/utils";
 
 export function MenuItems_Launch({ maniAtoms }: { maniAtoms: ManiAtoms; }) {
     const getLaunchData = useSetAtom(launchDataAtom);
@@ -15,6 +17,8 @@ export function MenuItems_Launch({ maniAtoms }: { maniAtoms: ManiAtoms; }) {
 }
 
 function MenuItem_LaunchForm({ launchDataForm, isLogin }: { launchDataForm: LaunchData; isLogin: boolean; }) {
+    const withMain = hasMain();
+    const label = withMain ? isLogin ? 'Launch login app' : 'Launch password change app' : 'Web PMAT cannot launch apps';
     return (<>
         {launchDataForm.isWeb
             ? (
@@ -30,9 +34,17 @@ function MenuItem_LaunchForm({ launchDataForm, isLogin }: { launchDataForm: Laun
             )
             : (
                 <DropdownMenuItem
-                    className="pl-8"
-                    disabled={!launchDataForm.exe}
+                    className={classNames("pl-8", !withMain && "opacity-50 cursor-not-allowed")}
+                    //disabled={!launchDataForm.exe}
                     onClick={() => {
+                        if (!withMain) {
+                            notice.error('Cannot launch app without main process');
+                            return;
+                        }
+                        if (!launchDataForm.exe) {
+                            notice.error('There is no executable file to launch');
+                            return;
+                        }
                         console.log('launch exe', launchDataForm.exe);
                         if (!launchDataForm.exe) {
                             notice.error('No executable file to launch');
@@ -43,8 +55,9 @@ function MenuItem_LaunchForm({ launchDataForm, isLogin }: { launchDataForm: Laun
                             notice.error(rv);
                         }
                     }}
+                    title={label}
                 >
-                    {isLogin ? 'Launch Login app' : 'Launch password change app'}
+                    {label}
                 </DropdownMenuItem>
             )
         }
