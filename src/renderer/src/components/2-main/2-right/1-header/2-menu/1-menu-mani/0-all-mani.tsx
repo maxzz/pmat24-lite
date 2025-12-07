@@ -9,7 +9,8 @@ import { MenuItem_ShowXML } from "../7-show-xml";
 import { MenuItem_Manual_ClearScriptActions, MenuItem_Manual_CreateDefaultScriptActions } from "./2-manual-actions-list";
 import { MenuItem_Normal_ShowTextFields } from "./1-normal-w32-show-text-fields";
 import { MenuItems_State } from "./3-menu-items-test-inuse";
-import { MenuItem_Cpass } from "./4-menu-items-cpass";
+import { MenuItem_Cpass } from "./5-menu-items-cpass";
+import { MenuItems_Launch } from "./4-menu-items-launch";
 //import { MenuItem_More } from "../8-more";
 
 export function R_PanelMenuMani({ maniAtoms }: { maniAtoms: ManiAtoms; }) {
@@ -60,7 +61,8 @@ function CommonMenuItems({ maniAtoms, fileUsCtx }: { maniAtoms: ManiAtoms; fileU
         <MenuItem_Cpass maniAtoms={maniAtoms} fileUsCtx={fileUsCtx} />
         <DropdownMenuSeparator />
         <MenuItems_State fileUsCtx={fileUsCtx} />
-        {/* <DropdownMenuSeparator /> */}
+        <MenuItems_Launch maniAtoms={maniAtoms} fileUsCtx={fileUsCtx} />
+        <DropdownMenuSeparator />
         <MenuItem_ShowXML />
         {/* <MenuItem_More /> */}
     </>);
