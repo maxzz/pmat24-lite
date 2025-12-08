@@ -18,7 +18,7 @@ function MenuItem_InTestMode({ fileUsCtx }: { fileUsCtx: FileUsCtx; }) {
     return (
         <DropdownMenuCheckboxItem
             checked={isInTestMode}
-            onCheckedChange={(checked) => doSetInTest({ fileUsCtx, inTest: checked })}
+            onCheckedChange={(checked) => doSetInTest({ fileUs: fileUsCtx.fileUs, inTest: checked })}
         >
             {modeTextInTest}
         </DropdownMenuCheckboxItem>

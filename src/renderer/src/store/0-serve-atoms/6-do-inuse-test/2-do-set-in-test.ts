@@ -1,15 +1,14 @@
 import { atom } from "jotai";
 import { errorToString } from "@/utils";
 import { notice } from "@/ui/local-ui/7-toaster";
-import { type FileUsCtx, fileUsChanges } from "@/store/2-file-mani-atoms/9-types";
+import { fileUsChanges } from "@/store/2-file-mani-atoms/9-types";
+import { type FileUs } from "@/store/store-types";
 import { inTest_Set } from "./8-in-test-commands";
 import { moveByInTestFileSystem } from "../7-file-system-manipulation";
 
 export const doSetManiInTestAtom = atom(
     null,
-    async (get, set, { fileUsCtx, inTest }: { fileUsCtx: FileUsCtx, inTest: boolean; }) => {
-        const fileUs = fileUsCtx.fileUs;
-
+    async (get, set, { fileUs, inTest }: { fileUs: FileUs, inTest: boolean; }) => {
         if (fileUsChanges.hasAny({ fileUs })) { // Nothing to do before file saved
             set(fileUs.maniInTestAtom, inTest);
             return;

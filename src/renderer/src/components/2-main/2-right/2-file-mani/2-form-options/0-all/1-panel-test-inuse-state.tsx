@@ -18,7 +18,7 @@ function Input_InTestMode({ fileUsCtx }: { fileUsCtx: FileUsCtx; }) {
     
     return (<>
         <ChildrenWithLabel2Cols label={modeTextInTest}>
-            <Switch className={toggleClasses} checked={isInTestMode} onCheckedChange={(checked) => doSetManiInTest({ fileUsCtx, inTest: checked })}></Switch>
+            <Switch className={toggleClasses} checked={isInTestMode} onCheckedChange={(checked) => doSetManiInTest({ fileUs: fileUsCtx.fileUs, inTest: checked })}></Switch>
         </ChildrenWithLabel2Cols>
     </>);
 }
