@@ -28,12 +28,12 @@ export function Row2_Explanation({ fileUs }: { fileUs: FileUs; }) {
             </span>
 
             {login.isWeb
-                ? <OpenUrlIcon url={login.url} anchorText={all.loginDomain} title="Open the login site" />
+                ? <OpenUrlIcon url={login.url} anchorText={all.loginDomain} title="Open login screen" />
                 : <LaunchAppIcon launchData={all.login} />
             }
 
             {cpass.isWeb
-                ? <OpenUrlIcon url={cpass.url} title="Open the password change site" />
+                ? <OpenUrlIcon url={cpass.url} title="Open password change screen" />
                 : <LaunchAppIcon launchData={all.cpass} />
             }
         </div>
