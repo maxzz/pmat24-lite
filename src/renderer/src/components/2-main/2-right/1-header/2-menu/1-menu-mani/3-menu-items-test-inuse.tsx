@@ -1,40 +1,26 @@
 import { useAtomValue, useSetAtom } from "jotai";
 import { DropdownMenuCheckboxItem } from "@/ui/shadcn";
 import { type FileUsCtx } from "@/store/2-file-mani-atoms";
+import { type FileUs } from "@/store/store-types/0-file-us-type";
 import { doSetManiInTestAtom } from "@/store/0-serve-atoms/6-do-inuse-test";
 import { modeTextInTest } from "../../../2-file-mani/2-form-options";
 
-export function MenuItems_State({ fileUsCtx }: { fileUsCtx: FileUsCtx; }) {
+export function MenuItems_State({ fileUs }: { fileUs: FileUs; }) {
     return (<>
-        {/* <MenuItem_InUseMode fileUsCtx={fileUsCtx} /> */}
-        <MenuItem_InTestMode fileUsCtx={fileUsCtx} />
+        <MenuItem_InTestMode fileUs={fileUs} />
     </>);
 }
 
-function MenuItem_InTestMode({ fileUsCtx }: { fileUsCtx: FileUsCtx; }) {
-    const isInTestMode = useAtomValue(fileUsCtx.fileUs.maniInTestAtom);
+function MenuItem_InTestMode({ fileUs }: { fileUs: FileUs; }) {
+    const isInTestMode = useAtomValue(fileUs.maniInTestAtom);
     const doSetInTest = useSetAtom(doSetManiInTestAtom);
 
     return (
         <DropdownMenuCheckboxItem
             checked={isInTestMode}
-            onCheckedChange={(checked) => doSetInTest({ fileUs: fileUsCtx.fileUs, inTest: checked })}
+            onCheckedChange={(checked) => doSetInTest({ fileUs, inTest: checked })}
         >
             {modeTextInTest}
         </DropdownMenuCheckboxItem>
     );
 }
-
-// function MenuItem_InUseMode({ fileUsCtx }: { fileUsCtx: FileUsCtx; }) {
-//     const notInUse = !useAtomValue(fileUsCtx.fileUs.maniInUseAtom);
-//     const doSetManiInUse = useSetAtom(doSetManiInUseAtom);
-
-//     return (
-//         <DropdownMenuCheckboxItem
-//             checked={notInUse}
-//             onCheckedChange={(checked) => doSetManiInUse({ fileUsCtx, inUse: !checked })}
-//         >
-//             {modeTextInUse}
-//         </DropdownMenuCheckboxItem>
-//     );
-// }

@@ -60,7 +60,7 @@ function CommonMenuItems({ maniAtoms, fileUsCtx }: { maniAtoms: ManiAtoms; fileU
     return (<>
         <MenuItem_Cpass maniAtoms={maniAtoms} fileUsCtx={fileUsCtx} />
         <DropdownMenuSeparator />
-        <MenuItems_State fileUsCtx={fileUsCtx} />
+        <MenuItems_State fileUs={fileUsCtx.fileUs} />
         <MenuItems_Launch maniAtoms={maniAtoms} />
         <DropdownMenuSeparator />
         <MenuItem_ShowXML />
