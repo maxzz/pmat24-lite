@@ -24,26 +24,34 @@ export function Row2_Explanation({ fileUs }: { fileUs: FileUs; }) {
                 {prefix}
             </span>
 
-            <LaunchOrOpenIcons launchData={launchData} />
+            <LoginLaunchOrOpenIcon launchData={launchData} />
+            <CpassLaunchOrOpenIcon launchData={launchData} />
         </div>
     );
 }
 
-function LaunchOrOpenIcons({ launchData }: { launchData: LaunchDataAll; }) {
+function LoginLaunchOrOpenIcon({ launchData }: { launchData: LaunchDataAll; }) {
     if (launchData.login.isWeb) {
+        return (
+            <OpenUrlIcon url={launchData.login.url} anchorText={launchData.loginDomain} title="Open the login site" />
+        );
     } else {
+        return (
+            <LaunchAppIcon launchData={launchData.login} />
+        );
     }
+}
 
+function CpassLaunchOrOpenIcon({ launchData }: { launchData: LaunchDataAll; }) {
     if (launchData.cpass.isWeb) {
+        return (
+            <OpenUrlIcon url={launchData.cpass.url} title="Open the password change site" />
+        );
     } else {
-
+        return (
+            <LaunchAppIcon launchData={launchData.cpass} />
+        );
     }
-
-    return (<>
-        <OpenUrlIcon url={launchData.login.url} anchorText={launchData.loginDomain} title="Open the login site" />
-
-        <OpenUrlIcon url={launchData.cpass.url} title="Open the password change site" />
-    </>);
 }
 
 function OpenUrlIcon({ anchorText, url, title }: { anchorText?: string; url: string | undefined; title: string; }) {
