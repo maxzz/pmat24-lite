@@ -21,8 +21,11 @@ export function getLaunchData(maniAtoms: ManiAtoms, get: Getter): LaunchDataAll 
         cpass.isWeb = get(cpassFormCtx.options.isWebAtom);
     }
 
+    const loginDomain = login.url ? new URL(login.url).hostname : '';
+
     return {
         login,
         cpass,
+        loginDomain,
     };
 }
