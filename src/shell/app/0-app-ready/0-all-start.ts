@@ -3,7 +3,7 @@ import { electronApp, is } from "@electron-toolkit/utils";
 import { connect_ListenersForCallFromRenderer, createAppWindow, setAppListeners, appWindow } from "../1-start-main-window";
 import { iniFileOptions } from "@shell/1-start-main-window/8-ini-file-options";
 
-const myAppId = 'com.electron' + (is.dev ? '-dev' : '');
+const myAppId = 'com.pmat.app' + (is.dev ? '-dev' : '');
 if (process.platform === 'win32') {
     app.setAppUserModelId(myAppId);
 }
