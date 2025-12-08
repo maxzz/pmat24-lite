@@ -15,9 +15,9 @@ export function R_PanelMenuXml({ fileUs, maniAtoms }: { fileUs: FileUs; maniAtom
 
 function MenuItems_WithManiAtoms({ fileUs, maniAtoms }: { fileUs: FileUs; maniAtoms: ManiAtoms; }) {
     return (<>
-        <DropdownMenuSeparator />
         <MenuItems_State fileUs={fileUs} />
         <MenuItems_Launch maniAtoms={maniAtoms} />
+        <DropdownMenuSeparator />
     </>);
 }
 
