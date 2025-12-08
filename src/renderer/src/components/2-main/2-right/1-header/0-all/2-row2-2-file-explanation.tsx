@@ -33,22 +33,20 @@ export function Row2_Explanation({ fileUs }: { fileUs: FileUs; }) {
 function LoginLaunchOrOpenIcon({ all }: { all: LaunchDataAll; }) {
     const login = all.login;
     return (<>
-        {login.isWeb ? (
-            <OpenUrlIcon url={login.url} anchorText={all.loginDomain} title="Open the login site" />
-        ) : (
-            <LaunchAppIcon launchData={all.login} />
-        )}
+        {login.isWeb
+            ? <OpenUrlIcon url={login.url} anchorText={all.loginDomain} title="Open the login site" />
+            : <LaunchAppIcon launchData={all.login} />
+        }
     </>);
 }
 
 function CpassLaunchOrOpenIcon({ all }: { all: LaunchDataAll; }) {
     const cpass = all.cpass;
     return (<>
-        {cpass.isWeb ? (
-            <OpenUrlIcon url={cpass.url} title="Open the password change site" />
-        ) : (
-            <LaunchAppIcon launchData={all.cpass} />
-        )}
+        {cpass.isWeb
+            ? <OpenUrlIcon url={cpass.url} title="Open the password change site" />
+            : <LaunchAppIcon launchData={all.cpass} />
+        }
     </>);
 }
 
