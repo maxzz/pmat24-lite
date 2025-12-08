@@ -24,34 +24,32 @@ export function Row2_Explanation({ fileUs }: { fileUs: FileUs; }) {
                 {prefix}
             </span>
 
-            <LoginLaunchOrOpenIcon launchData={launchData} />
-            <CpassLaunchOrOpenIcon launchData={launchData} />
+            <LoginLaunchOrOpenIcon all={launchData} />
+            <CpassLaunchOrOpenIcon all={launchData} />
         </div>
     );
 }
 
-function LoginLaunchOrOpenIcon({ launchData }: { launchData: LaunchDataAll; }) {
-    if (launchData.login.isWeb) {
-        return (
-            <OpenUrlIcon url={launchData.login.url} anchorText={launchData.loginDomain} title="Open the login site" />
-        );
-    } else {
-        return (
-            <LaunchAppIcon launchData={launchData.login} />
-        );
-    }
+function LoginLaunchOrOpenIcon({ all }: { all: LaunchDataAll; }) {
+    const login = all.login;
+    return (<>
+        {login.isWeb ? (
+            <OpenUrlIcon url={login.url} anchorText={all.loginDomain} title="Open the login site" />
+        ) : (
+            <LaunchAppIcon launchData={all.login} />
+        )}
+    </>);
 }
 
-function CpassLaunchOrOpenIcon({ launchData }: { launchData: LaunchDataAll; }) {
-    if (launchData.cpass.isWeb) {
-        return (
-            <OpenUrlIcon url={launchData.cpass.url} title="Open the password change site" />
-        );
-    } else {
-        return (
-            <LaunchAppIcon launchData={launchData.cpass} />
-        );
-    }
+function CpassLaunchOrOpenIcon({ all }: { all: LaunchDataAll; }) {
+    const cpass = all.cpass;
+    return (<>
+        {cpass.isWeb ? (
+            <OpenUrlIcon url={cpass.url} title="Open the password change site" />
+        ) : (
+            <LaunchAppIcon launchData={all.cpass} />
+        )}
+    </>);
 }
 
 function OpenUrlIcon({ anchorText, url, title }: { anchorText?: string; url: string | undefined; title: string; }) {
