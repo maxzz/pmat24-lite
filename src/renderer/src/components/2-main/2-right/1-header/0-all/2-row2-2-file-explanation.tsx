@@ -1,11 +1,31 @@
-import { FileUs } from "@/store/store-types";
+import { useAtomValue } from "jotai";
+import { type FileUs } from "@/store/store-types";
+import { launchDataIdx, safeManiAtoms } from "@/store/2-file-mani-atoms";
 import { isAnyManual } from "@/store/8-manifest";
 import { SymbolOpenLink } from "@/ui/icons";
 
 export function Row2_Explanation({ fileUs }: { fileUs: FileUs; }) {
-    const { stats: { loginFormDomain: domain }, meta } = fileUs.parsedSrc;
+    const maniAtoms = safeManiAtoms(useAtomValue(fileUs.maniAtomsAtom));
+    const launchData = useAtomValue(maniAtoms[launchDataIdx]);
+    const { stats: { loginFormDomain }, meta } = fileUs.parsedSrc;
 
-    if (!domain) {
+    const loginUrl = launchData.login.url;
+    const cpassUrl = launchData.cpass.url;
+    const showCpassUrl = cpassUrl && cpassUrl !== loginUrl;
+
+    const loginDomain = launchData.loginDomain;
+    
+    if (launchData.login.isWeb) {
+    } else {
+
+    }
+
+    if (launchData.cpass.isWeb) {
+    } else {
+
+    }
+
+    if (!loginFormDomain) {
         const title =
             isAnyManual(meta)
                 ? 'Manually defined login for a Windows application'
@@ -17,9 +37,9 @@ export function Row2_Explanation({ fileUs }: { fileUs: FileUs; }) {
         );
     }
 
-    const loginUrl = meta?.[0]?.mani?.detection?.web_ourl || domain; // open domain in browser if url is not defined
-    const cpassUrl = meta?.[1]?.mani?.detection?.web_ourl;
-    const showCpassUrl = cpassUrl && cpassUrl !== loginUrl;
+    // const loginUrl = meta?.[0]?.mani?.detection?.web_ourl || domainName; // open domain in browser if url is not defined
+    // const cpassUrl = meta?.[1]?.mani?.detection?.web_ourl;
+    // const showCpassUrl = cpassUrl && cpassUrl !== loginUrl;
 
     return (
         <div className="min-w-0 flex items-center gap-1">
@@ -29,11 +49,11 @@ export function Row2_Explanation({ fileUs }: { fileUs: FileUs; }) {
 
             {loginUrl
                 ? (
-                    <DomainAndOpenIcon domain={domain} url={loginUrl} title="Open the login site" />
+                    <DomainAndOpenIcon domain={loginFormDomain} url={loginUrl} title="Open the login site" />
                 )
                 : (
                     <div className={ManiUrlPartsClasses}>
-                        {domain}
+                        {loginFormDomain}
                     </div>
                 )
             }
