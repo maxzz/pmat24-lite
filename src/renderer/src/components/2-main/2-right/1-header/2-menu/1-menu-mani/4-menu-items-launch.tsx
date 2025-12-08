@@ -2,7 +2,7 @@ import { useAtomValue } from "jotai";
 import { DropdownMenuItem } from "@/ui/shadcn";
 import { launchDataIdx, type ManiAtoms } from "@/store/2-file-mani-atoms";
 import { type LaunchData } from "@/store/0-serve-atoms/8-launch-data/9-launch-types";
-import { asyncLaunchExe, errorWebVersionCannotRunApps } from "@/store/0-serve-atoms/7-file-system-manipulation";
+import { asyncLaunchExe, errorWebVersionCannotRunApps, labelLaunchLoginApp, labelLaunchPasswordChangeApp, labelOpenLoginScreen, labelOpenPasswordChangeScreen } from "@/store/0-serve-atoms/7-file-system-manipulation";
 import { hasMain } from "@/xternal-to-main";
 import { classNames } from "@/utils";
 
@@ -16,19 +16,16 @@ export function MenuItems_Launch({ maniAtoms }: { maniAtoms: ManiAtoms; }) {
 
 function MenuItem_LaunchForm({ launchDataForm, isLogin }: { launchDataForm: LaunchData; isLogin: boolean; }) {
     const withMain = hasMain();
-    const exeLabel = withMain ? isLogin ? 'Launch login app' : 'Launch password change app' : errorWebVersionCannotRunApps;
-    const urlLabel = isLogin ? 'Open login screen' : 'Open password change screen';
+    const exeLabel = withMain ? isLogin ? labelLaunchLoginApp : labelLaunchPasswordChangeApp : errorWebVersionCannotRunApps;
+    const urlLabel = isLogin ? labelOpenLoginScreen : labelOpenPasswordChangeScreen;
     return (<>
         {launchDataForm.isWeb
             ? (
                 <DropdownMenuItem
                     className="pl-8"
                     disabled={!launchDataForm.url}
-                    onClick={() => {
-                        console.log('Open URL', launchDataForm.url);
-                    }}
                 >
-                    <a href={launchDataForm.url} className={""} target="_blank" rel="noreferrer noopener">
+                    <a href={launchDataForm.url} target="_blank" rel="noreferrer noopener">
                         {urlLabel}
                     </a>
                 </DropdownMenuItem>

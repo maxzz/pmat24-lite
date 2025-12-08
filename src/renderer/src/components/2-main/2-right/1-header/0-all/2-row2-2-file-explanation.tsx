@@ -4,7 +4,7 @@ import { isAnyManual } from "@/store/8-manifest";
 import { type FileUs } from "@/store/store-types";
 import { type LaunchData } from "@/store/0-serve-atoms/8-launch-data/9-launch-types";
 import { launchDataIdx, safeManiAtoms } from "@/store/2-file-mani-atoms";
-import { asyncLaunchExe } from "@/store/0-serve-atoms/7-file-system-manipulation";
+import { asyncLaunchExe, labelOpenLoginScreen, labelOpenPasswordChangeScreen } from "@/store/0-serve-atoms/7-file-system-manipulation";
 import { SymbolOpenLink } from "@/ui/icons";
 
 export function Row2_Explanation({ fileUs }: { fileUs: FileUs; }) {
@@ -28,12 +28,12 @@ export function Row2_Explanation({ fileUs }: { fileUs: FileUs; }) {
             </span>
 
             {login.isWeb
-                ? <OpenUrlIcon url={login.url} anchorText={all.loginDomain} title="Open login screen" />
+                ? <OpenUrlIcon url={login.url} anchorText={all.loginDomain} title={labelOpenLoginScreen} />
                 : <LaunchAppIcon launchData={all.login} />
             }
 
             {cpass.isWeb
-                ? <OpenUrlIcon url={cpass.url} title="Open password change screen" />
+                ? <OpenUrlIcon url={cpass.url} title={labelOpenPasswordChangeScreen} />
                 : <LaunchAppIcon launchData={all.cpass} />
             }
         </div>
