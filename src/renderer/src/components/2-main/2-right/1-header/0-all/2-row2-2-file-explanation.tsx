@@ -38,7 +38,7 @@ export function Row2_Explanation({ fileUs }: { fileUs: FileUs; }) {
             </span>
 
             {loginUrl && (
-                <DomainAndOpenIcon domain={loginFormDomain} url={loginUrl} title="Open the login site" />
+                <DomainAndOpenIcon domain={loginDomain} url={loginUrl} title="Open the login site" />
             )}
 
             {showCpassUrl && (

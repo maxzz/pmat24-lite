@@ -8,4 +8,5 @@ export type LaunchDataAll = {
     login: LaunchData;
     cpass: LaunchData;
     loginDomain: string;
+    loginHost: string;
 };
