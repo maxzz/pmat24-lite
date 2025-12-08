@@ -39,7 +39,7 @@ function MenuSelector() {
 
     if (appSettings.right.activeView === RightPanelViewAs.xml) {
         return (
-            <R_PanelMenuXml fileUs={fileUs} />
+            <R_PanelMenuXml fileUs={fileUs} maniAtoms={maniAtoms} />
         );
     }
 
