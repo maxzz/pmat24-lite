@@ -7,6 +7,7 @@ import { SymbolOpenLink } from "@/ui/icons";
 export function Row2_Explanation({ fileUs }: { fileUs: FileUs; }) {
     const maniAtoms = safeManiAtoms(useAtomValue(fileUs.maniAtomsAtom));
     const launchData = useAtomValue(maniAtoms[launchDataIdx]);
+    
     const { stats: { loginFormDomain }, meta } = fileUs.parsedSrc;
 
     const loginUrl = launchData.login.url;
@@ -14,18 +15,11 @@ export function Row2_Explanation({ fileUs }: { fileUs: FileUs; }) {
     const showCpassUrl = cpassUrl && cpassUrl !== loginUrl;
 
     const loginDomain = launchData.loginDomain;
+
+    const prefix = launchData.login.isWeb ? 'The login is defined for' : isAnyManual(meta) ? 'Manually defined login for a Windows application' : 'Login for a Windows application';
     
     if (launchData.login.isWeb) {
     } else {
-
-    }
-
-    if (launchData.cpass.isWeb) {
-    } else {
-
-    }
-
-    if (!loginFormDomain) {
         const title =
             isAnyManual(meta)
                 ? 'Manually defined login for a Windows application'
@@ -35,6 +29,11 @@ export function Row2_Explanation({ fileUs }: { fileUs: FileUs; }) {
                 {title}
             </span>
         );
+    }
+
+    if (launchData.cpass.isWeb) {
+    } else {
+
     }
 
     // const loginUrl = meta?.[0]?.mani?.detection?.web_ourl || domainName; // open domain in browser if url is not defined
