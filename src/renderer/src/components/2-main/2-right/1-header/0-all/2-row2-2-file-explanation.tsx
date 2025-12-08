@@ -8,11 +8,10 @@ export function Row2_Explanation({ fileUs }: { fileUs: FileUs; }) {
     const maniAtoms = safeManiAtoms(useAtomValue(fileUs.maniAtomsAtom));
     const launchData = useAtomValue(maniAtoms[launchDataIdx]);
 
-    const { stats: { loginFormDomain }, meta } = fileUs.parsedSrc;
+    const { meta } = fileUs.parsedSrc;
 
     const loginUrl = launchData.login.url;
     const cpassUrl = launchData.cpass.url;
-    const showCpassUrl = cpassUrl && cpassUrl !== loginUrl;
 
     const loginDomain = launchData.loginDomain;
 
@@ -38,20 +37,20 @@ export function Row2_Explanation({ fileUs }: { fileUs: FileUs; }) {
             </span>
 
             {loginUrl && (
-                <DomainAndOpenIcon domain={loginDomain} url={loginUrl} title="Open the login site" />
+                <DomainAndOpenIcon url={loginUrl} anchorText={loginDomain} title="Open the login site" />
             )}
 
-            {showCpassUrl && (
+            {cpassUrl && cpassUrl !== loginUrl && (
                 <DomainAndOpenIcon url={cpassUrl} title="Open the password change site" />
             )}
         </div>
     );
 }
 
-function DomainAndOpenIcon({ domain, url, title }: { domain?: string; url: string | undefined; title: string; }) {
+function DomainAndOpenIcon({ anchorText, url, title }: { anchorText?: string; url: string | undefined; title: string; }) {
     return (
         <a href={url} className={DomainAndOpenIconClasses} target="_blank" rel="noreferrer noopener" title={title}>
-            {domain}
+            {anchorText}
             <SymbolOpenLink className="pt-0.5 size-3" />
         </a>
     );
