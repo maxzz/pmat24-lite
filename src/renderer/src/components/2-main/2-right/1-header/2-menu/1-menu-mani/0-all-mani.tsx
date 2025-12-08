@@ -5,13 +5,10 @@ import { maniAtiveTabToFormIdx } from "@/store/5-3-right-panel";
 import { type FileUsCtx, type ManiAtoms, isManualForm, isNormalForm } from "@/store/2-file-mani-atoms";
 import { DropdownMenuSeparator } from "@/ui/shadcn/dropdown-menu";
 import { NoMenu } from "../0-all/1-no-menu";
-import { MenuItem_ShowXML } from "../7-show-xml";
 import { MenuItem_Manual_ClearScriptActions, MenuItem_Manual_CreateDefaultScriptActions } from "./2-manual-actions-list";
 import { MenuItem_Normal_ShowTextFields } from "./1-normal-w32-show-text-fields";
-import { MenuItems_State } from "./3-menu-items-test-inuse";
 import { MenuItem_Cpass } from "./5-menu-items-cpass";
-import { MenuItems_Launch } from "./4-menu-items-launch";
-//import { MenuItem_More } from "../8-more";
+import { R_PanelMenuXml } from "../3-menu-xml";
 
 export function R_PanelMenuMani({ maniAtoms }: { maniAtoms: ManiAtoms; }) {
     const { activeTab } = useSnapshot(appSettings.right.mani);
@@ -39,7 +36,6 @@ export function R_PanelMenuMani({ maniAtoms }: { maniAtoms: ManiAtoms; }) {
     if (isNormalForm(formCtx)) {
         return (<>
             <MenuItem_Normal_ShowTextFields formCtx={formCtx} />
-            {/* <DropdownMenuSeparator /> */} {/* This is double separator MenuItem_Normal_ShowTextFields is hidden */}
             <CommonMenuItems maniAtoms={maniAtoms} fileUsCtx={formCtx.fileUsCtx} />
         </>);
     }
@@ -60,10 +56,6 @@ function CommonMenuItems({ maniAtoms, fileUsCtx }: { maniAtoms: ManiAtoms; fileU
     return (<>
         <MenuItem_Cpass maniAtoms={maniAtoms} fileUsCtx={fileUsCtx} />
         <DropdownMenuSeparator />
-        <MenuItems_State fileUs={fileUsCtx.fileUs} />
-        <MenuItems_Launch maniAtoms={maniAtoms} />
-        <DropdownMenuSeparator />
-        <MenuItem_ShowXML />
-        {/* <MenuItem_More /> */}
+        <R_PanelMenuXml fileUs={fileUsCtx.fileUs} maniAtoms={maniAtoms} />
     </>);
 }
