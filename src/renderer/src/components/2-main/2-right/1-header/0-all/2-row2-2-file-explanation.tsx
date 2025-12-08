@@ -7,7 +7,7 @@ import { SymbolOpenLink } from "@/ui/icons";
 export function Row2_Explanation({ fileUs }: { fileUs: FileUs; }) {
     const maniAtoms = safeManiAtoms(useAtomValue(fileUs.maniAtomsAtom));
     const launchData = useAtomValue(maniAtoms[launchDataIdx]);
-    
+
     const { stats: { loginFormDomain }, meta } = fileUs.parsedSrc;
 
     const loginUrl = launchData.login.url;
@@ -17,18 +17,9 @@ export function Row2_Explanation({ fileUs }: { fileUs: FileUs; }) {
     const loginDomain = launchData.loginDomain;
 
     const prefix = launchData.login.isWeb ? 'The login is defined for' : isAnyManual(meta) ? 'Manually defined login for a Windows application' : 'Login for a Windows application';
-    
+
     if (launchData.login.isWeb) {
     } else {
-        const title =
-            isAnyManual(meta)
-                ? 'Manually defined login for a Windows application'
-                : 'Login for a Windows application';
-        return (
-            <span className="truncate">
-                {title}
-            </span>
-        );
     }
 
     if (launchData.cpass.isWeb) {
@@ -43,19 +34,12 @@ export function Row2_Explanation({ fileUs }: { fileUs: FileUs; }) {
     return (
         <div className="min-w-0 flex items-center gap-1">
             <span className="truncate">
-                The login is defined for
+                {prefix}
             </span>
 
-            {loginUrl
-                ? (
-                    <DomainAndOpenIcon domain={loginFormDomain} url={loginUrl} title="Open the login site" />
-                )
-                : (
-                    <div className={ManiUrlPartsClasses}>
-                        {loginFormDomain}
-                    </div>
-                )
-            }
+            {loginUrl && (
+                <DomainAndOpenIcon domain={loginFormDomain} url={loginUrl} title="Open the login site" />
+            )}
 
             {showCpassUrl && (
                 <DomainAndOpenIcon url={cpassUrl} title="Open the password change site" />
@@ -63,9 +47,6 @@ export function Row2_Explanation({ fileUs }: { fileUs: FileUs; }) {
         </div>
     );
 }
-
-//TODO: It is wrong to use meta data here
-//TODO: why in XML view there is no open/launch menu items?
 
 function DomainAndOpenIcon({ domain, url, title }: { domain?: string; url: string | undefined; title: string; }) {
     return (
@@ -76,14 +57,6 @@ function DomainAndOpenIcon({ domain, url, title }: { domain?: string; url: strin
     );
 }
 
-const ManiUrlPartsClasses = "\
-text-foreground \
-opacity-70 \
-hover:opacity-100 \
-hover:text-foreground \
-underline \
-underline-offset-2";
-
 const DomainAndOpenIconClasses = "\
 text-foreground \
 hover:text-foreground \
@@ -91,3 +64,6 @@ hover:opacity-100 \
 opacity-70 \
 underline underline-offset-2 \
 flex items-center gap-1";
+
+//TODO: It is wrong to use meta data here
+//TODO: why in XML view there is no open/launch menu items?
