@@ -3,7 +3,7 @@ import { notice } from "@/ui/local-ui/7-toaster";
 import { DropdownMenuItem } from "@/ui/shadcn";
 import { launchDataIdx, type ManiAtoms } from "@/store/2-file-mani-atoms";
 import { type LaunchData } from "@/store/0-serve-atoms/8-launch-data/9-launch-types";
-import { execFile } from "@/store/0-serve-atoms/7-file-system-manipulation/4-exec-file";
+import { asyncLaunchExe } from "@/store/0-serve-atoms/7-file-system-manipulation";
 import { hasMain } from "@/xternal-to-main";
 import { classNames } from "@/utils";
 
@@ -34,7 +34,7 @@ function MenuItem_LaunchForm({ launchDataForm, isLogin }: { launchDataForm: Laun
             : (
                 <DropdownMenuItem
                     className={classNames("pl-8", !withMain && "opacity-50 cursor-not-allowed")}
-                    onClick={() => launchExe(launchDataForm, withMain)}
+                    onClick={() => asyncLaunchExe(launchDataForm.exe, withMain)}
                     title={label}
                 >
                     {label}
@@ -42,26 +42,4 @@ function MenuItem_LaunchForm({ launchDataForm, isLogin }: { launchDataForm: Laun
             )
         }
     </>);
-}
-
-function launchExe(launchDataForm: LaunchData, withMain: boolean) {
-    if (!withMain) {
-        notice.error('Cannot launch app without main process');
-        return;
-    }
-    if (!launchDataForm.exe) {
-        notice.error('There is no executable file to launch');
-        return;
-    }
-
-    console.log('launch exe', launchDataForm.exe);
-
-    if (!launchDataForm.exe) {
-        notice.error('No executable file to launch');
-        return;
-    }
-    const rv = execFile(launchDataForm.exe);
-    if (rv) {
-        notice.error(rv);
-    }
 }

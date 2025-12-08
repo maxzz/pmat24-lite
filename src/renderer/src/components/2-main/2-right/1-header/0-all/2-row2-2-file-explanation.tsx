@@ -3,7 +3,9 @@ import { type FileUs } from "@/store/store-types";
 import { launchDataIdx, safeManiAtoms } from "@/store/2-file-mani-atoms";
 import { isAnyManual } from "@/store/8-manifest";
 import { SymbolOpenLink } from "@/ui/icons";
-import { LaunchDataAll } from "@/store/0-serve-atoms/8-launch-data/9-launch-types";
+import { type LaunchData, type LaunchDataAll } from "@/store/0-serve-atoms/8-launch-data/9-launch-types";
+import { asyncLaunchExe } from "@/store/0-serve-atoms/7-file-system-manipulation";
+import { hasMain } from "@/xternal-to-main";
 
 export function Row2_Explanation({ fileUs }: { fileUs: FileUs; }) {
     const maniAtoms = safeManiAtoms(useAtomValue(fileUs.maniAtomsAtom));
@@ -28,11 +30,6 @@ export function Row2_Explanation({ fileUs }: { fileUs: FileUs; }) {
 }
 
 function LaunchOrOpenIcons({ launchData }: { launchData: LaunchDataAll; }) {
-    const loginUrl = launchData.login.url;
-    const cpassUrl = launchData.cpass.url;
-
-    const loginDomain = launchData.loginDomain;
-
     if (launchData.login.isWeb) {
     } else {
     }
@@ -43,25 +40,37 @@ function LaunchOrOpenIcons({ launchData }: { launchData: LaunchDataAll; }) {
     }
 
     return (<>
-        <DomainAndOpenIcon url={loginUrl} anchorText={loginDomain} title="Open the login site" />
+        <OpenUrlIcon url={launchData.login.url} anchorText={launchData.loginDomain} title="Open the login site" />
 
-        <DomainAndOpenIcon url={cpassUrl} title="Open the password change site" />
+        <OpenUrlIcon url={launchData.cpass.url} title="Open the password change site" />
     </>);
 }
 
-function DomainAndOpenIcon({ anchorText, url, title }: { anchorText?: string; url: string | undefined; title: string; }) {
+function OpenUrlIcon({ anchorText, url, title }: { anchorText?: string; url: string | undefined; title: string; }) {
     if (!url) {
         return null;
     }
     return (
-        <a href={url} className={DomainAndOpenIconClasses} target="_blank" rel="noreferrer noopener" title={title}>
+        <a href={url} className={openUrlIconClasses} target="_blank" rel="noreferrer noopener" title={title}>
             {anchorText}
             <SymbolOpenLink className="pt-0.5 size-3" />
         </a>
     );
 }
 
-const DomainAndOpenIconClasses = "\
+function LaunchAppIcon({ launchData }: { launchData: LaunchData; }) {
+    if (!launchData.exe) {
+        return null;
+    }
+    const withMain = hasMain();
+    return (
+        <button className={openUrlIconClasses} onClick={() => asyncLaunchExe(launchData.exe, withMain)}>
+            <SymbolOpenLink className="pt-0.5 size-3" />
+        </button>
+    );
+}
+
+const openUrlIconClasses = "\
 text-foreground \
 hover:text-foreground \
 hover:opacity-100 \
