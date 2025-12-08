@@ -1,22 +1,25 @@
 import { useAtomValue } from "jotai";
-import { type FileUs } from "@/store/store-types";
-import { launchDataIdx, safeManiAtoms } from "@/store/2-file-mani-atoms";
-import { isAnyManual } from "@/store/8-manifest";
-import { SymbolOpenLink } from "@/ui/icons";
-import { type LaunchData, type LaunchDataAll } from "@/store/0-serve-atoms/8-launch-data/9-launch-types";
-import { asyncLaunchExe } from "@/store/0-serve-atoms/7-file-system-manipulation";
 import { hasMain } from "@/xternal-to-main";
+import { isAnyManual } from "@/store/8-manifest";
+import { type FileUs } from "@/store/store-types";
+import { type LaunchData } from "@/store/0-serve-atoms/8-launch-data/9-launch-types";
+import { launchDataIdx, safeManiAtoms } from "@/store/2-file-mani-atoms";
+import { asyncLaunchExe } from "@/store/0-serve-atoms/7-file-system-manipulation";
+import { SymbolOpenLink } from "@/ui/icons";
 
 export function Row2_Explanation({ fileUs }: { fileUs: FileUs; }) {
     const maniAtoms = safeManiAtoms(useAtomValue(fileUs.maniAtomsAtom));
-    const launchData = useAtomValue(maniAtoms[launchDataIdx]);
+    const all = useAtomValue(maniAtoms[launchDataIdx]);
 
     const { meta } = fileUs.parsedSrc;
-    const prefix = launchData.login.isWeb ? 'The login is defined for' : isAnyManual(meta) ? 'Manually defined login for a Windows application' : 'Login for a Windows application';
+    const prefix = all.login.isWeb ? 'The login is defined for' : isAnyManual(meta) ? 'Manually defined login for a Windows application' : 'Login for a Windows application';
 
     // const loginUrl = meta?.[0]?.mani?.detection?.web_ourl || domainName; // open domain in browser if url is not defined
     // const cpassUrl = meta?.[1]?.mani?.detection?.web_ourl;
     // const showCpassUrl = cpassUrl && cpassUrl !== loginUrl;
+
+    const login = all.login;
+    const cpass = all.cpass;
 
     return (
         <div className="min-w-0 flex items-center gap-1">
@@ -24,30 +27,17 @@ export function Row2_Explanation({ fileUs }: { fileUs: FileUs; }) {
                 {prefix}
             </span>
 
-            <LoginLaunchOrOpenIcon all={launchData} />
-            <CpassLaunchOrOpenIcon all={launchData} />
+            {login.isWeb
+                ? <OpenUrlIcon url={login.url} anchorText={all.loginDomain} title="Open the login site" />
+                : <LaunchAppIcon launchData={all.login} />
+            }
+
+            {cpass.isWeb
+                ? <OpenUrlIcon url={cpass.url} title="Open the password change site" />
+                : <LaunchAppIcon launchData={all.cpass} />
+            }
         </div>
     );
-}
-
-function LoginLaunchOrOpenIcon({ all }: { all: LaunchDataAll; }) {
-    const login = all.login;
-    return (<>
-        {login.isWeb
-            ? <OpenUrlIcon url={login.url} anchorText={all.loginDomain} title="Open the login site" />
-            : <LaunchAppIcon launchData={all.login} />
-        }
-    </>);
-}
-
-function CpassLaunchOrOpenIcon({ all }: { all: LaunchDataAll; }) {
-    const cpass = all.cpass;
-    return (<>
-        {cpass.isWeb
-            ? <OpenUrlIcon url={cpass.url} title="Open the password change site" />
-            : <LaunchAppIcon launchData={all.cpass} />
-        }
-    </>);
 }
 
 function OpenUrlIcon({ anchorText, url, title }: { anchorText?: string; url: string | undefined; title: string; }) {
