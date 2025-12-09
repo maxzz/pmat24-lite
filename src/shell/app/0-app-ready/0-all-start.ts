@@ -11,7 +11,9 @@ if (process.platform === 'win32') {
 const gotTheLock = app.requestSingleInstanceLock();
 if (!gotTheLock) {
     console.log('no.lock.second-instance.running');
-    process.exit(0);
+    setTimeout(() => {
+        app.quit();
+    }, 1000);
 } else {
     ContinueRunApp();
 }
