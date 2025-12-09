@@ -32,6 +32,8 @@ function ContinueRunApp() {
     // Some APIs can only be used after this event occurs.
     app.whenReady().then(
         () => {
+            console.log('main-process-ready'); // This is marker for vscode to start debugger in launch.json. Don't remove this line!
+
             // Set app user model id for windows
             electronApp.setAppUserModelId(myAppId);
 

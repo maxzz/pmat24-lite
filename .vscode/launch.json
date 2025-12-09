@@ -15,6 +15,11 @@
             ],
             "env": {
                 "REMOTE_DEBUGGING_PORT": "9222"
+            },
+            "serverReadyAction": {
+                "action": "startDebugging",
+                "pattern": "main-process-ready",
+                "name": "Debug Renderer Process"
             }
         },
         {
@@ -147,8 +152,7 @@
         {
             "name": "Debug All",
             "configurations": [
-                "Debug Main Process",
-                "Debug Renderer Process"
+                "Debug Main Process"
             ],
             "stopAll": true,
             "presentation": {
