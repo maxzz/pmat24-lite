@@ -9,16 +9,15 @@ if (process.platform === 'win32') {
 }
 
 const gotTheLock = app.requestSingleInstanceLock();
+if (!gotTheLock) {
+    console.log('no.lock.second-instance.running');
+    app.quit();
+} else {
+    ContinueRunApp();
+}
 
-RunApp();
+function ContinueRunApp() {
 
-function RunApp() {
-    if (!gotTheLock) {
-        console.log('no.lock.second-instance.running');
-        app.quit();
-        return;
-    }
-    
     app.on('second-instance', (_event, _commandLine, _workingDirectory) => {
         // Someone tried to run a second instance, we should focus our window.
         if (appWindow.wnd) {
@@ -28,22 +27,22 @@ function RunApp() {
             appWindow.wnd.focus();
         }
     });
-    
+
     // This method will be called when Electron has finished initialization and is ready to create browser windows.
     // Some APIs can only be used after this event occurs.
     app.whenReady().then(
         () => {
             // Set app user model id for windows
             electronApp.setAppUserModelId(myAppId);
-    
+
             connect_ListenersForCallFromRenderer();
-    
+
             // IPC test
             // ipcMain.on('ping', () => console.log('pong'));
-    
+
             iniFileOptions.load();
             createAppWindow();
-    
+
             setAppListeners();
         }
     );
