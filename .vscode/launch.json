@@ -150,6 +150,7 @@
                 "Debug Main Process",
                 "Debug Renderer Process"
             ],
+            "stopAll": true,
             "presentation": {
                 "order": 1
             }
