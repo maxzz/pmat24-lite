@@ -122,19 +122,18 @@ export function unpackCaption(caption: string): { caption: string, variablecapti
     return { caption, variablecaption: caption };
 }
 
-// The inverse of `unpackCaption` from caption with stars like "*name" return caption like "[m0]:2:1:name" and variablecaption like "name"
-export function packCaptionToMain(caption: string): { caption: string, variablecaption: string } {
+// The inverse of `unpackCaption` from caption with stars like "*name" return encoded caption like "[m0]:2:1:name" without stars and variablecaption "name"
+export function packCaptionToMain(caption: string): { encodedCaption: string, variablecaption: string } {
     // See if the caption starts/ends with a '*'
     const start = caption.startsWith('*');
     const end = caption.endsWith('*');
     if (start && end) {
-        return { caption: `[m0]:2:3:${caption}`, variablecaption: caption };
+        return { encodedCaption: `[m0]:2:3:${caption.slice(1, -1)}`, variablecaption: caption.slice(1, -1) };
+    } else if (start) {
+        return { encodedCaption: `[m0]:2:1:${caption.slice(1)}`, variablecaption: caption.slice(1) };
+    } else if (end) {
+        return { encodedCaption: `[m0]:2:2:${caption.slice(0, -1)}`, variablecaption: caption.slice(0, -1) };
+    } else {
+        return { encodedCaption: caption, variablecaption: caption };
     }
-    if (start) {
-        return { caption: `[m0]:2:1:${caption}`, variablecaption: caption };
-    }
-    if (end) {
-        return { caption: `[m0]:2:2:${caption}`, variablecaption: caption };
-    }
-    return { caption: caption, variablecaption: caption };
 }
