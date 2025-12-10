@@ -99,14 +99,13 @@ export function convertStringToCaptionAndVariablecaption(caption: string): { cap
 //TODO: add function that will convert caption string from previous function to string like "[m0]:2:1:name" 
 // but if there is no wildcard at the beginning or end, then return the original string
 export function convertStringToCaptionString(caption: string, variablecaption: string): string {
-    if (caption.startsWith("*") && caption.endsWith("*")) {
-        return `[m0]:2:3:${variablecaption}`;
-    }
-    if (caption.startsWith("*")) {
-        return `[m0]:2:2:${variablecaption}`;
-    }
-    if (caption.endsWith("*")) {
-        return `[m0]:2:1:${variablecaption}`;
+    const start = caption.startsWith('*');
+    const end = caption.endsWith('*');
+
+    if (start || end) {
+        // 1: *name (start), 2: name* (end), 3: *name* (both)
+        const type = start && end ? '3' : start ? '1' : '2';
+        return `[m0]:2:${type}:${variablecaption}`;
     }
     return caption;
 }
