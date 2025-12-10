@@ -85,6 +85,7 @@ export function forAtoms(fileUsCtx: FileUsCtx): FormOptionsState.ForAtoms {
 //  if caption "[m0]:2:2:name" starts with "[m0]:2:2:" returns {caption: "name*", variablecaption: "name"}
 //  if caption "[m0]:2:3:name" starts with "[m0]:2:3:" returns {caption: "*name*", variablecaption: "name"}
 //  otherwise returns {caption: "name", variablecaption: "name"}
+
 export function convertStringToCaptionAndVariablecaption(caption: string): { caption: string, variablecaption: string } {
     const match = caption.match(/^\[m0\]:2:([123]):(.*)$/);
     if (match) {
@@ -95,3 +96,17 @@ export function convertStringToCaptionAndVariablecaption(caption: string): { cap
     return { caption, variablecaption: caption };
 }
 
+//TODO: add function that will convert caption string from previous function to string like "[m0]:2:1:name" 
+// but if there is no wildcard at the beginning or end, then return the original string
+export function convertStringToCaptionString(caption: string, variablecaption: string): string {
+    if (caption.startsWith("*") && caption.endsWith("*")) {
+        return `[m0]:2:3:${variablecaption}`;
+    }
+    if (caption.startsWith("*")) {
+        return `[m0]:2:2:${variablecaption}`;
+    }
+    if (caption.endsWith("*")) {
+        return `[m0]:2:1:${variablecaption}`;
+    }
+    return caption;
+}
