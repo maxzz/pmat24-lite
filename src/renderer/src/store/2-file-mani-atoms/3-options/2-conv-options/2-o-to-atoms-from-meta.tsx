@@ -79,3 +79,22 @@ export function forAtoms(fileUsCtx: FileUsCtx): FormOptionsState.ForAtoms {
 
     return rv;
 }
+
+//TODO: add function that will convert string to:
+//  if caption "[m0]:2:1:name" starts with "[m0]:2:1:" returns {caption: "*name", variablecaption: "name"}
+//  if caption "[m0]:2:2:name" starts with "[m0]:2:2:" returns {caption: "name*", variablecaption: "name"}
+//  if caption "[m0]:2:3:name" starts with "[m0]:2:3:" returns {caption: "*name*", variablecaption: "name"}
+//  otherwise returns {caption: "name", variablecaption: "name"}
+export function convertStringToCaptionAndVariablecaption(caption: string): { caption: string, variablecaption: string } {
+    if (caption.startsWith("[m0]:2:1:")) {
+        return { caption: "*name", variablecaption: "name" };
+    }
+    if (caption.startsWith("[m0]:2:2:")) {
+        return { caption: "name*", variablecaption: "name" };
+    }
+    if (caption.startsWith("[m0]:2:3:")) {
+        return { caption: "*name*", variablecaption: "name" };
+    }
+    return { caption: caption, variablecaption: caption };
+}
+
