@@ -84,11 +84,11 @@ const printProgressDebounced = debounce(
     function printProgress(res: TargetPosition) {
         const { point: { x, y }, isInside } = res;
         console.log(
-            `dnd.progress [IS: %s] pointXY: {%s, %s} CLIENT: {%s}, WINDOW: {%s}, MSG: %o`,
+            `dnd.progress [IS: %s] pointXY: {%s, %s} CLIENT: {%s}, MSG: %o`,
             isInside ? ' IN' : 'OUT',
             `${Math.round(x)}`.padStart(4, ' '),
             `${Math.round(y)}`.padStart(4, ' '),
-            { data: JSON.stringify(res) }
+            { msg: JSON.stringify(res) },
         );
     }, 1000
 );
