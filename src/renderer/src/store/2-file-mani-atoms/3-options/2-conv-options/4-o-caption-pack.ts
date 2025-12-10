@@ -7,7 +7,7 @@
  *   - "[m0]:2:1:name" --> { caption: "*name", variablecaption: "name" }
  *   - "[m0]:2:2:name" --> { caption: "name*", variablecaption: "name" }
  *   - "[m0]:2:3:name" --> { caption: "*name*", variablecaption: "name" }
- *   - otherwise (including empty string) returns: { caption: <input>, variablecaption: <input> }
+ *   - otherwise --> { caption: <input>, variablecaption: <input> }
  *
  * This logic helps abstract away the parsing of caption with wildcards and
  * lets the UI display both the wildcarded caption (for preview) and the plain
@@ -17,22 +17,27 @@
  * @returns Object with `caption` (including wildcards as required) and `variablecaption` (the variable part).
  */
 export function unpackCaption(caption: string): { caption: string, variablecaption: string; } {
-    // Try to match one of the known special patterns by regex:
-    // - [m0]:2:1:<name>
-    // - [m0]:2:2:<name>
-    // - [m0]:2:3:<name>
     const match = caption.match(/^\[m0\]:2:([123]):(.*)$/);
     if (match) {
         const [, type, name] = match;
-        // Map each code to its wildcard caption style
         const format = { '1': `*${name}`, '2': `${name}*`, '3': `*${name}*` };
         return { caption: format[type as keyof typeof format], variablecaption: name };
     }
-    // For regular captions (no marker), return as both fields
     return { caption, variablecaption: caption };
 }
 
-// The inverse of `unpackCaption` from caption with stars like "*name" return encoded caption like "[m0]:2:1:name" without stars and variablecaption "name"
+/**
+ * The inverse of `unpackCaption` from caption with stars like "*name" return encoded caption like "[m0]:2:1:name" without stars and variablecaption "name"
+ * 
+ * The formats supported are:
+ *   - "*name" --> { caption: "[m0]:2:1:name", variablecaption: "name" }
+ *   - "name*" --> { caption: "[m0]:2:2:name", variablecaption: "name" }
+ *   - "*name*" --> { caption: "[m0]:2:3:name", variablecaption: "name" }
+ *   - otherwise --> { caption: <input>, variablecaption: <input> }
+ * 
+ * @param caption Usually the user's edited text, possibly including * at start/end.
+ * @returns Object with `caption` (including wildcards as required) and `variablecaption` (the variable part).
+ */
 export function packCaptionToMain(caption: string): { caption: string, variablecaption: string; } {
     const start = caption.startsWith('*');
     const end = caption.endsWith('*');
