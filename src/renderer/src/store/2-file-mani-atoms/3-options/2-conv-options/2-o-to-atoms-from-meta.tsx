@@ -122,53 +122,19 @@ export function unpackCaption(caption: string): { caption: string, variablecapti
     return { caption, variablecaption: caption };
 }
 
-/**
- * The inverse of `unpackCaption`.
- *
- * Given a caption and the variablecaption, produces the original marker string representation if
- * there are wildcards at the beginning/end of the caption. Otherwise, returns the plain caption.
- *
- * This version ensures correct synchronization during saving or editing (UI or export).
- *
- * Example:
- *   - ('*name',   'name') => "[m0]:2:1:name"
- *   - ('name*',   'name') => "[m0]:2:2:name"
- *   - ('*name*',  'name') => "[m0]:2:3:name"
- *   - ('hello',   'hello') => 'hello'
- *
- * @param caption Usually the user's edited text, possibly including * at start/end.
- * @param variablecaption The variable part, as edited by user or parsed before.
- * @returns The marker string if needed, or unchanged caption.
- */
-// export function packCaptionToMain(caption: string, variablecaption: string): string {
-//     // See if the caption starts/ends with a '*'
-//     const start = caption.startsWith('*');
-//     const end = caption.endsWith('*');
-
-//     if (start || end) {
-//         // Both wildcards present (both ends): type '3'
-//         // Only start: type '1', only end: type '2'
-//         const type = start && end ? '3' : start ? '1' : '2';
-//         return `[m0]:2:${type}:${variablecaption}`;
-//     }
-//     // No special marker; return the caption as-is
-//     return caption;
-// }
-//TODO: add function that will convert caption string from previous function to string like "[m0]:2:1:name" 
-// but if there is no wildcard at the beginning or end, then return the original string
-
+// The inverse of `unpackCaption` from caption with stars like "*name" return caption like "[m0]:2:1:name" and variablecaption like "name"
 export function packCaptionToMain(caption: string): { caption: string, variablecaption: string } {
     // See if the caption starts/ends with a '*'
     const start = caption.startsWith('*');
     const end = caption.endsWith('*');
     if (start && end) {
-        return { caption: caption, variablecaption: '' };
+        return { caption: `[m0]:2:3:${caption}`, variablecaption: caption };
     }
     if (start) {
-        return { caption: caption, variablecaption: '' };
+        return { caption: `[m0]:2:1:${caption}`, variablecaption: caption };
     }
     if (end) {
-        return { caption: caption, variablecaption: '' };
+        return { caption: `[m0]:2:2:${caption}`, variablecaption: caption };
     }
     return { caption: caption, variablecaption: caption };
 }
