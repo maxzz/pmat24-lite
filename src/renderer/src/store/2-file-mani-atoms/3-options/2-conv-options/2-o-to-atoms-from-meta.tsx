@@ -86,26 +86,71 @@ export function forAtoms(fileUsCtx: FileUsCtx): FormOptionsState.ForAtoms {
 //  if caption "[m0]:2:3:name" starts with "[m0]:2:3:" returns {caption: "*name*", variablecaption: "name"}
 //  otherwise returns {caption: "name", variablecaption: "name"}
 
-export function convertStringToCaptionAndVariablecaption(caption: string): { caption: string, variablecaption: string } {
+/**
+ * Converts a caption string with a special marker (e.g., "[m0]:2:1:name") into
+ * an object with the appropriate `caption` and `variablecaption` values.
+ *
+ * This is used in manifests to support window caption matching with wildcards.
+ *
+ * The formats supported are:
+ *   - "[m0]:2:1:name" --> { caption: "*name", variablecaption: "name" }
+ *   - "[m0]:2:2:name" --> { caption: "name*", variablecaption: "name" }
+ *   - "[m0]:2:3:name" --> { caption: "*name*", variablecaption: "name" }
+ *   - Any other string (including empty string) returns:
+ *         { caption: <input>, variablecaption: <input> }
+ *
+ * This logic helps abstract away the parsing of caption with wildcards and
+ * lets the UI display both the wildcarded caption (for preview) and the plain
+ * variable part (for editing).
+ *
+ * @param caption The source caption string, possibly in special marker format.
+ * @returns Object with `caption` (including wildcards as required) and `variablecaption` (the variable part).
+ */
+export function unpackCaption(caption: string): { caption: string, variablecaption: string } {
+    // Try to match one of the known special patterns by regex:
+    // - [m0]:2:1:<name>
+    // - [m0]:2:2:<name>
+    // - [m0]:2:3:<name>
     const match = caption.match(/^\[m0\]:2:([123]):(.*)$/);
     if (match) {
         const [, type, name] = match;
+        // Map each code to its wildcard caption style
         const format = { '1': `*${name}`, '2': `${name}*`, '3': `*${name}*` };
         return { caption: format[type as keyof typeof format], variablecaption: name };
     }
+    // For regular captions (no marker), return as both fields
     return { caption, variablecaption: caption };
 }
 
-//TODO: add function that will convert caption string from previous function to string like "[m0]:2:1:name" 
-// but if there is no wildcard at the beginning or end, then return the original string
-export function convertStringToCaptionString(caption: string, variablecaption: string): string {
+/**
+ * The inverse of `unpackCaption`.
+ *
+ * Given a caption and the variablecaption, produces the original marker string representation if
+ * there are wildcards at the beginning/end of the caption. Otherwise, returns the plain caption.
+ *
+ * This version ensures correct synchronization during saving or editing (UI or export).
+ *
+ * Example:
+ *   - ('*name',   'name') => "[m0]:2:1:name"
+ *   - ('name*',   'name') => "[m0]:2:2:name"
+ *   - ('*name*',  'name') => "[m0]:2:3:name"
+ *   - ('hello',   'hello') => 'hello'
+ *
+ * @param caption Usually the user's edited text, possibly including * at start/end.
+ * @param variablecaption The variable part, as edited by user or parsed before.
+ * @returns The marker string if needed, or unchanged caption.
+ */
+export function packCaptionToMain(caption: string, variablecaption: string): string {
+    // See if the caption starts/ends with a '*'
     const start = caption.startsWith('*');
     const end = caption.endsWith('*');
 
     if (start || end) {
-        // 1: *name (start), 2: name* (end), 3: *name* (both)
+        // Both wildcards present (both ends): type '3'
+        // Only start: type '1', only end: type '2'
         const type = start && end ? '3' : start ? '1' : '2';
         return `[m0]:2:${type}:${variablecaption}`;
     }
+    // No special marker; return the caption as-is
     return caption;
 }
