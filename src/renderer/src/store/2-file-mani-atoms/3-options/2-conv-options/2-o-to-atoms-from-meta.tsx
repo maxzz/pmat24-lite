@@ -140,17 +140,35 @@ export function unpackCaption(caption: string): { caption: string, variablecapti
  * @param variablecaption The variable part, as edited by user or parsed before.
  * @returns The marker string if needed, or unchanged caption.
  */
-export function packCaptionToMain(caption: string, variablecaption: string): string {
+// export function packCaptionToMain(caption: string, variablecaption: string): string {
+//     // See if the caption starts/ends with a '*'
+//     const start = caption.startsWith('*');
+//     const end = caption.endsWith('*');
+
+//     if (start || end) {
+//         // Both wildcards present (both ends): type '3'
+//         // Only start: type '1', only end: type '2'
+//         const type = start && end ? '3' : start ? '1' : '2';
+//         return `[m0]:2:${type}:${variablecaption}`;
+//     }
+//     // No special marker; return the caption as-is
+//     return caption;
+// }
+//TODO: add function that will convert caption string from previous function to string like "[m0]:2:1:name" 
+// but if there is no wildcard at the beginning or end, then return the original string
+
+export function packCaptionToMain(caption: string): { caption: string, variablecaption: string } {
     // See if the caption starts/ends with a '*'
     const start = caption.startsWith('*');
     const end = caption.endsWith('*');
-
-    if (start || end) {
-        // Both wildcards present (both ends): type '3'
-        // Only start: type '1', only end: type '2'
-        const type = start && end ? '3' : start ? '1' : '2';
-        return `[m0]:2:${type}:${variablecaption}`;
+    if (start && end) {
+        return { caption: caption, variablecaption: '' };
     }
-    // No special marker; return the caption as-is
-    return caption;
+    if (start) {
+        return { caption: caption, variablecaption: '' };
+    }
+    if (end) {
+        return { caption: caption, variablecaption: '' };
+    }
+    return { caption: caption, variablecaption: caption };
 }
