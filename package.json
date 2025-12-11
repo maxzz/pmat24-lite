@@ -60,7 +60,7 @@
         "jotai-effect": "^2.1.2",
         "jotai-valtio": "^0.6.0",
         "json5": "^2.2.3",
-        "lucide-react": "^0.555.0",
+        "lucide-react": "^0.559.0",
         "motion": "^12.23.26",
         "picocolors": "^1.1.1",
         "pm-manifest": "^1.5.35",
