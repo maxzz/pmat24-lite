@@ -24,7 +24,9 @@ function totalFieldsInUse(rowCtxs: FieldRowCtx[] | undefined, get: Getter): Tota
         linkedNew: 0,
     };
 
-    rowCtxs?.forEach((fieldRowCtx) => processFieldRowCtx(fieldRowCtx, rv, get));
+    rowCtxs?.forEach(
+        (fieldRowCtx) => processFieldRowCtx(fieldRowCtx, rv, get)
+    );
 
     return rv;
 }
