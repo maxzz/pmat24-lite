@@ -1,7 +1,7 @@
 import { type Mani, FormIdx, Matching } from "@/store/8-manifest";
 import { type FormOptionsState, FormOptionsConv } from "@/store/2-file-mani-atoms/3-options";
 import { type PackManifestDataParams } from "../9-types";
-import { packCaptionToMani } from "@/store/2-file-mani-atoms/3-options/2-conv-options/4-o-caption-pack";
+import { packCaptionToMani } from "@/store/8-manifest/4-o-caption-pack";
 import { iconLocationToStr } from "@/store/8-manifest/4-icon-location/8-icon-location-io";
 
 export function packFormOptions(optionsAtoms: FormOptionsState.AllAtoms, formIdx: FormIdx, packParams: PackManifestDataParams) {

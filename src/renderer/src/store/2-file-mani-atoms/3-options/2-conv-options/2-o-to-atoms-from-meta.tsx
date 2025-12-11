@@ -1,7 +1,7 @@
 import { Matching } from "@/store/8-manifest";
 import { type FileUsCtx } from "../../9-types";
 import { type FormOptionsState } from "./9-types";
-import { unpackCaptionFromMeta } from "./4-o-caption-pack";
+import { unpackCaptionFromMeta } from "@/store/8-manifest/4-o-caption-pack";
 import { parseIconLocation } from "@/store/8-manifest/4-icon-location/8-icon-location-io";
 
 export function forAtoms(fileUsCtx: FileUsCtx): FormOptionsState.ForAtoms {
