@@ -16,7 +16,7 @@
  * @param caption The source caption string, possibly in special marker format.
  * @returns Object with `caption` (including wildcards as required) and `variablecaption` (the variable part).
  */
-export function unpackCaption(caption: string): { caption: string, variablecaption: string; } {
+export function unpackCaptionFromMeta(caption: string): { caption: string, variablecaption: string; } {
     const match = caption.match(/^\[m0\]:2:([123]):(.*)$/);
     if (match) {
         const [, type, name] = match;
@@ -27,8 +27,6 @@ export function unpackCaption(caption: string): { caption: string, variablecapti
 }
 
 /**
- * The inverse of `unpackCaption` from caption with stars like "*name" return encoded caption like "[m0]:2:1:name" without stars and variablecaption "name"
- * 
  * The formats supported are:
  *   - "*name" --> { caption: "[m0]:2:1:name", variablecaption: "name" }
  *   - "name*" --> { caption: "[m0]:2:2:name", variablecaption: "name" }
@@ -38,7 +36,7 @@ export function unpackCaption(caption: string): { caption: string, variablecapti
  * @param caption Usually the user's edited text, possibly including * at start/end.
  * @returns Object with `caption` (including wildcards as required) and `variablecaption` (the variable part).
  */
-export function packCaptionToMain(caption: string): { caption: string, variablecaption: string; } {
+export function packCaptionToMani(caption: string): { caption: string, variablecaption: string; } {
     const start = caption.startsWith('*');
     const end = caption.endsWith('*');
 
@@ -46,11 +44,12 @@ export function packCaptionToMain(caption: string): { caption: string, variablec
         return { caption, variablecaption: caption };
     }
 
-    const type = start && end
-        ? '3'
-        : start
-            ? '1'
-            : '2';
+    const type =
+        start && end
+            ? '3'
+            : start
+                ? '1'
+                : '2';
     const variablecaption = caption.slice(start ? 1 : 0, end ? -1 : undefined);
 
     return {

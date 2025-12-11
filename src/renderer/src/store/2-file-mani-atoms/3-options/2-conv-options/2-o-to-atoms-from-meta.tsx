@@ -1,6 +1,7 @@
 import { Matching } from "@/store/8-manifest";
 import { type FileUsCtx } from "../../9-types";
 import { type FormOptionsState } from "./9-types";
+import { unpackCaptionFromMeta } from "./4-o-caption-pack";
 import { parseIconLocation } from "@/store/8-manifest/4-icon-location/8-icon-location-io";
 
 export function forAtoms(fileUsCtx: FileUsCtx): FormOptionsState.ForAtoms {
@@ -16,6 +17,8 @@ export function forAtoms(fileUsCtx: FileUsCtx): FormOptionsState.ForAtoms {
     const fromFileHOU = Matching.parseRawMatchData(detection.web_murl || '');
     const iconLocation = parseIconLocation(options.iconlocation);
 
+    const { caption, variablecaption } = unpackCaptionFromMeta(detection.caption || '');
+
     const rv: FormOptionsState.ForAtoms = {
         p1General: {
             name: options.choosename || '',
@@ -28,8 +31,8 @@ export function forAtoms(fileUsCtx: FileUsCtx): FormOptionsState.ForAtoms {
             unkAttrs: options.unknownattributes || '',
         },
         p2Detect: {
-            caption: detection.caption || '',                   //TODO: show only for Win32
-            variablecaption: detection.variablecaption || '',   //TODO: show only for Win32
+            caption,                                            //TODO: show only for Win32
+            variablecaption,                                    //TODO: show only for Win32
             monitor: options.recheckwindowafterfillin === '1',  //TODO: strange name for monitor changes
 
             ourl: detection.web_ourl || '',

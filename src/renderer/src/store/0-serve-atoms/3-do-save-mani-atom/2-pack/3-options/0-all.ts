@@ -1,6 +1,7 @@
 import { type Mani, FormIdx, Matching } from "@/store/8-manifest";
 import { type FormOptionsState, FormOptionsConv } from "@/store/2-file-mani-atoms/3-options";
 import { type PackManifestDataParams } from "../9-types";
+import { packCaptionToMani } from "@/store/2-file-mani-atoms/3-options/2-conv-options/4-o-caption-pack";
 import { iconLocationToStr } from "@/store/8-manifest/4-icon-location/8-icon-location-io";
 
 export function packFormOptions(optionsAtoms: FormOptionsState.AllAtoms, formIdx: FormIdx, packParams: PackManifestDataParams) {
@@ -29,9 +30,11 @@ function getMurl(detect: FormOptionsState.ForAtoms['p2Detect']): string { // If 
 function detectionForMani(values: FormOptionsState.ForAtoms): Mani.Detection {
     const { p2Detect: detect } = values;
 
+    const { caption, variablecaption } = packCaptionToMani(detect.caption);
+
     const rv: Mani.Detection = {
-        caption: detect.caption,
-        variablecaption: detect.variablecaption,
+        caption,
+        variablecaption,
 
         web_ourl: detect.ourl,
         web_murl: getMurl(detect),
