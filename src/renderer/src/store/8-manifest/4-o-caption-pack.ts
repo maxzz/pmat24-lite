@@ -16,7 +16,8 @@
  * @param caption The source caption string, possibly in special marker format.
  * @returns Object with `caption` (including wildcards as required) and `variablecaption` (the variable part).
  */
-export function unpackCaptionFromMeta(caption: string): { caption: string, variablecaption: string; } {
+export function unpackCaptionFromMeta(caption: string | undefined): { caption: string, variablecaption: string; } {
+    caption = caption || '';
     const match = caption.match(/^\[m0\]:2:([123]):(.*)$/);
     if (match) {
         const [, type, name] = match;
@@ -36,7 +37,8 @@ export function unpackCaptionFromMeta(caption: string): { caption: string, varia
  * @param caption Usually the user's edited text, possibly including * at start/end.
  * @returns Object with `caption` (including wildcards as required) and `variablecaption` (the variable part).
  */
-export function packCaptionToMani(caption: string): { caption: string, variablecaption: string; } {
+export function packCaptionToMani(caption: string | undefined): { caption: string, variablecaption: string; } {
+    caption = caption || '';
     const start = caption.startsWith('*');
     const end = caption.endsWith('*');
 
