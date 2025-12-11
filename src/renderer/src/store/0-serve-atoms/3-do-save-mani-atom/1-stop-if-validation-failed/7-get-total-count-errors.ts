@@ -1,18 +1,18 @@
 import { FormIdx, FieldTyp } from "@/store/8-manifest";
 import { type VerifyError, type ManiTabValue, type FieldRowCtx } from "@/store/2-file-mani-atoms";
 
+export function getTotalCountError(fieldRowCtxs: FieldRowCtx[], formIdx: FormIdx, get: Getter): VerifyError[] | undefined {
+    const totalCount = totalFieldsInUse(fieldRowCtxs, get);
+    const rv = getTotalCountErrorMessage(totalCount, formIdx);
+    return rv;
+}
+
 type TotalCount = {
     useItAny: number;
     useItPsw: number;
     linkedCur: number;
     linkedNew: number;
 };
-
-export function getTotalCountError(fieldRowCtxs: FieldRowCtx[], formIdx: FormIdx, get: Getter): VerifyError[] | undefined {
-    const totalCount = totalFieldsInUse(fieldRowCtxs, get);
-    const rv = getTotalCountErrorMessage(totalCount, formIdx);
-    return rv;
-}
 
 // 1. Counts the total number of fields in use and the number of linked fields
 
