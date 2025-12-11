@@ -1,4 +1,4 @@
-import { Poli, namesConstrainPsw } from "@/store/8-manifest";
+import { Poli, nameValuesConstrainPsw } from "@/store/8-manifest";
 
 // export namespace PolicyStrings {
 //     export const IDS_PSW_POLICY_LENGTH     /**/ = "   Password length must be between %d and %d characters.\n";
@@ -83,9 +83,9 @@ END
 // };
 
 export const stringsPolicy3 = {
-    diffWp: namesConstrainPsw[Poli.ConstrainPsw.diffWp], // former different_wp. Different from window password.   // notWinPsw, // "Different from Windows password"
-    diffAp: namesConstrainPsw[Poli.ConstrainPsw.diffAp], // former different_ap. Different from any password.      // notPmPsw,  // "Unique within Password Manager logons"
-    diffPp: namesConstrainPsw[Poli.ConstrainPsw.diffPp], // former different_pp. Different from previous password. // notCurPsw, // "Different than the current password"
+    diffWp: nameValuesConstrainPsw[Poli.ConstrainPsw.diffWp][0], // former different_wp. Different from window password.   // notWinPsw, // "Different from Windows password"
+    diffAp: nameValuesConstrainPsw[Poli.ConstrainPsw.diffAp][0], // former different_ap. Different from any password.      // notPmPsw,  // "Unique within Password Manager logons"
+    diffPp: nameValuesConstrainPsw[Poli.ConstrainPsw.diffPp][0], // former different_pp. Different from previous password. // notCurPsw, // "Different than the current password"
 };
 
 // export const namesConstrainPsw = [

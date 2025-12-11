@@ -1,4 +1,4 @@
-import { type Mani, Poli, nameValuesConstrainSet, namesConstrainSet } from "@/store/8-manifest";
+import { type Mani, Poli, nameValuesConstrainSet } from "@/store/8-manifest";
 import { type PolicyDlgTypes } from "./9-types";
 import { policyFromStrings } from "@/store/8-manifest";
 import { initRowInputState, validateMaxLen, validateMinLen } from "@/ui/local-ui";
