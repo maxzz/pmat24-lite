@@ -2,8 +2,8 @@ import { notice } from "@/ui/local-ui/7-toaster";
 import { appSettings } from "@/store/9-ui-state";
 import { FormIdx } from "@/store/8-manifest";
 import { type ManiAtoms, type ManiTabValue, type VerifyError } from "@/store/2-file-mani-atoms/9-types";
-import { getVerifyErrors_OptionsFormTab, getVerifyErrors_OptionsMainTab } from "./1-options-verify-errors";
-import { getVerifyErrors_ManualForm, getVerifyErrors_NormalForm } from "./2-form-any-verify-errors";
+import { getVerifyErrors_OptionsFormTab, getVerifyErrors_OptionsMainTab } from "./1-verify-options";
+import { getVerifyErrors_ManualForm, getVerifyErrors_NormalForm } from "./2-verify-form-any";
 
 export function stopIfInvalidAny(maniAtoms: ManiAtoms, getset: GetSet): boolean | undefined {
     const checkOrder = new Map<ManiTabValue, ValidationFn>(defaultValidationOrder);
@@ -74,6 +74,8 @@ export function getErrorsFromForm(maniAtoms: ManiAtoms, formIdx: FormIdx, getset
     //TODO: manual validation: activate initial row
     //TODO: options validation: activate row (balloon)
 }
+
+// Validation orderfunctions
 
 function getErrorsFromLogin(maniAtoms: ManiAtoms, getset: GetSet): VerifyError[] | undefined {
     return getErrorsFromForm(maniAtoms, FormIdx.login, getset);

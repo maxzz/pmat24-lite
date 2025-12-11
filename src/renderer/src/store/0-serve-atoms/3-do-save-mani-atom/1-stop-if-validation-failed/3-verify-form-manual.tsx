@@ -1,7 +1,7 @@
 import { FormIdx } from "@/store/8-manifest";
 import { FieldRowCtx, type MFormCnt, type VerifyError } from "@/store/2-file-mani-atoms/9-types";
 import { type RowInputStateUuid, getChunkRawInputStatesForValidate } from "@/store/2-file-mani-atoms/2-manual-fields/2-conv-manual/2-m-from-atoms";
-import { getTotalCountError } from "./7-get-total-count-errors";
+import { getTotalCountError } from "./7-verify-total-count";
 
 export function getVerifyErrors_FromManualForm(cnt: MFormCnt, formIdx: FormIdx, { get, set }: GetSet): VerifyError[] {
     const tab = formIdx === FormIdx.login ? 'login' : 'cpass';
