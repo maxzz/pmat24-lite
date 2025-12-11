@@ -14,6 +14,8 @@ export function getTotalCountError(fieldRowCtxs: FieldRowCtx[], formIdx: FormIdx
     return rv;
 }
 
+// 1. Counts the total number of fields in use and the number of linked fields
+
 function totalFieldsInUse(rowCtxs: FieldRowCtx[] | undefined, get: Getter): TotalCount {
     const rv: TotalCount = {
         useItAny: 0,
@@ -57,6 +59,8 @@ function processFieldRowCtx(fieldRowCtx: FieldRowCtx, rv: TotalCount, get: Gette
 
     }
 }
+
+// 2. Returns the error message if the total number of fields in use and the number of linked fields is not valid
 
 function getTotalCountErrorMessage({ useItAny, useItPsw, linkedCur, linkedNew }: TotalCount, formIdx: FormIdx): VerifyError[] | undefined { // Only first error is returned since we use toast to show it
     let error: string | undefined;

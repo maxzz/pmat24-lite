@@ -3,7 +3,7 @@ import { appSettings } from "@/store/9-ui-state";
 import { FormIdx } from "@/store/8-manifest";
 import { type ManiAtoms, type ManiTabValue, type VerifyError } from "@/store/2-file-mani-atoms/9-types";
 import { getVerifyErrors_OptionsFormTab, getVerifyErrors_OptionsMainTab } from "./1-options-verify-errors";
-import { getVerifyErrors_ManualForm, getVerifyErrors_NormalForm } from "./2-form-verify-errors";
+import { getVerifyErrors_ManualForm, getVerifyErrors_NormalForm } from "./2-form-any-verify-errors";
 
 export function stopIfInvalidAny(maniAtoms: ManiAtoms, getset: GetSet): boolean | undefined {
     const checkOrder = new Map<ManiTabValue, ValidationFn>(defaultValidationOrder);
