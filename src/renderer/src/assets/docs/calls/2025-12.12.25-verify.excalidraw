@@ -1407,8 +1407,8 @@
     },
     {
       "type": "text",
-      "version": 206,
-      "versionNonce": 1986194312,
+      "version": 210,
+      "versionNonce": 1736965512,
       "isDeleted": false,
       "id": "text17",
       "fillStyle": "solid",
@@ -1418,7 +1418,7 @@
       "opacity": 100,
       "angle": 0,
       "x": 520.800048828125,
-      "y": 573.3999633789062,
+      "y": 577.3999633789062,
       "strokeColor": "#666666",
       "backgroundColor": "transparent",
       "width": 180,
@@ -1430,7 +1430,7 @@
         "type": 2
       },
       "boundElements": [],
-      "updated": 1765581852699,
+      "updated": 1765582283017,
       "link": null,
       "locked": false,
       "fontSize": 11,
