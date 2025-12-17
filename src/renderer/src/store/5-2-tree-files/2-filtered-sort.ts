@@ -1,4 +1,4 @@
-import { FileUs, type FileUsAtom, Order, SortBy } from "@/store/store-types";
+import { type FileUs, type FileUsAtom, Order, SortBy } from "@/store/store-types";
 
 export function sortResultInPlace(result: FileUsAtom[], sortBy: SortBy, order: Order, get: Getter) {
 
@@ -10,17 +10,27 @@ export function sortResultInPlace(result: FileUsAtom[], sortBy: SortBy, order: O
     }
     else if (sortBy === SortBy.index) {
         if (order === Order.highToLow) {
-            result.sort(CompareIndices_9to0);
+            result.sort(compareIndices_9to0);
+        } else if (order === Order.lowToHigh) {
+            result.sort(compareIndices_0to9);
         }
     }
 
-    function CompareIndices_9to0(atomA: FileUsAtom, atomB: FileUsAtom) {
+    function compareIndices_9to0(atomA: FileUsAtom, atomB: FileUsAtom) {
         const fileUsA = get(atomA);
         const fileUsB = get(atomB);
 
         const a = fileUsA.fileCnt.idx;
         const b = fileUsB.fileCnt.idx;
         return a < b ? 1 : a > b ? -1 : 0;
+    }
+
+    function compareIndices_0to9(atomA: FileUsAtom, atomB: FileUsAtom) {
+        const fileUsA = get(atomA);
+        const fileUsB = get(atomB);
+        const a = fileUsA.fileCnt.idx;
+        const b = fileUsB.fileCnt.idx;
+        return a < b ? -1 : a > b ? 1 : 0;
     }
 
     function compareDomain_AtoZ(atomA: FileUsAtom, atomB: FileUsAtom) {
