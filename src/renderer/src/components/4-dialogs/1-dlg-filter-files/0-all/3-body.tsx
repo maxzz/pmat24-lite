@@ -4,7 +4,7 @@ import { Input } from "@/ui";
 import { IconSearch } from "@/ui/icons";
 import { searchFilterData } from "@/store/9-ui-state";
 import { FilteredFilesList } from "../1-files-list";
-import { CheckAscending, DrawerItems } from "../2-right-side-options";
+import { CheckAscending, CheckSortBy, DrawerItems } from "../2-right-side-options";
 
 export function DialogFilterBody({ setIsOpen }: { setIsOpen: (v: boolean) => void; }) {
     const [text, setText] = useAtom(searchFilterData.textAtom);
@@ -43,6 +43,12 @@ export function DialogFilterBody({ setIsOpen }: { setIsOpen: (v: boolean) => voi
                 </div>
 
                 <div className="flex flex-col gap-4">
+
+                    <div className="flex flex-col gap-0.5">
+                        <div className="font-bold">Sort by</div>
+                        <CheckSortBy />
+                    </div>
+
                     <div className="flex flex-col gap-0.5">
                         <div className="font-bold">Sort options</div>
                         <CheckAscending />

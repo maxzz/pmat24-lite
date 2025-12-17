@@ -8,7 +8,7 @@ export type FilesSortOrder = {
 };
 
 export const defaultFilesSortOrder: FilesSortOrder = {
-    sortBy: SortBy.index,
+    sortBy: SortBy.loginName,
     // order: Order.highToLow,
     order: Order.lowToHigh,
 };

@@ -7,8 +7,6 @@ export const enum SortBy {
     //group,              // group by domain; TODO: not implemented yet
 }
 
-export const sortByNames = ["File index", "Website domain", "Login name", /*"Group"*/];
-
 export const enum Order {
     lowToHigh,          // ascending
     highToLow
