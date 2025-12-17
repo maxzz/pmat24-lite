@@ -5,6 +5,9 @@ export function sortResultInPlace(result: FileUsAtom[], sortBy: SortBy, order: O
     if (sortBy === SortBy.url) {
         result.sort(compareDomain_AtoZ);
     }
+    else if (sortBy === SortBy.loginName) {
+        result.sort(compareLoginName_AtoZ);
+    }
     else if (sortBy === SortBy.index) {
         if (order === Order.highToLow) {
             result.sort(CompareIndices_9to0);
@@ -26,6 +29,20 @@ export function sortResultInPlace(result: FileUsAtom[], sortBy: SortBy, order: O
 
         const a = fileUsA?.parsedSrc.stats?.loginFormDomain || 'zz';
         const b = fileUsB?.parsedSrc.stats?.loginFormDomain || 'zz';
+
+        if (order === Order.lowToHigh) {
+            return a < b ? -1 : a > b ? 1 : 0;
+        } else {
+            return a < b ? 1 : a > b ? -1 : 0;
+        }
+    }
+
+    function compareLoginName_AtoZ(atomA: FileUsAtom, atomB: FileUsAtom) {
+        const fileUsA = get(atomA);
+        const fileUsB = get(atomB);
+
+        const a = get(fileUsA?.parsedSrc.stats?.loginFormChooseNameAtom) || '';
+        const b = get(fileUsB?.parsedSrc.stats?.loginFormChooseNameAtom) || '';
 
         if (order === Order.lowToHigh) {
             return a < b ? -1 : a > b ? 1 : 0;
