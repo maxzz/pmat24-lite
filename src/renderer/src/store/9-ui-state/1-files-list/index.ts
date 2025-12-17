@@ -1,6 +1,6 @@
-import { ShownManis, defaultShownManis } from "./1-shown-files";
-import { FilesSortOrder, defaultFilesSortOrder } from "./2-files-sort-order";
-import { FileListItemsState, defaultFileListItemsState } from "./3-ui-file-items";
+import { type ShownManis, defaultShownManis } from "./1-shown-files";
+import { type FilesSortOrder, defaultFilesSortOrder } from "./2-files-sort-order";
+import { type FileListItemsState, defaultFileListItemsState } from "./3-ui-file-items";
 
 export type FileListSettings = {
     shownManis: ShownManis;             // Currently shown manifests filter options

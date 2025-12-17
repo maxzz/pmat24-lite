@@ -2,6 +2,29 @@ import { FileUs } from "@/store/store-types";
 
 // Regex
 
+export function createRegexByFilter(s?: string, casesensitive?: boolean): FilterParams {
+    let winOnly = !!(s && s.match(/^win\:/));
+    let webOnly = !!(s && s.match(/^web\:/));
+    let whyOnly = !!(s && s.match(/^why\:/));
+    let capOnly = !!(s && s.match(/^cap\:/));
+    let clsOnly = !!(s && s.match(/^cls\:/));
+    let extOnly = !!(s && s.match(/^ext\:/));
+
+    if (winOnly || webOnly || whyOnly || capOnly || clsOnly) {
+        s = s?.replace(/^(win|web|why|cap|cls)\:/, '');
+    }
+    
+    return {
+        winOnly,
+        webOnly,
+        whyOnly,
+        capOnly,
+        clsOnly,
+        extOnly,
+        regex: s && new RegExp(convertToRegex(s), casesensitive ? '' : 'i') || undefined
+    };
+}
+
 const reDefaultEscapeCharsRegex = /[-|\\{}()[\]^$+.]/g; // This is defult set but without *?
 
 const reQuestion = /[\?]/g;
@@ -18,29 +41,9 @@ type FilterParams = {
     whyOnly: boolean;
     capOnly: boolean; // caption
     clsOnly: boolean; // classname
+    extOnly: boolean; // extended policy
     regex: RegExp | undefined;
 };
-
-export function createRegexByFilter(s?: string, casesensitive?: boolean): FilterParams {
-    let winOnly = !!(s && s.match(/^win\:/));
-    let webOnly = !!(s && s.match(/^web\:/));
-    let whyOnly = !!(s && s.match(/^why\:/));
-    let capOnly = !!(s && s.match(/^cap\:/));
-    let clsOnly = !!(s && s.match(/^cls\:/));
-
-    if (winOnly || webOnly || whyOnly || capOnly || clsOnly) {
-        s = s?.replace(/^(win|web|why|cap|cls)\:/, '');
-    }
-    
-    return {
-        winOnly,
-        webOnly,
-        whyOnly,
-        capOnly,
-        clsOnly,
-        regex: s && new RegExp(convertToRegex(s), casesensitive ? '' : 'i') || undefined
-    };
-}
 
 // Filter
 

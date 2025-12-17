@@ -3,7 +3,7 @@
 export const enum SortBy {
     index,              // load order, i.e. unsorted
     url,                // domain, and then the rest: winapps, non manifest
-    group
+    group,
 }
 
 export const sortByNames = ["File index", "Website domain", /*"Group"*/];

@@ -26,4 +26,5 @@ const drawerItems: { key: string; description: string; }[] = [
     { key: "why", description: "with problems" },
     { key: "cap", description: "with window caption" },
     { key: "cls", description: "with window classname" },
+    { key: "ext", description: "with extended policy" },
 ];

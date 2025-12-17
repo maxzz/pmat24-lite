@@ -1,15 +1,6 @@
-import { proxy } from "valtio";
 import { Order, SortBy } from "@/store/store-types";
 
-// import { atomWithCallback } from "@/hooks/atomsX";
-// import { LocalStorageSave, } from "@/store/store-localstorage-save";
-// import { LocalStorage } from "@/store/store-localstorage-load";
-// import { proxy } from "valtio";
-
-// // Files sort by and order
-
-// export const sortByAtom = atomWithCallback<SortBy>(LocalStorage.initialData.sortBy, LocalStorageSave.save);
-// export const orderAtom = atomWithCallback<Order>(LocalStorage.initialData.order, LocalStorageSave.save);
+// Files sort by and order
 
 export type FilesSortOrder = {
     sortBy: SortBy;
@@ -18,6 +9,6 @@ export type FilesSortOrder = {
 
 export const defaultFilesSortOrder: FilesSortOrder = {
     sortBy: SortBy.index,
-    order: Order.highToLow,
-    // order: Order.lowToHigh,
+    // order: Order.highToLow,
+    order: Order.lowToHigh,
 };
