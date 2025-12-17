@@ -9,51 +9,34 @@ export function sortResultInPlace(result: FileUsAtom[], sortBy: SortBy, order: O
         result.sort(compareLoginName_AtoZ);
     }
     else if (sortBy === SortBy.index) {
-        if (order === Order.highToLow) {
-            result.sort(compareIndices_9to0);
-        } else if (order === Order.lowToHigh) {
-            result.sort(compareIndices_0to9);
-        }
+        result.sort(compareIndices);
     }
 
-    function compareIndices_9to0(atomA: FileUsAtom, atomB: FileUsAtom) {
-        const fileUsA = get(atomA);
-        const fileUsB = get(atomB);
-
-        const a = fileUsA.fileCnt.idx;
-        const b = fileUsB.fileCnt.idx;
-        return a < b ? 1 : a > b ? -1 : 0;
-    }
-
-    function compareIndices_0to9(atomA: FileUsAtom, atomB: FileUsAtom) {
+    function compareIndices(atomA: FileUsAtom, atomB: FileUsAtom) {
         const fileUsA = get(atomA);
         const fileUsB = get(atomB);
         const a = fileUsA.fileCnt.idx;
         const b = fileUsB.fileCnt.idx;
-        return a < b ? -1 : a > b ? 1 : 0;
+        return compareValues(a, b, order);
     }
 
     function compareDomain_AtoZ(atomA: FileUsAtom, atomB: FileUsAtom) {
         const fileUsA = get(atomA);
         const fileUsB = get(atomB);
-
         const a = fileUsA?.parsedSrc.stats?.loginFormDomain || 'zz';
         const b = fileUsB?.parsedSrc.stats?.loginFormDomain || 'zz';
-
-        if (order === Order.lowToHigh) {
-            return a < b ? -1 : a > b ? 1 : 0;
-        } else {
-            return a < b ? 1 : a > b ? -1 : 0;
-        }
+        return compareValues(a, b, order);
     }
 
     function compareLoginName_AtoZ(atomA: FileUsAtom, atomB: FileUsAtom) {
         const fileUsA = get(atomA);
         const fileUsB = get(atomB);
-
         const a = get(fileUsA?.parsedSrc.stats?.loginFormChooseNameAtom) || '';
         const b = get(fileUsB?.parsedSrc.stats?.loginFormChooseNameAtom) || '';
+        return compareValues(a, b, order);
+    }
 
+    function compareValues(a: string | number, b: string | number, order: Order): number {
         if (order === Order.lowToHigh) {
             return a < b ? -1 : a > b ? 1 : 0;
         } else {
