@@ -31,7 +31,9 @@ function ManiBodyGuarded({ fileUsAtom }: { fileUsAtom: FileUsAtom; }) {
 
     useEffect(
         () => {
-            !maniAtoms && setManiAtoms((prev) => prev || createManiAtoms({ fileUs, fileUsAtom }));
+            !maniAtoms && setManiAtoms(
+                (prev) => prev || createManiAtoms({ fileUs, fileUsAtom })
+            );
         }, [maniAtoms, fileUs, fileUsAtom]
     );
 
@@ -42,11 +44,10 @@ function ManiBodyGuarded({ fileUsAtom }: { fileUsAtom: FileUsAtom; }) {
     }
 
     const hasCpass = fileUs.parsedSrc.meta?.length === 2;
-    const hasChanges = false;
 
     return (
         <Tabs className="p-1 pr-0 h-full flex flex-col" value={activeTab} onValueChange={(value) => setManiActiveTab(value as ManiTabValue)}>
-            <ManiTabsList hasCpass={hasCpass} hasChanges={hasChanges} />
+            <ManiTabsList hasCpass={hasCpass} />
 
             <div ref={ref} className={refClasses}>
                 <ScrollArea style={{ width, height }} horizontal fullHeight>
