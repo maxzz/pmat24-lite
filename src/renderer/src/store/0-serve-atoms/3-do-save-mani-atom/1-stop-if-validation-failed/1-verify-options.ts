@@ -8,8 +8,15 @@ import { type FormOptionsState } from "@/store/2-file-mani-atoms/3-options/2-con
 export function getVerifyErrors_OptionsMainTab(maniAtoms: ManiAtoms, formIdx: FormIdx, getset: GetSet): VerifyError[] | undefined {
     const formCtx = maniAtoms[formIdx];
     if (formCtx) {
+        // 1. Check form detection
+        const detectionError: VerifyError[] | undefined = getVerifyErrors_FormDetection(formCtx.options, formIdx, getset);
+        if (detectionError?.length) {
+            return detectionError;
+        }
+
+        // 2. Check form options
         const toValidate = getToVerify(formCtx.options, formIdx, getset);
-        
+
         const rv: VerifyError[] = validateRowInputStateAtoms(toValidate, 'options', getset);
         return rv.length ? rv : undefined;
     }
@@ -21,7 +28,7 @@ export function getVerifyErrors_OptionsMainTab(maniAtoms: ManiAtoms, formIdx: Fo
             formIdx === FormIdx.login
                 ? { ...p3Auth, ...p4QL, ...p1General, }
                 : { ...p3Auth, ...p4QL, };
-        
+
         return toValidate;
     }
 }
@@ -51,4 +58,23 @@ export function getVerifyErrors_OptionsFormTab(atoms: FormOptionsState.AllAtoms,
 
         return toValidate;
     }
+}
+
+// Form detection check
+
+export function getVerifyErrors_FormDetection(atoms: FormOptionsState.AllAtoms, formIdx: FormIdx, { get }: GetSet): VerifyError[] | undefined {
+    const { p2Detect } = atoms;
+
+    const caption = get(p2Detect.captionAtom);
+    const classname = get(p2Detect.dlg_classAtom);
+
+    if (!caption && !classname) {
+        return [{
+            error: 'The screen cannot be detected if the window caption or class name is empty.',
+            tab: formIdx === FormIdx.login ? 'login' : 'cpass',
+            atomName: 'captionAtom',
+        }];
+    }
+
+    return undefined;
 }

@@ -1,12 +1,11 @@
 import { atom } from "jotai";
-import { FileUs, type FileUsAtom } from "@/store/store-types";
+import { type FileUs, type FileUsAtom } from "@/store/store-types";
 import { filesAtom } from "@/store/5-1-open-files";
 import { isAnyMatchedCap, isAnyMatchedCls, isAnyWeb, isAnyWhy, isAnyEmpty, isAnyManual, FormIdx } from "@/store/8-manifest";
 import { optionsAppUiProxyAtom, optionsFilesProxyAtom } from "@/store/9-ui-state";
 import { createRegexByFilter, useFileUsByFilter } from "@/store/store-utils";
 import { searchFilterData } from "@/store/9-ui-state/04-filters-search";
 import { sortResultInPlace } from "./2-filtered-sort";
-import { type ManiAtoms } from "../2-file-mani-atoms";
 
 /**
  * We don't filter items by filename, but by manifest content only.
