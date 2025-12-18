@@ -1,4 +1,17 @@
+// Manifest tabs
+
 export type ManiTabValue = 'options' | 'login' | 'cpass';
+
+// Form accordions
+
+export type InFormAccordion = 'form-detection' | 'form-icon';
+
+export const enum InFormAccordionValue {
+    detection = 'form-detection',
+    icon = 'form-icon',
+}
+
+//
 
 export type VerifyError = {
     error: string;                          // error message
@@ -9,5 +22,5 @@ export type VerifyError = {
     actionUuid?: string | number;           // script action uuid where error is
     rowIdx?: number;                        // row index inside the list of fields (mostly for manual mode forms); valid at the check time
     atomName?: string;                      // name of verification failed atom (manual mode has atoms for selected row and for options)
-    groupName?: string;                     // name of group to expand (for options)
+    groupName?: InFormAccordion;            // name of group to expand (for options)
 };

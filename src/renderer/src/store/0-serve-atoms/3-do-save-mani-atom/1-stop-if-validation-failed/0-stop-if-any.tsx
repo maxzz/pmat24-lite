@@ -4,6 +4,8 @@ import { FormIdx } from "@/store/8-manifest";
 import { type ManiAtoms, type ManiTabValue, type VerifyError } from "@/store/2-file-mani-atoms/9-types";
 import { getVerifyErrors_OptionsFormTab, getVerifyErrors_OptionsMainTab } from "./1-verify-options";
 import { getVerifyErrors_ManualForm, getVerifyErrors_NormalForm } from "./2-verify-form-any";
+import { setAccordionOpen } from "@/ui/motion-primitives";
+import { maniTabValue } from "@/store/5-3-right-panel/2-mani-active-tab";
 
 export function stopIfInvalidAny(maniAtoms: ManiAtoms, getset: GetSet): boolean | undefined {
     const checkOrder = new Map<ManiTabValue, ValidationFn>(defaultValidationOrder);
@@ -35,6 +37,12 @@ function showValidationErrors(verifyErrors: VerifyError[]): void {
 
     if (tab) {
         appSettings.right.mani.activeTab = tab;
+        const formIdx = tab === maniTabValue.login ? FormIdx.login : tab === maniTabValue.cpass ? FormIdx.cpass : undefined;
+
+        if (groupName && formIdx !== undefined) {
+            setAccordionOpen(formIdx, groupName);
+        }
+
         console.log('showValidationErrors: firstError', firstError);
 
         //TODO: navigate to field where error is: open options group or select manual mode row

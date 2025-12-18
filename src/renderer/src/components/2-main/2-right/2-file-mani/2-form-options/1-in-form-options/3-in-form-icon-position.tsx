@@ -3,13 +3,14 @@ import { AccordionWithTrigger } from "@/ui/motion-primitives";
 import { FormRowChildren, SelectTm } from "@/ui/local-ui";
 import { type OFormProps } from "@/store/2-file-mani-atoms";
 import { type OptionTextValue } from "@/store/8-manifest";
+import { InFormAccordionValue } from "@/store/2-file-mani-atoms/9-types";
 
 export function FormIconPosition({ oFormProps }: { oFormProps: OFormProps; }) {
     const formIdx = oFormProps.oAllAtoms.options.formIdx;
     const isWeb = useAtomValue(oFormProps.oAllAtoms.options.isWebAtom);
 
     return (
-        <AccordionWithTrigger name='form-icon' formIdx={formIdx} triggerText="Password Manager Icon">
+        <AccordionWithTrigger name={InFormAccordionValue.icon} formIdx={formIdx} triggerText="Password Manager Icon">
             {isWeb
                 ? (
                     <div className={textClasses}>

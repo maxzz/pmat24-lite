@@ -13,6 +13,7 @@ import { MatchHow } from "./5-2-match-how";
 import { RegexTooltip } from "./5-3-regex-tooltip";
 import { BtnCopyOurl } from "./4-0-btn-copy-ourl";
 import { FormIconPosition } from "./3-in-form-icon-position";
+import { InFormAccordionValue } from "@/store/2-file-mani-atoms/9-types";
 
 export function DetectionContent_Web({ oFormProps }: { oFormProps: OFormProps; }) {
     const { p2Detect: { ourlAtom }, formIdx, murl_howAtom, murl_regexAtom } = oFormProps.oAllAtoms.options;
@@ -24,7 +25,7 @@ export function DetectionContent_Web({ oFormProps }: { oFormProps: OFormProps; }
     const showRegex = murl_how === Matching.How.regex;
 
     return (<>
-        <AccordionWithTrigger name='form-detection' formIdx={formIdx} triggerText="Screen detection">
+        <AccordionWithTrigger name={InFormAccordionValue.detection} formIdx={formIdx} triggerText="Screen detection">
             <div className={textClasses}>
                 <div className="relative">
                     <InputWithTitle2Rows

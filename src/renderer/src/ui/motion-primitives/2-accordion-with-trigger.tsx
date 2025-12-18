@@ -5,11 +5,12 @@ import { Accordion, AccordionItem, AccordionContent, useAccordion, AccordionItem
 import { Button } from "../shadcn";
 import { SymbolChevronDown } from "../icons";
 import { appSettings, openedName } from "@/store/9-ui-state";
+import { type InFormAccordion } from "@/store/2-file-mani-atoms/9-types";
 
 type AccordionWithTriggerProps = {
     triggerText: ReactNode;
     formIdx: number;
-    name: string;
+    name: InFormAccordion;
     children: ReactNode;
     triggerClasses?: string;
     contentClasses?: string;
@@ -78,4 +79,8 @@ function useAccordionState({ formIdx, name }: { formIdx: number; name: string; }
     );
 
     return [open, toggleOpen] as const;
+}
+
+export function setAccordionOpen(formIdx: number, name: InFormAccordion): void {
+    appSettings.right.mani.opened[openedName(formIdx, name)] = true;
 }
