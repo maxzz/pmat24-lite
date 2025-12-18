@@ -74,9 +74,9 @@ function getVerifyErrors_FormDetection(atoms: FormOptionsState.AllAtoms, formIdx
 
     if (!caption && !classname) {
         return [{
-            error: 'The window caption and window class name are empty. In this case, identifying and matching the window becomes impossible. Please specify at least one of them.',
+            error: 'The window caption and window class name are empty. In this case, identifying and matching the window becomes impossible. Please specify at least one of these parameters.',
             tab: formIdx === FormIdx.login ? 'login' : 'cpass',
-            atomName: 'captionAtom',
+            atomName: 'captionAtom', //TODO: in that case we need to add message for atom as a short version of the error message field that is shown in toast notification.
             groupName: InFormAccordionValue.detection,
         }];
     }
