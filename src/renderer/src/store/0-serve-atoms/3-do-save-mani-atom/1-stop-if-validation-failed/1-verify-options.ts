@@ -1,5 +1,5 @@
 import { FormIdx, Matching } from "@/store/8-manifest";
-import { type ManiAtoms, type VerifyError } from "@/store/2-file-mani-atoms/9-types";
+import { InFormAccordionValue, type ManiAtoms, type VerifyError } from "@/store/2-file-mani-atoms/9-types";
 import { type RowInputStateAtoms, validateRowInputStateAtoms } from "@/ui/local-ui";
 import { type FormOptionsState } from "@/store/2-file-mani-atoms/3-options/2-conv-options/9-types";
 
@@ -74,10 +74,10 @@ function getVerifyErrors_FormDetection(atoms: FormOptionsState.AllAtoms, formIdx
 
     if (!caption && !classname) {
         return [{
-            error: 'The screen cannot be detected if the window caption and window class name are empty.',
+            error: 'If the window caption and window class name are empty, the screen cannot be detected.',
             tab: formIdx === FormIdx.login ? 'login' : 'cpass',
             atomName: 'captionAtom',
-            groupName: 'form-detection',
+            groupName: InFormAccordionValue.detection,
         }];
     }
 
