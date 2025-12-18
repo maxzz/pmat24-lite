@@ -25,7 +25,7 @@ export function createAtoms(initialState: FormOptionsState.ForAtoms, onChange: O
             unkAttrsAtom: createAtomForInput(p1General.unkAttrs, onChange('unkAttrs')),
         },
         p2Detect: {
-            captionAtom: createAtomForInput(p2Detect.caption, onChange('caption'), { validate: validateNonEmptyWithMessage('The screen cannot be detected if the window caption is empty.') }), // validateNonEmpty just for testing purposes of error state
+            captionAtom: createAtomForInput(p2Detect.caption, onChange('caption')), //, { validate: validateNonEmptyWithMessage('The screen cannot be detected if the window caption is empty.') } // caption and classname are checked in getVerifyErrors_FormDetection() together // validateNonEmpty just for testing purposes of error state
             variablecaptionAtom: createAtomForInput(p2Detect.variablecaption, onChange('variablecaption')),
             monitorAtom: createAtomForCheck(p2Detect.monitor, onChange('monitor')),
 

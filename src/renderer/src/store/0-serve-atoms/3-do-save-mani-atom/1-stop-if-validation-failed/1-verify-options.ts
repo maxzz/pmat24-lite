@@ -8,13 +8,6 @@ import { type FormOptionsState } from "@/store/2-file-mani-atoms/3-options/2-con
 export function getVerifyErrors_OptionsMainTab(maniAtoms: ManiAtoms, formIdx: FormIdx, getset: GetSet): VerifyError[] | undefined {
     const formCtx = maniAtoms[formIdx];
     if (formCtx) {
-        // 1. Check form detection
-        const detectionError: VerifyError[] | undefined = getVerifyErrors_FormDetection(formCtx.options, formIdx, getset);
-        if (detectionError?.length) {
-            return detectionError;
-        }
-
-        // 2. Check form options
         const toValidate = getToVerify(formCtx.options, formIdx, getset);
 
         const rv: VerifyError[] = validateRowInputStateAtoms(toValidate, 'options', getset);
@@ -36,6 +29,13 @@ export function getVerifyErrors_OptionsMainTab(maniAtoms: ManiAtoms, formIdx: Fo
 // Form options tab
 
 export function getVerifyErrors_OptionsFormTab(atoms: FormOptionsState.AllAtoms, formIdx: FormIdx, getset: GetSet): VerifyError[] | undefined {
+    // 1. Check form detection
+    const detectionError: VerifyError[] | undefined = getVerifyErrors_FormDetection(atoms, formIdx, getset);
+    if (detectionError?.length) {
+        return detectionError;
+    }
+
+    // 2. Check form options
     const toValidate: RowInputStateAtoms = getToVerify(atoms, formIdx, getset);
 
     const rv: VerifyError[] = validateRowInputStateAtoms(toValidate, formIdx === FormIdx.login ? 'login' : 'cpass', getset);
@@ -44,13 +44,17 @@ export function getVerifyErrors_OptionsFormTab(atoms: FormOptionsState.AllAtoms,
     function getToVerify(atoms: FormOptionsState.AllAtoms, formIdx: FormIdx, { get }: GetOnly): RowInputStateAtoms {
         const { p2Detect, p5Icon, isWebAtom, murl_howAtom, murl_regexAtom } = atoms;
 
+        let pDetectWithoutCaption: Partial<typeof p2Detect> = { ...p2Detect };
+        delete pDetectWithoutCaption.captionAtom;
+        delete pDetectWithoutCaption.dlg_classAtom;
+
         const isWeb = get(isWebAtom);
         const murl = isWeb && +get(murl_howAtom).data === Matching.How.regex ? { murl_regexAtom } : undefined;
 
         const toValidate: RowInputStateAtoms =
             formIdx === FormIdx.login
-                ? { ...p2Detect, ...murl, ...p5Icon, }
-                : { ...p2Detect, ...murl, ...p5Icon, };
+                ? { ...pDetectWithoutCaption, ...murl, ...p5Icon, }
+                : { ...pDetectWithoutCaption, ...murl, ...p5Icon, };
 
         if (isWeb) {
             delete toValidate.captionAtom; // Exclude atom with validation that are not appropriate depending on the app type
@@ -62,17 +66,18 @@ export function getVerifyErrors_OptionsFormTab(atoms: FormOptionsState.AllAtoms,
 
 // Form detection check
 
-export function getVerifyErrors_FormDetection(atoms: FormOptionsState.AllAtoms, formIdx: FormIdx, { get }: GetSet): VerifyError[] | undefined {
+function getVerifyErrors_FormDetection(atoms: FormOptionsState.AllAtoms, formIdx: FormIdx, { get }: GetSet): VerifyError[] | undefined {
     const { p2Detect } = atoms;
 
-    const caption = get(p2Detect.captionAtom);
-    const classname = get(p2Detect.dlg_classAtom);
+    const caption = get(p2Detect.captionAtom).data;
+    const classname = get(p2Detect.dlg_classAtom).data;
 
     if (!caption && !classname) {
         return [{
-            error: 'The screen cannot be detected if the window caption or class name is empty.',
+            error: 'The screen cannot be detected if the window caption and window class name are empty.',
             tab: formIdx === FormIdx.login ? 'login' : 'cpass',
             atomName: 'captionAtom',
+            groupName: 'form-detection',
         }];
     }
 
