@@ -4,7 +4,7 @@ import { isAnyManual } from "@/store/8-manifest";
 import { type FileUs } from "@/store/store-types";
 import { type LaunchData } from "@/store/0-serve-atoms/8-launch-data/9-launch-types";
 import { launchDataIdx, safeManiAtoms } from "@/store/2-file-mani-atoms";
-import { asyncLaunchExe, labelOpenLoginScreen, labelOpenPasswordChangeScreen } from "@/store/0-serve-atoms/7-file-system-manipulation";
+import { asyncLaunchExe, labelLaunchLoginApp, labelLaunchPasswordChangeApp, labelOpenLoginScreen, labelOpenPasswordChangeScreen } from "@/store/0-serve-atoms/7-file-system-manipulation";
 import { SymbolOpenLink } from "@/ui/icons";
 
 export function Row2_Explanation({ fileUs }: { fileUs: FileUs; }) {
@@ -29,12 +29,12 @@ export function Row2_Explanation({ fileUs }: { fileUs: FileUs; }) {
 
             {login.isWeb
                 ? <OpenUrlIcon url={login.url} anchorText={all.loginDomain} title={labelOpenLoginScreen} />
-                : <LaunchAppIcon launchData={all.login} />
+                : <LaunchAppIcon launchData={all.login} title={labelLaunchLoginApp} />
             }
 
             {cpass.isWeb
                 ? <OpenUrlIcon url={cpass.url} title={labelOpenPasswordChangeScreen} />
-                : <LaunchAppIcon launchData={all.cpass} />
+                : <LaunchAppIcon launchData={all.cpass} title={labelLaunchPasswordChangeApp} />
             }
         </div>
     );
@@ -52,13 +52,13 @@ function OpenUrlIcon({ anchorText, url, title }: { anchorText?: string; url: str
     );
 }
 
-function LaunchAppIcon({ launchData }: { launchData: LaunchData; }) {
+function LaunchAppIcon({ launchData, title }: { launchData: LaunchData; title: string; }) {
     if (!launchData.exe) {
         return null;
     }
     const withMain = hasMain();
     return (
-        <button className={openUrlIconClasses} onClick={() => asyncLaunchExe(launchData.exe, withMain)}>
+        <button className={openUrlIconClasses} onClick={() => asyncLaunchExe(launchData.exe, withMain)} title={title}>
             <SymbolOpenLink className="pt-0.5 size-3" />
         </button>
     );
