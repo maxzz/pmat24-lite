@@ -74,7 +74,7 @@ function getVerifyErrors_FormDetection(atoms: FormOptionsState.AllAtoms, formIdx
 
     if (!caption && !classname) {
         return [{
-            error: 'If the window caption and window class name are empty, screen detection and matching become impossible.',
+            error: 'The window caption and window class name are empty. In this case, identifying and matching the window becomes impossible. Please specify at least one of them.',
             tab: formIdx === FormIdx.login ? 'login' : 'cpass',
             atomName: 'captionAtom',
             groupName: InFormAccordionValue.detection,
