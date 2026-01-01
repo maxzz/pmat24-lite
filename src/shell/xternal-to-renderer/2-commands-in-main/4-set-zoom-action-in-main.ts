@@ -1,7 +1,7 @@
 import { appWindow } from "@shell/1-start-main-window";
-import { type R2M } from "@shared/ipc-types";
+import { type R2M, type M2R } from "@shared/ipc-types";
 
-export function handleZoomCommandInMain(action: R2M.ZoomCommand['action']) {
+export function setZoomActionInMain(action: R2M.SetZoomAction['action']) {
     const wc = appWindow.wnd?.webContents;
     if (!wc) {
         return;
@@ -23,6 +23,13 @@ export function handleZoomCommandInMain(action: R2M.ZoomCommand['action']) {
     }
 
     wc.setZoomLevel(newLevel);
+
+    const msg: M2R.ZoomLevelChanged = {
+        type: 'm2r:zoom-level-changed',
+        level: newLevel,
+    };
+
+    wc.send('send-to-renderer', msg);
 }
 
 export function getZoomLevelInMain(): number {

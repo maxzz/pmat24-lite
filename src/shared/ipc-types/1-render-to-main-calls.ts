@@ -82,8 +82,8 @@ export namespace R2M { // Main from Renderer
         type: 'r2m:test';
     };
 
-    export type ZoomCommand = {
-        type: 'r2m:zoom-command';
+    export type SetZoomAction = {
+        type: 'r2m:set-zoom-action';
         action: 'in' | 'out' | 'reset';
     };
 
@@ -105,7 +105,7 @@ export namespace R2M { // Main from Renderer
 
         | LoadManifestsDialog
         | StartTestFromMain
-        | ZoomCommand
+        | SetZoomAction
         ;
 }
 
@@ -124,7 +124,7 @@ export namespace R2MParams {
     export type GetWindowPosAction = Omit<R2M.GetWindowPosAction, 'type'>;
     export type LoadTestManifests = Omit<R2M.LoadTestManifests, 'type'>;
     export type StartTestFromMain = Omit<R2M.StartTestFromMain, 'type'>;
-    export type ZoomCommand = Omit<R2M.ZoomCommand, 'type'>;
+    export type SetZoomAction = Omit<R2M.SetZoomAction, 'type'>;
 }
 
 // Size, position, and bounds

@@ -57,6 +57,12 @@ export namespace R2MCalls {
         sendToMainTyped({ type: 'r2m:get-window-pos-action', params });
     }
 
+    // ui state
+
+    export function setZoomAction(action: R2MParams.SetZoomAction['action']): void {
+        sendToMainTyped({ type: 'r2m:set-zoom-action', action });
+    }
+
     // tests
 
     export function loadTestManifests(): void {
@@ -65,10 +71,6 @@ export namespace R2MCalls {
 
     export function startTestFromMain(): void {
         sendToMainTyped({ type: 'r2m:test' });
-    }
-
-    export function zoomCommand(action: R2MParams.ZoomCommand['action']): void {
-        sendToMainTyped({ type: 'r2m:zoom-command', action });
     }
 
 } //namespace R2MCalls

@@ -1,5 +1,5 @@
 import { OnAppMount, WorldToReactListener } from "@/xternal-to-main";
-import { OnAppMountZoomLevel } from "@/store/9-ui-state/8-app-ui/6-zoom";
+import { OnAppMountGetZoomLevel } from "@/store/9-ui-state/8-app-ui/6-zoom-atom";
 import { doSetFilesFrom_Dnd_Atom } from "@/store/0-serve-atoms/2-do-load-files";
 import { DropItDoc } from "@/ui/shadcn";
 import { Toaster } from "sonner"; //import { Toaster } from "@/ui/local-ui/7-toaster";
@@ -16,13 +16,6 @@ export function AppGlobals() {
         {/* App title */}
         <WindowsAppTitleCaption />
 
-        {/* Global dialogs */}
-        <ConfirmationDialog />
-        <AppOptionsDialog />
-        <ManiNameDialog />
-        <ManiCreateDialogs />
-        <FceDialog />
-
         {/* Global shortcuts */}
         <AppGlobalShortcuts />
 
@@ -30,14 +23,22 @@ export function AppGlobals() {
         <OpenFilesPersistentInput />
         <OpenFilesPersistentInput openAsFolder />
 
-        {/* Rest */}
-        <Toaster />
-
         <DropItDoc doSetFilesFromDropAtom={doSetFilesFrom_Dnd_Atom} />
 
         <WorldToReactListener />
         <OnAppMount />
-        <OnAppMountZoomLevel />
+        <OnAppMountGetZoomLevel />
+
+        {/* Rest */}
+        <Toaster />
+
+        {/* Global dialogs */}
+        <ConfirmationDialog />
+        <AppOptionsDialog />
+        <ManiNameDialog />
+        <ManiCreateDialogs />
+        <FceDialog />
+
     </>);
 }
 
@@ -45,8 +46,10 @@ function ManiCreateDialogs() {
     return (<>
         <DialogSawMonitor />
         <DialogCreateManiV3Saw />
-        {/* <DialogCreateManiV1 />
+        {/*
+        <DialogCreateManiV1 />
         <DialogCreateManiV1SecondPage />
-        <DialogCreateManiV2 /> */}
+        <DialogCreateManiV2 />
+        */}
     </>);
 }

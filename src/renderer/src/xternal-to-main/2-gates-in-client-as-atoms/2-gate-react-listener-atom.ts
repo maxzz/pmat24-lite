@@ -5,6 +5,7 @@ import { doSetDeliveredFilesAtom } from "@/store/0-serve-atoms/1-do-set-files";
 import { doQuitFromMainAtom } from "@/store/0-serve-atoms";
 import { cancelSizeSmall_SawMonitorAtom } from "@/store/4-dialogs-atoms";
 import { finalizeFileContent, getRootFromFpath } from "./commands-to-main";
+import { zoomLevelAtom } from "@/store/9-ui-state/8-app-ui/6-zoom-atom";
 
 export const doFromMainAtom = atom(
     null,
@@ -64,6 +65,13 @@ export const doFromMainAtom = atom(
             case 'm2r:saw-mode-canceled': {
                 // set(sawModeOnClientAtom, { turnOn: false, canceledByMain: true });
                 set(cancelSizeSmall_SawMonitorAtom);
+                break;
+            }
+
+            // ui state
+
+            case 'm2r:zoom-level-changed': {
+                set(zoomLevelAtom, data.level);
                 break;
             }
 

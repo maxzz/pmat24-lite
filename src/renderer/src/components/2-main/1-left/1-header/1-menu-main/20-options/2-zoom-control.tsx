@@ -1,10 +1,16 @@
-import { useAtom } from "jotai";
-import { type ZoomAction, zoomLevelAtom } from "@/store/9-ui-state/8-app-ui";
+import { useAtomValue, useSetAtom } from "jotai";
+import { type ZoomAction, zoomLevelAtom, zoomActionAtom } from "@/store/9-ui-state/8-app-ui";
 import { Button } from "@/ui/shadcn";
 import { Minus, Plus, Maximize } from "lucide-react";
+import { hasMain } from "@/xternal-to-main";
 
 export function ZoomControl() {
-    const [zoomLevel, doZoom] = useAtom(zoomLevelAtom);
+    if (!hasMain()) {
+        return null;
+    }
+
+    const zoomLevel = useAtomValue(zoomLevelAtom);
+    const doZoom = useSetAtom(zoomActionAtom);
 
     const zoomPercent = Math.round(Math.pow(1.2, zoomLevel) * 100);
 

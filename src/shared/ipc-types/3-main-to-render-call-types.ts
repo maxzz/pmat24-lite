@@ -50,6 +50,11 @@ export namespace M2R { // Main to Renderer
         body: string;
     };
 
+    export type ZoomLevelChanged = {
+        type: 'm2r:zoom-level-changed';
+        level: number;
+    };
+
     // close sequence
 
     export type AskCloseFromMainWithChanges = {
@@ -68,6 +73,7 @@ export namespace M2R { // Main to Renderer
         
         | FailedRawContent
         | LogMainToRenderer
+        | ZoomLevelChanged
 
         | AskCloseFromMainWithChanges
         ;
