@@ -57,17 +57,17 @@ export const appShortcuts: Record<ShortcustKey, Shortcut> = {
     },
     zoomIn: {
         text: "Ctrl++",
-        is: (event) => event.ctrlKey && (event.key === '+' || event.key === '='),
+        is: (event) => event.ctrlKey && (event.key === '+' || event.key === '=' || event.code === 'NumpadAdd'),
         action: () => R2MCalls.zoomCommand('in'),
     },
     zoomOut: {
         text: "Ctrl+-",
-        is: (event) => event.ctrlKey && (event.key === '-' || event.key === '_'),
+        is: (event) => event.ctrlKey && (event.key === '-' || event.key === '_' || event.code === 'NumpadSubtract'),
         action: () => R2MCalls.zoomCommand('out'),
     },
     zoomReset: {
         text: "Ctrl+0",
-        is: (event) => event.ctrlKey && event.key === '0',
+        is: (event) => event.ctrlKey && (event.key === '0' || event.code === 'Numpad0'),
         action: () => R2MCalls.zoomCommand('reset'),
     },
 };
