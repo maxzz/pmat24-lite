@@ -4,6 +4,19 @@ import { type R2MParams } from "@shared/ipc-types";
 
 export type ZoomAction = R2MParams.ZoomCommand['action'];
 
+export const zoomLevelAtom = atom(
+    (get) => get(_zoomLevelAtom),
+    (get, set, action: ZoomAction) => {
+        R2MCalls.zoomCommand(action);
+
+        const newLevel = get(_zoomLevelAtom) + (action === 'in' ? 0.5 : action === 'out' ? -0.5 : 0);
+
+        set(_zoomLevelAtom, newLevel);
+    }
+);
+
+// atom to store the zoom level from the main process
+
 const _zoomLevelAtom = atom(0);
 
 _zoomLevelAtom.onMount = (set) => {
@@ -11,19 +24,3 @@ _zoomLevelAtom.onMount = (set) => {
         R2MInvokes.getZoomLevel().then(set).catch(console.error);
     }
 };
-
-export const zoomLevelAtom = atom(
-    (get) => get(_zoomLevelAtom),
-    (get, set, action: ZoomAction) => {
-        R2MCalls.zoomCommand(action);
-
-        const currentLevel = get(_zoomLevelAtom);
-        let newLevel = currentLevel;
-        
-        if (action === 'in') newLevel += 0.5;
-        else if (action === 'out') newLevel -= 0.5;
-        else newLevel = 0;
-        
-        set(_zoomLevelAtom, newLevel);
-    }
-);

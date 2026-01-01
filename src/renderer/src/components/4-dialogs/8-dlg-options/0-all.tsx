@@ -37,9 +37,9 @@ const contentClasses = "p-0 w-4/5! max-w-xl h-4/5 min-h-56 max-h-[700px] data-[s
 function DialogOptionsBody({ setIsOpen }: { setIsOpen: (v: boolean) => void; }) {
     return (
         <div className="text-xs select-none grid grid-rows-[auto_1fr_auto] gap-4">
-            <D.DialogHeader className="relative text-base font-bold border-border border-b flex items-center">
-                <div className="py-2">PMAT Options</div>
-                <D.DialogCloseButton className="right-1 -top-0.5 p-2 hover:bg-muted hover:rounded-md" tabIndex={-1} onClick={() => setIsOpen(false)} />
+            <D.DialogHeader className="relative text-base font-bold bg-muted border-border border-b flex items-center space-y-0">
+                <div className="py-2 text-sm">PMAT Options</div>
+                <D.DialogCloseButton className="right-1 top-0.5 p-2 hover:bg-red-500 hover:text-white hover:opacity-100 hover:rounded-md focus:ring-0 active:scale-[.97]" tabIndex={-1} onClick={() => setIsOpen(false)} />
             </D.DialogHeader>
 
             <div className="relative w-full h-full">

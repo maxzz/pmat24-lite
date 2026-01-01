@@ -63,12 +63,12 @@ export function UiUxSettings() {
             </div>
         </>)}
 
-        <div className={subClasses}>
+        {/* <div className={subClasses}>
             <div className={rowClasses}>
                 Color Theme
                 <ThemeSwitch />
             </div>
-        </div>
+        </div> */}
     </>
     );
 }
