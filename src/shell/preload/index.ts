@@ -1,4 +1,4 @@
-import { type IpcRendererEvent, contextBridge, ipcRenderer, webUtils } from "electron";
+import { type IpcRendererEvent, contextBridge, ipcRenderer, webUtils, webFrame } from "electron";
 import { electronAPI } from "@electron-toolkit/preload";
 
 // Custom APIs for renderer
@@ -39,6 +39,10 @@ const api: TmApi = {
             const msg = error instanceof Error ? error.message : `${error}`;
             return { filePath: '', isDirectory: false, error: msg };
         }
+    },
+
+    getZoomLevel: (): number => {
+        return webFrame.getZoomLevel();
     },
 };
 

@@ -17,6 +17,7 @@ type TmApi = {
     invokeMain: <TData, TResult>(data: TData) => Promise<TResult>;
     setCbCallFromMain: (callback: (event: /*IpcRendererEvent*/any, data: any) => void) => void;
     getPathForFile: (file: File) => Promise<GetFilePathResult>;
+    getZoomLevel: () => number;
 };
 
 declare var tmApi: TmApi;
