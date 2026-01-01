@@ -24,11 +24,12 @@ const api: TmApi = {
         try {
             const filePath = webUtils.getPathForFile(file);
             const isDirectory = filePath ? statSync(filePath).isDirectory() : false;
-            return { filePath, isDirectory };
+            return { filePath, isDirectory, error: undefined };
         } catch (error) {
             console.error(error); // no a file case
+            const msg = error instanceof Error ? error.message : `${error}`;
+            return { filePath: '', isDirectory: false, error: msg };
         }
-        return { filePath: '', isDirectory: false };
     },
 };
 
@@ -45,10 +46,11 @@ if (process.contextIsolated) { // It should be true always from now on.
         console.error(error);
     }
 } else {
-    // @ts-ignore (define in dts)
-    window.electron = electronAPI;
-    // @ts-ignore (define in dts)
-    window.tmApi = api;
+    throw new Error('contextIsolated should be true always from now on.');
+    // // @ts-ignore (define in dts)
+    //window.electron = electronAPI;
+    // // @ts-ignore (define in dts)
+    // window.tmApi = api;
 }
 
 function showStackPreload(...rest: any[]) {

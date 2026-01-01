@@ -7,8 +7,9 @@
 // }
 
 type GetFilePathResult = {
-    filePath: string;       // full path to file
-    isDirectory: boolean;   // true if filePath is a directory
+    filePath: string;           // full path to file
+    isDirectory: boolean;       // true if filePath is a directory
+    error: string | undefined;  // statSync() error message
 };
 
 type TmApi = {
@@ -16,6 +17,6 @@ type TmApi = {
     invokeMain: <TData, TResult>(data: TData) => Promise<TResult>;
     setCbCallFromMain: (callback: (event: /*IpcRendererEvent*/any, data: any) => void) => void;
     getPathForFile: (file: File) => GetFilePathResult;
-}
+};
 
 declare var tmApi: TmApi;
