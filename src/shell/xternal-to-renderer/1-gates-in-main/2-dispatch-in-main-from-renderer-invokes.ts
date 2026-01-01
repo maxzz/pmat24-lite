@@ -4,6 +4,7 @@ import { asyncLoadWin32FilesContent } from "../2-commands-in-main/2-files/8-load
 import { existsFileInMain, deleteFileInMain, generateUniqueFilename, revealInExplorer, saveFileInMain, getPathInfoInMain } from "../2-commands-in-main/2-files";
 import { testInUseInMain_DeleteDir, testInUseInMain_Start, testInUseInMain_Set } from "../2-commands-in-main/3-test-inuse";
 import { execFileInMain } from "../2-commands-in-main/2-files/4-exec-file";
+import { getZoomLevel } from "../2-commands-in-main/4-zoom";
 
 // export async function invokeFromRendererInMain<TInvoke extends R2MInvoke.AllInvokes>(data: TInvoke): Promise<R2MInvoke.InvokeResult<TInvoke>> {
 export async function invokeFromRendererInMain(data: R2MInvoke.AllInvokes): Promise<any> {
@@ -55,6 +56,11 @@ export async function invokeFromRendererInMain(data: R2MInvoke.AllInvokes): Prom
         case 'r2mi:get-path-info': {
             const { filePath } = data;
             const rv: R2MInvoke.InvokeResult<R2MInvoke.GetPathInfo> = await getPathInfoInMain(filePath);
+            return rv;
+        }
+
+        case 'r2mi:get-zoom-level': {
+            const rv: R2MInvoke.InvokeResult<R2MInvoke.GetZoomLevel> = getZoomLevel();
             return rv;
         }
 

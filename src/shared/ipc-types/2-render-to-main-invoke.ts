@@ -48,6 +48,10 @@ export namespace R2MInvoke { // Main from Renderer invoke and get result
         filePath: string;                       // full path to check
     };
 
+    export type GetZoomLevel = {
+        type: 'r2mi:get-zoom-level';
+    };
+
     // napi
 
     export type GetSecondWindowHandle = {
@@ -140,6 +144,7 @@ export namespace R2MInvoke { // Main from Renderer invoke and get result
         | GetUniqueFilename                     // 'r2mi:get-unique-filename'
         | RevealInExplorer                      // 'r2mi:reveal-in-explorer'
         | GetPathInfo                           // 'r2mi:get-path-info'
+        | GetZoomLevel                          // 'r2mi:get-zoom-level'
 
         | GetSecondWindowHandle                 // 'r2mi:get-target-hwnd'
         | GetSecondWindowContent                // 'r2mi:get-window-controls'
@@ -201,6 +206,9 @@ export namespace R2MInvoke { // Main from Renderer invoke and get result
             error: string | undefined;
         }
 
+        : T extends GetZoomLevel                //'r2mi:get-zoom-level'
+        ? number
+
         // napi
 
         : T extends GetSecondWindowHandle       //'r2mi:get-target-hwnd'
@@ -261,6 +269,7 @@ export namespace R2MInvokeParams {
     export type GetUniqueFilename = Omit<R2MInvoke.GetUniqueFilename, 'type'>;
     export type RevealInExplorer = Omit<R2MInvoke.RevealInExplorer, 'type'>;
     export type GetPathInfo = Omit<R2MInvoke.GetPathInfo, 'type'>;
+    export type GetZoomLevel = Omit<R2MInvoke.GetZoomLevel, 'type'>;
     export type GetSecondWindowHandle = Omit<R2MInvoke.GetSecondWindowHandle, 'type'>;
     export type GetSecondWindowContent = Omit<R2MInvoke.GetSecondWindowContent, 'type'>;
     export type GetSecondWindowIcon = Omit<R2MInvoke.GetSecondWindowIcon, 'type'>;

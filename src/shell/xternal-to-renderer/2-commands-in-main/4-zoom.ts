@@ -24,3 +24,8 @@ export function handleZoomCommand(action: R2M.ZoomCommand['action']) {
 
     wc.setZoomLevel(newLevel);
 }
+
+export function getZoomLevel(): number {
+    const wc = appWindow.wnd?.webContents;
+    return wc ? wc.getZoomLevel() : 0;
+}

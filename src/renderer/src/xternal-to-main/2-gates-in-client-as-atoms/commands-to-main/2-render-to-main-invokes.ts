@@ -8,4 +8,8 @@ export namespace R2MInvokes {
         return rv;
     }
 
+    export async function getZoomLevel(): Promise<number> {
+        return invokeMainTyped({ type: 'r2mi:get-zoom-level' });
+    }
+
 }
