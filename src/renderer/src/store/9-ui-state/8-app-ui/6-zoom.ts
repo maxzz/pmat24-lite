@@ -1,6 +1,7 @@
-import { atom } from "jotai";
+import { atom, useSetAtom } from "jotai";
 import { R2MInvokes, R2MCalls, hasMain } from "@/xternal-to-main";
 import { type R2MParams } from "@shared/ipc-types";
+import { useEffect } from "react";
 
 export type ZoomAction = R2MParams.ZoomCommand['action'];
 
@@ -19,8 +20,25 @@ export const zoomLevelAtom = atom(
 
 const _zoomLevelAtom = atom(0);
 
-_zoomLevelAtom.onMount = (set) => {
-    if (hasMain()) {
-        R2MInvokes.getZoomLevel().then(set).catch(console.error);
-    }
-};
+// This is wrong atom should be updated at startup not when atom is mounted
+// _zoomLevelAtom.onMount = (set) => {
+//     if (hasMain()) {
+//         R2MInvokes.getZoomLevel().then(set).catch(console.error);
+//     }
+// };
+
+// Initial state exchange from renderer to main
+
+export function OnAppMountZoomLevel() {
+    const setZoom = useSetAtom(_zoomLevelAtom);
+    
+    useEffect(
+        () => {
+            if (hasMain()) {
+                R2MInvokes.getZoomLevel().then(setZoom).catch(console.error);
+            }
+        }, []
+    );
+    
+    return null;
+}
