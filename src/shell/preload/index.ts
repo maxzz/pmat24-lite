@@ -1,6 +1,5 @@
 import { type IpcRendererEvent, contextBridge, ipcRenderer, webUtils } from "electron";
 import { electronAPI } from "@electron-toolkit/preload";
-import { statSync } from "fs";
 
 // Custom APIs for renderer
 const api: TmApi = {
@@ -20,11 +19,21 @@ const api: TmApi = {
         ipcRenderer.on(channel, callback);
     },
 
-    getPathForFile(file: File): GetFilePathResult { //TODO: maybe make it as a regular invoke call for array of files to avoid load fs module?
+    async getPathForFile(file: File): Promise<GetFilePathResult> {
         try {
             const filePath = webUtils.getPathForFile(file);
-            const isDirectory = filePath ? statSync(filePath).isDirectory() : false; //TODO: we should not use fs module here
-            return { filePath, isDirectory, error: undefined };
+            if (!filePath) {
+                return { filePath: '', isDirectory: false, error: undefined };
+            }
+            
+            // Use IPC to check if path is a directory (avoiding fs module in preload)
+            const channel: PreloadChannelNames = 'invoke-main';
+            const result = await ipcRenderer.invoke(channel, {
+                type: 'r2mi:get-path-info',
+                filePath,
+            }) as GetFilePathResult;
+            
+            return result;
         } catch (error) {
             console.error(error); // no a file case
             const msg = error instanceof Error ? error.message : `${error}`;

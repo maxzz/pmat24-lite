@@ -9,14 +9,12 @@ export type FilePathAndDir = [
  * @param files - files to get paths for
  * @returns array of tuples [file, path, isDirectory]
  */
-export function electronGetPaths(files: File[]): readonly FilePathAndDir[] {
-    const rv = [...files]
-        .map<FilePathAndDir>(
-            (file) => {
-                const { filePath, isDirectory } = tmApi.getPathForFile(file);
-                return [file, filePath, isDirectory];
-            }
-        )
-        .filter((item: FilePathAndDir) => !!item[1]);
-    return rv;
+export async function electronGetPaths(files: File[]): Promise<readonly FilePathAndDir[]> {
+    const results = await Promise.all(
+        files.map(async (file) => {
+            const { filePath, isDirectory } = await tmApi.getPathForFile(file);
+            return [file, filePath, isDirectory] as FilePathAndDir;
+        })
+    );
+    return results.filter((item: FilePathAndDir) => !!item[1]);
 }

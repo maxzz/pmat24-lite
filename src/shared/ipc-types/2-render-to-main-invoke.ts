@@ -43,6 +43,11 @@ export namespace R2MInvoke { // Main from Renderer invoke and get result
         fpath: string;                          // full path to file or folder
     };
 
+    export type GetPathInfo = {
+        type: 'r2mi:get-path-info';
+        filePath: string;                       // full path to check
+    };
+
     // napi
 
     export type GetSecondWindowHandle = {
@@ -134,6 +139,7 @@ export namespace R2MInvoke { // Main from Renderer invoke and get result
         | FileExists                            // 'r2mi:file-exists'
         | GetUniqueFilename                     // 'r2mi:get-unique-filename'
         | RevealInExplorer                      // 'r2mi:reveal-in-explorer'
+        | GetPathInfo                           // 'r2mi:get-path-info'
 
         | GetSecondWindowHandle                 // 'r2mi:get-target-hwnd'
         | GetSecondWindowContent                // 'r2mi:get-window-controls'
@@ -187,6 +193,13 @@ export namespace R2MInvoke { // Main from Renderer invoke and get result
 
         : T extends RevealInExplorer            //'r2mi:reveal-in-explorer'
         ? EmptyOkOrError
+
+        : T extends GetPathInfo                 //'r2mi:get-path-info'
+        ? {
+            filePath: string;
+            isDirectory: boolean;
+            error: string | undefined;
+        }
 
         // napi
 
@@ -247,6 +260,7 @@ export namespace R2MInvokeParams {
     export type FileExists = Omit<R2MInvoke.FileExists, 'type'>;
     export type GetUniqueFilename = Omit<R2MInvoke.GetUniqueFilename, 'type'>;
     export type RevealInExplorer = Omit<R2MInvoke.RevealInExplorer, 'type'>;
+    export type GetPathInfo = Omit<R2MInvoke.GetPathInfo, 'type'>;
     export type GetSecondWindowHandle = Omit<R2MInvoke.GetSecondWindowHandle, 'type'>;
     export type GetSecondWindowContent = Omit<R2MInvoke.GetSecondWindowContent, 'type'>;
     export type GetSecondWindowIcon = Omit<R2MInvoke.GetSecondWindowIcon, 'type'>;

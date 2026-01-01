@@ -9,7 +9,7 @@ import { printElectronFnameFiles } from "./9-types";
  * It should be File object not modified by JS.
  */
 export async function createFileContents_From_Main(files: File[]): Promise<SetDeliveredFiles | undefined> {
-    const filePathAndDirs: readonly FilePathAndDir[] = electronGetPaths(files);
+    const filePathAndDirs: readonly FilePathAndDir[] = await electronGetPaths(files);
     if (!filePathAndDirs.length) {
         return;
     }
