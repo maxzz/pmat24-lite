@@ -4,7 +4,7 @@ import { electronState, sessionState } from "@shell/2-electron-globals";
 import { mainToRenderer } from "./3-send-in-main-to-renderer";
 import { appWindow } from "@shell/1-start-main-window";
 import { dndAction, getElectronModulePaths } from "../7-napi-calls";
-import { openFileDialogAndReply, setSawModeOnMain, setSawPositionOnMain } from "../2-commands-in-main";
+import { openFileDialogAndReply, setSawModeOnMain, setSawPositionOnMain, handleZoomCommand } from "../2-commands-in-main";
 
 export async function callFromRendererInMain(data: R2M.AllCalls): Promise<void> {
     switch (data.type) {
@@ -92,6 +92,11 @@ export async function callFromRendererInMain(data: R2M.AllCalls): Promise<void> 
         }
         case 'r2m:test': {
             mainToRenderer({ type: 'm2r:log', body: getElectronModulePaths() });
+            break;
+        }
+
+        case 'r2m:zoom-command': {
+            handleZoomCommand(data.action);
             break;
         }
 

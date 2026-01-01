@@ -4,7 +4,7 @@ import { isRootDirEmpty } from "@/store/5-1-open-files";
 import { debugSettings } from "@/store/9-ui-state";
 import { doSaveRightPanelFileAtom, doSaveAllAtom } from "@/store/0-serve-atoms";
 import { doOpenOptionsDialogAtom, open_SawMonitorAtom, filterDialogOpenAtom } from "@/store/4-dialogs-atoms";
-import { hasMain } from "@/xternal-to-main";
+import { hasMain, R2MCalls } from "@/xternal-to-main";
 
 export function AppGlobalShortcuts() {
     const doOpenOptionsDialog = useSetAtom(doOpenOptionsDialogAtom);
@@ -27,7 +27,7 @@ export function AppGlobalShortcuts() {
     return null;
 }
 
-type ShortcustKey = 'openOptions' | 'openFilter' | 'openCreate' | 'saveOne' | 'saveAll' | 'toggleDbg';
+type ShortcustKey = 'openOptions' | 'openFilter' | 'openCreate' | 'saveOne' | 'saveAll' | 'toggleDbg' | 'zoomIn' | 'zoomOut' | 'zoomReset';
 type Shortcut = { text: string; is: (event: KeyboardEvent) => boolean; action?: (event: KeyboardEvent, shortcut: ShortcustKey) => void; };
 
 export const appShortcuts: Record<ShortcustKey, Shortcut> = {
@@ -54,6 +54,21 @@ export const appShortcuts: Record<ShortcustKey, Shortcut> = {
     toggleDbg: {
         text: 'Ctrl+Alt+Shift+D',
         is: (event) => event.ctrlKey && event.altKey && event.key === 'D',
+    },
+    zoomIn: {
+        text: "Ctrl++",
+        is: (event) => event.ctrlKey && (event.key === '+' || event.key === '='),
+        action: () => R2MCalls.zoomCommand('in'),
+    },
+    zoomOut: {
+        text: "Ctrl+-",
+        is: (event) => event.ctrlKey && (event.key === '-' || event.key === '_'),
+        action: () => R2MCalls.zoomCommand('out'),
+    },
+    zoomReset: {
+        text: "Ctrl+0",
+        is: (event) => event.ctrlKey && event.key === '0',
+        action: () => R2MCalls.zoomCommand('reset'),
     },
 };
 

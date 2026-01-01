@@ -67,4 +67,8 @@ export namespace R2MCalls {
         sendToMainTyped({ type: 'r2m:test' });
     }
 
+    export function zoomCommand(action: R2MParams.ZoomCommand['action']): void {
+        sendToMainTyped({ type: 'r2m:zoom-command', action });
+    }
+
 } //namespace R2MCalls
