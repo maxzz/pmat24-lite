@@ -1,7 +1,7 @@
 import { appWindow } from "@shell/1-start-main-window";
 import { type R2M } from "@shared/ipc-types";
 
-export function handleZoomCommand(action: R2M.ZoomCommand['action']) {
+export function handleZoomCommandInMain(action: R2M.ZoomCommand['action']) {
     const wc = appWindow.wnd?.webContents;
     if (!wc) {
         return;
@@ -25,7 +25,7 @@ export function handleZoomCommand(action: R2M.ZoomCommand['action']) {
     wc.setZoomLevel(newLevel);
 }
 
-export function getZoomLevel(): number {
+export function getZoomLevelInMain(): number {
     const wc = appWindow.wnd?.webContents;
     return wc ? wc.getZoomLevel() : 0;
 }
