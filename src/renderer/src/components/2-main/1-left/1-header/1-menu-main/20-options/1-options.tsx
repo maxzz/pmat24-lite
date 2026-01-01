@@ -5,11 +5,11 @@ import { rootDir } from "@/store/5-1-open-files/2-root-dir";
 import { appShortcuts } from "@/components/4-dialogs/0-global";
 import { doOpenOptionsDialogAtom } from "@/store/4-dialogs-atoms";
 import { DropdownMenuItem, DropdownMenuShortcut, DropdownMenuSub, DropdownMenuSubTrigger, DropdownMenuSubContent, DropdownMenuSeparator, DropdownMenuLabel } from "@/ui/shadcn/dropdown-menu";
-import { Button } from "@/ui/shadcn";
 import { menuShortcutClasses } from "@/ui/local-ui";
 import { appSettings } from "@/store/9-ui-state";
 import { R2MCalls, R2MInvokes, hasMain } from "@/xternal-to-main";
-import { Check, Minus, Plus, Maximize } from "lucide-react";
+import { Check } from "lucide-react";
+import { ZoomControl, type ZoomAction } from "./2-zoom-control";
 
 export function MenuItem_Options() {
     const doOpenOptionsDialog = useSetAtom(doOpenOptionsDialogAtom);
@@ -24,7 +24,7 @@ export function MenuItem_Options() {
         }
     }, []);
 
-    const handleZoom = (action: 'in' | 'out' | 'reset') => {
+    const handleZoom = (action: ZoomAction) => {
          R2MCalls.zoomCommand(action);
          
          // Optimistic update
@@ -58,23 +58,7 @@ export function MenuItem_Options() {
 
                 <DropdownMenuSeparator />
                 
-                <div className="flex items-center justify-between px-2 py-1.5 select-none">
-                    <span className="text-sm font-medium">Zoom</span>
-                    <div className="flex items-center">
-                        <div className="flex items-center border rounded-md mr-1 border-border">
-                             <Button variant="ghost" size="icon" className="h-6 w-8 rounded-none rounded-l-md hover:bg-accent" onClick={(e) => { e.preventDefault(); handleZoom('out'); }}>
-                                <Minus className="h-3 w-3" />
-                             </Button>
-                             <span className="w-10 text-center text-xs tabular-nums border-x border-border px-1">{zoomPercent}%</span>
-                             <Button variant="ghost" size="icon" className="h-6 w-8 rounded-none rounded-r-md hover:bg-accent" onClick={(e) => { e.preventDefault(); handleZoom('in'); }}>
-                                <Plus className="h-3 w-3" />
-                             </Button>
-                        </div>
-                         <Button variant="ghost" size="icon" className="h-6 w-6 rounded-md hover:bg-accent" onClick={(e) => { e.preventDefault(); handleZoom('reset'); }}>
-                            <Maximize className="h-3 w-3" />
-                         </Button>
-                    </div>
-                </div>
+                <ZoomControl zoomPercent={zoomPercent} onZoom={handleZoom} />
 
                 <DropdownMenuSeparator />
 
