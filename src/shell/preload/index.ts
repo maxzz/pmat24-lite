@@ -23,7 +23,7 @@ const api: TmApi = {
     getPathForFile(file: File): GetFilePathResult { //TODO: maybe make it as a regular invoke call for array of files to avoid load fs module?
         try {
             const filePath = webUtils.getPathForFile(file);
-            const isDirectory = filePath ? statSync(filePath).isDirectory() : false;
+            const isDirectory = filePath ? statSync(filePath).isDirectory() : false; //TODO: we should not use fs module here
             return { filePath, isDirectory, error: undefined };
         } catch (error) {
             console.error(error); // no a file case
