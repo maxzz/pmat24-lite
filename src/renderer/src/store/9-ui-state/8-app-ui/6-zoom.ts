@@ -8,11 +8,24 @@ export type ZoomAction = R2MParams.ZoomCommand['action'];
 export const zoomLevelAtom = atom(
     (get) => get(_zoomLevelAtom),
     (get, set, action: ZoomAction) => {
+        // Optimistic update
+        let newLevel = get(_zoomLevelAtom);
+        if (action === 'in') {
+            newLevel += 0.5;
+        } else if (action === 'out') {
+            newLevel -= 0.5;
+        } else {
+            newLevel = 0;
+        }
+        set(_zoomLevelAtom, newLevel);
+
+        // Send command
         R2MCalls.zoomCommand(action);
 
-        const newLevel = get(_zoomLevelAtom) + (action === 'in' ? 0.5 : action === 'out' ? -0.5 : 0);
-
-        set(_zoomLevelAtom, newLevel);
+        // Sync with truth
+        R2MInvokes.getZoomLevel().then((realLevel) => {
+             set(_zoomLevelAtom, realLevel);
+        });
     }
 );
 

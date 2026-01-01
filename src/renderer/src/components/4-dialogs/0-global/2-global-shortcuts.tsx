@@ -2,9 +2,10 @@ import { useCallback, useEffect } from "react";
 import { useSetAtom } from "jotai";
 import { isRootDirEmpty } from "@/store/5-1-open-files";
 import { debugSettings } from "@/store/9-ui-state";
+import { zoomLevelAtom } from "@/store/9-ui-state/8-app-ui";
 import { doSaveRightPanelFileAtom, doSaveAllAtom } from "@/store/0-serve-atoms";
 import { doOpenOptionsDialogAtom, open_SawMonitorAtom, filterDialogOpenAtom } from "@/store/4-dialogs-atoms";
-import { hasMain, R2MCalls } from "@/xternal-to-main";
+import { hasMain } from "@/xternal-to-main";
 
 export function AppGlobalShortcuts() {
     const doOpenOptionsDialog = useSetAtom(doOpenOptionsDialogAtom);
@@ -12,6 +13,7 @@ export function AppGlobalShortcuts() {
     const doOpen_SawMonitor = useSetAtom(open_SawMonitorAtom);
     const doSaveOneIfNotNull = useSetAtom(doSaveRightPanelFileAtom);
     const doSaveAll = useSetAtom(doSaveAllAtom);
+    const doZoom = useSetAtom(zoomLevelAtom);
 
     useEffect(() => {
         appShortcuts.openOptions.action = () => doOpenOptionsDialog(true);
@@ -20,6 +22,10 @@ export function AppGlobalShortcuts() {
         appShortcuts.saveOne.action = () => doSaveOneIfNotNull();
         appShortcuts.saveAll.action = () => doSaveAll();
         appShortcuts.toggleDbg.action = () => debugSettings.debugOnly.debugAccess = !debugSettings.debugOnly.debugAccess;
+        
+        appShortcuts.zoomIn.action = () => doZoom('in');
+        appShortcuts.zoomOut.action = () => doZoom('out');
+        appShortcuts.zoomReset.action = () => doZoom('reset');
     }, []);
 
     useKeyNew();
@@ -58,17 +64,14 @@ export const appShortcuts: Record<ShortcustKey, Shortcut> = {
     zoomIn: {
         text: "Ctrl++",
         is: (event) => event.ctrlKey && (event.key === '+' || event.key === '=' || event.code === 'NumpadAdd'),
-        action: () => R2MCalls.zoomCommand('in'),
     },
     zoomOut: {
         text: "Ctrl+-",
         is: (event) => event.ctrlKey && (event.key === '-' || event.key === '_' || event.code === 'NumpadSubtract'),
-        action: () => R2MCalls.zoomCommand('out'),
     },
     zoomReset: {
         text: "Ctrl+0",
         is: (event) => event.ctrlKey && (event.key === '0' || event.code === 'Numpad0'),
-        action: () => R2MCalls.zoomCommand('reset'),
     },
 };
 
