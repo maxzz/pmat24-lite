@@ -1,53 +1,44 @@
 import { useAtom } from "jotai";
-import { zoomLevelAtom } from "@/store/9-ui-state/8-app-ui";
-import { R2MCalls } from "@/xternal-to-main";
+import { type ZoomAction, zoomLevelAtom } from "@/store/9-ui-state/8-app-ui";
 import { Button } from "@/ui/shadcn";
 import { Minus, Plus, Maximize } from "lucide-react";
 
-export type ZoomAction = 'in' | 'out' | 'reset';
-
 export function ZoomControl() {
-    const [zoomLevel, setZoomLevel] = useAtom(zoomLevelAtom);
-
-    const handleZoom = (action: ZoomAction) => {
-         R2MCalls.zoomCommand(action);
-         
-         // Optimistic update
-         let newLevel = zoomLevel;
-         if (action === 'in') newLevel += 0.5;
-         else if (action === 'out') newLevel -= 0.5;
-         else newLevel = 0;
-         setZoomLevel(newLevel);
-    };
+    const [zoomLevel, doZoom] = useAtom(zoomLevelAtom);
 
     const zoomPercent = Math.round(Math.pow(1.2, zoomLevel) * 100);
 
     return (
-        <div className="flex items-center justify-between px-2 py-1.5 select-none">
+        <div className="px-2 py-1.5 flex items-center justify-between select-none">
             <span className="text-xs font-medium">
                 Zoom
             </span>
 
             <div className="flex items-center">
-                <div className="flex items-center border rounded-md mr-1 border-border">
+                <div className="mr-1 border-border border rounded-md flex items-center">
 
-                    <Button variant="ghost" size="icon" className="h-6 w-8 rounded-none rounded-l-md hover:bg-accent" onClick={(e) => { e.preventDefault(); handleZoom('out'); }}>
+                    <Button variant="ghost" size="icon" className="h-6 w-8 rounded-none rounded-l-md hover:bg-accent" onClick={(e) => doZoomAction(e, doZoom, 'out')}>
                         <Minus className="h-3 w-3" />
                     </Button>
 
-                    <span className="w-10 text-center text-xs tabular-nums border-x border-border px-1">
+                    <span className="px-1 h-6 w-10 text-xs text-center tabular-nums border-x border-border flex items-center justify-center">
                         {zoomPercent}%
                     </span>
 
-                    <Button variant="ghost" size="icon" className="h-6 w-8 rounded-none rounded-r-md hover:bg-accent" onClick={(e) => { e.preventDefault(); handleZoom('in'); }}>
+                    <Button variant="ghost" size="icon" className="h-6 w-8 rounded-none rounded-r-md hover:bg-accent" onClick={(e) => doZoomAction(e, doZoom, 'in')}>
                         <Plus className="h-3 w-3" />
                     </Button>
                 </div>
 
-                <Button variant="ghost" size="icon" className="h-6 w-6 rounded-md hover:bg-accent" onClick={(e) => { e.preventDefault(); handleZoom('reset'); }}>
+                <Button variant="ghost" size="icon" className="h-6 w-6 rounded-md hover:bg-accent" onClick={(e) => doZoomAction(e, doZoom, 'reset')}>
                     <Maximize className="h-3 w-3" />
                 </Button>
             </div>
         </div>
     );
+}
+
+function doZoomAction(event: React.MouseEvent<HTMLButtonElement>, doZoom: (action: ZoomAction) => void, action: ZoomAction) {
+    event.preventDefault();
+    doZoom(action);
 }
