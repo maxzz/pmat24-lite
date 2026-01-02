@@ -52,6 +52,10 @@ export namespace R2MInvoke { // Main from Renderer invoke and get result
         type: 'r2mi:get-zoom-level';
     };
 
+    export type GetProcessEnv = {
+        type: 'r2mi:get-process-env';
+    };
+
     // napi
 
     export type GetSecondWindowHandle = {
@@ -145,6 +149,7 @@ export namespace R2MInvoke { // Main from Renderer invoke and get result
         | RevealInExplorer                      // 'r2mi:reveal-in-explorer'
         | GetPathInfo                           // 'r2mi:get-path-info'
         | GetZoomLevel                          // 'r2mi:get-zoom-level'
+        | GetProcessEnv                         // 'r2mi:get-process-env'
 
         | GetSecondWindowHandle                 // 'r2mi:get-target-hwnd'
         | GetSecondWindowContent                // 'r2mi:get-window-controls'
@@ -209,6 +214,9 @@ export namespace R2MInvoke { // Main from Renderer invoke and get result
         : T extends GetZoomLevel                //'r2mi:get-zoom-level'
         ? number
 
+        : T extends GetProcessEnv               //'r2mi:get-process-env'
+        ? Record<string, string>
+
         // napi
 
         : T extends GetSecondWindowHandle       //'r2mi:get-target-hwnd'
@@ -270,6 +278,7 @@ export namespace R2MInvokeParams {
     export type RevealInExplorer = Omit<R2MInvoke.RevealInExplorer, 'type'>;
     export type GetPathInfo = Omit<R2MInvoke.GetPathInfo, 'type'>;
     export type GetZoomLevel = Omit<R2MInvoke.GetZoomLevel, 'type'>;
+    export type GetProcessEnv = Omit<R2MInvoke.GetProcessEnv, 'type'>;
     export type GetSecondWindowHandle = Omit<R2MInvoke.GetSecondWindowHandle, 'type'>;
     export type GetSecondWindowContent = Omit<R2MInvoke.GetSecondWindowContent, 'type'>;
     export type GetSecondWindowIcon = Omit<R2MInvoke.GetSecondWindowIcon, 'type'>;

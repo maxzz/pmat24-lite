@@ -1,5 +1,6 @@
 import { OnAppMount, WorldToReactListener } from "@/xternal-to-main";
 import { OnAppMountGetZoomLevel } from "@/store/9-ui-state/8-app-ui/6-zoom-atom";
+import { OnAppMountGetProcessEnv } from "@/store/0-serve-atoms/8-launch-data/2-process-env-atom";
 import { doSetFilesFrom_Dnd_Atom } from "@/store/0-serve-atoms/2-do-load-files";
 import { DropItDoc } from "@/ui/shadcn";
 import { Toaster } from "sonner"; //import { Toaster } from "@/ui/local-ui/7-toaster";
@@ -28,6 +29,7 @@ export function AppGlobals() {
         <WorldToReactListener />
         <OnAppMount />
         <OnAppMountGetZoomLevel />
+        <OnAppMountGetProcessEnv />
 
         {/* Rest */}
         <Toaster />

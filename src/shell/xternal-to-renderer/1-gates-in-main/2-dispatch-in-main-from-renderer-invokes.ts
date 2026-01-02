@@ -5,6 +5,7 @@ import { existsFileInMain, deleteFileInMain, generateUniqueFilename, revealInExp
 import { testInUseInMain_DeleteDir, testInUseInMain_Start, testInUseInMain_Set } from "../2-commands-in-main/3-test-inuse";
 import { execFileInMain } from "../2-commands-in-main/2-files/4-exec-file";
 import { getZoomLevelInMain } from "../2-commands-in-main/4-set-zoom-action-in-main";
+import { getProcessEnvInMain } from "../2-commands-in-main/5-get-process-env";
 
 // export async function invokeFromRendererInMain<TInvoke extends R2MInvoke.AllInvokes>(data: TInvoke): Promise<R2MInvoke.InvokeResult<TInvoke>> {
 export async function invokeFromRendererInMain(data: R2MInvoke.AllInvokes): Promise<any> {
@@ -115,6 +116,11 @@ export async function invokeFromRendererInMain(data: R2MInvoke.AllInvokes): Prom
 
         case 'r2mi:get-zoom-level': {
             const rv: R2MInvoke.InvokeResult<R2MInvoke.GetZoomLevel> = getZoomLevelInMain();
+            return rv;
+        }
+
+        case 'r2mi:get-process-env': {
+            const rv: R2MInvoke.InvokeResult<R2MInvoke.GetProcessEnv> = getProcessEnvInMain();
             return rv;
         }
 

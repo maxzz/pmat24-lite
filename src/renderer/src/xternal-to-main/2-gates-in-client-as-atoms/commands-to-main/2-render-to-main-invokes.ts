@@ -12,4 +12,8 @@ export namespace R2MInvokes {
         return invokeMainTyped({ type: 'r2mi:get-zoom-level' });
     }
 
+    export async function getProcessEnv(): Promise<Record<string, string>> {
+        return invokeMainTyped({ type: 'r2mi:get-process-env' });
+    }
+
 }
