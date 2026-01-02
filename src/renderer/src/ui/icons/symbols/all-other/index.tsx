@@ -2,6 +2,7 @@ import { SvgSymbolFolder } from "./06-folder";
 import { SvgSymbolDot } from "./08-dot";
 import { SvgSymbolOpenLink } from "./09-open-link";
 import { SvgSymbolOpenLinkRun } from "./09-open-link-run";
+import { SvgSymbolOpenLinkRun2 } from "./09-open-link-run2";
 import { SvgSymbolCross } from "./13-cross";
 import { SvgSymbolPen } from "./14-pen";
 import { SvgSymbolFormLogin } from "./15-form-login";
@@ -26,6 +27,7 @@ export * from "./06-folder";
 export * from "./08-dot";
 export * from "./09-open-link";
 export * from "./09-open-link-run";
+export * from "./09-open-link-run2";
 export * from "./13-cross";
 export * from "./14-pen";
 export * from "./15-form-login";
@@ -53,6 +55,7 @@ export function DefAllOtherTypes() {
         {SvgSymbolChevronDown()}
         {SvgSymbolOpenLink()}
         {SvgSymbolOpenLinkRun()}
+        {SvgSymbolOpenLinkRun2()}
         {SvgSymbolCross()}
         {SvgSymbolPen()}
         {SvgSymbolFormLogin()}

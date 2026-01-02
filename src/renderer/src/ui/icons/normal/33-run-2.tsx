@@ -1,4 +1,4 @@
-import { type HTMLAttributes } from "react"; //https://tabler.io/icons run
+import { type HTMLAttributes } from "react"; //https://icones.js.org/collection/all?s=run&icon=iconoir:running
 import { classNames } from "@/utils";
 
 export function IconRun2({ className, title, ...rest }: HTMLAttributes<SVGSVGElement>) {
