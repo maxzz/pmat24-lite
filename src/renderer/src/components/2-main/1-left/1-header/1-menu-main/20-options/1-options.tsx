@@ -15,7 +15,9 @@ export function MenuItem_Options() {
 
     return (
         <DropdownMenuSub>
-            <DropdownMenuSubTrigger>Preferences</DropdownMenuSubTrigger>
+            <DropdownMenuSubTrigger>
+                Preferences
+            </DropdownMenuSubTrigger>
             <DropdownMenuSubContent className="w-56">
 
                 <ThemeSubMenu />
@@ -23,7 +25,7 @@ export function MenuItem_Options() {
                 <DropdownMenuSeparator />
 
                 <DropdownMenuItem className="text-xs" onClick={() => doOpenOptionsDialog(true)} disabled={noOpenFolder}>
-                    Options
+                    Settings
                     <DropdownMenuShortcut className={menuShortcutClasses}>{appShortcuts.openOptions.text}</DropdownMenuShortcut>
                 </DropdownMenuItem>
             </DropdownMenuSubContent>
