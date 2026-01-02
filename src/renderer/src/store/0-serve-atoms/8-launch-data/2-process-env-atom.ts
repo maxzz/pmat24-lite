@@ -6,7 +6,7 @@ export const processEnvAtom = atom<Record<string, string>>({});
 
 export function OnAppMountGetProcessEnv() {
     const setEnv = useSetAtom(processEnvAtom);
-    
+
     useEffect(
         () => {
             if (hasMain()) {
@@ -14,16 +14,18 @@ export function OnAppMountGetProcessEnv() {
             }
         }, []
     );
-    
+
     return null;
 }
 
 export function expandEnvVariablesWindows(value: string, get: Getter): string {
     const env = get(processEnvAtom);
-    
+
     // Replace %VAR% patterns with environment variable values
-    return value.replace(/%([^%]+)%/g, (match, varName) => {
-        const envValue = env[varName];
-        return envValue !== undefined ? envValue : match;
-    });
+    return value.replace(/%([^%]+)%/g,
+        (match, varName) => {
+            const envValue = env[varName];
+            return envValue !== undefined ? envValue : match;
+        }
+    );
 }
