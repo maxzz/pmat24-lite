@@ -13,7 +13,8 @@ export namespace R2MInvokes {
     }
 
     export async function getProcessEnv(): Promise<Record<string, string>> {
-        return invokeMainTyped({ type: 'r2mi:get-process-env' });
+        const jsonString = await invokeMainTyped({ type: 'r2mi:get-process-env' });
+        return JSON.parse(jsonString) as Record<string, string>;
     }
 
 }

@@ -215,7 +215,7 @@ export namespace R2MInvoke { // Main from Renderer invoke and get result
         ? number
 
         : T extends GetProcessEnv               //'r2mi:get-process-env'
-        ? Record<string, string>
+        ? string
 
         // napi
 

@@ -1,7 +1,6 @@
 import { atom, useSetAtom } from "jotai";
 import { R2MInvokes, hasMain } from "@/xternal-to-main";
 import { useEffect } from "react";
-import { type Getter } from "jotai";
 
 export const processEnvAtom = atom<Record<string, string>>({});
 
