@@ -15,7 +15,7 @@ export function R_PanelMenu() {
     return (
         <DropdownMenu open={menuOpen} onOpenChange={setMenuOpen} modal={true}>
             <DropdownMenuTrigger asChild>
-                <Button variant="ghost">
+                <Button className="rounded" variant="ghost" title="File menu">
                     <IconMenuHamburger5 className="size-4 fill-current" />
                 </Button>
             </DropdownMenuTrigger>

@@ -10,7 +10,7 @@ export function L_PanelMenuTrigger() {
         <DropdownMenu open={menuOpen} onOpenChange={setMenuOpen} modal={true}>
 
             <DropdownMenuTrigger asChild>
-                <Button variant="ghost">
+                <Button className="rounded" variant="ghost" title="Main menu">
                     <IconMenuHamburger5 className="size-4 fill-current" />
                 </Button>
             </DropdownMenuTrigger>

@@ -18,6 +18,7 @@ export * from "./27-not-in-use";
 export * from "./27-stop-circle";
 
 export * from "./28-test-tube";
+export * from "./33-run";
 
 export * from "./editor-manual-fields";
 export * from "./editor-swap-popup";
