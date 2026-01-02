@@ -5,7 +5,7 @@ import { type FileUs } from "@/store/store-types";
 import { type LaunchData } from "@/store/0-serve-atoms/8-launch-data/9-launch-types";
 import { launchDataIdx, safeManiAtoms } from "@/store/2-file-mani-atoms";
 import { asyncLaunchExe, labelLaunchLoginApp, labelLaunchPasswordChangeApp, labelOpenLoginScreen, labelOpenPasswordChangeScreen } from "@/store/0-serve-atoms/7-file-system-manipulation";
-import { IconRun2, SymbolOpenLink, SymbolOpenLinkRun } from "@/ui/icons";
+import { SymbolOpenLink, SymbolOpenLinkRun2 } from "@/ui/icons";
 import { classNames } from "@/utils";
 
 export function Row2_Explanation({ fileUs }: { fileUs: FileUs; }) {
@@ -60,8 +60,7 @@ function LaunchAppIcon({ isLogin, launchData, title }: { isLogin: boolean; launc
     const withMain = hasMain();
     return (
         <button className={openContainerClasses} onClick={() => asyncLaunchExe(launchData.exe, withMain)} title={title}>
-            {/* <SymbolOpenLinkRun className={classNames("mx-px pt-0.5 size-3.5 stroke-2! hover:scale-150", openIconClasses, isLogin && "ml-2.5")} /> */}
-            <IconRun2 className={classNames("mx-px pt-0.5 size-3.5 stroke-2! hover:scale-150", openIconClasses, isLogin && "ml-2.5")} />
+            <SymbolOpenLinkRun2 className={classNames("mx-px pt-0.5 size-3.5 stroke-2! hover:scale-150", openIconClasses, isLogin && "ml-2.5")} />
         </button>
     );
 }
