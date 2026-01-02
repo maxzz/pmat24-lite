@@ -24,6 +24,10 @@ export function removeFromDirsMru(folder: PmatFolder) {
     }
 }
 
+export function clearMruList() {
+    appSettings.appUi.mru.folders = [];
+}
+
 /**
  * Add folder to the list and remove it from the list if it is already there or update folder position in the list.
  * @returns True if the list was updated.

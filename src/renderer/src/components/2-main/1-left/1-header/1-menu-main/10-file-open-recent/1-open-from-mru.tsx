@@ -9,7 +9,7 @@ import { IconFolderClosed } from "@/ui/icons/normal/temp2";
 import { IconTrash } from "@/ui/icons";
 import { type PmatFolder } from "@/store/5-1-open-files";
 import { doSetFilesFrom_MruFolder_Atom } from "@/store/0-serve-atoms/2-do-load-files";
-import { asyncRemoveMruItemDialogAtom } from "@/store/4-dialogs-atoms";
+import { asyncClearMruListDialogAtom, asyncRemoveMruItemDialogAtom } from "@/store/4-dialogs-atoms";
 
 export function MenuItem_OpenRecent() {
     const { folders } = useSnapshot(appSettings.appUi.mru);
@@ -67,8 +67,9 @@ function MenuItem_MruItem({ folder }: { folder: PmatFolder; }) {
 }
 
 function MenuItem_ClearMru({ disabled }: { disabled: boolean; }) {
+    const clearMru = useSetAtom(asyncClearMruListDialogAtom);
     return (
-        <DropdownMenuItem disabled={disabled} onClick={() => appSettings.appUi.mru.folders = []}>
+        <DropdownMenuItem disabled={disabled} onClick={clearMru}>
             <IconTrash className="mr-1 size-4" />
             Clear Recently Opened
         </DropdownMenuItem>

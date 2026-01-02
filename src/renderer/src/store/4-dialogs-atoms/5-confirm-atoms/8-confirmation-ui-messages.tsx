@@ -1,7 +1,7 @@
 import { atom } from "jotai";
 import { IconStopCircle } from "@/ui/icons";
 import { type ConfirmationUi, doAsyncExecuteConfirmDialogAtom } from "./9-types-confirm";
-import { type PmatFolder, removeFromDirsMru } from "@/store/5-1-open-files";
+import { type PmatFolder, clearMruList, removeFromDirsMru } from "@/store/5-1-open-files";
 
 export const confirmDeleteMessages: ConfirmationUi = {
     title: 'Delete template file?',
@@ -62,16 +62,25 @@ const confirmRemoveFromMruMessages: ConfirmationUi = {
     message: 'Do you want to remove this name from the most recently used list?',
     buttonOk: 'Remove',
     buttonCancel: 'Cancel',
-    isDafaultOk: true,
+    isDafaultOk: false,
 };
 
-function getConfirmRemoveFromMruMessages(failed: boolean): ConfirmationUi {
-    const rv: ConfirmationUi = {
-        ...confirmRemoveFromMruMessages,
-        title: failed ? 'The target folder does not exist' : 'Remove item from MRU list?',
-    };
-    return rv;
-}
+const confirmRemoveFromMruAllMessages: ConfirmationUi = {
+    title: 'Clear the list of MRU folders',
+    message: 'Are you sure you want to clear the list of recently opened folders?',
+    buttonOk: 'Clear',
+    buttonCancel: 'Cancel',
+    isDafaultOk: false,
+};
+
+export const asyncClearMruListDialogAtom = atom(null,
+    async (get, set) => {
+        const ok = await set(doAsyncExecuteConfirmDialogAtom, confirmRemoveFromMruAllMessages);
+        if (ok) {
+            clearMruList();
+        }
+    }
+);
 
 export const asyncRemoveMruItemDialogAtom = atom(null,
     async (get, set, folder: PmatFolder, failed: boolean) => {
@@ -81,3 +90,11 @@ export const asyncRemoveMruItemDialogAtom = atom(null,
         }
     }
 );
+
+function getConfirmRemoveFromMruMessages(failed: boolean): ConfirmationUi {
+    const rv: ConfirmationUi = {
+        ...confirmRemoveFromMruMessages,
+        title: failed ? 'The target folder does not exist' : 'Remove item from MRU list?',
+    };
+    return rv;
+}

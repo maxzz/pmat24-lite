@@ -21,7 +21,7 @@ export function ConfirmationDialog() {
     return (
         <Dialog open={!!confirmData} onOpenChange={() => onDlgClose(false)}>
             <DialogContentWithHeader title={confirmData.ui.title} className={contentClasses} onDlgClose={onDlgClose} modal>
-                <DialogBody
+                <Body
                     confirmDialogOpen={confirmData}
                     onDlgClose={onDlgClose}
                 />
@@ -32,7 +32,7 @@ export function ConfirmationDialog() {
 
 const contentClasses = "p-0 w-72! rounded-lg max-w-sm data-[state=open]:duration-ani-200";
 
-function DialogBody({ confirmDialogOpen, onDlgClose }: { confirmDialogOpen: ConfirmationData; onDlgClose: (ok: boolean) => void; }) {
+function Body({ confirmDialogOpen, onDlgClose }: { confirmDialogOpen: ConfirmationData; onDlgClose: (ok: boolean) => void; }) {
     const { ui: { icon, message, buttonOk, buttonCancel, isDafaultOk }, } = confirmDialogOpen;
 
     return (
@@ -42,7 +42,7 @@ function DialogBody({ confirmDialogOpen, onDlgClose }: { confirmDialogOpen: Conf
                 {message}
             </div>
 
-            <DialogFooter className={classNames("py-4 flex-row gap-2", buttonCancel ? "justify-end" : "justify-center!")}>
+            <DialogFooter className={classNames("py-4 flex-row", buttonCancel ? "justify-end" : "justify-center!")}>
                 <Button variant={isDafaultOk ? 'default' : 'outline'} onClick={() => onDlgClose(true)}>
                     {buttonOk}
                 </Button>
