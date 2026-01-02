@@ -33,5 +33,8 @@ export function getLaunchData(maniAtoms: ManiAtoms, get: Getter): LaunchDataAll 
 }
 
 function stripDoubleQuotes(value: string | undefined): string | undefined {
-    return value ? value.replace(/^"|"$/g, '') : value;
+    if (value?.startsWith('"') && value.endsWith('"')) {
+        return value.slice(1, -1);
+    }
+    return value;
 }
