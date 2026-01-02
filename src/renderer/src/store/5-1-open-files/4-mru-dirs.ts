@@ -69,6 +69,7 @@ function removeMruListItem(items: PmatFolder[], folder: PmatFolder): boolean {
         items.splice(idx, 1);
         return true;
     }
+    //alternative: appSettings.appUi.mru.folders = appSettings.appUi.mru.folders.filter((item) => item.fpath !== folder.fpath);
 
     return false;
 }
