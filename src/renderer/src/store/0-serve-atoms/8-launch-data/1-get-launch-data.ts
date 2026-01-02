@@ -11,13 +11,13 @@ export function getLaunchData(maniAtoms: ManiAtoms, get: Getter): LaunchDataAll 
 
     if (loginFormCtx) {
         login.url = get(loginFormCtx.options.p2Detect.ourlAtom).data;
-        login.exe = get(loginFormCtx.options.p2Detect.commandlineAtom).data;
+        login.exe = stripDoubleQuotes(get(loginFormCtx.options.p2Detect.commandlineAtom).data);
         login.isWeb = get(loginFormCtx.options.isWebAtom);
     }
 
     if (cpassFormCtx) {
         cpass.url = get(cpassFormCtx.options.p2Detect.ourlAtom).data;
-        cpass.exe = get(cpassFormCtx.options.p2Detect.commandlineAtom).data;
+        cpass.exe = stripDoubleQuotes(get(cpassFormCtx.options.p2Detect.commandlineAtom).data);
         cpass.isWeb = get(cpassFormCtx.options.isWebAtom);
     }
 
@@ -30,4 +30,8 @@ export function getLaunchData(maniAtoms: ManiAtoms, get: Getter): LaunchDataAll 
         loginDomain,
         loginHost,
     };
+}
+
+function stripDoubleQuotes(value: string | undefined): string | undefined {
+    return value ? value.replace(/^"|"$/g, '') : value;
 }
