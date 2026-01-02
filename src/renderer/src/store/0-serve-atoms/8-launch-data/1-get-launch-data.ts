@@ -11,13 +11,13 @@ export function getLaunchData(maniAtoms: ManiAtoms, get: Getter): LaunchDataAll 
 
     if (loginFormCtx) {
         login.url = get(loginFormCtx.options.p2Detect.ourlAtom).data;
-        login.exe = get(loginFormCtx.options.p2Detect.processnameAtom).data;
+        login.exe = get(loginFormCtx.options.p2Detect.commandlineAtom).data;
         login.isWeb = get(loginFormCtx.options.isWebAtom);
     }
 
     if (cpassFormCtx) {
         cpass.url = get(cpassFormCtx.options.p2Detect.ourlAtom).data;
-        cpass.exe = get(cpassFormCtx.options.p2Detect.processnameAtom).data;
+        cpass.exe = get(cpassFormCtx.options.p2Detect.commandlineAtom).data;
         cpass.isWeb = get(cpassFormCtx.options.isWebAtom);
     }
 
