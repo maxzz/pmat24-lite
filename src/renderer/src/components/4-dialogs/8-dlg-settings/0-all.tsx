@@ -11,7 +11,7 @@ import { AdvancedSettings } from "./5-settings-advanced";
 import { SectionTitle } from "./8-shared-classes";
 import { debugSettings } from "@/store/9-ui-state";
 
-export function AppOptionsDialog() {
+export function AppSettingsDialog() {
 
     const [optionsDialogOpen, doOpenOptionsDialog] = useAtom(doOpenOptionsDialogAtom);
     if (!optionsDialogOpen) {
@@ -26,7 +26,7 @@ export function AppOptionsDialog() {
                 hiddenTitle="Options"
                 overlayClasses={overlayClasses}
             >
-                <DialogOptionsBody setIsOpen={doOpenOptionsDialog} />
+                <Body setIsOpen={doOpenOptionsDialog} />
             </D.DialogContent>
         </D.Dialog>
     );
@@ -34,7 +34,7 @@ export function AppOptionsDialog() {
 
 const contentClasses = "p-0 w-4/5! max-w-xl h-4/5 min-h-56 max-h-[700px] data-[state=open]:duration-ani-200";
 
-function DialogOptionsBody({ setIsOpen }: { setIsOpen: (v: boolean) => void; }) {
+function Body({ setIsOpen }: { setIsOpen: (v: boolean) => void; }) {
     return (
         <div className="text-xs select-none grid grid-rows-[auto_1fr_auto] gap-4">
             <D.DialogHeader className="relative text-base font-bold bg-muted border-border border-b sm:rounded-t-[7px] overflow-hidden flex items-center space-y-0">
@@ -46,7 +46,7 @@ function DialogOptionsBody({ setIsOpen }: { setIsOpen: (v: boolean) => void; }) 
 
             <div className="relative w-full h-full">
                 <div className="absolute inset-0">
-                    <DialogMiddleArea />
+                    <MiddleArea />
                 </div>
             </div>
 
@@ -59,7 +59,7 @@ function DialogOptionsBody({ setIsOpen }: { setIsOpen: (v: boolean) => void; }) 
     );
 }
 
-function DialogMiddleArea() {
+function MiddleArea() {
     const { debugAccess } = useSnapshot(debugSettings.debugOnly);
     return (
         <ScrollArea className="size-full" fullHeight>

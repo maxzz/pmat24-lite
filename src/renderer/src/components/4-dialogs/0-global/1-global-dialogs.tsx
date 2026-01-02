@@ -10,7 +10,7 @@ import { OpenFilesPersistentInput } from "@/components/2-main/1-left/1-header/1-
 import { DialogCreateManiV1SecondPage, DialogCreateManiV1, DialogCreateManiV2, DialogCreateManiV3Saw, DialogSawMonitor } from "../2-dlg-create-login";
 import { FceDialog } from "../4-dlg-field-catalog";
 import { ConfirmationDialog, ManiNameDialog } from "../5-confirm";
-import { AppOptionsDialog } from "../8-dlg-options";
+import { AppSettingsDialog } from "../8-dlg-settings";
 
 export function AppGlobals() {
     return (<>
@@ -36,7 +36,7 @@ export function AppGlobals() {
 
         {/* Global dialogs */}
         <ConfirmationDialog />
-        <AppOptionsDialog />
+        <AppSettingsDialog />
         <ManiNameDialog />
         <ManiCreateDialogs />
         <FceDialog />
