@@ -31,9 +31,16 @@ export const doMoveToSecondDlgAtom = atom(
             return;
         }
 
-        const hwnd = get(sawHandleAtom)?.hwnd;
+        const isMaunalChecked = get(checkboxCreateManualModeAtom);
+        const { hwnd, isBrowser } = get(sawHandleAtom) || {};
+
         if (!hwnd) {
             set(doAddNextToastIdAtom, notice.info('No application selected', { position: "top-center" }));
+            return;
+        }
+
+        if (isBrowser && isMaunalChecked) {
+            set(doAddNextToastIdAtom, notice.info('Cannot create manifest for browser in manual mode', { position: "top-center" }));
             return;
         }
 
@@ -41,7 +48,7 @@ export const doMoveToSecondDlgAtom = atom(
 
         set(stopMonitorTimerAtom);
 
-        const created = await createFileUsFromNewXml({ params: { hwnd, manual: get(checkboxCreateManualModeAtom), }, showProgressAtom, getset });
+        const created = await createFileUsFromNewXml({ params: { hwnd, manual: isMaunalChecked, }, showProgressAtom, getset });
         if (!created) {
             set(startMonitorTimerAtom);
             return;
