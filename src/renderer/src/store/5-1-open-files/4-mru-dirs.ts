@@ -131,7 +131,7 @@ export function initializeMru(hasMainReal: boolean) {
 // Utilities
 
 function printRootDir(newFolder: PmatFolder | undefined, folder: PmatFolder, title: string) {
-    console.log(`%c ${title}${newFolder ? ' new' : ''} %o`, 'background-color: magenta; color: white', newFolder || folder);
+    console.log(`%c ${title}${newFolder ? ' new' : ''} %o`, 'background-color: magenta; color: white', {...(newFolder || folder)}); // to nuke proxy
 }
 
 function printMruList() {

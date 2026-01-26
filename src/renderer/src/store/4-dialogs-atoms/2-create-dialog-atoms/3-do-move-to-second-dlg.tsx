@@ -40,7 +40,7 @@ export const doMoveToSecondDlgAtom = atom(
         }
 
         if (isBrowser && isMaunalChecked) {
-            set(doAddNextToastIdAtom, notice.info('Cannot create manifest for browser in manual mode', { position: "top-center" }));
+            set(doAddNextToastIdAtom, notice.info('The ability to manually specify the content of login forms on web pages is not currently supported.', { position: "top-center" }));
             return;
         }
 
