@@ -1,4 +1,4 @@
-import { HTMLAttributes, useEffect, useState } from "react";
+import { type HTMLAttributes, useEffect, useState } from "react";
 import { classNames } from "@/utils";
 
 type AllIcons = Record<string, React.ComponentType<React.SVGProps<SVGSVGElement>>>;
