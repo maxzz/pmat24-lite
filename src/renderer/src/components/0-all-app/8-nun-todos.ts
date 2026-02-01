@@ -244,3 +244,6 @@
 //TODO: load json5 config file
 //TODO: add option to regex for folder name
 //TODO: skip tw like "grid-cols-[1fr_1fr_auto]"
+
+//02.02.26
+//TODO: When open empty folder 125 with nested subfolders 'c' we take lowest level folder 'c' and open it. This is not good.
