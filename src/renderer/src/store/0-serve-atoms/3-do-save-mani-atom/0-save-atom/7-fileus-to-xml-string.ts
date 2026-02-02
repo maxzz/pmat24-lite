@@ -38,12 +38,6 @@ async function getManiContentText(fileUs: FileUs, fileUsAtom: FileUsAtom, maniAt
         throw new Error('No maniAtoms');
     }
 
-    // First do validation and then ask for manifest name
-
-    if (validate && stopIfInvalidAny(maniAtoms, getset)) {
-        return;
-    }
-
     // Check name before putting all to xml.
 
     const maniNameAtom = getset.set(getManiDispNameAtomAtom, fileUsAtom);
@@ -54,6 +48,12 @@ async function getManiContentText(fileUs: FileUs, fileUsAtom: FileUsAtom, maniAt
         if (!okManiName) {
             return;
         }
+    }
+
+    // First do validation and then ask for manifest name
+
+    if (validate && stopIfInvalidAny(maniAtoms, getset)) {
+        return;
     }
 
     // Now validation done
