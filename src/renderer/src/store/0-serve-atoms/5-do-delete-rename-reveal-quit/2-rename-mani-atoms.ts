@@ -2,7 +2,7 @@ import { atom } from "jotai";
 import { type RowInputStateAtom } from "@/ui/local-ui";
 import { type FileUsAtom } from "@/store/store-types";
 import { getManiDispNameAtomAtom } from "@/store/2-file-mani-atoms/3-options/2-conv-options";
-import { FormIdx } from "@/store/8-manifest";
+import { FormIdx, urlDomain } from "@/store/8-manifest";
 
 export type ManiNameDlgData = {
     fileUsAtom: FileUsAtom;             // fileUs to rename
@@ -50,6 +50,10 @@ export const doManiNameDlgAtom = atom(
             startName: get(nameAtom).data,
         };
 
+        if (defaultName) {
+            set(nameAtom, (v) => ({ ...v, data: defaultName, error: undefined, touched: false, dirty: false }));
+        }
+
         const resolveName = new Promise<boolean>((resolve) => {
             set(_maniNameDlgDataAtom, { ...data, resolve, });
         });
@@ -71,10 +75,32 @@ function getDefaultName(fileUsAtom: FileUsAtom, get: Getter): string | undefined
     }
 
     const maniAtoms = get(fileUs.maniAtomsAtom);
-    return;
+    const options = maniAtoms?.[FormIdx.login]?.options;
+    if (!options) {
+        return;
+    }
 
-    // isWeb
-    // const nameAtom = maniAtoms?.[FormIdx.login]?.options.p1General.;
-    
-    // return nameAtom ? get(nameAtom).data : undefined;
+    const { p2Detect, isWebAtom } = options;
+
+    if (get(isWebAtom)) {
+        const ourl = get(p2Detect.ourlAtom).data;
+        if (ourl) {
+            const domain = urlDomain(ourl);
+            return domain;
+        }
+        return;
+    } else {
+        const processname = get(p2Detect.processnameAtom).data;
+        if (processname) {
+            return getFromProcessNameNameWithoutExtensionAndPath(processname);
+        }
+    }
+
+    return;
+}
+
+function getFromProcessNameNameWithoutExtensionAndPath(processname: string): string | undefined {
+    // Example: "C:\Program Files\Internet Explorer\iexplore.exe" -> "iexplore"
+    const name = processname.split('.').shift()?.split(/[\\\/]/).pop();
+    return name;
 }
