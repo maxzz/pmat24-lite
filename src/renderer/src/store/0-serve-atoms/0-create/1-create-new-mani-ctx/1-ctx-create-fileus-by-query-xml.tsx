@@ -9,8 +9,9 @@ import { showBuildErrorReason, showMessage } from "./2-ctx-create-messages";
 import { doInitNewManiContentAtom, newManiContent } from "./0-ctx-content";
 import { createManiAtoms } from "../0-create-mani-ctx-atoms";
 import { createParsedFileUsFromFileContent } from "@/store/0-serve-atoms/1-do-set-files";
-import { type ManiAtoms, doSetInitialRelationsAtom } from "@/store/2-file-mani-atoms";
+import { type ManiAtoms, cFieldsIdx, doSetInitialRelationsAtom, lFieldsIdx } from "@/store/2-file-mani-atoms";
 import { fileUsToXmlString } from "../../3-do-save-mani-atom/0-save-atom/7-fileus-to-xml-string";
+import { FieldTyp } from "@/store/8-manifest";
 //import { printXmlManiFile } from "../3-do-save-mani-atom/0-save-atom/8-save-utils";
 //import { printNewMani } from "./2-ctx-create-messages";
 
@@ -64,7 +65,7 @@ export async function createFileUsByQueryXml({ params: { hwnd, manual }, showPro
         
         const createdManiAtoms = createManiAtoms({ fileUs, fileUsAtom: newFileUsAtom, embeddTo: maniAtoms_ForCpass });
 
-        if (!checkManiAtomsBeforeContinue(fileUs, createdManiAtoms, !!newManiContent.maniForCpassAtom, manual, getset)) {
+        if (!validManiAtomsToContinue(fileUs, createdManiAtoms, !!newManiContent.maniForCpassAtom, manual, getset)) {
             return false;
         }
 
@@ -96,11 +97,32 @@ export async function createFileUsByQueryXml({ params: { hwnd, manual }, showPro
     }
 }
 
-function checkManiAtomsBeforeContinue(fileUs: FileUs, maniAtoms: ManiAtoms, passwordChange: boolean, manual: boolean, getset: GetSet): boolean {
+function validManiAtomsToContinue(fileUs: FileUs, maniAtoms: ManiAtoms, passwordChange: boolean, manual: boolean, getset: GetSet): boolean {
     const { get, set } = getset;
 
-    showMessage({ set, message: 'Manifest content has unsupported structure.', isError: true });
-    return false;
+    if (manual) {
+        return true; // No need to check number of fields for manual mode
+    }
+
+    if (!passwordChange) {
+        //count login number of password fields
+        const loginFields = get(maniAtoms[lFieldsIdx]);
+        const passwordFields = loginFields.filter((field) => get(field.typeAtom) === FieldTyp.psw);
+        if (passwordFields.length !== 1) {
+            showMessage({ set, message: 'The login form must contain exactly one password field.', isError: false });
+            return false;
+        }
+    } else {
+        //count cpass number of password fields
+        const cpassFields = get(maniAtoms[cFieldsIdx]);
+        const passwordFields = cpassFields.filter((field) => get(field.typeAtom) === FieldTyp.psw);
+        if (passwordFields.length !== 2 && passwordFields.length !== 3) { // 2 or 3 password fields are allowed
+            showMessage({ set, message: 'The password change form must contain exactly three password fields.', isError: false });
+            return false;
+        }
+    }
+
+    return true;
 }
 
 type CreateParams = Pick<ManifestForWindowCreatorParams, 'hwnd' | 'manual'>;
