@@ -107,9 +107,13 @@ function validManiAtomsToContinue(fileUs: FileUs, maniAtoms: ManiAtoms, password
     if (!passwordChange) {
         //count login number of password fields
         const loginFields = get(maniAtoms[lFieldsIdx]);
+        if (!loginFields.length) {
+            showMessage({ set, message: 'No login fields detected.', isError: false });
+            return false;
+        }
         const passwordFields = loginFields.filter((field) => get(field.typeAtom) === FieldTyp.psw);
         if (passwordFields.length !== 1) {
-            showMessage({ set, message: 'The login form must contain exactly one password field.', isError: false });
+            showMessage({ set, message: 'The login form must contain one password field.', isError: false });
             return false;
         }
     } else {
