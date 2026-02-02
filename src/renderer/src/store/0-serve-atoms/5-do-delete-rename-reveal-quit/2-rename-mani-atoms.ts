@@ -2,11 +2,13 @@ import { atom } from "jotai";
 import { type RowInputStateAtom } from "@/ui/local-ui";
 import { type FileUsAtom } from "@/store/store-types";
 import { getManiDispNameAtomAtom } from "@/store/2-file-mani-atoms/3-options/2-conv-options";
+import { FormIdx } from "@/store/8-manifest";
 
 export type ManiNameDlgData = {
     fileUsAtom: FileUsAtom;             // fileUs to rename
     nameAtom: RowInputStateAtom;        // new name
     startName: string;                  // name when dialog was opened to restore on cancel
+    defaultName: string | undefined;    // default name to show in the dialog
     resolve: (ok: boolean) => void;     // ok or cancel
 };
 
@@ -29,7 +31,7 @@ export const maniNameDlgCloseAtom = atom(
 
 export const doManiNameDlgAtom = atom(
     null,
-    async (get, set, { fileUsAtom }: { fileUsAtom: FileUsAtom; provideDefaultName: boolean; }): Promise<boolean> => {
+    async (get, set, { fileUsAtom, provideDefaultName }: { fileUsAtom: FileUsAtom; provideDefaultName: boolean; }): Promise<boolean> => {
         if (!fileUsAtom) {
             return false;
         }
@@ -39,9 +41,12 @@ export const doManiNameDlgAtom = atom(
             return false;
         }
 
+        const defaultName = provideDefaultName ? getDefaultName(fileUsAtom, get) : undefined;
+
         const data: Omit<ManiNameDlgData, 'resolve'> = {
             fileUsAtom,
             nameAtom,
+            defaultName,
             startName: get(nameAtom).data,
         };
 
@@ -58,3 +63,18 @@ export const doManiNameDlgAtom = atom(
         return ok;
     }
 );
+
+function getDefaultName(fileUsAtom: FileUsAtom, get: Getter): string | undefined {
+    const fileUs = get(fileUsAtom);
+    if (!fileUs?.maniAtomsAtom) {
+        return;
+    }
+
+    const maniAtoms = get(fileUs.maniAtomsAtom);
+    return;
+
+    // isWeb
+    // const nameAtom = maniAtoms?.[FormIdx.login]?.options.p1General.;
+    
+    // return nameAtom ? get(nameAtom).data : undefined;
+}
