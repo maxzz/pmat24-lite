@@ -1,5 +1,5 @@
 import { type Mani, type FileMani, type CatalogFile, type ConvertToXmlStringResult, convertToXmlString, createGuid, filterOneLevelEmptyValues, showError, toManiFileFormat } from "@/store/8-manifest";
-import { type FileUs, type FileUsAtom  } from "@/store/store-types";
+import { type FileUs, type FileUsAtom } from "@/store/store-types";
 import { type FceAtoms } from "@/store/3-field-catalog-atoms";
 import { type ManiAtoms } from "@/store/2-file-mani-atoms/9-types";
 import { getManiDispNameAtomAtom } from "@/store/2-file-mani-atoms/3-options";
@@ -65,17 +65,22 @@ async function getManiContentText(fileUs: FileUs, fileUsAtom: FileUsAtom, maniAt
 }
 
 async function gotManifestName(fileUsAtom: FileUsAtom, validate: boolean, getset: GetSet): Promise<boolean | undefined> {
-    const maniNameAtom = getset.set(getManiDispNameAtomAtom, fileUsAtom);
-    const maniName = maniNameAtom && getset.get(maniNameAtom).data;
+    if (!validate) {
+        return true;
+    }
+
     const cofirmNameOption = false; //TODO: add it to options dialog
 
-    if (validate && !maniName || cofirmNameOption) { // If we save content for change password form then we need to confirm name
+    const maniNameAtom = getset.set(getManiDispNameAtomAtom, fileUsAtom);
+    const maniName = maniNameAtom && getset.get(maniNameAtom).data;
+
+    if (!maniName || cofirmNameOption) { // If we save content for change password form then we need to confirm name
         const okManiName = await getset.set(doManiNameDlgAtom, fileUsAtom);
         if (!okManiName) {
             return false;
         }
     }
-    
+
     return true;
 }
 
