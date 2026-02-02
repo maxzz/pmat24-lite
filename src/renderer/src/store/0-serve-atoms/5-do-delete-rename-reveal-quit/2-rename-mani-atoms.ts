@@ -8,7 +8,6 @@ export type ManiNameDlgData = {
     fileUsAtom: FileUsAtom;             // fileUs to rename
     nameAtom: RowInputStateAtom;        // new name
     startName: string;                  // name when dialog was opened to restore on cancel
-    defaultName: string | undefined;    // default name to show in the dialog
     resolve: (ok: boolean) => void;     // ok or cancel
 };
 
@@ -41,12 +40,11 @@ export const doManiNameDlgAtom = atom(
             return false;
         }
 
-        const defaultName = provideDefaultName ? getDefaultName(fileUsAtom, get) : undefined;
+        const defaultName = provideDefaultName ? getManifestDefaultName(fileUsAtom, get) : undefined;
 
         const data: Omit<ManiNameDlgData, 'resolve'> = {
             fileUsAtom,
             nameAtom,
-            defaultName,
             startName: get(nameAtom).data,
         };
 
@@ -68,35 +66,27 @@ export const doManiNameDlgAtom = atom(
     }
 );
 
-function getDefaultName(fileUsAtom: FileUsAtom, get: Getter): string | undefined {
+function getManifestDefaultName(fileUsAtom: FileUsAtom, get: Getter): string | undefined {
     const fileUs = get(fileUsAtom);
-    if (!fileUs?.maniAtomsAtom) {
-        return;
-    }
-
-    const maniAtoms = get(fileUs.maniAtomsAtom);
+    const maniAtoms = fileUs?.maniAtomsAtom && get(fileUs.maniAtomsAtom);
     const options = maniAtoms?.[FormIdx.login]?.options;
     if (!options) {
         return;
     }
 
-    const { p2Detect, isWebAtom } = options;
+    const { p2Detect: { ourlAtom, processnameAtom }, isWebAtom } = options;
 
     if (get(isWebAtom)) {
-        const ourl = get(p2Detect.ourlAtom).data;
+        const ourl = get(ourlAtom).data;
         if (ourl) {
-            const domain = urlDomain(ourl);
-            return domain;
+            return urlDomain(ourl);
         }
-        return;
     } else {
-        const processname = get(p2Detect.processnameAtom).data;
+        const processname = get(processnameAtom).data;
         if (processname) {
             return getFromProcessNameNameWithoutExtensionAndPath(processname);
         }
     }
-
-    return;
 }
 
 function getFromProcessNameNameWithoutExtensionAndPath(processname: string): string | undefined {

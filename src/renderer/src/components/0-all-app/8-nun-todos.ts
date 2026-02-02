@@ -254,3 +254,4 @@
 //TODO: why in options the login name is called "Managed Login name" and not "Login name"?
 //TODO: clean up obsolete options in options dialog
 //TODO: highlight is left after manifest created
+//TODO: add options: create default name for new manifests, and confirm default name if default name was created
