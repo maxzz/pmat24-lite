@@ -1,8 +1,9 @@
 import { atom } from "jotai";
+import { urlDomain } from "@/store/8-manifest";
 import { type RowInputStateAtom } from "@/ui/local-ui";
 import { type FileUsAtom } from "@/store/store-types";
+import { getOptionsFromFileUs } from "@/store/2-file-mani-atoms/9-types/1-mani-atoms-type";
 import { getManiDispNameAtomAtom } from "@/store/2-file-mani-atoms/3-options/2-conv-options";
-import { FormIdx, urlDomain } from "@/store/8-manifest";
 
 export type ManiNameDlgData = {
     fileUsAtom: FileUsAtom;             // fileUs to rename
@@ -67,9 +68,7 @@ export const doManiNameDlgAtom = atom(
 );
 
 function getManifestDefaultName(fileUsAtom: FileUsAtom, get: Getter): string | undefined {
-    const fileUs = get(fileUsAtom);
-    const maniAtoms = fileUs?.maniAtomsAtom && get(fileUs.maniAtomsAtom);
-    const options = maniAtoms?.[FormIdx.login]?.options;
+    const options = getOptionsFromFileUs(fileUsAtom, get);
     if (!options) {
         return;
     }

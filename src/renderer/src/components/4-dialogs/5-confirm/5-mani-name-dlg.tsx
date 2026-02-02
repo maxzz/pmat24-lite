@@ -26,7 +26,7 @@ const contentClasses = "p-0 w-72! rounded-lg max-w-sm gap-0 data-[state=open]:du
 
 function DialogBody({ dlgData, onCloseDlg }: { dlgData: ManiNameDlgData; onCloseDlg: (ok: boolean) => void; }) {
     const { nameAtom } = dlgData;
-    const [{ data: name, error }, setNameData] = useAtom(nameAtom);
+    const [{ data: name }, setNameData] = useAtom(nameAtom);
 
     useKey('Enter',
         () => {

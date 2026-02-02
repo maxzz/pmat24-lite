@@ -129,6 +129,56 @@
 					"label": "test-inuse create atoms"
 				}
 			]
+		},
+		{
+			"path": "src/renderer/src/store/store-types/0-file-us-type.ts",
+			"bookmarks": [
+				{
+					"line": 33,
+					"column": 14,
+					"label": "types: FileUs"
+				}
+			]
+		},
+		{
+			"path": "src/renderer/src/store/2-file-mani-atoms/9-types/1-mani-atoms-type.ts",
+			"bookmarks": [
+				{
+					"line": 37,
+					"column": 15,
+					"label": "types: MainAtoms"
+				}
+			]
+		},
+		{
+			"path": "src/renderer/src/store/2-file-mani-atoms/3-options/2-conv-options/9-types.tsx",
+			"bookmarks": [
+				{
+					"line": 78,
+					"column": 7,
+					"label": "types: Options.AllAtoms"
+				}
+			]
+		},
+		{
+			"path": "src/renderer/src/store/0-serve-atoms/5-do-delete-rename-reveal-quit/2-rename-mani-atoms.ts",
+			"bookmarks": [
+				{
+					"line": 31,
+					"column": 30,
+					"label": "mani-name: doManiNameDlgAtom"
+				}
+			]
+		},
+		{
+			"path": "src/renderer/src/components/4-dialogs/5-confirm/5-mani-name-dlg.tsx",
+			"bookmarks": [
+				{
+					"line": 7,
+					"column": 0,
+					"label": "mani-name: ManiNameDialog"
+				}
+			]
 		}
 	]
 }
