@@ -156,7 +156,7 @@ export function guardedFormIdx(mFormProps: MFormProps): FormIdx {
     return mFormProps?.mFormCtx?.fileUsCtx?.formIdx || 0;
 }
 
-//
+// Options access
 
 export function getOptionsFromFileUs(fileUsAtom: FileUsAtom, get: Getter): FormOptionsState.AllAtoms | undefined {
     const fileUs = get(fileUsAtom);

@@ -21,6 +21,36 @@
 			]
 		},
 		{
+			"path": "src/renderer/src/store/store-types/0-file-us-type.ts",
+			"bookmarks": [
+				{
+					"line": 33,
+					"column": 14,
+					"label": "types: FileUs"
+				}
+			]
+		},
+		{
+			"path": "src/renderer/src/store/2-file-mani-atoms/9-types/1-mani-atoms-type.ts",
+			"bookmarks": [
+				{
+					"line": 37,
+					"column": 15,
+					"label": "types: MainAtoms"
+				}
+			]
+		},
+		{
+			"path": "src/renderer/src/store/2-file-mani-atoms/3-options/2-conv-options/9-types.tsx",
+			"bookmarks": [
+				{
+					"line": 78,
+					"column": 7,
+					"label": "types: Options.AllAtoms"
+				}
+			]
+		},
+		{
 			"path": "src/renderer/src/store/1-atoms/2-file-mani-atoms/2-manual-fields/9-types/2-manual-field-state.tsx",
 			"bookmarks": [
 				{
@@ -131,32 +161,42 @@
 			]
 		},
 		{
-			"path": "src/renderer/src/store/store-types/0-file-us-type.ts",
+			"path": "src/renderer/src/store/4-dialogs-atoms/2-create-dialog-atoms/3-do-move-to-second-dlg.tsx",
 			"bookmarks": [
 				{
-					"line": 33,
-					"column": 14,
-					"label": "types: FileUs"
+					"line": 19,
+					"column": 34,
+					"label": "create-mani: 1. doMoveToSecondDlgAtom"
 				}
 			]
 		},
 		{
-			"path": "src/renderer/src/store/2-file-mani-atoms/9-types/1-mani-atoms-type.ts",
+			"path": "src/renderer/src/store/0-serve-atoms/0-create/1-create-new-mani-ctx/1-ctx-create-fileus-by-query-xml.tsx",
 			"bookmarks": [
 				{
-					"line": 37,
-					"column": 15,
-					"label": "types: MainAtoms"
+					"line": 21,
+					"column": 26,
+					"label": "create-mani: 2. createFileUsByQueryXml"
 				}
 			]
 		},
 		{
-			"path": "src/renderer/src/store/2-file-mani-atoms/3-options/2-conv-options/9-types.tsx",
+			"path": "src/renderer/src/store/0-serve-atoms/3-do-save-mani-atom/0-save-atom/1-do-save-one.tsx",
 			"bookmarks": [
 				{
-					"line": 78,
-					"column": 7,
-					"label": "types: Options.AllAtoms"
+					"line": 17,
+					"column": 26,
+					"label": "save: 1. doSaveOneAtom"
+				}
+			]
+		},
+		{
+			"path": "src/renderer/src/store/0-serve-atoms/3-do-save-mani-atom/0-save-atom/7-fileus-to-xml-string.ts",
+			"bookmarks": [
+				{
+					"line": 14,
+					"column": 23,
+					"label": "save: 2. fileUsToXmlString"
 				}
 			]
 		},
