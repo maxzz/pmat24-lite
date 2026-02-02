@@ -33,21 +33,6 @@ export async function fileUsToXmlString(fileUsAtom: FileUsAtom, validate: boolea
     return xml;
 }
 
-async function gotManifestName(fileUsAtom: FileUsAtom, validate: boolean, getset: GetSet): Promise<boolean | undefined> {
-    const maniNameAtom = getset.set(getManiDispNameAtomAtom, fileUsAtom);
-    const maniName = maniNameAtom && getset.get(maniNameAtom).data;
-    const cofirmNameOption = false; //TODO: add it to options dialog
-
-    if (validate && !maniName || cofirmNameOption) { // If we save content for change password form then we need to confirm name
-        const okManiName = await getset.set(doManiNameDlgAtom, fileUsAtom);
-        if (!okManiName) {
-            return false;
-        }
-    }
-    
-    return true;
-}
-
 async function getManiContentText(fileUs: FileUs, fileUsAtom: FileUsAtom, maniAtoms: ManiAtoms | null, validate: boolean, getset: GetSet): Promise<ConvertToXmlStringResult | undefined> {
     if (!maniAtoms) {
         throw new Error('No maniAtoms');
@@ -77,6 +62,21 @@ async function getManiContentText(fileUs: FileUs, fileUsAtom: FileUsAtom, maniAt
 
     //printResult({ xml: rv.xml, inManiFormat: newMani, inFileFormat: root });
     return rv;
+}
+
+async function gotManifestName(fileUsAtom: FileUsAtom, validate: boolean, getset: GetSet): Promise<boolean | undefined> {
+    const maniNameAtom = getset.set(getManiDispNameAtomAtom, fileUsAtom);
+    const maniName = maniNameAtom && getset.get(maniNameAtom).data;
+    const cofirmNameOption = false; //TODO: add it to options dialog
+
+    if (validate && !maniName || cofirmNameOption) { // If we save content for change password form then we need to confirm name
+        const okManiName = await getset.set(doManiNameDlgAtom, fileUsAtom);
+        if (!okManiName) {
+            return false;
+        }
+    }
+    
+    return true;
 }
 
 function getFcContentText(fceAtoms: FceAtoms, validate: boolean, { get }: GetSet): ConvertToXmlStringResult | undefined {
