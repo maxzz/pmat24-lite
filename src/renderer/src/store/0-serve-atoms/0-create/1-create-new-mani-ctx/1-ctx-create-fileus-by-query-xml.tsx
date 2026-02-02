@@ -10,7 +10,7 @@ import { doInitNewManiContentAtom, newManiContent } from "./0-ctx-content";
 import { createManiAtoms } from "../0-create-mani-ctx-atoms";
 import { createParsedFileUsFromFileContent } from "@/store/0-serve-atoms/1-do-set-files";
 import { type ManiAtoms, cFieldsIdx, doSetInitialRelationsAtom, lFieldsIdx } from "@/store/2-file-mani-atoms";
-import { fileUsToXmlString } from "../../3-do-save-mani-atom/0-save-atom/7-fileus-to-xml-string";
+import { fileUsToXmlString } from "../../3-do-save-mani-atom/0-save-atom/2-fileus-to-xml-string";
 import { FieldTyp } from "@/store/8-manifest";
 //import { printXmlManiFile } from "../3-do-save-mani-atom/0-save-atom/8-save-utils";
 //import { printNewMani } from "./2-ctx-create-messages";
