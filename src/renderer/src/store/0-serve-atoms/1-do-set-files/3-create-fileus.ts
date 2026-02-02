@@ -10,7 +10,7 @@ import { getInTestInUse } from "@/store/0-serve-atoms/6-do-inuse-test";
  * @param maniForCpass - fileUs for create password change; used for parse xml and create new fileUs
  * @returns new fileUs
  */
-export function createFileUsFromFileContent(fileContent: FileContent, maniForCpass?: FileUs): FileUs {
+export function createParsedFileUsFromFileContent(fileContent: FileContent, maniForCpass?: FileUs): FileUs {
     const fileCnt: FileContent = finalizeFileContent(fileContent);
 
     const rv: FileUs = {

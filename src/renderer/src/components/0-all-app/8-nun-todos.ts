@@ -238,7 +238,7 @@
 //TODO: options tab: original URL is readonly. and icon to unlock it modify and lock it again
 //TODO: options tab: match URL is not initiallized if inital value is empty
 //TODO: if error inside collapsed group we should expand this group
-//TODO: processname="\\jsccorefe01\fsba\BIN\InterACT.exe" commandline="Z:\BIN\InterACT.exe -VVystar -W -DZ:\Denorm\InterACTCert" - do proper encoding wo/ percents
+//TODO: processname="/jsccorefe01\fsba\BIN\InterACT.exe" commandline="Z:\BIN\InterACT.exe -VVystar -W -DZ:\Denorm\InterACTCert" - do proper encoding wo/ percents
 
 //10/17.25
 //TODO: load json5 config file
@@ -246,4 +246,9 @@
 //TODO: skip tw like "grid-cols-[1fr_1fr_auto]"
 
 //02.02.26
-//TODO: When open empty folder 125 with nested subfolders 'c' we take lowest level folder 'c' and open it. This is not good.
+//TODO: When open empty folder 125 with nested subfolders 'c' we take lowest level folder 'c' and open it. This is not good. "C:/z/bugs/[9]-tests-tanam5, DigitalPersona Templates Edge, 09.09.24/C/125/c/c/c'""
+//TODO: check when create manifest if there are no fields in login and cpass forms (block move to next page and show notice)
+//TODO: set default manifest name for win32 (keep global counter per session to have "Application 1") and web when create new manifest; FileContent.newFile and FileContent.newAsManual, and not cpass
+//TODO: check for cpass fields are checked and linked and before/on save not duplicated.
+//TODO: why in options the login name is called "Managed Login name" and not "Login name"?
+//TODO: clean up obsolete options in options dialog

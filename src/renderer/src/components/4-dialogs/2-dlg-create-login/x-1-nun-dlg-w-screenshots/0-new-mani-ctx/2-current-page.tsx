@@ -2,7 +2,7 @@ import { type Atom, atom } from "jotai";
 import { clamp, doAddNextToastIdAtom, doDissmissNextToastsAtom } from "@/utils";
 import { notice } from "@/ui/local-ui/7-toaster";
 import { stateNapiAccess } from "@/store/7-napi-atoms";
-import { createFileUsFromNewXml, newManiContent } from "@/store/0-serve-atoms/0-create/1-create-new-mani-ctx";
+import { createFileUsByQueryXml, newManiContent } from "@/store/0-serve-atoms/0-create/1-create-new-mani-ctx";
 import { checkboxCreateManualModeAtom } from "@/store/4-dialogs-atoms/2-create-dialog-atoms";
 import { appSelectedAppAtom } from "./4-selected-app";
 import { WizardPage, wizardFirstPage, wizardLastPage } from "./8-step-items-data";
@@ -62,7 +62,7 @@ export function create_DoAdvancePageAtom() {
                         return;
                     }
 
-                    const created = await createFileUsFromNewXml({
+                    const created = await createFileUsByQueryXml({
                         params: { hwnd: selectedApp.item.hwnd, manual: get(checkboxCreateManualModeAtom), },
                         showProgressAtom: newManiCtx.showProgressAtom,
                         getset: { get, set },

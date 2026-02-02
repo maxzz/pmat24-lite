@@ -4,12 +4,12 @@ import { type FileUs, type FileUsAtom } from "@/store/store-types";
 import { fileUsChanges } from "@/store/2-file-mani-atoms/9-types";
 import { type ManifestForWindowCreatorParams, type FileContent } from "@shared/ipc-types";
 import { doGetWindowManiAtom, maniXmlStrAtom, stateNapiAccess } from "@/store/7-napi-atoms";
-import { createNewFileContent } from "@/store/store-utils";
+import { createEmptyFileContent } from "@/store/store-utils";
 import { showBuildErrorReason, showMessage } from "./2-ctx-create-messages";
 import { doInitNewManiContentAtom, newManiContent } from "./0-ctx-content";
 import { createManiAtoms } from "../0-create-mani-ctx-atoms";
-import { createFileUsFromFileContent } from "@/store/0-serve-atoms/1-do-set-files";
-import { doSetInitialRelationsAtom } from "@/store/2-file-mani-atoms";
+import { createParsedFileUsFromFileContent } from "@/store/0-serve-atoms/1-do-set-files";
+import { type ManiAtoms, doSetInitialRelationsAtom } from "@/store/2-file-mani-atoms";
 import { fileUsToXmlString } from "../../3-do-save-mani-atom/0-save-atom/7-fileus-to-xml-string";
 //import { printXmlManiFile } from "../3-do-save-mani-atom/0-save-atom/8-save-utils";
 //import { printNewMani } from "./2-ctx-create-messages";
@@ -18,7 +18,7 @@ import { fileUsToXmlString } from "../../3-do-save-mani-atom/0-save-atom/7-fileu
  * Create new manifest inside newManiContent atoms and allow to move to the next page.
  * @returns true if move to the next page is allowed
  */
-export async function createFileUsFromNewXml({ params: { hwnd, manual }, showProgressAtom, getset }: MoveFromAppsToNextPageParams): Promise<boolean> {
+export async function createFileUsByQueryXml({ params: { hwnd, manual }, showProgressAtom, getset }: { params: CreateParams; showProgressAtom?: PA<boolean>; getset: GetSet; }): Promise<boolean> {
     const { get, set } = getset;
 
     // 0. Claen up the context before parsing
@@ -26,7 +26,7 @@ export async function createFileUsFromNewXml({ params: { hwnd, manual }, showPro
 
     // 1. Call Napi to get manifest as maniXml from the window
     try {
-        showProgressAtom && set(showProgressAtom, true);
+        showProgressAtom && set(showProgressAtom, true); // show controls scan progress atom
 
         await set(doGetWindowManiAtom, { hwnd, manual, passwordChange: !!newManiContent.maniForCpassAtom, wantXml: true, });
 
@@ -46,7 +46,7 @@ export async function createFileUsFromNewXml({ params: { hwnd, manual }, showPro
     }
 
     set(newManiContent.maniXmlStrAtom, sawManiXmlStr);
-    //printNewMani(sawManiXml);
+    //printNewMani(sawManiXmlStr);
 
     // 3. Parse maniXml to fileUs
     try {
@@ -58,11 +58,15 @@ export async function createFileUsFromNewXml({ params: { hwnd, manual }, showPro
             throw new Error('cpass.wo.FileUs.or.ManiAtoms');
         }
 
-        const fileContent: FileContent = createNewFileContent({ raw: sawManiXmlStr, newAsManual: manual });
-        const fileUs: FileUs = createFileUsFromFileContent(fileContent, fileUs_ForCpass);
+        const fileContent: FileContent = createEmptyFileContent({ raw: sawManiXmlStr, newAsManual: manual });
+        const fileUs: FileUs = createParsedFileUsFromFileContent(fileContent, fileUs_ForCpass);
         const newFileUsAtom: FileUsAtom = fileUsAtom_ForCpass || atom(fileUs);
-
+        
         const createdManiAtoms = createManiAtoms({ fileUs, fileUsAtom: newFileUsAtom, embeddTo: maniAtoms_ForCpass });
+
+        if (!checkManiAtomsBeforeContinue(fileUs, createdManiAtoms, !!newManiContent.maniForCpassAtom, manual, getset)) {
+            return false;
+        }
 
         if (fileUsAtom_ForCpass && fileUs_ForCpass && maniAtoms_ForCpass) {
             set(fileUs_ForCpass.maniAtomsAtom, createdManiAtoms);
@@ -92,11 +96,14 @@ export async function createFileUsFromNewXml({ params: { hwnd, manual }, showPro
     }
 }
 
-type MoveFromAppsToNextPageParams = {
-    params: Omit<ManifestForWindowCreatorParams, 'wantXml' | 'passwordChange'>;
-    showProgressAtom?: PA<boolean>; // show controls scan progress atom
-    getset: GetSet;
-};
+function checkManiAtomsBeforeContinue(fileUs: FileUs, maniAtoms: ManiAtoms, passwordChange: boolean, manual: boolean, getset: GetSet): boolean {
+    const { get, set } = getset;
+
+    showMessage({ set, message: 'Manifest content has unsupported structure.', isError: true });
+    return false;
+}
+
+type CreateParams = Pick<ManifestForWindowCreatorParams, 'hwnd' | 'manual'>;
 
 // Utilities
 

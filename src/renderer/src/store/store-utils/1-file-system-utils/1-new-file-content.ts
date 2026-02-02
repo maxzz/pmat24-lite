@@ -3,7 +3,7 @@ import { uuid } from "@/store/8-manifest";
 import { hasMain } from "@/xternal-to-main";
 import { type FileContent } from "@shared/ipc-types";
 
-export function createNewFileContent({ raw, newAsManual }: { raw: string; newAsManual: boolean; }): FileContent {
+export function createEmptyFileContent({ raw, newAsManual }: { raw: string; newAsManual: boolean; }): FileContent {
     return {
         unid: uuid.asRelativeNumber(),
         idx: 0,

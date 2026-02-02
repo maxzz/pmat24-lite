@@ -11,7 +11,7 @@ import { sortFileUsItemsInPlaceAndSetIndices } from "@/store/5-2-tree-files";
 import { rightPanelAtomAtom } from "@/store/5-3-right-panel";
 import { isPmatFileToLoad, inTest_Start } from "@/store/0-serve-atoms/6-do-inuse-test";
 import { doAddFcToLoadedAtom, doClearFcRootAtom, doInitFileUsLinksToFcAtom } from "@/store/3-field-catalog-atoms";
-import { createFileUsFromFileContent } from "./3-create-fileus";
+import { createParsedFileUsFromFileContent } from "./3-create-fileus";
 
 export type SetDeliveredFiles = {
     deliveredFileContents: FileContent[] | undefined;
@@ -86,7 +86,7 @@ export const doSetDeliveredFilesAtom = atom(
             .filter(isPmatFileToLoad)
             .map(
                 (deliveredFileContent: FileContent) => {
-                    const newFileUs = createFileUsFromFileContent(deliveredFileContent);
+                    const newFileUs = createParsedFileUsFromFileContent(deliveredFileContent);
                     addToTotalManis(newFileUs);
                     return newFileUs;
                 }

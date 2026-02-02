@@ -7,7 +7,7 @@ import { addToTotalManis, appSettings } from "@/store/9-ui-state";
 import { pmExtensionMani, WebFsItem } from "@shared/ipc-types";
 import { type FileUs, type FileUsAtom } from "@/store/store-types";
 import { doSaveOneAtom, notice_NewSaved } from "@/store/0-serve-atoms";
-import { createFileUsFromNewXml, newManiContent } from "@/store/0-serve-atoms/0-create/1-create-new-mani-ctx";
+import { createFileUsByQueryXml, newManiContent } from "@/store/0-serve-atoms/0-create/1-create-new-mani-ctx";
 import { filesAtom, rootDir } from "@/store/5-1-open-files";
 import { fileUsChanges } from "@/store/2-file-mani-atoms/9-types";
 import { setManiActiveTab } from "@/store/5-3-right-panel";
@@ -48,7 +48,7 @@ export const doMoveToSecondDlgAtom = atom(
 
         set(stopMonitorTimerAtom);
 
-        const created = await createFileUsFromNewXml({ params: { hwnd, manual: isMaunalChecked, }, showProgressAtom, getset });
+        const created = await createFileUsByQueryXml({ params: { hwnd, manual: isMaunalChecked, }, showProgressAtom, getset });
         if (!created) {
             set(startMonitorTimerAtom);
             return;
