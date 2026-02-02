@@ -70,12 +70,13 @@ async function gotManifestName(fileUsAtom: FileUsAtom, validate: boolean, getset
     }
 
     const cofirmNameOption = false; //TODO: add it to options dialog
+    const provideDefaultName = true;
 
     const maniNameAtom = getset.set(getManiDispNameAtomAtom, fileUsAtom);
     const maniName = maniNameAtom && getset.get(maniNameAtom).data;
 
     if (!maniName || cofirmNameOption) { // If we save content for change password form then we need to confirm name
-        const okManiName = await getset.set(doManiNameDlgAtom, fileUsAtom);
+        const okManiName = await getset.set(doManiNameDlgAtom, { fileUsAtom, provideDefaultName });
         if (!okManiName) {
             return false;
         }

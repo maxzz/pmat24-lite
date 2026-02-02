@@ -38,7 +38,7 @@ function ContextItems() {
 
     function onRename() {
         const currentAtom = rightPanelAtomGetter();
-        currentAtom ? doManiNameDlg(currentAtom) : toastError();
+        currentAtom ? doManiNameDlg({ fileUsAtom: currentAtom, provideDefaultName: false }) : toastError();
     }
 
     function onDelete() {

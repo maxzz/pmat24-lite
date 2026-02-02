@@ -7,7 +7,7 @@ export function TestManiName() {
     const currentAtom = useAtomValue(rightPanelAtomAtom);
     const doManiNameDlg = useSetAtom(doManiNameDlgAtom);
     return (
-        <Button className="text-[.65rem]" disabled={!currentAtom} onClick={() => currentAtom && doManiNameDlg(currentAtom)}>
+        <Button className="text-[.65rem]" disabled={!currentAtom} onClick={() => currentAtom && doManiNameDlg({ fileUsAtom: currentAtom, provideDefaultName: false })}>
             Name...
         </Button>
     );

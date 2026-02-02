@@ -26,7 +26,7 @@ export function FilesTreeView() {
 
     function onDoubleClick() {
         const selected = getFileUsAtomById(treeState.selectedId);
-        selected && doManiNameDlg(selected);
+        selected && doManiNameDlg({ fileUsAtom: selected, provideDefaultName: false });
     }
 
     // printTreeData(dataWithState);

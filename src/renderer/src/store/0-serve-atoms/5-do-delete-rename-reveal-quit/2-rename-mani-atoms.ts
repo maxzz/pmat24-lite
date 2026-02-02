@@ -21,7 +21,7 @@ export const maniNameDlgCloseAtom = atom(
         if (!data) {
             return;
         }
-        
+
         set(_maniNameDlgDataAtom, undefined);
         data.resolve(ok);
     }
@@ -29,7 +29,7 @@ export const maniNameDlgCloseAtom = atom(
 
 export const doManiNameDlgAtom = atom(
     null,
-    async (get, set, fileUsAtom: FileUsAtom): Promise<boolean> => {
+    async (get, set, { fileUsAtom }: { fileUsAtom: FileUsAtom; provideDefaultName: boolean; }): Promise<boolean> => {
         if (!fileUsAtom) {
             return false;
         }
@@ -48,7 +48,7 @@ export const doManiNameDlgAtom = atom(
         const resolveName = new Promise<boolean>((resolve) => {
             set(_maniNameDlgDataAtom, { ...data, resolve, });
         });
-        
+
         const ok = await resolveName;
 
         if (!ok) {
