@@ -246,9 +246,11 @@
 //TODO: skip tw like "grid-cols-[1fr_1fr_auto]"
 
 //02.02.26
+//TODO: check number of fields in login and cpass forms - done
 //TODO: When open empty folder 125 with nested subfolders 'c' we take lowest level folder 'c' and open it. This is not good. "C:/z/bugs/[9]-tests-tanam5, DigitalPersona Templates Edge, 09.09.24/C/125/c/c/c'""
 //TODO: check when create manifest if there are no fields in login and cpass forms (block move to next page and show notice)
 //TODO: set default manifest name for win32 (keep global counter per session to have "Application 1") and web when create new manifest; FileContent.newFile and FileContent.newAsManual, and not cpass
 //TODO: check for cpass fields are checked and linked and before/on save not duplicated.
 //TODO: why in options the login name is called "Managed Login name" and not "Login name"?
 //TODO: clean up obsolete options in options dialog
+//TODO: highlight is left after manifest created

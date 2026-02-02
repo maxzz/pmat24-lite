@@ -65,7 +65,7 @@ export async function createFileUsByQueryXml({ params: { hwnd, manual }, showPro
         
         const createdManiAtoms = createManiAtoms({ fileUs, fileUsAtom: newFileUsAtom, embeddTo: maniAtoms_ForCpass });
 
-        if (!validManiAtomsToContinue(fileUs, createdManiAtoms, !!newManiContent.maniForCpassAtom, manual, getset)) {
+        if (!validManiAtomsToContinue(createdManiAtoms, !!newManiContent.maniForCpassAtom, manual, getset)) {
             return false;
         }
 
@@ -97,33 +97,36 @@ export async function createFileUsByQueryXml({ params: { hwnd, manual }, showPro
     }
 }
 
-function validManiAtomsToContinue(fileUs: FileUs, maniAtoms: ManiAtoms, passwordChange: boolean, manual: boolean, getset: GetSet): boolean {
+function validManiAtomsToContinue(maniAtoms: ManiAtoms, passwordChange: boolean, manual: boolean, getset: GetSet): boolean {
     const { get, set } = getset;
 
     if (manual) {
         return true; // No need to check number of fields for manual mode
     }
 
+    let message: string | undefined;
+
     if (!passwordChange) {
-        //count login number of password fields
         const loginFields = get(maniAtoms[lFieldsIdx]);
-        if (!loginFields.length) {
-            showMessage({ set, message: 'No login fields detected.', isError: false });
-            return false;
-        }
         const passwordFields = loginFields.filter((field) => get(field.typeAtom) === FieldTyp.psw);
-        if (passwordFields.length !== 1) {
-            showMessage({ set, message: 'The login form must contain one password field.', isError: false });
-            return false;
+        if (!loginFields.length) {
+            message = 'No fields detected.';
+        } else if (passwordFields.length !== 1) {
+            message = 'The login form must contain one password field.';
         }
-    } else {
-        //count cpass number of password fields
+    } else { // cpass
         const cpassFields = get(maniAtoms[cFieldsIdx]);
         const passwordFields = cpassFields.filter((field) => get(field.typeAtom) === FieldTyp.psw);
-        if (passwordFields.length !== 2 && passwordFields.length !== 3) { // 2 or 3 password fields are allowed
-            showMessage({ set, message: 'The password change form must contain exactly three password fields.', isError: false });
-            return false;
+        if (!cpassFields.length) {
+            message = 'No fields detected.';
+        } else if (passwordFields.length !== 2 && passwordFields.length !== 3) { // 2 or 3 password fields are allowed
+            message = 'The password change form must contain exactly 2 or 3 password fields.';
         }
+    }
+
+    if (message) {
+        showMessage({ set, message, isError: false });
+        return false;
     }
 
     return true;

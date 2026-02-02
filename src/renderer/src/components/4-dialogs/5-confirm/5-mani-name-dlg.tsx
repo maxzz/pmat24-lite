@@ -28,15 +28,16 @@ function DialogBody({ dlgData, onCloseDlg }: { dlgData: ManiNameDlgData; onClose
     const { nameAtom } = dlgData;
     const [{ data: name, error }, setNameData] = useAtom(nameAtom);
 
-    useKey('Enter', () => {
-        const active = document.activeElement as HTMLInputElement;
-        const isValid = active?.matches('textarea') && active.ariaInvalid !== 'true';
-        if (isValid) {
-            onCloseDlg(true);
-        } else {
-            setNameData((v) => ({ ...v, touched: true }));
-        }
-    });
+    useKey('Enter',
+        () => {
+            const active = document.activeElement as HTMLInputElement;
+            const isValid = active?.matches('textarea') && active.ariaInvalid !== 'true';
+            if (isValid) {
+                onCloseDlg(true);
+            } else {
+                setNameData((v) => ({ ...v, touched: true }));
+            }
+        });
 
     return (
         <div className="px-4">

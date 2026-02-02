@@ -29,9 +29,11 @@ export type TreeFileItemWState = Prettify<TreeFileItem<ItemState>>;
 function addStateToTreeItems<T extends TreeFileItem>(data: T[]): TreeFileItemWState[] {
     const newTree = duplicateTree(data) as unknown as TreeFileItemWState[];
 
-    walkItems(newTree, (item) => {
-        item.state = proxy<ItemState['state']>({ selected: false/*, uuid5: uuid.asRelativeNumber()*/ });
-    });
+    walkItems(newTree, // create proxy for each item
+        (item) => {
+            item.state = proxy<ItemState['state']>({ selected: false/*, uuid5: uuid.asRelativeNumber()*/ });
+        }
+    );
 
     //printTreeItemsArray('🌟 new proxies', newTree);
     return newTree;
