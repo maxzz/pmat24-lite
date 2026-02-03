@@ -44,7 +44,7 @@ function printFieldsAsTable(label: string, fields: OldNewField[]) {
     }
 }
 
-export function printFormFields(label: string, fields: FieldRowCtx[], formIdx: FormIdx, { get }: GetOnly) {
+export function print_FormFields(label: string, fields: FieldRowCtx[], formIdx: FormIdx, { get }: GetOnly) {
     console.log(
         `%c👀 ${label} %c${!formIdx ? 'login (or cpass at create time)' : 'cpass'}`,
         'font-size:0.5rem',

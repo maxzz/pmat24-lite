@@ -55,7 +55,7 @@ async function doLiveIcon(hwnd: string, { get, set }: GetSet) {
                 set(sawIconAtom, image);
             }
 
-            printToCreateTestData({ get });
+            print_ToCreateTestData({ get });
         }
 
         stateNapiAccess.buildError = '';
@@ -103,7 +103,7 @@ const doClearSawIconAtom = atom(
 
 // Utilities. Print hwnd and icon in format that can be used in tests.
 
-function printToCreateTestData({ get }: GetOnly) {
+function print_ToCreateTestData({ get }: GetOnly) {
     const testHwnd = get(sawHandleAtom);
     const testIcon = JSON.parse(get(sawIconStrAtom) || '{}') as WindowIconGetterResult;
     const final = {

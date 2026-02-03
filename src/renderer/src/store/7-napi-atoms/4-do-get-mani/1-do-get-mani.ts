@@ -43,7 +43,7 @@ async function doLiveMani(params: ManifestForWindowCreatorParams, { get, set }: 
             setBuildState({ progress: 0, isRunning: false, error: '' });
             return;
         }
-        set(maniXmlStrAtom, res); //printStrResultData(res);
+        set(maniXmlStrAtom, res); //print_StrResultData(res);
 
         setBuildState({ progress: 0, lastProgress: stateNapiBuildMani.buildCounter, isRunning: false, error: '' });
     } catch (error) {
@@ -59,6 +59,6 @@ async function doTestMani(params: ManifestForWindowCreatorParams, { get, set }: 
 
 //
 
-function printStrResultData(res: string | undefined) {
+function print_StrResultData(res: string | undefined) {
     console.log(`doGetWindowManiXmlAtom\n${res}`);
 }

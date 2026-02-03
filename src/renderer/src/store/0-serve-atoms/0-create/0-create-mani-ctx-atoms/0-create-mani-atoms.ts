@@ -29,7 +29,7 @@ export function createManiAtoms({ fileUs, fileUsAtom, embeddTo }: { fileUs: File
         rv.push(cpassFormCtx?.fieldsAtom || atom([]));
         rv.push(createLaunchDataAtom(maniAtoms)); // TODO: This is not good, because we of self referencing. Later we will fix it.
 
-        //printCreateManiAtoms(fileUsAtom, fileUs, maniAtoms);
+        //print_CreateManiAtoms(fileUsAtom, fileUs, maniAtoms);
         return rv;
     } else {
         const rv: any = [...embeddTo]; // make result immutable to trigger rerender; ref to array should be defined ahead of time
@@ -49,7 +49,7 @@ export function createManiAtoms({ fileUs, fileUsAtom, embeddTo }: { fileUs: File
         rv[cFieldsIdx] = cpassFormCtx.fieldsAtom || atom([]);
         rv[launchDataIdx] = embeddTo[launchDataIdx];
 
-        //printCreateManiAtoms(fileUsAtom, fileUs, maniAtoms);
+        //print_CreateManiAtoms(fileUsAtom, fileUs, maniAtoms);
         return rv;
     }
 }
@@ -87,7 +87,7 @@ function createLaunchDataAtom(maniAtoms: ManiAtoms): Atom<LaunchDataAll> {
     return atom((get): LaunchDataAll => getLaunchData(maniAtoms, get));
 }
 
-function printCreateManiAtoms(fileUsAtom: FileUsAtom, fileUs: FileUs, maniAtoms: ManiAtoms) {
+function print_CreateManiAtoms(fileUsAtom: FileUsAtom, fileUs: FileUs, maniAtoms: ManiAtoms) {
     console.groupCollapsed(
         `%c⛓ createManiAtoms: fileUsAtom:%c${fileUsAtom.toString()} %cuuid:${fileUs.fileCnt.unid}`,
         'font-weight: normal; color: gray',

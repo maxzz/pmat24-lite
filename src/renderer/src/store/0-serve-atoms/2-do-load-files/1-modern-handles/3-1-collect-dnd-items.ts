@@ -14,7 +14,7 @@ export async function collectWebDndItems(dataTransferItems: DataTransferItem[]):
     const isFirefoxEntries = dataTransferItems.some((dtFileItem) => !dtFileItem.getAsFileSystemHandle);
     if (isFirefoxEntries) {
         const files: FileWithPath[] = await getFilesFromDataTransferItems(dataTransferItems);
-        // printEntryFiles(files);
+        // print_EntryFiles(files);
 
         rv = files.map(
             (file) => new WebFsItem({
@@ -41,9 +41,9 @@ export async function collectWebDndItems(dataTransferItems: DataTransferItem[]):
 
         const tree = pathsToFolderTree(handles.map((item) => ({ path: item[0], isFolder: (userData: DndHandle) => userData[1]?.kind === 'directory', userData: item })));
         const pmatHandles = getPmatFileHandles(tree);
-        // printHandles(handles);
-        // printTreeHandles(tree);
-        // printHandles(pmatHandles);
+        // print_Handles(handles);
+        // print_TreeHandles(tree);
+        // print_Handles(pmatHandles);
 
         for (const dndHandle of pmatHandles) {
             const item = await asyncDndHandleToWebFsItem(dndHandle);
@@ -51,7 +51,7 @@ export async function collectWebDndItems(dataTransferItems: DataTransferItem[]):
         }
     }
 
-    //printWebFsitems(rv);
+    //print_WebFsitems(rv);
     /*
         125 - dropped
         125/c
@@ -100,14 +100,14 @@ function getPmatFileHandles(tree: FolderTree<DndHandle>): DndHandle[] {
     return rv;
 }
 
-function printEntryFiles(handles: FileWithPath[]) {
+function print_EntryFiles(handles: FileWithPath[]) {
     console.log('🔊 %cEntryFiles:', 'color: saddlebrown', 'Firefox entries detected');
     for (const file of handles) {
         console.log(`%cpath: "${file.path}"%o`, `color: tan`, { file });
     }
 }
 
-function printHandles(handles: DndHandle[]) {
+function print_Handles(handles: DndHandle[]) {
     console.log('🔊 %cDndHandles:', 'color: saddlebrown');
 
     for (const [fullPath, handle, ownerDir] of handles) {
@@ -141,7 +141,7 @@ function printHandles(handles: DndHandle[]) {
 }
 
 // traverse tree and print each item's userData handles using FSHandleString()
-function printTreeHandles<T>(nodeMap: Record<string, FolderNode<T>>, indent = '') {
+function print_TreeHandles<T>(nodeMap: Record<string, FolderNode<T>>, indent = '') {
     !indent && console.log('🔊 %cTree DndHandles:', 'color: saddlebrown');
 
     for (const [name, node] of Object.entries(nodeMap)) {
@@ -170,7 +170,7 @@ function printTreeHandles<T>(nodeMap: Record<string, FolderNode<T>>, indent = ''
         }
 
         if (node.children && Object.keys(node.children).length > 0) {
-            printTreeHandles(node.children, indent + '    ');
+            print_TreeHandles(node.children, indent + '    ');
         }
     }
 
@@ -185,7 +185,7 @@ function printTreeHandles<T>(nodeMap: Record<string, FolderNode<T>>, indent = ''
     }
 }
 
-function printWebFsitems(items: WebFsItem[]) {
+function print_WebFsitems(items: WebFsItem[]) {
     console.log('🔊 %cWebFsItems:', 'color: saddlebrown');
 
     for (const item of items) {

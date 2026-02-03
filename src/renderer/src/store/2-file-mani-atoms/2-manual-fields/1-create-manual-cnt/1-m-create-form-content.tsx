@@ -79,7 +79,7 @@ function onChangeWithScope(updateName: string, nextValue: ManualFieldState.Ctx |
         const changed = newChunksStr !== mFormCtx.initialChunks;
 
         fileUsChanges.set(fileUsCtx, changed, fileUsChanges.changeName(fileUsCtx.formIdx, 'manual', updateName));
-        //printChanges('onChangeWScope.chunks', updateName, nextValue, { fileUsCtx, get, set });
+        //print_Changes('onChangeWScope.chunks', updateName, nextValue, { fileUsCtx, get, set });
         return;
     }
 
@@ -96,7 +96,7 @@ function onChangeWithScope(updateName: string, nextValue: ManualFieldState.Ctx |
     }
 
     fileUsChanges.set(fileUsCtx, changed, fileUsChanges.changeName(fileUsCtx.formIdx, 'manual', updateName));
-    //printChanges('onChangeWScope.item', updateName, nextValue, { fileUsCtx, get, set });
+    //print_Changes('onChangeWScope.item', updateName, nextValue, { fileUsCtx, get, set });
 }
 
 function isChunkInvalid(chunk: ManualFieldState.Ctx, { get }: GetOnly): boolean { //TODO: this was for initial validation, but not need anymore
@@ -108,6 +108,6 @@ function isChunkInvalid(chunk: ManualFieldState.Ctx, { get }: GetOnly): boolean 
 
 // Utilities
 
-function printChanges(label: string, updateName: string, nextValue: ManualFieldState.Ctx | ManualFieldState.Ctx[], { fileUsCtx, get, set }: OnChangeProps) {
+function print_Changes(label: string, updateName: string, nextValue: ManualFieldState.Ctx | ManualFieldState.Ctx[], { fileUsCtx, get, set }: OnChangeProps) {
     console.log(`${label}: "${updateName}" chg:`, JSON.stringify([...fileUsCtx.fileUs.fileCnt.changesSet]), { nextValue });
 }

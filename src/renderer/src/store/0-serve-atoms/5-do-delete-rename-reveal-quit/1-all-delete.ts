@@ -56,7 +56,7 @@ export const doDeleteFileUsAtom = atom(null,
         fileUsChanges.setUnchanged({ fileUs });
 
         // 5. dispose edit atoms, after all done to avoid UI updates
-        printDeleteFile(fileUsAtom);
+        print_DeleteFile(fileUsAtom);
         set(doDisposeFileUsAtomAtom, fileUsAtom);
     }
 );
@@ -95,7 +95,7 @@ export const doDeleteCpassFromFileUsAtom = atom(null,
     }
 );
 
-function printDeleteFile(fileUsAtom: FileUsAtom | undefined) {
+function print_DeleteFile(fileUsAtom: FileUsAtom | undefined) {
     console.groupCollapsed(`🛑🛑🛑 deleteFile: ${fileUsAtom ? fileUsAtom.toString() : 'null'}`);
     console.trace();
     console.groupEnd();

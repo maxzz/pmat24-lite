@@ -35,7 +35,7 @@ function addStateToTreeItems<T extends TreeFileItem>(data: T[]): TreeFileItemWSt
         }
     );
 
-    //printTreeItemsArray('🌟 new proxies', newTree);
+    //print_TreeItemsArray('🌟 new proxies', newTree);
     return newTree;
 }
 
@@ -93,7 +93,7 @@ export const doUpdateTreeSelectedByRightPanelAtom = atom(
         const treeItem = treeFiles.find((treeFile) => treeFile.fileUsAtom === rightPanelFileUsAtom);
         //console.log(`doUpdateRightPanelSelectedAtom right:${rightPanelFileUsAtom?.toString()} treeItem:`, { atom: treeItem?.fileUsAtom?.toString(), ...treeItem });
 
-        //printTreeItemsArray('🌟🌟 proxies after', treeFiles);
+        //print_TreeItemsArray('🌟🌟 proxies after', treeFiles);
 
         if (!treeItem) {
             treeState.selectedId = undefined;
@@ -113,13 +113,13 @@ export const doUpdateTreeSelectedByRightPanelAtom = atom(
             });
         }
 
-        //printTreeItemsArray('🌟🌟 proxies after', treeFiles);
+        //print_TreeItemsArray('🌟🌟 proxies after', treeFiles);
     }
 );
 
 //
 
-function printTreeItemsArray(title: string, newTree: TreeFileItemWState[]) {
+function print_TreeItemsArray(title: string, newTree: TreeFileItemWState[]) {
     const all = `\n${newTree.map((item) => `    ${JSON.stringify({ atom: item.fileUsAtom?.toString(), "tree.id": item.id, state: item.state })}`).join('\n')}`;
     console.log(`${title}: ${newTree.length ? all : '[]'}`);
 }

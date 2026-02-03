@@ -23,11 +23,11 @@ export function getInTestInUse(fpath: string): { inTest: boolean; inUse: boolean
 
 export function isPmatFileToLoad(fileCnt: FileContent): boolean {
     const { inUse, inTest } = getInTestInUse(fileCnt.fpath);
-    //printInTestInUse(fileCnt, inUse, inTest);
+    //print_InTestInUse(fileCnt, inUse, inTest);
     return inUse || inTest;
 }
 
-function printInTestInUse(fileCnt: FileContent, inUse: boolean, inTest: boolean) {
+function print_InTestInUse(fileCnt: FileContent, inUse: boolean, inTest: boolean) {
     const colorPath =
         inUse
             ? 'color: green'

@@ -5,7 +5,7 @@ import { type FceItem, type FceCtx, type FceDlgIn, type FceAtoms, type FcePropAt
 import { type OnChangeValueWithUpdateName } from "@/ui/local-ui";
 import { doFcePropChangesAtom } from "../3-changes";
 import { createFceFilterOptions, createHasSelectedScopedAtom, filterFceItems } from "../2-items";
-import { printFceItems } from "../../3-fc-mru";
+import { print_FceItems } from "../../3-fc-mru";
 
 type CreateFceCtxProps = {
     fceAtoms: FceAtoms;

@@ -26,11 +26,11 @@ const doFileUsHwndsAtom = atom(
         const loginHwnd = get(fileUs.hwndLoginAtom);
         const cpassHwnd = get(fileUs.hwndCpassAtom);
 
-        printHwns({ ctx, loginHwnd, cpassHwnd });
+        print_Hwns({ ctx, loginHwnd, cpassHwnd });
     }
 );
 
-function printHwns({ ctx, loginHwnd, cpassHwnd }: { ctx: FileUsCtx; loginHwnd: HighlightHwnd | undefined; cpassHwnd: HighlightHwnd | undefined; }) {
+function print_Hwns({ ctx, loginHwnd, cpassHwnd }: { ctx: FileUsCtx; loginHwnd: HighlightHwnd | undefined; cpassHwnd: HighlightHwnd | undefined; }) {
     const fileUs = ctx.fileUs;
     const formIdx = ctx.formIdx;
 

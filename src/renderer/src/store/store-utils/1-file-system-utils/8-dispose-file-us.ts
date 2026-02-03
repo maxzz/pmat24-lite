@@ -24,7 +24,7 @@ export const doDisposeAllFilesAtomAtom = atom(
 export const doDisposeFileUsAtomAtom = atom(
     null,
     (get, set, fileUsAtom: FileUsAtom | undefined) => {
-        //printDisposeFileUsAtom(fileUsAtom, { get });
+        //print_DisposeFileUsAtom(fileUsAtom, { get });
 
         if (!fileUsAtom) {
             return;
@@ -70,7 +70,7 @@ export function disposeFceCtx(fceCtx: FceCtx | undefined | null) {
     discardValues(fceCtx);
 }
 
-function printDisposeFileUsAtom(fileUsAtom: FileUsAtom | undefined, { get }: GetOnly) {
+function print_DisposeFileUsAtom(fileUsAtom: FileUsAtom | undefined, { get }: GetOnly) {
     const fileUs = fileUsAtom ? get(fileUsAtom) : undefined;
     const fileUsStr = fileUsAtom ? fileUsAtom.toString() : 'null';
     const maniStr = fileUs?.maniAtomsAtom ? fileUs.maniAtomsAtom.toString() : 'null';
@@ -86,7 +86,7 @@ function printDisposeFileUsAtom(fileUsAtom: FileUsAtom | undefined, { get }: Get
     console.groupEnd();
 }
 
-export function printDisposeManiAtomsAtom(maniAtomsAtom: ManiAtomsAtom | undefined) {
+export function print_DisposeManiAtomsAtom(maniAtomsAtom: ManiAtomsAtom | undefined) {
     const atomStr = maniAtomsAtom ? maniAtomsAtom.toString() : 'null';
     console.groupCollapsed(
         `%c🏀 dispose maniAtomsAtom:%c ${atomStr}%c`,

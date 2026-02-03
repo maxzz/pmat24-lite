@@ -23,7 +23,7 @@ export const filteredAtom = atom<FileUsAtom[]>(
         const skipFc = !fcAllowed || !get(optionsAppUiProxyAtom).uiAdvanced.showFieldCatalog;
 
         const files = get(filesAtom);
-        //printFilterFiles(files, get);
+        //print_FilterFiles(files, get);
 
         const rv = files.filter(
             (fileAtom: FileUsAtom) => {
@@ -91,7 +91,7 @@ export const isFilterActiveAtom = atom(
 
 // Utilities
 
-function printFilterFiles(files: FileUsAtom[], get: Getter) {
+function print_FilterFiles(files: FileUsAtom[], get: Getter) {
     console.log(`%c All files before filter: lenght=${files.length} `, 'background-color: green; color: white');
     files.forEach(
         (fileUsAtom) => {

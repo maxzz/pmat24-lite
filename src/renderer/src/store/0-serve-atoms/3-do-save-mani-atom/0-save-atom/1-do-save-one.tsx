@@ -62,7 +62,7 @@ export const doSaveOneAtom = atom(
     }
 );
 
-function printFilesAtom(title: string, files: FileUsAtom[], { get }: GetSet, fileCnt?: FileContent) {
+function print_FilesAtom(title: string, files: FileUsAtom[], { get }: GetSet, fileCnt?: FileContent) {
     console.log(title, files.length, fileCnt ? { fileCnt } : '');
     files.forEach(
         (fileUsAtom) => {
@@ -89,8 +89,8 @@ function printFilesAtom(title: string, files: FileUsAtom[], { get }: GetSet, fil
 //TODO: Update number input to show shorter lines
 
 //done:
-//printFilesAtom('⏱ save before', [...get(filesAtom)], get, fileUs.fileCnt);
-//printFilesAtom('⏱ save after', [...get(filesAtom)], get);
+//print_FilesAtom('⏱ save before', [...get(filesAtom)], get, fileUs.fileCnt);
+//print_FilesAtom('⏱ save after', [...get(filesAtom)], get);
 
 //TODO:
 // add member fileUs.contentToSave

@@ -50,11 +50,11 @@ export function handleFcePropChanges(selectedItem: FceItem, ctx: FcePropChangesP
 
     if (changePrefix) {
         fileUsChanges.set(fceCtx.fceAtoms, changed, `${changePrefix}-${uuid}`);
-        printItemChanges(selectedItem, ctx, changed, changePrefix, uuid);
+        print_ItemChanges(selectedItem, ctx, changed, changePrefix, uuid);
     }
 }
 
-function printItemChanges(selectedItem: FceItem, ctx: FcePropChangesProps, changed: boolean, changePrefix: string, uuid: number) {
+function print_ItemChanges(selectedItem: FceItem, ctx: FcePropChangesProps, changed: boolean, changePrefix: string, uuid: number) {
     const { fceCtx/*, name, nextValue*/ } = ctx;
 
     if (!fceCtx.fceAtoms.fileUs.parsedSrc.stats.isFCatRoot) {

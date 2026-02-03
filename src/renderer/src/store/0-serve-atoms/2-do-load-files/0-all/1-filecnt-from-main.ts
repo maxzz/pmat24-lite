@@ -1,7 +1,7 @@
 import { type FilePathAndDir, electronGetPaths, getRootFromFpath, invokeLoadFiles } from "@/xternal-to-main";
 import { type FileContent, pmAllowedToOpenExt } from "@shared/ipc-types";
 import { type SetDeliveredFiles } from "../../1-do-set-files";
-import { printElectronFnameFiles } from "./9-types";
+import { print_ElectronFnameFiles } from "./9-types";
 
 /**
  * Create FileContent items from open file/directory legacy web dialog or legacy drag and drop operation

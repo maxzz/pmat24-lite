@@ -62,7 +62,7 @@ function packForm(form: AnyFormCtx | undefined, formIdx: FormIdx, packParams: Pa
             newForm.fields = fields;
         }
 
-        //printFields(`${formIdx ? 'cpass' : 'login'} fields:\n`, newForm.fields);
+        //print_Fields(`${formIdx ? 'cpass' : 'login'} fields:\n`, newForm.fields);
     }
 }
 
@@ -84,7 +84,7 @@ function convertCpassUuidToIdx(forms: Mani.Form[] | undefined) {
 
 // Utilities
 
-function printFields(label: string, fields: Mani.Field[], keepEmptyvalues?: boolean) {
+function print_Fields(label: string, fields: Mani.Field[], keepEmptyvalues?: boolean) {
     const items =
         keepEmptyvalues
             ? fields

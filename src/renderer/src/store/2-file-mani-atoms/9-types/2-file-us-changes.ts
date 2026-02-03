@@ -27,7 +27,7 @@ function setChangeFlag({ fileUs }: { fileUs: FileUs; }, changed: boolean, change
     changes[changed ? 'add' : 'delete'](changeName);
 
     allFileUsChanges[changes.size ? 'add' : 'delete'](`${fileUs.fileCnt.unid}`);
-    //printChanges(fileUs);
+    //print_Changes(fileUs);
 
     return changes;
 }
@@ -77,7 +77,7 @@ subscribe(allFileUsChanges,
 
 // Utilities
 
-function printChanges(fileUs: FileUs) {
+function print_Changes(fileUs: FileUs) {
     const changes: ChangesSet = fileUs.fileCnt.changesSet;
     console.log('🚼 File Changes:', JSON.stringify([...changes.keys()]));
 }

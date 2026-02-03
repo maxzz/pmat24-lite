@@ -5,7 +5,7 @@ import { type FieldRowCtx, type MFormProps, getAllFormsFieldsAtoms, safeByContex
 export function loginChangesEffectFn({ mFormProps }: { mFormProps: MFormProps; }) { //TODO: give maniAtomsAtom instead of mFormProps (and .mFormCtx.fileUsCtx.fileUs.maniAtomsAtom)
     const rv = useCallbackOne(
         (get: GetterWithPeek, set: SetterWithRecurse) => {
-            printMFormProps(mFormProps);
+            print_MFormProps(mFormProps);
 
             const maniAtomsAtom = mFormProps.mFormCtx?.fileUsCtx?.fileUs?.maniAtomsAtom;
             if (!maniAtomsAtom) { // This may happen when all files are closed and atoms are disposed, but we still get deps call since we get maniAtomsAtom
@@ -30,23 +30,23 @@ export function loginChangesEffectFn({ mFormProps }: { mFormProps: MFormProps; }
                 );
             }, 1000); // We have debounce for value changes and as result we have only the latest change triggered by our set and we are loosing original value from any input or select. debounce value is 100ms and this timeout should be longer than 100ms.
 
-            printForms('loginChangesEffectFn after links update', mFormProps.mFormCtx.fileUsCtx.formIdx, get(loginAtom), get(cpassAtom), get);
+            print_Forms('loginChangesEffectFn after links update', mFormProps.mFormCtx.fileUsCtx.formIdx, get(loginAtom), get(cpassAtom), get);
         }, [mFormProps.mFormCtx?.fileUsCtx?.fileUs?.maniAtomsAtom]
     );
     return rv;
 }
 
-function printMFormProps(mFormProps: MFormProps) {
+function print_MFormProps(mFormProps: MFormProps) {
     console.log(`loginChangesEffectFn formIdx:${mFormProps.mFormCtx.fileUsCtx.formIdx} ${mFormProps.mFormCtx.fileUsCtx.fileUs.maniAtomsAtom.toString()}`);
 }
 
-function printForms(label: string, formIdx: FormIdx, loginFields: FieldRowCtx[], cpassFields: FieldRowCtx[], get: Getter) {
+function print_Forms(label: string, formIdx: FormIdx, loginFields: FieldRowCtx[], cpassFields: FieldRowCtx[], get: Getter) {
     console.log(`%c${formIdx === FormIdx.login ? 'login' : 'cpass'} %c${label}`, formIdx === FormIdx.login ? 'color: forestgreen' : 'color: darkseagreen', 'font-size:0.5rem');
 
-    loginFields.length && printFields(loginFields, get);
-    cpassFields.length && printFields(cpassFields, get);
+    loginFields.length && print_Fields(loginFields, get);
+    cpassFields.length && print_Fields(cpassFields, get);
 
-    function printFields(fields: FieldRowCtx[], get: Getter) {
+    function print_Fields(fields: FieldRowCtx[], get: Getter) {
         const colors: string[] = [];
         const lines: string[] = [];
 

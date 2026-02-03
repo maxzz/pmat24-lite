@@ -49,7 +49,7 @@ export function createTestInUseAtoms(fileCnt: FileContent): Pick<FileUs, 'maniIn
 
 export function createManiAtomsWithPrintAtom(initial: ManiAtoms | null): ManiAtomsAtom {
     const base = atom<ManiAtoms | null>(initial); // initial is null always
-    //printBaseManiAtomsCreated(base);
+    //print_BaseManiAtomsCreated(base);
 
     const rv = atom(
         (get) => {
@@ -57,7 +57,7 @@ export function createManiAtomsWithPrintAtom(initial: ManiAtoms | null): ManiAto
             return rv;
         },
         (get, set, value: SetStateAction<ManiAtoms | null>) => {
-            //printManiAtomsSet(base, value ? typeof value === 'function' ? value(get(base)) : value : null, rv);
+            //print_ManiAtomsSet(base, value ? typeof value === 'function' ? value(get(base)) : value : null, rv);
             set(base, value);
         }
     );
@@ -65,7 +65,7 @@ export function createManiAtomsWithPrintAtom(initial: ManiAtoms | null): ManiAto
     return rv;
 }
 
-function printBaseManiAtomsCreated(maniAtomsAtom: ManiAtomsAtom) {
+function print_BaseManiAtomsCreated(maniAtomsAtom: ManiAtomsAtom) {
     console.groupCollapsed(
         `%c 🛠 created.maniAtoms:%c[${maniAtomsAtom.toString()}].base %c`,
         'font-weight: normal; background-color: darkcyan; color: lavender',
@@ -76,7 +76,7 @@ function printBaseManiAtomsCreated(maniAtomsAtom: ManiAtomsAtom) {
     console.groupEnd();
 }
 
-function printManiAtomsSet(baseAtomsAtom: ManiAtomsAtom, maniAtoms: ManiAtoms | null, maniAtomsAtom: ManiAtomsAtom) {
+function print_ManiAtomsSet(baseAtomsAtom: ManiAtomsAtom, maniAtoms: ManiAtoms | null, maniAtomsAtom: ManiAtomsAtom) {
     const fileUsAtom = maniAtoms?.[0]?.fileUsCtx?.fileUsAtom;
     const fileUs = maniAtoms?.[0]?.fileUsCtx?.fileUs;
     console.groupCollapsed(

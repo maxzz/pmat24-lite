@@ -29,7 +29,7 @@ export function FilesTreeView() {
         selected && doManiNameDlg({ fileUsAtom: selected, provideDefaultName: false });
     }
 
-    // printTreeData(dataWithState);
+    // print_TreeData(dataWithState);
 
     return (
         <div className="relative size-full">
@@ -61,7 +61,7 @@ export function FilesTreeView() {
     );
 }
 
-function printTreeData(data: DataItemWState[]) {
+function print_TreeData(data: DataItemWState[]) {
     console.log('FilesTreeView: length =', data.length);
     data.forEach(
         (item) => {

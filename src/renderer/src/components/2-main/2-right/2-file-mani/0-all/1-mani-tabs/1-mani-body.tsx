@@ -37,7 +37,7 @@ function ManiBodyGuarded({ fileUsAtom }: { fileUsAtom: FileUsAtom; }) {
         }, [maniAtoms, fileUs, fileUsAtom]
     );
 
-    //printManiBodyFileUsAtom(fileUsAtom, fileUs);
+    //print_ManiBodyFileUsAtom(fileUsAtom, fileUs);
 
     if (!maniAtoms) { // console.log('maniAtoms not ready yet but will be on the next render');
         return null;
@@ -77,7 +77,7 @@ flex-1 mt-1 size-full min-h-0 max-w-4xl \
 overflow-hidden";
 // border-muted-foreground/20 border rounded \
 
-export function printManiBodyFileUsAtom(fileUsAtom: Atom<FileUs | undefined>, fileUs: FileUs | undefined, suffix?: string) {
+export function print_ManiBodyFileUsAtom(fileUsAtom: Atom<FileUs | undefined>, fileUs: FileUs | undefined, suffix?: string) {
     const fileUsStr = fileUsAtom?.toString() || 'null';
     console.groupCollapsed(`%c💎 ----------- ManiBody.Render: fileUsAtom:%c${fileUsStr} %c${suffix || ''}`,
         fileUsAtom ? 'font-weight: normal; color: green' : 'font-weight: normal; color: red',

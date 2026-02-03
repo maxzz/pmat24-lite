@@ -1,7 +1,7 @@
 import { atom } from "jotai";
 import { type FileUsAtom, type FileUs } from "@/store/store-types";
 import { createParsedSrc } from "../../1-do-set-files/2-create-parsed-src";
-import { disposeFileUsManiAtoms, printDisposeManiAtomsAtom } from "@/store/store-utils/1-file-system-utils";
+import { disposeFileUsManiAtoms, print_DisposeManiAtomsAtom } from "@/store/store-utils/1-file-system-utils";
 import { fileUsChanges } from "@/store/2-file-mani-atoms/9-types";
 import { createManiAtoms } from "../../0-create/0-create-mani-ctx-atoms";
 
@@ -43,7 +43,7 @@ function updateManiAtomsAfterSaveOrReset(fileUsAtom: FileUsAtom, fileUs: FileUs,
 
     set(fileUs.maniAtomsAtom, newManiAtoms);
 
-    printDisposeManiAtomsAtom(fileUs.maniAtomsAtom);
+    print_DisposeManiAtomsAtom(fileUs.maniAtomsAtom);
     console.log('%cdisposeFileUsManiAtoms temp not disposing', 'color: magenta');
     //disposeFileUsManiAtoms(savedManiAtoms); // after new atom set dispose old one
 }

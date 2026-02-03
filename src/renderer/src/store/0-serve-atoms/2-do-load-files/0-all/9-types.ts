@@ -25,12 +25,12 @@ export function getSingleFolderHandle(items: OpenItem[]): FileSystemDirectoryHan
 
 //
 
-export function printFiles(files: File[] | FileWithHandle[] | FileWithDirectoryAndFileHandle[]) {
+export function print_Files(files: File[] | FileWithHandle[] | FileWithDirectoryAndFileHandle[]) {
     console.log('%cdoSetFilesFrom_ModernDlg_Atom', 'color: magenta');
     files?.forEach((f) => console.log(' ', f));
 }
 
-export function printElectronFnameFiles(filenames: string[], files: File[]) {
+export function print_ElectronFnameFiles(filenames: string[], files: File[]) {
     console.log('%ccreateFileContents_From_Main', 'color: magenta');
 
     files.forEach((f, idx) => {

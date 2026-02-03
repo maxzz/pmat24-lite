@@ -20,7 +20,7 @@ export function printFileUsAtomLinks(atm: PA<FileUsAtom | undefined>, { get }: G
     const fileUs = thisAtom && get(thisAtom);
     const maniAtoms = fileUs && get(fileUs.maniAtomsAtom);
     if (maniAtoms) {
-        printManiAtoms(maniAtoms, { get });
+        print_ManiAtoms(maniAtoms, { get });
     } else {
         console.log(`%cNo fileUs(${fileUs}) or maniAtoms(${maniAtoms})`, 'color: red');
     }
@@ -28,13 +28,13 @@ export function printFileUsAtomLinks(atm: PA<FileUsAtom | undefined>, { get }: G
     console.groupEnd();
 }
 
-function printManiAtoms(maniAtoms: ManiAtoms, getOnly: GetOnly) {
+function print_ManiAtoms(maniAtoms: ManiAtoms, getOnly: GetOnly) {
     const { login, cpass } = getAllFormsFields_byManiAtoms(maniAtoms, getOnly);
-    printFormFields(login, getOnly);
-    printFormFields(cpass, getOnly);
+    print_FormFields(login, getOnly);
+    print_FormFields(cpass, getOnly);
 }
 
-function printFormFields(fields: FieldRowCtx[], { get }: GetOnly) {
+function print_FormFields(fields: FieldRowCtx[], { get }: GetOnly) {
     const colors: string[] = [];
     const lines: string[] = [];
 

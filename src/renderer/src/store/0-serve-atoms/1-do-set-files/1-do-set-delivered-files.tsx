@@ -55,7 +55,7 @@ export type SetDeliveredFiles = {
 export const doSetDeliveredFilesAtom = atom(
     null,
     async (get, set, { root, deliveredFileContents }: SetDeliveredFiles) => {
-        //printDelivered(deliveredFileContents);
+        //print_Delivered(deliveredFileContents);
 
         let runningClearFiles = typeof deliveredFileContents === 'undefined';
         deliveredFileContents = deliveredFileContents || [];
@@ -158,7 +158,7 @@ function showUnsupportedFilesMsg(unsupported: FileUs[]) {
     });
 }
 
-function printDelivered(deliveredFileContents: FileContent[]) {
+function print_Delivered(deliveredFileContents: FileContent[]) {
     console.log(`%cDelivered ${deliveredFileContents.length} files`, 'color: magenta');
 
     deliveredFileContents.forEach(

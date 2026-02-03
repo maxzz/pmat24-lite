@@ -9,7 +9,7 @@ export function SpyTestAllIcons({ allIcons, className, ...rest }: { allIcons: Al
         () => {
             setPrintIcons((v) => {
                 if (!v) {
-                    printIconsLocation(allIcons);
+                    print_IconsLocation(allIcons);
                     return !v;
                 }
                 return v;
@@ -32,9 +32,9 @@ export function SpyTestAllIcons({ allIcons, className, ...rest }: { allIcons: Al
     );
 }
 
-//printIconsLocation(allIcons);
+//print_IconsLocation(allIcons);
 
-function printIconsLocation(allIcons: AllIcons) {
+function print_IconsLocation(allIcons: AllIcons) {
     // G: 'js get function location'
     // https://stackoverflow.com/questions/41146373/access-function-location-programmatically 'Access function location programmatically'
     // https://chromedevtools.github.io/devtools-protocol/tot/Runtime/#method-getProperties 'Runtime.getProperties'

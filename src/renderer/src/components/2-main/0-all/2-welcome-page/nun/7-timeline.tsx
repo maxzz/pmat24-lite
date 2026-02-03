@@ -28,8 +28,8 @@ export const useMotionTimeline = (keyframes: Animation[], count: number = 1, dep
 
             console.log('-------------------------- useEffect', JSON.stringify(deps), { first: first.current, count });
             //console.log(`keyframes ${' '.repeat(0)}${JSON.stringify(keyframes, null, 2)}`);
-            // printAnimationLines(keyframes);
-            printAnimation(keyframes, gGeneration);
+            // print_AnimationLines(keyframes);
+            print_Animation(keyframes, gGeneration);
 
             handleAnimate(gGeneration);
 
@@ -46,7 +46,7 @@ export const useMotionTimeline = (keyframes: Animation[], count: number = 1, dep
             console.log(`%c Loop ${loopCount} `, 'background-color: chocolate; color: white; font-size:0.5rem');
 
             for (const animation of keyframes) {
-                console.log(`%ctop %c${printAnimationRecursive(animation, generation)}`, 'color: gray; font-size:0.5rem', 'color: blue');
+                console.log(`%ctop %c${print_AnimationRecursive(animation, generation)}`, 'color: gray; font-size:0.5rem', 'color: blue');
                 if (!mounted.current) {
                     return;
                 }
@@ -81,7 +81,7 @@ export const useMotionTimeline = (keyframes: Animation[], count: number = 1, dep
         } else {
             // else run the single animation
             //console.log(`sub ${' '.repeat(level * 2)}${JSON.stringify(animation)}`);
-            console.log(`%csub %c${printAnimationRecursive(animation, generation)}`, 'color: gray; font-size:0.5rem', 'color: green');
+            console.log(`%csub %c${print_AnimationRecursive(animation, generation)}`, 'color: gray; font-size:0.5rem', 'color: green');
 
             const aa = await animate(...(animation as AnimateParams)); // await animate did not return from promise
             // await animate(...(animation as AnimateParams)); // await animate did not return from promise
@@ -94,14 +94,14 @@ export const useMotionTimeline = (keyframes: Animation[], count: number = 1, dep
     return scope;
 };
 
-function printAnimationLines(animation: Animation, level = 0) {
+function print_AnimationLines(animation: Animation, level = 0) {
     if (Array.isArray(animation[0])) { // If list of animations, run all concurrently
         console.log(`${' '.repeat(level * 2)}[`);
         level++;
 
         (animation as Animation[]).forEach(
             (a: Animation): void => {
-                printAnimationLines(a as Animation, level);
+                print_AnimationLines(a as Animation, level);
             }
         );
         level--;
@@ -112,7 +112,7 @@ function printAnimationLines(animation: Animation, level = 0) {
     }
 }
 
-function printAnimationRecursive(animation: Animation, generation: number, level = 0): string {
+function print_AnimationRecursive(animation: Animation, generation: number, level = 0): string {
     const res: string[] = [];
     if (Array.isArray(animation[0])) { // If list of animations, run all concurrently
         res.push(`${' '.repeat(level * 2)}[`);
@@ -120,7 +120,7 @@ function printAnimationRecursive(animation: Animation, generation: number, level
 
         (animation as Animation[]).forEach(
             (a: Animation): void => {
-                res.push(printAnimationRecursive(a as Animation, generation, level));
+                res.push(print_AnimationRecursive(a as Animation, generation, level));
             }
         );
         level--;
@@ -132,6 +132,6 @@ function printAnimationRecursive(animation: Animation, generation: number, level
     return res.join('\n');
 }
 
-function printAnimation(keyframes: Animation, generation: number) {
-    console.log(printAnimationRecursive(keyframes, generation));
+function print_Animation(keyframes: Animation, generation: number) {
+    console.log(print_AnimationRecursive(keyframes, generation));
 }

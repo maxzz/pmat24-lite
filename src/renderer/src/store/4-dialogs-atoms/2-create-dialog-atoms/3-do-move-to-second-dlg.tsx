@@ -103,7 +103,7 @@ export const doMoveToSecondDlgAtom = atom(
 
         set(newManiContent.newFileUsAtomAtom, undefined); // preserve the new fileUsAtom from be disposed by newManiContent.init();
 
-        printAtomSaved(newFileUsAtomAtom);
+        print_AtomSaved(newFileUsAtomAtom);
     }
 );
 
@@ -147,7 +147,7 @@ function setHighlightAtoms({ fileUs, makingCpass, getset: { get, set } }: { file
 
 //
 
-function printAtomSaved(fileUsAtom: FileUsAtom | undefined) {
+function print_AtomSaved(fileUsAtom: FileUsAtom | undefined) {
     console.groupCollapsed(
         `%c🗿 Save: new fileUsAtom:%c${fileUsAtom?.toString()} %c`,
         'font-weight: normal; background-color: limegreen; color: darkgreen',

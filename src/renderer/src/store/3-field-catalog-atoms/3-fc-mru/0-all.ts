@@ -37,7 +37,7 @@ export const doInitMruAtom = atom(null,
         set(txtMruAtom, txtItems);
         set(pswMruAtom, pswItems);
 
-        // printAllItems(txtItems, pswItems);
+        // print_AllItems(txtItems, pswItems);
     }
 );
 
@@ -71,12 +71,12 @@ export function findFceItem(items: FceItem[], dbid: string | undefined): FceItem
 }
 
 
-function printAllItems(txtItems: FceItem[], pswItems: FceItem[]) {
-    printFceItems('txtMruItems', txtItems);
-    printFceItems('pswMruItems', pswItems);
+function print_AllItems(txtItems: FceItem[], pswItems: FceItem[]) {
+    print_FceItems('txtMruItems', txtItems);
+    print_FceItems('pswMruItems', pswItems);
 }
 
-export function printFceItems(label: string, items: FceItem[]) {
+export function print_FceItems(label: string, items: FceItem[]) {
     console.log(`${label}:`);
     items.forEach(
         (item, idx) => console.log(`${idx}:`, { dbname: item.fieldValue.dbname, displayname: item.fieldValue.displayname })

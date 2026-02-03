@@ -51,7 +51,7 @@ export function sortFileUsItemsInPlaceAndSetIndices(items: FileUs[]) {
         (fileUs, idx) => fileUs.fileCnt.idx = idx
     );
     //TODO: and now apply real filer? do we need to sort before set indices (it will be filesystem order)? I think no. It is done in the get atom filteredAtom.
-    //printSorted(items);
+    //print_Sorted(items);
 }
 
 function sortPredicate_RightAfterLoadByFname(a: FileUs, b: FileUs): number { // Sort by name (from a to z, ie. ascending) and reindex w/ new field catalog index
@@ -66,7 +66,7 @@ function sortPredicate_RightAfterLoadByFname(a: FileUs, b: FileUs): number { // 
     return a.fileCnt.fname.localeCompare(b.fileCnt.fname);
 }
 
-function printSorted(items: FileUs[]) {
+function print_Sorted(items: FileUs[]) {
     console.log('sortedFileUsItems',
         JSON.stringify(items.map(
             (item, idx) => `${`${idx}`.padStart(2, ' ')} ${`${item.fileCnt.idx}`.padStart(2, ' ')} ${item.fileCnt.fname}`

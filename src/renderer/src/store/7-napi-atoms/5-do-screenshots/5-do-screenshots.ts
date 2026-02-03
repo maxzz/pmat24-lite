@@ -67,7 +67,7 @@ async function doLiveScreenshots(width: number, { set }: SetOnly) {
 
         screenshots = correlateScreenshotsOrder(infos, screenshots);
 
-        printScreenshots(screenshots);
+        print_Screenshots(screenshots);
 
         set(allScreenshotAtom, addScreenshotsExtra(screenshots));
     } catch (error) {
@@ -151,7 +151,7 @@ function addScreenshotsExtra(screenshots: TlwScreenshot[]): TlwScreenshotInfo[] 
     return infos;
 }
 
-function printScreenshots(screenshots: TlwScreenshot[]) {
+function print_Screenshots(screenshots: TlwScreenshot[]) {
     const lines: string[] = [];
 
     screenshots.forEach(

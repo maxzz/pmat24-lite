@@ -12,8 +12,8 @@ import { doInitNewManiContentAtom, newManiContent } from "./0-ctx-content";
 import { createManiAtoms } from "../0-create-mani-ctx-atoms";
 import { createParsedFileUsFromFileContent } from "@/store/0-serve-atoms/1-do-set-files";
 import { fileUsToXmlString } from "../../3-do-save-mani-atom/0-save-atom/2-fileus-to-xml-string";
-import { printXmlManiFile } from "../../3-do-save-mani-atom/0-save-atom/8-save-utils";
-import { printNewMani } from "./2-ctx-create-messages";
+import { print_XmlManiFile } from "../../3-do-save-mani-atom/0-save-atom/8-save-utils";
+import { print_NewMani } from "./2-ctx-create-messages";
 
 /**
  * Create new manifest inside newManiContent atoms and allow to move to the next page.
@@ -47,7 +47,7 @@ export async function createFileUsByQueryXml({ params: { hwnd, manual }, showPro
     }
 
     set(newManiContent.maniXmlStrAtom, sawManiXmlStr);
-    printNewMani(sawManiXmlStr);
+    print_NewMani(sawManiXmlStr);
 
     // 3. Parse maniXml to fileUs
     try {
@@ -75,7 +75,7 @@ export async function createFileUsByQueryXml({ params: { hwnd, manual }, showPro
 
             fileUsChanges.setCpass({ fileUs: fileUs_ForCpass }, true);
 
-            const xml = await fileUsToXmlString(fileUsAtom_ForCpass, false, getset); printXmlManiFile(xml);
+            const xml = await fileUsToXmlString(fileUsAtom_ForCpass, false, getset); print_XmlManiFile(xml);
             set(fileUs_ForCpass.rawCpassAtom, xml);
 
             //TODO: tweak xml, now or later on save?
@@ -85,7 +85,7 @@ export async function createFileUsByQueryXml({ params: { hwnd, manual }, showPro
 
         set(newManiContent.newFileUsAtomAtom, fileUs_ForCpass ? undefined : newFileUsAtom);
 
-        printNewFileUsCreated(newFileUsAtom, getset);
+        print_NewFileUsCreated(newFileUsAtom, getset);
         return true;
     } catch (error) {
         set(doInitNewManiContentAtom);
@@ -136,7 +136,7 @@ type CreateParams = Pick<ManifestForWindowCreatorParams, 'hwnd' | 'manual'>;
 
 // Utilities
 
-function printNewFileUsCreated(fileUsAtom: FileUsAtom | undefined, { get }: GetSet) {
+function print_NewFileUsCreated(fileUsAtom: FileUsAtom | undefined, { get }: GetSet) {
     const atomStr = fileUsAtom ? fileUsAtom.toString() : 'null';
     const fileUs = fileUsAtom ? get(fileUsAtom) : null;
     const maniAtomsAtom = fileUs?.maniAtomsAtom;

@@ -35,7 +35,7 @@ function onChangeWithScope(updateName: string, nextValue: RowInputState, { fileU
         return;
     }
 
-    //printChanges(updateName, nextValue, oFormCtx);
+    //print_Changes(updateName, nextValue, oFormCtx);
 
     if (updateName === 'murl_regex') {
         set(updateAfterRegexUrlChangeAtom, { oFormCtx }); // This will update murl and trigger onChangeWithScope
@@ -49,7 +49,7 @@ function onChangeWithScope(updateName: string, nextValue: RowInputState, { fileU
     fileUsChanges.set(fileUsCtx, nextValue.dirty, fileUsChanges.changeName(fileUsCtx.formIdx, 'o', updateName));
 }
 
-function printChanges(updateName: string, nextValue: RowInputState, oFormCtx: OptionsState.Atoms) {
+function print_Changes(updateName: string, nextValue: RowInputState, oFormCtx: OptionsState.Atoms) {
     console.log(`%c💻🤔change: ${updateName}\n\t\t\t %cnextValue:%c%s\n\t\t\t %cfromFile:%c%s`,
         'color: darkgreen; font-size: 0.6rem;',
         'color: gray; font-size: 0.6rem;',

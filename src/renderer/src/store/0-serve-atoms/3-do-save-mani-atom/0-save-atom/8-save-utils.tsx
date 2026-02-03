@@ -64,7 +64,7 @@ export async function isFilenameExists(parent: FileSystemDirectoryHandle | null 
 /**
  * Print shorten xml for debugging.
  */
-export function printXmlManiFile(xml: string | undefined) {
+export function print_XmlManiFile(xml: string | undefined) {
     console.log('%c🚀 ~ xml:\n', 'color: magenta', replaceInXml_NamesExt(xml || '""'));
 }
 
@@ -75,7 +75,7 @@ function replaceInXml_NamesExt(xml: string | undefined) {
 /**
  * Print shorten manifest for debugging without destructing the original manifest.
  */
-export function printTestManifest(newMani: Partial<Mani.Manifest> | FileMani.Manifest) {
+export function print_TestManifest(newMani: Partial<Mani.Manifest> | FileMani.Manifest) {
     const rv = { ...newMani };
     if (rv.forms?.[0]?.detection.names_ext) {
         rv.forms[0] = { ...rv.forms[0] };

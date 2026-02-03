@@ -56,7 +56,7 @@ export const doInitFileUsLinksToFcAtom = atom(null,
                             } else {
                                 field.metaField.mani.rfieldform = Mani.FORMNAME.brokenFcLink;
                             }
-                            // printFceItem(fceItem, fileUs, field.fromFile.dbname);
+                            // print_FceItem(fceItem, fileUs, field.fromFile.dbname);
                         }
                     }
                     else if (form?.manual) {
@@ -73,7 +73,7 @@ export const doInitFileUsLinksToFcAtom = atom(null,
                             } else {
                                 chunk.rowCtx.metaField.mani.rfieldform = Mani.FORMNAME.brokenFcLink;
                             }
-                            // printFceItem(fceItem, fileUs, chunk.rowCtx.fromFile.dbname);
+                            // print_FceItem(fceItem, fileUs, chunk.rowCtx.fromFile.dbname);
                         }
                     }
                 }//for
@@ -155,7 +155,7 @@ function fileUsHasFcRef(fileUs: FileUs): boolean {
     return false;
 }
 
-function printFceItem(fceItem: FceItem | undefined, fileUs: FileUs, dbname: string) {
+function print_FceItem(fceItem: FceItem | undefined, fileUs: FileUs, dbname: string) {
     console.log(`%c${fceItem ? '  ' : 'no'} assign ${dbname} ${fileUs.fileCnt.fname}`, `color: ${fceItem ? 'gray' : 'red'}`);
 }
 

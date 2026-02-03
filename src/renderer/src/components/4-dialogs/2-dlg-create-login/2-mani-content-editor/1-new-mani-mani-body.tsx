@@ -6,7 +6,7 @@ import { appSettings } from "@/store/9-ui-state";
 import { newManiFileUsAtom } from "@/store/0-serve-atoms/0-create/1-create-new-mani-ctx";
 import { ManiEditorFormSelector } from "@/components/2-main/2-right/2-file-mani/1-form-editor";
 import { ManiEditorAllOptions } from "@/components/2-main/2-right/2-file-mani/2-form-options";
-import { printManiBodyFileUsAtom } from "@/components/2-main/2-right/2-file-mani";
+import { print_ManiBodyFileUsAtom } from "@/components/2-main/2-right/2-file-mani";
 
 export function NewManiContentBody() {
     const fileUs = useAtomValue(newManiFileUsAtom);
@@ -14,7 +14,7 @@ export function NewManiContentBody() {
         return null;
     }
 
-    printManiBodyFileUsAtom(newManiFileUsAtom, fileUs, ' (this is derived atom from newManiContent.newFileUsAtomAtom)');
+    print_ManiBodyFileUsAtom(newManiFileUsAtom, fileUs, ' (this is derived atom from newManiContent.newFileUsAtomAtom)');
 
     return (
         <ScrollArea className="@container/tab-content px-2 py-1 size-full" fullHeight fixedWidth horizontal>

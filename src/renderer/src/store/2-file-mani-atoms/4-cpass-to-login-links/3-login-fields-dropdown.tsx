@@ -9,7 +9,7 @@ export const buildLoginFieldsDropdownAtom = atom(
     (get, set, rowCtx: FieldRowCtx, fileUsCtx: FileUsCtx): OptionTextValue[] => {
         const loginFields = getAllFormsFields_byFileUsCtx(fileUsCtx, { get }).login;
         const loginPasswords = loginFields.filter((field) => get(field.typeAtom) === FieldTyp.psw);
-        //printFields(rowCtx, loginPasswords, fileUsCtx.formIdx, { get });
+        //print_Fields(rowCtx, loginPasswords, fileUsCtx.formIdx, { get });
 
         const rv = loginPasswords.map<OptionTextValue>((field) => ([get(field.labelAtom), `${field.metaField.uuid}`]));
 
@@ -23,7 +23,7 @@ export const buildLoginFieldsDropdownAtom = atom(
     }
 );
 
-function printFields(rowCtx: FieldRowCtx, fields: FieldRowCtx[] | undefined, formIdx: FormIdx, { get }: GetOnly) {
+function print_Fields(rowCtx: FieldRowCtx, fields: FieldRowCtx[] | undefined, formIdx: FormIdx, { get }: GetOnly) {
     if (!fields) {
         return;
     }

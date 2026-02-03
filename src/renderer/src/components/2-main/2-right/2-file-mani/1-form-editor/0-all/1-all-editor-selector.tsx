@@ -12,7 +12,7 @@ export function ManiEditorFormSelector({ fileUs, formIdx, ...rest }: { fileUs: F
     if (!maniAtoms) {
         return null;
     }
-    //printFormEditor(fileUs, formIdx, maniAtoms);
+    //print_FormEditor(fileUs, formIdx, maniAtoms);
 
     const formCtx = maniAtoms[formIdx];
     if (!formCtx) {
@@ -36,7 +36,7 @@ export function ManiEditorFormSelector({ fileUs, formIdx, ...rest }: { fileUs: F
     return null;
 }
 
-function printFormEditor(fileUs: FileUs, formIdx: FormIdx, maniAtoms: ManiAtoms | null) {
+function print_FormEditor(fileUs: FileUs, formIdx: FormIdx, maniAtoms: ManiAtoms | null) {
     const fileUsAtom = maniAtoms?.[0]?.fileUsCtx?.fileUsAtom;
     console.groupCollapsed(
         `%c💎                FormSelector: fileUsAtom:%c${fileUsAtom ? fileUsAtom.toString() : 'null'} %cmaniAtomsAtom:%c${fileUs.maniAtomsAtom?.toString()} %cformIdx=${formIdx}`,

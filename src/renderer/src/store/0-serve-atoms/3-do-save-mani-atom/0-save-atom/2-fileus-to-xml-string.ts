@@ -6,7 +6,7 @@ import { getManiDispNameAtomAtom } from "@/store/2-file-mani-atoms/3-options";
 import { doManiNameDlgAtom } from "../../5-do-delete-rename-reveal-quit";
 import { stopIfInvalidAny } from "../1-stop-if-validation-failed";
 import { fceItemValueToCatalogItemInFile, packManifest } from "../2-pack";
-import { printTestManifest } from "./8-save-utils";
+import { print_TestManifest } from "./8-save-utils";
 
 /**
  * @param validate - validation is ommited when we get xml after cpass created
@@ -60,7 +60,7 @@ async function getManiContentText(fileUs: FileUs, fileUsAtom: FileUsAtom, maniAt
     const root: FileMani.Manifest = toManiFileFormat(newMani);
     const rv = convertToXmlString({ mani: root });
 
-    printXmlResult({ xml: rv.xml, inManiFormat: newMani, inFileFormat: root });
+    print_XmlResult({ xml: rv.xml, inManiFormat: newMani, inFileFormat: root });
     return rv;
 }
 
@@ -97,9 +97,9 @@ function getFcContentText(fceAtoms: FceAtoms, validate: boolean, { get }: GetSet
     return rv;
 }
 
-function printXmlResult({ xml, inManiFormat, inFileFormat }: { xml: string | undefined; inManiFormat: Partial<Mani.Manifest>; inFileFormat: Mani.Manifest | FileMani.Manifest; }) {
+function print_XmlResult({ xml, inManiFormat, inFileFormat }: { xml: string | undefined; inManiFormat: Partial<Mani.Manifest>; inFileFormat: Mani.Manifest | FileMani.Manifest; }) {
     if (xml) {
-        printTestManifest(inFileFormat);
-        printTestManifest(inManiFormat);
+        print_TestManifest(inFileFormat);
+        print_TestManifest(inManiFormat);
     }
 }
