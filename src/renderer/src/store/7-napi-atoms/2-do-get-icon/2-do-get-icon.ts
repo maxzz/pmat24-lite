@@ -111,5 +111,6 @@ function printToCreateTestData({ get }: GetOnly) {
         icon: testIcon,
     };
     final.icon.data = final.icon.data ? `${final.icon.data.substring(0, 40)}...` : '';
-    console.log(`${JSON.stringify(final, null, 4)}`);
+    
+    //console.log(`${JSON.stringify(final, null, 4)}`);
 }

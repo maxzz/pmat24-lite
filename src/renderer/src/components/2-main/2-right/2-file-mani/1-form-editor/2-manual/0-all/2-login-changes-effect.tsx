@@ -5,7 +5,7 @@ import { type FieldRowCtx, type MFormProps, getAllFormsFieldsAtoms, safeByContex
 export function loginChangesEffectFn({ mFormProps }: { mFormProps: MFormProps; }) { //TODO: give maniAtomsAtom instead of mFormProps (and .mFormCtx.fileUsCtx.fileUs.maniAtomsAtom)
     const rv = useCallbackOne(
         (get: GetterWithPeek, set: SetterWithRecurse) => {
-            //printMFormProps(mFormProps);
+            printMFormProps(mFormProps);
 
             const maniAtomsAtom = mFormProps.mFormCtx?.fileUsCtx?.fileUs?.maniAtomsAtom;
             if (!maniAtomsAtom) { // This may happen when all files are closed and atoms are disposed, but we still get deps call since we get maniAtomsAtom
@@ -30,7 +30,7 @@ export function loginChangesEffectFn({ mFormProps }: { mFormProps: MFormProps; }
                 );
             }, 1000); // We have debounce for value changes and as result we have only the latest change triggered by our set and we are loosing original value from any input or select. debounce value is 100ms and this timeout should be longer than 100ms.
 
-            //printForms('loginChangesEffectFn after links update', mFormProps.mFormCtx.fileUsCtx.formIdx, get(loginAtom), get(cpassAtom), get);
+            printForms('loginChangesEffectFn after links update', mFormProps.mFormCtx.fileUsCtx.formIdx, get(loginAtom), get(cpassAtom), get);
         }, [mFormProps.mFormCtx?.fileUsCtx?.fileUs?.maniAtomsAtom]
     );
     return rv;

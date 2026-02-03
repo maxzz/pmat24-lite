@@ -60,7 +60,7 @@ async function getManiContentText(fileUs: FileUs, fileUsAtom: FileUsAtom, maniAt
     const root: FileMani.Manifest = toManiFileFormat(newMani);
     const rv = convertToXmlString({ mani: root });
 
-    //printResult({ xml: rv.xml, inManiFormat: newMani, inFileFormat: root });
+    printXmlResult({ xml: rv.xml, inManiFormat: newMani, inFileFormat: root });
     return rv;
 }
 

@@ -1,7 +1,9 @@
 import { atom } from "jotai";
 import { errorToString } from "@/utils";
-import { type FileUs, type FileUsAtom } from "@/store/store-types";
+import { FieldTyp } from "@/store/8-manifest";
 import { fileUsChanges } from "@/store/2-file-mani-atoms/9-types";
+import { type FileUs, type FileUsAtom } from "@/store/store-types";
+import { type ManiAtoms, cFieldsIdx, lFieldsIdx, doSetInitialRelationsAtom } from "@/store/2-file-mani-atoms";
 import { type ManifestForWindowCreatorParams, type FileContent } from "@shared/ipc-types";
 import { doGetWindowManiAtom, maniXmlStrAtom, stateNapiAccess } from "@/store/7-napi-atoms";
 import { createEmptyFileContent } from "@/store/store-utils";
@@ -9,11 +11,9 @@ import { showBuildErrorReason, showMessage } from "./2-ctx-create-messages";
 import { doInitNewManiContentAtom, newManiContent } from "./0-ctx-content";
 import { createManiAtoms } from "../0-create-mani-ctx-atoms";
 import { createParsedFileUsFromFileContent } from "@/store/0-serve-atoms/1-do-set-files";
-import { type ManiAtoms, cFieldsIdx, doSetInitialRelationsAtom, lFieldsIdx } from "@/store/2-file-mani-atoms";
 import { fileUsToXmlString } from "../../3-do-save-mani-atom/0-save-atom/2-fileus-to-xml-string";
-import { FieldTyp } from "@/store/8-manifest";
-//import { printXmlManiFile } from "../3-do-save-mani-atom/0-save-atom/8-save-utils";
-//import { printNewMani } from "./2-ctx-create-messages";
+import { printXmlManiFile } from "../../3-do-save-mani-atom/0-save-atom/8-save-utils";
+import { printNewMani } from "./2-ctx-create-messages";
 
 /**
  * Create new manifest inside newManiContent atoms and allow to move to the next page.
@@ -47,7 +47,7 @@ export async function createFileUsByQueryXml({ params: { hwnd, manual }, showPro
     }
 
     set(newManiContent.maniXmlStrAtom, sawManiXmlStr);
-    //printNewMani(sawManiXmlStr);
+    printNewMani(sawManiXmlStr);
 
     // 3. Parse maniXml to fileUs
     try {
@@ -75,7 +75,7 @@ export async function createFileUsByQueryXml({ params: { hwnd, manual }, showPro
 
             fileUsChanges.setCpass({ fileUs: fileUs_ForCpass }, true);
 
-            const xml = await fileUsToXmlString(fileUsAtom_ForCpass, false, getset); //printXmlManiFile(xml);
+            const xml = await fileUsToXmlString(fileUsAtom_ForCpass, false, getset); printXmlManiFile(xml);
             set(fileUs_ForCpass.rawCpassAtom, xml);
 
             //TODO: tweak xml, now or later on save?
