@@ -24,7 +24,7 @@ export function createFormFieldsAtom(normal: NFormCnt | undefined, manual: MForm
                     .filter(Boolean);
             }
 
-            print_FormFields('getter.Create.Form.Fields', fields || [], formIdx, { get });
+            print_FormFields('getter.Create.Form.Fields', fields || [], formIdx);
             return fields || [];
         }
     );

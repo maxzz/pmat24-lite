@@ -1,6 +1,7 @@
 import { FormIdx, SUBMIT } from "@/store/8-manifest";
-import { type FieldRowCtx } from "@/store/2-file-mani-atoms";
+import { type AnyFormCtx, type FieldRowCtx } from "@/store/2-file-mani-atoms";
 import { type OldNewField, type RecordOldNewFieldByUuid } from "../0-serve-atoms/3-do-save-mani-atom/2-pack/1-normal/9-types";
+import { getDefaultStore } from "jotai";
 
 export function printFinalFields(newSubmitsByUuid: RecordOldNewFieldByUuid, doFormSubmit: SUBMIT | undefined, newSortedFields: OldNewField[]) {
 
@@ -44,7 +45,9 @@ function printFieldsAsTable(label: string, fields: OldNewField[]) {
     }
 }
 
-export function print_FormFields(label: string, fields: FieldRowCtx[], formIdx: FormIdx, { get }: GetOnly) {
+export function print_FormFields(label: string, fields: FieldRowCtx[], formIdx: FormIdx) {
+    const get = getDefaultStore().get;
+
     console.log(
         `%c👀 ${label} %c${!formIdx ? 'login (or cpass at create time)' : 'cpass'}`,
         'font-size:0.5rem',
@@ -61,4 +64,10 @@ export function print_FormFields(label: string, fields: FieldRowCtx[], formIdx: 
     );
 
     console.log(lines.join('\n'), ...colors);
+}
+
+export function print_FormCtx(label: string, formCtx: AnyFormCtx, formIdx: FormIdx) {
+    if (formCtx.normal) {
+        print_FormFields(label, formCtx.normal.rowCtxs, formIdx);
+    }
 }

@@ -1,6 +1,6 @@
+import { useEffect } from "react";
 import { atom, useSetAtom } from "jotai";
 import { R2MInvokes, hasMain } from "@/xternal-to-main";
-import { useEffect } from "react";
 
 export const processEnvAtom = atom<Record<string, string>>({});
 
@@ -12,8 +12,8 @@ export function OnAppMountGetProcessEnv() {
             if (hasMain()) {
                 R2MInvokes.getProcessEnv().then(setEnv).catch(console.error);
             }
-        }, []
-    );
+        },
+        []);
 
     return null;
 }

@@ -1,8 +1,20 @@
 import { type Getter } from "jotai";
 import { FormIdx, tmurl, urlDomain } from "@/store/8-manifest";
 import { type ManiAtoms } from "@/store/2-file-mani-atoms";
-import { type LaunchDataAll, type LaunchData } from "./9-launch-types";
 import { expandEnvVariablesWindows } from "./2-process-env-atom";
+
+export type LaunchData = {
+    url: string | undefined; // This is URL for web applications
+    exe: string | undefined; // This is command line for Windows applications
+    isWeb: boolean;
+};
+
+export type LaunchDataAll = {
+    login: LaunchData;
+    cpass: LaunchData;
+    loginDomain: string;    // This is domain (visaonline.com) from URL to show in the right header
+    loginHost: string;      // This is host (gvol.visaonline.com) from URL to show in the right header
+};
 
 export function getLaunchData(maniAtoms: ManiAtoms, get: Getter): LaunchDataAll {
     const loginFormCtx = maniAtoms[FormIdx.login];
