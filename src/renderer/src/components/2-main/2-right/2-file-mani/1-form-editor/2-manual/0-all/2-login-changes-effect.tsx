@@ -18,21 +18,22 @@ export function loginChangesEffectFn({ mFormProps }: { mFormProps: MFormProps; }
             const loginPsws = new Set(get(loginAtom).filter((field) => get(field.typeAtom) === FieldTyp.psw).map((field) => field.metaField.uuid));
             const cpassPsws = get(cpassAtom).filter((field) => get(field.typeAtom) === FieldTyp.psw);
 
-            setTimeout(() => {
-                cpassPsws.forEach(
-                    (field) => {
-                        const rfieldUuid = get(field.rfieldUuidAtom);
-                        if (rfieldUuid && !loginPsws.has(rfieldUuid)) {
-                            console.log(`cpassChangesEffectFn: rfieldUuid:${rfieldUuid} is not in loginPsws`, { loginPsws, cpassPsws, field });
-                            set(field.rfieldUuidAtom, 0);
+            setTimeout(
+                () => {
+                    cpassPsws.forEach(
+                        (field) => {
+                            const rfieldUuid = get(field.rfieldUuidAtom);
+                            if (rfieldUuid && !loginPsws.has(rfieldUuid)) {
+                                console.log(`cpassChangesEffectFn: rfieldUuid:${rfieldUuid} is not in loginPsws`, { loginPsws, cpassPsws, field });
+                                set(field.rfieldUuidAtom, 0);
+                            }
                         }
-                    }
-                );
-            }, 1000); // We have debounce for value changes and as result we have only the latest change triggered by our set and we are loosing original value from any input or select. debounce value is 100ms and this timeout should be longer than 100ms.
+                    );
+                }, 1000); // We have debounce for value changes and as result we have only the latest change triggered by our set and we are loosing original value from any input or select. debounce value is 100ms and this timeout should be longer than 100ms.
 
             print_Forms('loginChangesEffectFn after links update', mFormProps.mFormCtx.fileUsCtx.formIdx, get(loginAtom), get(cpassAtom), get);
-        }, [mFormProps.mFormCtx?.fileUsCtx?.fileUs?.maniAtomsAtom]
-    );
+        },
+        [mFormProps.mFormCtx?.fileUsCtx?.fileUs?.maniAtomsAtom]);
     return rv;
 }
 

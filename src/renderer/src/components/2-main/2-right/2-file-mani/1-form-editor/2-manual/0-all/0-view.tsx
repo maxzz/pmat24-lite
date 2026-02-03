@@ -1,23 +1,23 @@
 import { type ComponentPropsWithoutRef } from "react";
 import { classNames, useAtomEffect } from "@/utils";
-import { type MFormProps } from "@/store/2-file-mani-atoms";
+import { type MFormProps, guardedFormIdx } from "@/store/2-file-mani-atoms";
 import { ManualPanelActions } from "../1-panel-actions";
 import { ManualPanelProps } from "../2-panel-props";
 import { isManualManifestNew } from "../../0-all";
 import { InFormBlockOptions } from "../../../2-form-options";
 import { loginChangesEffectFn } from "./2-login-changes-effect";
-//import { usePrintFormFields } from "./8-use-print-form-fields";
+import { usePrintFormFields } from "./8-use-print-form-fields";
 
 export function ManualModeView({ mFormProps, className, ...rest }: { mFormProps: MFormProps; } & ComponentPropsWithoutRef<'div'>) {
     useAtomEffect(
         loginChangesEffectFn({ mFormProps })
     );
-    //usePrintFormFields({ maniAtoms: mFormProps.maniAtoms, formIdx: guardedFormIdx(mFormProps) });
+    usePrintFormFields({ maniAtoms: mFormProps.maniAtoms, formIdx: guardedFormIdx(mFormProps) });
 
     return (<>
         <div className={classNames(manualModeViewClasses, isManualManifestNew(mFormProps) ? "@[600px]:gap-y-4" : "h-full", className)} {...rest}>
             <ManualPanelActions className="[grid-area:actions] @container/actions" mFormProps={mFormProps} />
-            <ManualPanelProps className="[grid-area:props] @container/props min-h-[150px] text-xs" mFormProps={mFormProps} />
+            <ManualPanelProps className="[grid-area:props] @container/props min-h-37.5 text-xs" mFormProps={mFormProps} />
             <div className="[grid-area:options]">
                 <div className="font-semibold select-none">
                     Additional options

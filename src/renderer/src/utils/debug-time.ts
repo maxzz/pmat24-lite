@@ -1,4 +1,4 @@
-export function printPrecitionTime(title: string) {
+export function print_PrecitionTime(title: string) {
     const ms = performance.now().toLocaleString('en-US', timeFormat);
     console.log(`%c${title}: ${precitionTime()} ms: ${ms.split(',').at(-1)}`, 'color: magenta');
 }
