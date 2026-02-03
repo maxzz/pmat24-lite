@@ -1,7 +1,20 @@
-import { SUBMIT } from "@/store/8-manifest";
+import { FormIdx, SUBMIT } from "@/store/8-manifest";
+import { type FieldRowCtx } from "@/store/2-file-mani-atoms";
 import { type OldNewField, type RecordOldNewFieldByUuid } from "./9-types";
 
-export function printFieldsAsTable(label: string, fields: OldNewField[]) {
+export function printFinalFields(newSubmitsByUuid: RecordOldNewFieldByUuid, doFormSubmit: SUBMIT | undefined, newSortedFields: OldNewField[]) {
+
+    const values = Object.values(newSubmitsByUuid);
+    if (values.length) {
+        console.log('newSortedFields2', JSON.stringify(values.map(
+            (item) => (`useIt: ${item.newMani?.useit}, name: ${item.newMani?.displayname}`)
+        ), null, 2));
+    }
+
+    printFieldsAsTable(`newSortedFields doFormSubmit=${doFormSubmit}`, newSortedFields);
+}
+
+function printFieldsAsTable(label: string, fields: OldNewField[]) {
     const colors: string[] = [];
     const items: string[] = [];
 
@@ -31,14 +44,21 @@ export function printFieldsAsTable(label: string, fields: OldNewField[]) {
     }
 }
 
-export function printFinalFields(newSubmitsByUuid: RecordOldNewFieldByUuid, doFormSubmit: SUBMIT | undefined, newSortedFields: OldNewField[]) {
+export function printFormFields(label: string, fields: FieldRowCtx[], formIdx: FormIdx, { get }: GetOnly) {
+    console.log(
+        `%c👀 ${label} %c${!formIdx ? 'login (or cpass at create time)' : 'cpass'}`,
+        'font-size:0.5rem',
+        !formIdx ? 'color: forestgreen' : 'color: darkseagreen');
 
-    const values = Object.values(newSubmitsByUuid);
-    if (values.length) {
-        console.log('newSortedFields2', JSON.stringify(values.map(
-            (item) => (`useIt: ${item.newMani?.useit}, name: ${item.newMani?.displayname}`)
-        ), null, 2));
-    }
+    const colors: string[] = [];
+    const lines: string[] = [];
 
-    printFieldsAsTable(`newSortedFields doFormSubmit=${doFormSubmit}`, newSortedFields);
+    fields.forEach(
+        (field) => {
+            lines.push(`%c        this.uuid: %c${field.metaField.uuid} %c'${get(field.labelAtom)}'`);
+            colors.push('font-size:0.5rem; color: forestgreen', 'color: forestgreen', 'color: black');
+        }
+    );
+
+    console.log(lines.join('\n'), ...colors);
 }

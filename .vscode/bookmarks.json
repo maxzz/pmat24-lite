@@ -219,6 +219,16 @@
 					"label": "mani-name: ManiNameDialog"
 				}
 			]
+		},
+		{
+			"path": "src/renderer/src/store/0-serve-atoms/3-do-save-mani-atom/1-stop-if-validation-failed/0-stop-if-any.tsx",
+			"bookmarks": [
+				{
+					"line": 9,
+					"column": 32,
+					"label": "save: 3. validate: stopIfInvalidAny"
+				}
+			]
 		}
 	]
 }
