@@ -7,10 +7,11 @@ export function createFormFieldsAtom(normal: NFormCnt | undefined, manual: MForm
     const rv = atom<FieldRowCtx[]>(
         (get) => {
             let fields: FieldRowCtx[] | undefined;
+            
             if (normal) {
                 fields = normal.rowCtxs;
-                printFormFields('Create.Form.Fields', fields, formIdx, { get });
             }
+
             if (manual) {
                 fields = get(manual.chunksAtom)
                     .map(
@@ -21,8 +22,9 @@ export function createFormFieldsAtom(normal: NFormCnt | undefined, manual: MForm
                         }
                     )
                     .filter(Boolean);
-                printFormFields('Create.Form.Fields', fields, formIdx, { get });
             }
+
+            printFormFields('getter.Create.Form.Fields', fields || [], formIdx, { get });
             return fields || [];
         }
     );

@@ -255,3 +255,4 @@
 //TODO: clean up obsolete options in options dialog
 //TODO: highlight is left after manifest created
 //TODO: add options: create default name for new manifests, and confirm default name if default name was created
+//TODO: why for cpass marked to use only old password, but not new passwords?  2-initial-relations.tsx
