@@ -56,13 +56,18 @@ function printFieldsAsTable(fields: OldNewField[], { label, labelCss = '' }: { l
     }
 }
 
-export function print_FormFields(label: string, fieldRowCtxs: FieldRowCtx[], formIdx: FormIdx) {
+// Form fields
+
+export function print_FormFields(fieldRowCtxs: FieldRowCtx[], formIdx: FormIdx, { label, labelCss = '', bodyCollapsed = true }: { label: string; labelCss?: string; bodyCollapsed?: boolean; }) {
     const get = getDefaultStore().get;
 
-    console.log(
-        `${label} %c${!formIdx ? 'login (or cpass at create time)' : 'cpass'}`,
+    const groupText = `${label} %c${!formIdx ? 'login (or cpass at create time)' : 'cpass'}`;
+    console[bodyCollapsed ? 'groupCollapsed' : 'group'](
+        groupText,
         `font-size:0.5rem; ${!formIdx ? 'color: forestgreen;' : 'color: darkseagreen;'}`
     );
+
+    // Print fields
 
     const colors: string[] = [];
     const lines: string[] = [];
@@ -75,11 +80,13 @@ export function print_FormFields(label: string, fieldRowCtxs: FieldRowCtx[], for
     );
 
     console.log(lines.join('\n'), ...colors);
+
+    console.groupEnd();
 }
 
-export function print_FormCtx(label: string, formCtx: AnyFormCtx, formIdx: FormIdx) {
+export function print_FormCtx(formCtx: AnyFormCtx, formIdx: FormIdx, { label, labelCss = '', bodyCollapsed = true }: { label: string; labelCss?: string; bodyCollapsed?: boolean; }) {
     if (formCtx.normal) {
-        print_FormFields(label, formCtx.normal.rowCtxs, formIdx);
+        print_FormFields(formCtx.normal.rowCtxs, formIdx, { label, labelCss, bodyCollapsed });
     }
 }
 
