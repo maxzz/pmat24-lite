@@ -46,7 +46,7 @@ export async function createFileUsByQueryXml({ params: { hwnd, manual }, showPro
     }
 
     set(newManiContent.maniXmlStrAtom, sawManiXmlStr);
-    print_NewMani(sawManiXmlStr);
+    print_XmlManiFile(sawManiXmlStr, { label: 'XML from NAPI:\n', labelCss: 'color: magenta;', bodyCss: 'color: firebrick; font-size: 0.5rem', bodyCollapsed: true });
 
     // 3. Parse maniXml to fileUs
     try {
@@ -74,7 +74,7 @@ export async function createFileUsByQueryXml({ params: { hwnd, manual }, showPro
 
             fileUsChanges.setCpass({ fileUs: fileUs_ForCpass }, true);
 
-            const xml = await fileUsToXmlString(fileUsAtom_ForCpass, false, getset); print_XmlManiFile(xml, { label: 'new xml for cpass:\n', labelCss: 'color: magenta;', bodyCss: 'color: firebrick; font-size: 0.5rem' });
+            const xml = await fileUsToXmlString(fileUsAtom_ForCpass, false, getset); print_XmlManiFile(xml, { label: 'XML for cpass from fileUs:\n', labelCss: 'color: magenta;', bodyCss: 'color: firebrick; font-size: 0.5rem', bodyCollapsed: true });
             set(fileUs_ForCpass.rawCpassAtom, xml);
 
             //TODO: tweak xml, now or later on save?
@@ -134,12 +134,6 @@ function validManiAtomsToContinue(maniAtoms: ManiAtoms, passwordChange: boolean,
 type CreateParams = Pick<ManifestForWindowCreatorParams, 'hwnd' | 'manual'>;
 
 // Utilities
-
-
-function print_NewMani(newMani: string) {
-    console.log(`%cNew mani:\n${newMani}`, "color:dimgray");
-}
-
 
 function print_NewFileUsCreated(fileUsAtom: FileUsAtom | undefined, { get }: GetSet) {
     const atomStr = fileUsAtom ? fileUsAtom.toString() : 'null';

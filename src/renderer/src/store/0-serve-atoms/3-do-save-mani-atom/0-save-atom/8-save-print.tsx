@@ -5,11 +5,17 @@ import { type FileMani, type Mani } from "@/store/8-manifest";
 /**
  * Print shorten xml for debugging.
  */
-export function print_XmlManiFile(xml: string | undefined, { label, labelCss = '', bodyCss = '' }: { label: string, labelCss?: string, bodyCss?: string; }) {
+export function print_XmlManiFile(xml: string | undefined, { label, labelCss = '', bodyCss = '', bodyCollapsed = false }: { label: string, labelCss?: string, bodyCss?: string; bodyCollapsed?: boolean; }) {
     let text = replaceInXml_NamesExt(xml || '""');
     text = eatXmlNewLines(text);
 
-    console.log(`%c${label}%c%s`, labelCss, bodyCss, text);
+    if (bodyCollapsed) {
+        console.groupCollapsed(`%c${label}`, labelCss);
+        console.log(`%c${text}`, bodyCss);
+        console.groupEnd();
+    } else {
+        console.log(`%c${label}%c%s`, labelCss, bodyCss, text);
+    }
 }
 
 function replaceInXml_NamesExt(xml: string | undefined) {
@@ -40,13 +46,15 @@ export function print_TestManifest(newMani: Partial<Mani.Manifest> | FileMani.Ma
         rv.forms[1].detection.names_ext = "...";
     }
 
+    // Print new mani as modified JSON.
+
     let text = JSON.stringify(rv, null, 2);
     if (dropEmptyvalues) {
         text = eatJsonEmptyValues(text);
     }
 
     if (bodyCollapsed) {
-        console.groupCollapsed(`%c${label}`, labelCss,);
+        console.groupCollapsed(`%c${label}`, labelCss);
         console.log(`%c${text}`, bodyCss);
         console.groupEnd();
     } else {
@@ -58,4 +66,11 @@ function eatJsonEmptyValues(json: string | undefined) {
     let rv = (json || '');
     rv = rv.replace(/\s*"[^"]+": "",?/g, '');
     return rv;
+}
+
+/**
+ * @param newMani Print new mani as unmodified JSON.
+ */
+function print_NewMani(newMani: string) {
+    console.log(`%cNew mani:\n${newMani}`, "color:dimgray");
 }
