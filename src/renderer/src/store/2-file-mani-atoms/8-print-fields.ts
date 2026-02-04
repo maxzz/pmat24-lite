@@ -1,7 +1,7 @@
-import { FormIdx, SUBMIT } from "@/store/8-manifest";
+import { getDefaultStore } from "jotai";
+import { type Mani, filterOneLevelEmptyValues, FormIdx, SUBMIT } from "@/store/8-manifest";
 import { type AnyFormCtx, type FieldRowCtx } from "@/store/2-file-mani-atoms";
 import { type OldNewField, type RecordOldNewFieldByUuid } from "../0-serve-atoms/3-do-save-mani-atom/2-pack/1-normal/9-types";
-import { getDefaultStore } from "jotai";
 
 export function printFinalFields(newSubmitsByUuid: RecordOldNewFieldByUuid, doFormSubmit: SUBMIT | undefined, newSortedFields: OldNewField[]) {
 
@@ -69,5 +69,28 @@ export function print_FormFields(label: string, fieldRowCtxs: FieldRowCtx[], for
 export function print_FormCtx(label: string, formCtx: AnyFormCtx, formIdx: FormIdx) {
     if (formCtx.normal) {
         print_FormFields(label, formCtx.normal.rowCtxs, formIdx);
+    }
+}
+
+// Packed fields
+
+export function print_PackedFields(fields: Mani.Field[], { label, labelCss = '', bodyCss = '', bodyCollapsed = true, keepEmptyvalues }: { label: string, labelCss?: string, bodyCss?: string; bodyCollapsed?: boolean; keepEmptyvalues?: boolean }) {
+    const newFields = keepEmptyvalues
+        ? fields
+        : fields.map(
+            (field) => {
+                const f = filterOneLevelEmptyValues({ ...field });
+                delete f?.path_ext;
+                return f;
+            }
+        );
+    const text = JSON.stringify(newFields, null, 2);
+
+    if (bodyCollapsed) {
+        console.groupCollapsed(`%c${label}`, labelCss);
+        console.log(`%c${text}`, bodyCss);
+        console.groupEnd();
+    } else {
+        console.log(`%c${label}%c%s`, labelCss, bodyCss, text);
     }
 }

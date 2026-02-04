@@ -1,9 +1,10 @@
-import { type Mani, createGuid, filterOneLevelEmptyValues, FormIdx, TimeUtils } from "@/store/8-manifest";
+import { type Mani, createGuid, FormIdx, TimeUtils } from "@/store/8-manifest";
 import { type AnyFormCtx } from "@/store/2-file-mani-atoms/9-types";
 import { PackManifestDataParams } from "../9-types";
 import { packFormOptions } from "../3-options";
 import { packNormalFieldsAndSubmit } from "../1-normal";
 import { packManualFields } from "../2-manual";
+import { print_PackedFields } from "@/store/2-file-mani-atoms/8-print-fields";
 
 export function packManifest(packParams: PackManifestDataParams): void {
     const { maniAtoms } = packParams;
@@ -62,10 +63,13 @@ function packForm(form: AnyFormCtx | undefined, formIdx: FormIdx, packParams: Pa
             newForm.fields = fields;
         }
 
-        //print_Fields(`${formIdx ? 'cpass' : 'login'} fields:\n`, newForm.fields);
+        print_PackedFields(newForm.fields, { label: `PackForm ${formIdx ? 'cpass' : 'login'} fields:\n`, keepEmptyvalues: false });
     }
 }
 
+/**
+ * Convert cpass fields rfieldindex to login fields rfieldindex.
+ */
 function convertCpassUuidToIdx(forms: Mani.Form[] | undefined) {
     const loginFields = forms?.[FormIdx.login]?.fields || [];
     const cpassFields = forms?.[FormIdx.cpass]?.fields || [];
@@ -80,20 +84,4 @@ function convertCpassUuidToIdx(forms: Mani.Form[] | undefined) {
         }
     );
 
-}
-
-// Utilities
-
-function print_Fields(label: string, fields: Mani.Field[], keepEmptyvalues?: boolean) {
-    const items =
-        keepEmptyvalues
-            ? fields
-            : fields.map(
-                (field) => {
-                    const f = filterOneLevelEmptyValues({ ...field });
-                    delete f?.path_ext;
-                    return f;
-                }
-            );
-    console.log(`%c${label}`, 'color: cyan', JSON.stringify(items, null, 2));
 }

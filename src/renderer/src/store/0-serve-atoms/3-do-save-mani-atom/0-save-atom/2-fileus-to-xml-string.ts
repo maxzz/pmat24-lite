@@ -6,7 +6,7 @@ import { getManiDispNameAtomAtom } from "@/store/2-file-mani-atoms/3-options";
 import { doManiNameDlgAtom } from "../../5-do-delete-rename-reveal-quit";
 import { stopIfInvalidAny } from "../1-stop-if-validation-failed";
 import { fceItemValueToCatalogItemInFile, packManifest } from "../2-pack";
-import { print_TestManifest } from "./8-save-print";
+import { print_TestManifest } from "../../../2-file-mani-atoms/8-print-mani";
 
 /**
  * @param validate - validation is ommited when we get xml after cpass created
