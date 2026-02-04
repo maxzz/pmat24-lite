@@ -7,10 +7,6 @@ export function showMessage({ set, message, isError }: { set: Setter; message: s
     set(doAddNextToastIdAtom, notice[isError ? 'error' : 'info'](message, { position: "top-center" }));
 }
 
-export function print_NewMani(newMani: string) {
-    console.log(`%cNew mani:\n${newMani}`, "color:dimgray");
-}
-
 export function showBuildErrorReason(set: Setter) {
     if (!stateNapiAccess.buildError) {
         return;

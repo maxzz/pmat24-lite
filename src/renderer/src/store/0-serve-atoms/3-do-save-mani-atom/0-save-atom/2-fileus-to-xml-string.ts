@@ -15,10 +15,9 @@ import { print_TestManifest } from "./8-save-print";
 export async function fileUsToXmlString(fileUsAtom: FileUsAtom, validate: boolean, getset: GetSet): Promise<string | undefined> {
     const fileUs = getset.get(fileUsAtom);
 
-    let res: ConvertToXmlStringResult | undefined =
-        fileUs.fceAtomsForFcFile
-            ? getFcContentText(fileUs.fceAtomsForFcFile, validate, getset)
-            : await getManiContentText(fileUs, fileUsAtom, getset.get(fileUs.maniAtomsAtom), validate, getset);
+    let res: ConvertToXmlStringResult | undefined = !fileUs.fceAtomsForFcFile
+        ? await getManiContentText(fileUs, fileUsAtom, getset.get(fileUs.maniAtomsAtom), validate, getset)
+        : getFcContentText(fileUs.fceAtomsForFcFile, validate, getset);
     if (!res) {
         return;
     }

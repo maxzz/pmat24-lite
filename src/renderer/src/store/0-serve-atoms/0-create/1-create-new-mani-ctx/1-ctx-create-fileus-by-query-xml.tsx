@@ -13,7 +13,6 @@ import { createManiAtoms } from "../0-create-mani-ctx-atoms";
 import { createParsedFileUsFromFileContent } from "@/store/0-serve-atoms/1-do-set-files";
 import { fileUsToXmlString } from "../../3-do-save-mani-atom/0-save-atom/2-fileus-to-xml-string";
 import { print_XmlManiFile } from "../../3-do-save-mani-atom/0-save-atom/8-save-print";
-import { print_NewMani } from "./2-ctx-create-messages";
 
 /**
  * Create new manifest inside newManiContent atoms and allow to move to the next page.
@@ -75,7 +74,7 @@ export async function createFileUsByQueryXml({ params: { hwnd, manual }, showPro
 
             fileUsChanges.setCpass({ fileUs: fileUs_ForCpass }, true);
 
-            const xml = await fileUsToXmlString(fileUsAtom_ForCpass, false, getset); print_XmlManiFile(xml, { label: '🚀 ~ xml:\n', labelCss: 'color: magenta;', bodyCss: 'color: tomato; font-size: 0.5rem' });
+            const xml = await fileUsToXmlString(fileUsAtom_ForCpass, false, getset); print_XmlManiFile(xml, { label: 'new xml for cpass:\n', labelCss: 'color: magenta;', bodyCss: 'color: firebrick; font-size: 0.5rem' });
             set(fileUs_ForCpass.rawCpassAtom, xml);
 
             //TODO: tweak xml, now or later on save?
@@ -135,6 +134,12 @@ function validManiAtomsToContinue(maniAtoms: ManiAtoms, passwordChange: boolean,
 type CreateParams = Pick<ManifestForWindowCreatorParams, 'hwnd' | 'manual'>;
 
 // Utilities
+
+
+function print_NewMani(newMani: string) {
+    console.log(`%cNew mani:\n${newMani}`, "color:dimgray");
+}
+
 
 function print_NewFileUsCreated(fileUsAtom: FileUsAtom | undefined, { get }: GetSet) {
     const atomStr = fileUsAtom ? fileUsAtom.toString() : 'null';

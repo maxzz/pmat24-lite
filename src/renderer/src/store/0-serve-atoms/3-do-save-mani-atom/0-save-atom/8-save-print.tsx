@@ -8,12 +8,8 @@ import { type FileMani, type Mani } from "@/store/8-manifest";
 export function print_XmlManiFile(xml: string | undefined, { label, labelCss = '', bodyCss = '' }: { label: string, labelCss?: string, bodyCss?: string; }) {
     let text = replaceInXml_NamesExt(xml || '""');
     text = eatXmlNewLines(text);
-    console.log(
-        `%c${label}%c%s`,
-        labelCss,
-        bodyCss,
-        text
-    );
+
+    console.log(`%c${label}%c%s`, labelCss, bodyCss, text);
 }
 
 function replaceInXml_NamesExt(xml: string | undefined) {
@@ -43,24 +39,18 @@ export function print_TestManifest(newMani: Partial<Mani.Manifest> | FileMani.Ma
         rv.forms[1].detection = { ...rv.forms[1].detection };
         rv.forms[1].detection.names_ext = "...";
     }
+
     let text = JSON.stringify(rv, null, 2);
     if (dropEmptyvalues) {
         text = eatJsonEmptyValues(text);
     }
+
     if (bodyCollapsed) {
-        console.groupCollapsed(
-            `%c${label}`,
-            labelCss,
-        );
+        console.groupCollapsed(`%c${label}`, labelCss,);
         console.log(`%c${text}`, bodyCss);
         console.groupEnd();
     } else {
-        console.log(
-            `%c${label}%c%s`,
-            labelCss,
-            bodyCss,
-            text
-        );
+        console.log(`%c${label}%c%s`, labelCss, bodyCss, text);
     }
 }
 
