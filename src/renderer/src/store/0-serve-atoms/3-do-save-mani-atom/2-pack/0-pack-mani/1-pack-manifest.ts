@@ -63,7 +63,7 @@ function packForm(form: AnyFormCtx | undefined, formIdx: FormIdx, packParams: Pa
             newForm.fields = fields;
         }
 
-        print_PackedFields(newForm.fields, { label: `PackForm ${formIdx ? 'cpass' : 'login'} fields:\n`, keepEmptyvalues: false });
+        print_PackedFields(newForm.fields, { label: `PackForm ${formIdx ? 'cpass' : 'login'} fields:\n`, bodyCss: 'color: darkcyan; font-size:0.65rem;', keepEmptyvalues: false });
     }
 }
 

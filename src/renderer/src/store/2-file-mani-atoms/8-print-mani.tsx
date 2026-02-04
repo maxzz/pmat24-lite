@@ -71,6 +71,6 @@ function eatJsonEmptyValues(json: string | undefined) {
 /**
  * @param newMani Print new mani as unmodified JSON.
  */
-function print_NewMani(newMani: string) {
-    console.log(`%cNew mani:\n${newMani}`, "color:dimgray");
-}
+// function print_NewMani(newMani: string) {
+//     console.log(`%cNew mani:\n${newMani}`, "color:dimgray");
+// }

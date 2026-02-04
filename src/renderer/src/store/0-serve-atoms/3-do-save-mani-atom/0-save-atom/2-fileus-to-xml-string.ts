@@ -98,7 +98,7 @@ function getFcContentText(fceAtoms: FceAtoms, validate: boolean, { get }: GetSet
 
 function print_XmlResult({ xml, inManiFormat, inFileFormat }: { xml: string | undefined; inManiFormat: Partial<Mani.Manifest>; inFileFormat: Mani.Manifest | FileMani.Manifest; }) {
     if (xml) {
-        print_TestManifest(inFileFormat, { label: '🚀 ~ inFileFormat:\n', labelCss: 'color: orange;', bodyCss: 'color: darkslategray; font-size: 0.5rem', bodyCollapsed: true, dropEmptyvalues: true });
-        print_TestManifest(inManiFormat, { label: '🚀 ~ inManiFormat:\n', labelCss: 'color: magenta;', bodyCss: 'color: forestgreen; font-size: 0.5rem', bodyCollapsed: true, dropEmptyvalues: true });
+        print_TestManifest(inFileFormat, { label: '🚀 ~ inFileFormat:', labelCss: 'color: orange;', bodyCss: 'color: darkslategray; font-size: 0.5rem', bodyCollapsed: true, dropEmptyvalues: true });
+        print_TestManifest(inManiFormat, { label: '🚀 ~ inManiFormat:', labelCss: 'color: orange;', bodyCss: 'color: forestgreen; font-size: 0.5rem', bodyCollapsed: true, dropEmptyvalues: true });
     }
 }
