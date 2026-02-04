@@ -45,18 +45,18 @@ function printFieldsAsTable(label: string, fields: OldNewField[]) {
     }
 }
 
-export function print_FormFields(label: string, fields: FieldRowCtx[], formIdx: FormIdx) {
+export function print_FormFields(label: string, fieldRowCtxs: FieldRowCtx[], formIdx: FormIdx) {
     const get = getDefaultStore().get;
 
     console.log(
-        `%c👀 ${label} %c${!formIdx ? 'login (or cpass at create time)' : 'cpass'}`,
-        'font-size:0.5rem',
-        !formIdx ? 'color: forestgreen' : 'color: darkseagreen');
+        `${label} %c${!formIdx ? 'login (or cpass at create time)' : 'cpass'}`,
+        `font-size:0.5rem; ${!formIdx ? 'color: forestgreen;' : 'color: darkseagreen;'}`
+    );
 
     const colors: string[] = [];
     const lines: string[] = [];
 
-    fields.forEach(
+    fieldRowCtxs.forEach(
         (field) => {
             lines.push(`%c        this.uuid: %c${field.metaField.uuid} %c'${get(field.labelAtom)}'`);
             colors.push('font-size:0.5rem; color: forestgreen', 'color: forestgreen', 'color: black');

@@ -64,8 +64,13 @@ export async function isFilenameExists(parent: FileSystemDirectoryHandle | null 
 /**
  * Print shorten xml for debugging.
  */
-export function print_XmlManiFile(xml: string | undefined) {
-    console.log('%c🚀 ~ xml:\n', 'color: magenta', replaceInXml_NamesExt(xml || '""'));
+export function print_XmlManiFile(xml: string | undefined, {label, labelCss = '', bodyCss = ''}: {label: string, labelCss?: string, bodyCss?: string;}) {
+    console.log(
+        `%c${label}%c%s`,
+        labelCss,
+        bodyCss,
+        replaceInXml_NamesExt(xml || '""')
+    );
 }
 
 function replaceInXml_NamesExt(xml: string | undefined) {
