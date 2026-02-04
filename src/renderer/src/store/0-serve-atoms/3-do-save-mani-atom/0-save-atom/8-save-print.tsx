@@ -1,0 +1,53 @@
+import { type FileMani, type Mani } from "@/store/8-manifest";
+
+// Print utilities
+
+/**
+ * Print shorten xml for debugging.
+ */
+export function print_XmlManiFile(xml: string | undefined, { label, labelCss = '', bodyCss = '' }: { label: string, labelCss?: string, bodyCss?: string; }) {
+    let text = replaceInXml_NamesExt(xml || '""');
+    text = eatNewLines(text);
+    console.log(
+        `%c${label}%c%s`,
+        labelCss,
+        bodyCss,
+        text
+    );
+}
+
+function replaceInXml_NamesExt(xml: string | undefined) {
+    return (xml || '').replace(/names_ext="[^"]+"/g, 'names_ext="..."');
+}
+
+function eatNewLines(xml: string | undefined) {
+    let rv = (xml || '').replace(/\s*(displayname="[^"]+")/g, ' $1');
+    rv = rv.replace(/\s*(type="[^"]+")/g, ' $1');
+    rv = rv.replace(/\s*(dbname="[^"]+")/g, ' $1');
+    rv = rv.replace(/\s*(path_ext="[^"]+")/g, ' $1');
+    return rv;
+}
+
+/**
+ * Print shorten manifest for debugging without destructing the original manifest.
+ */
+export function print_TestManifest(newMani: Partial<Mani.Manifest> | FileMani.Manifest, { label, labelCss = '', bodyCss = '' }: { label: string, labelCss?: string, bodyCss?: string; }) {
+    const rv = { ...newMani };
+    if (rv.forms?.[0]?.detection.names_ext) {
+        rv.forms[0] = { ...rv.forms[0] };
+        rv.forms[0].detection = { ...rv.forms[0].detection };
+        rv.forms[0].detection.names_ext = "...";
+    }
+    if (rv.forms?.[1]?.detection.names_ext) {
+        rv.forms[1] = { ...rv.forms[1] };
+        rv.forms[1].detection = { ...rv.forms[1].detection };
+        rv.forms[1].detection.names_ext = "...";
+    }
+    const text = JSON.stringify(rv, null, 2);
+    console.log(
+        `%c${label}%c%s`,
+        labelCss,
+        bodyCss,
+        text
+    );
+}

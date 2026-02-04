@@ -6,7 +6,7 @@ import { getManiDispNameAtomAtom } from "@/store/2-file-mani-atoms/3-options";
 import { doManiNameDlgAtom } from "../../5-do-delete-rename-reveal-quit";
 import { stopIfInvalidAny } from "../1-stop-if-validation-failed";
 import { fceItemValueToCatalogItemInFile, packManifest } from "../2-pack";
-import { print_TestManifest } from "./8-save-utils";
+import { print_TestManifest } from "./8-save-print";
 
 /**
  * @param validate - validation is ommited when we get xml after cpass created
@@ -99,7 +99,7 @@ function getFcContentText(fceAtoms: FceAtoms, validate: boolean, { get }: GetSet
 
 function print_XmlResult({ xml, inManiFormat, inFileFormat }: { xml: string | undefined; inManiFormat: Partial<Mani.Manifest>; inFileFormat: Mani.Manifest | FileMani.Manifest; }) {
     if (xml) {
-        print_TestManifest(inFileFormat);
-        print_TestManifest(inManiFormat);
+        print_TestManifest(inFileFormat, { label: '🚀 ~ inFileFormat:\n', labelCss: 'color: orange;', bodyCss: 'color: tomato; font-size: 0.5rem' });
+        print_TestManifest(inManiFormat, { label: '🚀 ~ inManiFormat:\n', labelCss: 'color: magenta;', bodyCss: 'color: tomato; font-size: 0.5rem' });
     }
 }

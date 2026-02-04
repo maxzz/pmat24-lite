@@ -12,7 +12,7 @@ import { doInitNewManiContentAtom, newManiContent } from "./0-ctx-content";
 import { createManiAtoms } from "../0-create-mani-ctx-atoms";
 import { createParsedFileUsFromFileContent } from "@/store/0-serve-atoms/1-do-set-files";
 import { fileUsToXmlString } from "../../3-do-save-mani-atom/0-save-atom/2-fileus-to-xml-string";
-import { print_XmlManiFile } from "../../3-do-save-mani-atom/0-save-atom/8-save-utils";
+import { print_XmlManiFile } from "../../3-do-save-mani-atom/0-save-atom/8-save-print";
 import { print_NewMani } from "./2-ctx-create-messages";
 
 /**
