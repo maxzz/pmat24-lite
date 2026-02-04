@@ -65,16 +65,26 @@ export async function isFilenameExists(parent: FileSystemDirectoryHandle | null 
  * Print shorten xml for debugging.
  */
 export function print_XmlManiFile(xml: string | undefined, {label, labelCss = '', bodyCss = ''}: {label: string, labelCss?: string, bodyCss?: string;}) {
+    let text = replaceInXml_NamesExt(xml || '""');
+    text = eatNewLines(text);
     console.log(
         `%c${label}%c%s`,
         labelCss,
         bodyCss,
-        replaceInXml_NamesExt(xml || '""')
+        text
     );
 }
 
 function replaceInXml_NamesExt(xml: string | undefined) {
     return (xml || '').replace(/names_ext="[^"]+"/g, 'names_ext="..."');
+}
+
+function eatNewLines(xml: string | undefined) {
+    let rv = (xml || '').replace(/\s*(displayname="[^"]+")/g, ' $1');
+    rv = rv.replace(/\s*(type="[^"]+")/g, ' $1');
+    rv = rv.replace(/\s*(dbname="[^"]+")/g, ' $1');
+    rv = rv.replace(/\s*(path_ext="[^"]+")/g, ' $1');
+    return rv;
 }
 
 /**
