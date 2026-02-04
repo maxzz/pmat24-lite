@@ -75,7 +75,11 @@ export function print_FormFields(fieldRowCtxs: FieldRowCtx[], formIdx: FormIdx, 
     fieldRowCtxs.forEach(
         (field) => {
             lines.push(`%c        this.uuid: %c${field.metaField.uuid} %c'${get(field.labelAtom)}'`);
-            colors.push('font-size:0.5rem; color: forestgreen', 'color: forestgreen', 'color: black');
+            colors.push(
+                'color: dimgray; font-size:0.5rem;',
+                'color: green; font-size:0.6rem;',
+                'color: black',
+            );
         }
     );
 
