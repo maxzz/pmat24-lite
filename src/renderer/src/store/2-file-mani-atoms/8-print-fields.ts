@@ -3,8 +3,14 @@ import { type Mani, filterOneLevelEmptyValues, FormIdx, SUBMIT } from "@/store/8
 import { type AnyFormCtx, type FieldRowCtx } from "@/store/2-file-mani-atoms";
 import { type OldNewField, type RecordOldNewFieldByUuid } from "../0-serve-atoms/3-do-save-mani-atom/2-pack/1-normal/9-types";
 
-export function printFinalFields(newSubmitsByUuid: RecordOldNewFieldByUuid, doFormSubmit: SUBMIT | undefined, newSortedFields: OldNewField[]) {
-    printFieldsAsTable(`Submit fields doFormSubmit=${doFormSubmit}`, newSortedFields);
+export function printFinalFields(newSubmitsByUuid: RecordOldNewFieldByUuid, doFormSubmit: SUBMIT | undefined, newSortedFields: OldNewField[], { groupLabel, bodyCollapsed = true }: { groupLabel: string; bodyCollapsed?: boolean; }) {
+    if (groupLabel) {
+        console[bodyCollapsed ? 'groupCollapsed' : 'group'](`%c${groupLabel}`, 'color: darkcyan; font-size:0.6rem;');
+    }
+
+    printFieldsAsTable(newSortedFields, { label: 'Fields:', labelCss: 'color: dimgray; font-size:0.6rem;' });
+
+    console.log(`%cForm submit: doFormSubmit=${doFormSubmit}`, 'color: dimgray; font-size:0.6rem;');
 
     const values = Object.values(newSubmitsByUuid);
     if (values.length) {
@@ -12,12 +18,15 @@ export function printFinalFields(newSubmitsByUuid: RecordOldNewFieldByUuid, doFo
             (item) => (`useIt: ${item.newMani?.useit}, name: ${item.newMani?.displayname}`)
         );
         const text = JSON.stringify(items, null, 2);
-        console.log('Form fields:', text);
+        console.log('%cAvalailable Submit buttons:%s', 'color: dimgray; font-size:0.6rem;', text);
+    }
+
+    if (groupLabel) {
+        console.groupEnd();
     }
 }
 
-
-function printFieldsAsTable(label: string, fields: OldNewField[]) {
+function printFieldsAsTable(fields: OldNewField[], { label, labelCss = '' }: { label: string; labelCss?: string; }) {
     const colors: string[] = [];
     const items: string[] = [];
 
@@ -38,7 +47,7 @@ function printFieldsAsTable(label: string, fields: OldNewField[]) {
         }
     );
 
-    console.log(`${label}\n${items.join('')}`, ...colors);
+    console.log(`%c${label}\n%c${items.join('')}`, labelCss, '', ...colors);
 
     function add({ name, value, nameCss, valueCss }: { name: string; value: string; valueCss?: string; nameCss?: string; }) {
         items.push(`%c${name}%c${value}`);
@@ -76,7 +85,7 @@ export function print_FormCtx(label: string, formCtx: AnyFormCtx, formIdx: FormI
 
 // Packed fields
 
-export function print_PackedFields(fields: Mani.Field[], { label, labelCss = '', bodyCss = '', bodyCollapsed = true, keepEmptyvalues }: { label: string, labelCss?: string, bodyCss?: string; bodyCollapsed?: boolean; keepEmptyvalues?: boolean }) {
+export function print_PackedFields(fields: Mani.Field[], { label, labelCss = '', bodyCss = '', bodyCollapsed = true, keepEmptyvalues }: { label: string, labelCss?: string, bodyCss?: string; bodyCollapsed?: boolean; keepEmptyvalues?: boolean; }) {
     const newFields = keepEmptyvalues
         ? fields
         : fields.map(

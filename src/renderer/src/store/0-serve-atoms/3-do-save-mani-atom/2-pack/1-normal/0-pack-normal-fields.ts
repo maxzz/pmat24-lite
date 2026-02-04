@@ -33,7 +33,7 @@ export function packNormalFieldsAndSubmit(nFormCnt: NFormCnt, formIdx: FormIdx, 
         .sort(([uuid1, field1], [uuid2, field2]) => field1.meta.pidx - field2.meta.pidx)
         .map(([uuid, field]) => field);
 
-    printFinalFields(newSubmitsByUuid, doFormSubmit, newSortedFields);
+    printFinalFields(newSubmitsByUuid, doFormSubmit, newSortedFields, { groupLabel: `Packed Form ${formIdx ? 'cpass' : 'login'} fields:`, bodyCollapsed: formIdx === FormIdx.login });
 
     const newFields = newSortedFields.map((field) => field.newMani!);
 
