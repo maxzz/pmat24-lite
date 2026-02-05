@@ -4,12 +4,12 @@ import { type AnyFormCtx, type FieldRowCtx } from "@/store/2-file-mani-atoms";
 import { type OldNewField, type RecordOldNewFieldByUuid } from "../0-serve-atoms/3-do-save-mani-atom/2-pack/1-normal/9-types";
 import { type PackManifestDataParams } from "../0-serve-atoms/3-do-save-mani-atom/2-pack/9-types";
 
-export function printFinalFields(newSortedFields: OldNewField[], newSubmitsByUuid: RecordOldNewFieldByUuid, doFormSubmit: SUBMIT | undefined, { label, labelCss = '', bodyCollapsed = true }: { label: string; labelCss?: string; bodyCollapsed?: boolean; }) {
+export function print_FinalFields(newSortedFields: OldNewField[], newSubmitsByUuid: RecordOldNewFieldByUuid, doFormSubmit: SUBMIT | undefined, { label, labelCss = '', bodyCollapsed = true }: { label: string; labelCss?: string; bodyCollapsed?: boolean; }) {
     if (label) {
         console[bodyCollapsed ? 'groupCollapsed' : 'group'](`%c${label}`, labelCss);
     }
 
-    printFieldsAsTable(newSortedFields, { label: 'Fields:', labelCss: 'color: dimgray; font-size:0.6rem;' });
+    print_FieldsAsTable(newSortedFields, { label: 'Fields:', labelCss: 'color: dimgray; font-size:0.6rem;' });
 
     console.log(`%cForm submit: doFormSubmit=${doFormSubmit}`, 'color: dimgray; font-size:0.6rem;');
 
@@ -27,7 +27,7 @@ export function printFinalFields(newSortedFields: OldNewField[], newSubmitsByUui
     }
 }
 
-function printFieldsAsTable(fields: OldNewField[], { label, labelCss = '' }: { label: string; labelCss?: string; }) {
+function print_FieldsAsTable(fields: OldNewField[], { label, labelCss = '' }: { label: string; labelCss?: string; }) {
     const colors: string[] = [];
     const items: string[] = [];
 

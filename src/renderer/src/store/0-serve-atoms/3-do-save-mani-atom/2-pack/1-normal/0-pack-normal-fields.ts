@@ -6,7 +6,7 @@ import { getNormalSubmitValues } from "./2-get-normal-submit-values";
 import { getNormalFieldValues } from "./1-get-normal-field-values";
 import { duplicateManiField } from "./7-duplicate-mani-field";
 import { mergeToManiField } from "./7-merge-to-mani-field";
-import { printFinalFields, print_ManiMetaFields } from "@/store/2-file-mani-atoms/8-print-fields";
+import { print_FinalFields, print_ManiMetaFields } from "@/store/2-file-mani-atoms/8-print-fields";
 
 type PackResult = {
     newFields: Mani.Field[];
@@ -19,7 +19,7 @@ export function packNormalFieldsAndSubmit(nFormCnt: NFormCnt, formIdx: FormIdx, 
     const newRowFieldsByUuid = getByUuidNewFields(nFormCnt, packParams);
     const { newSubmitsByUuid, doFormSubmit } = getSubmitsByUuid(nFormCnt, packParams);
 
-    print_ManiMetaFields(packParams, formIdx, { fullBody: true, label: `packNormalFieldsAndSubmit.metaFields (${formIdx ? 'cpass' : 'login'}):`, labelCss: 'color: darkcyan; font-size:0.6rem;', bodyCss: 'color: darkcyan; font-size:0.6rem;', bodyCollapsed: formIdx === FormIdx.login });
+    print_ManiMetaFields(packParams, formIdx, { fullBody: false, label: `packNormalFieldsAndSubmit.metaFields (${formIdx ? 'cpass' : 'login'}):`, labelCss: 'color: darkcyan; font-size:0.6rem;', bodyCss: 'color: darkcyan; font-size:0.6rem;', bodyCollapsed: true });
 
     const combinedEntries = Object.entries({
         ...allByUuid,
@@ -35,7 +35,7 @@ export function packNormalFieldsAndSubmit(nFormCnt: NFormCnt, formIdx: FormIdx, 
         .sort(([uuid1, field1], [uuid2, field2]) => field1.meta.pidx - field2.meta.pidx)
         .map(([uuid, field]) => field);
 
-    printFinalFields(newSortedFields, newSubmitsByUuid, doFormSubmit, { label: `packNormalFieldsAndSubmit (${formIdx ? 'cpass' : 'login'}):`, labelCss: 'color: darkcyan; font-size:0.6rem;', bodyCollapsed: formIdx === FormIdx.login });
+    print_FinalFields(newSortedFields, newSubmitsByUuid, doFormSubmit, { label: `packNormalFieldsAndSubmit (${formIdx ? 'cpass' : 'login'}):`, labelCss: 'color: darkcyan; font-size:0.6rem;', bodyCollapsed: formIdx === FormIdx.login });
 
     const newFields = newSortedFields.map((field) => field.newMani!);
 
