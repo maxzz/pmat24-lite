@@ -3,9 +3,9 @@ import { type Mani, filterOneLevelEmptyValues, FormIdx, SUBMIT } from "@/store/8
 import { type AnyFormCtx, type FieldRowCtx } from "@/store/2-file-mani-atoms";
 import { type OldNewField, type RecordOldNewFieldByUuid } from "../0-serve-atoms/3-do-save-mani-atom/2-pack/1-normal/9-types";
 
-export function printFinalFields(newSubmitsByUuid: RecordOldNewFieldByUuid, doFormSubmit: SUBMIT | undefined, newSortedFields: OldNewField[], { groupLabel, bodyCollapsed = true }: { groupLabel: string; bodyCollapsed?: boolean; }) {
-    if (groupLabel) {
-        console[bodyCollapsed ? 'groupCollapsed' : 'group'](`%c${groupLabel}`, 'color: darkcyan; font-size:0.6rem;');
+export function printFinalFields(newSubmitsByUuid: RecordOldNewFieldByUuid, doFormSubmit: SUBMIT | undefined, newSortedFields: OldNewField[], { label, labelCss = '', bodyCollapsed = true }: { label: string; labelCss?: string; bodyCollapsed?: boolean; }) {
+    if (label) {
+        console[bodyCollapsed ? 'groupCollapsed' : 'group'](`%c${label}`, labelCss);
     }
 
     printFieldsAsTable(newSortedFields, { label: 'Fields:', labelCss: 'color: dimgray; font-size:0.6rem;' });
@@ -21,7 +21,7 @@ export function printFinalFields(newSubmitsByUuid: RecordOldNewFieldByUuid, doFo
         console.log('%cAvalailable Submit buttons:%s', 'color: dimgray; font-size:0.6rem;', text);
     }
 
-    if (groupLabel) {
+    if (label) {
         console.groupEnd();
     }
 }
