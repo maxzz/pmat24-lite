@@ -2,8 +2,9 @@ import { getDefaultStore } from "jotai";
 import { type Mani, filterOneLevelEmptyValues, FormIdx, SUBMIT } from "@/store/8-manifest";
 import { type AnyFormCtx, type FieldRowCtx } from "@/store/2-file-mani-atoms";
 import { type OldNewField, type RecordOldNewFieldByUuid } from "../0-serve-atoms/3-do-save-mani-atom/2-pack/1-normal/9-types";
+import { type PackManifestDataParams } from "../0-serve-atoms/3-do-save-mani-atom/2-pack/9-types";
 
-export function printFinalFields(newSubmitsByUuid: RecordOldNewFieldByUuid, doFormSubmit: SUBMIT | undefined, newSortedFields: OldNewField[], { label, labelCss = '', bodyCollapsed = true }: { label: string; labelCss?: string; bodyCollapsed?: boolean; }) {
+export function printFinalFields(newSortedFields: OldNewField[], newSubmitsByUuid: RecordOldNewFieldByUuid, doFormSubmit: SUBMIT | undefined, { label, labelCss = '', bodyCollapsed = true }: { label: string; labelCss?: string; bodyCollapsed?: boolean; }) {
     if (label) {
         console[bodyCollapsed ? 'groupCollapsed' : 'group'](`%c${label}`, labelCss);
     }
@@ -104,7 +105,7 @@ export function print_PackedFields(fields: Mani.Field[], { label, labelCss = '',
             }
         );
     let text = JSON.stringify(newFields, null, 2);
-    text = eatFieldsXmlNewLines(text);
+    text = eatFieldsJsonNewLines(text);
 
     if (bodyCollapsed) {
         console.groupCollapsed(`%c${label}`, labelCss);
@@ -115,7 +116,7 @@ export function print_PackedFields(fields: Mani.Field[], { label, labelCss = '',
     }
 }
 
-function eatFieldsXmlNewLines(xml: string | undefined) {
+function eatFieldsJsonNewLines(xml: string | undefined) {
     let rv = (xml || '').replace(/\s*("displayname": "[^"]+",?)/g, ' $1');
     rv = rv.replace(/\s*("type": "[^"]+",?)/g, ' $1');
     rv = rv.replace(/\s*("dbname": "[^"]+",?)/g, ' $1');
@@ -132,4 +133,26 @@ function eatFieldsXmlNewLines(xml: string | undefined) {
     rv = rv.replace(/\s*("dbnameInitial": "[^"]+",?)/g, ' $1');
 
     return rv;
+}
+
+// Meta fields
+
+export function print_ManiMetaFields(packParams: PackManifestDataParams, formIdx: FormIdx, { fullBody = false, label, labelCss = '', bodyCss = '', bodyCollapsed = true }: { fullBody?: boolean; label: string; labelCss?: string; bodyCss?: string; bodyCollapsed?: boolean; }) {
+    const metaForm = packParams.fileUs.parsedSrc.meta?.[formIdx]; // we are guarded here by context, but still they come...
+    if (!metaForm) {
+        return;
+    }
+
+    const onlyManiFields = fullBody ? metaForm.fields : metaForm.fields.map((field) => field.mani);
+    
+    let text = JSON.stringify(onlyManiFields, null, 2);
+    text = eatFieldsJsonNewLines(text);
+    
+    if (bodyCollapsed) {
+        console.groupCollapsed(`%c${label}`, labelCss);
+        console.log(`%c${text}`, bodyCss);
+        console.groupEnd();
+    } else {
+        console.log(`%c${label}%c%s`, labelCss, bodyCss, text);
+    }
 }

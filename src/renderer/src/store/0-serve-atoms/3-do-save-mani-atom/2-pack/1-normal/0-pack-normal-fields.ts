@@ -6,7 +6,7 @@ import { getNormalSubmitValues } from "./2-get-normal-submit-values";
 import { getNormalFieldValues } from "./1-get-normal-field-values";
 import { duplicateManiField } from "./7-duplicate-mani-field";
 import { mergeToManiField } from "./7-merge-to-mani-field";
-import { printFinalFields } from "@/store/2-file-mani-atoms/8-print-fields";
+import { printFinalFields, print_ManiMetaFields } from "@/store/2-file-mani-atoms/8-print-fields";
 
 type PackResult = {
     newFields: Mani.Field[];
@@ -18,6 +18,8 @@ export function packNormalFieldsAndSubmit(nFormCnt: NFormCnt, formIdx: FormIdx, 
     const allByUuid = getByUiidAllFields(packParams, formIdx);
     const newRowFieldsByUuid = getByUuidNewFields(nFormCnt, packParams);
     const { newSubmitsByUuid, doFormSubmit } = getSubmitsByUuid(nFormCnt, packParams);
+
+    print_ManiMetaFields(packParams, formIdx, { label: `packNormalFieldsAndSubmit.metaFields (${formIdx ? 'cpass' : 'login'}):`, labelCss: 'color: darkcyan; font-size:0.6rem;', bodyCss: 'color: darkcyan; font-size:0.6rem;', bodyCollapsed: formIdx === FormIdx.login });
 
     const combinedEntries = Object.entries({
         ...allByUuid,
@@ -33,7 +35,7 @@ export function packNormalFieldsAndSubmit(nFormCnt: NFormCnt, formIdx: FormIdx, 
         .sort(([uuid1, field1], [uuid2, field2]) => field1.meta.pidx - field2.meta.pidx)
         .map(([uuid, field]) => field);
 
-    printFinalFields(newSubmitsByUuid, doFormSubmit, newSortedFields, { label: `packNormalFieldsAndSubmit (${formIdx ? 'cpass' : 'login'}):`, labelCss: 'color: darkcyan; font-size:0.6rem;', bodyCollapsed: formIdx === FormIdx.login });
+    printFinalFields(newSortedFields, newSubmitsByUuid, doFormSubmit, { label: `packNormalFieldsAndSubmit (${formIdx ? 'cpass' : 'login'}):`, labelCss: 'color: darkcyan; font-size:0.6rem;', bodyCollapsed: formIdx === FormIdx.login });
 
     const newFields = newSortedFields.map((field) => field.newMani!);
 
