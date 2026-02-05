@@ -1,21 +1,14 @@
 import { type FileMani, type Mani } from "@/store/8-manifest";
-
-// Print utilities
+import { type PrintCollapsedText, print_CollapsedText } from "./8-print-utils";
 
 /**
  * Print shorten xml for debugging.
  */
-export function print_XmlManiFile(xml: string | undefined, { label, labelCss = '', bodyCss = '', bodyCollapsed = false }: { label: string, labelCss?: string, bodyCss?: string; bodyCollapsed?: boolean; }) {
+export function print_XmlManiFile(xml: string | undefined, styles: PrintCollapsedText) {
     let text = replaceInXml_NamesExt(xml || '""');
     text = eatXmlNewLines(text);
 
-    if (bodyCollapsed) {
-        console.groupCollapsed(`%c${label}`, labelCss);
-        console.log(`%c${text}`, bodyCss);
-        console.groupEnd();
-    } else {
-        console.log(`%c${label}%c%s`, labelCss, bodyCss, text);
-    }
+    print_CollapsedText(text, styles);
 }
 
 function replaceInXml_NamesExt(xml: string | undefined) {
@@ -23,17 +16,29 @@ function replaceInXml_NamesExt(xml: string | undefined) {
 }
 
 function eatXmlNewLines(xml: string | undefined) {
-    let rv = (xml || '').replace(/\s*(displayname="[^"]+")/g, ' $1');
+    let rv = (xml || '');
+
+    // descriptor
+    rv = rv.replace(/\s*(id="[^"]+")/g, ' $1');
+    rv = rv.replace(/\s*(created="[^"]+")/g, ' $1');
+    rv = rv.replace(/\s*(modified="[^"]+")/g, ' $1');
+    rv = rv.replace(/\s*(version="[^"]+")/g, ' $1');
+
+    // field
+    rv = rv.replace(/\s*(displayname="[^"]+")/g, ' $1');
     rv = rv.replace(/\s*(type="[^"]+")/g, ' $1');
     rv = rv.replace(/\s*(dbname="[^"]+")/g, ' $1');
     rv = rv.replace(/\s*(path_ext="[^"]+")/g, ' $1');
+    rv = rv.replace(/\s*(\/\>)/g, ' $1');
     return rv;
 }
 
 /**
  * Print shorten manifest for debugging without destructing the original manifest.
  */
-export function print_TestManifest(newMani: Partial<Mani.Manifest> | FileMani.Manifest, { label, labelCss = '', bodyCss = '', bodyCollapsed = false, dropEmptyvalues }: { label: string, labelCss?: string, bodyCss?: string; bodyCollapsed?: boolean; dropEmptyvalues?: boolean; }) {
+export function print_TestManifest(newMani: Partial<Mani.Manifest> | FileMani.Manifest, { dropEmptyvalues, ...styles }: PrintCollapsedText & { dropEmptyvalues?: boolean; }) {
+
+    // Copy manifest to avoid destructing the original
     const rv = { ...newMani };
     if (rv.forms?.[0]?.detection.names_ext) {
         rv.forms[0] = { ...rv.forms[0] };
@@ -47,19 +52,12 @@ export function print_TestManifest(newMani: Partial<Mani.Manifest> | FileMani.Ma
     }
 
     // Print new mani as modified JSON.
-
     let text = JSON.stringify(rv, null, 2);
     if (dropEmptyvalues) {
         text = eatJsonEmptyValues(text);
     }
 
-    if (bodyCollapsed) {
-        console.groupCollapsed(`%c${label}`, labelCss);
-        console.log(`%c${text}`, bodyCss);
-        console.groupEnd();
-    } else {
-        console.log(`%c${label}%c%s`, labelCss, bodyCss, text);
-    }
+    print_CollapsedText(text, styles);
 }
 
 function eatJsonEmptyValues(json: string | undefined) {
@@ -67,10 +65,3 @@ function eatJsonEmptyValues(json: string | undefined) {
     rv = rv.replace(/\s*"[^"]+": "",?/g, '');
     return rv;
 }
-
-/**
- * @param newMani Print new mani as unmodified JSON.
- */
-// function print_NewMani(newMani: string) {
-//     console.log(`%cNew mani:\n${newMani}`, "color:dimgray");
-// }

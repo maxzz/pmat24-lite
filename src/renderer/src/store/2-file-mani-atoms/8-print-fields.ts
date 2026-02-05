@@ -3,6 +3,7 @@ import { type Mani, filterOneLevelEmptyValues, FormIdx, SUBMIT } from "@/store/8
 import { type AnyFormCtx, type FieldRowCtx } from "@/store/2-file-mani-atoms";
 import { type OldNewField, type RecordOldNewFieldByUuid } from "../0-serve-atoms/3-do-save-mani-atom/2-pack/1-normal/9-types";
 import { type PackManifestDataParams } from "../0-serve-atoms/3-do-save-mani-atom/2-pack/9-types";
+import { type PrintCollapsedText, eatFieldsJsonNewLines, print_CollapsedText } from "./8-print-utils";
 
 export function print_FinalFields(newSortedFields: OldNewField[], newSubmitsByUuid: RecordOldNewFieldByUuid, doFormSubmit: SUBMIT | undefined, styles: Omit<PrintCollapsedText, 'bodyCss'>) {
     const { label, labelCss, expandBody } = styles;
@@ -129,40 +130,4 @@ export function print_ManiMetaFields(packParams: PackManifestDataParams, formIdx
     text = eatFieldsJsonNewLines(text);
 
     print_CollapsedText(text, { label, labelCss, bodyCss, expandBody });
-}
-
-function eatFieldsJsonNewLines(xml: string | undefined) {
-    let rv = (xml || '').replace(/\s*("displayname": "[^"]+",?)/g, ' $1');
-    rv = rv.replace(/\s*("type": "[^"]+",?)/g, ' $1');
-    rv = rv.replace(/\s*("dbname": "[^"]+",?)/g, ' $1');
-    rv = rv.replace(/\s*("useit": (true|false),?)/g, ' $1');
-    rv = rv.replace(/\s*("password": (true|false),?)/g, ' $1');
-    rv = rv.replace(/\s*("submit": (dosubmit|nosubmit|true|false),?)/g, ' $1');
-
-    rv = rv.replace(/\s*("rfield": (?:"[^"]+"|\d+),?)/g, ' $1');
-    rv = rv.replace(/\s*("rfieldform": (?:"[^"]+"|-?\d+),?)/g, ' $1');
-
-    rv = rv.replace(/\s*("formIdx": (?:"[^"]+"|\d+),?)/g, ' $1');
-    rv = rv.replace(/\s*("uuidThis": ("[^"]+"|\d+),?)/g, ' $1');
-    rv = rv.replace(/\s*("uuidLoginFld": ("[^"]+"|\d+),?)/g, ' $1');
-    rv = rv.replace(/\s*("dbnameInitial": "[^"]+",?)/g, ' $1');
-
-    return rv;
-}
-
-type PrintCollapsedText = {
-    label: string;
-    labelCss?: string;
-    bodyCss?: string;
-    expandBody?: boolean;
-};
-
-export function print_CollapsedText(text: string, { label, labelCss = '', bodyCss = '', expandBody }: PrintCollapsedText) {
-    if (!expandBody) {
-        console.groupCollapsed(`%c${label}`, labelCss);
-        console.log(`%c${text}`, bodyCss);
-        console.groupEnd();
-    } else {
-        console.log(`%c${label}%c%s`, labelCss, bodyCss, text);
-    }
 }

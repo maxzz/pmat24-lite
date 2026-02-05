@@ -46,7 +46,7 @@ export async function createFileUsByQueryXml({ params: { hwnd, manual }, showPro
     }
 
     set(newManiContent.maniXmlStrAtom, sawManiXmlStr);
-    print_XmlManiFile(sawManiXmlStr, { label: 'XML from NAPI:', labelCss: 'color: magenta;', bodyCss: 'color: firebrick; font-size: 0.5rem', bodyCollapsed: true });
+    print_XmlManiFile(sawManiXmlStr, { label: 'XML from NAPI:', labelCss: 'color: magenta;', bodyCss: 'color: firebrick; font-size: 0.5rem', expandBody: false });
 
     // 3. Parse maniXml to fileUs
     try {
@@ -74,7 +74,7 @@ export async function createFileUsByQueryXml({ params: { hwnd, manual }, showPro
 
             fileUsChanges.setCpass({ fileUs: fileUs_ForCpass }, true);
 
-            const xml = await fileUsToXmlString(fileUsAtom_ForCpass, false, getset); print_XmlManiFile(xml, { label: 'XML for cpass from fileUs:', labelCss: 'color: magenta;', bodyCss: 'color: firebrick; font-size: 0.5rem', bodyCollapsed: true });
+            const xml = await fileUsToXmlString(fileUsAtom_ForCpass, false, getset); print_XmlManiFile(xml, { label: 'XML for cpass from fileUs:', labelCss: 'color: magenta;', bodyCss: 'color: firebrick; font-size: 0.5rem', expandBody: false });
             set(fileUs_ForCpass.rawCpassAtom, xml);
 
             //TODO: tweak xml, now or later on save?
