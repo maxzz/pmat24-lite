@@ -36,7 +36,7 @@ function eatXmlNewLines(xml: string | undefined) {
 /**
  * Print shorten manifest for debugging without destructing the original manifest.
  */
-export function print_TestManifest(newMani: Partial<Mani.Manifest> | FileMani.Manifest, { dropEmptyvalues, ...styles }: PrintCollapsedText & { dropEmptyvalues?: boolean; }) {
+export function print_JsonManifest(newMani: Partial<Mani.Manifest> | FileMani.Manifest, { dropEmptyvalues, ...styles }: PrintCollapsedText & { dropEmptyvalues?: boolean; }) {
 
     // Copy manifest to avoid destructing the original
     const rv = { ...newMani };

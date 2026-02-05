@@ -1,17 +1,18 @@
 export type PrintCollapsedText = {
     label: string;
-    labelCss?: string;
+    labelCss?: string | string[];
     bodyCss?: string;
     expandBody?: boolean;
 };
 
-export function print_CollapsedText(body: string, { label, labelCss = '', bodyCss = '', expandBody }: PrintCollapsedText) {
+export function print_CollapsedText(body: string, { label, labelCss, bodyCss = '', expandBody }: PrintCollapsedText) {
+    const labelCssArray = Array.isArray(labelCss) ? labelCss : [labelCss];
     if (!expandBody) {
-        console.groupCollapsed(`%c${label}`, labelCss);
+        console.groupCollapsed(`%c${label}`, ...labelCssArray);
         console.log(`%c${body}`, bodyCss);
         console.groupEnd();
     } else {
-        console.log(`%c${label}%c%s`, labelCss, bodyCss, body);
+        console.log(`%c${label}%c%s`, ...labelCssArray, bodyCss, body);
     }
 }
 

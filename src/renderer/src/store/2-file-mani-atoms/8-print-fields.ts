@@ -92,9 +92,18 @@ export function print_FormFields(fieldRowCtxs: FieldRowCtx[], formIdx: FormIdx, 
     console.groupEnd();
 }
 
-export function print_FormCtx(formCtx: AnyFormCtx, formIdx: FormIdx, styles: Omit<PrintCollapsedText, 'bodyCss'>) {
+function print_FormCtx(formCtx: AnyFormCtx, formIdx: FormIdx, styles: Omit<PrintCollapsedText, 'bodyCss'>) {
     if (formCtx.normal) {
         print_FormFields(formCtx.normal.rowCtxs, formIdx, styles);
+    }
+}
+
+export function print_FormCtxs(loginFormCtx: AnyFormCtx | undefined, cpassFormCtx: AnyFormCtx | undefined) {
+    if (loginFormCtx) {
+        print_FormCtx(loginFormCtx, FormIdx.login, { label: '💻 createManiAtoms.login', labelCss: 'color: dimgray; font-size:0.6rem;', expandBody: false });
+    }
+    if (cpassFormCtx) {
+        print_FormCtx(cpassFormCtx, FormIdx.cpass, { label: '💻 createManiAtoms.cpass', labelCss: 'color: dimgray; font-size:0.6rem;', expandBody: true });
     }
 }
 

@@ -5,7 +5,7 @@ import { type MFormCnt, type NFormCnt, type FileUsCtx, type AnyFormCtx, type Man
 import { createFormFieldsAtom, launchDataIdx, ManualFieldsState, NormalModeState, OptionsState } from "@/store/2-file-mani-atoms";
 import { type LaunchDataAll } from "../../8-launch-data/9-launch-types";
 import { getLaunchData } from "../../8-launch-data/1-get-launch-data";
-import { print_FormCtx } from "@/store/2-file-mani-atoms/8-print-fields";
+import { print_FormCtxs } from "@/store/2-file-mani-atoms/8-print-fields";
 
 /**
  * @param embeddTo - If defined then new atoms will be added to existing ManiAtoms. This is used when we create new manifest and use it for cpass.
@@ -24,7 +24,7 @@ export function createManiAtoms({ fileUs, fileUsAtom, embeddTo }: { fileUs: File
         const loginFormCtx = createFormCtx({ fileUs, fileUsAtom, formIdx: FormIdx.login });
         const cpassFormCtx = createFormCtx({ fileUs, fileUsAtom, formIdx: FormIdx.cpass });
 
-        print_CreateFormCtxs(loginFormCtx, cpassFormCtx);
+        print_FormCtxs(loginFormCtx, cpassFormCtx);
 
         rv.push(loginFormCtx);
         rv.push(cpassFormCtx);
@@ -42,7 +42,7 @@ export function createManiAtoms({ fileUs, fileUsAtom, embeddTo }: { fileUs: File
         const loginFormCtx: AnyFormCtx = safeByContext(embeddTo[FormIdx.login]); // see note (*1)
         const cpassFormCtx: AnyFormCtx = safeByContext(createFormCtx(cpassScope));
 
-        print_CreateFormCtxs(loginFormCtx, cpassFormCtx);
+        print_FormCtxs(loginFormCtx, cpassFormCtx);
 
         cpassScope.fileUs = loginFormCtx.fileUsCtx.fileUs;
         cpassScope.fileUsAtom = loginFormCtx.fileUsCtx.fileUsAtom;
@@ -54,7 +54,7 @@ export function createManiAtoms({ fileUs, fileUsAtom, embeddTo }: { fileUs: File
         rv[cFieldsIdx] = cpassFormCtx.fieldsAtom || atom([]);
         rv[launchDataIdx] = embeddTo[launchDataIdx];
 
-        //print_CreateManiAtoms(fileUsAtom, fileUs, maniAtoms);
+        //print_CreateManiAtoms(fileUsAtom, fileUs, rv);
         return rv;
     }
 }
@@ -90,15 +90,6 @@ function createFormCtx(fileUsCtx: FileUsCtx): AnyFormCtx | undefined {
 
 function createLaunchDataAtom(maniAtoms: ManiAtoms): Atom<LaunchDataAll> {
     return atom((get): LaunchDataAll => getLaunchData(maniAtoms, get));
-}
-
-function print_CreateFormCtxs(loginFormCtx: AnyFormCtx | undefined, cpassFormCtx: AnyFormCtx | undefined) {
-    if (loginFormCtx) {
-        print_FormCtx(loginFormCtx, FormIdx.login, { label: '💻 createManiAtoms.login', labelCss: 'color: dimgray; font-size:0.6rem;', expandBody: false });
-    }
-    if (cpassFormCtx) {
-        print_FormCtx(cpassFormCtx, FormIdx.cpass, { label: '💻 createManiAtoms.cpass', labelCss: 'color: dimgray; font-size:0.6rem;', expandBody: true });
-    }
 }
 
 function print_CreateManiAtoms(fileUsAtom: FileUsAtom, fileUs: FileUs, maniAtoms: ManiAtoms) {
