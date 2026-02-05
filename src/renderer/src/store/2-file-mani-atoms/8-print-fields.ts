@@ -4,9 +4,9 @@ import { type AnyFormCtx, type FieldRowCtx } from "@/store/2-file-mani-atoms";
 import { type OldNewField, type RecordOldNewFieldByUuid } from "../0-serve-atoms/3-do-save-mani-atom/2-pack/1-normal/9-types";
 import { type PackManifestDataParams } from "../0-serve-atoms/3-do-save-mani-atom/2-pack/9-types";
 
-export function print_FinalFields(newSortedFields: OldNewField[], newSubmitsByUuid: RecordOldNewFieldByUuid, doFormSubmit: SUBMIT | undefined, { label, labelCss = '', bodyCollapsed = true }: { label: string; labelCss?: string; bodyCollapsed?: boolean; }) {
+export function print_FinalFields(newSortedFields: OldNewField[], newSubmitsByUuid: RecordOldNewFieldByUuid, doFormSubmit: SUBMIT | undefined, { label, labelCss, bodyCollapsed = true }: Omit<PrintCollapsedText, 'bodyCss'>) {
     if (label) {
-        console[bodyCollapsed ? 'groupCollapsed' : 'group'](`%c${label}`, labelCss);
+        console[bodyCollapsed ? 'groupCollapsed' : 'group'](`%c${label}`, labelCss || '');
     }
 
     print_FieldsAsTable(newSortedFields, { label: 'Fields:', labelCss: 'color: dimgray; font-size:0.6rem;' });
@@ -27,7 +27,7 @@ export function print_FinalFields(newSortedFields: OldNewField[], newSubmitsByUu
     }
 }
 
-function print_FieldsAsTable(fields: OldNewField[], { label, labelCss = '' }: { label: string; labelCss?: string; }) {
+function print_FieldsAsTable(fields: OldNewField[], { label, labelCss }: Omit<PrintCollapsedText, 'bodyCss' | 'bodyCollapsed'>) {
     const colors: string[] = [];
     const items: string[] = [];
 
@@ -51,7 +51,7 @@ function print_FieldsAsTable(fields: OldNewField[], { label, labelCss = '' }: { 
         }
     );
 
-    console.log(`%c${label}\n%c${items.join('')}`, labelCss, '', ...colors);
+    console.log(`%c${label}\n%c${items.join('')}`, labelCss || '', '', ...colors);
 
     function add({ name, value, nameCss, valueCss }: { name: string; value: string; valueCss?: string; nameCss?: string; }) {
         items.push(`%c${name}%c${value}`);
@@ -62,7 +62,7 @@ function print_FieldsAsTable(fields: OldNewField[], { label, labelCss = '' }: { 
 
 // Form fields
 
-export function print_FormFields(fieldRowCtxs: FieldRowCtx[], formIdx: FormIdx, { label, labelCss = '', bodyCollapsed = true }: { label: string; labelCss?: string; bodyCollapsed?: boolean; }) {
+export function print_FormFields(fieldRowCtxs: FieldRowCtx[], formIdx: FormIdx, { label, labelCss, bodyCollapsed = true }: Omit<PrintCollapsedText, 'bodyCss'>) {
     const get = getDefaultStore().get;
 
     const groupText = `${label} %c${!formIdx ? 'login' : 'cpass'}`;
@@ -89,15 +89,15 @@ export function print_FormFields(fieldRowCtxs: FieldRowCtx[], formIdx: FormIdx, 
     console.groupEnd();
 }
 
-export function print_FormCtx(formCtx: AnyFormCtx, formIdx: FormIdx, { label, labelCss = '', bodyCollapsed = true }: { label: string; labelCss?: string; bodyCollapsed?: boolean; }) {
+export function print_FormCtx(formCtx: AnyFormCtx, formIdx: FormIdx, styles: Omit<PrintCollapsedText, 'bodyCss'>) {
     if (formCtx.normal) {
-        print_FormFields(formCtx.normal.rowCtxs, formIdx, { label, labelCss, bodyCollapsed });
+        print_FormFields(formCtx.normal.rowCtxs, formIdx, styles);
     }
 }
 
 // Packed fields
 
-export function print_PackedFields(fields: Mani.Field[], { label, labelCss = '', bodyCss = '', bodyCollapsed = true, keepEmptyvalues }: { label: string, labelCss?: string, bodyCss?: string; bodyCollapsed?: boolean; keepEmptyvalues?: boolean; }) {
+export function print_PackedFields(fields: Mani.Field[], { label, labelCss = '', bodyCss = '', bodyCollapsed = true, keepEmptyvalues }: { keepEmptyvalues?: boolean; } & PrintCollapsedText) {
     const newFields = keepEmptyvalues
         ? fields
         : fields.map(
@@ -110,13 +110,23 @@ export function print_PackedFields(fields: Mani.Field[], { label, labelCss = '',
     let text = JSON.stringify(newFields, null, 2);
     text = eatFieldsJsonNewLines(text);
 
-    if (bodyCollapsed) {
-        console.groupCollapsed(`%c${label}`, labelCss);
-        console.log(`%c${text}`, bodyCss);
-        console.groupEnd();
-    } else {
-        console.log(`%c${label}%c%s`, labelCss, bodyCss, text);
+    print_CollapsedText(text, { label, labelCss, bodyCss, bodyCollapsed });
+}
+
+// Meta fields
+
+export function print_ManiMetaFields(packParams: PackManifestDataParams, formIdx: FormIdx, { fullBody = false, label, labelCss = '', bodyCss = '', bodyCollapsed = true }: { fullBody?: boolean; } & PrintCollapsedText) {
+    const metaForm = packParams.fileUs.parsedSrc.meta?.[formIdx]; // we are guarded here by context, but still they come...
+    if (!metaForm) {
+        return;
     }
+
+    const onlyManiFields = fullBody ? metaForm.fields : metaForm.fields.map((field) => field.mani);
+    
+    let text = JSON.stringify(onlyManiFields, null, 2);
+    text = eatFieldsJsonNewLines(text);
+
+    print_CollapsedText(text, { label, labelCss, bodyCss, bodyCollapsed });
 }
 
 function eatFieldsJsonNewLines(xml: string | undefined) {
@@ -138,19 +148,14 @@ function eatFieldsJsonNewLines(xml: string | undefined) {
     return rv;
 }
 
-// Meta fields
+type PrintCollapsedText = {
+    label: string;
+    labelCss?: string;
+    bodyCss?: string;
+    bodyCollapsed?: boolean;
+};
 
-export function print_ManiMetaFields(packParams: PackManifestDataParams, formIdx: FormIdx, { fullBody = false, label, labelCss = '', bodyCss = '', bodyCollapsed = true }: { fullBody?: boolean; label: string; labelCss?: string; bodyCss?: string; bodyCollapsed?: boolean; }) {
-    const metaForm = packParams.fileUs.parsedSrc.meta?.[formIdx]; // we are guarded here by context, but still they come...
-    if (!metaForm) {
-        return;
-    }
-
-    const onlyManiFields = fullBody ? metaForm.fields : metaForm.fields.map((field) => field.mani);
-    
-    let text = JSON.stringify(onlyManiFields, null, 2);
-    text = eatFieldsJsonNewLines(text);
-
+export function print_CollapsedText(text: string, { label, labelCss = '', bodyCss = '', bodyCollapsed = true }: PrintCollapsedText) {
     if (bodyCollapsed) {
         console.groupCollapsed(`%c${label}`, labelCss);
         console.log(`%c${text}`, bodyCss);
