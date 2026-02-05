@@ -4,7 +4,7 @@ import { PackManifestDataParams } from "../9-types";
 import { packFormOptions } from "../3-options";
 import { packNormalFieldsAndSubmit } from "../1-normal";
 import { packManualFields } from "../2-manual";
-import { print_PackedFields } from "@/store/2-file-mani-atoms/8-print-fields";
+import { print_PackedFormFields } from "@/store/2-file-mani-atoms/8-print-fields";
 
 export function packManifest(packParams: PackManifestDataParams): void {
     const { maniAtoms } = packParams;
@@ -63,7 +63,7 @@ function packForm(form: AnyFormCtx | undefined, formIdx: FormIdx, packParams: Pa
             newForm.fields = fields;
         }
 
-        print_PackedFields(newForm.fields, { label: `PackForm ${formIdx ? 'cpass' : 'login'} fields:\n`, bodyCss: 'color: darkcyan; font-size:0.65rem;', keepEmptyvalues: false });
+        print_PackedFormFields(newForm, formIdx);
     }
 }
 
