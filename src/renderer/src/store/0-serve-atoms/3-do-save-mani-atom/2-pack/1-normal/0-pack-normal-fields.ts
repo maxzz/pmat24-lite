@@ -19,7 +19,7 @@ export function packNormalFieldsAndSubmit(nFormCnt: NFormCnt, formIdx: FormIdx, 
     const newRowFieldsByUuid = getByUuidNewFields(nFormCnt, packParams);
     const { newSubmitsByUuid, doFormSubmit } = getSubmitsByUuid(nFormCnt, packParams);
 
-    print_ManiMetaFields(packParams, formIdx, { label: `packNormalFieldsAndSubmit.metaFields (${formIdx ? 'cpass' : 'login'}):`, labelCss: 'color: darkcyan; font-size:0.6rem;', bodyCss: 'color: darkcyan; font-size:0.6rem;', bodyCollapsed: formIdx === FormIdx.login });
+    print_ManiMetaFields(packParams, formIdx, { fullBody: true, label: `packNormalFieldsAndSubmit.metaFields (${formIdx ? 'cpass' : 'login'}):`, labelCss: 'color: darkcyan; font-size:0.6rem;', bodyCss: 'color: darkcyan; font-size:0.6rem;', bodyCollapsed: formIdx === FormIdx.login });
 
     const combinedEntries = Object.entries({
         ...allByUuid,

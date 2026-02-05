@@ -41,8 +41,8 @@ function printFieldsAsTable(fields: OldNewField[], { label, labelCss = '' }: { l
             const metaUuid = field.meta.uuid;
 
             items.push('   ');
-            add({ name: ' uuid.meta: ',  /**/ value: `${metaUuid}`,                      /**/ nameCss: 'color: #ababab; font-size: 0.5rem', valueCss: 'color: darkslategray; font-size: 0.6rem' });
             add({ name: ' uuid.mani: ',  /**/ value: `${maniUuid}`,                      /**/ nameCss: 'color: #ababab; font-size: 0.5rem', valueCss: 'color: darkslategray; font-size: 0.6rem' });
+            add({ name: ' uuid.meta: ',  /**/ value: `${metaUuid}`,                      /**/ nameCss: 'color: #ababab; font-size: 0.5rem', valueCss: 'color: darkslategray; font-size: 0.6rem' });
             add({ name: ' type: ',       /**/ value: `${m.type.padEnd(6, ' ')}`,         /**/ valueCss: m.type === 'button' ? 'color: #8eacf8' : 'color: #888888' });
             add({ name: ' useIt: ',      /**/ value: m.useit ? 'true' : '    ',          /**/ valueCss: m.useit ? 'color: #00a000; font-size: 0.5rem' : 'color: #ababab; font-size: 0.5rem' });
             add({ name: ' name: ',       /**/ value: `${m.displayname || '???no name'}`, /**/ valueCss: 'color: var(--console-color-yellow); font-size: 0.6rem' });
