@@ -24,6 +24,8 @@ export function createManiAtoms({ fileUs, fileUsAtom, embeddTo }: { fileUs: File
         const loginFormCtx = createFormCtx({ fileUs, fileUsAtom, formIdx: FormIdx.login });
         const cpassFormCtx = createFormCtx({ fileUs, fileUsAtom, formIdx: FormIdx.cpass });
 
+        print_CreateFormCtx(loginFormCtx, cpassFormCtx);
+
         rv.push(loginFormCtx);
         rv.push(cpassFormCtx);
         rv.push(loginFormCtx?.fieldsAtom || atom([]));
@@ -40,8 +42,7 @@ export function createManiAtoms({ fileUs, fileUsAtom, embeddTo }: { fileUs: File
         const loginFormCtx: AnyFormCtx = safeByContext(embeddTo[FormIdx.login]); // see note (*1)
         const cpassFormCtx: AnyFormCtx = safeByContext(createFormCtx(cpassScope));
 
-        print_FormCtx(loginFormCtx, FormIdx.login, { label: '💻 createManiAtoms.login', labelCss: 'color: dimgray; font-size:0.6rem;', bodyCollapsed: true });
-        print_FormCtx(cpassFormCtx, FormIdx.cpass, { label: '💻 createManiAtoms.cpass', labelCss: 'color: dimgray; font-size:0.6rem;', bodyCollapsed: false });
+        print_CreateFormCtx(loginFormCtx, cpassFormCtx);
 
         cpassScope.fileUs = loginFormCtx.fileUsCtx.fileUs;
         cpassScope.fileUsAtom = loginFormCtx.fileUsCtx.fileUsAtom;
@@ -89,6 +90,15 @@ function createFormCtx(fileUsCtx: FileUsCtx): AnyFormCtx | undefined {
 
 function createLaunchDataAtom(maniAtoms: ManiAtoms): Atom<LaunchDataAll> {
     return atom((get): LaunchDataAll => getLaunchData(maniAtoms, get));
+}
+
+function print_CreateFormCtx(loginFormCtx: AnyFormCtx | undefined, cpassFormCtx: AnyFormCtx | undefined) {
+    if (loginFormCtx) {
+        print_FormCtx(loginFormCtx, FormIdx.login, { label: '💻 createManiAtoms.login', labelCss: 'color: dimgray; font-size:0.6rem;', bodyCollapsed: true });
+    }
+    if (cpassFormCtx) {
+        print_FormCtx(cpassFormCtx, FormIdx.cpass, { label: '💻 createManiAtoms.cpass', labelCss: 'color: dimgray; font-size:0.6rem;', bodyCollapsed: false });
+    }
 }
 
 function print_CreateManiAtoms(fileUsAtom: FileUsAtom, fileUs: FileUs, maniAtoms: ManiAtoms) {

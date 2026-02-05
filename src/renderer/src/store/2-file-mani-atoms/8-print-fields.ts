@@ -61,11 +61,8 @@ function printFieldsAsTable(fields: OldNewField[], { label, labelCss = '' }: { l
 export function print_FormFields(fieldRowCtxs: FieldRowCtx[], formIdx: FormIdx, { label, labelCss = '', bodyCollapsed = true }: { label: string; labelCss?: string; bodyCollapsed?: boolean; }) {
     const get = getDefaultStore().get;
 
-    const groupText = `${label} %c${!formIdx ? 'login (cpass when creating from login)' : 'cpass'}`;
-    console[bodyCollapsed ? 'groupCollapsed' : 'group'](
-        groupText,
-        `font-size:0.5rem; ${!formIdx ? 'color: forestgreen;' : 'color: darkseagreen;'}`
-    );
+    const groupText = `${label} %c${!formIdx ? 'login' : 'cpass'}`;
+    console[bodyCollapsed ? 'groupCollapsed' : 'group'](groupText, `font-size:0.5rem; ${!formIdx ? 'color: forestgreen;' : 'color: darkseagreen;'}`);
 
     // Print fields
 
