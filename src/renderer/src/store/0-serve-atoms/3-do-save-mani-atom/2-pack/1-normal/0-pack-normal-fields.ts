@@ -19,7 +19,7 @@ export function packNormalFieldsAndSubmit(nFormCnt: NFormCnt, formIdx: FormIdx, 
     const newRowFieldsByUuid = getByUuidNewFields(nFormCnt, packParams);
     const { newSubmitsByUuid, doFormSubmit } = getSubmitsByUuid(nFormCnt, packParams);
 
-    print_ManiMetaFields(packParams, formIdx, { fullBody: false, label: `packNormalFieldsAndSubmit.metaFields (${formIdx ? 'cpass' : 'login'}):`, labelCss: 'color: darkcyan; font-size:0.6rem;', bodyCss: 'color: darkcyan; font-size:0.6rem;', bodyCollapsed: true });
+    print_ManiMetaFields(packParams, formIdx, { fullBody: false, label: `packNormalFieldsAndSubmit.metaFields (${formIdx ? 'cpass' : 'login'}):`, labelCss: 'color: darkcyan; font-size:0.6rem;', bodyCss: 'color: darkcyan; font-size:0.6rem;', expandBody: false });
 
     const combinedEntries = Object.entries({
         ...allByUuid,
@@ -35,7 +35,7 @@ export function packNormalFieldsAndSubmit(nFormCnt: NFormCnt, formIdx: FormIdx, 
         .sort(([uuid1, field1], [uuid2, field2]) => field1.meta.pidx - field2.meta.pidx)
         .map(([uuid, field]) => field);
 
-    print_FinalFields(newSortedFields, newSubmitsByUuid, doFormSubmit, { label: `packNormalFieldsAndSubmit (${formIdx ? 'cpass' : 'login'}):`, labelCss: 'color: darkcyan; font-size:0.6rem;', bodyCollapsed: formIdx === FormIdx.login });
+    print_FinalFields(newSortedFields, newSubmitsByUuid, doFormSubmit, { label: `packNormalFieldsAndSubmit (${formIdx ? 'cpass' : 'login'}):`, labelCss: 'color: darkcyan; font-size:0.6rem;', expandBody: formIdx !== FormIdx.login });
 
     const newFields = newSortedFields.map((field) => field.newMani!);
 

@@ -4,9 +4,11 @@ import { type AnyFormCtx, type FieldRowCtx } from "@/store/2-file-mani-atoms";
 import { type OldNewField, type RecordOldNewFieldByUuid } from "../0-serve-atoms/3-do-save-mani-atom/2-pack/1-normal/9-types";
 import { type PackManifestDataParams } from "../0-serve-atoms/3-do-save-mani-atom/2-pack/9-types";
 
-export function print_FinalFields(newSortedFields: OldNewField[], newSubmitsByUuid: RecordOldNewFieldByUuid, doFormSubmit: SUBMIT | undefined, { label, labelCss, bodyCollapsed = true }: Omit<PrintCollapsedText, 'bodyCss'>) {
+export function print_FinalFields(newSortedFields: OldNewField[], newSubmitsByUuid: RecordOldNewFieldByUuid, doFormSubmit: SUBMIT | undefined, styles: Omit<PrintCollapsedText, 'bodyCss'>) {
+    const { label, labelCss, expandBody } = styles;
+
     if (label) {
-        console[bodyCollapsed ? 'groupCollapsed' : 'group'](`%c${label}`, labelCss || '');
+        console[expandBody ? 'group' : 'groupCollapsed'](`%c${label}`, labelCss || '');
     }
 
     print_FieldsAsTable(newSortedFields, { label: 'Fields:', labelCss: 'color: dimgray; font-size:0.6rem;' });
@@ -27,7 +29,7 @@ export function print_FinalFields(newSortedFields: OldNewField[], newSubmitsByUu
     }
 }
 
-function print_FieldsAsTable(fields: OldNewField[], { label, labelCss }: Omit<PrintCollapsedText, 'bodyCss' | 'bodyCollapsed'>) {
+function print_FieldsAsTable(fields: OldNewField[], { label, labelCss }: Omit<PrintCollapsedText, 'bodyCss' | 'expandBody'>) {
     const colors: string[] = [];
     const items: string[] = [];
 
@@ -62,11 +64,11 @@ function print_FieldsAsTable(fields: OldNewField[], { label, labelCss }: Omit<Pr
 
 // Form fields
 
-export function print_FormFields(fieldRowCtxs: FieldRowCtx[], formIdx: FormIdx, { label, labelCss, bodyCollapsed = true }: Omit<PrintCollapsedText, 'bodyCss'>) {
+export function print_FormFields(fieldRowCtxs: FieldRowCtx[], formIdx: FormIdx, { label, labelCss, expandBody }: Omit<PrintCollapsedText, 'bodyCss'>) {
     const get = getDefaultStore().get;
 
     const groupText = `${label} %c${!formIdx ? 'login' : 'cpass'}`;
-    console[bodyCollapsed ? 'groupCollapsed' : 'group'](groupText, `font-size:0.5rem; ${!formIdx ? 'color: forestgreen;' : 'color: darkseagreen;'}`);
+    console[expandBody ? 'group' : 'groupCollapsed'](groupText, `font-size:0.5rem; ${!formIdx ? 'color: forestgreen;' : 'color: darkseagreen;'}`);
 
     // Print fields
 
@@ -97,7 +99,7 @@ export function print_FormCtx(formCtx: AnyFormCtx, formIdx: FormIdx, styles: Omi
 
 // Packed fields
 
-export function print_PackedFields(fields: Mani.Field[], { label, labelCss = '', bodyCss = '', bodyCollapsed = true, keepEmptyvalues }: { keepEmptyvalues?: boolean; } & PrintCollapsedText) {
+export function print_PackedFields(fields: Mani.Field[], { label, labelCss = '', bodyCss = '', expandBody, keepEmptyvalues }: { keepEmptyvalues?: boolean; } & PrintCollapsedText) {
     const newFields = keepEmptyvalues
         ? fields
         : fields.map(
@@ -110,12 +112,12 @@ export function print_PackedFields(fields: Mani.Field[], { label, labelCss = '',
     let text = JSON.stringify(newFields, null, 2);
     text = eatFieldsJsonNewLines(text);
 
-    print_CollapsedText(text, { label, labelCss, bodyCss, bodyCollapsed });
+    print_CollapsedText(text, { label, labelCss, bodyCss, expandBody });
 }
 
 // Meta fields
 
-export function print_ManiMetaFields(packParams: PackManifestDataParams, formIdx: FormIdx, { fullBody = false, label, labelCss = '', bodyCss = '', bodyCollapsed = true }: { fullBody?: boolean; } & PrintCollapsedText) {
+export function print_ManiMetaFields(packParams: PackManifestDataParams, formIdx: FormIdx, { fullBody = false, label, labelCss = '', bodyCss = '', expandBody }: { fullBody?: boolean; } & PrintCollapsedText) {
     const metaForm = packParams.fileUs.parsedSrc.meta?.[formIdx]; // we are guarded here by context, but still they come...
     if (!metaForm) {
         return;
@@ -126,7 +128,7 @@ export function print_ManiMetaFields(packParams: PackManifestDataParams, formIdx
     let text = JSON.stringify(onlyManiFields, null, 2);
     text = eatFieldsJsonNewLines(text);
 
-    print_CollapsedText(text, { label, labelCss, bodyCss, bodyCollapsed });
+    print_CollapsedText(text, { label, labelCss, bodyCss, expandBody });
 }
 
 function eatFieldsJsonNewLines(xml: string | undefined) {
@@ -152,11 +154,11 @@ type PrintCollapsedText = {
     label: string;
     labelCss?: string;
     bodyCss?: string;
-    bodyCollapsed?: boolean;
+    expandBody?: boolean;
 };
 
-export function print_CollapsedText(text: string, { label, labelCss = '', bodyCss = '', bodyCollapsed = true }: PrintCollapsedText) {
-    if (bodyCollapsed) {
+export function print_CollapsedText(text: string, { label, labelCss = '', bodyCss = '', expandBody }: PrintCollapsedText) {
+    if (!expandBody) {
         console.groupCollapsed(`%c${label}`, labelCss);
         console.log(`%c${text}`, bodyCss);
         console.groupEnd();

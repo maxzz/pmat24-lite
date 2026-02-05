@@ -24,7 +24,7 @@ export function createFormFieldsAtom(normal: NFormCnt | undefined, manual: MForm
                     .filter(Boolean);
             }
 
-            print_FormFields(fields || [], formIdx, { label: '👀 from getter of fieldsAtom', labelCss: 'color: dimgray; font-size:0.6rem;', bodyCollapsed: true });
+            print_FormFields(fields || [], formIdx, { label: '👀 from getter of fieldsAtom', labelCss: 'color: dimgray; font-size:0.6rem;', expandBody: false });
             return fields || [];
         }
     );
