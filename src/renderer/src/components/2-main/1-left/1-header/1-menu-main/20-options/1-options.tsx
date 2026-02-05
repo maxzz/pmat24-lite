@@ -20,14 +20,15 @@ export function MenuItem_Options() {
             </DropdownMenuSubTrigger>
             <DropdownMenuSubContent className="w-56">
 
-                <ThemeSubMenu />
-                <ZoomControl />
-                <DropdownMenuSeparator />
-
                 <DropdownMenuItem className="text-xs" onClick={() => doOpenOptionsDialog(true)} disabled={noOpenFolder}>
-                    Settings
+                    Settings...
                     <DropdownMenuShortcut className={menuShortcutClasses}>{appShortcuts.openOptions.text}</DropdownMenuShortcut>
                 </DropdownMenuItem>
+
+                <DropdownMenuSeparator />
+                <ThemeSubMenu />
+                <ZoomControl />
+
             </DropdownMenuSubContent>
         </DropdownMenuSub>
     );

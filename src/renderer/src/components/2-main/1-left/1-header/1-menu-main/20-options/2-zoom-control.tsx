@@ -27,7 +27,7 @@ export function ZoomControl() {
                         <Minus className="h-3 w-3" />
                     </Button>
 
-                    <span className="px-1 h-6 w-10 text-xs text-center tabular-nums border-x border-border flex items-center justify-center">
+                    <span className="px-1 h-6 w-10 text-xs text-center tabular-nums text-foreground/50 border-x border-border flex items-center justify-center">
                         {zoomPercent}%
                     </span>
 
