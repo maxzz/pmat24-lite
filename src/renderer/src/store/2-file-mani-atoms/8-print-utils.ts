@@ -5,7 +5,7 @@ export type PrintCollapsedText = {
     expandBody?: boolean;
 };
 
-export function print_CollapsedText(body: string, { label, labelCss, bodyCss = '', expandBody }: PrintCollapsedText) {
+export function print_CollapsedText(body: string, { label, labelCss = '', bodyCss = '', expandBody }: PrintCollapsedText) {
     const labelCssArray = Array.isArray(labelCss) ? labelCss : [labelCss];
     if (!expandBody) {
         console.groupCollapsed(`%c${label}`, ...labelCssArray);

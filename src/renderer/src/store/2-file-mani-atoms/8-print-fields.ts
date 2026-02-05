@@ -65,11 +65,10 @@ function print_FieldsAsTable(fields: OldNewField[], { label, labelCss }: Omit<Pr
 
 // Form fields
 
-export function print_FormFields(fieldRowCtxs: FieldRowCtx[], formIdx: FormIdx, { label, labelCss, expandBody }: Omit<PrintCollapsedText, 'bodyCss'>) {
+export function print_FormFieldsFromRowCtxs(fieldRowCtxs: FieldRowCtx[], formIdx: FormIdx, { label, labelCss = '', expandBody }: Omit<PrintCollapsedText, 'bodyCss'>) {
     const get = getDefaultStore().get;
 
-    const groupText = `${label} %c${!formIdx ? 'login' : 'cpass'}`;
-    console[expandBody ? 'group' : 'groupCollapsed'](groupText, `font-size:0.5rem; ${!formIdx ? 'color: forestgreen;' : 'color: darkseagreen;'}`);
+    console[expandBody ? 'group' : 'groupCollapsed'](`%c${label}`, ...(Array.isArray(labelCss) ? labelCss : [labelCss]));
 
     // Print fields
 
@@ -92,19 +91,27 @@ export function print_FormFields(fieldRowCtxs: FieldRowCtx[], formIdx: FormIdx, 
     console.groupEnd();
 }
 
-function print_FormCtx(formCtx: AnyFormCtx, formIdx: FormIdx, styles: Omit<PrintCollapsedText, 'bodyCss'>) {
-    if (formCtx.normal) {
-        print_FormFields(formCtx.normal.rowCtxs, formIdx, styles);
+export function print_FormCtxs(loginFormCtx: AnyFormCtx | undefined, cpassFormCtx: AnyFormCtx | undefined) {
+    print_FormCtx(loginFormCtx, FormIdx.login, { label: labelText('💻 createManiAtoms.login', FormIdx.login), labelCss: labelCss(FormIdx.login), expandBody: false });
+    print_FormCtx(cpassFormCtx, FormIdx.cpass, { label: labelText('💻 createManiAtoms.cpass', FormIdx.cpass), labelCss: labelCss(FormIdx.cpass), expandBody: true });
+
+    function print_FormCtx(formCtx: AnyFormCtx | undefined, formIdx: FormIdx, styles: Omit<PrintCollapsedText, 'bodyCss'>) {
+        if (formCtx?.normal) {
+            print_FormFieldsFromRowCtxs(formCtx.normal.rowCtxs, formIdx, styles);
+        }
     }
 }
 
-export function print_FormCtxs(loginFormCtx: AnyFormCtx | undefined, cpassFormCtx: AnyFormCtx | undefined) {
-    if (loginFormCtx) {
-        print_FormCtx(loginFormCtx, FormIdx.login, { label: '💻 createManiAtoms.login', labelCss: 'color: dimgray; font-size:0.6rem;', expandBody: false });
-    }
-    if (cpassFormCtx) {
-        print_FormCtx(cpassFormCtx, FormIdx.cpass, { label: '💻 createManiAtoms.cpass', labelCss: 'color: dimgray; font-size:0.6rem;', expandBody: true });
-    }
+export function print_FieldsGetter(fields: FieldRowCtx[] | undefined, formIdx: FormIdx) {
+    print_FormFieldsFromRowCtxs(fields || [], formIdx, { label: labelText('👀 From getter of fieldsAtom', formIdx), labelCss: labelCss(formIdx), expandBody: false });
+}
+
+function labelText(label: string, formIdx: FormIdx) {
+    return `${label} %c${!formIdx ? 'login' : 'cpass'}`;
+}
+
+function labelCss(formIdx: FormIdx) {
+    return ['color: dimgray; font-size:0.6rem;', `${!formIdx ? 'color: green;' : 'color: seagreen;'} font-size:0.6rem;`];
 }
 
 // Packed fields
@@ -134,7 +141,7 @@ export function print_ManiMetaFields(packParams: PackManifestDataParams, formIdx
     }
 
     const onlyManiFields = fullBody ? metaForm.fields : metaForm.fields.map((field) => field.mani);
-    
+
     let text = JSON.stringify(onlyManiFields, null, 2);
     text = eatFieldsJsonNewLines(text);
 
