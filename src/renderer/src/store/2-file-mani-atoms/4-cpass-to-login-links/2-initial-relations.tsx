@@ -29,6 +29,7 @@ function linkField(cpassField: FieldRowCtx | undefined, loginField: FieldRowCtx 
     if (!cpassField || !loginField) {
         return;
     }
+    set(cpassField.useItAtom, true);
     set(cpassField.rfieldUuidAtom, loginField.metaField.uuid); // TODO: do dbname too but when we save manifest. dbname maybe changed, so track only uuid, but maybe track both dbname only istead of uuid?
     set(cpassField.rfieldAtom, dir);
 }
