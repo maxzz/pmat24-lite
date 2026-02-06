@@ -12,7 +12,7 @@ import { doInitNewManiContentAtom, newManiContent } from "./0-ctx-content";
 import { createManiAtoms } from "../0-create-mani-ctx-atoms";
 import { createParsedFileUsFromFileContent } from "@/store/0-serve-atoms/1-do-set-files";
 import { fileUsToXmlString } from "../../3-do-save-mani-atom/0-save-atom/2-fileus-to-xml-string";
-import { print_XmlManiFile } from "../../../2-file-mani-atoms/8-print/8-print-mani";
+//import { print_XmlManiFile } from "../../../2-file-mani-atoms/8-print/8-print-mani";
 
 /**
  * Create new manifest inside newManiContent atoms and allow to move to the next page.
@@ -46,7 +46,7 @@ export async function createFileUsByQueryXml({ params: { hwnd, manual }, showPro
     }
 
     set(newManiContent.maniXmlStrAtom, sawManiXmlStr);
-    print_XmlManiFile(sawManiXmlStr, { label: 'XML from NAPI:', labelCss: 'color: mediumvioletred; font-size: 0.65rem;', bodyCss: 'color: firebrick; font-size: 0.5rem;', expandBody: false });
+    //print_XmlManiFile(sawManiXmlStr, { label: 'XML from NAPI:', labelCss: 'color: mediumvioletred; font-size: 0.65rem;', bodyCss: 'color: firebrick; font-size: 0.5rem;', expandBody: false });
 
     // 3. Parse maniXml to fileUs
     try {
@@ -74,7 +74,7 @@ export async function createFileUsByQueryXml({ params: { hwnd, manual }, showPro
 
             fileUsChanges.setCpass({ fileUs: fileUs_ForCpass }, true);
 
-            const xml = await fileUsToXmlString(fileUsAtom_ForCpass, false, getset); print_XmlManiFile(xml, { label: 'XML for cpass from fileUs:', labelCss: 'color: mediumvioletred; font-size: 0.65rem;', bodyCss: 'color: firebrick; font-size: 0.5rem;', expandBody: false });
+            const xml = await fileUsToXmlString(fileUsAtom_ForCpass, false, getset); //print_XmlManiFile(xml, { label: 'XML for cpass from fileUs:', labelCss: 'color: mediumvioletred; font-size: 0.65rem;', bodyCss: 'color: firebrick; font-size: 0.5rem;', expandBody: false });
             set(fileUs_ForCpass.rawCpassAtom, xml);
 
             //TODO: tweak xml, now or later on save?

@@ -24,7 +24,7 @@ export function createManiAtoms({ fileUs, fileUsAtom, embeddTo }: { fileUs: File
         const loginFormCtx = createFormCtx({ fileUs, fileUsAtom, formIdx: FormIdx.login });
         const cpassFormCtx = createFormCtx({ fileUs, fileUsAtom, formIdx: FormIdx.cpass });
 
-        print_FormCtxs(loginFormCtx, cpassFormCtx);
+        //print_FormCtxs(loginFormCtx, cpassFormCtx);
 
         rv.push(loginFormCtx);
         rv.push(cpassFormCtx);
@@ -42,7 +42,7 @@ export function createManiAtoms({ fileUs, fileUsAtom, embeddTo }: { fileUs: File
         const loginFormCtx: AnyFormCtx = safeByContext(embeddTo[FormIdx.login]); // see note (*1)
         const cpassFormCtx: AnyFormCtx = safeByContext(createFormCtx(cpassScope));
 
-        print_FormCtxs(loginFormCtx, cpassFormCtx);
+        //print_FormCtxs(loginFormCtx, cpassFormCtx);
 
         cpassScope.fileUs = loginFormCtx.fileUsCtx.fileUs;
         cpassScope.fileUsAtom = loginFormCtx.fileUsCtx.fileUsAtom;
