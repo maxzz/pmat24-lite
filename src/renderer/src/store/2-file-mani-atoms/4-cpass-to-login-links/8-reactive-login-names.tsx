@@ -1,8 +1,7 @@
-import { type FileUsCtx, getAllFormsFields_byFileUsCtx } from "@/store/2-file-mani-atoms";
 import { atom } from "jotai";
 import { atomFamily } from "jotai-family";
 import { type OptionTextValue, FieldTyp } from "@/store/8-manifest";
-
+import { type FileUsCtx, getAllFormsFields_byFileUsCtx } from "@/store/2-file-mani-atoms";
 
 export const getDropdownNamesAtom = atomFamily(
     (fileUsCtx: FileUsCtx) => atom(
@@ -24,7 +23,6 @@ export const getDropdownNamesAtom = atomFamily(
             }
 
             //console.log('getDropdownNamesAtom', JSON.stringify(rv));
-
             return rv;
         }
     )

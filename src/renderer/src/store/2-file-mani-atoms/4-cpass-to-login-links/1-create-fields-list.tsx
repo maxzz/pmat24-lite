@@ -1,7 +1,7 @@
 import { type Atom, atom } from "jotai";
 import { FormIdx } from "@/store/8-manifest";
 import { type FieldRowCtx, type MFormCnt, type NFormCnt } from "../9-types";
-import { print_FieldsGetter } from "../8-print/8-print-fields";
+//import { print_FieldsGetter } from "../8-print/8-print-fields";
 
 export function createFormFieldsAtom(normal: NFormCnt | undefined, manual: MFormCnt | undefined, formIdx: FormIdx): Atom<FieldRowCtx[]> {
     const rv = atom<FieldRowCtx[]>(
@@ -24,7 +24,7 @@ export function createFormFieldsAtom(normal: NFormCnt | undefined, manual: MForm
                     .filter(Boolean);
             }
 
-            print_FieldsGetter(fields, formIdx);
+            //print_FieldsGetter(fields, formIdx);
             return fields || [];
         }
     );

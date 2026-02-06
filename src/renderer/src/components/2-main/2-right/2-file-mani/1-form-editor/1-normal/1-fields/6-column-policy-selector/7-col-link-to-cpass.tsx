@@ -1,18 +1,15 @@
 import { atom, useAtomValue, useSetAtom } from "jotai";
 import { classNames } from "@/utils";
 import { FieldTyp } from "@/store/8-manifest";
-import { type FieldRowCtx, type FileUsCtx, buildLoginFieldsDropdownAtom, getAllFormsFields_byFileUsCtx } from "@/store/2-file-mani-atoms";
 import { SelectTm } from "@/ui/local-ui";
-import { getDropdownNamesAtom } from "./8-reactive-login-names";
+import { type FieldRowCtx, type FileUsCtx, getAllFormsFields_byFileUsCtx } from "@/store/2-file-mani-atoms";
+import { getDropdownNamesAtom } from "@/store/2-file-mani-atoms/4-cpass-to-login-links/8-reactive-login-names";
 
 export function Case_LinkToLoginForm({ rowCtx, fileUsCtx }: { rowCtx: FieldRowCtx; fileUsCtx: FileUsCtx; }) {
     const { rfieldUuidAtom } = rowCtx;
+    const dropdownNames = useAtomValue(getDropdownNamesAtom(fileUsCtx));
     const rindexUuid = useAtomValue(rfieldUuidAtom);
     const setRefUuid = useSetAtom(onSetRefUuidAtom);
-    //const dropdownAllItems = useSetAtom(buildLoginFieldsDropdownAtom)(rowCtx, fileUsCtx);
-
-    const dropdownNames = useAtomValue(getDropdownNamesAtom(fileUsCtx));
-    //console.log('dropdownNames', dropdownNames);
 
     function onValueChange(value: string) {
         setRefUuid(rowCtx, value, fileUsCtx);
@@ -21,7 +18,6 @@ export function Case_LinkToLoginForm({ rowCtx, fileUsCtx }: { rowCtx: FieldRowCt
     return (
         <SelectTm
             triggerClasses={classNames("w-24", `${rindexUuid}` === '0' && inputAsRefClasses)}
-            // items={dropdownAllItems}
             items={dropdownNames}
             value={`${rindexUuid}`}
             onValueChange={onValueChange}
@@ -54,5 +50,3 @@ function getInPswFormFieldIdx(uuid: number, fileUsCtx: FileUsCtx, getOnly: GetOn
     const thisIdx = cpassPasswords.findIndex((field) => field.metaField.uuid === uuid);
     return thisIdx;
 }
-
-
