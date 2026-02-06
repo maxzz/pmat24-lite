@@ -1,7 +1,8 @@
 import { type FileUsCtx, getAllFormsFields_byFileUsCtx } from "@/store/2-file-mani-atoms";
 import { atom } from "jotai";
 import { atomFamily } from "jotai-family";
-import { FieldTyp } from "pm-manifest";
+import { type OptionTextValue, FieldTyp } from "@/store/8-manifest";
+
 
 export const getDropdownNamesAtom = atomFamily(
     (fileUsCtx: FileUsCtx) => atom(
@@ -12,7 +13,7 @@ export const getDropdownNamesAtom = atomFamily(
                 (field) => get(field.typeAtom) === FieldTyp.psw
             );
 
-            const rv = loginPasswords.map(
+            const rv: OptionTextValue[] = loginPasswords.map(
                 (field) => [get(field.labelAtom) || "Without a label", `${field.metaField.uuid}`]
             );
 

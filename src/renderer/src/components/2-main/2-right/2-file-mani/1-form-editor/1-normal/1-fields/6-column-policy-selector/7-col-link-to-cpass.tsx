@@ -11,8 +11,8 @@ export function Case_LinkToLoginForm({ rowCtx, fileUsCtx }: { rowCtx: FieldRowCt
     const setRefUuid = useSetAtom(onSetRefUuidAtom);
     const dropdownAllItems = useSetAtom(buildLoginFieldsDropdownAtom)(rowCtx, fileUsCtx);
 
-    // const dropdownNames = useAtomValue(getDropdownNamesAtom(fileUsCtx));
-    // console.log('dropdownNames', dropdownNames);
+    const dropdownNames = useAtomValue(getDropdownNamesAtom(fileUsCtx));
+    //console.log('dropdownNames', dropdownNames);
 
     function onValueChange(value: string) {
         setRefUuid(rowCtx, value, fileUsCtx);
@@ -21,7 +21,8 @@ export function Case_LinkToLoginForm({ rowCtx, fileUsCtx }: { rowCtx: FieldRowCt
     return (
         <SelectTm
             triggerClasses={classNames("w-24", `${rindexUuid}` === '0' && inputAsRefClasses)}
-            items={dropdownAllItems}
+            // items={dropdownAllItems}
+            items={dropdownNames}
             value={`${rindexUuid}`}
             onValueChange={onValueChange}
         />
