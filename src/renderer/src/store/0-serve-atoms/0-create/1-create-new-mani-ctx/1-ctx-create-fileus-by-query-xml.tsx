@@ -12,7 +12,7 @@ import { doInitNewManiContentAtom, newManiContent } from "./0-ctx-content";
 import { createManiAtoms } from "../0-create-mani-ctx-atoms";
 import { createParsedFileUsFromFileContent } from "@/store/0-serve-atoms/1-do-set-files";
 import { fileUsToXmlString } from "../../3-do-save-mani-atom/0-save-atom/2-fileus-to-xml-string";
-import { print_XmlManiFile } from "../../../2-file-mani-atoms/8-print-mani";
+import { print_XmlManiFile } from "../../../2-file-mani-atoms/8-print/8-print-mani";
 
 /**
  * Create new manifest inside newManiContent atoms and allow to move to the next page.

@@ -6,7 +6,7 @@ import { getManiDispNameAtomAtom } from "@/store/2-file-mani-atoms/3-options";
 import { doManiNameDlgAtom } from "../../5-do-delete-rename-reveal-quit";
 import { stopIfInvalidAny } from "../1-stop-if-validation-failed";
 import { fceItemValueToCatalogItemInFile, packManifest } from "../2-pack";
-import { print_JsonManifest } from "../../../2-file-mani-atoms/8-print-mani";
+import { print_JsonManifest } from "../../../2-file-mani-atoms/8-print/8-print-mani";
 
 /**
  * @param validate - validation is ommited when we get xml after cpass created
@@ -59,7 +59,7 @@ async function getManiContentText(fileUs: FileUs, fileUsAtom: FileUsAtom, maniAt
     const root: FileMani.Manifest = toManiFileFormat(newMani);
     const rv = convertToXmlString({ mani: root });
 
-    print_XmlResult({ xml: rv.xml, inManiFormat: newMani, inFileFormat: root });
+    //print_XmlResult({ xml: rv.xml, inManiFormat: newMani, inFileFormat: root });
     return rv;
 }
 
@@ -98,7 +98,7 @@ function getFcContentText(fceAtoms: FceAtoms, validate: boolean, { get }: GetSet
 
 function print_XmlResult({ xml, inManiFormat, inFileFormat }: { xml: string | undefined; inManiFormat: Partial<Mani.Manifest>; inFileFormat: Mani.Manifest | FileMani.Manifest; }) {
     if (xml) {
-        print_JsonManifest(inFileFormat, { label: 'XML result in File format: 🚀', labelCss: 'color: mediumvioletred; font-size: 0.65rem;', bodyCss: 'color: darkslategray; font-size: 0.5rem', expandBody: false, dropEmptyvalues: true });
-        print_JsonManifest(inManiFormat, { label: 'XML result in Mani format: 🚀', labelCss: 'color: mediumvioletred; font-size: 0.65rem;', bodyCss: 'color: forestgreen; font-size: 0.5rem', expandBody: false, dropEmptyvalues: true });
+        print_JsonManifest(inFileFormat, { label: 'XML from fileUsToXmlString() in File format: 🚀', labelCss: 'color: mediumvioletred; font-size: 0.65rem;', bodyCss: 'color: darkslategray; font-size: 0.5rem', expandBody: false, dropEmptyvalues: true });
+        print_JsonManifest(inManiFormat, { label: 'XML from fileUsToXmlString() in Mani format: 🚀', labelCss: 'color: mediumvioletred; font-size: 0.65rem;', bodyCss: 'color: forestgreen; font-size: 0.5rem', expandBody: false, dropEmptyvalues: true });
     }
 }

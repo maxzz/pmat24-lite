@@ -5,7 +5,7 @@ import { type MFormCnt, type NFormCnt, type FileUsCtx, type AnyFormCtx, type Man
 import { createFormFieldsAtom, launchDataIdx, ManualFieldsState, NormalModeState, OptionsState } from "@/store/2-file-mani-atoms";
 import { type LaunchDataAll } from "../../8-launch-data/9-launch-types";
 import { getLaunchData } from "../../8-launch-data/1-get-launch-data";
-import { print_FormCtxs } from "@/store/2-file-mani-atoms/8-print-fields";
+import { print_FormCtxs } from "@/store/2-file-mani-atoms/8-print/8-print-fields";
 
 /**
  * @param embeddTo - If defined then new atoms will be added to existing ManiAtoms. This is used when we create new manifest and use it for cpass.
