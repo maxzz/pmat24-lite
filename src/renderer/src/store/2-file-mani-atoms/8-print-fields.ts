@@ -12,7 +12,7 @@ export function print_FinalFields(newSortedFields: OldNewField[], newSubmitsByUu
         console[expandBody ? 'group' : 'groupCollapsed'](`%c${label}`, labelCss || '');
     }
 
-    print_FieldsAsTable(newSortedFields, { label: 'Fields:', labelCss: 'color: dimgray; font-size:0.6rem;' });
+    print_FieldsAsList(newSortedFields, { label: 'Fields:', labelCss: 'color: dimgray; font-size:0.6rem;' });
 
     console.log(`%cForm submit: doFormSubmit=${doFormSubmit}`, 'color: dimgray; font-size:0.6rem;');
 
@@ -30,7 +30,7 @@ export function print_FinalFields(newSortedFields: OldNewField[], newSubmitsByUu
     }
 }
 
-function print_FieldsAsTable(fields: OldNewField[], { label, labelCss }: Omit<PrintCollapsedText, 'bodyCss' | 'expandBody'>) {
+function print_FieldsAsList(fields: OldNewField[], { label, labelCss }: Omit<PrintCollapsedText, 'bodyCss' | 'expandBody'>) {
     const colors: string[] = [];
     const items: string[] = [];
 
