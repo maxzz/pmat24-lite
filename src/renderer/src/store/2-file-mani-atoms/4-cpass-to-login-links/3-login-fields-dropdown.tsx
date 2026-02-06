@@ -11,7 +11,8 @@ export const buildLoginFieldsDropdownAtom = atom(
         const loginPasswords = loginFields.filter((field) => get(field.typeAtom) === FieldTyp.psw);
         //print_Fields(rowCtx, loginPasswords, fileUsCtx.formIdx, { get });
 
-        const rv = loginPasswords.map<OptionTextValue>((field) => ([get(field.labelAtom), `${field.metaField.uuid}`]));
+        const label = get(rowCtx.labelAtom) || 'Without a label';
+        const rv = loginPasswords.map<OptionTextValue>((field) => ([label, `${field.metaField.uuid}`]));
 
         if (loginPasswords.length) {
             rv.unshift(['Not linked', '0']); // vs. 'No link'
