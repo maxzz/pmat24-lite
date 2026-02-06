@@ -1,9 +1,9 @@
 import { atom, useAtomValue, useSetAtom } from "jotai";
-import { atomFamily } from "jotai-family";
 import { classNames } from "@/utils";
 import { FieldTyp } from "@/store/8-manifest";
 import { type FieldRowCtx, type FileUsCtx, buildLoginFieldsDropdownAtom, getAllFormsFields_byFileUsCtx } from "@/store/2-file-mani-atoms";
 import { SelectTm } from "@/ui/local-ui";
+import { getDropdownNamesAtom } from "./8-reactive-login-names";
 
 export function Case_LinkToLoginForm({ rowCtx, fileUsCtx }: { rowCtx: FieldRowCtx; fileUsCtx: FileUsCtx; }) {
     const { rfieldUuidAtom } = rowCtx;
@@ -11,8 +11,8 @@ export function Case_LinkToLoginForm({ rowCtx, fileUsCtx }: { rowCtx: FieldRowCt
     const setRefUuid = useSetAtom(onSetRefUuidAtom);
     const dropdownAllItems = useSetAtom(buildLoginFieldsDropdownAtom)(rowCtx, fileUsCtx);
 
-    const dropdownNames = useAtomValue(getDropdownNamesAtom(fileUsCtx));
-    console.log('dropdownNames', dropdownNames);
+    // const dropdownNames = useAtomValue(getDropdownNamesAtom(fileUsCtx));
+    // console.log('dropdownNames', dropdownNames);
 
     function onValueChange(value: string) {
         setRefUuid(rowCtx, value, fileUsCtx);
@@ -54,10 +54,4 @@ function getInPswFormFieldIdx(uuid: number, fileUsCtx: FileUsCtx, getOnly: GetOn
     return thisIdx;
 }
 
-export const getDropdownNamesAtom = atomFamily((fileUsCtx: FileUsCtx) =>
-    atom((get) => {
-        const loginFields = getAllFormsFields_byFileUsCtx(fileUsCtx, { get }).login;
-        const loginPasswords = loginFields.filter((field) => get(field.typeAtom) === FieldTyp.psw);
-        return loginPasswords.map((field) => get(field.labelAtom) || "Without a label");
-    })
-);
+

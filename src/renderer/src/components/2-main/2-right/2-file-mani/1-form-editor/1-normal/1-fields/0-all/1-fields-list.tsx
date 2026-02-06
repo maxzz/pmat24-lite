@@ -4,9 +4,15 @@ import { FormIdx } from "@/store/8-manifest";
 import { type NFormProps } from "@/store/2-file-mani-atoms";
 import { FieldRow } from "./2-field-row";
 import { TableHeader, getFieldsGridClasses } from "./3-fields-header";
+import { useAtomValue } from "jotai";
+import { getDropdownNamesAtom } from "../6-column-policy-selector/8-reactive-login-names";
 
 export function FieldsList({ nFormProps }: { nFormProps: NFormProps; }) {
     const noFields = !nFormProps.nFormCtx.normal.rowCtxs.length;
+
+    const dropdownNames = useAtomValue(getDropdownNamesAtom(nFormProps.nFormCtx.fileUsCtx));
+    console.log('dropdownNames', dropdownNames);
+
     return (<>
         {noFields
             ? (
