@@ -87,10 +87,12 @@ function getTotalCountErrorMessage(totalCount: TotalCount, formIdx: FormIdx): Ve
                 error = 'Only one field can be linked to the password entry in the login form.';
             }
             else if (!nLinkedCurPsw) {
-                error = 'The password change form does not contain a link to the password entry in the login form. To create a link, you must select a field, link it to the password field on the login form, and specify it as the current confirm password.';
+                error = 'The password change form does not contain a link to the password entry in the login form. To create a link, you must select a field, mark it as used, link it to the password field on the login form, and specify it as the current password.';
             }
             else if (!nLinkedNewPsw) {
-                error = 'The password change form does not contain links to the login form indicating where to save the new password. To create a link, you must select a field, link it to the password field on the login form, and specify it as the new password or confirm password.';
+                error = 'You have not established connections with the login form indicating where the new password should be saved. To create a link, you need to select a field, mark it as used, link it to the password field in the login form, and specify that this field is intended for the new password.';
+                // error = 'You have not established connections with the login form indicating where the new password should be saved. To create a link, you need to select a field, mark it as used, link it to the password field in the login form, and specify that this field is intended for the new password or password confirmation.';
+                // error = 'The password change form does not contain links to the login form indicating where to save the new password. To create a link, you must select a field, link it to the password field on the login form, and specify it as the new password or confirm password.';
             }
         }
     }
