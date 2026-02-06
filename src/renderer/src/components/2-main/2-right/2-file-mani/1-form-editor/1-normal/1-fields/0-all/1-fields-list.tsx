@@ -10,8 +10,13 @@ import { getDropdownNamesAtom } from "../6-column-policy-selector/8-reactive-log
 export function FieldsList({ nFormProps }: { nFormProps: NFormProps; }) {
     const noFields = !nFormProps.nFormCtx.normal.rowCtxs.length;
 
-    const dropdownNames = useAtomValue(getDropdownNamesAtom(nFormProps.nFormCtx.fileUsCtx));
-    console.log('dropdownNames', dropdownNames);
+    // const fields = useAtomValue(nFormProps.nFormCtx.fieldsAtom);
+    // console.log('fields', fields);
+
+    // const dropdownNames = useAtomValue(getDropdownNamesAtom(nFormProps.nFormCtx.fileUsCtx));
+    // console.log('dropdownNames', dropdownNames);
+
+    // console.log('nFormProps', nFormProps);
 
     return (<>
         {noFields

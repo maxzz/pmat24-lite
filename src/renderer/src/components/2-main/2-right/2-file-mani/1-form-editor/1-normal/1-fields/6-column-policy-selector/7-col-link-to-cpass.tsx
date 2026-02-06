@@ -9,7 +9,7 @@ export function Case_LinkToLoginForm({ rowCtx, fileUsCtx }: { rowCtx: FieldRowCt
     const { rfieldUuidAtom } = rowCtx;
     const rindexUuid = useAtomValue(rfieldUuidAtom);
     const setRefUuid = useSetAtom(onSetRefUuidAtom);
-    const dropdownAllItems = useSetAtom(buildLoginFieldsDropdownAtom)(rowCtx, fileUsCtx);
+    //const dropdownAllItems = useSetAtom(buildLoginFieldsDropdownAtom)(rowCtx, fileUsCtx);
 
     const dropdownNames = useAtomValue(getDropdownNamesAtom(fileUsCtx));
     //console.log('dropdownNames', dropdownNames);

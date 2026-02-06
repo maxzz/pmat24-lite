@@ -8,7 +8,10 @@ export const buildLoginFieldsDropdownAtom = atom(
     null,
     (get, set, rowCtx: FieldRowCtx, fileUsCtx: FileUsCtx): OptionTextValue[] => {
         const loginFields = getAllFormsFields_byFileUsCtx(fileUsCtx, { get }).login;
-        const loginPasswords = loginFields.filter((field) => get(field.typeAtom) === FieldTyp.psw);
+        
+        const loginPasswords = loginFields.filter(
+            (field) => get(field.typeAtom) === FieldTyp.psw
+        );
         //print_Fields(rowCtx, loginPasswords, fileUsCtx.formIdx, { get });
 
         const label = get(rowCtx.labelAtom) || 'Without a label';

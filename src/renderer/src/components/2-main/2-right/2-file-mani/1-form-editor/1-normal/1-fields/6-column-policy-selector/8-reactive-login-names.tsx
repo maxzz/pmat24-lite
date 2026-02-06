@@ -14,10 +14,16 @@ export const getDropdownNamesAtom = atomFamily(
             );
 
             const rv: OptionTextValue[] = loginPasswords.map(
-                (field) => [get(field.labelAtom) || "Without a label", `${field.metaField.uuid}`]
+                (field) => [get(field.labelAtom) || "No label", `${field.metaField.uuid}`]
             );
 
-            console.log('getDropdownNamesAtom', JSON.stringify(rv));
+            if (loginPasswords.length) {
+                rv.unshift(['Not linked', '0']);  // vs. 'No link'
+            } else {
+                rv.unshift(['No password', '0']); // There is no password in the login form
+            }
+
+            //console.log('getDropdownNamesAtom', JSON.stringify(rv));
 
             return rv;
         }
