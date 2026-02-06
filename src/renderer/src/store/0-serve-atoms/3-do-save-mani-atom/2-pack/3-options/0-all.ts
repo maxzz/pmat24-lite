@@ -34,7 +34,7 @@ function detectionForMani(values: FormOptionsState.ForAtoms): Mani.Detection {
 
     const rv: Mani.Detection = {
         caption,
-        variablecaption,
+        variablecaption: caption === variablecaption ? undefined : variablecaption, // Only include variablecaption if it's different from caption
 
         web_ourl: detect.ourl,
         web_murl: getMurl(detect),
