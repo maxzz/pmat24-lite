@@ -8,20 +8,20 @@ export function getTotalCountError(fieldRowCtxs: FieldRowCtx[], formIdx: FormIdx
 }
 
 type TotalCount = {
-    useItAny: number;
-    useItPsw: number;
-    linkedCur: number;
-    linkedNew: number;
+    nUseItAny: number;           // number of fields in use
+    nUseItPsw: number;           // number of password fields in use
+    nLinkedCurPsw: number;       // number of linked fields to the current password field
+    nLinkedNewPsw: number;       // number of linked fields to the new password field
 };
 
 // 1. Counts the total number of fields in use and the number of linked fields
 
 function totalFieldsInUse(rowCtxs: FieldRowCtx[] | undefined, get: Getter): TotalCount {
     const rv: TotalCount = {
-        useItAny: 0,
-        useItPsw: 0,
-        linkedCur: 0,
-        linkedNew: 0,
+        nUseItAny: 0,
+        nUseItPsw: 0,
+        nLinkedCurPsw: 0,
+        nLinkedNewPsw: 0,
     };
 
     rowCtxs?.forEach(
@@ -33,38 +33,44 @@ function totalFieldsInUse(rowCtxs: FieldRowCtx[] | undefined, get: Getter): Tota
 
 function processFieldRowCtx(fieldRowCtx: FieldRowCtx, rv: TotalCount, get: Getter): void {
     const useIt = get(fieldRowCtx.useItAtom);
-    if (useIt) {
-        rv.useItAny++;
+    if (!useIt) {
+        return;
+    }
+    rv.nUseItAny++;
 
-        const isPsw = get(fieldRowCtx.typeAtom) === FieldTyp.psw;
-        if (isPsw) {
-            rv.useItPsw++;
+    const isPsw = get(fieldRowCtx.typeAtom) === FieldTyp.psw;
+    if (!isPsw) {
+        return;
+    }
+    rv.nUseItPsw++;
 
-            const rfield = get(fieldRowCtx.rfieldAtom);
-            if (rfield) {
-                const isCurrent = rfield === 'in';
-                const isNew = rfield === 'out';
+    const rfield = get(fieldRowCtx.rfieldAtom);
+    if (!rfield) {
+        return;
+    }
 
-                if (isCurrent || isNew) {
+    const isDirCurPsw = rfield === 'in';
+    const isDirNewPsw = rfield === 'out';
 
-                    const isLinked = !!get(fieldRowCtx.rfieldUuidAtom);
-                    if (isLinked) {
-                        if (isCurrent) {
-                            rv.linkedCur++;
-                        } else if (isNew) {
-                            rv.linkedNew++;
-                        }
-                    }
-                }
+    if (isDirCurPsw || isDirNewPsw) {
+        const isLinked = !!get(fieldRowCtx.rfieldUuidAtom);
+        if (isLinked) {
+            if (isDirCurPsw) {
+                rv.nLinkedCurPsw++;
+            }
+            else if (isDirNewPsw) {
+                rv.nLinkedNewPsw++;
             }
         }
-
     }
 }
 
 // 2. Returns the error message if the total number of fields in use and the number of linked fields is not valid
 
-function getTotalCountErrorMessage({ useItAny, useItPsw, linkedCur, linkedNew }: TotalCount, formIdx: FormIdx): VerifyError[] | undefined { // Only first error is returned since we use toast to show it
+function getTotalCountErrorMessage(totalCount: TotalCount, formIdx: FormIdx): VerifyError[] | undefined { // Only first error is returned since we use toast to show it
+    const { nUseItAny, nUseItPsw, nLinkedCurPsw, nLinkedNewPsw } = totalCount;
+
+    const rv: VerifyError[] = [];
     let error: string | undefined;
 
     const isLogin = formIdx === FormIdx.login;
@@ -73,11 +79,11 @@ function getTotalCountErrorMessage({ useItAny, useItPsw, linkedCur, linkedNew }:
 
     let tab: ManiTabValue = isLogin ? 'login' : 'cpass';
 
-    if (!useItAny) {
+    if (!nUseItAny) {
         error = 'There are no fields selected';
     }
 
-    if (!useItPsw) {
+    if (!nUseItPsw) {
         error = 'There are no password fields selected';
     }
 
@@ -86,13 +92,13 @@ function getTotalCountErrorMessage({ useItAny, useItPsw, linkedCur, linkedNew }:
     if (!error && !isLogin) {
         tab = 'cpass';
 
-        if (linkedCur > 1) {
+        if (nLinkedCurPsw > 1) {
             error = 'Only one field can be linked to the password entry in the login form.';
         }
-        else if (!linkedCur) {
+        else if (!nLinkedCurPsw) {
             error = 'The password change form does not contain a link to the password entry in the login form. To create a link, you must select a field, link it to the password field on the login form, and specify it as the current confirm password.';
         }
-        else if (!linkedNew) {
+        else if (!nLinkedNewPsw) {
             error = 'The password change form does not contain links to the login form indicating where to save the new password. To create a link, you must select a field, link it to the password field on the login form, and specify it as the new password or confirm password.';
         }
     }
