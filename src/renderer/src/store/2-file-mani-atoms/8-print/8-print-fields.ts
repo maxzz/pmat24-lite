@@ -1,6 +1,6 @@
 import { getDefaultStore } from "jotai";
 import { type Mani, filterOneLevelEmptyValues, FormIdx, SUBMIT } from "@/store/8-manifest";
-import { type AnyFormCtx, type FieldRowCtx } from "@/store/2-file-mani-atoms";
+import { type ManiAtoms, type AnyFormCtx, type FieldRowCtx } from "@/store/2-file-mani-atoms";
 import { type OldNewField, type RecordOldNewFieldByUuid } from "../../0-serve-atoms/3-do-save-mani-atom/2-pack/1-normal/9-types";
 import { type PackManifestDataParams } from "../../0-serve-atoms/3-do-save-mani-atom/2-pack/9-types";
 import { type PrintCollapsedText, eatFieldsJsonNewLines, print_CollapsedText } from "./8-print-utils";
@@ -65,26 +65,34 @@ function print_FieldsAsList(fields: OldNewField[], { label, labelCss }: Omit<Pri
 
 // Form fields
 
-export function print_FormCtxs(loginFormCtx: AnyFormCtx | undefined, cpassFormCtx: AnyFormCtx | undefined) {
-    print_FormCtx(loginFormCtx, FormIdx.login, { label: labelText('💻 createManiAtoms.login', FormIdx.login), labelCss: labelCss(FormIdx.login), expandBody: false });
-    print_FormCtx(cpassFormCtx, FormIdx.cpass, { label: labelText('💻 createManiAtoms.cpass', FormIdx.cpass), labelCss: labelCss(FormIdx.cpass), expandBody: false });
+export function print_ManiAtomsForms(maniAtoms: ManiAtoms, { label }: { label: string }) {
+    const loginFormCtx = maniAtoms[FormIdx.login];
+    const cpassFormCtx = maniAtoms[FormIdx.cpass];
 
-    function print_FormCtx(formCtx: AnyFormCtx | undefined, formIdx: FormIdx, styles: Omit<PrintCollapsedText, 'bodyCss'>) {
-        if (formCtx?.normal) {
-            print_FormFieldsFromRowCtxs(formCtx.normal.rowCtxs, formIdx, styles);
-        }
+    print_FormCtx(loginFormCtx, FormIdx.login, { label: labelText(`💻 ${label}.login`, FormIdx.login), labelCss: labelFormCss(FormIdx.login), expandBody: false });
+    print_FormCtx(cpassFormCtx, FormIdx.cpass, { label: labelText(`💻 ${label}.cpass`, FormIdx.cpass), labelCss: labelFormCss(FormIdx.cpass), expandBody: false });
+}
+
+export function print_FormCtxs(loginFormCtx: AnyFormCtx | undefined, cpassFormCtx: AnyFormCtx | undefined) {
+    print_FormCtx(loginFormCtx, FormIdx.login, { label: labelText('💻 createManiAtoms.login', FormIdx.login), labelCss: labelFormCss(FormIdx.login), expandBody: false });
+    print_FormCtx(cpassFormCtx, FormIdx.cpass, { label: labelText('💻 createManiAtoms.cpass', FormIdx.cpass), labelCss: labelFormCss(FormIdx.cpass), expandBody: false });
+}
+
+function print_FormCtx(formCtx: AnyFormCtx | undefined, formIdx: FormIdx, styles: Omit<PrintCollapsedText, 'bodyCss'>) {
+    if (formCtx?.normal) {
+        print_FormFieldsFromRowCtxs(formCtx.normal.rowCtxs, formIdx, styles);
     }
 }
 
 export function print_FieldsGetter(fields: FieldRowCtx[] | undefined, formIdx: FormIdx) {
-    print_FormFieldsFromRowCtxs(fields || [], formIdx, { label: labelText('👀 From getter of fieldsAtom', formIdx), labelCss: labelCss(formIdx), expandBody: false });
+    print_FormFieldsFromRowCtxs(fields || [], formIdx, { label: labelText('👀 From getter of fieldsAtom', formIdx), labelCss: labelFormCss(formIdx), expandBody: false });
 }
 
 function labelText(label: string, formIdx: FormIdx) {
     return `${label} %c${!formIdx ? 'login' : 'cpass'}`;
 }
 
-function labelCss(formIdx: FormIdx) {
+function labelFormCss(formIdx: FormIdx) {
     return ['color: dimgray; font-size:0.6rem;', `${!formIdx ? 'color: green;' : 'color: seagreen;'} font-size:0.6rem;`];
 }
 
@@ -117,7 +125,7 @@ function print_FormFieldsFromRowCtxs(fieldRowCtxs: FieldRowCtx[], formIdx: FormI
 // Packed fields
 
 export function print_PackedFormFields(newForm: Mani.Form, formIdx: FormIdx) {
-    const styles: PrintCollapsedText = { label: labelText(`PackForm for file:`, formIdx), labelCss: labelCss(formIdx), bodyCss: 'color: darkcyan; font-size:0.65rem;' };
+    const styles: PrintCollapsedText = { label: labelText(`PackForm for file:`, formIdx), labelCss: labelFormCss(formIdx), bodyCss: 'color: darkcyan; font-size:0.65rem;' };
     print_PackedFields(newForm.fields, { ...styles, keepEmptyvalues: false });
 }
 
