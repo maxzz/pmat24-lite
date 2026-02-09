@@ -19,12 +19,12 @@ export function OnAppMountGetProcessEnv() {
 }
 
 export function expandEnvVariablesWindows(value: string, get: Getter): string {
-    const env = get(processEnvAtom);
+    const processEnv = get(processEnvAtom);
 
     // Replace %VAR% patterns with environment variable values
     return value.replace(/%([^%]+)%/g,
         (match, varName) => {
-            const envValue = env[varName];
+            const envValue = processEnv[varName];
             return envValue !== undefined ? envValue : match;
         }
     );
@@ -35,23 +35,22 @@ export function expandEnvVariablesWindows(value: string, get: Getter): string {
  * Case-insensitive matching; longest env-value is tried first so that
  * `C:\Program Files (x86)` is matched before `C:\Program Files`.
  *
- * E.g. `C:\Program Files (x86)\MyApp\app.exe`
- *    → `%ProgramFiles(x86)%\MyApp\app.exe`
+ * e.g. `C:\Program Files (x86)\MyApp\app.exe` → `%ProgramFiles(x86)%\MyApp\app.exe`
  */
 export function replacePathWithEnvVars(filepath: string, get: Getter): string {
     if (!filepath) {
         return filepath;
     }
 
-    const env = get(processEnvAtom);
+    const processEnv = get(processEnvAtom);
 
     // Env vars whose values are folder paths we want to collapse back.
     // Order matters only as a tie-breaker; we sort by value length below.
-    const varNames = ['ProgramFiles(x86)', 'ProgramW6432', 'ProgramFiles'];
+    const varNames = ['ProgramFiles(x86)', 'ProgramW6432', 'ProgramFiles', 'LOCALAPPDATA', 'APPDATA'];
 
     const replacements = varNames
-        .filter((name) => !!env[name])
-        .map((name) => ({ name, value: env[name] }))
+        .filter((name) => !!processEnv[name])
+        .map((name) => ({ name, value: processEnv[name] }))
         .sort((a, b) => b.value.length - a.value.length); // longest first
 
     const lowerFilepath = filepath.toLowerCase();
