@@ -1,4 +1,4 @@
-import { useAtomValue } from "jotai";
+import { useAtomValue, useSetAtom } from "jotai";
 import { useSnapshot } from "valtio";
 import { classNames } from "@/utils";
 import { IconMicroscope } from "@/ui/icons";
@@ -7,6 +7,7 @@ import { appSettings } from "@/store/9-ui-state";
 import { getTreeItemDisplayText } from "@/store/store-utils";
 import { type FileUs } from "@/store/store-types";
 import { type TreeFileItemWState } from "../0-all/2-tree-action-atoms";
+import { doSetManiInTestAtom } from "@/store/0-serve-atoms/6-do-inuse-test";
 
 /**
  * This is used by main files tree.
@@ -30,14 +31,16 @@ export function TreeItemName({ fileUs, item }: { fileUs: FileUs; item: TreeFileI
 
 function TestInUseIcons({ fileUs }: { fileUs: FileUs; }) {
     const isTest = useAtomValue(fileUs.maniInTestAtom);
+    const doSetManiInTest = useSetAtom(doSetManiInTestAtom);
     // const isInUse = useAtomValue(fileUs.maniInUseAtom);
+
 
     return (<>
         {/* {isTest && (
             <IconMicroscope className="absolute right-1 size-3 text-muted-foreground" title={modeTextInTest} />
         )} */}
 
-        <IconMicroscope className={classNames("absolute right-1 size-3", isTest ? "text-muted-foreground" : "text-foreground/10")} title={modeTextInTest} />
+        <IconMicroscope className={classNames("absolute right-1 p-1 size-5 hover:bg-foreground hover:text-background! cursor-pointer rounded", isTest ? "text-muted-foreground" : "text-foreground/10")} title={modeTextInTest} onClick={() => doSetManiInTest({ fileUs, inTest: !isTest })} />
 
         {/* {!isInUse && (
             <IconNotInUse className="absolute right-1 size-3 text-muted-foreground" title={modeTextNotInUse} />
