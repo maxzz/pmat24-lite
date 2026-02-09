@@ -40,10 +40,14 @@ function TestInUseIcons({ fileUs }: { fileUs: FileUs; }) {
             <IconMicroscope className="absolute right-1 size-3 text-muted-foreground" title={modeTextInTest} />
         )} */}
 
-        <IconMicroscope className={classNames("absolute right-1 p-1 size-5 hover:bg-foreground hover:text-background! cursor-pointer rounded", isTest ? "text-muted-foreground" : "text-foreground/10")} title={modeTextInTest} onClick={() => doSetManiInTest({ fileUs, inTest: !isTest })} />
+        <IconMicroscope className={classNames(iconClasses, isTest ? iconActiveClasses : iconInactiveClasses)} title={modeTextInTest} onClick={() => doSetManiInTest({ fileUs, inTest: !isTest })} />
 
         {/* {!isInUse && (
             <IconNotInUse className="absolute right-1 size-3 text-muted-foreground" title={modeTextNotInUse} />
         )} */}
     </>);
 }
+
+const iconClasses = "absolute right-1 p-1 size-5 hover:bg-foreground hover:text-background! cursor-pointer rounded";
+const iconActiveClasses = "text-muted-foreground";
+const iconInactiveClasses = "text-foreground/10";
