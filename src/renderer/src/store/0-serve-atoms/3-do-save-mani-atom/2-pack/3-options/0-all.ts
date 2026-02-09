@@ -3,12 +3,13 @@ import { type FormOptionsState, FormOptionsConv } from "@/store/2-file-mani-atom
 import { type PackManifestDataParams } from "../9-types";
 import { packCaptionToMani } from "@/store/8-manifest/4-o-caption-pack";
 import { iconLocationToStr } from "@/store/8-manifest/4-icon-location/8-icon-location-io";
+import { replacePathWithEnvVars } from "@/store/0-serve-atoms/8-launch-data/2-process-env-atom";
 
 export function packFormOptions(optionsAtoms: FormOptionsState.AllAtoms, formIdx: FormIdx, packParams: PackManifestDataParams) {
     const detectionAndOptionsRow = FormOptionsConv.fromAtoms(optionsAtoms, packParams.getset);
 
     const rv = {
-        detection: detectionForMani(detectionAndOptionsRow),
+        detection: detectionForMani(detectionAndOptionsRow, packParams),
         options: optionsForMani(detectionAndOptionsRow, formIdx),
     };
     // console.log('options', JSON.stringify(rv, null, 2).replace(/"names_ext":\s".*",/, '"names_ext": "...",'));
@@ -27,7 +28,7 @@ function getMurl(detect: FormOptionsState.ForAtoms['p2Detect']): string { // If 
     return murl;
 }
 
-function detectionForMani(values: FormOptionsState.ForAtoms): Mani.Detection {
+function detectionForMani(values: FormOptionsState.ForAtoms, packParams: PackManifestDataParams): Mani.Detection {
     const { p2Detect: detect } = values;
 
     const { caption, variablecaption } = packCaptionToMani(detect.caption);
@@ -48,8 +49,8 @@ function detectionForMani(values: FormOptionsState.ForAtoms): Mani.Detection {
         emu_pattern: detect.emu_pattern,
         names: detect.names,
         names_ext: detect.names_ext,
-        processname: detect.processname,
-        commandline: detect.commandline,
+        processname: replacePathWithEnvVars(detect.processname, packParams.getset.get),
+        commandline: replacePathWithEnvVars(detect.commandline, packParams.getset.get),
     };
     return rv;
 }

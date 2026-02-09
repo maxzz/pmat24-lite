@@ -1,3 +1,4 @@
+import { TransformEncoding } from "@/store/8-manifest";
 import { type FormOptionsState } from "./9-types";
 
 export function fromAtoms(atoms: FormOptionsState.AllAtoms, { get }: GetOnly): FormOptionsState.ForAtoms {
@@ -31,8 +32,8 @@ export function fromAtoms(atoms: FormOptionsState.AllAtoms, { get }: GetOnly): F
             emu_pattern: get(p2Detect.emu_patternAtom).data,
             names: get(p2Detect.namesAtom).data,
             names_ext: get(p2Detect.names_extAtom).data,
-            processname: encodeURIComponent(get(p2Detect.processnameAtom).data),
-            commandline: encodeURIComponent(get(p2Detect.commandlineAtom).data),
+            processname: TransformEncoding.lowRemoveIllegal(get(p2Detect.processnameAtom).data),
+            commandline: TransformEncoding.lowRemoveIllegal(get(p2Detect.commandlineAtom).data),
 
             reCheck: get(p2Detect.reCheckAtom).data === '1',
         },

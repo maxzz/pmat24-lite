@@ -1,4 +1,4 @@
-import { Matching } from "@/store/8-manifest";
+import { Matching, TransformEncoding } from "@/store/8-manifest";
 import { type FileUsCtx } from "../../9-types";
 import { type FormOptionsState } from "./9-types";
 import { unpackCaptionFromMeta } from "@/store/8-manifest/4-o-caption-pack";
@@ -47,8 +47,8 @@ export function forAtoms(fileUsCtx: FileUsCtx): FormOptionsState.ForAtoms {
             emu_pattern: detection.emu_pattern || '',
             names: detection.names || '',
             names_ext: detection.names_ext || '',
-            processname: decodeURIComponent(detection.processname || ''),
-            commandline: decodeURIComponent(detection.commandline || ''),
+            processname: TransformEncoding.lowRestoreIllegal(detection.processname || ''),
+            commandline: TransformEncoding.lowRestoreIllegal(detection.commandline || ''),
 
             reCheck: options.recheckwindowafterfillin === '1',
         },
