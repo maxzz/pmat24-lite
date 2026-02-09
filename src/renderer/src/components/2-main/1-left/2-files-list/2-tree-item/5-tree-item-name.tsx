@@ -33,9 +33,11 @@ function TestInUseIcons({ fileUs }: { fileUs: FileUs; }) {
     // const isInUse = useAtomValue(fileUs.maniInUseAtom);
 
     return (<>
-        {isTest && (
+        {/* {isTest && (
             <IconMicroscope className="absolute right-1 size-3 text-muted-foreground" title={modeTextInTest} />
-        )}
+        )} */}
+
+        <IconMicroscope className={classNames("absolute right-1 size-3", isTest ? "text-muted-foreground" : "text-foreground/10")} title={modeTextInTest} />
 
         {/* {!isInUse && (
             <IconNotInUse className="absolute right-1 size-3 text-muted-foreground" title={modeTextNotInUse} />
