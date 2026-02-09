@@ -12,6 +12,7 @@ import { doInitNewManiContentAtom, newManiContent } from "./0-ctx-content";
 import { createManiAtoms } from "../0-create-mani-ctx-atoms";
 import { createParsedFileUsFromFileContent } from "@/store/0-serve-atoms/1-do-set-files";
 import { fileUsToXmlString } from "../../3-do-save-mani-atom/0-save-atom/2-fileus-to-xml-string";
+import { print_ManiAtomsForms } from "@/store/2-file-mani-atoms/8-print/8-print-fields";
 //import { print_XmlManiFile } from "../../../2-file-mani-atoms/8-print/8-print-mani";
 
 /**
@@ -64,6 +65,8 @@ export async function createFileUsByQueryXml({ params: { hwnd, manual }, showPro
         
         const createdManiAtoms = createManiAtoms({ fileUs, fileUsAtom: newFileUsAtom, embeddTo: maniAtoms_ForCpass });
 
+        print_ManiAtomsForms(createdManiAtoms, { label: '💻 createFileUsByQueryXml.createdManiAtoms' });
+
         if (!validManiAtomsToContinue(createdManiAtoms, !!newManiContent.maniForCpassAtom, manual, getset)) {
             return false;
         }
@@ -102,6 +105,8 @@ function validManiAtomsToContinue(maniAtoms: ManiAtoms, passwordChange: boolean,
     if (manual) {
         return true; // No need to check number of fields for manual mode
     }
+
+    print_ManiAtomsForms(maniAtoms, { label: '💻 validManiAtomsToContinue' });
 
     let message: string | undefined;
 

@@ -69,8 +69,8 @@ export function print_ManiAtomsForms(maniAtoms: ManiAtoms, { label }: { label: s
     const loginFormCtx = maniAtoms[FormIdx.login];
     const cpassFormCtx = maniAtoms[FormIdx.cpass];
 
-    print_FormCtx(loginFormCtx, FormIdx.login, { label: labelText(`💻 ${label}.login`, FormIdx.login), labelCss: labelFormCss(FormIdx.login), expandBody: false });
-    print_FormCtx(cpassFormCtx, FormIdx.cpass, { label: labelText(`💻 ${label}.cpass`, FormIdx.cpass), labelCss: labelFormCss(FormIdx.cpass), expandBody: false });
+    print_FormCtx(loginFormCtx, FormIdx.login, { label: labelText(`${label}.login`, FormIdx.login), labelCss: labelFormCss(FormIdx.login), expandBody: false });
+    print_FormCtx(cpassFormCtx, FormIdx.cpass, { label: labelText(`${label}.cpass`, FormIdx.cpass), labelCss: labelFormCss(FormIdx.cpass), expandBody: false });
 }
 
 export function print_FormCtxs(loginFormCtx: AnyFormCtx | undefined, cpassFormCtx: AnyFormCtx | undefined) {
@@ -78,14 +78,14 @@ export function print_FormCtxs(loginFormCtx: AnyFormCtx | undefined, cpassFormCt
     print_FormCtx(cpassFormCtx, FormIdx.cpass, { label: labelText('💻 createManiAtoms.cpass', FormIdx.cpass), labelCss: labelFormCss(FormIdx.cpass), expandBody: false });
 }
 
+export function print_FieldsGetter(fields: FieldRowCtx[] | undefined, formIdx: FormIdx) {
+    print_FormFieldsFromRowCtxs(fields || [], formIdx, { label: labelText('👀 From getter of fieldsAtom', formIdx), labelCss: labelFormCss(formIdx), expandBody: false });
+}
+
 function print_FormCtx(formCtx: AnyFormCtx | undefined, formIdx: FormIdx, styles: Omit<PrintCollapsedText, 'bodyCss'>) {
     if (formCtx?.normal) {
         print_FormFieldsFromRowCtxs(formCtx.normal.rowCtxs, formIdx, styles);
     }
-}
-
-export function print_FieldsGetter(fields: FieldRowCtx[] | undefined, formIdx: FormIdx) {
-    print_FormFieldsFromRowCtxs(fields || [], formIdx, { label: labelText('👀 From getter of fieldsAtom', formIdx), labelCss: labelFormCss(formIdx), expandBody: false });
 }
 
 function labelText(label: string, formIdx: FormIdx) {
