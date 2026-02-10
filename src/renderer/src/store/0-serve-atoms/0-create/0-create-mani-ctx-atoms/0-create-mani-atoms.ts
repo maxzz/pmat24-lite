@@ -5,7 +5,7 @@ import { type MFormCnt, type NFormCnt, type FileUsCtx, type AnyFormCtx, type Man
 import { createFormFieldsAtom, launchDataIdx, ManualFieldsState, NormalModeState, OptionsState } from "@/store/2-file-mani-atoms";
 import { type LaunchDataAll } from "../../8-launch-data/9-launch-types";
 import { getLaunchData } from "../../8-launch-data/1-get-launch-data";
-import { print_FormCtxs } from "@/store/2-file-mani-atoms/8-print/8-print-fields";
+import { print_FormCtxs, print_ManiAtomsForms } from "@/store/2-file-mani-atoms/8-print/8-print-fields";
 
 /**
  * @param embeddTo - If defined then new atoms will be added to existing ManiAtoms. This is used when we create new manifest and use it for cpass.
@@ -37,12 +37,14 @@ export function createManiAtoms({ fileUs, fileUsAtom, embeddTo }: { fileUs: File
     } else {
         const rv: any = [...embeddTo]; // make result immutable to trigger rerender; ref to array should be defined ahead of time
 
+        print_ManiAtomsForms(embeddTo, { label: '💻 createManiAtoms.embeddTo' });
+
         const cpassScope: FileUsCtx = { fileUs, fileUsAtom, formIdx: FormIdx.login };
 
         const loginFormCtx: AnyFormCtx = safeByContext(embeddTo[FormIdx.login]); // see note (*1)
         const cpassFormCtx: AnyFormCtx = safeByContext(createFormCtx(cpassScope));
 
-        //print_FormCtxs(loginFormCtx, cpassFormCtx);
+        print_FormCtxs(loginFormCtx, cpassFormCtx);
 
         cpassScope.fileUs = loginFormCtx.fileUsCtx.fileUs;
         cpassScope.fileUsAtom = loginFormCtx.fileUsCtx.fileUsAtom;
@@ -55,6 +57,7 @@ export function createManiAtoms({ fileUs, fileUsAtom, embeddTo }: { fileUs: File
         rv[launchDataIdx] = embeddTo[launchDataIdx];
 
         //print_CreateManiAtoms(fileUsAtom, fileUs, rv);
+        print_ManiAtomsForms(rv, { label: '💻 createManiAtoms.rv' });
         return rv;
     }
 }
