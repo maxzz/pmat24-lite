@@ -64,7 +64,7 @@ export async function createFileUsByQueryXml({ params: { hwnd, manual }, showPro
         const newFileUsAtom: FileUsAtom = fileUsAtom_ForCpass || atom(fileUs);
 
         if (!fileUs.parsedSrc.meta?.[FormIdx.login]) { // login form should be always when creating login or cpass form
-            showMessage({ set, message: 'No fields were found.', isError: false });
+            showMessage({ set, message: `No fields were found to create ${maniAtoms_ForCpass ? 'the password change' : 'login'} form.`, isError: false });
             return false;
         }
 
