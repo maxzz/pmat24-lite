@@ -1,6 +1,6 @@
 import { atom } from "jotai";
 import { errorToString } from "@/utils";
-import { FieldTyp } from "@/store/8-manifest";
+import { FieldTyp, FormIdx } from "@/store/8-manifest";
 import { fileUsChanges } from "@/store/2-file-mani-atoms/9-types";
 import { type FileUs, type FileUsAtom } from "@/store/store-types";
 import { type ManiAtoms, cFieldsIdx, lFieldsIdx, doSetInitialRelationsAtom } from "@/store/2-file-mani-atoms";
@@ -62,7 +62,11 @@ export async function createFileUsByQueryXml({ params: { hwnd, manual }, showPro
         const fileContent: FileContent = createEmptyFileContent({ raw: sawManiXmlStr, newAsManual: manual });
         const fileUs: FileUs = createParsedFileUsFromFileContent(fileContent, fileUs_ForCpass);
         const newFileUsAtom: FileUsAtom = fileUsAtom_ForCpass || atom(fileUs);
-        
+
+        if (!fileUs.parsedSrc.meta?.[FormIdx.login]) { // login form should be always when creating login or cpass form
+            throw new Error('No fields were found.');
+        }
+
         const createdManiAtoms = createManiAtoms({ fileUs, fileUsAtom: newFileUsAtom, embeddTo: maniAtoms_ForCpass });
 
         //print_ManiAtomsForms(createdManiAtoms, { label: '💻 createFileUsByQueryXml.createdManiAtoms' });
@@ -92,9 +96,9 @@ export async function createFileUsByQueryXml({ params: { hwnd, manual }, showPro
     } catch (error) {
         set(doInitNewManiContentAtom);
 
-        const message = `Cannot parse manifest content\n${errorToString(error)}`;
+        const message = errorToString(error); // const message = `Cannot parse manifest content\n${errorToString(error)}`;
         console.error(message);
-        showMessage({ set, message, isError: true });
+        showMessage({ set, message, isError: false });
         return false;
     }
 }
