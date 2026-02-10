@@ -64,7 +64,8 @@ export async function createFileUsByQueryXml({ params: { hwnd, manual }, showPro
         const newFileUsAtom: FileUsAtom = fileUsAtom_ForCpass || atom(fileUs);
 
         if (!fileUs.parsedSrc.meta?.[FormIdx.login]) { // login form should be always when creating login or cpass form
-            throw new Error('No fields were found.');
+            showMessage({ set, message: 'No fields were found.', isError: false });
+            return false;
         }
 
         const createdManiAtoms = createManiAtoms({ fileUs, fileUsAtom: newFileUsAtom, embeddTo: maniAtoms_ForCpass });
@@ -96,9 +97,9 @@ export async function createFileUsByQueryXml({ params: { hwnd, manual }, showPro
     } catch (error) {
         set(doInitNewManiContentAtom);
 
-        const message = errorToString(error); // const message = `Cannot parse manifest content\n${errorToString(error)}`;
+        const message = `Unable to retrieve page content.\n${errorToString(error)}`;
         console.error(message);
-        showMessage({ set, message, isError: false });
+        showMessage({ set, message, isError: true });
         return false;
     }
 }
