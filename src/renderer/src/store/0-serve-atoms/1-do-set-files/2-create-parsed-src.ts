@@ -38,7 +38,7 @@ function tweakNewMani({ parsedMani, maniForCpass, newAsManual, newFile }: { pars
 
     const loginForm = parsedMani.forms[0];
     if (!loginForm) {
-        throw new Error('No app detection part');
+        throw new Error('No first form found');
     }
 
     if (newAsManual) {
