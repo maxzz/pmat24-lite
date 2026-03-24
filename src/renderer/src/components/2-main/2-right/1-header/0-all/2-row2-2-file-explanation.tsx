@@ -13,7 +13,7 @@ export function Row2_Explanation({ fileUs }: { fileUs: FileUs; }) {
     const all = useAtomValue(maniAtoms[launchDataIdx]);
 
     const { meta } = fileUs.parsedSrc;
-    const prefix = all.login.isWeb ? 'The login is defined for' : isAnyManual(meta) ? 'Manually defined login for a Windows application' : 'Login for a Windows application';
+    const prefix = all.login.isWeb ? 'The login is defined for ' : isAnyManual(meta) ? 'Manually defined login for a Windows application' : 'Login for a Windows application';
 
     // const loginUrl = meta?.[0]?.mani?.detection?.web_ourl || domainName; // open domain in browser if url is not defined
     // const cpassUrl = meta?.[1]?.mani?.detection?.web_ourl;
@@ -23,8 +23,8 @@ export function Row2_Explanation({ fileUs }: { fileUs: FileUs; }) {
     const cpass = all.cpass;
 
     return (
-        <div className="min-w-0 flex items-center 1gap-1">
-            <span className="truncate">
+        <div className="min-w-0 flex items-center">
+            <span className="truncate select-none">
                 {prefix}
             </span>
 
@@ -47,7 +47,7 @@ function OpenUrlIcon({ isLogin, anchorText, url, title }: { isLogin: boolean; an
     }
     return (
         <a href={url} className={openContainerClasses} target="_blank" rel="noreferrer noopener" title={title}>
-            {anchorText}
+            <span className="pl-1">{anchorText}</span>
             <SymbolOpenLink className={classNames("mx-0.5 size-3 stroke-2", openIconClasses, isLogin && "ml-2")} />
         </a>
     );
