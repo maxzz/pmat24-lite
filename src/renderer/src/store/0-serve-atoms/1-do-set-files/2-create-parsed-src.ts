@@ -2,6 +2,7 @@ import { atom } from "jotai";
 import { type FileUs, type ParsedSrc, type FileUsStats } from "@/store/store-types";
 import { type FileContent } from "@shared/ipc-types";
 import { type Mani, defaultManualFormFields, parseXMLFile, createNewManualFormFrom, buildManiMetaForms, TimeUtils, rebuildMetaFormsWithCpassForm, FormIdx, createGuid } from "@/store/8-manifest";
+import { errorToString } from "@/utils/error-to-string";
 
 export function createParsedSrc({ fileCnt, maniForCpass }: { fileCnt: FileContent; maniForCpass: FileUs | undefined; }): ParsedSrc {
     const rv: ParsedSrc = { mani: undefined, meta: undefined, fcat: undefined, stats: {} as FileUsStats, }; // the real stats will be assigned after parsing content
@@ -18,7 +19,7 @@ export function createParsedSrc({ fileCnt, maniForCpass }: { fileCnt: FileConten
 
         tweakNewMeta({ newParsedSrc: rv, maniForCpass, newAsManual });
     } catch (error) {
-        const msg = `tm parse error: ${error}\n${fileCnt.fname}\n${fileCnt.rawLoaded}`;
+        const msg = `tm: ${errorToString(error)}\n${fileCnt.fname}\n${fileCnt.rawLoaded}`;
         fileCnt.rawLoaded = msg;
         fileCnt.failed = true;
         console.error(msg);
@@ -38,7 +39,7 @@ function tweakNewMani({ parsedMani, maniForCpass, newAsManual, newFile }: { pars
 
     const loginForm = parsedMani.forms[0];
     if (!loginForm) {
-        throw new Error('No first form found');
+        throw new Error('No first form');
     }
 
     if (newAsManual) {
