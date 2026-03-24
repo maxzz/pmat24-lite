@@ -1,13 +1,13 @@
-import { type Setter } from "jotai";
 import { doAddNextToastIdAtom } from "@/utils";
 import { notice } from "@/ui/local-ui/7-toaster";
-import { stateNapiAccess, setBuildState, splitTypedError, typedErrorToString, type TypedError } from "@/store/7-napi-atoms";
+import { type TypedError, stateNapiAccess, setBuildState, splitTypedError, typedErrorToString } from "@/store/7-napi-atoms";
 
-export function showMessage({ set, message, isError }: { set: Setter; message: string; isError?: boolean; }) {
-    set(doAddNextToastIdAtom, notice[isError ? 'error' : 'info'](message, { position: "top-center" }));
+export function showNotice({ set, message, isError }: { set: Setter; message: string; isError?: boolean; }) {
+    const id = notice[isError ? 'error' : 'info'](message, { position: "top-center" }); // show notice and append its id to the list of shown notices, so they can be dismissed at once.
+    set(doAddNextToastIdAtom, id);
 }
 
-export function showBuildErrorReason(set: Setter) {
+export function showNotice_BuildErrorReason(set: Setter) {
     if (!stateNapiAccess.buildError) {
         return;
     }
@@ -17,18 +17,18 @@ export function showBuildErrorReason(set: Setter) {
     console.error(`'getXmlCreateFileUs' ${typedErrorToString(typedError)}`);
 
     if (typedError.typed === 'canceled-by-user') {
-        showMessage({ set, message: 'Canceled' }); // OK but no need to show toast
+        showNotice({ set, message: 'Canceled' }); // OK but no need to show toast
     }
     else if (typedError.typed === 'too-many-controls') {
-        showMessage({ set, message: 'Too many controls' });
+        showNotice({ set, message: 'Too many controls' });
     }
     else if (typedError.typed === 'build-error') {
-        showMessage({ set, message: getErrorSubMessage(typedError) });
+        showNotice({ set, message: getErrorSubMessage(typedError) });
     }
     else if (typedError.extra) {
-        showMessage({ set, message: typedError.extra, isError: true });
+        showNotice({ set, message: typedError.extra, isError: true });
     } else {
-        showMessage({ set, message: 'There are no input controls in the window' });
+        showNotice({ set, message: 'There are no input controls in the window' });
     }
 
     setBuildState({ error: '' });

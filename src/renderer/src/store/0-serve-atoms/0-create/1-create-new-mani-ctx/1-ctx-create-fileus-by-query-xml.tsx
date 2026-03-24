@@ -7,7 +7,7 @@ import { type ManiAtoms, cFieldsIdx, lFieldsIdx, doSetInitialRelationsAtom } fro
 import { type ManifestForWindowCreatorParams, type FileContent } from "@shared/ipc-types";
 import { doGetWindowManiAtom, maniXmlStrAtom, stateNapiAccess } from "@/store/7-napi-atoms";
 import { createEmptyFileContent } from "@/store/store-utils";
-import { showBuildErrorReason, showMessage } from "./2-ctx-create-messages";
+import { showNotice_BuildErrorReason, showNotice } from "./2-ctx-create-messages";
 import { doInitNewManiContentAtom, newManiContent } from "./0-ctx-content";
 import { createManiAtoms } from "../0-create-mani-ctx-atoms";
 import { createParsedFileUsFromFileContent } from "@/store/0-serve-atoms/1-do-set-files";
@@ -32,7 +32,7 @@ export async function createFileUsByQueryXml({ params: { hwnd, manual }, showPro
         await set(doGetWindowManiAtom, { hwnd, manual, passwordChange: !!newManiContent.maniForCpassAtom, wantXml: true, });
 
         if (stateNapiAccess.buildError) {
-            showBuildErrorReason(set);
+            showNotice_BuildErrorReason(set);
             return false;
         }
     } finally {
@@ -42,7 +42,7 @@ export async function createFileUsByQueryXml({ params: { hwnd, manual }, showPro
     // 2. Save maniXml to the context
     const sawManiXmlStr = get(maniXmlStrAtom);
     if (!sawManiXmlStr) {
-        showBuildErrorReason(set);
+        showNotice_BuildErrorReason(set);
         return false;
     }
 
@@ -64,7 +64,7 @@ export async function createFileUsByQueryXml({ params: { hwnd, manual }, showPro
         const newFileUsAtom: FileUsAtom = fileUsAtom_ForCpass || atom(fileUs);
 
         if (!fileUs.parsedSrc.meta?.[FormIdx.login]) { // login form should be always when creating login or cpass form
-            showMessage({ set, message: `No fields were found to create ${maniAtoms_ForCpass ? 'the password change' : 'login'} form.`, isError: false });
+            showNotice({ set, message: `No fields found to create ${maniAtoms_ForCpass ? 'a password change' : 'a login'} form.`, isError: false });
             return false;
         }
 
@@ -99,7 +99,7 @@ export async function createFileUsByQueryXml({ params: { hwnd, manual }, showPro
 
         const message = `Unable to retrieve page content.\n${errorToString(error)}`;
         console.error(message);
-        showMessage({ set, message, isError: true });
+        showNotice({ set, message, isError: true });
         return false;
     }
 }
@@ -134,7 +134,7 @@ function validManiAtomsToContinue(maniAtoms: ManiAtoms, passwordChange: boolean,
     }
 
     if (message) {
-        showMessage({ set, message, isError: false });
+        showNotice({ set, message, isError: false });
         return false;
     }
 
