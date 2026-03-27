@@ -83,10 +83,10 @@ importers:
         version: 10.0.3(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
       '@tailwindcss/container-queries':
         specifier: ^0.1.1
-        version: 0.1.1(tailwindcss@4.1.18)
+        version: 0.1.1(tailwindcss@4.2.2)
       '@tailwindcss/forms':
         specifier: ^0.5.11
-        version: 0.5.11(tailwindcss@4.1.18)
+        version: 0.5.11(tailwindcss@4.2.2)
       '@tailwindcss/postcss':
         specifier: ^4.2.2
         version: 4.2.2
@@ -179,16 +179,16 @@ importers:
         version: 3.5.0
       tailwind-scrollbar:
         specifier: ^4.0.2
-        version: 4.0.2(react@19.2.4)(tailwindcss@4.1.18)
+        version: 4.0.2(react@19.2.4)(tailwindcss@4.2.2)
       tailwindcss:
-        specifier: ^4.1.18
-        version: 4.1.18
+        specifier: ^4.2.2
+        version: 4.2.2
       tailwindcss-plugin-debug-screens-tw4:
         specifier: ^1.0.3
-        version: 1.0.4(tailwindcss@4.1.18)
+        version: 1.0.4(tailwindcss@4.2.2)
       tailwindcss-plugin-overflow-tw4:
         specifier: ^1.0.0
-        version: 1.0.1(tailwindcss@4.1.18)
+        version: 1.0.1(tailwindcss@4.2.2)
       tsx:
         specifier: ^4.21.0
         version: 4.21.0
@@ -3719,9 +3719,6 @@ packages:
     peerDependencies:
       tailwindcss: ^4.0.0
 
-  tailwindcss@4.1.18:
-    resolution: {integrity: sha512-4+Z+0yiYyEtUVCScyfHCxOYP06L5Ne+JiHhY2IjR2KWMIWhJOYZKLSGZaP5HkZ8+bY0cxfzwDE5uOmzFXyIwxw==}
-
   tailwindcss@4.2.2:
     resolution: {integrity: sha512-KWBIxs1Xb6NoLdMVqhbhgwZf2PGBpPEiwOqgI4pFIYbNTfBXiKYyWoTsXgBQ9WFg/OlhnvHaY+AEpW7wSmFo2Q==}
 
@@ -5416,14 +5413,14 @@ snapshots:
     dependencies:
       defer-to-connect: 2.0.1
 
-  '@tailwindcss/container-queries@0.1.1(tailwindcss@4.1.18)':
+  '@tailwindcss/container-queries@0.1.1(tailwindcss@4.2.2)':
     dependencies:
-      tailwindcss: 4.1.18
+      tailwindcss: 4.2.2
 
-  '@tailwindcss/forms@0.5.11(tailwindcss@4.1.18)':
+  '@tailwindcss/forms@0.5.11(tailwindcss@4.2.2)':
     dependencies:
       mini-svg-data-uri: 1.4.4
-      tailwindcss: 4.1.18
+      tailwindcss: 4.2.2
 
   '@tailwindcss/node@4.2.2':
     dependencies:
@@ -7728,22 +7725,20 @@ snapshots:
 
   tailwind-merge@3.5.0: {}
 
-  tailwind-scrollbar@4.0.2(react@19.2.4)(tailwindcss@4.1.18):
+  tailwind-scrollbar@4.0.2(react@19.2.4)(tailwindcss@4.2.2):
     dependencies:
       prism-react-renderer: 2.4.1(react@19.2.4)
-      tailwindcss: 4.1.18
+      tailwindcss: 4.2.2
     transitivePeerDependencies:
       - react
 
-  tailwindcss-plugin-debug-screens-tw4@1.0.4(tailwindcss@4.1.18):
+  tailwindcss-plugin-debug-screens-tw4@1.0.4(tailwindcss@4.2.2):
     dependencies:
-      tailwindcss: 4.1.18
+      tailwindcss: 4.2.2
 
-  tailwindcss-plugin-overflow-tw4@1.0.1(tailwindcss@4.1.18):
+  tailwindcss-plugin-overflow-tw4@1.0.1(tailwindcss@4.2.2):
     dependencies:
-      tailwindcss: 4.1.18
-
-  tailwindcss@4.1.18: {}
+      tailwindcss: 4.2.2
 
   tailwindcss@4.2.2: {}
 
