@@ -62,7 +62,7 @@
         "jotai-effect": "^2.2.3",
         "jotai-valtio": "^0.6.0",
         "json5": "^2.2.3",
-        "lucide-react": "^0.563.0",
+        "lucide-react": "^1.7.0",
         "motion": "^12.33.0",
         "picocolors": "^1.1.1",
         "pm-manifest": "^1.5.39",
