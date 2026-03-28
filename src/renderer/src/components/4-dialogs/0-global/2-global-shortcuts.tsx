@@ -45,6 +45,7 @@ const useKeyNew = () => {
             const [key, shortcut] = (Object.entries(appShortcuts).find(
                 ([_key, value]) => (value.noNeedRootDir ? true : !isRootDirEmpty()) && value.is(event)
             ) || []) as [ShortcustKey, Shortcut];
+
             if (key && shortcut?.action) {
                 event.preventDefault();
                 shortcut?.action(event, key);
@@ -67,53 +68,53 @@ const useKeyNew = () => {
 
 type ShortcustKey = 'openOptions' | 'openFilter' | 'openCreate' | 'saveOne' | 'saveAll' | 'toggleDbg' | 'zoomIn' | 'zoomOut' | 'zoomReset';
 type Shortcut = {
-    text: string;
-    is: (event: KeyboardEvent) => boolean;
-    action?: (event: KeyboardEvent, shortcut: ShortcustKey) => void;
-    noNeedRootDir?: boolean;
+    text: string;                                           // Display text for the shortcut
+    is: (event: KeyboardEvent) => boolean;                  // Function to check if the keyboard event matches this shortcut
+    action?: (event: KeyboardEvent, shortcut: ShortcustKey) => void; // Function to execute when the shortcut is triggered
+    noNeedRootDir?: boolean;                                // Whether this shortcut requires a non-empty root directory
 };
 
 export const appShortcuts: Record<ShortcustKey, Shortcut> = {
     openOptions: {                                          // Open settings dialog
         text: "Ctrl+,",
-        is: (event) => event.ctrlKey && event.key === ',',  // or return () => false
+        is: (e) => e.ctrlKey && e.key === ',',              // or return () => false
         noNeedRootDir: true,
     },
     openFilter: {                                           // Filter manifest list
         text: hasMain() ? "Ctrl+F" : "Ctrl+Shift+F",
-        is: hasMain() ? (event) => event.ctrlKey && event.key === 'f' : (event) => event.ctrlKey && event.shiftKey && event.key === 'F',
+        is: hasMain() ? (e) => e.ctrlKey && e.key === 'f' : (e) => e.ctrlKey && e.shiftKey && e.key === 'F',
     },
     openCreate: {                                           // Create new manifest
         text: hasMain() ? "Ctrl+N" : "Alt+N",
-        is: hasMain() ? (event) => event.ctrlKey && event.key === 'n' : (event) => event.altKey && event.key === 'n',
+        is: hasMain() ? (e) => e.ctrlKey && e.key === 'n' : (e) => e.altKey && e.key === 'n',
         noNeedRootDir: true,
     },
     saveOne: {                                              // Save current manifest. Ctrl+S is already taken by browser
         text: hasMain() ? "Ctrl+S" : "Ctrl+Alt+S",
-        is: hasMain() ? (event) => event.ctrlKey && event.key === 's' : (event) => event.ctrlKey && event.altKey && event.key === 's',
+        is: hasMain() ? (e) => e.ctrlKey && e.key === 's' : (e) => e.ctrlKey && e.altKey && e.key === 's',
     },
     saveAll: {                                              // Save all manifests; Ctrl+Shift+S is already taken by Edge browser
         text: hasMain() ? "Alt+S" : "Ctrl+Shift+S",
-        is: hasMain() ? (event) => event.altKey && event.key === 's' : (event) => event.ctrlKey && event.shiftKey && event.key === 'S',
+        is: hasMain() ? (e) => e.altKey && e.key === 's' : (e) => e.ctrlKey && e.shiftKey && e.key === 'S',
     },
     toggleDbg: {
         text: 'Ctrl+Alt+Shift+D',
-        is: (event) => event.ctrlKey && event.altKey && event.key === 'D',
+        is: (e) => e.ctrlKey && e.altKey && e.key === 'D',
         noNeedRootDir: true,
     },
     zoomIn: {
         text: "Ctrl++",
-        is: (event) => hasMain() && event.ctrlKey && (event.key === '+' || event.key === '=' || event.code === 'NumpadAdd'),
+        is: (e) => hasMain() && e.ctrlKey && (e.key === '+' || e.key === '=' || e.code === 'NumpadAdd'),
         noNeedRootDir: true,
     },
     zoomOut: {
         text: "Ctrl+-",
-        is: (event) => hasMain() && event.ctrlKey && (event.key === '-' || event.key === '_' || event.code === 'NumpadSubtract'),
+        is: (e) => hasMain() && e.ctrlKey && (e.key === '-' || e.key === '_' || e.code === 'NumpadSubtract'),
         noNeedRootDir: true,
     },
     zoomReset: {
         text: "Ctrl+0",
-        is: (event) => hasMain() && event.ctrlKey && (event.key === '0' || event.code === 'Numpad0'),
+        is: (e) => hasMain() && e.ctrlKey && (e.key === '0' || e.code === 'Numpad0'),
         noNeedRootDir: true,
     },
 };
