@@ -17,19 +17,22 @@ import { checkboxCreateManualModeAtom, setSizeNormal_SawMonitorAtom, showProgres
 import { close_SawMonitorAtom } from "./1-open-saw-monitor";
 import { asyncExecuteNewManiDlg, close_NewManiDlgAtom } from "./2-open-new-mani-dlg";
 
+export const doCancelMoveToSecondDlgAtom = atom(
+    null,
+    (get, set) => {
+        R2MCalls.showHideWindow(false); //TODO: do we need to hide and show? we don't use it below.
+        set(close_SawMonitorAtom);
+        set(setSizeNormal_SawMonitorAtom);
+        setBuildState({ error: '' });
+        //setTimeout(() => R2MCalls.showHideWindow(true), 500); // This timeout causing undesired delay when closing the dialog with ESC key. see SawMonitorDlgBody()
+        R2MCalls.showHideWindow(true);
+    }
+);
+
 export const doMoveToSecondDlgAtom = atom(
     null,
-    async (get, set, { cancel }: { cancel: boolean; }): Promise<void> => {
+    async (get, set): Promise<void> => {
         const getset = { get, set };
-
-        if (cancel) {
-            R2MCalls.showHideWindow(false); //TODO: do we need to hide and show? we don't use it below.
-            set(close_SawMonitorAtom);
-            set(setSizeNormal_SawMonitorAtom);
-            setBuildState({ error: '' });
-            setTimeout(() => R2MCalls.showHideWindow(true), 500);
-            return;
-        }
 
         const isMaunalChecked = get(checkboxCreateManualModeAtom);
         const { hwnd, isBrowser } = get(sawHandleAtom) || {};

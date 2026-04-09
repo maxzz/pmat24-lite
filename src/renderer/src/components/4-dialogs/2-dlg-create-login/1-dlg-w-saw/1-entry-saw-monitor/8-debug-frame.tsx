@@ -4,11 +4,11 @@ import { classNames } from "@/utils";
 import { Button } from "@/ui";
 import { IconRadix_Cross2 } from "@/ui/icons/normal";
 import { hasMain } from "@/xternal-to-main";
-import { doMoveToSecondDlgAtom } from "@/store/4-dialogs-atoms";
+import { doCancelMoveToSecondDlgAtom } from "@/store/4-dialogs-atoms";
 import { DebugButtonsForSaw } from "../../8-test-buttons";
 
 export function DebugFrame({ className, children, ...rest }: ComponentPropsWithoutRef<'div'>) {
-    const doMoveToSecondDlg = useSetAtom(doMoveToSecondDlgAtom);
+    const doCancelMoveToSecondDlg = useSetAtom(doCancelMoveToSecondDlgAtom);
 
     if (hasMain()) {
         return (
@@ -29,7 +29,7 @@ export function DebugFrame({ className, children, ...rest }: ComponentPropsWitho
 
                     <Button
                         className="absolute right-2 top-1/2 -translate-y-1/2 hover:text-white hover:bg-red-500" variant="ghost" size="xs" tabIndex={-1}
-                        onClick={() => doMoveToSecondDlg({ cancel: true })}
+                        onClick={doCancelMoveToSecondDlg}
                     >
                         <IconRadix_Cross2 className="size-4" />
                     </Button>

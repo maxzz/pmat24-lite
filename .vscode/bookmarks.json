@@ -164,7 +164,7 @@
 			"path": "src/renderer/src/store/4-dialogs-atoms/2-create-dialog-atoms/3-do-move-to-second-dlg.tsx",
 			"bookmarks": [
 				{
-					"line": 19,
+					"line": 31,
 					"column": 34,
 					"label": "create-mani: 1. doMoveToSecondDlgAtom"
 				}

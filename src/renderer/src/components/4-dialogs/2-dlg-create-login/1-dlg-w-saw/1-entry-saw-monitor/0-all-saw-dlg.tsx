@@ -5,7 +5,7 @@ import { type MotionNodeOptions, type Transition, AnimatePresence, motion } from
 import { useDissmissNextToasts } from "@/utils";
 import { Button, Checkbox, Label } from "@/ui";
 import { stateNapiAccess, useSawRectMonitor } from "@/store/7-napi-atoms";
-import { checkboxCreateManualModeAtom, doMoveToSecondDlgAtom, isOpen_SawMonitorAtom } from "@/store/4-dialogs-atoms";
+import { checkboxCreateManualModeAtom, doCancelMoveToSecondDlgAtom, doMoveToSecondDlgAtom, isOpen_SawMonitorAtom } from "@/store/4-dialogs-atoms";
 import { newManiContent } from "@/store/0-serve-atoms/0-create/1-create-new-mani-ctx";
 import { CurrentApp } from "./1-current-app";
 import { RuntimeCounter } from "./2-runtime-counter";
@@ -29,7 +29,7 @@ export function DialogSawMonitor() {
 function SawMonitorDlgBody() {
     const [checkboxCreateManualMode, setCheckboxCreateManualMode] = useAtom(checkboxCreateManualModeAtom);
     const isCpassMode = !!newManiContent.maniForCpassAtom;
-    const doMoveToSecondDlg = useSetAtom(doMoveToSecondDlgAtom);
+    const doCancelMoveToSecondDlg = useSetAtom(doCancelMoveToSecondDlgAtom);
 
     useDissmissNextToasts();
     useSawRectMonitor();
@@ -41,14 +41,14 @@ function SawMonitorDlgBody() {
             const onKeyDown = (e: KeyboardEvent) => {
                 if (e.key === "Escape" && !e.repeat) {
                     e.preventDefault();
-                    doMoveToSecondDlg({ cancel: true });
+                    doCancelMoveToSecondDlg();
                 }
             };
 
             window.addEventListener("keydown", onKeyDown, { signal: controller.signal });
             return () => controller.abort();
         },
-        [doMoveToSecondDlg]);
+        [doCancelMoveToSecondDlg]);
 
     return (
         <div className="mx-auto h-full text-xs grid place-items-center">
@@ -85,7 +85,7 @@ function ButtonContinue() {
     const isRunning = useSnapshot(stateNapiAccess).buildRunning;
     const doMoveToSecondDlg = useSetAtom(doMoveToSecondDlgAtom);
     return (
-        <Button className="place-self-center active:scale-[.97]" variant="default" size="xs" disabled={isRunning} onClick={() => doMoveToSecondDlg({ cancel: false })}>
+        <Button className="place-self-center active:scale-[.97]" variant="default" size="xs" disabled={isRunning} onClick={doMoveToSecondDlg}>
             Continue
         </Button>
     );
