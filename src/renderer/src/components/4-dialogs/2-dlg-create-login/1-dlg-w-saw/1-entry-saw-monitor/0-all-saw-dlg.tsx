@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { useAtom, useAtomValue, useSetAtom } from "jotai";
 import { useSnapshot } from "valtio";
 import { type MotionNodeOptions, type Transition, AnimatePresence, motion } from "motion/react";
@@ -28,8 +29,27 @@ export function DialogSawMonitor() {
 function SawMonitorDlgBody() {
     const [checkboxCreateManualMode, setCheckboxCreateManualMode] = useAtom(checkboxCreateManualModeAtom);
     const isCpassMode = !!newManiContent.maniForCpassAtom;
+    const doMoveToSecondDlg = useSetAtom(doMoveToSecondDlgAtom);
+
     useDissmissNextToasts();
     useSawRectMonitor();
+
+    useEffect(
+        () => {
+            const controller = new AbortController();
+
+            const onKeyDown = (e: KeyboardEvent) => {
+                if (e.key === "Escape" && !e.repeat) {
+                    e.preventDefault();
+                    doMoveToSecondDlg({ cancel: true });
+                }
+            };
+
+            window.addEventListener("keydown", onKeyDown, { signal: controller.signal });
+            return () => controller.abort();
+        },
+        [doMoveToSecondDlg]);
+
     return (
         <div className="mx-auto h-full text-xs grid place-items-center">
             <DebugFrame>
@@ -45,10 +65,10 @@ function SawMonitorDlgBody() {
 
                     <Label className="place-self-start text-xs flex items-center gap-2 select-none cursor-pointer">
                         <Checkbox className="size-4" checked={checkboxCreateManualMode} onCheckedChange={(v) => setCheckboxCreateManualMode(!!v)} />
-                            {isCpassMode
-                                ? "Set up a change password screen manually"
-                                : "Set up a managed logon manually"
-                            }
+                        {isCpassMode
+                            ? "Set up a change password screen manually"
+                            : "Set up a managed logon manually"
+                        }
                     </Label>
 
                     <ButtonContinue />
