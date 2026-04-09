@@ -20,9 +20,7 @@ function myToast(type: ToastTypes, message: React.ReactNode, options: Partial<To
                         {type === 'error' && <IconStopCircle className="size-5 stroke-background!" />}
                     </div>
 
-                    <div className="pl-3 py-3 text-balance hyphens-auto" data-content>
-                        {message}
-                    </div>
+                    <div className="pl-3 py-3 text-balance hyphens-auto" data-content dangerouslySetInnerHTML={{ __html: message as string }}/>
 
                     <Button className="m-1 p-1 aspect-square active:scale-[.97]" variant="ghost" onClick={() => notice.dismiss(id)}>
                         <SymbolCross className="size-3" onClick={() => notice.dismiss(id)} />

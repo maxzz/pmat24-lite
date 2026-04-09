@@ -1,8 +1,9 @@
+import { type ReactNode } from "react";
 import { doAddNextToastIdAtom } from "@/utils";
 import { notice } from "@/ui/local-ui/7-toaster";
 import { type TypedError, stateNapiAccess, setBuildState, splitTypedError, typedErrorToString } from "@/store/7-napi-atoms";
 
-export function showNotice({ set, message, isError }: { set: Setter; message: string; isError?: boolean; }) {
+export function showNotice({ set, message, isError }: { set: Setter; message: ReactNode; isError?: boolean; }) {
     const id = notice[isError ? 'error' : 'info'](message, { position: "top-center" }); // show notice and append its id to the list of shown notices, so they can be dismissed at once.
     set(doAddNextToastIdAtom, id);
 }
@@ -28,19 +29,19 @@ export function showNotice_BuildErrorReason(set: Setter) {
     else if (typedError.extra) {
         showNotice({ set, message: typedError.extra, isError: true });
     } else {
-        showNotice({ set, message: 'There are no input controls in the window' });
+        showNotice({ set, message: 'No input controls were found in the window.' });
     }
 
     setBuildState({ error: '' });
 }
 
-function getErrorSubMessage(error: TypedError): string {
+function getErrorSubMessage(error: TypedError): ReactNode {
     switch (error.sub) {
         case 'incompatiblePM': {
             return 'HID Password Manager is not installed';
         }
         case 'noBrExt': {
-            return 'HID Password Manager extension is not installed';
+            return '<div>HID Password Manager extension is not installed. <a class="text-blue-400 dark:text-blue-700 underline underline-offset-2" href="https://digitalpersona.hidglobal.com/g02/pagedp/index.html" target="_blank" rel="noopener noreferrer">Installation page.</a></div>';
         }
         case 'obsoleteBrExt': {
             return 'Update HID Password Manager extension';
