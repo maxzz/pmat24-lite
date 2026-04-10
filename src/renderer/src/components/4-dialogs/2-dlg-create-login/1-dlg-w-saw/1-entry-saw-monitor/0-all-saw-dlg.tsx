@@ -102,7 +102,7 @@ const animationProps: MotionNodeOptions = {
     animate: { opacity: 1, scale: 1, transition: { duration: 2 } },
     // exit: { opacity: 0, scale: 0.75, transition: { delay: .2, duration: .2 } },
     
-    exit: { opacity: 0, scale: 0, transition: { duration: 2 } }, //TODO: do we need 'exit' animation and AnimatePresence here?
+    //exit: { opacity: 1, scale: 1, x: -1000, y: -1000, transition: { duration: .2 } }, //TODO: do we need 'exit' animation and AnimatePresence here?
 };
 
 // const dialogClasses = "\
