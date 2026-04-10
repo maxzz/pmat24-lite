@@ -16,17 +16,17 @@ export function DialogSawMonitor() {
     return (
         <AnimatePresence initial={false}>
             {isOpen && (
-                <motion.div initial={false} className="fixed inset-0 bg-background 1bg-sky-300 z-100" {...animationProps}>
-                    {isOpen && (
-                        <SawMonitorDlgBody />
-                    )}
+                <motion.div initial={false} className="fixed inset-0 1bg-background bg-sky-300 z-100" {...animationProps}>
+                    {/* {isOpen && ( */}
+                        <SawBody />
+                    {/* )} */}
                 </motion.div>
             )}
         </AnimatePresence>
     );
 }
 
-function SawMonitorDlgBody() {
+function SawBody() {
     const [checkboxCreateManualMode, setCheckboxCreateManualMode] = useAtom(checkboxCreateManualModeAtom);
     const isCpassMode = !!newManiContent.maniForCpassAtom;
     const doCancelMoveToSecondDlg = useSetAtom(doCancelMoveToSecondDlgAtom);
@@ -98,9 +98,11 @@ const animationTransition: Transition = {
 
 const animationProps: MotionNodeOptions = {
     // initial: { opacity: 0, scale: 0.75, transition: { delay: .2, duration: 2.2 }  },
-    animate: { opacity: 1, scale: 1 },
+    initial: { opacity: 0, scale: 0.15 },
+    animate: { opacity: 1, scale: 1, transition: { duration: 2 } },
     // exit: { opacity: 0, scale: 0.75, transition: { delay: .2, duration: .2 } },
-    exit: { opacity: 0, scale: 0.75, transition: { duration: 0 } }, //TODO: do we need 'exit' animation and AnimatePresence here?
+    
+    exit: { opacity: 0, scale: 0, transition: { duration: 2 } }, //TODO: do we need 'exit' animation and AnimatePresence here?
 };
 
 // const dialogClasses = "\

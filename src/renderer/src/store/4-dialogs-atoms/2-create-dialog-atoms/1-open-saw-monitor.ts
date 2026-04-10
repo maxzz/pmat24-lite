@@ -19,6 +19,7 @@ const doOpenCloseAtom = atom(
         if (doOpen) {
             if (asCpass) {
                 newManiContent.maniForCpassAtom = get(rightPanelAtomAtom);
+                
                 if (!newManiContent.maniForCpassAtom) {
                     throw new Error('no.mainForCpassAtom');
                 }
