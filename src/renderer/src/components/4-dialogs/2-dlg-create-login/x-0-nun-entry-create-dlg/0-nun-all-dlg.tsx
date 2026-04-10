@@ -1,3 +1,4 @@
+// from C:\y\w\2-web\0-dp\pmat24-lite\src\renderer\src\components\4-dialogs\2-dlg-create-login\1-dlg-w-saw\2-nun-entry-create-dlg
 import { type ComponentPropsWithoutRef } from "react";
 import { useAtomValue } from "jotai";
 import { classNames, useDissmissNextToasts } from "@/utils";
@@ -5,7 +6,7 @@ import * as D from "@/ui/shadcn/dialog";
 import { Button } from "@/ui";
 import { IconRadix_Cross2 } from "@/ui/icons/normal";
 import { type NewManiDlgData, dataToOpen_NewManiDlgAtom } from "@/store/4-dialogs-atoms";
-import { NewManiContentEditorSelector } from "../../2-mani-content-editor";
+import { NewManiContentEditorSelector } from "../2-mani-content-editor";
 import { SawPageHeader } from "./2-nun-saw-page-header";
 import { ManiLoginNameGuarded } from "./3-nun-mani-login-name";
 
