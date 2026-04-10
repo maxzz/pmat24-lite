@@ -1,3 +1,4 @@
+import { type ComponentPropsWithoutRef } from "react";
 import { useAtomValue } from "jotai";
 import { classNames, useDissmissNextToasts } from "@/utils";
 import * as D from "@/ui/shadcn/dialog";
@@ -5,9 +6,8 @@ import { Button } from "@/ui";
 import { IconRadix_Cross2 } from "@/ui/icons/normal";
 import { type NewManiDlgData, dataToOpen_NewManiDlgAtom } from "@/store/4-dialogs-atoms";
 import { NewManiContentEditorSelector } from "../../2-mani-content-editor";
-import { SawPageHeader } from "./2-saw-page-header";
-import { ManiLoginNameGuarded } from "./3-mani-login-name";
-import { ComponentPropsWithoutRef } from "react";
+import { SawPageHeader } from "./2-nun-saw-page-header";
+import { ManiLoginNameGuarded } from "./3-nun-mani-login-name";
 
 export function DialogCreateManiV3Saw() {
     const dataToOpen: NewManiDlgData | undefined = useAtomValue(dataToOpen_NewManiDlgAtom);
@@ -28,13 +28,13 @@ export function DialogCreateManiV3Saw() {
     return (
         <D.Dialog open={!!dataToOpen} onOpenChange={() => onCloseDlg(false)}>
             <D.DialogContent className={dialogClasses} overlayClasses="bg-background/10 backdrop-blur-[1px]" hiddenTitle="Create manifest" noClose>
-                <DialogSawBody onCloseDlg={onCloseDlg} />
+                <SawBody onCloseDlg={onCloseDlg} />
             </D.DialogContent>
         </D.Dialog>
     );
 }
 
-function DialogSawBody({ onCloseDlg }: { onCloseDlg: (ok: boolean) => void; }) {
+function SawBody({ onCloseDlg }: { onCloseDlg: (ok: boolean) => void; }) {
     useDissmissNextToasts();
     return (
         <div className="h-full flex flex-col">
@@ -56,7 +56,7 @@ function DialogSawBody({ onCloseDlg }: { onCloseDlg: (ok: boolean) => void; }) {
                 <NewManiContentEditorSelector />
             </div>
 
-            <DialogBottomButtons className="py-3 border-t border-foreground/20" onCloseDlg={onCloseDlg} />
+            <BottomButtons className="py-3 border-t border-foreground/20" onCloseDlg={onCloseDlg} />
         </div>
     );
 }
@@ -64,7 +64,7 @@ function DialogSawBody({ onCloseDlg }: { onCloseDlg: (ok: boolean) => void; }) {
 /**
  * Button Save button is always enabled to show toast as hint in case of failure.
  */
-function DialogBottomButtons({ onCloseDlg, className, ...rest }: ComponentPropsWithoutRef<"div"> & { onCloseDlg: (ok: boolean) => void; }) {
+function BottomButtons({ onCloseDlg, className, ...rest }: ComponentPropsWithoutRef<"div"> & { onCloseDlg: (ok: boolean) => void; }) {
     return (
         <div className={classNames("relative px-4 flex items-center justify-end gap-1", className)} {...rest}>
             <Button variant="default" size="xs" onClick={() => onCloseDlg(true)}>
