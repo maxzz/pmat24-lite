@@ -7,7 +7,7 @@ import { appSettings } from "@/store/9-ui-state";
 import { getTreeItemDisplayText } from "@/store/store-utils";
 import { type FileUs } from "@/store/store-types";
 import { type TreeFileItemWState } from "../0-all/2-tree-action-atoms";
-import { doSetManiInTestAtom } from "@/store/0-serve-atoms/6-do-inuse-test";
+import { doSetManiInTestAtom } from "@/store/0-serve-atoms/6-do-in-use-test";
 
 /**
  * This is used by main files tree.

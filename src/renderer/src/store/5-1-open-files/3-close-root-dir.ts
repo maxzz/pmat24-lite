@@ -3,7 +3,7 @@ import { appSettings } from "../9-ui-state/0-local-storage-app";
 import { allFileUsChanges } from "../2-file-mani-atoms/9-types";
 import { confirmCloseFolderMessages, doAsyncExecuteConfirmDialogAtom } from "../4-dialogs-atoms/5-confirm-atoms";
 import { doSetDeliveredFilesAtom } from "@/store/0-serve-atoms/1-do-set-files";
-import { inTest_DeleteDir } from "@/store/0-serve-atoms/6-do-inuse-test";
+import { inTest_DeleteDir } from "@/store/0-serve-atoms/6-do-in-use-test";
 import { undefinedPmatFolder } from "@/store/5-1-open-files";
 
 export const doCloseRootDirAtom = atom(

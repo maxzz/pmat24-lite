@@ -9,7 +9,7 @@ import { allFileUsChanges } from "@/store/2-file-mani-atoms";
 import { type PmatFolder, filesAtom, isRootDirEmpty, setRootDir, undefinedPmatFolder } from "@/store/5-1-open-files";
 import { sortFileUsItemsInPlaceAndSetIndices } from "@/store/5-2-tree-files";
 import { rightPanelAtomAtom } from "@/store/5-3-right-panel";
-import { isPmatFileToLoad, inTest_Start } from "@/store/0-serve-atoms/6-do-inuse-test";
+import { isPmatFileToLoad, inTest_Start } from "@/store/0-serve-atoms/6-do-in-use-test";
 import { doAddFcToLoadedAtom, doClearFcRootAtom, doInitFileUsLinksToFcAtom } from "@/store/3-field-catalog-atoms";
 import { createParsedFileUsFromFileContent } from "./3-create-fileus";
 
