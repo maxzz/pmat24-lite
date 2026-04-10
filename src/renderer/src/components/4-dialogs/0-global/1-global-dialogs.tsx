@@ -7,7 +7,8 @@ import { Toaster } from "sonner"; //import { Toaster } from "@/ui/local-ui/7-toa
 import { AppGlobalShortcuts } from "./2-global-shortcuts";
 import { WindowsAppTitleCaption } from "./3-windows-app-title-caption";
 import { OpenFilesPersistentInput } from "@/components/2-main/1-left/1-header/1-menu-main/11-files";
-import { DialogCreateManiV1SecondPage, DialogCreateManiV1, DialogCreateManiV2, DialogSawMonitor } from "../2-dlg-create-login";
+//import { DialogCreateManiV1SecondPage, DialogCreateManiV1, DialogCreateManiV2, DialogSawMonitor } from "../2-dlg-create-login";
+import { DialogSawMonitor } from "../2-dlg-create-login/1-entry-saw-monitor";
 import { FceDialog } from "../4-dlg-field-catalog";
 import { ConfirmationDialog, ManiNameDialog } from "../5-confirm";
 import { AppSettingsDialog } from "../8-dlg-settings";

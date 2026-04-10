@@ -5,7 +5,7 @@ import { Button } from "@/ui";
 import { IconRadix_Cross2 } from "@/ui/icons/normal";
 import { hasMain } from "@/xternal-to-main";
 import { doCancelMoveToSecondDlgAtom } from "@/store/4-dialogs-atoms";
-import { DebugButtonsForSaw } from "../../8-test-buttons";
+import { DebugButtonsForSaw } from "../8-test-buttons";
 
 export function DebugFrame({ className, children, ...rest }: ComponentPropsWithoutRef<'div'>) {
     const doCancelMoveToSecondDlg = useSetAtom(doCancelMoveToSecondDlgAtom);
