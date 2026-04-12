@@ -5,7 +5,7 @@ import { type MotionNodeOptions, AnimatePresence, motion, useReducedMotion } fro
 import { useDissmissNextToasts } from "@/utils";
 import { Button, Checkbox, Label } from "@/ui";
 import { stateNapiAccess, useSawRectMonitor } from "@/store/7-napi-atoms";
-import { checkboxCreateManualModeAtom, doCancelMoveToSecondDlgAtom, doMoveToSecondDlgAtom, finishClose_SawMonitorAtom, finishOpen_SawMonitorAtom, isCover_SawMonitorAtom, isOpen_SawMonitorAtom } from "@/store/4-dialogs-atoms";
+import { checkboxCreateManualModeAtom, doCancelMoveToSecondDlgAtom, doMoveToSecondDlgAtom, finishClose_SawMonitorAtom, finishOpen_SawMonitorAtom, isBodyVisible_SawMonitorAtom, isCover_SawMonitorAtom, isOpen_SawMonitorAtom } from "@/store/4-dialogs-atoms";
 import { newManiContent } from "@/store/0-serve-atoms/0-create/1-create-new-mani-ctx";
 import { CurrentApp } from "./1-current-app";
 import { RuntimeCounter } from "./2-runtime-counter";
@@ -14,11 +14,13 @@ import { DebugFrame } from "./8-debug-frame";
 export function DialogSawMonitor() {
     const isOpen = useAtomValue(isOpen_SawMonitorAtom);
     const isCover = useAtomValue(isCover_SawMonitorAtom);
+    const isBodyVisible = useAtomValue(isBodyVisible_SawMonitorAtom);
     const finishOpen = useSetAtom(finishOpen_SawMonitorAtom);
     const finishClose = useSetAtom(finishClose_SawMonitorAtom);
     const prefersReducedMotion = useReducedMotion() ?? false;
     const animationProps = getAnimationProps(prefersReducedMotion);
     const isVisible = isOpen || isCover;
+    const showBody = isOpen && isBodyVisible;
     const handleAnimationComplete = () => {
         if (isOpen) {
             finishOpen();
@@ -28,9 +30,9 @@ export function DialogSawMonitor() {
     return (
         <AnimatePresence initial={false} onExitComplete={finishClose}>
             {isVisible && (
-                <motion.div className="fixed inset-0 bg-background 1bg-sky-300 z-100" {...animationProps} onAnimationComplete={handleAnimationComplete}>
+                <motion.div className="fixed inset-0 1bg-background bg-sky-300 z-100" {...animationProps} onAnimationComplete={handleAnimationComplete}>
                     {/* {isOpen && ( */}
-                        {isOpen && <SawBody />}
+                        {showBody && <SawBody />}
                     {/* )} */}
                 </motion.div>
             )}
