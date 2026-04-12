@@ -7,6 +7,7 @@ import { rightPanelAtomAtom } from "@/store/5-3-right-panel";
 import { checkboxCreateManualModeAtom, setSizeNormal_SawMonitorAtom, setSizeSmall_SawMonitorAtom, startMonitorTimerAtom, stopMonitorTimerAtom } from "./0-ctx";
 
 export const isOpen_SawMonitorAtom = atom((get) => get(_sawMonitorOpenAtom));
+export const isCover_SawMonitorAtom = atom((get) => get(_sawMonitorCoverAtom));
 export const open_SawMonitorAtom         /**/ = atom(() => null, (get, set) => set(doOpenCloseAtom, { doOpen: true, asCpass: false }));
 export const open_SawMonitorForCpassAtom /**/ = atom(() => null, (get, set) => set(doOpenCloseAtom, { doOpen: true, asCpass: true }));
 export const close_SawMonitorAtom        /**/ = atom(() => null, (get, set) => set(doOpenCloseAtom, { doOpen: false, asCpass: false }));
@@ -36,27 +37,38 @@ const doOpenCloseAtom = atom(
         }
 
         set(_sawMonitorOpenAtom, doOpen);
-        onOpenChange(doOpen, set);
+        onOpenChange(doOpen, get, set);
     }
 );
 
-function onOpenChange(doOpen: boolean, set: Setter) {
+function onOpenChange(doOpen: boolean, get: Getter, set: Setter) {
     if (doOpen) {
         set(checkboxCreateManualModeAtom, false);
         set(startMonitorTimerAtom);
+        cancelCoverRelease();
+        const wasCoverVisible = get(_sawMonitorCoverAtom);
+        set(_sawMonitorCoverAtom, true);
         set(_sawMonitorTransitionAtom, "opening");
+        if (wasCoverVisible) {
+            set(setSizeSmall_SawMonitorAtom);
+            set(_sawMonitorTransitionAtom, "idle");
+        }
     } else {
         set(stopMonitorTimerAtom);
         clearIconsCache();
+        set(_sawMonitorCoverAtom, true);
         set(_sawMonitorTransitionAtom, "closing");
         set(setSizeNormal_SawMonitorAtom);
+        scheduleCoverRelease(set);
     }
 }
 
 const _sawMonitorOpenAtom = atom(false);
+const _sawMonitorCoverAtom = atom(false);
 const _sawMonitorTransitionAtom = atom<SawMonitorTransition>("idle");
 
 type SawMonitorTransition = "idle" | "opening" | "closing";
+let coverReleaseToken = 0;
 
 function finishSawOpen(get: Getter, set: Setter) {
     if (get(_sawMonitorTransitionAtom) !== "opening") {
@@ -73,6 +85,26 @@ function finishSawClose(get: Getter, set: Setter) {
     }
 
     set(_sawMonitorTransitionAtom, "idle");
+}
+
+function scheduleCoverRelease(set: Setter) {
+    const token = ++coverReleaseToken;
+    const requestFrame = typeof requestAnimationFrame === "function"
+        ? requestAnimationFrame
+        : (callback: FrameRequestCallback) => setTimeout(callback, 0);
+
+    requestFrame(() => {
+        requestFrame(() => {
+            if (token !== coverReleaseToken) {
+                return;
+            }
+            set(_sawMonitorCoverAtom, false);
+        });
+    });
+}
+
+function cancelCoverRelease() {
+    coverReleaseToken += 1;
 }
 
 // Utility
