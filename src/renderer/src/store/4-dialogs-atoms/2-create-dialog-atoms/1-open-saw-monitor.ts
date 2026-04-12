@@ -35,8 +35,8 @@ const doOpenCloseAtom = atom(
             }
         }
 
-        onOpenChange(doOpen, set);
         set(_sawMonitorOpenAtom, doOpen);
+        onOpenChange(doOpen, set);
     }
 );
 
