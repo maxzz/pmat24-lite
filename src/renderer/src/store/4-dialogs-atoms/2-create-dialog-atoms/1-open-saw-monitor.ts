@@ -4,16 +4,23 @@ import { clearIconsCache } from "@/store/7-napi-atoms";
 import { newManiContent } from "@/store/0-serve-atoms/0-create/1-create-new-mani-ctx";
 import { sureRootDir } from "@/store/5-1-open-files";
 import { rightPanelAtomAtom } from "@/store/5-3-right-panel";
-import { checkboxCreateManualModeAtom, setSizeSmall_SawMonitorAtom, startMonitorTimerAtom, stopMonitorTimerAtom } from "./0-ctx";
+import { checkboxCreateManualModeAtom, setSizeNormal_SawMonitorAtom, setSizeSmall_SawMonitorAtom, startMonitorTimerAtom, stopMonitorTimerAtom } from "./0-ctx";
 
 export const isOpen_SawMonitorAtom = atom((get) => get(_sawMonitorOpenAtom));
 export const open_SawMonitorAtom         /**/ = atom(() => null, (get, set) => set(doOpenCloseAtom, { doOpen: true, asCpass: false }));
 export const open_SawMonitorForCpassAtom /**/ = atom(() => null, (get, set) => set(doOpenCloseAtom, { doOpen: true, asCpass: true }));
 export const close_SawMonitorAtom        /**/ = atom(() => null, (get, set) => set(doOpenCloseAtom, { doOpen: false, asCpass: false }));
+export const finishOpen_SawMonitorAtom   /**/ = atom(null, (get, set) => finishSawOpen(get, set));
+export const finishClose_SawMonitorAtom  /**/ = atom(null, (get, set) => finishSawClose(get, set));
 
 const doOpenCloseAtom = atom(
     null,
     (get, set, { doOpen, asCpass }: { doOpen: boolean; asCpass: boolean; }) => {
+        const wasOpen = get(_sawMonitorOpenAtom);
+        if (doOpen === wasOpen) {
+            return;
+        }
+
         sureRootDir();
 
         if (doOpen) {
@@ -37,14 +44,36 @@ function onOpenChange(doOpen: boolean, set: Setter) {
     if (doOpen) {
         set(checkboxCreateManualModeAtom, false);
         set(startMonitorTimerAtom);
-        set(setSizeSmall_SawMonitorAtom);
+        set(_sawMonitorTransitionAtom, "opening");
     } else {
         set(stopMonitorTimerAtom);
         clearIconsCache();
+        set(_sawMonitorTransitionAtom, "closing");
     }
 }
 
 const _sawMonitorOpenAtom = atom(false);
+const _sawMonitorTransitionAtom = atom<SawMonitorTransition>("idle");
+
+type SawMonitorTransition = "idle" | "opening" | "closing";
+
+function finishSawOpen(get: Getter, set: Setter) {
+    if (get(_sawMonitorTransitionAtom) !== "opening") {
+        return;
+    }
+
+    set(setSizeSmall_SawMonitorAtom);
+    set(_sawMonitorTransitionAtom, "idle");
+}
+
+function finishSawClose(get: Getter, set: Setter) {
+    if (get(_sawMonitorTransitionAtom) !== "closing") {
+        return;
+    }
+
+    set(setSizeNormal_SawMonitorAtom);
+    set(_sawMonitorTransitionAtom, "idle");
+}
 
 // Utility
 

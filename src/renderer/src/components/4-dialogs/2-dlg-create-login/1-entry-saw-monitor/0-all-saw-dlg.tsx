@@ -1,11 +1,11 @@
 import { useEffect } from "react";
 import { useAtom, useAtomValue, useSetAtom } from "jotai";
 import { useSnapshot } from "valtio";
-import { type MotionNodeOptions, type Transition, AnimatePresence, motion } from "motion/react";
+import { type MotionNodeOptions, AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { useDissmissNextToasts } from "@/utils";
 import { Button, Checkbox, Label } from "@/ui";
 import { stateNapiAccess, useSawRectMonitor } from "@/store/7-napi-atoms";
-import { checkboxCreateManualModeAtom, doCancelMoveToSecondDlgAtom, doMoveToSecondDlgAtom, isOpen_SawMonitorAtom } from "@/store/4-dialogs-atoms";
+import { checkboxCreateManualModeAtom, doCancelMoveToSecondDlgAtom, doMoveToSecondDlgAtom, finishClose_SawMonitorAtom, finishOpen_SawMonitorAtom, isOpen_SawMonitorAtom } from "@/store/4-dialogs-atoms";
 import { newManiContent } from "@/store/0-serve-atoms/0-create/1-create-new-mani-ctx";
 import { CurrentApp } from "./1-current-app";
 import { RuntimeCounter } from "./2-runtime-counter";
@@ -13,10 +13,15 @@ import { DebugFrame } from "./8-debug-frame";
 
 export function DialogSawMonitor() {
     const isOpen = useAtomValue(isOpen_SawMonitorAtom);
+    const finishOpen = useSetAtom(finishOpen_SawMonitorAtom);
+    const finishClose = useSetAtom(finishClose_SawMonitorAtom);
+    const prefersReducedMotion = useReducedMotion();
+    const animationProps = getAnimationProps(prefersReducedMotion);
+
     return (
-        <AnimatePresence initial={false}>
+        <AnimatePresence initial={false} onExitComplete={finishClose}>
             {isOpen && (
-                <motion.div initial={false} className="fixed inset-0 1bg-background bg-sky-300 z-100" {...animationProps}>
+                <motion.div className="fixed inset-0 1bg-background bg-sky-300 z-100" {...animationProps} onAnimationComplete={finishOpen}>
                     {/* {isOpen && ( */}
                         <SawBody />
                     {/* )} */}
@@ -91,19 +96,14 @@ function ButtonContinue() {
     );
 }
 
-const animationTransition: Transition = {
-    // type: "spring", stiffness: 500, damping: 50,
-    duration: 0.2,
-};
-
-const animationProps: MotionNodeOptions = {
-    // initial: { opacity: 0, scale: 0.75, transition: { delay: .2, duration: 2.2 }  },
-    initial: { opacity: 0, scale: 0.15 },
-    animate: { opacity: 1, scale: 1, transition: { duration: 2 } },
-    // exit: { opacity: 0, scale: 0.75, transition: { delay: .2, duration: .2 } },
-    
-    //exit: { opacity: 1, scale: 1, x: -1000, y: -1000, transition: { duration: .2 } }, //TODO: do we need 'exit' animation and AnimatePresence here?
-};
+function getAnimationProps(reducedMotion: boolean): MotionNodeOptions {
+    const duration = reducedMotion ? 0.01 : 0.2;
+    return {
+        initial: { opacity: 0, scale: 0.15 },
+        animate: { opacity: 1, scale: 1, transition: { duration } },
+        exit: { opacity: 0, scale: 0.15, transition: { duration } },
+    };
+}
 
 // const dialogClasses = "\
 // p-0 \
