@@ -15,7 +15,7 @@ export function DialogSawMonitor() {
     const isOpen = useAtomValue(isOpen_SawMonitorAtom);
     const finishOpen = useSetAtom(finishOpen_SawMonitorAtom);
     const finishClose = useSetAtom(finishClose_SawMonitorAtom);
-    const prefersReducedMotion = useReducedMotion();
+    const prefersReducedMotion = useReducedMotion() ?? false;
     const animationProps = getAnimationProps(prefersReducedMotion);
 
     return (
