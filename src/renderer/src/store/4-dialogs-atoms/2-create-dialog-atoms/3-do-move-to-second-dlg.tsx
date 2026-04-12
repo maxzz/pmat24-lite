@@ -48,7 +48,6 @@ export const doMoveToSecondDlgAtom = atom(
 
         // 1.1. Check if can create new valid manifest
 
-        set(hideBody_SawMonitorAtom);
         set(stopMonitorTimerAtom);
 
         const created = await createFileUsByQueryXml({ params: { hwnd, manual: isMaunalChecked, }, showProgressAtom, getset });
@@ -59,6 +58,8 @@ export const doMoveToSecondDlgAtom = atom(
 
         // 1.2. Close Saw monitor dialog
 
+        set(hideBody_SawMonitorAtom);
+        await delay(0);
         //R2MCalls.showHideWindow(false);
         set(close_SawMonitorAtom);
         //setTimeout(() => R2MCalls.showHideWindow(true), 100); //TODO: we need to call R2MCalls.setSawModeOnMain({ setOn: false }); and show in one single call
