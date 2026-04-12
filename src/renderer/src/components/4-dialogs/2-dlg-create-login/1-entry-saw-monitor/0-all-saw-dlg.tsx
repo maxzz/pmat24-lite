@@ -19,6 +19,7 @@ export function DialogSawMonitor() {
     const finishClose = useSetAtom(finishClose_SawMonitorAtom);
     const prefersReducedMotion = useReducedMotion() ?? false;
     const animationProps = getAnimationProps(prefersReducedMotion);
+    const bodyAnimationProps = getBodyAnimationProps(prefersReducedMotion);
     const isVisible = isOpen || isCover;
     const showBody = isOpen && isBodyVisible;
     const handleAnimationComplete = () => {
@@ -32,7 +33,11 @@ export function DialogSawMonitor() {
             {isVisible && (
                 <motion.div className="fixed inset-0 1bg-background bg-sky-300 z-100" {...animationProps} onAnimationComplete={handleAnimationComplete}>
                     {/* {isOpen && ( */}
-                        {showBody && <SawBody />}
+                        {showBody && (
+                            <motion.div className="h-full" {...bodyAnimationProps}>
+                                <SawBody />
+                            </motion.div>
+                        )}
                     {/* )} */}
                 </motion.div>
             )}
@@ -111,6 +116,14 @@ function getAnimationProps(reducedMotion: boolean): MotionNodeOptions {
         initial: { opacity: 0, scale: 0.15 },
         animate: { opacity: 1, scale: 1, transition: { duration } },
         exit: { opacity: 0, scale: 0.15, transition: { duration } },
+    };
+}
+
+function getBodyAnimationProps(reducedMotion: boolean): MotionNodeOptions {
+    const duration = reducedMotion ? 0.01 : 0.18;
+    return {
+        initial: { opacity: 0, scale: 0.96 },
+        animate: { opacity: 1, scale: 1, transition: { duration } },
     };
 }
 
