@@ -63,7 +63,7 @@ function onOpenChange(doOpen: boolean, get: Getter, set: Setter) {
         set(_sawMonitorCoverAtom, true);
         set(_sawMonitorBodyAtom, false);
         set(_sawMonitorTransitionAtom, "closing");
-        set(setSizeNormal_SawMonitorAtom);
+        scheduleSizeNormal(set);
         scheduleCoverRelease(set);
     }
 }
@@ -76,6 +76,7 @@ const _sawMonitorTransitionAtom = atom<SawMonitorTransition>("idle");
 type SawMonitorTransition = "idle" | "opening" | "closing";
 let coverReleaseToken = 0;
 let bodyRevealToken = 0;
+let normalResizeToken = 0;
 
 function finishSawOpen(get: Getter, set: Setter) {
     if (get(_sawMonitorTransitionAtom) !== "opening") {
@@ -113,6 +114,20 @@ function scheduleCoverRelease(set: Setter) {
 
 function cancelCoverRelease() {
     coverReleaseToken += 1;
+}
+
+function scheduleSizeNormal(set: Setter) {
+    const token = ++normalResizeToken;
+    const requestFrame = typeof requestAnimationFrame === "function"
+        ? requestAnimationFrame
+        : (callback: FrameRequestCallback) => setTimeout(callback, 0);
+
+    requestFrame(() => {
+        if (token !== normalResizeToken) {
+            return;
+        }
+        set(setSizeNormal_SawMonitorAtom);
+    });
 }
 
 function scheduleBodyReveal(set: Setter) {
