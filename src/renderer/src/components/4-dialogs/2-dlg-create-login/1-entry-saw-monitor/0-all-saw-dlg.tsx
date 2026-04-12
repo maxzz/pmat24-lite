@@ -31,7 +31,7 @@ export function DialogSawMonitor() {
     return (
         <AnimatePresence initial={false} onExitComplete={finishClose}>
             {isVisible && (
-                <motion.div className="fixed inset-0 1bg-background bg-sky-300 z-100" {...animationProps} onAnimationComplete={handleAnimationComplete}>
+                <motion.div className="fixed inset-0 bg-background 1bg-sky-300 z-100" {...animationProps} onAnimationComplete={handleAnimationComplete}>
                     {/* {isOpen && ( */}
                         {showBody && (
                             <motion.div className="h-full" {...bodyAnimationProps}>

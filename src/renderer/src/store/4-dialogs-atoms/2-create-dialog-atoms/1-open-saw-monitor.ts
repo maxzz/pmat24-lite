@@ -12,6 +12,7 @@ export const isBodyVisible_SawMonitorAtom = atom((get) => get(_sawMonitorBodyAto
 export const open_SawMonitorAtom         /**/ = atom(() => null, (get, set) => set(doOpenCloseAtom, { doOpen: true, asCpass: false }));
 export const open_SawMonitorForCpassAtom /**/ = atom(() => null, (get, set) => set(doOpenCloseAtom, { doOpen: true, asCpass: true }));
 export const close_SawMonitorAtom        /**/ = atom(() => null, (get, set) => set(doOpenCloseAtom, { doOpen: false, asCpass: false }));
+export const hideBody_SawMonitorAtom     /**/ = atom(null, (get, set) => hideBody(get, set));
 export const finishOpen_SawMonitorAtom   /**/ = atom(null, (get, set) => finishSawOpen(get, set));
 export const finishClose_SawMonitorAtom  /**/ = atom(null, (get, set) => finishSawClose(get, set));
 
@@ -94,6 +95,17 @@ function finishSawClose(get: Getter, set: Setter) {
     }
 
     set(_sawMonitorTransitionAtom, "idle");
+}
+
+function hideBody(get: Getter, set: Setter) {
+    if (!get(_sawMonitorOpenAtom)) {
+        return;
+    }
+
+    cancelBodyReveal();
+    cancelCoverRelease();
+    set(_sawMonitorCoverAtom, true);
+    set(_sawMonitorBodyAtom, false);
 }
 
 function scheduleCoverRelease(set: Setter) {
