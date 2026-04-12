@@ -98,10 +98,11 @@ function ButtonContinue() {
 
 function getAnimationProps(reducedMotion: boolean): MotionNodeOptions {
     const duration = reducedMotion ? 0.01 : 0.2;
+    const exitDelay = reducedMotion ? 0 : 0.15;
     return {
         initial: { opacity: 0, scale: 0.15 },
         animate: { opacity: 1, scale: 1, transition: { duration } },
-        exit: { opacity: 0, scale: 0.15, transition: { duration } },
+        exit: { opacity: 0, scale: 0.15, transition: { duration, delay: exitDelay } },
     };
 }
 

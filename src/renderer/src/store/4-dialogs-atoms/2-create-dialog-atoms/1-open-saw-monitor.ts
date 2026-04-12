@@ -49,6 +49,7 @@ function onOpenChange(doOpen: boolean, set: Setter) {
         set(stopMonitorTimerAtom);
         clearIconsCache();
         set(_sawMonitorTransitionAtom, "closing");
+        set(setSizeNormal_SawMonitorAtom);
     }
 }
 
@@ -71,7 +72,6 @@ function finishSawClose(get: Getter, set: Setter) {
         return;
     }
 
-    set(setSizeNormal_SawMonitorAtom);
     set(_sawMonitorTransitionAtom, "idle");
 }
 
