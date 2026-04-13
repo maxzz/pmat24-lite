@@ -29,7 +29,7 @@ export function showNotice_BuildErrorReason(set: Setter) {
     else if (typedError.extra) {
         showNotice({ set, message: typedError.extra, isError: true });
     } else {
-        showNotice({ set, message: 'No input controls were found in the window.' });
+        showNotice({ set, message: 'No input controls found in the window.' });
     }
 
     setBuildState({ error: '' });
@@ -38,17 +38,19 @@ export function showNotice_BuildErrorReason(set: Setter) {
 function getErrorSubMessage(error: TypedError): ReactNode {
     switch (error.sub) {
         case 'incompatiblePM': {
-            return 'HID Password Manager is not installed';
+            return `<div>The version of the HID Password Manager extension is incompatible with the version of HID Password Manager. ${linkMessageClasses}</div>`;
         }
         case 'noBrExt': {
-            return '<div>HID Password Manager extension is not installed. <a class="text-blue-400 dark:text-blue-700 underline underline-offset-2" href="https://digitalpersona.hidglobal.com/g02/pagedp/index.html" target="_blank" rel="noopener noreferrer">Installation page.</a></div>';
+            return `<div>The HID Password Manager extension is not installed in this browser. ${linkMessageClasses}</div>`;
         }
         case 'obsoleteBrExt': {
-            return 'Update HID Password Manager extension';
+            return `<div>The HID Password Manager extension version is outdated. Please update it. ${linkMessageClasses}</div>`; //Update the HID Password Manager extension.
         }
         case 'noControls':
         default: {
-            return 'Cannot access application content';
+            return "Cannot access application content.";
         }
     }
 }
+
+const linkMessageClasses = `<a class="text-blue-400 dark:text-blue-700 underline underline-offset-2" href="https://digitalpersona.hidglobal.com/g02/pagedp/index.html" target="_blank" rel="noopener noreferrer">Installation page.</a>`;
