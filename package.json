@@ -17,7 +17,7 @@
     "dependencies": {
         "@electron-toolkit/preload": "^3.0.2",
         "@electron-toolkit/utils": "^4.0.0",
-        "electron-updater": "^6.7.3",
+        "electron-updater": "^6.8.3",
         "jotai-family": "^1.0.1",
         "react": "^19.2.4",
         "react-dom": "^19.2.4"
@@ -54,8 +54,8 @@
         "baseline-browser-mapping": "^2.10.14",
         "browser-fs-access": "^0.38.0",
         "class-variance-authority": "^0.7.1",
-        "electron": "40.1.0",
-        "electron-builder": "^26.7.0",
+        "electron": "41.2.0",
+        "electron-builder": "^26.8.1",
         "electron-vite": "^4.0.1",
         "idb-keyval": "^6.2.2",
         "jotai": "^2.19.0",
