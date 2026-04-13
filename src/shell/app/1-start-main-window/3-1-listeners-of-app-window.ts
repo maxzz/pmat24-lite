@@ -17,7 +17,7 @@ export function setAppWindowListeners(appWindow: AppWindow) {
         }
 
         if (iniFileOptions.options?.devTools && !appWindow.wnd.webContents.isDevToolsOpened()) {
-            appWindow.wnd.webContents.toggleDevTools();
+            appWindow.wnd?.webContents.openDevTools({ mode: 'detach' }); //appWindow.wnd.webContents.toggleDevTools();
         }
         appWindow.wnd.show();
     });

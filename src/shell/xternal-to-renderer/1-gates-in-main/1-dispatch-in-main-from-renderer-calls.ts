@@ -15,7 +15,7 @@ export async function callFromRendererInMain(data: R2M.AllCalls): Promise<void> 
                     break;
                 }
                 case 'open-dev-tools': {
-                    appWindow.wnd?.webContents.openDevTools();
+                    appWindow.wnd?.webContents.openDevTools({ mode: 'detach' });
                     break;
                 }
             }
