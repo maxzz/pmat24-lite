@@ -60,6 +60,7 @@ export namespace R2M { // Main from Renderer
         setOn: boolean;
         position: number;              // 0 center, 1 top-left, 2 top-right, 3 bottom-left, 4 bottom-right
         size?: SizeInt;                // This can be provided to override server side position and have the same size on client side.
+        requestId?: number;            // Used by the renderer to await the resize being applied in main.
     };
 
     export type ShowHideWindow = {

@@ -3,7 +3,7 @@ import { type M2R } from "../../../../shared/ipc-types";
 import { stateNapiBuildMani, stateNapiAccess, stateNapiPosTracker } from "@/store/7-napi-atoms";
 import { doSetDeliveredFilesAtom } from "@/store/0-serve-atoms/1-do-set-files";
 import { doQuitFromMainAtom } from "@/store/0-serve-atoms";
-import { cancelSizeSmall_SawMonitorAtom } from "@/store/4-dialogs-atoms";
+import { cancelSizeSmall_SawMonitorAtom, doClose_SawMonitorFromMainAtom, notifySizeApplied_SawMonitorAtom } from "@/store/4-dialogs-atoms";
 import { finalizeFileContent, getRootFromFpath } from "./commands-to-main";
 import { zoomLevelAtom } from "@/store/9-ui-state/8-app-ui/6-zoom-atom";
 
@@ -58,13 +58,17 @@ export const doFromMainAtom = atom(
                 stateNapiPosTracker.current.isInside = data.progress.isInside;
                 break;
             }
+            case 'm2r:saw-mode-applied': {
+                set(notifySizeApplied_SawMonitorAtom, data);
+                break;
+            }
             case 'm2r:failed-raw-content': {
                 stateNapiAccess.buildFailedBody = data.body;
                 break;
             }
             case 'm2r:saw-mode-canceled': {
-                // set(sawModeOnClientAtom, { turnOn: false, canceledByMain: true });
                 set(cancelSizeSmall_SawMonitorAtom);
+                set(doClose_SawMonitorFromMainAtom);
                 break;
             }
 

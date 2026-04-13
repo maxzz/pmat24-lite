@@ -2,8 +2,9 @@ import { BrowserWindow } from "electron";
 import { electronState } from "@shell/2-electron-globals";
 import { type SizeInt, type RectangleInt, type R2MParams } from "@shared/ipc-types";
 import { applyZoom, centerRect, getWindowRect, relocateRect, setWindowRect } from "@shell/3-utils-main";
+import { mainToRenderer } from "../../1-gates-in-main/3-send-in-main-to-renderer";
 
-export function setSawModeOnMain(winApp: BrowserWindow | null, { setOn, position, size }: R2MParams.SetSawMode): void {
+export function setSawModeOnMain(winApp: BrowserWindow | null, { setOn, position, size, requestId }: R2MParams.SetSawMode): void {
     if (!winApp) {
         return;
     }
@@ -32,6 +33,8 @@ export function setSawModeOnMain(winApp: BrowserWindow | null, { setOn, position
 
         electronState.sawModeIsOn = false;
     }
+
+    mainToRenderer({ type: 'm2r:saw-mode-applied', setOn, requestId });
 
     // winApp.show();
 }

@@ -34,6 +34,12 @@ export namespace M2R { // Main to Renderer
         progress: PosTrackerCbType;
     };
 
+    export type SawModeApplied = {
+        type: 'm2r:saw-mode-applied';
+        setOn: boolean;
+        requestId?: number;
+    };
+
     export type SawModeCanceled = {
         type: 'm2r:saw-mode-canceled';
     };
@@ -69,6 +75,7 @@ export namespace M2R { // Main to Renderer
 
         | DetectionProgress
         | PositionProgress
+        | SawModeApplied
         | SawModeCanceled
         
         | FailedRawContent

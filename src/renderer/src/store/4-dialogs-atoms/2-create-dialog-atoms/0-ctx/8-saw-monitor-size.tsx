@@ -1,49 +1,103 @@
-import { type PrimitiveAtom, atom } from "jotai";
+import { atom } from "jotai";
 import { appSettings } from "@/store/9-ui-state";
 import { hasMain, R2MCalls } from "@/xternal-to-main";
-import { close_SawMonitorAtom } from "@/store/4-dialogs-atoms";
 
 // doCancelSawModeByMainAtom is called from main (gate-react-listener-atom.ts) to cancel the Saw mode.
 
-export const cancelSizeSmall_SawMonitorAtom = atom(null, (get, set) => set(setWindowSize_SawMonitorAtom, { turnOn: false, canceledByMain: true, cancelByMainAtom: close_SawMonitorAtom }));
-export const setSizeSmall_SawMonitorAtom = atom(null, (get, set) => set(setWindowSize_SawMonitorAtom, { turnOn: true, canceledByMain: false }));
-export const setSizeNormal_SawMonitorAtom = atom(null, (get, set) => set(setWindowSize_SawMonitorAtom, { turnOn: false, canceledByMain: hasMain(), cancelByMainAtom: close_SawMonitorAtom }));
-
-// Implementation
-
-type DoSawModeOnClientAtomParams = {
-    turnOn: boolean;                        // Is to set the mode on or off
-    canceledByMain: boolean;                // Is set if app close button was pressed from main process
-    cancelByMainAtom?: PrimitiveAtom<void>; // Cancel will be set to false when mode is turnned off by main process
-};
-
-const setWindowSize_SawMonitorAtom = atom(
+export const cancelSizeSmall_SawMonitorAtom = atom(
     null,
-    (get, set, { turnOn, canceledByMain, cancelByMainAtom }: DoSawModeOnClientAtomParams) => {
-        const isOn = get(_sawModeStateAtom);
+    (get, set) => {
+        set(_sawModeStateAtom, false);
+        resolveAllSawModeWaiters(false);
+    }
+);
 
-        const position = appSettings.appUi.uiGeneral.sawPosition;
-
-        if (turnOn) {
-            if (isOn) {
-                return;
-            }
-
-            R2MCalls.setSawModeOnMain({ setOn: true, position });
-            set(_sawModeStateAtom, true);
-        } else {
-            if (!isOn) {
-                return;
-            }
-
-            canceledByMain && cancelByMainAtom && set(cancelByMainAtom);
-
-            R2MCalls.setSawModeOnMain({ setOn: false, position });
-            set(_sawModeStateAtom, false);
+export const notifySizeApplied_SawMonitorAtom = atom(
+    null,
+    (get, set, { setOn, requestId }: { setOn: boolean; requestId?: number; }) => {
+        const resolved = resolveSawModeWaiter({ requestId, setOn });
+        if (resolved || requestId === undefined) {
+            set(_sawModeStateAtom, setOn);
         }
     }
 );
 
+export const setSizeSmall_SawMonitorAtom = atom(null, async (get, set) => set(setWindowSize_SawMonitorAtom, { turnOn: true }));
+export const setSizeNormal_SawMonitorAtom = atom(null, async (get, set) => set(setWindowSize_SawMonitorAtom, { turnOn: false }));
+
+// Implementation
+
+type DoSawModeOnClientAtomParams = {
+    turnOn: boolean; // Is to set the mode on or off
+};
+
+const setWindowSize_SawMonitorAtom = atom(
+    null,
+    async (get, set, { turnOn }: DoSawModeOnClientAtomParams): Promise<boolean> => {
+        const isOn = get(_sawModeStateAtom);
+        const hasPending = hasPendingSawModeWaiters();
+
+        if (turnOn === isOn && !hasPending) {
+            return isOn;
+        }
+
+        if (!hasMain()) {
+            set(_sawModeStateAtom, turnOn);
+            return turnOn;
+        }
+
+        const position = appSettings.appUi.uiGeneral.sawPosition;
+        const waiter = createSawModeWaiter();
+
+        R2MCalls.setSawModeOnMain({ setOn: turnOn, position, requestId: waiter.requestId });
+        const applied = await waiter.promise;
+        set(_sawModeStateAtom, applied);
+
+        return applied;
+    }
+);
+
 const _sawModeStateAtom = atom<boolean>(false); // Is saw mode on or off
+
+type SawModeWaiter = {
+    resolve: (setOn: boolean) => void;
+};
+
+let nextSawModeRequestId = 1;
+const sawModeWaiters = new Map<number, SawModeWaiter>();
+
+function createSawModeWaiter(): { requestId: number; promise: Promise<boolean>; } {
+    const requestId = nextSawModeRequestId++;
+    const promise = new Promise<boolean>((resolve) => {
+        sawModeWaiters.set(requestId, { resolve });
+    });
+    return { requestId, promise };
+}
+
+function hasPendingSawModeWaiters(): boolean {
+    return sawModeWaiters.size > 0;
+}
+
+function resolveSawModeWaiter({ requestId, setOn }: { requestId?: number; setOn: boolean; }): boolean {
+    if (requestId === undefined) {
+        return false;
+    }
+
+    const waiter = sawModeWaiters.get(requestId);
+    if (!waiter) {
+        return false;
+    }
+
+    sawModeWaiters.delete(requestId);
+    waiter.resolve(setOn);
+    return true;
+}
+
+function resolveAllSawModeWaiters(setOn: boolean): void {
+    for (const waiter of sawModeWaiters.values()) {
+        waiter.resolve(setOn);
+    }
+    sawModeWaiters.clear();
+}
 
 //TODO: check what we do on cancel from main.
