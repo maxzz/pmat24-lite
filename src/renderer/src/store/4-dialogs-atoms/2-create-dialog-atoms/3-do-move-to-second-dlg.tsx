@@ -13,8 +13,8 @@ import { fileUsChanges } from "@/store/2-file-mani-atoms/9-types";
 import { setManiActiveTab } from "@/store/5-3-right-panel";
 import { doClearSawHandleAtom, sawHandleAtom, setBuildState } from "@/store/7-napi-atoms";
 import { doSelectFileUsTreeAtom } from "@/components/2-main/1-left/2-files-list";
-import { checkboxCreateManualModeAtom, setSizeNormal_SawMonitorAtom, showProgressAtom, startMonitorTimerAtom, stopMonitorTimerAtom } from "./0-ctx";
-import { close_SawMonitorAtom } from "./1-open-saw-monitor";
+import { checkboxCreateManualModeAtom, showProgressAtom, startMonitorTimerAtom, stopMonitorTimerAtom } from "./0-ctx";
+import { close_SawMonitorAtom, hideBody_SawMonitorAtom } from "./1-open-saw-monitor";
 import { asyncExecuteNewManiDlg, close_NewManiDlgAtom } from "./2-open-new-mani-dlg";
 
 export const doCancelMoveToSecondDlgAtom = atom(
@@ -22,7 +22,6 @@ export const doCancelMoveToSecondDlgAtom = atom(
     (get, set) => {
         R2MCalls.showHideWindow(false); //TODO: do we need to hide and show? we don't use it below.
         set(close_SawMonitorAtom);
-        set(setSizeNormal_SawMonitorAtom);
         setBuildState({ error: '' });
         //setTimeout(() => R2MCalls.showHideWindow(true), 500); // This timeout causing undesired delay when closing the dialog with ESC key. see SawMonitorDlgBody()
         R2MCalls.showHideWindow(true);
@@ -59,10 +58,10 @@ export const doMoveToSecondDlgAtom = atom(
 
         // 1.2. Close Saw monitor dialog
 
+        set(hideBody_SawMonitorAtom);
+        await delay(0);
         //R2MCalls.showHideWindow(false);
         set(close_SawMonitorAtom);
-        //await delay(100);
-        set(setSizeNormal_SawMonitorAtom);
         //setTimeout(() => R2MCalls.showHideWindow(true), 100); //TODO: we need to call R2MCalls.setSawModeOnMain({ setOn: false }); and show in one single call
 
         // 2. Show dialog
