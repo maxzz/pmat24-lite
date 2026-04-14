@@ -6,22 +6,22 @@ import { sureRootDir } from "@/store/5-1-open-files";
 import { rightPanelAtomAtom } from "@/store/5-3-right-panel";
 import { checkboxCreateManualModeAtom, setSizeNormal_SawMonitorAtom, setSizeSmall_SawMonitorAtom, startMonitorTimerAtom, stopMonitorTimerAtom } from "./0-ctx";
 
-export const sawMonitor_isDlgOpenAtom      /**/ = atom((get) => get(_sawMonitor_DlgOpenAtom)); // i.e is the monitor dialog open
-export const sawMonitor_isOpenCoverAtom    /**/ = atom((get) => get(_sawMonitor_OpenCoverAtom)); // i.e is the cover visible in the dialog
-export const sawMonitor_isOpenBodyAtom     /**/ = atom((get) => get(_sawMonitor_OpenBodyAtom)); // i.e is the body visible in the dialog
+export const sawMonitor_isSawOpenAtom         /**/ = atom((get) => get(_sawMonitor_SawOpenAtom));   // i.e is the monitor dialog open
+export const sawMonitor_isOpenCoverAtom       /**/ = atom((get) => get(_sawMonitor_OpenCoverAtom)); // i.e is the cover visible in the dialog
+export const sawMonitor_isOpenBodyAtom        /**/ = atom((get) => get(_sawMonitor_OpenBodyAtom));  // i.e is the body visible in the dialog
 
-export const sawMonitor_doOpenAtom         /**/ = atom(() => null, (get, set) => set(doOpenCloseAtom, { doOpen: true, asCpass: false }));
-export const sawMonitor_doOpenForCpassAtom /**/ = atom(() => null, (get, set) => set(doOpenCloseAtom, { doOpen: true, asCpass: true }));
-export const sawMonitor_doCloseAtom        /**/ = atom(() => null, (get, set) => set(doOpenCloseAtom, { doOpen: false, asCpass: false }));
+export const sawMonitor_doSawOpenAtom         /**/ = atom(() => null, (get, set) => set(doOpenCloseAtom, { doOpen: true, asCpass: false }));
+export const sawMonitor_doSawOpenForCpassAtom /**/ = atom(() => null, (get, set) => set(doOpenCloseAtom, { doOpen: true, asCpass: true }));
+export const sawMonitor_doSawCloseAtom        /**/ = atom(() => null, (get, set) => set(doOpenCloseAtom, { doOpen: false, asCpass: false }));
 
-export const sawMonitor_doHideBodyAtom     /**/ = atom(null, (get, set) => hideBody(get, set));
-export const sawMonitor_doFinishOpenAtom   /**/ = atom(null, (get, set) => finish_SawOpenAnimation(get, set)); // i.e. finish the open animation
-export const sawMonitor_doFinishCloseAtom  /**/ = atom(null, (get, set) => finish_SawCloseAnimation(get, set)); // i.e. finish the close animation
+export const sawMonitor_onFinishAnimation_AllCloseAtom   /**/ = atom(null, (get, set) => finish_SawCloseAnimation(get, set)); // i.e. finish the close animation
+export const sawMonitor_onFinishAnimation_CoverOpenAtom  /**/ = atom(null, (get, set) => onFinishAnimation_CoverOpen(get, set)); // i.e. finish the open animation
+export const sawMonitor_doHideBodyAtom        /**/ = atom(null, (get, set) => hideBody(get, set));
 
 const doOpenCloseAtom = atom(
     null,
     (get, set, { doOpen, asCpass }: { doOpen: boolean; asCpass: boolean; }) => {
-        const wasOpen = get(_sawMonitor_DlgOpenAtom);
+        const wasOpen = get(_sawMonitor_SawOpenAtom);
         if (doOpen === wasOpen) {
             return;
         }
@@ -31,7 +31,7 @@ const doOpenCloseAtom = atom(
         if (doOpen) {
             if (asCpass) {
                 newManiContent.maniForCpassAtom = get(rightPanelAtomAtom);
-                
+
                 if (!newManiContent.maniForCpassAtom) {
                     throw new Error('no.mainForCpassAtom');
                 }
@@ -40,7 +40,7 @@ const doOpenCloseAtom = atom(
             }
         }
 
-        set(_sawMonitor_DlgOpenAtom, doOpen);
+        set(_sawMonitor_SawOpenAtom, doOpen);
         onOpenChange(doOpen, get, set);
     }
 );
@@ -49,10 +49,10 @@ function onOpenChange(doOpen: boolean, get: Getter, set: Setter) {
     if (doOpen) {
         set(checkboxCreateManualModeAtom, false);
         set(startMonitorTimerAtom);
-        
+
         cancel_CoverRelease();
         cancel_BodyReveal();
-        
+
         const wasCoverVisible = get(_sawMonitor_OpenCoverAtom);
 
         set(_sawMonitor_OpenCoverAtom, true);
@@ -79,13 +79,13 @@ function onOpenChange(doOpen: boolean, get: Getter, set: Setter) {
     }
 }
 
-const _sawMonitor_DlgOpenAtom = atom(false);
+const _sawMonitor_SawOpenAtom = atom(false);
 const _sawMonitor_OpenCoverAtom = atom(false);
 const _sawMonitor_OpenBodyAtom = atom(false);
 
 const _sawMonitor_TransitionAtom = atom<"idle" | "opening" | "closing">("idle");
 
-function finish_SawOpenAnimation(get: Getter, set: Setter) {
+function onFinishAnimation_CoverOpen(get: Getter, set: Setter) {
     if (get(_sawMonitor_TransitionAtom) !== "opening") {
         return;
     }
@@ -104,13 +104,13 @@ function finish_SawCloseAnimation(get: Getter, set: Setter) {
 }
 
 function hideBody(get: Getter, set: Setter) {
-    if (!get(_sawMonitor_DlgOpenAtom)) {
+    if (!get(_sawMonitor_SawOpenAtom)) {
         return;
     }
 
     cancel_BodyReveal();
     cancel_CoverRelease();
-    
+
     set(_sawMonitor_OpenCoverAtom, true);
     set(_sawMonitor_OpenBodyAtom, false);
 }

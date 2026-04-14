@@ -1,13 +1,13 @@
 import { type PrimitiveAtom, atom } from "jotai";
 import { appSettings } from "@/store/9-ui-state";
 import { hasMain, R2MCalls } from "@/xternal-to-main";
-import { sawMonitor_doCloseAtom } from "@/store/4-dialogs-atoms";
+import { sawMonitor_doSawCloseAtom } from "@/store/4-dialogs-atoms";
 
 // doCancelSawModeByMainAtom is called from main (gate-react-listener-atom.ts) to cancel the Saw mode.
 
-export const cancelSizeSmall_SawMonitorAtom = atom(null, (get, set) => set(setWindowSize_SawMonitorAtom, { turnOn: false, canceledByMain: true, cancelByMainAtom: sawMonitor_doCloseAtom }));
+export const cancelSizeSmall_SawMonitorAtom = atom(null, (get, set) => set(setWindowSize_SawMonitorAtom, { turnOn: false, canceledByMain: true, cancelByMainAtom: sawMonitor_doSawCloseAtom }));
 export const setSizeSmall_SawMonitorAtom = atom(null, (get, set) => set(setWindowSize_SawMonitorAtom, { turnOn: true, canceledByMain: false }));
-export const setSizeNormal_SawMonitorAtom = atom(null, (get, set) => set(setWindowSize_SawMonitorAtom, { turnOn: false, canceledByMain: hasMain(), cancelByMainAtom: sawMonitor_doCloseAtom }));
+export const setSizeNormal_SawMonitorAtom = atom(null, (get, set) => set(setWindowSize_SawMonitorAtom, { turnOn: false, canceledByMain: hasMain(), cancelByMainAtom: sawMonitor_doSawCloseAtom }));
 
 // Implementation
 

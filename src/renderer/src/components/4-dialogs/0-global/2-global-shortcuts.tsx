@@ -4,13 +4,13 @@ import { isRootDirEmpty } from "@/store/5-1-open-files";
 import { debugSettings } from "@/store/9-ui-state";
 import { zoomActionAtom } from "@/store/9-ui-state/8-app-ui";
 import { doSaveRightPanelFileAtom, doSaveAllAtom } from "@/store/0-serve-atoms";
-import { doOpenOptionsDialogAtom, sawMonitor_doOpenAtom, filterDialogOpenAtom } from "@/store/4-dialogs-atoms";
+import { doOpenOptionsDialogAtom, sawMonitor_doSawOpenAtom, filterDialogOpenAtom } from "@/store/4-dialogs-atoms";
 import { hasMain } from "@/xternal-to-main";
 
 export function AppGlobalShortcuts() {
     const doOpenOptionsDialog = useSetAtom(doOpenOptionsDialogAtom);
     const doOpenFilterDialog = useSetAtom(filterDialogOpenAtom);
-    const doOpen_SawMonitor = useSetAtom(sawMonitor_doOpenAtom);
+    const doOpen_SawMonitor = useSetAtom(sawMonitor_doSawOpenAtom);
     const doSaveOneIfNotNull = useSetAtom(doSaveRightPanelFileAtom);
     const doSaveAll = useSetAtom(doSaveAllAtom);
     const doZoom = useSetAtom(zoomActionAtom);

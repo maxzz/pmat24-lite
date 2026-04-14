@@ -5,17 +5,17 @@ import { type MotionNodeOptions, AnimatePresence, motion, useReducedMotion } fro
 import { useDissmissNextToasts } from "@/utils";
 import { Button, Checkbox, Label } from "@/ui";
 import { stateNapiAccess, useSawRectMonitor } from "@/store/7-napi-atoms";
-import { checkboxCreateManualModeAtom, doCancelMoveToSecondDlgAtom, doMoveToSecondDlgAtom, sawMonitor_doFinishCloseAtom, sawMonitor_doFinishOpenAtom, sawMonitor_isOpenBodyAtom, sawMonitor_isOpenCoverAtom, sawMonitor_isDlgOpenAtom } from "@/store/4-dialogs-atoms";
+import { checkboxCreateManualModeAtom, doCancelMoveToSecondDlgAtom, doMoveToSecondDlgAtom, sawMonitor_onFinishAnimation_AllCloseAtom, sawMonitor_onFinishAnimation_CoverOpenAtom, sawMonitor_isOpenBodyAtom, sawMonitor_isOpenCoverAtom, sawMonitor_isSawOpenAtom } from "@/store/4-dialogs-atoms";
 import { newManiContent } from "@/store/0-serve-atoms/0-create/1-create-new-mani-ctx";
 import { CurrentApp } from "./1-current-app";
 import { RuntimeCounter } from "./2-runtime-counter";
 import { DebugFrame } from "./8-debug-frame";
 
 export function DialogSawMonitor() {
-    const doFinishOpen = useSetAtom(sawMonitor_doFinishOpenAtom);
-    const doFinishClose = useSetAtom(sawMonitor_doFinishCloseAtom);
+    const onFinishAnimation_AllClose = useSetAtom(sawMonitor_onFinishAnimation_AllCloseAtom);
+    const onFinishAnimation_CoverOpen = useSetAtom(sawMonitor_onFinishAnimation_CoverOpenAtom);
 
-    const isOpenDlg = useAtomValue(sawMonitor_isDlgOpenAtom);
+    const isOpenDlg = useAtomValue(sawMonitor_isSawOpenAtom);
     const isOpenCover = useAtomValue(sawMonitor_isOpenCoverAtom);
     const isOpenBody = useAtomValue(sawMonitor_isOpenBodyAtom);
 
@@ -29,12 +29,12 @@ export function DialogSawMonitor() {
 
     const handleAnimationComplete = () => {
         if (isOpenDlg) {
-            doFinishOpen();
+            onFinishAnimation_CoverOpen();
         }
     };
 
     return (
-        <AnimatePresence initial={false} onExitComplete={doFinishClose}>
+        <AnimatePresence initial={false} onExitComplete={onFinishAnimation_AllClose}>
             {isVisible && (
                 <motion.div className="fixed inset-0 bg-background 1bg-sky-300 z-100" {...animationProps} onAnimationComplete={handleAnimationComplete}>
                     {showBody && (

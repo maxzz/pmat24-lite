@@ -3,7 +3,7 @@ import { useSetAtom } from "jotai";
 import { classNames } from "@/utils";
 import { FormIdx } from "@/store/8-manifest";
 import { Button } from "@/ui";
-import { sawMonitor_doOpenForCpassAtom } from "@/store/4-dialogs-atoms";
+import { sawMonitor_doSawOpenForCpassAtom } from "@/store/4-dialogs-atoms";
 
 export function TabContent_NoForm({ formIdx, className, ...rest }: { formIdx: FormIdx; } & ComponentPropsWithoutRef<'div'>) {
     const isCpass = formIdx === FormIdx.cpass;
@@ -34,7 +34,7 @@ export function TabContent_NoForm({ formIdx, className, ...rest }: { formIdx: Fo
 }
 
 function ButtonCreateCpassForm() {
-    const openDlg = useSetAtom(sawMonitor_doOpenForCpassAtom);
+    const openDlg = useSetAtom(sawMonitor_doSawOpenForCpassAtom);
     return (
         <Button variant="default" size="xs" className="px-2 w-max justify-start" onClick={openDlg}>
             Create password change form
