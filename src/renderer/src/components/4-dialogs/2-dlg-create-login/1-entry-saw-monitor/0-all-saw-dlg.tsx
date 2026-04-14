@@ -5,23 +5,28 @@ import { type MotionNodeOptions, AnimatePresence, motion, useReducedMotion } fro
 import { useDissmissNextToasts } from "@/utils";
 import { Button, Checkbox, Label } from "@/ui";
 import { stateNapiAccess, useSawRectMonitor } from "@/store/7-napi-atoms";
-import { checkboxCreateManualModeAtom, doCancelMoveToSecondDlgAtom, doMoveToSecondDlgAtom, finishClose_SawMonitorAtom, finishOpen_SawMonitorAtom, isBodyVisible_SawMonitorAtom, isCover_SawMonitorAtom, isOpen_SawMonitorAtom } from "@/store/4-dialogs-atoms";
+import { checkboxCreateManualModeAtom, doCancelMoveToSecondDlgAtom, doMoveToSecondDlgAtom, sawMonitor_doFinishCloseAtom, sawMonitor_doFinishOpenAtom, sawMonitor_isBodyVisibleAtom, sawMonitor_isCoverAtom, sawMonitor_isOpenAtom } from "@/store/4-dialogs-atoms";
 import { newManiContent } from "@/store/0-serve-atoms/0-create/1-create-new-mani-ctx";
 import { CurrentApp } from "./1-current-app";
 import { RuntimeCounter } from "./2-runtime-counter";
 import { DebugFrame } from "./8-debug-frame";
 
 export function DialogSawMonitor() {
-    const isOpen = useAtomValue(isOpen_SawMonitorAtom);
-    const isCover = useAtomValue(isCover_SawMonitorAtom);
-    const isBodyVisible = useAtomValue(isBodyVisible_SawMonitorAtom);
-    const finishOpen = useSetAtom(finishOpen_SawMonitorAtom);
-    const finishClose = useSetAtom(finishClose_SawMonitorAtom);
+    const finishOpen = useSetAtom(sawMonitor_doFinishOpenAtom);
+    const finishClose = useSetAtom(sawMonitor_doFinishCloseAtom);
+
+    const isOpen = useAtomValue(sawMonitor_isOpenAtom);
+    const isCover = useAtomValue(sawMonitor_isCoverAtom);
+    const isBodyVisible = useAtomValue(sawMonitor_isBodyVisibleAtom);
+
     const prefersReducedMotion = useReducedMotion() ?? false;
+    
     const animationProps = getAnimationProps(prefersReducedMotion);
     const bodyAnimationProps = getBodyAnimationProps(prefersReducedMotion);
+
     const isVisible = isOpen || isCover;
     const showBody = isOpen && isBodyVisible;
+
     const handleAnimationComplete = () => {
         if (isOpen) {
             finishOpen();
@@ -32,13 +37,11 @@ export function DialogSawMonitor() {
         <AnimatePresence initial={false} onExitComplete={finishClose}>
             {isVisible && (
                 <motion.div className="fixed inset-0 bg-background 1bg-sky-300 z-100" {...animationProps} onAnimationComplete={handleAnimationComplete}>
-                    {/* {isOpen && ( */}
-                        {showBody && (
-                            <motion.div className="h-full" {...bodyAnimationProps}>
-                                <SawBody />
-                            </motion.div>
-                        )}
-                    {/* )} */}
+                    {showBody && (
+                        <motion.div className="h-full" {...bodyAnimationProps}>
+                            <SawBody />
+                        </motion.div>
+                    )}
                 </motion.div>
             )}
         </AnimatePresence>
@@ -48,6 +51,7 @@ export function DialogSawMonitor() {
 function SawBody() {
     const [checkboxCreateManualMode, setCheckboxCreateManualMode] = useAtom(checkboxCreateManualModeAtom);
     const isCpassMode = !!newManiContent.maniForCpassAtom;
+    
     const doCancelMoveToSecondDlg = useSetAtom(doCancelMoveToSecondDlgAtom);
 
     useDissmissNextToasts();
@@ -55,15 +59,14 @@ function SawBody() {
 
     useEffect(
         () => {
-            const controller = new AbortController();
-
-            const onKeyDown = (e: KeyboardEvent) => {
+            function onKeyDown(e: KeyboardEvent) {
                 if (e.key === "Escape" && !e.repeat) {
                     e.preventDefault();
                     doCancelMoveToSecondDlg();
                 }
-            };
+            }
 
+            const controller = new AbortController();
             window.addEventListener("keydown", onKeyDown, { signal: controller.signal });
             return () => controller.abort();
         },
@@ -93,7 +96,6 @@ function SawBody() {
                     <ButtonContinue />
                 </div>
 
-                {/* <CornerSelector className="absolute left-1.5 bottom-4" /> */}
                 <RuntimeCounter className="absolute right-2 bottom-1 text-right opacity-25" />
             </DebugFrame>
         </div>

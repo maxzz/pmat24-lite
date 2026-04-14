@@ -6,20 +6,22 @@ import { sureRootDir } from "@/store/5-1-open-files";
 import { rightPanelAtomAtom } from "@/store/5-3-right-panel";
 import { checkboxCreateManualModeAtom, setSizeNormal_SawMonitorAtom, setSizeSmall_SawMonitorAtom, startMonitorTimerAtom, stopMonitorTimerAtom } from "./0-ctx";
 
-export const isOpen_SawMonitorAtom = atom((get) => get(_sawMonitorOpenAtom));
-export const isCover_SawMonitorAtom = atom((get) => get(_sawMonitorCoverAtom));
-export const isBodyVisible_SawMonitorAtom = atom((get) => get(_sawMonitorBodyAtom));
-export const open_SawMonitorAtom         /**/ = atom(() => null, (get, set) => set(doOpenCloseAtom, { doOpen: true, asCpass: false }));
-export const open_SawMonitorForCpassAtom /**/ = atom(() => null, (get, set) => set(doOpenCloseAtom, { doOpen: true, asCpass: true }));
-export const close_SawMonitorAtom        /**/ = atom(() => null, (get, set) => set(doOpenCloseAtom, { doOpen: false, asCpass: false }));
-export const hideBody_SawMonitorAtom     /**/ = atom(null, (get, set) => hideBody(get, set));
-export const finishOpen_SawMonitorAtom   /**/ = atom(null, (get, set) => finishSawOpen(get, set));
-export const finishClose_SawMonitorAtom  /**/ = atom(null, (get, set) => finishSawClose(get, set));
+export const sawMonitor_isOpenAtom = atom((get) => get(_sawMonitor_OpenAtom));
+export const sawMonitor_isCoverAtom = atom((get) => get(_sawMonitor_CoverAtom));
+export const sawMonitor_isBodyVisibleAtom = atom((get) => get(_sawMonitor_BodyAtom));
+
+export const sawMonitor_doOpenAtom         /**/ = atom(() => null, (get, set) => set(doOpenCloseAtom, { doOpen: true, asCpass: false }));
+export const sawMonitor_doOpenForCpassAtom /**/ = atom(() => null, (get, set) => set(doOpenCloseAtom, { doOpen: true, asCpass: true }));
+export const sawMonitor_doCloseAtom        /**/ = atom(() => null, (get, set) => set(doOpenCloseAtom, { doOpen: false, asCpass: false }));
+
+export const sawMonitor_doHideBodyAtom     /**/ = atom(null, (get, set) => hideBody(get, set));
+export const sawMonitor_doFinishOpenAtom   /**/ = atom(null, (get, set) => finish_SawOpen(get, set));
+export const sawMonitor_doFinishCloseAtom  /**/ = atom(null, (get, set) => finish_SawClose(get, set));
 
 const doOpenCloseAtom = atom(
     null,
     (get, set, { doOpen, asCpass }: { doOpen: boolean; asCpass: boolean; }) => {
-        const wasOpen = get(_sawMonitorOpenAtom);
+        const wasOpen = get(_sawMonitor_OpenAtom);
         if (doOpen === wasOpen) {
             return;
         }
@@ -38,7 +40,7 @@ const doOpenCloseAtom = atom(
             }
         }
 
-        set(_sawMonitorOpenAtom, doOpen);
+        set(_sawMonitor_OpenAtom, doOpen);
         onOpenChange(doOpen, get, set);
     }
 );
@@ -47,122 +49,136 @@ function onOpenChange(doOpen: boolean, get: Getter, set: Setter) {
     if (doOpen) {
         set(checkboxCreateManualModeAtom, false);
         set(startMonitorTimerAtom);
-        cancelCoverRelease();
-        cancelBodyReveal();
-        const wasCoverVisible = get(_sawMonitorCoverAtom);
-        set(_sawMonitorCoverAtom, true);
-        set(_sawMonitorBodyAtom, false);
-        set(_sawMonitorTransitionAtom, "opening");
+        
+        cancel_CoverRelease();
+        cancel_BodyReveal();
+        
+        const wasCoverVisible = get(_sawMonitor_CoverAtom);
+
+        set(_sawMonitor_CoverAtom, true);
+        set(_sawMonitor_BodyAtom, false);
+
+        set(_sawMonitor_TransitionAtom, "opening");
         if (wasCoverVisible) {
             set(setSizeSmall_SawMonitorAtom);
-            set(_sawMonitorTransitionAtom, "idle");
-            scheduleBodyReveal(set);
+            set(_sawMonitor_TransitionAtom, "idle");
+
+            schedule_BodyReveal(set);
         }
     } else {
         set(stopMonitorTimerAtom);
         clearIconsCache();
-        set(_sawMonitorCoverAtom, true);
-        set(_sawMonitorBodyAtom, false);
-        set(_sawMonitorTransitionAtom, "closing");
-        scheduleSizeNormal(set);
-        scheduleCoverRelease(set);
+
+        set(_sawMonitor_CoverAtom, true);
+        set(_sawMonitor_BodyAtom, false);
+
+        set(_sawMonitor_TransitionAtom, "closing");
+
+        schedule_SizeNormal(set);
+        schedule_CoverRelease(set);
     }
 }
 
-const _sawMonitorOpenAtom = atom(false);
-const _sawMonitorCoverAtom = atom(false);
-const _sawMonitorBodyAtom = atom(false);
-const _sawMonitorTransitionAtom = atom<SawMonitorTransition>("idle");
+const _sawMonitor_OpenAtom = atom(false);
+const _sawMonitor_CoverAtom = atom(false);
+const _sawMonitor_BodyAtom = atom(false);
+const _sawMonitor_TransitionAtom = atom<"idle" | "opening" | "closing">("idle");
 
-type SawMonitorTransition = "idle" | "opening" | "closing";
-let coverReleaseToken = 0;
-let bodyRevealToken = 0;
-let normalResizeToken = 0;
+let token_coverRelease = 0;
+let token_bodyReveal = 0;
+let token_normalResize = 0;
 
-function finishSawOpen(get: Getter, set: Setter) {
-    if (get(_sawMonitorTransitionAtom) !== "opening") {
+function finish_SawOpen(get: Getter, set: Setter) {
+    if (get(_sawMonitor_TransitionAtom) !== "opening") {
         return;
     }
 
     set(setSizeSmall_SawMonitorAtom);
-    set(_sawMonitorTransitionAtom, "idle");
-    scheduleBodyReveal(set);
+    set(_sawMonitor_TransitionAtom, "idle");
+    schedule_BodyReveal(set);
 }
 
-function finishSawClose(get: Getter, set: Setter) {
-    if (get(_sawMonitorTransitionAtom) !== "closing") {
+function finish_SawClose(get: Getter, set: Setter) {
+    if (get(_sawMonitor_TransitionAtom) !== "closing") {
         return;
     }
 
-    set(_sawMonitorTransitionAtom, "idle");
+    set(_sawMonitor_TransitionAtom, "idle");
 }
 
 function hideBody(get: Getter, set: Setter) {
-    if (!get(_sawMonitorOpenAtom)) {
+    if (!get(_sawMonitor_OpenAtom)) {
         return;
     }
 
-    cancelBodyReveal();
-    cancelCoverRelease();
-    set(_sawMonitorCoverAtom, true);
-    set(_sawMonitorBodyAtom, false);
+    cancel_BodyReveal();
+    cancel_CoverRelease();
+    set(_sawMonitor_CoverAtom, true);
+    set(_sawMonitor_BodyAtom, false);
 }
 
-function scheduleCoverRelease(set: Setter) {
-    const token = ++coverReleaseToken;
+// Cover release
+
+function schedule_CoverRelease(set: Setter) {
+    const token = ++token_coverRelease;
+
     const requestFrame = typeof requestAnimationFrame === "function"
         ? requestAnimationFrame
         : (callback: FrameRequestCallback) => setTimeout(callback, 0);
 
     requestFrame(() => {
         requestFrame(() => {
-            if (token !== coverReleaseToken) {
+            if (token !== token_coverRelease) {
                 return;
             }
-            set(_sawMonitorCoverAtom, false);
+            set(_sawMonitor_CoverAtom, false);
         });
     });
 }
 
-function cancelCoverRelease() {
-    coverReleaseToken += 1;
+function cancel_CoverRelease() {
+    token_coverRelease += 1;
 }
 
-function scheduleSizeNormal(set: Setter) {
-    const token = ++normalResizeToken;
+// Body reveal
+
+function schedule_BodyReveal(set: Setter) {
+    const token = ++token_bodyReveal;
     const requestFrame = typeof requestAnimationFrame === "function"
         ? requestAnimationFrame
         : (callback: FrameRequestCallback) => setTimeout(callback, 0);
 
     requestFrame(() => {
-        if (token !== normalResizeToken) {
+        requestFrame(() => {
+            if (token !== token_bodyReveal) {
+                return;
+            }
+            set(_sawMonitor_BodyAtom, true);
+        });
+    });
+}
+
+function cancel_BodyReveal() {
+    token_bodyReveal += 1;
+}
+
+// Size normal
+
+function schedule_SizeNormal(set: Setter) {
+    const token = ++token_normalResize;
+    const requestFrame = typeof requestAnimationFrame === "function"
+        ? requestAnimationFrame
+        : (callback: FrameRequestCallback) => setTimeout(callback, 0);
+
+    requestFrame(() => {
+        if (token !== token_normalResize) {
             return;
         }
         set(setSizeNormal_SawMonitorAtom);
     });
 }
 
-function scheduleBodyReveal(set: Setter) {
-    const token = ++bodyRevealToken;
-    const requestFrame = typeof requestAnimationFrame === "function"
-        ? requestAnimationFrame
-        : (callback: FrameRequestCallback) => setTimeout(callback, 0);
-
-    requestFrame(() => {
-        requestFrame(() => {
-            if (token !== bodyRevealToken) {
-                return;
-            }
-            set(_sawMonitorBodyAtom, true);
-        });
-    });
-}
-
-function cancelBodyReveal() {
-    bodyRevealToken += 1;
-}
-
-// Utility
+// Get atom to check if the current main can be used for cpass.
 
 export const allowedToCreateCpassAtom = atom(
     (get) => {

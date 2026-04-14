@@ -3,7 +3,7 @@ import { DropdownMenuItem } from "@/ui/shadcn";
 import { FormIdx } from "@/store/8-manifest";
 import { type ManiAtoms, type FileUsCtx } from "@/store/2-file-mani-atoms/9-types";
 import { doDeleteCpassFromFileUsAtom } from "@/store/0-serve-atoms";
-import { open_SawMonitorForCpassAtom } from "@/store/4-dialogs-atoms";
+import { sawMonitor_doOpenForCpassAtom } from "@/store/4-dialogs-atoms";
 
 export function MenuItem_Cpass({ maniAtoms, fileUsCtx }: { maniAtoms: ManiAtoms; fileUsCtx: FileUsCtx; }) {
     const formCtx = maniAtoms[FormIdx.cpass];
@@ -17,7 +17,7 @@ export function MenuItem_Cpass({ maniAtoms, fileUsCtx }: { maniAtoms: ManiAtoms;
 }
 
 function MenuItem_CreateCpass({ maniAtoms, fileUsCtx }: { maniAtoms: ManiAtoms; fileUsCtx: FileUsCtx; }) {
-    const openDlg = useSetAtom(open_SawMonitorForCpassAtom);
+    const openDlg = useSetAtom(sawMonitor_doOpenForCpassAtom);
 
     return (<>
         <DropdownMenuItem

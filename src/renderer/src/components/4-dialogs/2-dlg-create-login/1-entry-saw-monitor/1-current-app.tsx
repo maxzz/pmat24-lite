@@ -14,10 +14,13 @@ export function CurrentApp({ className, ...rest }: ComponentPropsWithoutRef<'div
     return (
         <div className={classNames("relative px-4 py-2 w-full bg-background 1bg-muted/50 border-border border shadow-inner rounded-md grid place-items-center gap-2", className)} {...rest}>
             <CornerSelector className="absolute right-1 top-1" />
+
             <div className="select-none">
                 Active application:
             </div>
+
             <AppIcon className="grid place-items-center select-none" />
+            
             <CurrentAppCaption />
         </div>
     );
