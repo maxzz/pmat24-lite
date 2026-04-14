@@ -4,7 +4,7 @@ import { clearIconsCache } from "@/store/7-napi-atoms";
 import { newManiContent } from "@/store/0-serve-atoms/0-create/1-create-new-mani-ctx";
 import { sureRootDir } from "@/store/5-1-open-files";
 import { rightPanelAtomAtom } from "@/store/5-3-right-panel";
-import { checkboxCreateManualModeAtom } from "./8-ui-atoms";
+import { checkboxCreateManualModeAtom } from "./7-3-ui-atoms";
 import { startMonitorTimerAtom, stopMonitorTimerAtom } from "./7-1-do-monitoring";
 import { setSizeNormal_SawMonitorAtom, setSizeSmall_SawMonitorAtom } from "./7-2-do-window-size";
 

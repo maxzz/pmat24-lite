@@ -6,7 +6,7 @@ import { classNames } from "@/utils";
 import { Button } from "@/ui/shadcn";
 import { ImageHolder } from "@/ui/local-ui";
 import { stateNapiBuildMani, napiLock, sawHandleAtom, sawHandleCaptionAtom, sawIconAtom} from "@/store/7-napi-atoms";
-import { showProgressAtom } from "@/store/4-dialogs-atoms/2-create-dialog-atoms/8-ui-atoms";
+import { showProgressAtom } from "@/store/4-dialogs-atoms/2-create-dialog-atoms/7-3-ui-atoms";
 import { Spinner } from "@/ui/icons";
 import { CornerSelector } from "./3-corner-selector";
 

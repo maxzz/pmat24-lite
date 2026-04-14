@@ -161,7 +161,7 @@
 			]
 		},
 		{
-			"path": "src/renderer/src/store/4-dialogs-atoms/2-create-dialog-atoms/3-do-move-to-second-dlg.tsx",
+			"path": "src/renderer/src/store/4-dialogs-atoms/2-create-dialog-atoms/1-1-do-move-to-second-dlg.tsx",
 			"bookmarks": [
 				{
 					"line": 20,
