@@ -21,13 +21,13 @@ export function DialogSawMonitor() {
 
     const prefersReducedMotion = useReducedMotion() ?? false;
     
-    const animationProps = getAnimationProps(prefersReducedMotion);
+    const coverAnimationProps = getCoverAnimationProps(prefersReducedMotion);
     const bodyAnimationProps = getBodyAnimationProps(prefersReducedMotion);
 
     const isVisible = isOpenDlg || isOpenCover;
     const showBody = isOpenDlg && isOpenBody;
 
-    const handleAnimationComplete = () => {
+    const handleCoverAnimationComplete = () => {
         if (isOpenDlg) {
             onFinishAnimation_CoverOpen();
         }
@@ -36,7 +36,7 @@ export function DialogSawMonitor() {
     return (
         <AnimatePresence initial={false} onExitComplete={onFinishAnimation_AllClose}>
             {isVisible && (
-                <motion.div className="fixed inset-0 bg-background 1bg-sky-300 z-100" {...animationProps} onAnimationComplete={handleAnimationComplete}>
+                <motion.div className="fixed inset-0 bg-background 1bg-sky-300 z-100" {...coverAnimationProps} onAnimationComplete={handleCoverAnimationComplete}>
                     {showBody && (
                         <motion.div className="h-full" {...bodyAnimationProps}>
                             <SawBody />
@@ -112,7 +112,16 @@ function ButtonContinue() {
     );
 }
 
-function getAnimationProps(reducedMotion: boolean): MotionNodeOptions {
+// function getCoverAnimationProps(reducedMotion: boolean): MotionNodeOptions {
+//     const duration = reducedMotion ? 0.01 : 0.2;
+//     //const duration = 2; // for debugging
+//     return {
+//         initial: { opacity: 0, scale: 0.15 },
+//         animate: { opacity: 1, scale: 1, transition: { duration } },
+//         exit: { opacity: 0, scale: 0.15, transition: { duration } },
+//     };
+// }
+function getCoverAnimationProps(reducedMotion: boolean): MotionNodeOptions {
     const duration = reducedMotion ? 0.01 : 0.2;
     return {
         initial: { opacity: 0, scale: 0.15 },
@@ -121,6 +130,14 @@ function getAnimationProps(reducedMotion: boolean): MotionNodeOptions {
     };
 }
 
+// function getBodyAnimationProps(reducedMotion: boolean): MotionNodeOptions {
+//     const duration = reducedMotion ? 0.01 : 0.18;
+//     //const duration = 5; // for debugging
+//     return {
+//         initial: { opacity: 0, scaleX: 0.85 },
+//         animate: { opacity: 1, scaleX: 1, transition: { duration } },
+//     };
+// }
 function getBodyAnimationProps(reducedMotion: boolean): MotionNodeOptions {
     const duration = reducedMotion ? 0.01 : 0.18;
     return {
@@ -128,11 +145,3 @@ function getBodyAnimationProps(reducedMotion: boolean): MotionNodeOptions {
         animate: { opacity: 1, scale: 1, transition: { duration } },
     };
 }
-
-// const dialogClasses = "\
-// p-0 \
-// w-11/12! max-w-5xl \
-// h-4/5 min-h-[60vh] max-h-[90vh] \
-// rounded-md \
-// data-[state=open]:duration-ani-200 \
-// ";
