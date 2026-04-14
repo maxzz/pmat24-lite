@@ -5,36 +5,36 @@ import { type MotionNodeOptions, AnimatePresence, motion, useReducedMotion } fro
 import { useDissmissNextToasts } from "@/utils";
 import { Button, Checkbox, Label } from "@/ui";
 import { stateNapiAccess, useSawRectMonitor } from "@/store/7-napi-atoms";
-import { checkboxCreateManualModeAtom, doCancelMoveToSecondDlgAtom, doMoveToSecondDlgAtom, sawMonitor_doFinishCloseAtom, sawMonitor_doFinishOpenAtom, sawMonitor_isBodyVisibleAtom, sawMonitor_isCoverAtom, sawMonitor_isOpenAtom } from "@/store/4-dialogs-atoms";
+import { checkboxCreateManualModeAtom, doCancelMoveToSecondDlgAtom, doMoveToSecondDlgAtom, sawMonitor_doFinishCloseAtom, sawMonitor_doFinishOpenAtom, sawMonitor_isOpenBodyAtom, sawMonitor_isOpenCoverAtom, sawMonitor_isDlgOpenAtom } from "@/store/4-dialogs-atoms";
 import { newManiContent } from "@/store/0-serve-atoms/0-create/1-create-new-mani-ctx";
 import { CurrentApp } from "./1-current-app";
 import { RuntimeCounter } from "./2-runtime-counter";
 import { DebugFrame } from "./8-debug-frame";
 
 export function DialogSawMonitor() {
-    const finishOpen = useSetAtom(sawMonitor_doFinishOpenAtom);
-    const finishClose = useSetAtom(sawMonitor_doFinishCloseAtom);
+    const doFinishOpen = useSetAtom(sawMonitor_doFinishOpenAtom);
+    const doFinishClose = useSetAtom(sawMonitor_doFinishCloseAtom);
 
-    const isOpen = useAtomValue(sawMonitor_isOpenAtom);
-    const isCover = useAtomValue(sawMonitor_isCoverAtom);
-    const isBodyVisible = useAtomValue(sawMonitor_isBodyVisibleAtom);
+    const isOpenDlg = useAtomValue(sawMonitor_isDlgOpenAtom);
+    const isOpenCover = useAtomValue(sawMonitor_isOpenCoverAtom);
+    const isOpenBody = useAtomValue(sawMonitor_isOpenBodyAtom);
 
     const prefersReducedMotion = useReducedMotion() ?? false;
     
     const animationProps = getAnimationProps(prefersReducedMotion);
     const bodyAnimationProps = getBodyAnimationProps(prefersReducedMotion);
 
-    const isVisible = isOpen || isCover;
-    const showBody = isOpen && isBodyVisible;
+    const isVisible = isOpenDlg || isOpenCover;
+    const showBody = isOpenDlg && isOpenBody;
 
     const handleAnimationComplete = () => {
-        if (isOpen) {
-            finishOpen();
+        if (isOpenDlg) {
+            doFinishOpen();
         }
     };
 
     return (
-        <AnimatePresence initial={false} onExitComplete={finishClose}>
+        <AnimatePresence initial={false} onExitComplete={doFinishClose}>
             {isVisible && (
                 <motion.div className="fixed inset-0 bg-background 1bg-sky-300 z-100" {...animationProps} onAnimationComplete={handleAnimationComplete}>
                     {showBody && (

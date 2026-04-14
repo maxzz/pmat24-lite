@@ -6,22 +6,22 @@ import { sureRootDir } from "@/store/5-1-open-files";
 import { rightPanelAtomAtom } from "@/store/5-3-right-panel";
 import { checkboxCreateManualModeAtom, setSizeNormal_SawMonitorAtom, setSizeSmall_SawMonitorAtom, startMonitorTimerAtom, stopMonitorTimerAtom } from "./0-ctx";
 
-export const sawMonitor_isOpenAtom = atom((get) => get(_sawMonitor_OpenAtom));
-export const sawMonitor_isCoverAtom = atom((get) => get(_sawMonitor_CoverAtom));
-export const sawMonitor_isBodyVisibleAtom = atom((get) => get(_sawMonitor_BodyAtom));
+export const sawMonitor_isDlgOpenAtom      /**/ = atom((get) => get(_sawMonitor_DlgOpenAtom)); // i.e is the monitor dialog open
+export const sawMonitor_isOpenCoverAtom    /**/ = atom((get) => get(_sawMonitor_OpenCoverAtom)); // i.e is the cover visible in the dialog
+export const sawMonitor_isOpenBodyAtom     /**/ = atom((get) => get(_sawMonitor_OpenBodyAtom)); // i.e is the body visible in the dialog
 
 export const sawMonitor_doOpenAtom         /**/ = atom(() => null, (get, set) => set(doOpenCloseAtom, { doOpen: true, asCpass: false }));
 export const sawMonitor_doOpenForCpassAtom /**/ = atom(() => null, (get, set) => set(doOpenCloseAtom, { doOpen: true, asCpass: true }));
 export const sawMonitor_doCloseAtom        /**/ = atom(() => null, (get, set) => set(doOpenCloseAtom, { doOpen: false, asCpass: false }));
 
 export const sawMonitor_doHideBodyAtom     /**/ = atom(null, (get, set) => hideBody(get, set));
-export const sawMonitor_doFinishOpenAtom   /**/ = atom(null, (get, set) => finish_SawOpen(get, set));
-export const sawMonitor_doFinishCloseAtom  /**/ = atom(null, (get, set) => finish_SawClose(get, set));
+export const sawMonitor_doFinishOpenAtom   /**/ = atom(null, (get, set) => finish_SawOpenAnimation(get, set)); // i.e. finish the open animation
+export const sawMonitor_doFinishCloseAtom  /**/ = atom(null, (get, set) => finish_SawCloseAnimation(get, set)); // i.e. finish the close animation
 
 const doOpenCloseAtom = atom(
     null,
     (get, set, { doOpen, asCpass }: { doOpen: boolean; asCpass: boolean; }) => {
-        const wasOpen = get(_sawMonitor_OpenAtom);
+        const wasOpen = get(_sawMonitor_DlgOpenAtom);
         if (doOpen === wasOpen) {
             return;
         }
@@ -40,7 +40,7 @@ const doOpenCloseAtom = atom(
             }
         }
 
-        set(_sawMonitor_OpenAtom, doOpen);
+        set(_sawMonitor_DlgOpenAtom, doOpen);
         onOpenChange(doOpen, get, set);
     }
 );
@@ -53,10 +53,10 @@ function onOpenChange(doOpen: boolean, get: Getter, set: Setter) {
         cancel_CoverRelease();
         cancel_BodyReveal();
         
-        const wasCoverVisible = get(_sawMonitor_CoverAtom);
+        const wasCoverVisible = get(_sawMonitor_OpenCoverAtom);
 
-        set(_sawMonitor_CoverAtom, true);
-        set(_sawMonitor_BodyAtom, false);
+        set(_sawMonitor_OpenCoverAtom, true);
+        set(_sawMonitor_OpenBodyAtom, false);
 
         set(_sawMonitor_TransitionAtom, "opening");
         if (wasCoverVisible) {
@@ -69,8 +69,8 @@ function onOpenChange(doOpen: boolean, get: Getter, set: Setter) {
         set(stopMonitorTimerAtom);
         clearIconsCache();
 
-        set(_sawMonitor_CoverAtom, true);
-        set(_sawMonitor_BodyAtom, false);
+        set(_sawMonitor_OpenCoverAtom, true);
+        set(_sawMonitor_OpenBodyAtom, false);
 
         set(_sawMonitor_TransitionAtom, "closing");
 
@@ -79,16 +79,13 @@ function onOpenChange(doOpen: boolean, get: Getter, set: Setter) {
     }
 }
 
-const _sawMonitor_OpenAtom = atom(false);
-const _sawMonitor_CoverAtom = atom(false);
-const _sawMonitor_BodyAtom = atom(false);
+const _sawMonitor_DlgOpenAtom = atom(false);
+const _sawMonitor_OpenCoverAtom = atom(false);
+const _sawMonitor_OpenBodyAtom = atom(false);
+
 const _sawMonitor_TransitionAtom = atom<"idle" | "opening" | "closing">("idle");
 
-let token_coverRelease = 0;
-let token_bodyReveal = 0;
-let token_normalResize = 0;
-
-function finish_SawOpen(get: Getter, set: Setter) {
+function finish_SawOpenAnimation(get: Getter, set: Setter) {
     if (get(_sawMonitor_TransitionAtom) !== "opening") {
         return;
     }
@@ -98,7 +95,7 @@ function finish_SawOpen(get: Getter, set: Setter) {
     schedule_BodyReveal(set);
 }
 
-function finish_SawClose(get: Getter, set: Setter) {
+function finish_SawCloseAnimation(get: Getter, set: Setter) {
     if (get(_sawMonitor_TransitionAtom) !== "closing") {
         return;
     }
@@ -107,18 +104,20 @@ function finish_SawClose(get: Getter, set: Setter) {
 }
 
 function hideBody(get: Getter, set: Setter) {
-    if (!get(_sawMonitor_OpenAtom)) {
+    if (!get(_sawMonitor_DlgOpenAtom)) {
         return;
     }
 
     cancel_BodyReveal();
     cancel_CoverRelease();
-    set(_sawMonitor_CoverAtom, true);
-    set(_sawMonitor_BodyAtom, false);
+    
+    set(_sawMonitor_OpenCoverAtom, true);
+    set(_sawMonitor_OpenBodyAtom, false);
 }
 
 // Cover release
 
+let token_coverRelease = 0;
 function schedule_CoverRelease(set: Setter) {
     const token = ++token_coverRelease;
 
@@ -127,7 +126,7 @@ function schedule_CoverRelease(set: Setter) {
             if (token !== token_coverRelease) {
                 return;
             }
-            set(_sawMonitor_CoverAtom, false);
+            set(_sawMonitor_OpenCoverAtom, false);
         });
     });
 }
@@ -138,6 +137,7 @@ function cancel_CoverRelease() {
 
 // Body reveal
 
+let token_bodyReveal = 0;
 function schedule_BodyReveal(set: Setter) {
     const token = ++token_bodyReveal;
 
@@ -146,7 +146,7 @@ function schedule_BodyReveal(set: Setter) {
             if (token !== token_bodyReveal) {
                 return;
             }
-            set(_sawMonitor_BodyAtom, true);
+            set(_sawMonitor_OpenBodyAtom, true);
         });
     });
 }
@@ -157,6 +157,13 @@ function cancel_BodyReveal() {
 
 // Size normal
 
+/**
+ * It’s a small “latest-wins” scheduler to resize on the next paint. The module‑level token_normalResize is incremented each time schedule_SizeNormal runs, 
+ * and the callback captures the current token. When the requestAnimationFrame callback fires, it checks whether a newer call happened in the meantime; 
+ * if the token changed, the callback exits without doing anything. That prevents stale resize requests from applying. 
+ * If it’s still current, it dispatches setSizeNormal_SawMonitorAtom to perform the resize on the next frame for smoother UI timing.
+ */
+let token_normalResize = 0;
 function schedule_SizeNormal(set: Setter) {
     const token = ++token_normalResize;
 
