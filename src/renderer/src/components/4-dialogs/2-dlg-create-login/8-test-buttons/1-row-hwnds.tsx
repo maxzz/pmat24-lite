@@ -3,7 +3,7 @@ import { useSnapshot } from "valtio";
 import { doDissmissNextToastsAtom } from "@/utils";
 import { Label, RadioGroup, RadioGroupItem } from "@/ui";
 import { testHwnd, TestHwndEnum } from "@/store/7-napi-atoms";
-import { doUpdateHwndAndIconAtom } from "@/store/4-dialogs-atoms";
+import { doUpdateHwndAndIconAtom } from "@/store/4-dialogs-atoms/2-create-dialog-atoms/7-1-do-monitoring";
 import { debugSettings } from "@/store/9-ui-state";
 import { labelClasses, DelayInput } from "./8-utils";
 

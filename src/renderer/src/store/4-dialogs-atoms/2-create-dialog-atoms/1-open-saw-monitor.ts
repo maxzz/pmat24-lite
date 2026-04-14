@@ -4,7 +4,9 @@ import { clearIconsCache } from "@/store/7-napi-atoms";
 import { newManiContent } from "@/store/0-serve-atoms/0-create/1-create-new-mani-ctx";
 import { sureRootDir } from "@/store/5-1-open-files";
 import { rightPanelAtomAtom } from "@/store/5-3-right-panel";
-import { checkboxCreateManualModeAtom, setSizeNormal_SawMonitorAtom, setSizeSmall_SawMonitorAtom, startMonitorTimerAtom, stopMonitorTimerAtom } from "./0-ctx";
+import { checkboxCreateManualModeAtom } from "./8-ui-atoms";
+import { startMonitorTimerAtom, stopMonitorTimerAtom } from "./7-1-do-monitoring";
+import { setSizeNormal_SawMonitorAtom, setSizeSmall_SawMonitorAtom } from "./7-2-do-window-size";
 
 export const sawMonitor_isSawOpenAtom         /**/ = atom((get) => get(_sawMonitor_SawOpenAtom));   // i.e is the monitor dialog open
 export const sawMonitor_isOpenCoverAtom       /**/ = atom((get) => get(_sawMonitor_OpenCoverAtom)); // i.e is the cover visible in the dialog

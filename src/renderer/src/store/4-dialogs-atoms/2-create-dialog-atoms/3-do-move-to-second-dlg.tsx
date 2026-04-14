@@ -13,9 +13,10 @@ import { fileUsChanges } from "@/store/2-file-mani-atoms/9-types";
 import { setManiActiveTab } from "@/store/5-3-right-panel";
 import { doClearSawHandleAtom, sawHandleAtom, setBuildState } from "@/store/7-napi-atoms";
 import { doSelectFileUsTreeAtom } from "@/components/2-main/1-left/2-files-list";
-import { checkboxCreateManualModeAtom, showProgressAtom, startMonitorTimerAtom, stopMonitorTimerAtom } from "./0-ctx";
 import { sawMonitor_doSawCloseAtom, sawMonitor_doHideBodyAtom } from "./1-open-saw-monitor";
 import { asyncExecuteNewManiDlg, close_NewManiDlgAtom } from "./2-open-new-mani-dlg";
+import { startMonitorTimerAtom, stopMonitorTimerAtom } from "./7-1-do-monitoring";
+import { checkboxCreateManualModeAtom, showProgressAtom } from "./8-ui-atoms";
 
 export const doCancelMoveToSecondDlgAtom = atom(
     null,

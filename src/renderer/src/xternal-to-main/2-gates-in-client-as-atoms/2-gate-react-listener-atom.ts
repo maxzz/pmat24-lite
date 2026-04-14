@@ -3,7 +3,7 @@ import { type M2R } from "../../../../shared/ipc-types";
 import { stateNapiBuildMani, stateNapiAccess, stateNapiPosTracker } from "@/store/7-napi-atoms";
 import { doSetDeliveredFilesAtom } from "@/store/0-serve-atoms/1-do-set-files";
 import { doQuitFromMainAtom } from "@/store/0-serve-atoms";
-import { cancelSizeSmall_SawMonitorAtom } from "@/store/4-dialogs-atoms";
+import { cancelSizeSmall_SawMonitorAtom } from "@/store/4-dialogs-atoms/2-create-dialog-atoms/7-2-do-window-size";
 import { finalizeFileContent, getRootFromFpath } from "./commands-to-main";
 import { zoomLevelAtom } from "@/store/9-ui-state/8-app-ui/6-zoom-atom";
 
