@@ -122,10 +122,7 @@ function hideBody(get: Getter, set: Setter) {
 function schedule_CoverRelease(set: Setter) {
     const token = ++token_coverRelease;
 
-    const requestFrame = typeof requestAnimationFrame === "function"
-        ? requestAnimationFrame
-        : (callback: FrameRequestCallback) => setTimeout(callback, 0);
-
+    const requestFrame = getRequestFrameFn();
     requestFrame(() => {
         requestFrame(() => {
             if (token !== token_coverRelease) {
@@ -144,10 +141,8 @@ function cancel_CoverRelease() {
 
 function schedule_BodyReveal(set: Setter) {
     const token = ++token_bodyReveal;
-    const requestFrame = typeof requestAnimationFrame === "function"
-        ? requestAnimationFrame
-        : (callback: FrameRequestCallback) => setTimeout(callback, 0);
 
+    const requestFrame = getRequestFrameFn();
     requestFrame(() => {
         requestFrame(() => {
             if (token !== token_bodyReveal) {
@@ -166,10 +161,8 @@ function cancel_BodyReveal() {
 
 function schedule_SizeNormal(set: Setter) {
     const token = ++token_normalResize;
-    const requestFrame = typeof requestAnimationFrame === "function"
-        ? requestAnimationFrame
-        : (callback: FrameRequestCallback) => setTimeout(callback, 0);
 
+    const requestFrame = getRequestFrameFn();
     requestFrame(() => {
         if (token !== token_normalResize) {
             return;
@@ -200,3 +193,11 @@ export const allowedToCreateCpassAtom = atom(
         return true;
     }
 );
+
+// Utility
+
+function getRequestFrameFn() {
+    return typeof requestAnimationFrame === "function"
+        ? requestAnimationFrame
+        : (callback: FrameRequestCallback) => setTimeout(callback, 0);
+}
