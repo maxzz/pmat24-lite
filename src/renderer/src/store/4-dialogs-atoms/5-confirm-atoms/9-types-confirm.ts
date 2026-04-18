@@ -5,6 +5,7 @@ export type ConfirmationUi = {                  //TODO: instead of fixed number 
     title: string;
     icon?: ReactNode;                           // Icon to show on the left side of of message
     message: ReactNode;
+    contentClasses?: string;                    // Classes for the dialog content area
     buttonOk: string,
     buttonCancel?: string,                      // If not defined then buttonCancel is not shown and buttonOk is centered; this is for single close button
     isDafaultOk: boolean;                       // If true then buttonOk is default otherwise buttonCancel

@@ -45,9 +45,12 @@ export const confirmCloseFolderMessages: ConfirmationUi = {
     isDafaultOk: false,
 };
 
+const aboutContentClasses = "w-auto! max-w-full!";
+
 export const aboutMessages: ConfirmationUi = {
     title: 'About PMAT',
     message: 'PMAT is developed by the PMAT team.',
+    contentClasses: aboutContentClasses,
     buttonOk: 'OK',
     buttonCancel: undefined,
     isDafaultOk: true,

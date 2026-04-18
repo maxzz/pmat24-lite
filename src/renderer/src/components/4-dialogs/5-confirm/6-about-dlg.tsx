@@ -7,10 +7,14 @@ import { aboutMessages, doAsyncExecuteConfirmDialogAtom } from "@/store/4-dialog
 import { asyncGetAboutInfo } from "@/store/7-napi-atoms";
 import { type ProductInfo, type GeneralInfoResult } from "@shared/ipc-types";
 
-export const doAboutDialogAtom = atom(null,
+export const doAboutDialogAtom = atom(
+    null,
     async (get, set) => {
         const json = await asyncGetAboutInfo(); // console.log('about.info:', json);
-        const ui = { ...aboutMessages, message: FormattedJsxFromJson({ json }) };
+        const ui = {
+            ...aboutMessages,
+            message: FormattedJsxFromJson({ json })
+        };
         await set(doAsyncExecuteConfirmDialogAtom, ui);
     }
 );
@@ -51,20 +55,22 @@ function FormattedJsxFromJson({ json }: { json: string; }) {
 
 function AboutBody({ products, templatePath, copyright }: { products: ProductInfoEx[]; templatePath: string; copyright: string[]; }) {
     return (
-        <div className="w-full text-xs grid gap-4 cursor-default">
+        <div className="text-xs grid gap-4 cursor-default">
             <div>
-                <div className="mb-1.5 1font-semibold">
+                <div className="mb-0.5">
                     Installed products:
                 </div>
                 {products.map(
                     ({ product, version, builtOn: buildAt }) => (
-                        <div key={product} title={buildAt}> {product}{version ? ': version' : ''} <span>{version}</span> </div>
+                        <div key={product} title={buildAt}>
+                            {product}{version ? ': version' : ''} <span className="font-semibold opacity-70">{version}</span>
+                        </div>
                     ))
                 }
             </div>
 
             <div>
-                <div className="mb-1.5 1font-semibold">
+                <div className="mb-0.5">
                     GPO templates path (read-only)
                 </div>
                 <GpoTempatesPath templatePath={templatePath} />
@@ -84,7 +90,7 @@ function AboutBody({ products, templatePath, copyright }: { products: ProductInf
 function GpoTempatesPath({ templatePath }: { templatePath: string; }) {
     return (
         <Textarea
-            className={classNames("text-xs", optionInputClasses, inputRingClasses)}
+            className={classNames("w-full text-xs", optionInputClasses, inputRingClasses)}
             style={{ 'fieldSizing': 'content' } as React.CSSProperties}
             defaultValue={templatePath}
             readOnly

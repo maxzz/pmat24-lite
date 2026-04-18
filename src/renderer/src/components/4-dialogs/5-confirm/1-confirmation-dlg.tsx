@@ -20,7 +20,7 @@ export function ConfirmationDialog() {
 
     return (
         <Dialog open={!!confirmData} onOpenChange={() => onDlgClose(false)}>
-            <DialogContentWithHeader title={confirmData.ui.title} className={contentClasses} onDlgClose={onDlgClose} modal>
+            <DialogContentWithHeader title={confirmData.ui.title} className={classNames("p-0 rounded-lg data-[state=open]:duration-ani-200", contentClasses, confirmData.ui.contentClasses)} onDlgClose={onDlgClose} modal>
                 <Body
                     confirmDialogOpen={confirmData}
                     onDlgClose={onDlgClose}
@@ -30,10 +30,10 @@ export function ConfirmationDialog() {
     );
 }
 
-const contentClasses = "p-0 w-72! rounded-lg max-w-sm data-[state=open]:duration-ani-200";
+const contentClasses = "w-72! max-w-sm";
 
 function Body({ confirmDialogOpen, onDlgClose }: { confirmDialogOpen: ConfirmationData; onDlgClose: (ok: boolean) => void; }) {
-    const { ui: { icon, message, buttonOk, buttonCancel, isDafaultOk }, } = confirmDialogOpen;
+    const { ui: { icon, message, buttonOk, buttonCancel, isDafaultOk } } = confirmDialogOpen;
 
     return (
         <div className="px-4">
