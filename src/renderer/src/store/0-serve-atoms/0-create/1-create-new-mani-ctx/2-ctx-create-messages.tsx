@@ -39,7 +39,7 @@ function getErrorSubMessage(error: TypedError): ReactNode {
     switch (error.sub) {
         case 'incompatiblePM': /**/ return `<div>The version of the HID Password Manager extension is incompatible with the version of HID Password Manager. ${linkMessageClasses}</div>`;
         case 'noBrExt':        /**/ 
-        case 'obsoleteBrExt':  /**/ return `<div>The HID Password Manager extension is not installed in this browser. Please install it. ${linkMessageClasses}</div>`;
+        case 'obsoleteBrExt':  /**/ return `<div>The HID Password Manager extension is not installed in this browser. ${linkMessageClasses}</div>`;
         // case 'obsoleteBrExt':  /**/ return `<div>The HID Password Manager extension version is outdated. Please update it. ${linkMessageClasses}</div>`; //Update the HID Password Manager extension.
         case 'noControls':     /**/
         default:               /**/ return "Cannot access application content.";
