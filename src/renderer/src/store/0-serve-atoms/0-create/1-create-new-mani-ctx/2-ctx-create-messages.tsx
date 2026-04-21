@@ -15,7 +15,7 @@ export function showNotice_BuildErrorReason(set: Setter) {
 
     const typedError = splitTypedError(stateNapiAccess.buildError);
 
-    console.error(`'getXmlCreateFileUs' ${typedErrorToString(typedError)}`);
+    console.log(`%c'getXmlCreateFileUs' '${typedErrorToString(typedError)}' all: '${JSON.stringify(typedError)}'`, 'color: tomato');
 
     if (typedError.typed === 'canceled-by-user') {
         showNotice({ set, message: 'Canceled' }); // OK but no need to show toast
@@ -37,19 +37,13 @@ export function showNotice_BuildErrorReason(set: Setter) {
 
 function getErrorSubMessage(error: TypedError): ReactNode {
     switch (error.sub) {
-        case 'incompatiblePM': {
-            return `<div>The version of the HID Password Manager extension is incompatible with the version of HID Password Manager. ${linkMessageClasses}</div>`;
-        }
-        case 'noBrExt': {
-            return `<div>The HID Password Manager extension is not installed in this browser. ${linkMessageClasses}</div>`;
-        }
-        case 'obsoleteBrExt': {
-            return `<div>The HID Password Manager extension version is outdated. Please update it. ${linkMessageClasses}</div>`; //Update the HID Password Manager extension.
-        }
-        case 'noControls':
-        default: {
-            return "Cannot access application content.";
-        }
+        case 'incompatiblePM': /**/ return `<div>The version of the HID Password Manager extension is incompatible with the version of HID Password Manager. ${linkMessageClasses}</div>`;
+        case 'noBrExt':        /**/ 
+        case 'obsoleteBrExt':  /**/ return `<div>The HID Password Manager extension is not installed in this browser. Please install it. ${linkMessageClasses}</div>`;
+        // case 'obsoleteBrExt':  /**/ return `<div>The HID Password Manager extension version is outdated. Please update it. ${linkMessageClasses}</div>`; //Update the HID Password Manager extension.
+        case 'noControls':     /**/
+        default:               /**/ return "Cannot access application content.";
+
     }
 }
 
