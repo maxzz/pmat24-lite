@@ -42,7 +42,7 @@ function getErrorSubMessage(error: TypedError): ReactNode {
         case 'obsoleteBrExt':  /**/ return `<div>The HID Password Manager extension is not installed in this browser. ${linkMessageClasses}</div>`;
         // case 'obsoleteBrExt':  /**/ return `<div>The HID Password Manager extension version is outdated. Please update it. ${linkMessageClasses}</div>`; //Update the HID Password Manager extension.
         case 'noControls':     /**/
-        default:               /**/ return "Cannot access application content.";
+        default:               /**/ return "Unable to access application content.";
 
     }
 }

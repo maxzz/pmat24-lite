@@ -4,7 +4,8 @@ import { type Rect4, type R2MInvokeParams } from "@shared/ipc-types";
 import { type FieldHighlightCtx } from "@/store/2-file-mani-atoms/9-types";
 
 export function getHighlightFieldParams(hwnd: string, isBrowser: boolean, { nFieldCtx, mFieldCtx }: FieldHighlightCtx, get: Getter): R2MInvokeParams.HighlightField | undefined {
-    if (nFieldCtx) {
+
+    if (nFieldCtx) { // For normal mode
         const metaField: Meta.Field = nFieldCtx.metaField;
         const path: Meta.Path = metaField.path;
 
@@ -12,17 +13,17 @@ export function getHighlightFieldParams(hwnd: string, isBrowser: boolean, { nFie
             params: {
                 hwnd,
                 rect: isBrowser ? undefined : getFieldRect(path.loc),
-                accId: isBrowser ? metaField.pidx : undefined,
+                accId: isBrowser ? metaField.pidx + 1 : undefined, // pidx + 1 to simulate profile index which is 1-based
 
                 highlightColor: '#ff8800',
                 width: 5,
-                blinks: 0,
+                blinks: 4, // We will use blinks because not all blur events can be captured (for example, blur not triggered when the user clicks tab "options").
             }
         };
         return params;
     }
-    else if (mFieldCtx) {
-        if (mFieldCtx.type === 'pos') {
+    else if (mFieldCtx) { // For manual mode
+        if (mFieldCtx.type === 'pos') { // Only highlight by position for now
             const xState = get(mFieldCtx.xAtom);
             const yState = get(mFieldCtx.yAtom);
 
@@ -41,6 +42,7 @@ export function getHighlightFieldParams(hwnd: string, isBrowser: boolean, { nFie
 
                     highlightColor: '#ff8800',
                     width: 5,
+                    blinks: 5, // See above comment for why use blinks, but this is point so blink more times.
                 }
             };
             return params;
@@ -59,6 +61,6 @@ function getFieldRect(loc: string | undefined): Rect4 | undefined {
     }
 
     const [left, top, right, bottom] = allStr.split(' ').map(Number);
-    const rv = { left: left + 2, top: top + 2, right: right - 2, bottom: bottom - 2, };
+    const rv = { left: left - 1, top: top - 1, right: right + 1, bottom: bottom + 1, };
     return rv;
 }
