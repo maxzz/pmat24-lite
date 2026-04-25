@@ -3,7 +3,7 @@ import { type Meta } from "@/store/8-manifest";
 import { type Rect4, type R2MInvokeParams } from "@shared/ipc-types";
 import { type FieldHighlightCtx } from "@/store/2-file-mani-atoms/9-types";
 
-export function getHighlightFieldParams(hwnd: string, isBrowser: boolean, { nFieldCtx, mFieldCtx }: FieldHighlightCtx, get: Getter): R2MInvokeParams.HighlightField | undefined {
+export function getHighlightFieldParams(hwnd: string, isBrowser: boolean, { nFieldCtx, mFieldCtx }: FieldHighlightCtx, showOrHide: boolean, get: Getter): R2MInvokeParams.HighlightField | undefined {
 
     if (nFieldCtx) { // For normal mode
         const metaField: Meta.Field = nFieldCtx.metaField;
@@ -13,7 +13,7 @@ export function getHighlightFieldParams(hwnd: string, isBrowser: boolean, { nFie
             params: {
                 hwnd,
                 rect: isBrowser ? undefined : getFieldRect(path.loc),
-                accId: isBrowser ? metaField.pidx + 1 : undefined, // pidx + 1 to simulate profile index which is 1-based
+                accId: isBrowser ? (showOrHide ? metaField.pidx + 1 : 10000) : undefined, // pidx + 1 to simulate profile index which is 1-based // Hide method was never implemented in the plugin, so the plan is to call field highlight with -1 accId, but DpAgent has check on MAXINT32, so we'll use 10000(light years away) as the accId to indicate hide. This is a bit hacky but it works and does not require change in plugin.
 
                 highlightColor: '#ff8800',
                 width: 5,
