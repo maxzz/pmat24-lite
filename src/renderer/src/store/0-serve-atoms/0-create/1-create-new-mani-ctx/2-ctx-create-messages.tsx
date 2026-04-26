@@ -37,14 +37,17 @@ export function showNotice_BuildErrorReason(set: Setter) {
 
 function getErrorSubMessage(error: TypedError): ReactNode {
     switch (error.sub) {
-        case 'incompatiblePM': /**/ return `<div>The version of the HID Password Manager extension is incompatible with the version of HID Password Manager. ${linkMessageClasses}</div>`;
+        case 'incompatiblePM': /**/
         case 'noBrExt':        /**/ 
-        case 'obsoleteBrExt':  /**/ return `<div>The HID Password Manager extension is not installed in this browser. ${linkMessageClasses}</div>`;
-        // case 'obsoleteBrExt':  /**/ return `<div>The HID Password Manager extension version is outdated. Please update it. ${linkMessageClasses}</div>`; //Update the HID Password Manager extension.
+        case 'obsoleteBrExt':  /**/ return `<div>${lostConnectionMessage} ${linkMessageClasses}</div>`;
+      //case 'obsoleteBrExt':  /**/ return `<div>The HID Password Manager extension is not installed in this browser. ${linkMessageClasses}</div>`;
+      //case 'obsoleteBrExt':  /**/ return `<div>The HID Password Manager extension version is outdated. Please update it. ${linkMessageClasses}</div>`; //Update the HID Password Manager extension.
         case 'noControls':     /**/
         default:               /**/ return "Unable to access application content.";
 
     }
 }
+
+const lostConnectionMessage = `Connection to the browser has been lost. Please restart your browser and ensure that the HID PM browser extension is installed.`;
 
 const linkMessageClasses = `<a class="text-blue-400 dark:text-blue-700 underline underline-offset-2" href="https://digitalpersona.hidglobal.com/g02/pagedp/index.html" target="_blank" rel="noopener noreferrer">Installation page.</a>`;
