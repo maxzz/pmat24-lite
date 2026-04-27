@@ -229,6 +229,46 @@
 					"label": "save: 3. validate: stopIfInvalidAny"
 				}
 			]
+		},
+		{
+			"path": "src/renderer/src/store/7-napi-atoms/6-do-highlight-control/1-do-highlight-control.ts",
+			"bookmarks": [
+				{
+					"line": 20,
+					"column": 21,
+					"label": "highlight doHighlightAtom"
+				}
+			]
+		},
+		{
+			"path": "src/shell/xternal-to-renderer/7-napi-calls/6-do-highligth-control.ts",
+			"bookmarks": [
+				{
+					"line": 5,
+					"column": 22,
+					"label": "highlight in electron"
+				}
+			]
+		},
+		{
+			"path": "src/renderer/src/store/0-serve-atoms/0-create/1-create-new-mani-ctx/2-ctx-create-messages.tsx",
+			"bookmarks": [
+				{
+					"line": 37,
+					"column": 14,
+					"label": "error messages incompatiblePM"
+				}
+			]
+		},
+		{
+			"path": "src/renderer/src/components/4-dialogs/2-dlg-create-login/1-entry-saw-monitor/0-all-saw-dlg.tsx",
+			"bookmarks": [
+				{
+					"line": 14,
+					"column": 32,
+					"label": "DialogSawMonitor"
+				}
+			]
 		}
 	]
 }
