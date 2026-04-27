@@ -1,6 +1,6 @@
-import { type InputHTMLAttributes } from "react";
+import { type InputHTMLAttributes, useRef } from "react";
 import { type PrimitiveAtom, useAtom, useAtomValue, useSetAtom } from "jotai";
-import { classNames, turnOffAutoComplete } from "@/utils";
+import { classNames, turnOffAutoComplete, useClickAway } from "@/utils";
 import { doHighlightControlAtom } from "@/store/7-napi-atoms";
 import { type FieldHighlightCtx } from "@/store/2-file-mani-atoms";
 
@@ -13,8 +13,16 @@ type Column3_LabelProps = InputHTMLAttributes<HTMLInputElement> & {
 export function Column3_Label({ useItAtom, valueAtom, highlightCtx, className, ...rest }: Column3_LabelProps) {
     const [value, setValue] = useAtom(valueAtom);
     const useIt = useAtomValue(useItAtom);
+    const inputRef = useRef<HTMLInputElement>(null);
     
     const doHighlightRect = useSetAtom(doHighlightControlAtom);
+
+    useClickAway(inputRef, () => {
+        const input = inputRef.current;
+        if (input && document.activeElement === input) {
+            input.blur();
+        }
+    }, ['pointerdown']);
 
     function onFocusBlur(focusOrBlur: boolean) {
         if (highlightCtx) {
@@ -24,6 +32,7 @@ export function Column3_Label({ useItAtom, valueAtom, highlightCtx, className, .
 
     return (
         <input
+            ref={inputRef}
             className={classNames(Column3_LabelClasses, !useIt && "opacity-30 cursor-pointer", className)}
             value={value}
             onChange={(event) => setValue(event.target.value)}
