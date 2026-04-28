@@ -41,7 +41,7 @@ export function getFieldsGridClasses(showFieldCatalog: boolean) {
         showFieldCatalog
             ? "grid-cols-[auto_auto_minmax(0,1fr)_minmax(0,1fr)_minmax(0,1fr)_minmax(0,max-content)]"
             : "grid-cols-[auto_auto_minmax(0,1fr)_minmax(0,1fr)_minmax(0,max-content)]";
-    return classNames("p-2 grid items-center gap-[3px] text-foreground rounded-sm", colsClasses);
+    return classNames("p-2 grid items-center gap-0.75 text-foreground rounded-sm", colsClasses);
 };
 
 const headerClasses = "\
