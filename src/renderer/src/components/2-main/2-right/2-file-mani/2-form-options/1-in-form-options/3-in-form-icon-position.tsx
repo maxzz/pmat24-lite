@@ -10,7 +10,7 @@ export function FormIconPosition({ oFormProps }: { oFormProps: OFormProps; }) {
     const isWeb = useAtomValue(oFormProps.oAllAtoms.options.isWebAtom);
 
     return (
-        <AccordionWithTrigger name={InFormAccordionValue.icon} formIdx={formIdx} triggerText="Password Manager Icon">
+        <AccordionWithTrigger name={InFormAccordionValue.icon} formIdx={formIdx} triggerText="Password Manager Icon" triggerClasses="w-auto">
             {isWeb
                 ? (
                     <div className={textClasses}>

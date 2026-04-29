@@ -25,7 +25,7 @@ export function DetectionContent_Web({ oFormProps }: { oFormProps: OFormProps; }
     const showRegex = murl_how === Matching.How.regex;
 
     return (<>
-        <AccordionWithTrigger name={InFormAccordionValue.detection} formIdx={formIdx} triggerText="Screen detection">
+        <AccordionWithTrigger name={InFormAccordionValue.detection} formIdx={formIdx} triggerText="Screen detection" triggerClasses="w-auto">
             <div className={textClasses}>
                 <div className="relative">
                     <InputWithTitle2Rows
