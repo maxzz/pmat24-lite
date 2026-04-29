@@ -75,7 +75,7 @@ function optionsForMani(values: FormOptionsState.ForAtoms, formIdx: FormIdx): Ma
 
         auth_pl: authPolicy,
         balooncount: general.balloon,
-        autoprompt: p3Auth.aim ? '1' : undefined,
+        autoprompt: p3Auth.aim,
         lockfields: p3Auth.lock ? '1' : undefined,
         submittype: submitType,
         iconkey: p5Icon.id,
