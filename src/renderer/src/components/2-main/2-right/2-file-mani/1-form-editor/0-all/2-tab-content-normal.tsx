@@ -3,6 +3,7 @@ import { classNames } from "@/utils";
 import { type NFormProps } from "@/store/2-file-mani-atoms";
 import { FieldsList, InFormBlockSubmit } from "../1-normal";
 import { InFormBlockOptions } from "../../2-form-options";
+import { InFormBlockLoginFlags } from "../../2-form-options/1-in-form-options/0-in-form-login-flags";
 
 export function TabContent_NormalForm({ nFormProps, className, ...rest }: { nFormProps: NFormProps; } & ComponentPropsWithoutRef<'div'>) {
     const hasFieldsNeedSubmit = !!nFormProps.nFormCtx.normal.rowCtxs.length;
@@ -26,6 +27,7 @@ export function TabContent_NormalForm({ nFormProps, className, ...rest }: { nFor
                 Additional options
             </div>
             <div className="pl-2 pr-2 pt-3 text-xs flex flex-col items-start gap-1 select-none">
+                <InFormBlockLoginFlags anyFormProps={nFormProps} />
                 <InFormBlockOptions anyFormProps={nFormProps} />
             </div>
 
