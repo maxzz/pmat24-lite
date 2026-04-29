@@ -38,7 +38,7 @@ export function fromAtoms(atoms: FormOptionsState.AllAtoms, { get }: GetOnly): F
             reCheck: get(p2Detect.reCheckAtom).data === '1',
         },
         p3Auth: {
-            aim: get(p3Auth.aimAtom).data === '1',
+            aim: get(p3Auth.aimAtom).data,
             lock: get(p3Auth.lockAtom).data === '1',
             auth_pl: get(p3Auth.auth_plAtom).data,
         },

@@ -1,6 +1,6 @@
 import { type AtomizeWithType } from "@/utils";
 import { type RowInputState } from "@/ui/local-ui";
-import { type Matching, type FormIdx } from "@/store/8-manifest";
+import { type FormIdx, type Matching } from "@/store/8-manifest";
 import { IconLocation } from "@/store/8-manifest/4-icon-location/8-icon-location-io";
 
 export namespace FormOptionsState {
@@ -19,7 +19,7 @@ export namespace FormOptionsState {
     type p2Detect = {                           // Part Screen Detection
         ourl: string;                           // original URL
         murl: string;                           // match URL
-        
+
         webCheckUrl: boolean;                   // 'web_checkurl' not used by editor; only for detection section creation; in file '1'
         caption: string;                        // Windows Caption
         variablecaption: string;                // Variable Caption
@@ -40,7 +40,7 @@ export namespace FormOptionsState {
     };
 
     type p3Auth = {                             // Part Authentication
-        aim: boolean;                           // Start authentication immediately
+        aim: string;                            // Start authentication immediately Mani.AutoPromptType
         lock: boolean;                          // Lock out login fields
         auth_pl: string;                        // extended policy (see AuthTokenValues); only one bit as hex string (auth_pl="100"); used only for login form
     };
@@ -85,7 +85,7 @@ export namespace FormOptionsState {
 
         formIdx: FormIdx;
         isWebAtom: PA<boolean>;
-        
+
         fromFileHOU: Matching.RawMatchData;     // Initial values of how, opt, url (HOW) for murl from file
         murl_howAtom: PA<RowInputState>;        // how to match URL as Matching.How
         murl_optAtom: PA<RowInputState>;        // how to match URL options as Matching.Options

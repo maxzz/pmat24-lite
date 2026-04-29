@@ -47,7 +47,7 @@ export function createAtoms(initialState: FormOptionsState.ForAtoms, onChange: O
             reCheckAtom: createAtomForCheck(p2Detect.reCheck, onChange('recheckwindowafterfillin')),
         },
         p3Auth: {
-            aimAtom: createAtomForCheck(p3Auth.aim, onChange('aim')),
+            aimAtom: createAtomForInput(p3Auth.aim, onChange('aim')),
             lockAtom: createAtomForCheck(p3Auth.lock, onChange('lock')),
             auth_plAtom: createAtomForInput(p3Auth.auth_pl, onChange('auth_pl')),
         },
@@ -106,7 +106,7 @@ export function valuesToAtoms(values: FormOptionsState.ForAtoms, atoms: FormOpti
 
     set(atoms.p2Detect.reCheckAtom,      /**/(v) => resetRowInputState(v, boo(p2Detect.reCheck)));
 
-    set(atoms.p3Auth.aimAtom,            /**/(v) => resetRowInputState(v, boo(p3Auth.aim)));
+    set(atoms.p3Auth.aimAtom,            /**/(v) => resetRowInputState(v, p3Auth.aim));
     set(atoms.p3Auth.lockAtom,           /**/(v) => resetRowInputState(v, boo(p3Auth.lock)));
     set(atoms.p3Auth.auth_plAtom,        /**/(v) => resetRowInputState(v, p3Auth.auth_pl));
 

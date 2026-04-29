@@ -53,7 +53,7 @@ export function forAtoms(fileUsCtx: FileUsCtx): FormOptionsState.ForAtoms {
             reCheck: options.recheckwindowafterfillin === '1',
         },
         p3Auth: {
-            aim: options.autoprompt === '1',
+            aim: options.autoprompt || '0',
             lock: options.lockfields === '1',
             auth_pl: options.auth_pl || '',
         },
