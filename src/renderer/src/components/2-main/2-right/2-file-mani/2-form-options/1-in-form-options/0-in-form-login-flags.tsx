@@ -53,3 +53,7 @@ function LoginFlags_Manual({ oFormProps }: { oFormProps: OFormProps; }) {
 }
 
 const optionsAllGroupsClasses = "ml-1 mr-3 mb-1 grid grid-cols-[auto_minmax(0,1fr)] gap-x-2 gap-y-0.5 select-none";
+
+//TODO: lock fields if applicable; show warning if not applicable (e.g. not submit form or manual mode)
+//TODO: optimize content for normal, manual, web
+//TODO: add quick link section
