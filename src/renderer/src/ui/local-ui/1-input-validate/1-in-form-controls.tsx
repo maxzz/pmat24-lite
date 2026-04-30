@@ -30,13 +30,23 @@ export function InputWithTitle2Rows({ label, containerClasses, labelClasses, ...
 
 // Row input with error message
 
-export function InputOrCheckWithErrorMsg({ stateAtom, asCheckbox, asTextarea, className, twoRows, ...rest }: OptionInputWTypeProps) {
+export function InputOrCheckWithErrorMsg({ stateAtom, asCheckbox, asTextarea, className, twoRows, checkboxTrail, ...rest }: OptionInputWTypeProps) {
     const state = useAtomValue(stateAtom);
     const hasError = state.error && state.touched;
     const errorInputClasses = classNames(hasError && 'outline-offset-0 outline-red-500', className);
     return (<>
         {asCheckbox
-            ? <OptionAsCheckbox stateAtom={stateAtom} className={errorInputClasses} {...rest} />
+            ? (<>
+                {checkboxTrail
+                    ? (
+                        <div className="flex items-center">
+                            <OptionAsCheckbox stateAtom={stateAtom} className={errorInputClasses} {...rest} />
+                            {checkboxTrail}
+
+                        </div>
+                    )
+                    : <OptionAsCheckbox stateAtom={stateAtom} className={errorInputClasses} {...rest} />}
+            </>)
             : asTextarea
                 ? <OptionAsTextarea stateAtom={stateAtom} className={errorInputClasses} {...rest} />
                 : <OptionAsString stateAtom={stateAtom} className={errorInputClasses} {...rest} />

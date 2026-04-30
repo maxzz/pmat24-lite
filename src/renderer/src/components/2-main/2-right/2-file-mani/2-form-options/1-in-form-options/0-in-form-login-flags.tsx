@@ -35,11 +35,12 @@ export function InFormBlockLoginFlags({ anyFormProps }: { anyFormProps: NFormPro
 function LoginFlags_Normal({ oFormProps }: { oFormProps: OFormProps; }) {
     const { aimAtom, lockAtom } = oFormProps.oAllAtoms.options.p3Auth;
     return (<>
+        <InputWithTitle2Cols stateAtom={lockAtom} label="Lock out login fields" asCheckbox checkboxTrail={<span className="pl-2 font-light">Forbidden if form-submit data is not selected.</span>} />
+
         <ChildrenWithLabel2Cols label="Authenticate immediately">
             <AuthImmSelect stateAtom={aimAtom} className="w-max" />
         </ChildrenWithLabel2Cols>
 
-        <InputWithTitle2Cols stateAtom={lockAtom} label="Lock out login fields" asCheckbox />
     </>);
 }
 

@@ -37,6 +37,7 @@ export type OptionInputWTypeProps =
         containerClasses?: string;
         labelClasses?: string;
         twoRows?: boolean;                  // if true, then label and input will be in two rows otherwise in one row for label anf input (i.e. two columns)
+        checkboxTrail?: ReactNode;          // only for checkbox, if present will be shown after checkbox (like warning message if dissabled)
     };
 
 export type RowInputStateAtom = PrimitiveAtom<RowInputState>;
