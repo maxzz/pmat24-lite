@@ -5,7 +5,7 @@ import { debugSettings } from "@/store/9-ui-state";
 import { zoomActionAtom } from "@/store/9-ui-state/8-app-ui";
 import { doSaveRightPanelFileAtom, doSaveAllAtom } from "@/store/0-serve-atoms";
 import { doOpenOptionsDialogAtom, sawMonitor_doSawOpenAtom, filterDialogOpenAtom } from "@/store/4-dialogs-atoms";
-import { hasMain } from "@/xternal-to-main";
+import { hasMain, R2MCalls } from "@/xternal-to-main";
 
 export function AppGlobalShortcuts() {
     const doOpenOptionsDialog = useSetAtom(doOpenOptionsDialogAtom);
@@ -26,6 +26,7 @@ export function AppGlobalShortcuts() {
         appShortcuts.zoomIn.action = () => doZoom('in');
         appShortcuts.zoomOut.action = () => doZoom('out');
         appShortcuts.zoomReset.action = () => doZoom('reset');
+        appShortcuts.openDevTools.action = () => R2MCalls.menuCommand({ what: 'open-dev-tools' });
     }, []);
 
     useKeyNew();
@@ -42,9 +43,10 @@ const useKeyNew = () => {
                 return;
             }
 
-            const [key, shortcut] = (Object.entries(appShortcuts).find(
-                ([_key, value]) => (value.noNeedRootDir ? true : !isRootDirEmpty()) && value.is(event)
-            ) || []) as [ShortcustKey, Shortcut];
+            const [key, shortcut] = (Object.entries(appShortcuts)
+                .find(
+                    ([_key, value]) => (value.noNeedRootDir ? true : !isRootDirEmpty()) && value.is(event)
+                ) || []) as [ShortcustKey, Shortcut];
 
             if (key && shortcut?.action) {
                 event.preventDefault();
@@ -66,7 +68,7 @@ const useKeyNew = () => {
 
 // Shortcut keys definitions
 
-type ShortcustKey = 'openOptions' | 'openFilter' | 'openCreate' | 'saveOne' | 'saveAll' | 'toggleDbg' | 'zoomIn' | 'zoomOut' | 'zoomReset';
+type ShortcustKey = 'openOptions' | 'openFilter' | 'openCreate' | 'saveOne' | 'saveAll' | 'toggleDbg' | 'zoomIn' | 'zoomOut' | 'zoomReset' | 'openDevTools';
 type Shortcut = {
     text: string;                                           // Display text for the shortcut
     is: (event: KeyboardEvent) => boolean;                  // Function to check if the keyboard event matches this shortcut
@@ -115,6 +117,11 @@ export const appShortcuts: Record<ShortcustKey, Shortcut> = {
     zoomReset: {
         text: "Ctrl+0",
         is: (e) => hasMain() && e.ctrlKey && (e.key === '0' || e.code === 'Numpad0'),
+        noNeedRootDir: true,
+    },
+    openDevTools: {
+        text: "Ctrl+Shift+I",
+        is: (e) => hasMain() && e.ctrlKey && e.shiftKey && !e.altKey && e.code === 'KeyI',
         noNeedRootDir: true,
     },
 };
