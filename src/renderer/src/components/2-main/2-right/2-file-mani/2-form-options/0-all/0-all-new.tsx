@@ -4,7 +4,7 @@ import { type FileUs } from "@/store/store-types";
 import { type OFormProps } from "@/store/2-file-mani-atoms";
 import { ExtPolicySelect } from "../9-controls";
 import { PanelTestInUse } from "./1-panel-test-inuse-state";
-import { BalloonCounterSelect } from "../9-controls/5-select-controls";
+import { AuthImmSelect, BalloonCounterSelect } from "../9-controls/5-select-controls";
 
 export function ManiEditorAllOptions({ fileUs }: { fileUs: FileUs; }) {
     const maniAtoms = useAtomValue(fileUs.maniAtomsAtom);
@@ -51,8 +51,12 @@ function GroupFormLogin({ oFormProps }: { oFormProps: OFormProps; }) {
     return (<>
         <InputWithTitle2Cols stateAtom={nameAtom} label="Managed login name" />
 
-        {/* <InputWithTitle2Cols stateAtom={aimAtom} label="Authenticate immediately" asCheckbox />
-        <InputWithTitle2Cols stateAtom={lockAtom} label="Lock out login fields" asCheckbox /> */}
+        {/* <ChildrenWithLabel2Cols label="Authenticate immediately">
+            <AuthImmSelect stateAtom={aimAtom} className="w-max" />
+        </ChildrenWithLabel2Cols> */}
+
+        {/* <InputWithTitle2Cols stateAtom={aimAtom} label="Authenticate immediately" asCheckbox /> */}
+        {/* <InputWithTitle2Cols stateAtom={lockAtom} label="Lock out login fields" asCheckbox /> */}
 
         <ChildrenWithLabel2Cols label="Extended authentication policy">
             <ExtPolicySelect stateAtom={auth_plAtom} />
