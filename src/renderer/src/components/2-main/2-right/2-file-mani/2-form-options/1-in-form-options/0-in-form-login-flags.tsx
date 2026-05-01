@@ -37,7 +37,7 @@ function LoginFlags_Guarded({ oFormProps, isNormal }: { oFormProps: OFormProps; 
     const setLock = useSetAtom(lockAtom);
     return (<>
         {isNormal && (
-            <div className="contents" onClick={(event: React.MouseEvent<HTMLInputElement>) => {
+            <div className="contents" onMouseUp={(event: React.MouseEvent<HTMLInputElement>) => {
                 if (lockEnabled) {
                     return;
                 }
@@ -58,7 +58,7 @@ function LoginFlags_Guarded({ oFormProps, isNormal }: { oFormProps: OFormProps; 
                 //     notice.info("This input is locked by default. Only change it if you understand what you're doing.");
                 // }}
                 stateAtom={lockAtom}
-                //disabled={!lockEnabled}
+                disabled={!lockEnabled}
                 label="Lock out login fields"
                 asCheckbox
                 checkboxTrail={<span className="pl-2 font-light">{lockEnabled ? "(allowed only if form submission data has been selected)" : "(not allowed in manual mode)"}</span>}
