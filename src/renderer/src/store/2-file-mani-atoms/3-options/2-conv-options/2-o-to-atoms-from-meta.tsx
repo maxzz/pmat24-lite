@@ -55,6 +55,7 @@ export function forAtoms(fileUsCtx: FileUsCtx): FormOptionsState.ForAtoms {
         p3Auth: {
             aim: options.autoprompt || '0',
             lock: options.lockfields === '1',
+            lockEnabled: options.submittype === 'dosubmit',
             auth_pl: options.auth_pl || '',
         },
         p4QL: {

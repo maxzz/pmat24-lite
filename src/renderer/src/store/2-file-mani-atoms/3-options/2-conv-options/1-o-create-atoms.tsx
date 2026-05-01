@@ -49,6 +49,7 @@ export function createAtoms(initialState: FormOptionsState.ForAtoms, onChange: O
         p3Auth: {
             aimAtom: createAtomForInput(p3Auth.aim, onChange('aim')),
             lockAtom: createAtomForCheck(p3Auth.lock, onChange('lock')),
+            lockEnabledAtom: createAtomForCheck(p3Auth.lockEnabled, onChange('lockEnabled')),
             auth_plAtom: createAtomForInput(p3Auth.auth_pl, onChange('auth_pl')),
         },
         p4QL: {

@@ -3,6 +3,7 @@ import { FormIdx } from "@/store/8-manifest";
 import { type OFormProps, type MFormProps, type NFormProps } from "@/store/2-file-mani-atoms";
 import { ChildrenWithLabel2Cols, InputWithTitle2Cols } from "@/ui/local-ui";
 import { AuthImmSelect } from "../9-controls/5-select-controls";
+import { log } from "node:console";
 
 export function InFormBlockLoginFlags({ anyFormProps }: { anyFormProps: NFormProps | MFormProps; }) {
     const anyFormCtx = (anyFormProps as NFormProps).nFormCtx || (anyFormProps as MFormProps).mFormCtx;
@@ -24,29 +25,26 @@ export function InFormBlockLoginFlags({ anyFormProps }: { anyFormProps: NFormPro
 
     return (
         <div className={optionsAllGroupsClasses}>
-            {isNormal
-                ? <LoginFlags_Normal oFormProps={oFormProps} />
-                : <LoginFlags_Manual oFormProps={oFormProps} />
-            }
+            <LoginFlags_Guarded oFormProps={oFormProps} isNormal={isNormal} />
         </div>
     );
 }
 
-function LoginFlags_Normal({ oFormProps }: { oFormProps: OFormProps; }) {
-    const { aimAtom, lockAtom } = oFormProps.oAllAtoms.options.p3Auth;
+function LoginFlags_Guarded({ oFormProps, isNormal }: { oFormProps: OFormProps; isNormal: boolean; }) {
+    const { aimAtom, lockAtom, lockEnabledAtom } = oFormProps.oAllAtoms.options.p3Auth;
+    const lockEnabled = useAtomValue(lockEnabledAtom);
+    console.log("lockEnabled", lockEnabled);
     return (<>
-        <InputWithTitle2Cols stateAtom={lockAtom} label="Lock out login fields" asCheckbox checkboxTrail={<span className="pl-2 font-light">Forbidden if form-submit data is not selected.</span>} />
+        {isNormal && (
+            <InputWithTitle2Cols
+                stateAtom={lockAtom}
+                disabled={lockEnabled.data !== '1'}
+                label="Lock out login fields"
+                asCheckbox
+                checkboxTrail={<span className="pl-2 font-light">{lockEnabled ? "(allowed only if form submission data has been selected)" : "(not allowed in manual mode)"}</span>}
+            />
+        )}
 
-        <ChildrenWithLabel2Cols label="Authenticate immediately">
-            <AuthImmSelect stateAtom={aimAtom} className="w-max" />
-        </ChildrenWithLabel2Cols>
-
-    </>);
-}
-
-function LoginFlags_Manual({ oFormProps }: { oFormProps: OFormProps; }) {
-    const { aimAtom } = oFormProps.oAllAtoms.options.p3Auth;
-    return (<>
         <ChildrenWithLabel2Cols label="Authenticate immediately">
             <AuthImmSelect stateAtom={aimAtom} className="w-max" />
         </ChildrenWithLabel2Cols>

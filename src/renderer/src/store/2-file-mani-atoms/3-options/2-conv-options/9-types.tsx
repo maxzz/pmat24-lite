@@ -42,6 +42,7 @@ export namespace FormOptionsState {
     type p3Auth = {                             // Part Authentication
         aim: string;                            // Start authentication immediately Mani.AutoPromptType
         lock: boolean;                          // Lock out login fields
+        lockEnabled: boolean;                   // Locking out login fields enabled (allowed only if form submission data has been selected and not manual mode)
         auth_pl: string;                        // extended policy (see AuthTokenValues); only one bit as hex string (auth_pl="100"); used only for login form
     };
 

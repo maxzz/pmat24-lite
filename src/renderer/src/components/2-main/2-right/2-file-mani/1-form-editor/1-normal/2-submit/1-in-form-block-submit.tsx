@@ -1,4 +1,4 @@
-import { useAtomValue, useAtom } from "jotai";
+import { useAtomValue, useAtom, useSetAtom } from "jotai";
 import { type NFormProps } from "@/store/2-file-mani-atoms";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/ui/shadcn/select";
 
@@ -33,14 +33,20 @@ function SubmitBodyForWin32({ nFormProps }: { nFormProps: NFormProps; }) {
 }
 
 function DropdownSubmit({ nFormProps }: { nFormProps: NFormProps; }) {
-
     const { buttonNameItemsAtom, selectedAtom } = nFormProps.nFormCtx.normal.submitCtx;
+    const { lockEnabledAtom } = nFormProps.nFormCtx.options.p3Auth;
     const buttonNameItems = useAtomValue(buttonNameItemsAtom);
     const [selected, setSelected] = useAtom(selectedAtom);
+    const setLockEnabled = useSetAtom(lockEnabledAtom);
+
+    function onChange(value: string) {
+        setSelected(+value);
+        setLockEnabled((prev) => ({ ...prev, data: value !== '0' ? '1' : '0' }));
+    }
 
     return (
         <div className="inline-block">
-            <Select value={selected.toString()} onValueChange={(value) => setSelected(+value)}>
+            <Select value={selected.toString()} onValueChange={onChange}>
 
                 <SelectTrigger className="mx-1 pl-1.5 pr-0.5 py-1 h-7 w-max text-xs gap-1">
                     <SelectValue placeholder={"Don't submit"} />
