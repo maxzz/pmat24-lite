@@ -14,7 +14,7 @@ export function FormIconPosition({ oFormProps }: { oFormProps: OFormProps; }) {
             {isWeb
                 ? (
                     <div className={textClasses}>
-                        This login form template is designed for a web application. Icon position cannot be changed for web applications.
+                        This login form template is designed for a web application. In web applications, the position of the icon cannot be changed.
                     </div>
                 )
                 : (

@@ -31,21 +31,36 @@ export function InFormBlockLoginFlags({ anyFormProps }: { anyFormProps: NFormPro
 }
 
 function LoginFlags_Guarded({ oFormProps, isNormal }: { oFormProps: OFormProps; isNormal: boolean; }) {
-    const { aimAtom, lockAtom } = oFormProps.oAllAtoms.options.p3Auth;
-    const lockEnabled = useAtomValue(oFormProps.oAllAtoms.options.lockEnabledAtom);
+    const { aimAtom } = oFormProps.oAllAtoms.options.p3Auth;
     return (<>
         {isNormal && (
-            <div className="contents" onMouseUp={(event: React.MouseEvent<HTMLInputElement>) => {
-                if (lockEnabled) {
-                    return;
-                }
-                event.preventDefault();
-                event.stopPropagation();
-                //setLock((prev) => ({ ...prev, data: '1', initialData: '1' })); // The onChange handler will invert it to '0' to avoid dirty flag
-                notice.info("This input is locked by default. Only change it if you understand what you're doing.");
-            }}>
+            <LoginLockFlag oFormProps={oFormProps} />
+        )}
+
+        <ChildrenWithLabel2Cols label="Authenticate immediately">
+            <AuthImmSelect stateAtom={aimAtom} className="w-max" />
+        </ChildrenWithLabel2Cols>
+    </>);
+}
+
+function LoginLockFlag({ oFormProps }: { oFormProps: OFormProps; }) {
+    const { lockAtom } = oFormProps.oAllAtoms.options.p3Auth;
+    const lockEnabled = useAtomValue(oFormProps.oAllAtoms.options.lockEnabledAtom);
+
+    const handleMouseUp = (event: React.MouseEvent<HTMLInputElement>) => {
+        if (lockEnabled) {
+            return;
+        }
+        event.preventDefault();
+        event.stopPropagation();
+        //setLock((prev) => ({ ...prev, data: '1', initialData: '1' })); // The onChange handler will invert it to '0' to avoid dirty flag
+        notice.info("This input is locked by default. Only change it if you understand what you're doing.");
+    };
+
+    return (
+        <div className="contents" onMouseUp={handleMouseUp}>
             <InputWithTitle2Cols
-                className={!lockEnabled ? 'opacity-25 cursor-default' : ''}
+                className={!lockEnabled ? "opacity-25 cursor-default" : ""}
                 // onClick={(event: React.MouseEvent<HTMLInputElement>) => {
                 //     if (lockEnabled) {
                 //         return;
@@ -61,13 +76,8 @@ function LoginFlags_Guarded({ oFormProps, isNormal }: { oFormProps: OFormProps; 
                 asCheckbox
                 checkboxTrail={<span className="pl-2 font-light">{lockEnabled ? "(allowed only if form submission data has been selected)" : "(not allowed in manual mode)"}</span>}
             />
-            </div>
-        )}
-
-        <ChildrenWithLabel2Cols label="Authenticate immediately">
-            <AuthImmSelect stateAtom={aimAtom} className="w-max" />
-        </ChildrenWithLabel2Cols>
-    </>);
+        </div>
+    );
 }
 
 const optionsAllGroupsClasses = "ml-1 mr-3 mb-1 grid grid-cols-[auto_minmax(0,1fr)] gap-x-2 gap-y-0.5 select-none";
