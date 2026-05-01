@@ -49,7 +49,6 @@ export function createAtoms(initialState: FormOptionsState.ForAtoms, onChange: O
         p3Auth: {
             aimAtom: createAtomForInput(p3Auth.aim, onChange('aim')),
             lockAtom: createAtomForCheck(p3Auth.lock, onChange('lock')),
-            lockEnabledAtom: createAtomForCheck(p3Auth.lockEnabled, () => {console.log('lockEnabled changed')}), // This is only UI state, no need to track changes
             auth_plAtom: createAtomForInput(p3Auth.auth_pl, onChange('auth_pl')),
         },
         p4QL: {
@@ -66,6 +65,8 @@ export function createAtoms(initialState: FormOptionsState.ForAtoms, onChange: O
 
         formIdx: initialState.formIdx,
         isWebAtom: atomWithCallback(initialState.isFormWeb, onChange('isWeb')),
+
+        lockEnabledAtom: atom(initialState.lockEnabled),
 
         fromFileHOU: initialHOU,
         murl_howAtom: createAtomForInput(initialHOU.how, onChange('murl_how')),

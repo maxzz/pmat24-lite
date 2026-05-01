@@ -55,7 +55,6 @@ export function forAtoms(fileUsCtx: FileUsCtx): FormOptionsState.ForAtoms {
         p3Auth: {
             aim: options.autoprompt || '0',
             lock: options.lockfields === '1',
-            lockEnabled: options.submittype === 'dosubmit',
             auth_pl: options.auth_pl || '',
         },
         p4QL: {
@@ -72,6 +71,8 @@ export function forAtoms(fileUsCtx: FileUsCtx): FormOptionsState.ForAtoms {
 
         isFormWeb,
         formIdx,
+
+        lockEnabled: options.submittype === 'dosubmit', //TODO: check win32 
 
         fromFileHOU,
         murl_how: fromFileHOU.how,

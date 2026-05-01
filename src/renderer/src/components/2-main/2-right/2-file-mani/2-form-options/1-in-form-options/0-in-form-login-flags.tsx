@@ -31,10 +31,8 @@ export function InFormBlockLoginFlags({ anyFormProps }: { anyFormProps: NFormPro
 }
 
 function LoginFlags_Guarded({ oFormProps, isNormal }: { oFormProps: OFormProps; isNormal: boolean; }) {
-    const { aimAtom, lockAtom, lockEnabledAtom } = oFormProps.oAllAtoms.options.p3Auth;
-    const data = useAtomValue(lockEnabledAtom);
-    const lockEnabled = data.data === '1';
-    const setLock = useSetAtom(lockAtom);
+    const { aimAtom, lockAtom } = oFormProps.oAllAtoms.options.p3Auth;
+    const lockEnabled = useAtomValue(oFormProps.oAllAtoms.options.lockEnabledAtom);
     return (<>
         {isNormal && (
             <div className="contents" onMouseUp={(event: React.MouseEvent<HTMLInputElement>) => {

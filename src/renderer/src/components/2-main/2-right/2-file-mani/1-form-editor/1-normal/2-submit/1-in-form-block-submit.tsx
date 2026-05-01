@@ -34,14 +34,13 @@ function SubmitBodyForWin32({ nFormProps }: { nFormProps: NFormProps; }) {
 
 function DropdownSubmit({ nFormProps }: { nFormProps: NFormProps; }) {
     const { buttonNameItemsAtom, selectedAtom } = nFormProps.nFormCtx.normal.submitCtx;
-    const { lockEnabledAtom } = nFormProps.nFormCtx.options.p3Auth;
     const buttonNameItems = useAtomValue(buttonNameItemsAtom);
     const [selected, setSelected] = useAtom(selectedAtom);
-    const setLockEnabled = useSetAtom(lockEnabledAtom);
+    const setLockEnabled = useSetAtom(nFormProps.nFormCtx.options.lockEnabledAtom);
 
     function onChange(value: string) {
         setSelected(+value);
-        setLockEnabled((prev) => ({ ...prev, data: value !== '0' ? '1' : '0' }));
+        setLockEnabled(!!+value); // value !== '0' means selected button is not "Don't submit"
     }
 
     return (

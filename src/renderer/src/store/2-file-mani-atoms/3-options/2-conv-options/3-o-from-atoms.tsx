@@ -40,7 +40,6 @@ export function fromAtoms(atoms: FormOptionsState.AllAtoms, { get }: GetOnly): F
         p3Auth: {
             aim: get(p3Auth.aimAtom).data,
             lock: get(p3Auth.lockAtom).data === '1',
-            lockEnabled: get(p3Auth.lockEnabledAtom).data === '1',
             auth_pl: get(p3Auth.auth_plAtom).data,
         },
         p4QL: {
@@ -57,6 +56,8 @@ export function fromAtoms(atoms: FormOptionsState.AllAtoms, { get }: GetOnly): F
 
         isFormWeb: get(atoms.isWebAtom),
         formIdx: atoms.formIdx,
+
+        lockEnabled: get(atoms.lockEnabledAtom),
 
         fromFileHOU: atoms.fromFileHOU,
         murl_how: +get(atoms.murl_howAtom).data,

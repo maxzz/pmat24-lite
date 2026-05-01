@@ -14,7 +14,7 @@ export function FormIconPosition({ oFormProps }: { oFormProps: OFormProps; }) {
             {isWeb
                 ? (
                     <div className={textClasses}>
-                        Icon position cannot be changed for web applications.
+                        This login form template is designed for a web application. Icon position cannot be changed for web applications.
                     </div>
                 )
                 : (
@@ -56,5 +56,5 @@ const balloonCounterItems: OptionTextValue[] = [
     ['Bottom right', '4'],
 ];
 
-const textClasses = "pl-6 pr-0.5 py-1";
+const textClasses = "pl-6 pr-0.5 py-1 text-balance";
 
