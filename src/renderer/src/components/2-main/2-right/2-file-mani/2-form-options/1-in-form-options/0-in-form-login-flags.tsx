@@ -1,9 +1,9 @@
-import { useAtomValue } from "jotai";
+import { useAtomValue, useSetAtom } from "jotai";
 import { FormIdx } from "@/store/8-manifest";
 import { type OFormProps, type MFormProps, type NFormProps } from "@/store/2-file-mani-atoms";
 import { ChildrenWithLabel2Cols, InputWithTitle2Cols } from "@/ui/local-ui";
 import { AuthImmSelect } from "../9-controls/5-select-controls";
-import { log } from "node:console";
+import { notice } from "@/ui/local-ui/7-toaster";
 
 export function InFormBlockLoginFlags({ anyFormProps }: { anyFormProps: NFormProps | MFormProps; }) {
     const anyFormCtx = (anyFormProps as NFormProps).nFormCtx || (anyFormProps as MFormProps).mFormCtx;
@@ -32,17 +32,38 @@ export function InFormBlockLoginFlags({ anyFormProps }: { anyFormProps: NFormPro
 
 function LoginFlags_Guarded({ oFormProps, isNormal }: { oFormProps: OFormProps; isNormal: boolean; }) {
     const { aimAtom, lockAtom, lockEnabledAtom } = oFormProps.oAllAtoms.options.p3Auth;
-    const lockEnabled = useAtomValue(lockEnabledAtom);
-    console.log("lockEnabled", lockEnabled);
+    const data = useAtomValue(lockEnabledAtom);
+    const lockEnabled = data.data === '1';
+    const setLock = useSetAtom(lockAtom);
     return (<>
         {isNormal && (
+            <div className="contents" onClick={(event: React.MouseEvent<HTMLInputElement>) => {
+                if (lockEnabled) {
+                    return;
+                }
+                event.preventDefault();
+                event.stopPropagation();
+                //setLock((prev) => ({ ...prev, data: '1', initialData: '1' })); // The onChange handler will invert it to '0' to avoid dirty flag
+                notice.info("This input is locked by default. Only change it if you understand what you're doing.");
+            }}>
             <InputWithTitle2Cols
+                className={!lockEnabled ? 'opacity-25 cursor-default' : ''}
+                // onClick={(event: React.MouseEvent<HTMLInputElement>) => {
+                //     if (lockEnabled) {
+                //         return;
+                //     }
+                //     event.preventDefault();
+                //     event.stopPropagation();
+                //     //setLock((prev) => ({ ...prev, data: '1', initialData: '1' })); // The onChange handler will invert it to '0' to avoid dirty flag
+                //     notice.info("This input is locked by default. Only change it if you understand what you're doing.");
+                // }}
                 stateAtom={lockAtom}
-                disabled={lockEnabled.data !== '1'}
+                //disabled={!lockEnabled}
                 label="Lock out login fields"
                 asCheckbox
                 checkboxTrail={<span className="pl-2 font-light">{lockEnabled ? "(allowed only if form submission data has been selected)" : "(not allowed in manual mode)"}</span>}
             />
+            </div>
         )}
 
         <ChildrenWithLabel2Cols label="Authenticate immediately">
