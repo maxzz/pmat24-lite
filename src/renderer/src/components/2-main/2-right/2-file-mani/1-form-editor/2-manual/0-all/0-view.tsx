@@ -7,7 +7,6 @@ import { isManualManifestNew } from "../../0-all";
 import { InFormBlockOptions } from "../../../2-form-options";
 import { loginChangesEffectFn } from "./2-login-changes-effect";
 import { usePrintFormFields } from "./8-use-print-form-fields";
-import { InFormBlockLoginFlags } from "../../../2-form-options/1-in-form-options/0-in-form-login-flags";
 
 export function ManualModeView({ mFormProps, className, ...rest }: { mFormProps: MFormProps; } & ComponentPropsWithoutRef<'div'>) {
     useAtomEffect(
@@ -24,7 +23,6 @@ export function ManualModeView({ mFormProps, className, ...rest }: { mFormProps:
                     Additional options
                 </div>
                 <div className="mb-1 text-xs flex flex-col items-start gap-1 select-none">
-                    <InFormBlockLoginFlags anyFormProps={mFormProps} />
                     <InFormBlockOptions anyFormProps={mFormProps} />
                 </div>
             </div>

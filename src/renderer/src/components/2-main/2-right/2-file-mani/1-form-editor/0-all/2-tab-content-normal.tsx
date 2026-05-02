@@ -3,7 +3,7 @@ import { classNames } from "@/utils";
 import { type NFormProps } from "@/store/2-file-mani-atoms";
 import { FieldsList, InFormBlockSubmit } from "../1-normal";
 import { InFormBlockOptions } from "../../2-form-options";
-import { InFormBlockLoginFlags } from "../../2-form-options/1-in-form-options/0-in-form-login-flags";
+import { LoginLockFieldsFlag } from "../../2-form-options/1-in-form-options/6-in-form-login-lock-fields";
 
 export function TabContent_NormalForm({ nFormProps, className, ...rest }: { nFormProps: NFormProps; } & ComponentPropsWithoutRef<'div'>) {
     const hasFieldsNeedSubmit = !!nFormProps.nFormCtx.normal.rowCtxs.length;
@@ -21,14 +21,13 @@ export function TabContent_NormalForm({ nFormProps, className, ...rest }: { nFor
                 </div>
 
                 <InFormBlockSubmit nFormProps={nFormProps} />
-                {/* <InFormBlockLoginFlags nFormProps={nFormProps} /> */}
+                <LoginLockFieldsFlag nFormProps={nFormProps} />
             </>)}
 
             <div className={sectionLabelClasses}>
                 Additional options
             </div>
             <div className="pl-1 pr-2 text-xs flex flex-col items-start gap-1 select-none">
-                <InFormBlockLoginFlags anyFormProps={nFormProps} />
                 <InFormBlockOptions anyFormProps={nFormProps} />
             </div>
 
