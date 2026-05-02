@@ -23,10 +23,7 @@ function SubmitBodyForWeb({ nFormProps }: { nFormProps: NFormProps; }) {
 function SubmitBodyForWin32({ nFormProps }: { nFormProps: NFormProps; }) {
     const selected = useAtomValue(nFormProps.nFormCtx.normal.submitCtx.selectedAtom) !== 0;
     return (<>
-        After filling in the form fields,
-        {selected ? " the" : ""}
-        <DropdownSubmit nFormProps={nFormProps} />
-        {selected ? " button will be used to submit the form data." : " the form data."}
+        After filling in the form fields, {selected ? " the" : ""} <DropdownSubmit nFormProps={nFormProps} /> {selected ? " button will be used to submit the form data." : " the form data."}
     </>);
 }
 
