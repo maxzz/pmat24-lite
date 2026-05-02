@@ -65,6 +65,8 @@ export namespace FormOptionsState {
         p4QL: p4QL;
         p5Icon: p5Icon;
 
+        // UI utility: values to get from/to atoms
+
         formIdx: FormIdx;
         isFormWeb: boolean;
 
@@ -84,6 +86,8 @@ export namespace FormOptionsState {
         p3Auth: AtomizeWithType<p3Auth, RowInputState>;
         p4QL: AtomizeWithType<p4QL, RowInputState>;
         p5Icon: AtomizeWithType<p5Icon, RowInputState>;
+
+        // UI utility: reactive values
 
         formIdx: FormIdx;
         isWebAtom: PA<boolean>;

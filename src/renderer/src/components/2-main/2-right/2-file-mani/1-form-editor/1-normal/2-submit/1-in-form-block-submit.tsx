@@ -3,7 +3,7 @@ import { type NFormProps } from "@/store/2-file-mani-atoms";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/ui/shadcn/select";
 
 export function InFormBlockSubmit({ nFormProps }: { nFormProps: NFormProps; }) {
-    const isWeb = nFormProps.nFormCtx.normal.submitCtx.isWeb;
+    const isWeb = nFormProps.nFormCtx.normal.submitCtx.isSubmitForWeb;
     return (
         <div className="ml-1 p-1 1flex items-center gap-1 select-none">
             {isWeb
@@ -48,7 +48,7 @@ function DropdownSubmit({ nFormProps }: { nFormProps: NFormProps; }) {
             <Select value={selected.toString()} onValueChange={onChange}>
 
                 <SelectTrigger className="mx-1 pl-1.5 pr-0.5 py-1 h-7 w-max text-xs gap-1">
-                    <SelectValue placeholder={"Don't submit"} />
+                    <SelectValue placeholder="Don't submit" />
                 </SelectTrigger>
 
                 <SelectContent align="start">

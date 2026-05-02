@@ -4,6 +4,7 @@ import { type OFormProps, type MFormProps, type NFormProps } from "@/store/2-fil
 import { ChildrenWithLabel2Cols, InputWithTitle2Cols } from "@/ui/local-ui";
 import { AuthImmSelect } from "../9-controls/5-select-controls";
 import { notice } from "@/ui/local-ui/7-toaster";
+import { SymbolLockClosed } from "@/ui/icons";
 
 export function InFormBlockLoginFlags({ anyFormProps }: { anyFormProps: NFormProps | MFormProps; }) {
     const anyFormCtx = (anyFormProps as NFormProps).nFormCtx || (anyFormProps as MFormProps).mFormCtx;
@@ -44,8 +45,8 @@ function LoginFlags_Guarded({ oFormProps, isNormal }: { oFormProps: OFormProps; 
 }
 
 function LoginLockFlag({ oFormProps }: { oFormProps: OFormProps; }) {
-    const { lockAtom } = oFormProps.oAllAtoms.options.p3Auth;
-    const lockEnabled = useAtomValue(oFormProps.oAllAtoms.options.lockEnabledAtom);
+    const { lockEnabledAtom, p3Auth } = oFormProps.oAllAtoms.options;
+    const lockEnabled = useAtomValue(lockEnabledAtom);
 
     const handleMouseUp = (event: React.MouseEvent<HTMLInputElement>) => {
         if (lockEnabled) {
@@ -59,23 +60,29 @@ function LoginLockFlag({ oFormProps }: { oFormProps: OFormProps; }) {
 
     return (
         <div className="contents" onMouseUp={handleMouseUp}>
-            <InputWithTitle2Cols
-                className={!lockEnabled ? "opacity-25 cursor-default" : ""}
-                // onClick={(event: React.MouseEvent<HTMLInputElement>) => {
-                //     if (lockEnabled) {
-                //         return;
-                //     }
-                //     event.preventDefault();
-                //     event.stopPropagation();
-                //     //setLock((prev) => ({ ...prev, data: '1', initialData: '1' })); // The onChange handler will invert it to '0' to avoid dirty flag
-                //     notice.info("This input is locked by default. Only change it if you understand what you're doing.");
-                // }}
-                stateAtom={lockAtom}
-                disabled={!lockEnabled}
-                label="Lock out login fields"
-                asCheckbox
-                checkboxTrail={<span className="pl-2 font-light">{lockEnabled ? "(allowed only if form submission data has been selected)" : "(not allowed in manual mode)"}</span>}
-            />
+            {lockEnabled ? (<>
+                <InputWithTitle2Cols
+                    className={!lockEnabled ? "opacity-25 cursor-default" : ""}
+                    // onClick={(event: React.MouseEvent<HTMLInputElement>) => {
+                    //     if (lockEnabled) {
+                    //         return;
+                    //     }
+                    //     event.preventDefault();
+                    //     event.stopPropagation();
+                    //     //setLock((prev) => ({ ...prev, data: '1', initialData: '1' })); // The onChange handler will invert it to '0' to avoid dirty flag
+                    //     notice.info("This input is locked by default. Only change it if you understand what you're doing.");
+                    // }}
+                    stateAtom={p3Auth.lockAtom}
+                    disabled={!lockEnabled}
+                    label="Lock out login fields"
+                    asCheckbox
+                    checkboxTrail={<span className="pl-2 font-light">{lockEnabled ? "(allowed only if form submission data has been selected)" : "(not allowed in manual mode)"}</span>}
+                />
+            </>) : (
+                <div className="cursor-default">
+                    If the submit form data option is not selected, the lock form fields is unavailable.
+                </div>
+            )}
         </div>
     );
 }

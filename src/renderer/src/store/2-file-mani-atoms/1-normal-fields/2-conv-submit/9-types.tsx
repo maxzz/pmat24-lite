@@ -10,7 +10,7 @@ export namespace SubmitFieldTypes {
 
     export type ForAtoms = {
         buttonNameItems: ButtonNameItem[];
-        selected: number;                   // index of selected button
+        selected: number;                   // Index of selected button; 0 - don't submit otherwhise submit with selected button index
         doSubmit: boolean;
         isSubmitTypeUndefined: boolean;     // Mani form options submittype was initially undefined
     };
@@ -19,9 +19,9 @@ export namespace SubmitFieldTypes {
 
     export type Ctx = Prettify<
         ForAtomsAtomized & {
-            isWeb: boolean;                 // is web form
-            metaForm: Meta.Form;            // meta form from manifest
-            fromFile: ForAtoms;             // original state to compare with
+            isSubmitForWeb: boolean;        // Is web form
+            metaForm: Meta.Form;            // Meta form from manifest
+            fromFile: ForAtoms;             // Original state to compare with
         }
     >;
 }

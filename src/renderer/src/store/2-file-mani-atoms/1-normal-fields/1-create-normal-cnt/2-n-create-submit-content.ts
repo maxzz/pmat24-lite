@@ -17,7 +17,7 @@ export namespace NormalSubmitState {
 
         const rv: SubmitFieldTypes.Ctx = {
             ...SubmitConv.createAtoms(forAtoms, onChange),
-            isWeb: !!metaForm?.mani.detection.web_ourl,
+            isSubmitForWeb: !!metaForm?.mani.detection.web_ourl,
             metaForm,
             fromFile: forAtoms,
         };
