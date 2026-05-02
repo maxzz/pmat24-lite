@@ -35,13 +35,48 @@ function LoginFlags_Guarded({ oFormProps, isNormal }: { oFormProps: OFormProps; 
     const { aimAtom } = oFormProps.oAllAtoms.options.p3Auth;
     return (<>
         {isNormal && (
-            <LoginLockFlag oFormProps={oFormProps} />
+            <NewLoginLockFlag oFormProps={oFormProps} />
         )}
 
-        <ChildrenWithLabel2Cols label="Authenticate immediately">
+        {/* <ChildrenWithLabel2Cols label="Authenticate immediately">
             <AuthImmSelect stateAtom={aimAtom} className="w-max" />
-        </ChildrenWithLabel2Cols>
+        </ChildrenWithLabel2Cols> */}
     </>);
+}
+
+function NewLoginLockFlag({ oFormProps }: { oFormProps: OFormProps; }) {
+    const { lockEnabledAtom, p3Auth } = oFormProps.oAllAtoms.options;
+    const lockEnabled = useAtomValue(lockEnabledAtom);
+
+    return (
+        <div className="contents">
+            {lockEnabled ? (<>
+                <InputWithTitle2Cols
+                    className={!lockEnabled ? "opacity-25 cursor-default" : ""}
+                    stateAtom={p3Auth.lockAtom}
+                    label="Lock out login fields"
+                    asCheckbox
+                    checkboxTrail={<span className="pl-2 font-light">{lockEnabled ? "(allowed only if form submission data has been selected)" : "(not allowed in manual mode)"}</span>}
+                />
+            </>) : (
+                <div className="cursor-default"
+                    onClick={(event: React.MouseEvent<HTMLInputElement>) => {
+                        if (lockEnabled) {
+                            return;
+                        }
+                        event.preventDefault();
+                        event.stopPropagation();
+                        //setLock((prev) => ({ ...prev, data: '1', initialData: '1' })); // The onChange handler will invert it to '0' to avoid dirty flag
+                        notice.info("This input is locked by default. Only change it if you understand what you're doing.");
+                    }}
+                    title={lockEnabled ? "(allowed only if form submission data has been selected)" : "(not allowed in manual mode)"}
+                >
+                    <div className="size-4 dark-checkbox"></div>
+                    If the submit form data option is not selected, the lock form fields is unavailable.
+                </div>
+            )}
+        </div>
+    );
 }
 
 function LoginLockFlag({ oFormProps }: { oFormProps: OFormProps; }) {

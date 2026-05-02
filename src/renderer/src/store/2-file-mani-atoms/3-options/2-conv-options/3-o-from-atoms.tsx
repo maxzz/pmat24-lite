@@ -67,5 +67,9 @@ export function fromAtoms(atoms: FormOptionsState.AllAtoms, { get }: GetOnly): F
         iconLocFromFile: atoms.iconLocFromFile,
     };
 
+    if (!rv.lockEnabled) {
+        rv.p3Auth.lock = false;
+    }
+
     return rv;
 }

@@ -51,9 +51,9 @@ function GroupFormLogin({ oFormProps }: { oFormProps: OFormProps; }) {
     return (<>
         <InputWithTitle2Cols stateAtom={nameAtom} label="Managed login name" />
 
-        {/* <ChildrenWithLabel2Cols label="Authenticate immediately">
+        <ChildrenWithLabel2Cols label="Authenticate immediately">
             <AuthImmSelect stateAtom={aimAtom} className="w-max" />
-        </ChildrenWithLabel2Cols> */}
+        </ChildrenWithLabel2Cols>
 
         {/* <InputWithTitle2Cols stateAtom={aimAtom} label="Authenticate immediately" asCheckbox /> */}
         {/* <InputWithTitle2Cols stateAtom={lockAtom} label="Lock out login fields" asCheckbox /> */}

@@ -16,9 +16,7 @@ export function InFormBlockSubmit({ nFormProps }: { nFormProps: NFormProps; }) {
 
 function SubmitBodyForWeb({ nFormProps }: { nFormProps: NFormProps; }) {
     return (<>
-        After filling in the form fields,
-        <DropdownSubmit nFormProps={nFormProps} />
-        the form data.
+        After filling in the form fields, <DropdownSubmit nFormProps={nFormProps} /> the form data.
     </>);
 }
 

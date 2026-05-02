@@ -21,6 +21,7 @@ export function TabContent_NormalForm({ nFormProps, className, ...rest }: { nFor
                 </div>
 
                 <InFormBlockSubmit nFormProps={nFormProps} />
+                {/* <InFormBlockLoginFlags nFormProps={nFormProps} /> */}
             </>)}
 
             <div className={sectionLabelClasses}>
