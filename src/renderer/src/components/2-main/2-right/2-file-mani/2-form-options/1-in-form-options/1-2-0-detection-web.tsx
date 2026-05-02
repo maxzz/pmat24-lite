@@ -8,11 +8,11 @@ import { SymbolInfo, SymbolLockClosed, SymbolLockOpen } from "@/ui/icons";
 import { type OFormProps } from "@/store/2-file-mani-atoms";
 import { AccordionWithTrigger } from "@/ui/motion-primitives";
 import { InputWithTitle2Rows } from "@/ui/local-ui";
-import { ShowExampleText, useIsShowExample } from "./5-9-use-is-show-example";
-import { MatchHow } from "./5-2-match-how";
-import { RegexTooltip } from "./5-3-regex-tooltip";
-import { BtnCopyOurl } from "./4-0-btn-copy-ourl";
-import { FormIconPosition } from "./3-in-form-icon-position";
+import { ShowExampleText, useIsShowExample } from "./1-2-5-use-is-show-example";
+import { MatchHow } from "./1-2-1-match-how";
+import { RegexTooltip } from "./1-2-3-regex-tooltip";
+import { BtnCopyOurl } from "./1-2-4-btn-copy-ourl";
+import { FormIconPosition } from "./2-icon-position";
 import { InFormAccordionValue } from "@/store/2-file-mani-atoms/9-types";
 
 export function DetectionContent_Web({ oFormProps }: { oFormProps: OFormProps; }) {

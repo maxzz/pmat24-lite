@@ -3,7 +3,7 @@ import { classNames } from "@/utils";
 import { type NFormProps } from "@/store/2-file-mani-atoms";
 import { FieldsList, InFormBlockSubmit } from "../1-normal";
 import { InFormBlockOptions } from "../../2-form-options";
-import { LoginLockFieldsFlag } from "../../2-form-options/1-in-form-options/6-in-form-login-lock-fields";
+import { LoginLockFieldsFlag } from "../../2-form-options/1-in-form-options/3-lock-fields";
 
 export function TabContent_NormalForm({ nFormProps, className, ...rest }: { nFormProps: NFormProps; } & ComponentPropsWithoutRef<'div'>) {
     const hasFieldsNeedSubmit = !!nFormProps.nFormCtx.normal.rowCtxs.length;

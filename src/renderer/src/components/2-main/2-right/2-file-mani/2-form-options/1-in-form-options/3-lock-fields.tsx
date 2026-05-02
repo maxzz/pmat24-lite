@@ -40,7 +40,6 @@ function LoginLock_Guarded({ oFormProps }: { oFormProps: OFormProps; }) {
                 <div className="size-4 dark-checkbox"></div>
                 (allowed only if form submission data has been selected)
                 </>)
-
             }
         </div>
     );

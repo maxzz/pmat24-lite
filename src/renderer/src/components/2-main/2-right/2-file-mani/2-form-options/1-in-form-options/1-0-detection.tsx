@@ -1,7 +1,7 @@
 import { useAtomValue } from "jotai";
 import { type OFormProps, type MFormProps, type NFormProps } from "@/store/2-file-mani-atoms";
-import { DetectionContent_W32 } from "./2-in-form-detection-w32";
-import { DetectionContent_Web } from "./3-in-form-detection-web";
+import { DetectionContent_W32 } from "./1-1-detection-w32";
+import { DetectionContent_Web } from "./1-2-0-detection-web";
 
 export function InFormBlockOptions({ anyFormProps }: { anyFormProps: NFormProps | MFormProps; }) {
     const anyFormCtx = (anyFormProps as NFormProps).nFormCtx || (anyFormProps as MFormProps).mFormCtx;
