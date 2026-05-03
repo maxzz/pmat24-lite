@@ -93,8 +93,6 @@ export function DetectionContent_Web({ oFormProps }: { oFormProps: OFormProps; }
 
             </div>
         </AccordionWithTrigger>
-
-        <FormIconPosition oFormProps={oFormProps} />
     </>);
 }
 

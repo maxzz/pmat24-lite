@@ -1,7 +1,6 @@
 import { AccordionWithTrigger } from "@/ui/motion-primitives";
 import { InputWithTitle2Rows } from "@/ui/local-ui";
 import { type OFormProps } from "@/store/2-file-mani-atoms";
-import { FormIconPosition } from "./2-icon-position";
 import { InFormAccordionValue } from "@/store/2-file-mani-atoms/9-types";
 
 export function DetectionContent_W32({ oFormProps }: { oFormProps: OFormProps; }) {
@@ -20,8 +19,6 @@ export function DetectionContent_W32({ oFormProps }: { oFormProps: OFormProps; }
                 {/* <InFormRowInputWTitle stateAtom={commandlineAtom} label="Command line" /> */}
             </div>
         </AccordionWithTrigger>
-
-        <FormIconPosition oFormProps={oFormProps} />
     </>);
 }
 
