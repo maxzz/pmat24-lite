@@ -1,1 +1,1 @@
-export * from "./1-in-form-block-submit";
+export * from "./1-block-submit";
