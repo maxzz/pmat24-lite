@@ -32,7 +32,7 @@ function LoginLock_Guarded({ oFormProps }: { oFormProps: OFormProps; }) {
 
     function onLockFieldsClick() {
         if (!lockEnabled) {
-            notice.info('The "Lock form input fields" option cannot be enabled unless the "Submit Form Data" option is selected.');
+            notice.info('This option cannot be enabled unless the "Submit Form Data" option is selected.');
         }
     }
 
