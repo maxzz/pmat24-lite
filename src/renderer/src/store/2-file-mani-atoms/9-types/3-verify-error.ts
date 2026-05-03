@@ -4,11 +4,12 @@ export type ManiTabValue = 'options' | 'login' | 'cpass';
 
 // Form accordions
 
-export type InFormAccordion = 'form-detection' | 'form-icon';
+export type InFormAccordion = 'form-detection' | 'form-icon' | 'form-quick-link';
 
 export const enum InFormAccordionValue {
     detection = 'form-detection',
     icon = 'form-icon',
+    quickLink = 'form-quick-link',
 }
 
 //
