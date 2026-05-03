@@ -1,4 +1,4 @@
-import { type Atom, atom } from "jotai";
+import { type Atom, atom, getDefaultStore } from "jotai";
 import { FormIdx } from "@/store/8-manifest";
 import { type FileUs, type FileUsAtom } from "@/store/store-types";
 import { type MFormCnt, type NFormCnt, type FileUsCtx, type AnyFormCtx, type ManiAtoms, safeByContext, lFieldsIdx, cFieldsIdx } from "@/store/2-file-mani-atoms/9-types";
@@ -87,6 +87,13 @@ function createFormCtx(fileUsCtx: FileUsCtx): AnyFormCtx | undefined {
         options: OptionsState.createAtoms(fileUsCtx),
         fileUsCtx: fileUsCtx,
     };
+
+    if (normal) { // This will set initial value for lockEnabled option for win32 and web forms after submitCtx aquired to options
+        const store = getDefaultStore();
+        const selected = store.get(normal.submitCtx.selectedAtom);
+        const lockEnabled = selected !== 0;
+        store.set(rv.options.lockEnabledAtom, lockEnabled);
+    }
 
     return rv;
 }

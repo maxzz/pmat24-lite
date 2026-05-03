@@ -40,7 +40,9 @@ function LoginLock_Guarded({ oFormProps }: { oFormProps: OFormProps; }) {
                 : <div className="size-4 dark-checkbox"></div>
             }
 
-            <span className={classNames("cursor-pointer", lockEnabled ? "" : "opacity-30 cursor-default")}>Lock form input fields</span>
+            <span className={classNames("cursor-pointer", lockEnabled ? "" : "opacity-30 cursor-default")}>
+                Lock form input fields
+            </span>
         </label>
     );
 }

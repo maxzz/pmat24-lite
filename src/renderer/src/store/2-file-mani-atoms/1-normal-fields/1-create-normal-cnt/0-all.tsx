@@ -1,4 +1,4 @@
-import { type NFormCnt, type FileUsCtx, type ManiAtoms } from "../../9-types";
+import { type NFormCnt, type FileUsCtx } from "../../9-types";
 import { NormalFieldsState } from "./1-n-create-fields-content";
 import { NormalSubmitState } from "./2-n-create-submit-content";
 
