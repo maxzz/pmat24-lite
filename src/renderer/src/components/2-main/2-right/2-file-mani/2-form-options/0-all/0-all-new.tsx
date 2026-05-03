@@ -37,10 +37,6 @@ function GroupFormLogin({ oFormProps }: { oFormProps: OFormProps; }) {
     return (<>
         <InputWithTitle2Cols stateAtom={nameAtom} label="Managed login name" />
 
-        <ChildrenWithLabel2Cols label="Authenticate immediately">
-            <AuthImmSelect stateAtom={aimAtom} className="w-max" />
-        </ChildrenWithLabel2Cols>
-
         <ChildrenWithLabel2Cols label="Extended authentication policy">
             <ExtPolicySelect stateAtom={auth_plAtom} />
         </ChildrenWithLabel2Cols>
@@ -49,40 +45,12 @@ function GroupFormLogin({ oFormProps }: { oFormProps: OFormProps; }) {
             <BalloonCounterSelect stateAtom={balloonAtom} className="w-max" />
         </ChildrenWithLabel2Cols>
 
+        <ChildrenWithLabel2Cols label="Authenticate immediately">
+            <AuthImmSelect stateAtom={aimAtom} className="w-max" />
+        </ChildrenWithLabel2Cols>
+
         <PanelTestInUse oFormProps={oFormProps} />
     </>);
 }
-
-/*
-export function BlockWrap_Quicklink({ oFormProps }: { oFormProps: OFormProps; }) {
-    const name = "ql";
-    const { formIdx } = oFormProps.oAllAtoms.options;
-    const open = useSnapshot(appSettings).right.mani.opened[openedName(formIdx, name)];
-
-    return (<>
-        <OptionsSubSectionTitle label="Quick link" formIdx={formIdx} name={name} />
-
-        <UiAccordion open={open}>
-            <Block3_QL atoms={oFormProps.oAllAtoms.options} />
-        </UiAccordion>
-    </>);
-}
-
-import { type OptionsState } from "@/store/2-file-mani-atoms";
-import { InputWithTitle2Cols } from "@/ui/local-ui";
-
-export function Block3_QL({ atoms }: { atoms: OptionsState.Atoms; }) {
-
-    const { qNameAtom, qUrlAtom } = atoms.p4QL;
-
-    return (<>
-        <InputWithTitle2Cols stateAtom={qNameAtom} label="Name on the mini-dashboard" /> {/* "Name displayed on the mini-dashboard" * /}
-        <InputWithTitle2Cols stateAtom={qUrlAtom} label="Quick link URL" />
-
-        {/* No need to show checkbox. We can update checkbox by content of mini-dashboard name * /}
-        {/* <InputWithTitle2Cols stateAtom={qUseAtom} label="Show on mini-dashboard" asCheckbox /> * /}
-    </>);
-}
-*/
 
 //TODO: Do we need to show fields: window caption and classname if they don't have sense for web, but created w/ IE?
