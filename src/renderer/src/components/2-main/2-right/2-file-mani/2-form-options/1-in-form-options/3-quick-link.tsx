@@ -51,7 +51,7 @@ function BlockQuickLinkContent_Guarded({ oFormProps }: { oFormProps: OFormProps;
 
             <InputWithTitle2Rows
                 stateAtom={qNameAtom}
-                label="Quick link name (*)"
+                label={<><span>Quick link name</span><span className="font-bold"> *</span></>}
                 labelClasses="font-normal"
                 containerClasses="py-0! col-span-full"
             />
@@ -60,7 +60,7 @@ function BlockQuickLinkContent_Guarded({ oFormProps }: { oFormProps: OFormProps;
                 <InputWithTitle2Rows
                     asTextarea
                     stateAtom={qUrlAtom}
-                    label="Quick link URL (**)"
+                    label={<><span>Quick link URL</span><span className="font-bold">**</span></>}
                     labelClasses="font-normal"
                     containerClasses="py-0! col-span-full"
                 />
