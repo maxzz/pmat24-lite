@@ -2,17 +2,17 @@ import { useState } from "react";
 import { useAtomValue } from "jotai";
 import { classNames } from "@/utils";
 import { AnimatePresence, motion } from "motion/react";
-import { notice } from "@/ui/local-ui/7-toaster";
-import { Matching } from "@/store/8-manifest";
 import { SymbolLockClosed, SymbolLockOpen } from "@/ui/icons";
-import { type OFormProps } from "@/store/2-file-mani-atoms";
+import { notice } from "@/ui/local-ui/7-toaster";
 import { AccordionWithTrigger } from "@/ui/motion-primitives";
 import { InputWithTitle2Rows } from "@/ui/local-ui";
-import { ShowExampleText, useIsShowExample } from "./1-2-5-use-is-show-example";
+import { InFormAccordionValue } from "@/store/2-file-mani-atoms/9-types";
+import { Matching } from "@/store/8-manifest";
+import { type OFormProps } from "@/store/2-file-mani-atoms";
 import { MatchHow } from "./1-2-1-match-how";
 import { RegexTooltip } from "./1-2-3-regex-tooltip";
 import { BtnCopyOurl } from "./1-2-4-btn-copy-ourl";
-import { InFormAccordionValue } from "@/store/2-file-mani-atoms/9-types";
+import { ShowExampleText, useIsShowExample } from "./1-2-5-use-is-show-example";
 
 export function DetectionContent_Web({ oFormProps }: { oFormProps: OFormProps; }) {
     const { p2Detect: { ourlAtom }, formIdx, murl_howAtom, murl_regexAtom } = oFormProps.oAllAtoms.options;
@@ -33,7 +33,7 @@ export function DetectionContent_Web({ oFormProps }: { oFormProps: OFormProps; }
                         label={(
                             <div className="flex items-center gap-0.5">
                                 Original URL of the website
-                                <div className="size-2.5 cursor-pointer" onClick={() => setIsLocked(!isLocked)}>
+                                <div className="ml-0.5 size-2.5 cursor-pointer" onClick={() => setIsLocked(!isLocked)}>
                                     {isLocked
                                         ? <SymbolLockClosed className="size-full" title="This setting is read-only. Only change it if you understand what you're doing." />
                                         : <SymbolLockOpen className="size-full" title="This input can be edited. Please proceed with caution." />
@@ -45,16 +45,7 @@ export function DetectionContent_Web({ oFormProps }: { oFormProps: OFormProps; }
                         labelClasses="font-normal"
                         className={classNames(isLocked ? 'opacity-75 cursor-default' : '')}
                         readOnly={isLocked}
-                        onClick={() => isLocked && notice.info(<><span className="1flex items-center gap-1">This input field is locked by default. Modify it using the <SymbolLockClosed className="inline-block pb-0.5 size-3.5" /> icon only if you understand what you are doing.</span></>)}
-                        /** /
-                        onClick={() => {
-                            notice.error("This input is locked by default. Only change it if you understand what you're doing.", { duration: 270001 });
-                            notice.warning("This input is locked by default. Only change it if you understand what you're doing.", { duration: 270001 });
-                            notice.success("This input is locked by default. Only change it if you understand what you're doing.", { duration: 270001 });
-                            notice.info("This input is locked by default. Only change it if you understand what you're doing.", { duration: 270001 });
-                            notice("This input is locked by default. Only change it if you understand what you're doing.", { duration: 270001 });
-                        }}
-                        /**/
+                        onClick={() => isLocked && notice.info(<span>This input field is locked by default. You can change this by using the <SymbolLockClosed className="inline-block pb-0.5 size-3.5" /> icon to unlock it — but only if you understand what you are doing.</span>)} //onClick={test_Notifications}
                         onBlur={() => setIsLocked(true)}
                     />
                     <BtnCopyOurl ourlAtom={ourlAtom} />
@@ -96,5 +87,13 @@ export function DetectionContent_Web({ oFormProps }: { oFormProps: OFormProps; }
 }
 
 const textClasses = "pl-6 pr-0.5 py-1";
+
+function test_Notifications() {
+    notice.error("This input is locked by default. Only change it if you understand what you're doing.", { duration: 270001 });
+    notice.warning("This input is locked by default. Only change it if you understand what you're doing.", { duration: 270001 });
+    notice.success("This input is locked by default. Only change it if you understand what you're doing.", { duration: 270001 });
+    notice.info("This input is locked by default. Only change it if you understand what you're doing.", { duration: 270001 });
+    //notice("This input is locked by default. Only change it if you understand what you're doing.", { duration: 270001 });
+}
 
 //TODO: Since we allow to modify original URL in Match URL field, we should should rename "As original URL" to "Match exact string" that includes the original URL domain and protocol, or dissable "Match URL" input in this case.
