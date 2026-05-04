@@ -4,6 +4,8 @@ import { DetectionContent_W32 } from "./1-1-detection-w32";
 import { DetectionContent_Web } from "./1-2-0-detection-web";
 import { BlockQuickLink } from "./3-quick-link";
 import { FormIconPosition } from "./2-icon-position";
+import { AccordionWithTrigger } from "@/ui/motion-primitives";
+import { InFormAccordionValue } from "@/store/2-file-mani-atoms/9-types";
 
 export function InFormBlockOptions({ anyFormProps }: { anyFormProps: NFormProps | MFormProps; }) {
     const anyFormCtx = (anyFormProps as NFormProps).nFormCtx || (anyFormProps as MFormProps).mFormCtx;
@@ -23,15 +25,23 @@ export function InFormBlockOptions({ anyFormProps }: { anyFormProps: NFormProps 
 
 export function InFormBlockOptions_Guarded({ oFormProps }: { oFormProps: OFormProps; }) {
     const isWeb = useAtomValue(oFormProps.oAllAtoms.options.isWebAtom);
+    const formIdx = oFormProps.oAllAtoms.options.formIdx;
 
     return (<>
-        {isWeb
-            ? <DetectionContent_Web oFormProps={oFormProps} />
-            : <DetectionContent_W32 oFormProps={oFormProps} />
-        }
+        <AccordionWithTrigger name={InFormAccordionValue.detection} formIdx={formIdx} triggerText="Screen detection" triggerClasses="w-auto">
+            <div className={textClasses}>
+                {isWeb
+                    ? <DetectionContent_Web oFormProps={oFormProps} />
+                    : <DetectionContent_W32 oFormProps={oFormProps} />
+                }
+            </div>
+        </AccordionWithTrigger>
 
         <FormIconPosition oFormProps={oFormProps} />
 
         <BlockQuickLink oFormProps={oFormProps} />
     </>);
 }
+
+
+const textClasses = "pl-6 pr-0.5 py-1";

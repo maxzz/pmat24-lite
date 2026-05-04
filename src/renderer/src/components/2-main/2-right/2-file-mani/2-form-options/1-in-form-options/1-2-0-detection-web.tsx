@@ -4,9 +4,7 @@ import { classNames } from "@/utils";
 import { AnimatePresence, motion } from "motion/react";
 import { SymbolLockClosed, SymbolLockOpen } from "@/ui/icons";
 import { notice } from "@/ui/local-ui/7-toaster";
-import { AccordionWithTrigger } from "@/ui/motion-primitives";
 import { InputWithTitle2Rows } from "@/ui/local-ui";
-import { InFormAccordionValue } from "@/store/2-file-mani-atoms/9-types";
 import { Matching } from "@/store/8-manifest";
 import { type OFormProps } from "@/store/2-file-mani-atoms";
 import { MatchHow } from "./1-2-1-match-how";
@@ -24,65 +22,60 @@ export function DetectionContent_Web({ oFormProps }: { oFormProps: OFormProps; }
     const showRegex = murl_how === Matching.How.regex;
 
     return (<>
-        <AccordionWithTrigger name={InFormAccordionValue.detection} formIdx={formIdx} triggerText="Screen detection" triggerClasses="w-auto">
-            <div className={textClasses}>
-                <div className="relative">
+        <div className="relative">
+            <InputWithTitle2Rows
+                asTextarea
+                stateAtom={ourlAtom}
+                label={(
+                    <div className="flex items-center gap-0.5">
+                        Original URL of the website
+                        <div className="ml-0.5 size-2.5 cursor-pointer" onClick={() => setIsLocked(!isLocked)}>
+                            {isLocked
+                                ? <SymbolLockClosed className="size-full" title="This setting is read-only. Only change it if you understand what you're doing." />
+                                : <SymbolLockOpen className="size-full" title="This input can be edited. Please proceed with caution." />
+                            }
+                        </div>
+
+                    </div>
+                )}
+                labelClasses="font-normal"
+                className={classNames(isLocked ? 'opacity-75 cursor-default' : '')}
+                readOnly={isLocked}
+                onClick={() => isLocked && notice.info(<span>This input field is locked by default. You can change this by using the <SymbolLockClosed className="inline-block pb-0.5 size-3.5" /> icon to unlock it — but only if you understand what you are doing.</span>)} //onClick={test_Notifications}
+                onBlur={() => setIsLocked(true)}
+            />
+            <BtnCopyOurl ourlAtom={ourlAtom} />
+        </div>
+
+        <div className="mt-2 flex items-center gap-2">
+            <div className="">How to match the website URL:</div>
+            <MatchHow oFormProps={oFormProps} />
+        </div>
+
+        <AnimatePresence initial={false}>
+            {showRegex && (<>
+                <motion.div
+                    initial={{ opacity: 0, x: 1000, height: 0 }}
+                    animate={{ opacity: 1, x: 0, height: 'auto' }}
+                    exit={{ opacity: 0, height: 0 }}
+                    transition={{ duration: .3 }}
+                    className="relative"
+                >
+                    {/* <SymbolInfo className="absolute right-2 top-7 size-4 text-foreground/75" /> */}
+                    <RegexTooltip />
+
                     <InputWithTitle2Rows
                         asTextarea
-                        stateAtom={ourlAtom}
-                        label={(
-                            <div className="flex items-center gap-0.5">
-                                Original URL of the website
-                                <div className="ml-0.5 size-2.5 cursor-pointer" onClick={() => setIsLocked(!isLocked)}>
-                                    {isLocked
-                                        ? <SymbolLockClosed className="size-full" title="This setting is read-only. Only change it if you understand what you're doing." />
-                                        : <SymbolLockOpen className="size-full" title="This input can be edited. Please proceed with caution." />
-                                    }
-                                </div>
-
-                            </div>
-                        )}
+                        stateAtom={murl_regexAtom}
+                        label={showRegex ? "Regular expression" : "Original URL"}
                         labelClasses="font-normal"
-                        className={classNames(isLocked ? 'opacity-75 cursor-default' : '')}
-                        readOnly={isLocked}
-                        onClick={() => isLocked && notice.info(<span>This input field is locked by default. You can change this by using the <SymbolLockClosed className="inline-block pb-0.5 size-3.5" /> icon to unlock it — but only if you understand what you are doing.</span>)} //onClick={test_Notifications}
-                        onBlur={() => setIsLocked(true)}
+                        className={classNames(disabled && 'opacity-50 cursor-default')}
                     />
-                    <BtnCopyOurl ourlAtom={ourlAtom} />
-                </div>
 
-                <div className="mt-2 flex items-center gap-2">
-                    <div className="">How to match the website URL:</div>
-                    <MatchHow oFormProps={oFormProps} />
-                </div>
-
-                <AnimatePresence initial={false}>
-                    {showRegex && (<>
-                        <motion.div
-                            initial={{ opacity: 0, x: 1000, height: 0 }}
-                            animate={{ opacity: 1, x: 0, height: 'auto' }}
-                            exit={{ opacity: 0, height: 0 }}
-                            transition={{ duration: .3 }}
-                            className="relative"
-                        >
-                            {/* <SymbolInfo className="absolute right-2 top-7 size-4 text-foreground/75" /> */}
-                            <RegexTooltip />
-
-                            <InputWithTitle2Rows
-                                asTextarea
-                                stateAtom={murl_regexAtom}
-                                label={showRegex ? "Regular expression" : "Original URL"}
-                                labelClasses="font-normal"
-                                className={classNames(disabled && 'opacity-50 cursor-default')}
-                            />
-
-                            {showExample && <ShowExampleText murl_regexAtom={murl_regexAtom} />}
-                        </motion.div>
-                    </>)}
-                </AnimatePresence>
-
-            </div>
-        </AccordionWithTrigger>
+                    {showExample && <ShowExampleText murl_regexAtom={murl_regexAtom} />}
+                </motion.div>
+            </>)}
+        </AnimatePresence>
     </>);
 }
 
