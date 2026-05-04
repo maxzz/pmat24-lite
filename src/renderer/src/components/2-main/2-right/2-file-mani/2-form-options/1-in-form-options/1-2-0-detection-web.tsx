@@ -13,7 +13,7 @@ import { BtnCopyOurl } from "./1-2-4-btn-copy-ourl";
 import { ShowExampleText, useIsShowExample } from "./1-2-5-use-is-show-example";
 
 export function DetectionContent_Web({ oFormProps }: { oFormProps: OFormProps; }) {
-    const { p2Detect: { ourlAtom }, formIdx, murl_howAtom, murl_regexAtom } = oFormProps.oAllAtoms.options;
+    const { p2Detect: { ourlAtom }, murl_howAtom, murl_regexAtom } = oFormProps.oAllAtoms.options;
     const [isLocked, setIsLocked] = useState(true);
     const showExample = useIsShowExample(oFormProps.oAllAtoms.options);
 
@@ -26,7 +26,8 @@ export function DetectionContent_Web({ oFormProps }: { oFormProps: OFormProps; }
             <InputWithTitle2Rows
                 asTextarea
                 stateAtom={ourlAtom}
-                label={(
+                className={classNames(isLocked ? 'opacity-75 cursor-default' : '')}
+                label={
                     <div className="flex items-center gap-0.5">
                         Original URL of the website
                         <div className="ml-0.5 size-2.5 cursor-pointer" onClick={() => setIsLocked(!isLocked)}>
@@ -37,9 +38,8 @@ export function DetectionContent_Web({ oFormProps }: { oFormProps: OFormProps; }
                         </div>
 
                     </div>
-                )}
+                }
                 labelClasses="font-normal"
-                className={classNames(isLocked ? 'opacity-75 cursor-default' : '')}
                 readOnly={isLocked}
                 onClick={() => isLocked && notice.info(<span>This input field is locked by default. You can change this by using the <SymbolLockClosed className="inline-block pb-0.5 size-3.5" /> icon to unlock it — but only if you understand what you are doing.</span>)} //onClick={test_Notifications}
                 onBlur={() => setIsLocked(true)}
