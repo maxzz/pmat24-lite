@@ -51,16 +51,16 @@ function BlockQuickLinkContent_Guarded({ oFormProps }: { oFormProps: OFormProps;
 
             <InputWithTitle2Rows
                 stateAtom={qNameAtom}
-                label="Quick link name"
+                label="Quick link name (*)"
                 labelClasses="font-normal"
                 containerClasses="py-0! col-span-full"
             />
-            
+
             <div className="relative">
                 <InputWithTitle2Rows
                     asTextarea
                     stateAtom={qUrlAtom}
-                    label="Quick link URL"
+                    label="Quick link URL (**)"
                     labelClasses="font-normal"
                     containerClasses="py-0! col-span-full"
                 />
@@ -72,6 +72,11 @@ function BlockQuickLinkContent_Guarded({ oFormProps }: { oFormProps: OFormProps;
                 <Button className="absolute bottom-1 right-1.5 size-5" size="icon" variant="ghost" onClick={pasteOriginalUrl} title="Paste original URL">
                     <IconPaste className="pt-0.5 size-4" />
                 </Button>
+            </div>
+
+            <div className="grid grid-cols-[auto_1fr] gap-1">
+                <span className="font-bold">*</span> <p>If "Quick link name" is empty, the template name will be used to show the quick link on mini-dashboard.</p>
+                <span className="font-bold">**</span> <p>When the "Quick Link URL" field is empty, the original URL will be used as the URL to open the web page.</p>
             </div>
         </div>
     );
