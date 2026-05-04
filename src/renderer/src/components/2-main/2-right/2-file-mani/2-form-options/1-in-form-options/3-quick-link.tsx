@@ -1,6 +1,7 @@
 import { useAtom, useAtomValue } from "jotai";
+import { classNames } from "@/utils";
 import { AccordionWithTrigger } from "@/ui/motion-primitives";
-import { FormRowChildren, SelectTm } from "@/ui/local-ui";
+import { FormRowChildren, InputWithTitle2Rows, SelectTm } from "@/ui/local-ui";
 import { type OFormProps } from "@/store/2-file-mani-atoms";
 import { FormIdx, type OptionTextValue } from "@/store/8-manifest";
 import { InFormAccordionValue } from "@/store/2-file-mani-atoms/9-types";
@@ -13,13 +14,12 @@ export function BlockQuickLink({ oFormProps }: { oFormProps: OFormProps; }) {
             {formIdx !== FormIdx.login
                 ? (
                     <div className={textClasses}>
-                        Quick link is available only for login form.
+                        The quick link is available only for the login form.
                     </div>
                 )
                 : (
-                    // <PMIcon_W32 oFormProps={oFormProps} />
                     <div className={textClasses}>
-                        Soon...
+                        <BlockQuickLinkContent_Guarded oFormProps={oFormProps} />
                     </div>
                 )
             }
@@ -32,38 +32,32 @@ export function BlockQuickLink({ oFormProps }: { oFormProps: OFormProps; }) {
 // quick link URL string
 //TODO: original url with % is that OK?
 
-function PMIcon_W32({ oFormProps }: { oFormProps: OFormProps; }) {
-    const { idAtom, quadrandAtom } = oFormProps.oAllAtoms.options.p5Icon;
-
-    const [state, setState] = useAtom(quadrandAtom);
-
-    function onChange(newValue: string) {
-        setState((prev) => {
-            const rv = { ...prev, data: newValue, dirty: prev.initialData !== newValue, };
-            return rv;
-        });
-    }
-
+function BlockQuickLinkContent_Guarded({ oFormProps }: { oFormProps: OFormProps; }) {
+    const { qUseAtom, qNameAtom, qUrlAtom } = oFormProps.oAllAtoms.options.p4QL;
     return (
         <div className={textClasses}>
-            <FormRowChildren label="Icon position">
-                <SelectTm items={balloonCounterItems} value={state.data || '0'} onValueChange={onChange} />
-            </FormRowChildren>
-
-            {/* <InputWithTitle2Rows stateAtom={idAtom} label="Location ID (optional)" /> */}
+            <InputWithTitle2Rows
+                asCheckbox
+                stateAtom={qUseAtom}
+                label="Show on mini-dashboard"
+                labelClasses="font-normal"
+            />
+            <InputWithTitle2Rows
+                stateAtom={qNameAtom}
+                label="Quick link name"
+                labelClasses="font-normal"
+            />
+            <InputWithTitle2Rows
+                asTextarea
+                stateAtom={qUrlAtom}
+                label="Quick link URL"
+                labelClasses="font-normal"
+            />
         </div>
     );
 }
 
-const balloonCounterItems: OptionTextValue[] = [
-    ['Default', '0'],
-    ['Top left', '1'],
-    ['Top right', '2'],
-    ['Bottom left', '3'],
-    ['Bottom right', '4'],
-];
-
-const textClasses = "pl-6 pr-0.5 py-1 text-balance";
+const textClasses = "pl-3 pr-0.5 py-1 text-balance";
 
 
 /*

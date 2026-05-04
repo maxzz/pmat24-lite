@@ -56,5 +56,5 @@ const balloonCounterItems: OptionTextValue[] = [
     ['Bottom right', '4'],
 ];
 
-const textClasses = "pl-6 pr-0.5 py-1 text-balance";
+const textClasses = "pl-6 pr-0.5 py-3 text-balance";
 
