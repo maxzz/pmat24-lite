@@ -1,8 +1,11 @@
 import { AccordionWithTrigger } from "@/ui/motion-primitives";
 import { InputWithTitle2Rows } from "@/ui/local-ui";
+import { Button } from "@/ui/shadcn/button";
 import { type OFormProps } from "@/store/2-file-mani-atoms";
 import { FormIdx } from "@/store/8-manifest";
 import { InFormAccordionValue } from "@/store/2-file-mani-atoms/9-types";
+import { useAtomValue, useSetAtom } from "jotai";
+import { IconClose, IconPaste } from "@/ui/icons/normal";
 
 export function BlockQuickLink({ oFormProps }: { oFormProps: OFormProps; }) {
     const formIdx = oFormProps.oAllAtoms.options.formIdx;
@@ -25,6 +28,16 @@ export function BlockQuickLink({ oFormProps }: { oFormProps: OFormProps; }) {
 
 function BlockQuickLinkContent_Guarded({ oFormProps }: { oFormProps: OFormProps; }) {
     const { qUseAtom, qNameAtom, qUrlAtom } = oFormProps.oAllAtoms.options.p4QL;
+    const ourl = useAtomValue(oFormProps.oAllAtoms.options.p2Detect.ourlAtom);
+    const setQUrl = useSetAtom(qUrlAtom);
+
+    function clearQuickLinkUrl() {
+        setQUrl((v) => ({ ...v, data: '' }));
+    }
+
+    function pasteOriginalUrl() {
+        setQUrl((v) => ({ ...v, data: ourl.data }));
+    }
 
     return (
         <div className={textClasses}>
@@ -33,21 +46,33 @@ function BlockQuickLinkContent_Guarded({ oFormProps }: { oFormProps: OFormProps;
                 stateAtom={qUseAtom}
                 label="Show on mini-dashboard"
                 labelClasses="font-normal"
-                containerClasses="py-0!"
+                containerClasses="py-0! col-span-full"
             />
+
             <InputWithTitle2Rows
                 stateAtom={qNameAtom}
                 label="Quick link name"
                 labelClasses="font-normal"
-                containerClasses="py-0!"
+                containerClasses="py-0! col-span-full"
             />
-            <InputWithTitle2Rows
-                asTextarea
-                stateAtom={qUrlAtom}
-                label="Quick link URL"
-                labelClasses="font-normal"
-                containerClasses="py-0!"
-            />
+            
+            <div className="relative">
+                <InputWithTitle2Rows
+                    asTextarea
+                    stateAtom={qUrlAtom}
+                    label="Quick link URL"
+                    labelClasses="font-normal"
+                    containerClasses="py-0! col-span-full"
+                />
+
+                <Button className="absolute bottom-1 right-6 size-5" size="icon" variant="ghost" onClick={clearQuickLinkUrl} title="Clear quick link URL">
+                    <IconClose className="pt-0.5 size-4" />
+                </Button>
+
+                <Button className="absolute bottom-1 right-1.5 size-5" size="icon" variant="ghost" onClick={pasteOriginalUrl} title="Paste original URL">
+                    <IconPaste className="pt-0.5 size-4" />
+                </Button>
+            </div>
         </div>
     );
 }
@@ -55,3 +80,6 @@ function BlockQuickLinkContent_Guarded({ oFormProps }: { oFormProps: OFormProps;
 const textClasses = "pl-6 pr-0.5 py-3 text-balance grid gap-1.5";
 
 //TODO: original url with % is that OK?
+//TODO: add validation:
+// - quick link name cannot be empty if quick link show is checked
+// - quick link URL cannot be empty if quick link show is checked (or message the same as original url will be used) (may be add button to paste original url)

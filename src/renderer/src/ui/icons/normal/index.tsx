@@ -1,7 +1,8 @@
 export * from "./00-theme-mode";
 export * from "./06-chevron-left-single-rotatable";
 
-export * from "./11-copy";
+export * from "./11-1-copy";
+export * from "./11-2-paste";
 export * from "./12-play";
 export * from "./13-stop";
 
