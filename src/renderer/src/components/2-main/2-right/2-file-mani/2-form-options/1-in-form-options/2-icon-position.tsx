@@ -14,20 +14,19 @@ export function FormIconPosition({ oFormProps }: { oFormProps: OFormProps; }) {
             {isWeb
                 ? (
                     <div className={textClasses}>
-                        This login form template is designed for a web application. In web applications, the position of the icon cannot be changed.
+                        This login form template is designed for a web application; however, the icon's position can be modified only for a Windows application.
                     </div>
                 )
                 : (
-                    <PMIcon_W32 oFormProps={oFormProps} />
+                    <LocationSelector oFormProps={oFormProps} />
                 )
             }
         </AccordionWithTrigger>
     );
 }
 
-function PMIcon_W32({ oFormProps }: { oFormProps: OFormProps; }) {
-    const { idAtom, quadrandAtom } = oFormProps.oAllAtoms.options.p5Icon;
-
+function LocationSelector({ oFormProps }: { oFormProps: OFormProps; }) {
+    const { /*idAtom,*/ quadrandAtom } = oFormProps.oAllAtoms.options.p5Icon;
     const [state, setState] = useAtom(quadrandAtom);
 
     function onChange(newValue: string) {
@@ -57,4 +56,3 @@ const balloonCounterItems: OptionTextValue[] = [
 ];
 
 const textClasses = "pl-6 pr-0.5 py-3 text-balance";
-

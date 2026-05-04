@@ -9,6 +9,7 @@ import { loginChangesEffectFn } from "./2-login-changes-effect";
 import { usePrintFormFields } from "./8-use-print-form-fields";
 
 export function ManualModeView({ mFormProps, className, ...rest }: { mFormProps: MFormProps; } & ComponentPropsWithoutRef<'div'>) {
+    
     useAtomEffect(
         loginChangesEffectFn({ mFormProps })
     );
