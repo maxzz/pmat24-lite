@@ -1,4 +1,4 @@
-import { toast, type ToastT } from "sonner";
+import { toast, type ToastT } from "sonner"; //05.04.2026
 import { Button } from "@/ui";
 import { IconStopCircle, SymbolCross, SymbolInfo, SymbolWarning } from "@/ui/icons";
 
@@ -20,7 +20,15 @@ function myToast(type: ToastTypes, message: React.ReactNode, options: Partial<To
                         {type === 'error' && <IconStopCircle className="size-5 stroke-background!" />}
                     </div>
 
-                    <div className="pl-3 py-3 text-balance hyphens-auto" data-content dangerouslySetInnerHTML={{ __html: message as string }}/>
+                    <>
+                        {typeof message === 'string'
+                            ? (
+                                <div className="pl-3 py-3 text-balance hyphens-auto" data-content dangerouslySetInnerHTML={{ __html: message as string }} />
+
+                            ) : (
+                                <div className="pl-3 py-3 text-balance hyphens-auto" data-content>{message}</div>
+                            )}
+                    </>
 
                     <Button className="m-1 p-1 aspect-square active:scale-[.97]" variant="ghost" onClick={() => notice.dismiss(id)}>
                         <SymbolCross className="size-3" onClick={() => notice.dismiss(id)} />
