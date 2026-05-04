@@ -15,16 +15,19 @@ export function InFormBlockOptions({ anyFormProps }: { anyFormProps: NFormProps 
     }
 
     const oFormProps: OFormProps = { maniAtoms: anyFormProps.maniAtoms, oAllAtoms };
+
+    return (
+        <InFormBlockOptions_Guarded oFormProps={oFormProps} />
+    );
+}
+
+export function InFormBlockOptions_Guarded({ oFormProps }: { oFormProps: OFormProps; }) {
     const isWeb = useAtomValue(oFormProps.oAllAtoms.options.isWebAtom);
 
     return (<>
         {isWeb
-            ? (
-                <DetectionContent_Web oFormProps={oFormProps} />
-            )
-            : (
-                <DetectionContent_W32 oFormProps={oFormProps} />
-            )
+            ? <DetectionContent_Web oFormProps={oFormProps} />
+            : <DetectionContent_W32 oFormProps={oFormProps} />
         }
 
         <FormIconPosition oFormProps={oFormProps} />

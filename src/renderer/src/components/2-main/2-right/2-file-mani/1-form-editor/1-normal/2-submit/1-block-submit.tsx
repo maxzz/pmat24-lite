@@ -5,7 +5,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 export function InFormBlockSubmit({ nFormProps }: { nFormProps: NFormProps; }) {
     const isWeb = nFormProps.nFormCtx.normal.submitCtx.isSubmitForWeb;
     return (
-        <div className="ml-1 p-1 1flex items-center gap-1 select-none">
+        <div className="ml-1 p-1 pt-0 1flex items-center gap-1 select-none">
             {isWeb
                 ? <SubmitBodyForWeb nFormProps={nFormProps} />
                 : <SubmitBodyForWin32 nFormProps={nFormProps} />

@@ -4,7 +4,7 @@ import { classNames } from "@/utils";
 import { AnimatePresence, motion } from "motion/react";
 import { notice } from "@/ui/local-ui/7-toaster";
 import { Matching } from "@/store/8-manifest";
-import { SymbolInfo, SymbolLockClosed, SymbolLockOpen } from "@/ui/icons";
+import { SymbolLockClosed, SymbolLockOpen } from "@/ui/icons";
 import { type OFormProps } from "@/store/2-file-mani-atoms";
 import { AccordionWithTrigger } from "@/ui/motion-primitives";
 import { InputWithTitle2Rows } from "@/ui/local-ui";
@@ -12,7 +12,6 @@ import { ShowExampleText, useIsShowExample } from "./1-2-5-use-is-show-example";
 import { MatchHow } from "./1-2-1-match-how";
 import { RegexTooltip } from "./1-2-3-regex-tooltip";
 import { BtnCopyOurl } from "./1-2-4-btn-copy-ourl";
-import { FormIconPosition } from "./2-icon-position";
 import { InFormAccordionValue } from "@/store/2-file-mani-atoms/9-types";
 
 export function DetectionContent_Web({ oFormProps }: { oFormProps: OFormProps; }) {

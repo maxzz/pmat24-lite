@@ -27,7 +27,7 @@ export function TabContent_NormalForm({ nFormProps, className, ...rest }: { nFor
             <div className={sectionLabelClasses}>
                 Additional options
             </div>
-            <div className="pl-1 pr-2 text-xs flex flex-col items-start gap-1 select-none">
+            <div className="pl-1 pr-2 pt-2 text-xs flex flex-col items-start gap-1 select-none">
                 <InFormBlockOptions anyFormProps={nFormProps} />
             </div>
 

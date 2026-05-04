@@ -14,10 +14,12 @@ export function ManualModeView({ mFormProps, className, ...rest }: { mFormProps:
     );
     usePrintFormFields({ maniAtoms: mFormProps.maniAtoms, formIdx: guardedFormIdx(mFormProps) });
 
-    return (<>
+    return (
         <div className={classNames(manualModeViewClasses, isManualManifestNew(mFormProps) ? "@[600px]:gap-y-4" : "h-full", className)} {...rest}>
             <ManualPanelActions className="[grid-area:actions] @container/actions" mFormProps={mFormProps} />
+
             <ManualPanelProps className="[grid-area:props] @container/props min-h-37.5 text-xs" mFormProps={mFormProps} />
+
             <div className="[grid-area:options]">
                 <div className="font-semibold select-none">
                     Additional options
@@ -27,7 +29,7 @@ export function ManualModeView({ mFormProps, className, ...rest }: { mFormProps:
                 </div>
             </div>
         </div>
-    </>);
+    );
 }
 
 const manualModeViewClasses = "\
