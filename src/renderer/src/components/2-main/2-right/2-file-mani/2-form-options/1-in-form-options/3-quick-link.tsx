@@ -9,7 +9,7 @@ export function BlockQuickLink({ oFormProps }: { oFormProps: OFormProps; }) {
     const formIdx = oFormProps.oAllAtoms.options.formIdx;
 
     return (
-        <AccordionWithTrigger name={InFormAccordionValue.quickLink} formIdx={formIdx} triggerText="Quick link" triggerClasses="w-auto">
+        <AccordionWithTrigger name={InFormAccordionValue.quickLink} formIdx={formIdx} triggerText="Quick link on mini-dashboard" triggerClasses="w-auto">
             {formIdx !== FormIdx.login
                 ? (
                     <div className={textClasses}>
