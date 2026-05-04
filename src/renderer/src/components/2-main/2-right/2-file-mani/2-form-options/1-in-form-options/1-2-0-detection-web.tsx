@@ -45,7 +45,7 @@ export function DetectionContent_Web({ oFormProps }: { oFormProps: OFormProps; }
                         labelClasses="font-normal"
                         className={classNames(isLocked ? 'opacity-75 cursor-default' : '')}
                         readOnly={isLocked}
-                        onClick={() => isLocked && notice.info("This input is locked by default. Only change it if you understand what you're doing.")}
+                        onClick={() => isLocked && notice.info(<><span className="1flex items-center gap-1">This input field is locked by default. Modify it using the <SymbolLockClosed className="inline-block pb-0.5 size-3.5" /> icon only if you understand what you are doing.</span></>)}
                         /** /
                         onClick={() => {
                             notice.error("This input is locked by default. Only change it if you understand what you're doing.", { duration: 270001 });
