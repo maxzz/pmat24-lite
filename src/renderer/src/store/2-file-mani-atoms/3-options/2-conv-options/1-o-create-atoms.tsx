@@ -20,7 +20,6 @@ export function createAtoms(initialState: FormOptionsState.ForAtoms, onChange: O
             hintAtom: createAtomForInput(p1General.hint, onChange('hint')),
             balloonAtom: createAtomForInput(p1General.balloon, onChange('balloon'), { validate: validateNumber }),
             submitTypeAtom: createAtomForInput(p1General.submitType, onChange('submitType')),
-            qlNameAtom: createAtomForInput(p1General.qlName, onChange('qlName')), //TODO: looks like a duplicate of p4QL.qNameAtom
             qlWoCredAtom: createAtomForCheck(p1General.qlWoCred, onChange('qlWoCred')),
             unkAttrsAtom: createAtomForInput(p1General.unkAttrs, onChange('unkAttrs')),
         },
@@ -87,7 +86,6 @@ export function valuesToAtoms(values: FormOptionsState.ForAtoms, atoms: FormOpti
     set(atoms.p1General.hintAtom,        /**/(v) => resetRowInputState(v, p1General.hint));
     set(atoms.p1General.balloonAtom,     /**/(v) => resetRowInputState(v, p1General.balloon));
     set(atoms.p1General.submitTypeAtom,  /**/(v) => resetRowInputState(v, p1General.submitType));
-    set(atoms.p1General.qlNameAtom,      /**/(v) => resetRowInputState(v, p1General.qlName));
     set(atoms.p1General.qlWoCredAtom,    /**/(v) => resetRowInputState(v, boo(p1General.qlWoCred)));
     set(atoms.p1General.unkAttrsAtom,    /**/(v) => resetRowInputState(v, p1General.unkAttrs));
 

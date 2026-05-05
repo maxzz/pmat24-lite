@@ -10,7 +10,6 @@ export function fromAtoms(atoms: FormOptionsState.AllAtoms, { get }: GetOnly): F
             desc: get(p1General.descAtom).data,
             hint: get(p1General.hintAtom).data,
             balloon: get(p1General.balloonAtom).data,
-            qlName: get(p1General.qlNameAtom).data,
             submitType: get(p1General.submitTypeAtom).data,
             qlWoCred: get(p1General.qlWoCredAtom).data === '1',
             unkAttrs: get(p1General.unkAttrsAtom).data,

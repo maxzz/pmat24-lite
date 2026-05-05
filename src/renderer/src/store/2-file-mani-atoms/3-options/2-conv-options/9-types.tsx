@@ -11,7 +11,7 @@ export namespace FormOptionsState {
         hint: string;                           // user hint; Mani.Options.ownernote
         balloon: string;                        // show balloon # times; note: value should be a number, but it's stored as string
         submitType: string;                     // "dosubmit" | "nosubmit"
-        qlName: string;                         // Quick Link Name
+        //qlName: string;                         // Quick Link Name
         qlWoCred: boolean;                      // Quick reauthentication enable/disable (QL wo/ crededntials). I'm not sure why it's here at all
         unkAttrs: string;                       // unknown attributes
     };

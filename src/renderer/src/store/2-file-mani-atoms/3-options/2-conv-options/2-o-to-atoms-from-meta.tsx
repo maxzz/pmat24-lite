@@ -26,7 +26,6 @@ export function forAtoms(fileUsCtx: FileUsCtx): FormOptionsState.ForAtoms {
             hint: options.ownernote || '',
             balloon: options.balooncount || '3',
             submitType: options.submittype || '',
-            qlName: options.quicklink || '',
             qlWoCred: options.qlwocred === '1',
             unkAttrs: options.unknownattributes || '',
         },

@@ -71,7 +71,7 @@ function optionsForMani(values: FormOptionsState.ForAtoms, formIdx: FormIdx): Ma
         choosename: general.name,
         sidekick: general.desc,
         ownernote: general.hint,
-        quicklink: general.qlName,
+        quicklink: p4QL.qName,
 
         auth_pl: authPolicy,
         balooncount: general.balloon,
