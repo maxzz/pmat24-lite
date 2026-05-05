@@ -84,5 +84,8 @@ const textClasses = "pl-6 pr-0.5 py-3 text-balance grid gap-1.5";
 
 //TODO: original url with % is that OK?
 //TODO: add validation:
-// - quick link name cannot be empty if quick link show is checked
-// - quick link URL cannot be empty if quick link show is checked (or message the same as original url will be used) (may be add button to paste original url)
+// - quick link name cannot be empty if quick link show is checked - done
+// - quick link URL cannot be empty if quick link show is checked (or message the same as original url will be used) (may be add button to paste original url) - done
+
+//TODO: if murl is equal to ourl, then quick link URL won't be saved and next time after reload will become empty. This maybe confusing for the user. So may be set it as ourl by default (and mark it as the same as original url)?
+//TODO: validation does select tab, opens group, but does not select the input with error; but may be we cannot do it because of the way the validation is done. We need to mark it during validation as an error, but when to reset it back?
