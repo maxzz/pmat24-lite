@@ -35,6 +35,12 @@ export function getVerifyErrors_OptionsFormTab(atoms: FormOptionsState.AllAtoms,
         return detectionError;
     }
 
+    // 2. Check form quick link
+    const quicklinkError: VerifyError[] | undefined = getVerifyErrors_FormQuicklink(atoms, formIdx, getset);
+    if (quicklinkError?.length) {
+        return quicklinkError;
+    }
+
     // 2. Check form options
     const toValidate: RowInputStateAtoms = getToVerify(atoms, formIdx, getset);
 
@@ -63,6 +69,39 @@ export function getVerifyErrors_OptionsFormTab(atoms: FormOptionsState.AllAtoms,
         return toValidate;
     }
 }
+
+function getVerifyErrors_FormQuicklink(atoms: FormOptionsState.AllAtoms, formIdx: FormIdx, { get }: GetSet): VerifyError[] | undefined {
+    const { p4QL } = atoms;
+
+    const isFormWeb = get(atoms.isWebAtom);
+
+    const qUse = get(p4QL.qUseAtom).data === '1'; // '1' for use, '2' for not use
+    const qName = get(p4QL.qNameAtom).data;
+    const qUrl = get(p4QL.qUrlAtom).data;
+
+    if (qUse && !qName) {
+        return [{
+            error: 'The quick link name is not specified. Please provide a name for the quick link that will be displayed in the mini-dashboard.',
+            tab: formIdx === FormIdx.login ? 'login' : 'cpass',
+            atomName: 'qNameAtom',
+            groupName: InFormAccordionValue.quickLink,
+        }];
+    }
+
+    if (isFormWeb) {
+        if (qUse && !qUrl) {
+            return [{
+                error: 'The quick link URL is empty. Please specify a URL to open the web page.',
+                tab: formIdx === FormIdx.login ? 'login' : 'cpass',
+                atomName: 'qUrlAtom',
+                groupName: InFormAccordionValue.quickLink,
+            }];
+        }
+    }
+
+    return undefined;
+}
+
 
 // Form detection check
 
