@@ -45,7 +45,7 @@ export function fromAtoms(atoms: FormOptionsState.AllAtoms, { get }: GetOnly): F
         p4QL: {
             qName: get(p4QL.qNameAtom).data,
             qUrl: get(p4QL.qUrlAtom).data,
-            qUse: !!get(p4QL.qNameAtom).data.trim(), // qUse: get(p4QL.qUseAtom).data === '1',
+            qUse: get(p4QL.qUseAtom).data === '1', // '1' for use, '2' for not use
         },
         p5Icon: {
             id: get(p5Icon.idAtom).data,
