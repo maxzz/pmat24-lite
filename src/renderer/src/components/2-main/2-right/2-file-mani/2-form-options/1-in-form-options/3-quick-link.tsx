@@ -29,6 +29,7 @@ export function BlockQuickLink({ oFormProps }: { oFormProps: OFormProps; }) {
 function BlockQuickLinkContent_Guarded({ oFormProps }: { oFormProps: OFormProps; }) {
     const { qUseAtom, qNameAtom, qUrlAtom } = oFormProps.oAllAtoms.options.p4QL;
     const ourl = useAtomValue(oFormProps.oAllAtoms.options.p2Detect.ourlAtom);
+    const isFormWeb = useAtomValue(oFormProps.oAllAtoms.options.isWebAtom);
     const setQUrl = useSetAtom(qUrlAtom);
 
     function clearQuickLinkUrl() {
@@ -56,23 +57,25 @@ function BlockQuickLinkContent_Guarded({ oFormProps }: { oFormProps: OFormProps;
                 containerClasses="py-0! col-span-full"
             />
 
-            <div className="relative">
-                <InputWithTitle2Rows
-                    asTextarea
-                    stateAtom={qUrlAtom}
-                    label={<><span>Quick link URL</span><span className="font-bold">**</span></>}
-                    labelClasses="font-normal"
-                    containerClasses="py-0! col-span-full"
-                />
+            {isFormWeb && (
+                <div className="relative">
+                    <InputWithTitle2Rows
+                        asTextarea
+                        stateAtom={qUrlAtom}
+                        label={<><span>Quick link URL</span><span className="font-bold">**</span></>}
+                        labelClasses="font-normal"
+                        containerClasses="py-0! col-span-full"
+                    />
 
-                <Button className="absolute bottom-1 right-6 size-5" size="icon" variant="ghost" onClick={clearQuickLinkUrl} title="Clear quick link URL">
-                    <IconClose className="pt-0.5 size-4" />
-                </Button>
+                    <Button className="absolute bottom-1 right-6 size-5" size="icon" variant="ghost" onClick={clearQuickLinkUrl} title="Clear quick link URL">
+                        <IconClose className="pt-0.5 size-4" />
+                    </Button>
 
-                <Button className="absolute bottom-1 right-1.5 size-5" size="icon" variant="ghost" onClick={pasteOriginalUrl} title="Paste original URL">
-                    <IconPaste className="pt-0.5 size-4" />
-                </Button>
-            </div>
+                    <Button className="absolute bottom-1 right-1.5 size-5" size="icon" variant="ghost" onClick={pasteOriginalUrl} title="Paste original URL">
+                        <IconPaste className="pt-0.5 size-4" />
+                    </Button>
+                </div>
+            )}
 
             <div className="grid grid-cols-[auto_1fr] gap-1">
                 <span className="font-bold">*</span> <p>If "Quick link name" is empty, the template name will be used to show the quick link on mini-dashboard.</p>

@@ -115,9 +115,9 @@ export function valuesToAtoms(values: FormOptionsState.ForAtoms, atoms: FormOpti
     set(atoms.p4QL.qUseAtom,             /**/(v) => resetRowInputState(v, boo(p4QL.qUse)));
 
     set(atoms.p5Icon.idAtom,             /**/(v) => resetRowInputState(v, p5Icon.id));
-    set(atoms.p5Icon.quadrandAtom,      /**/(v) => resetRowInputState(v, p5Icon.quadrand));
-    set(atoms.p5Icon.xAtom,             /**/(v) => resetRowInputState(v, p5Icon.x));
-    set(atoms.p5Icon.yAtom,             /**/(v) => resetRowInputState(v, p5Icon.y));
+    set(atoms.p5Icon.quadrandAtom,       /**/(v) => resetRowInputState(v, p5Icon.quadrand));
+    set(atoms.p5Icon.xAtom,              /**/(v) => resetRowInputState(v, p5Icon.x));
+    set(atoms.p5Icon.yAtom,              /**/(v) => resetRowInputState(v, p5Icon.y));
 }
 
 function boo(value: boolean): string {
