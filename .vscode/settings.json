@@ -2,7 +2,7 @@
     "tailwindCSS.experimental.classRegex": [
         ["Classes \\=([^;]*);", "'([^']*)'"],
         ["Classes \\=([^;]*);", "\"([^\"]*)\""],
-        ["Classes \\=([^;]*);", "\\`([^\\`]*)\\`"],
+        ["Classes \\=([^;]*);", "\\`([^\\`]*)\\`"], // semicolon should be used to make it work with tailwindcss as stopper for the classname
 
         ["classNames\\(([^)]*)\\)", "[\"'`]([^\"'`]*).*?[\"'`]"]
     ],
