@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { type Getter, type Setter, type SetStateAction, PrimitiveAtom, atom, useSetAtom } from "jotai"; //https://jotai.org/docs/recipes/atom-with-listeners //GH: "atomWithListeners path:*.ts"
+import { type Getter, type Setter, type SetStateAction, type PrimitiveAtom, atom, useSetAtom } from "jotai"; //https://jotai.org/docs/recipes/atom-with-listeners //GH: "atomWithListeners path:*.ts"
 
 export type AtomWithListeners<Value> = ReturnType<typeof atomWithListeners<Value>>;
 export type ListenerCallback<Value> = (get: Getter, set: Setter, newVal: Value, prevVal: Value) => void;

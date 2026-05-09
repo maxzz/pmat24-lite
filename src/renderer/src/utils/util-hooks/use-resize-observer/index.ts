@@ -3,8 +3,8 @@ import {
     useState,
     useRef,
     useMemo,
-    RefObject,
-    RefCallback,
+    type RefObject,
+    type RefCallback,
     useCallback,
 } from "react";
 import useResolvedElement from "./utils/useResolvedElement";

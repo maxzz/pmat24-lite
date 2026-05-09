@@ -1,4 +1,4 @@
-import { AllHTMLAttributes } from "react";
+import { type AllHTMLAttributes } from "react";
 
 export function disableHiddenChildren(visible: boolean, parent: HTMLElement | null | undefined) {
     if (!parent) return;

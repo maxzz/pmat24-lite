@@ -1,4 +1,4 @@
-import { forwardRef, ElementRef, ComponentPropsWithoutRef } from "react";
+import { forwardRef, ElementRef, ComponentPropsWithoutRef } from "react"; // 05.07.2026
 import * as Prim from "@radix-ui/react-scroll-area";
 import { cn } from "@/utils";
 

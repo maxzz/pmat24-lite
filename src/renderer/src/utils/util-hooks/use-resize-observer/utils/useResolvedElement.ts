@@ -1,4 +1,4 @@
-import { RefCallback, RefObject, useCallback, useEffect, useRef } from "react";
+import { type RefCallback, type RefObject, useCallback, useEffect, useRef } from "react";
 
 type SubscriberCleanupFunction = () => void;
 type SubscriberResponse = SubscriberCleanupFunction | void;
