@@ -15,10 +15,10 @@ fixed inset-0 z-50 \
 bg-background/80 \
 backdrop-blur-xs \
 \
-data-[state=open]:animate-in \
-data-[state=closed]:animate-out \
-data-[state=closed]:fade-out-0 \
-data-[state=open]:fade-in-0";
+data-open:animate-in \
+data-closed:animate-out \
+data-closed:fade-out-0 \
+data-open:fade-in-0";
 
 const DialogOverlay = forwardRef<ElementRef<typeof Prim.Overlay>, ComponentPropsWithoutRef<typeof Prim.Overlay>>(
     ({ className, ...rest }, ref) => (
@@ -40,21 +40,22 @@ p-6 w-full md:w-full max-w-lg \
 \
 bg-background \
 \
-data-[state=open]:animate-in \
-data-[state=open]:fade-in-0 \
-data-[state=open]:zoom-in-95 \
-data-[state=open]:slide-in-from-left-1/2 \
-data-[state=open]:slide-in-from-top-[48%] \
+data-open:animate-in \
+data-open:fade-in-0 \
+data-open:zoom-in-95 \
 \
-data-[state=closed]:animate-out \
-data-[state=closed]:fade-out-0 \
-data-[state=closed]:zoom-out-95 \
-data-[state=closed]:slide-out-to-left-1/2 \
-data-[state=closed]:slide-out-to-top-[48%] \
+data-closed:animate-out \
+data-closed:fade-out-0 \
+data-closed:zoom-out-95 \
 \
 border sm:rounded-lg shadow-lg \
 duration-200 \
 grid gap-4";
+//tm:
+//data-open:slide-in-from-left-1/2 \
+//data-open:slide-in-from-top-[48%] \
+//data-closed:slide-out-to-left-1/2 \
+//data-closed:slide-out-to-top-[48%] \
 
 type DialogContentProps = ComponentPropsWithoutRef<typeof Prim.Content> & {
     modal?: boolean;
@@ -82,7 +83,7 @@ const DialogContent = forwardRef<ElementRef<typeof Prim.Content>, DialogContentP
                 {hiddenTitle && (
                     <Prim.Title className="sr-only">{hiddenTitle}</Prim.Title>
                 )}
-                
+
                 {children}
                 {!noClose && <DialogCloseButton />}
             </Prim.Content>

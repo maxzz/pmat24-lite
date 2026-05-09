@@ -1,5 +1,5 @@
 @import 'tailwindcss';
-
+@import "tw-animate-css";
 @import './1-colors.css' layer(utilities);
 @import './2-fonts.css' layer(utilities);
 @import './3-checkboxes.css';
