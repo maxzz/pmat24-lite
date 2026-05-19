@@ -42,22 +42,27 @@ function isAllowedFolderDepth(fpath: string, allowedSingleComponents: Set<string
     return false; // deeper than one level: skip
 }
 
-export async function loadWebFilesAndCreateFileContents(openItems: OpenItem[]): Promise<FileContent[]> {
-    const rv: FileContent[] = [];
-
-    // When fpath is in "root included" form, root-level files will have a single component that prefixes the
-    // allowed subfolders. Detect those prefixes so we don't accidentally treat random single-component folder
-    // names (e.g. "other") as "root".
+/**
+ * Drops items outside allowed folder depth (root, root-prefix, or a/b/c one level deep).
+ * When fpath is in "root included" form, root-level files have a single component that prefixes
+ * allowed subfolders; detect those prefixes so random names (e.g. "other") are not treated as root.
+ */
+function stripNoiseItems(items: OpenItem[]): OpenItem[] {
     const rootPrefixes = new Set<string>();
-    for (const item of openItems) {
+    for (const item of items) {
         const parts = normFpath(item.fpath).split('/');
         if (parts.length === 2 && ABC_SUBFOLDERS.has(parts[1].toLowerCase())) {
             rootPrefixes.add(parts[0].toLowerCase());
         }
     }
     const allowedSingleComponents = new Set<string>([...ABC_SUBFOLDERS, ...rootPrefixes]);
+    return items.filter((item) => isAllowedFolderDepth(item.fpath, allowedSingleComponents));
+}
 
-    const allowedItems = openItems.filter((item) => isAllowedFolderDepth(item.fpath, allowedSingleComponents));
+export async function loadWebFilesAndCreateFileContents(openItems: OpenItem[]): Promise<FileContent[]> {
+    const rv: FileContent[] = [];
+
+    const allowedItems = stripNoiseItems(openItems);
     allowedItems.forEach((openItem) => openItem.notOur = !isAllowedExt(openItem.fname, pmAllowedToOpenExt));
 
     for (const [idx, openItem] of allowedItems.entries()) {
