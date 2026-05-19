@@ -1,5 +1,5 @@
 import { atom } from "jotai";
-import { delay } from "@/utils";
+import { delay, filenameWithoutPath } from "@/utils";
 import { notice } from "@/ui/local-ui/7-toaster";
 import { addToTotalManis, appSettings, busyIndicator, clearTotalManis } from "@/store/9-ui-state";
 import { doDisposeAllFilesAtomAtom } from "@/store/store-utils";
@@ -55,58 +55,126 @@ export type SetDeliveredFiles = {
 export const doSetDeliveredFilesAtom = atom(
     null,
     async (get, set, { root, deliveredFileContents }: SetDeliveredFiles) => {
-        //print_Delivered(deliveredFileContents);
+        // #region agent log: doSetDeliveredFilesAtom entry (ipc)
+        try {
+            const rootBase = filenameWithoutPath(root?.fpath);
+            typeof tmApi !== 'undefined'
+                && tmApi.invokeMain({
+                    type: 'r2mi:debug-log',
+                    payload: {
+                        sessionId: '327545',
+                        runId: 'open-folder-pre',
+                        hypothesisId: 'H3',
+                        location: 'src/renderer/src/store/0-serve-atoms/1-do-set-files/1-do-set-delivered-files.tsx:doSetDeliveredFilesAtom:entry',
+                        message: 'doSetDeliveredFilesAtom entry',
+                        data: { deliveredLen: deliveredFileContents?.length ?? 'undef', rootFromMain: root?.fromMain, rootBase, rootFpathLen: root?.fpath?.length || 0 },
+                        timestamp: Date.now(),
+                    }
+                }).catch(() => { });
+        } catch { }
+        // #endregion
 
-        let runningClearFiles = typeof deliveredFileContents === 'undefined';
-        deliveredFileContents = deliveredFileContents || [];
+        try {
+            //print_Delivered(deliveredFileContents);
 
-        if (deliveredFileContents.length > 100) {   // Allow fast cleaning, no files, no delay
-            busyIndicator.msg = 'Parsing...';       // TODO: all heavy stuff is already done in the main process, so it should be done earlier
-            await delay(100);                       // Delay to update busyIndicator UI (it's not shown if the process is too fast).
+            let runningClearFiles = typeof deliveredFileContents === 'undefined';
+            deliveredFileContents = deliveredFileContents || [];
+
+            if (deliveredFileContents.length > 100) {   // Allow fast cleaning, no files, no delay
+                busyIndicator.msg = 'Parsing...';       // TODO: all heavy stuff is already done in the main process, so it should be done earlier
+                await delay(100);                       // Delay to update busyIndicator UI (it's not shown if the process is too fast).
+            }
+
+            setRootDir(root);
+
+            set(rightPanelAtomAtom, undefined);
+            set(doClearFcRootAtom);
+            set(doDisposeAllFilesAtomAtom);
+            allFileUsChanges.clear();
+
+            clearTotalManis();
+
+            if (isRootDirEmpty()) { // block multiple files or folders
+                // #region agent log: rootDir empty after setRootDir (ipc)
+                try {
+                    const rootBase = filenameWithoutPath(root?.fpath);
+                    typeof tmApi !== 'undefined'
+                        && tmApi.invokeMain({
+                            type: 'r2mi:debug-log',
+                            payload: {
+                                sessionId: '327545',
+                                runId: 'open-folder-pre',
+                                hypothesisId: 'H6',
+                                location: 'src/renderer/src/store/0-serve-atoms/1-do-set-files/1-do-set-delivered-files.tsx:doSetDeliveredFilesAtom:root-empty',
+                                message: 'rootDir empty after setRootDir',
+                                data: { runningClearFiles, rootFromMain: root?.fromMain, rootBase, rootFpathLen: root?.fpath?.length || 0 },
+                                timestamp: Date.now(),
+                            }
+                        }).catch(() => { });
+                } catch { }
+                // #endregion
+
+                !runningClearFiles && notice.warning('Opening multiple files or folders is not allowed. Drag and drop one folder.');
+                deliveredFileContents = [];
+                runningClearFiles = true;
+                setRootDir(undefinedPmatFolder());
+            }
+
+            const initializedFileUsItems: FileUs[] = deliveredFileContents
+                .filter((file) => file.size)
+                .filter(isPmatFileToLoad)
+                .map(
+                    (deliveredFileContent: FileContent) => {
+                        const newFileUs = createParsedFileUsFromFileContent(deliveredFileContent);
+                        addToTotalManis(newFileUs);
+                        return newFileUs;
+                    }
+                );
+
+            const { fileUsItems, unsupported } = splitOursAndNotOurs(initializedFileUsItems);
+            sortFileUsItemsInPlaceAndSetIndices(fileUsItems);
+
+            set(doAddFcToLoadedAtom, { fileUsItems, runningClearFiles });
+
+            const fileUsAtoms = fileUsItems.map((fileUs) => atom(fileUs));
+            set(filesAtom, fileUsAtoms);
+
+            inTest_Start(fileUsAtoms, { get, set });
+
+            set(doInitFileUsLinksToFcAtom, { fileUsAtoms, runningClearFiles });
+
+            showUnsupportedFilesMsg(unsupported);
+
+            busyIndicator.msg = '';
+        } catch (error) {
+            // #region agent log: doSetDeliveredFilesAtom exception (ipc)
+            try {
+                const msg = error instanceof Error ? error.message : String(error);
+                const rawStack = error instanceof Error ? error.stack : undefined;
+                const stack = typeof rawStack === 'string'
+                    ? rawStack
+                        .replace(/file:\\/\\/\\/([A-Za-z]):\\/Users\\/[^\\/]+/g, 'file:///$1:/Users/<user>')
+                        .replace(/([A-Za-z]):\\\\Users\\\\[^\\\\]+/g, '$1:\\\\Users\\\\<user>')
+                        .replace(/([A-Za-z]):\\/Users\\/[^\\/]+/g, '$1:/Users/<user>')
+                        .replace(/\\/Users\\/[^\\/]+/g, '/Users/<user>')
+                    : undefined;
+                typeof tmApi !== 'undefined'
+                    && tmApi.invokeMain({
+                        type: 'r2mi:debug-log',
+                        payload: {
+                            sessionId: '327545',
+                            runId: 'open-folder-pre',
+                            hypothesisId: 'H3',
+                            location: 'src/renderer/src/store/0-serve-atoms/1-do-set-files/1-do-set-delivered-files.tsx:doSetDeliveredFilesAtom:exception',
+                            message: 'doSetDeliveredFilesAtom exception',
+                            data: { msg, stack },
+                            timestamp: Date.now(),
+                        }
+                    }).catch(() => { });
+            } catch { }
+            // #endregion
+            throw error;
         }
-
-        setRootDir(root);
-
-        set(rightPanelAtomAtom, undefined);
-        set(doClearFcRootAtom);
-        set(doDisposeAllFilesAtomAtom);
-        allFileUsChanges.clear();
-
-        clearTotalManis();
-
-        if (isRootDirEmpty()) { // block multiple files or folders
-            !runningClearFiles && notice.warning('Opening multiple files or folders is not allowed. Drag and drop one folder.');
-            deliveredFileContents = [];
-            runningClearFiles = true;
-            setRootDir(undefinedPmatFolder());
-        }
-
-        const initializedFileUsItems: FileUs[] = deliveredFileContents
-            .filter((file) => file.size)
-            .filter(isPmatFileToLoad)
-            .map(
-                (deliveredFileContent: FileContent) => {
-                    const newFileUs = createParsedFileUsFromFileContent(deliveredFileContent);
-                    addToTotalManis(newFileUs);
-                    return newFileUs;
-                }
-            );
-
-        const { fileUsItems, unsupported } = splitOursAndNotOurs(initializedFileUsItems);
-        sortFileUsItemsInPlaceAndSetIndices(fileUsItems);
-
-        set(doAddFcToLoadedAtom, { fileUsItems, runningClearFiles });
-
-        const fileUsAtoms = fileUsItems.map((fileUs) => atom(fileUs));
-        set(filesAtom, fileUsAtoms);
-
-        inTest_Start(fileUsAtoms, { get, set });
-
-        set(doInitFileUsLinksToFcAtom, { fileUsAtoms, runningClearFiles });
-
-        showUnsupportedFilesMsg(unsupported);
-
-        busyIndicator.msg = '';
     }
 );
 
