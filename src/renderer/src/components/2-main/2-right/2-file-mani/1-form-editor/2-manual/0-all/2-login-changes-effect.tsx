@@ -39,7 +39,7 @@ export function loginChangesEffectFn({ mFormProps }: { mFormProps: MFormProps; }
                     );
                 }, 1000); // We have debounce for value changes and as result we have only the latest change triggered by our set and we are loosing original value from any input or select. debounce value is 100ms and this timeout should be longer than 100ms.
 
-            print_Forms('loginChangesEffectFn after links update', mFormProps.mFormCtx.fileUsCtx.formIdx, get(loginAtom), get(cpassAtom), get);
+            //print_Forms('loginChangesEffectFn after links update', mFormProps.mFormCtx.fileUsCtx.formIdx, get(loginAtom), get(cpassAtom), get);
             return () => clearTimeout(timeoutId);
         },
         [mFormProps.mFormCtx?.fileUsCtx?.fileUs?.maniAtomsAtom]);

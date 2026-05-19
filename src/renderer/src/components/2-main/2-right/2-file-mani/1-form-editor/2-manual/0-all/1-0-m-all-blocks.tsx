@@ -6,14 +6,14 @@ import { ManualPanelProps } from "../2-panel-props";
 import { isManualManifestNew } from "../../0-all";
 import { InFormBlockOptions } from "../../../2-form-options";
 import { loginChangesEffectFn } from "./2-login-changes-effect";
-import { usePrintFormFields } from "./8-use-print-form-fields";
+import { usePrintFormFields } from "./8-use-print-form-fields-m";
 
 export function ManualModeView({ mFormProps, className, ...rest }: { mFormProps: MFormProps; } & ComponentPropsWithoutRef<'div'>) {
     
     useAtomEffect(
         loginChangesEffectFn({ mFormProps })
     );
-    usePrintFormFields({ maniAtoms: mFormProps.maniAtoms, formIdx: guardedFormIdx(mFormProps) });
+    //usePrintFormFields({ maniAtoms: mFormProps.maniAtoms, formIdx: guardedFormIdx(mFormProps) });
 
     return (
         <div className={classNames(manualModeViewClasses, isManualManifestNew(mFormProps) ? "@[600px]:gap-y-4" : "h-full", className)} {...rest}>

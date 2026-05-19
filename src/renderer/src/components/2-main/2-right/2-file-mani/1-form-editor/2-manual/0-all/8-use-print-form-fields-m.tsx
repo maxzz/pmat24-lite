@@ -12,7 +12,7 @@ export function usePrintFormFields({ maniAtoms, formIdx }: { maniAtoms: ManiAtom
 
     useEffect(
         () => {
-            console.log(`%c ------------render ------------%c ${formIdx ? 'cpass' : 'login'} `, 'background-color: #ff00ff50; color: white;', 'color: magenta');
+            console.log(`%c ------------render ------------ %c ${formIdx ? 'cpass' : 'login'} `, 'background-color: #ff00ff50; color: white;', 'color: magenta');
 
             doPrintFields({ label: `login`, formIdx, fields: loginFields });
             doPrintFields({ label: `cpass`, formIdx, fields: cpassFields });
