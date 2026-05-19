@@ -56,6 +56,121 @@ try {
 } catch { }
 // #endregion
 
+// #region agent log: process uncaught handlers (renderer)
+try {
+    const proc: any = (globalThis as any).process;
+    const redactStack = (stack: unknown): string | undefined => {
+        if (typeof stack !== 'string' || !stack) {
+            return undefined;
+        }
+        const lines = stack.split('\n').slice(0, 12).map((l) => {
+            const s = String(l).replace(/\\/g, '/');
+            const open = s.lastIndexOf('(');
+            const close = s.lastIndexOf(')');
+            if (open >= 0 && close > open) {
+                const inner = s.slice(open + 1, close);
+                const base = inner.split('/').filter(Boolean).pop() || inner;
+                return `${s.slice(0, open + 1)}${base}${s.slice(close)}`;
+            }
+            const parts = s.split(' ');
+            const last = parts[parts.length - 1] || '';
+            if (last.includes('/')) {
+                parts[parts.length - 1] = last.split('/').filter(Boolean).pop() || last;
+                return parts.join(' ');
+            }
+            return s;
+        });
+        return lines.join('\n');
+    };
+
+    if (proc?.on && typeof proc.on === 'function') {
+        proc.on('uncaughtException', (err: unknown) => {
+            try {
+                const e = err instanceof Error ? err : new Error(String(err));
+                const payload = {
+                    name: e.name,
+                    message: e.message,
+                    stack: redactStack(e.stack),
+                    node: proc?.versions?.node,
+                };
+
+                fetch('http://127.0.0.1:7743/ingest/6fd41623-7507-4d84-81c9-37300c23dd21', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json', 'X-Debug-Session-Id': '327545' },
+                    body: JSON.stringify({
+                        sessionId: '327545',
+                        runId: 'open-folder-pre',
+                        hypothesisId: 'H_PROC',
+                        location: 'src/renderer/src/main.tsx:process.uncaughtException',
+                        message: 'process uncaughtException (renderer)',
+                        data: payload,
+                        timestamp: Date.now(),
+                    })
+                }).catch(() => { });
+
+                try {
+                    typeof tmApi !== 'undefined'
+                        && tmApi.invokeMain({
+                            type: 'r2mi:debug-log',
+                            payload: {
+                                sessionId: '327545',
+                                runId: 'open-folder-pre',
+                                hypothesisId: 'H_PROC',
+                                location: 'src/renderer/src/main.tsx:process.uncaughtException:ipc',
+                                message: 'process uncaughtException (renderer)',
+                                data: payload,
+                                timestamp: Date.now(),
+                            }
+                        }).catch(() => { });
+                } catch { }
+            } catch { }
+        });
+
+        proc.on('unhandledRejection', (reason: unknown) => {
+            try {
+                const e = reason instanceof Error ? reason : new Error(String(reason));
+                const payload = {
+                    name: e.name,
+                    message: e.message,
+                    stack: redactStack((reason as any)?.stack ?? e.stack),
+                    node: proc?.versions?.node,
+                };
+
+                fetch('http://127.0.0.1:7743/ingest/6fd41623-7507-4d84-81c9-37300c23dd21', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json', 'X-Debug-Session-Id': '327545' },
+                    body: JSON.stringify({
+                        sessionId: '327545',
+                        runId: 'open-folder-pre',
+                        hypothesisId: 'H_PROC',
+                        location: 'src/renderer/src/main.tsx:process.unhandledRejection',
+                        message: 'process unhandledRejection (renderer)',
+                        data: payload,
+                        timestamp: Date.now(),
+                    })
+                }).catch(() => { });
+
+                try {
+                    typeof tmApi !== 'undefined'
+                        && tmApi.invokeMain({
+                            type: 'r2mi:debug-log',
+                            payload: {
+                                sessionId: '327545',
+                                runId: 'open-folder-pre',
+                                hypothesisId: 'H_PROC',
+                                location: 'src/renderer/src/main.tsx:process.unhandledRejection:ipc',
+                                message: 'process unhandledRejection (renderer)',
+                                data: payload,
+                                timestamp: Date.now(),
+                            }
+                        }).catch(() => { });
+                } catch { }
+            } catch { }
+        });
+    }
+} catch { }
+// #endregion
+
 // #region agent log: window.error
 window.addEventListener('error', (event) => {
     fetch('http://127.0.0.1:7743/ingest/6fd41623-7507-4d84-81c9-37300c23dd21', { method: 'POST', headers: { 'Content-Type': 'application/json', 'X-Debug-Session-Id': '327545' }, body: JSON.stringify({ sessionId: '327545', runId: 'open-folder-pre', hypothesisId: 'H_GLOBAL', location: 'src/renderer/src/main.tsx:window.error', message: 'window.error', data: { message: event.message, filename: event.filename, lineno: event.lineno, colno: event.colno, stack: event.error instanceof Error ? event.error.stack : undefined }, timestamp: Date.now() }) }).catch(() => { });
