@@ -1,6 +1,4 @@
 import { type R2MInvoke } from "@shared/ipc-types";
-import { appendFileSync, existsSync } from "node:fs";
-import { dirname, join, resolve } from "node:path";
 import { getTargetHwnd, getWindowIcon, getWindowControls, getWindowMani, getTlwInfos, getTlwScreenshots, highlightControl, highlightWindow, getWindowExtras, dndActionInit, getGeneralInfo, performCommand } from "../7-napi-calls";
 import { asyncLoadWin32FilesContent } from "../2-commands-in-main/2-files/8-load-win32-files";
 import { existsFileInMain, deleteFileInMain, generateUniqueFilename, revealInExplorer, saveFileInMain, getPathInfoInMain } from "../2-commands-in-main/2-files";
@@ -126,24 +124,6 @@ export async function invokeFromRendererInMain(data: R2MInvoke.AllInvokes): Prom
             return rv;
         }
 
-        case 'r2mi:debug-log': {
-            try {
-                const payload = data.payload;
-                const sessionId = payload?.sessionId || 'unknown';
-                const fileName = `debug-${sessionId}.log`;
-                const baseDir = process.env['INIT_CWD'] || process.cwd();
-                const rootDir = findRepoRoot(baseDir);
-                const fullPath = resolve(rootDir, fileName);
-                appendFileSync(fullPath, `${JSON.stringify(payload)}\n`, { encoding: 'utf8' });
-                const rv: R2MInvoke.InvokeResult<R2MInvoke.DebugLog> = undefined;
-                return rv;
-            } catch (error) {
-                const msg = error instanceof Error ? error.message : `${error}`;
-                const rv: R2MInvoke.InvokeResult<R2MInvoke.DebugLog> = msg;
-                return rv;
-            }
-        }
-
         // manifest state test in-use
 
         case 'r2mi:test-in-use-start': {
@@ -164,19 +144,4 @@ export async function invokeFromRendererInMain(data: R2MInvoke.AllInvokes): Prom
             throw new Error(`\nUnknown IPC-invoke: ${JSON.stringify(really)}\n`);
         }
     }
-}
-
-function findRepoRoot(startDir: string): string {
-    let current = startDir || process.cwd();
-    for (let i = 0; i < 12; i++) {
-        if (existsSync(join(current, '.git')) || existsSync(join(current, 'package.json'))) {
-            return current;
-        }
-        const parent = dirname(current);
-        if (!parent || parent === current) {
-            break;
-        }
-        current = parent;
-    }
-    return startDir;
 }

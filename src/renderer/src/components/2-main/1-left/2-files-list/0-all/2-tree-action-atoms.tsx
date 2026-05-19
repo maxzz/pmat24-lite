@@ -5,10 +5,6 @@ import { doTriggerRightPanelSelectedAtom, rightPanelAtomAtom } from "@/store/5-3
 import { type TreeState, type DataItemWState, type ItemState, type DataItemNavigation, type DataItemCore, duplicateTree, walkItems, doTreeItemSelect } from "@/ui/shadcn/tree";
 import { type FileUsAtom } from "@/store/store-types";
 import { type TreeFileItem, treeFilesAtom } from "@/store/5-2-tree-files";
-import { rootDir } from "@/store/5-1-open-files";
-import { filenameWithoutPath } from "@/utils";
-
-let agentSelectSeq = 0;
 
 export const treeStateAtom = atom<TreeState>(() => {
     return proxy<TreeState>({
@@ -61,7 +57,6 @@ export const getFileUsAtomByIdAtom = atom( // Non-reactive access to atom by tre
 export const doSelectFileUsTreeAtom = atom(
     null,
     (get, set, fileUsAtom: FileUsAtom) => {
-        const seq = ++agentSelectSeq;
         const treeFiles = get(dataWithStateAtom);
         const treeState = get(treeStateAtom);
         const { selectAsTrigger, selectEmptySpace } = get(optionsFilesProxyAtom).itemsState;
@@ -69,77 +64,15 @@ export const doSelectFileUsTreeAtom = atom(
         const treeItem = treeFiles.find((treeFile) => treeFile.fileUsAtom === fileUsAtom);
 
         if (treeItem) {
-            // #region agent log: delayed select scheduled (ipc)
-            try {
-                const rootBase = filenameWithoutPath(rootDir.fpath);
-                typeof tmApi !== 'undefined'
-                    && tmApi.invokeMain({
-                        type: 'r2mi:debug-log',
-                        payload: {
-                            sessionId: '327545',
-                            runId: 'open-folder-pre',
-                            hypothesisId: 'H7',
-                            location: 'src/renderer/src/components/2-main/1-left/2-files-list/0-all/2-tree-action-atoms.tsx:doSelectFileUsTreeAtom:schedule',
-                            message: 'delayed tree select scheduled',
-                            data: { seq, rootBase, rootLen: rootDir.fpath.length, treeFilesLen: treeFiles.length, treeItemId: treeItem.id },
-                            timestamp: Date.now(),
-                        }
-                    }).catch(() => { });
-            } catch { }
-            // #endregion
-
             setTimeout(
                 () => {
-                    // #region agent log: delayed select fired (ipc)
-                    try {
-                        const rootBase = filenameWithoutPath(rootDir.fpath);
-                        const treeFilesNow = get(dataWithStateAtom);
-                        const stillInTree = treeFilesNow.some((tf) => tf.fileUsAtom === fileUsAtom);
-                        typeof tmApi !== 'undefined'
-                            && tmApi.invokeMain({
-                                type: 'r2mi:debug-log',
-                                payload: {
-                                    sessionId: '327545',
-                                    runId: 'open-folder-pre',
-                                    hypothesisId: 'H7',
-                                    location: 'src/renderer/src/components/2-main/1-left/2-files-list/0-all/2-tree-action-atoms.tsx:doSelectFileUsTreeAtom:fire',
-                                    message: 'delayed tree select fired',
-                                    data: { seq, rootBase, rootLen: rootDir.fpath.length, treeFilesLen: treeFiles.length, treeFilesNowLen: treeFilesNow.length, treeItemId: treeItem.id, stillInTree },
-                                    timestamp: Date.now(),
-                                }
-                            }).catch(() => { });
-                    } catch { }
-                    // #endregion
-
-                    try {
-                        doTreeItemSelect(treeItem, {
-                            data: treeFiles,
-                            treeState,
-                            onSelectChange: (item: DataItemWState | undefined) => set(doTriggerRightPanelSelectedAtom, { newAtom: fileUsAtom }),
-                            selectAsTrigger,
-                            selectEmptySpace,
-                        });
-                    } catch (error) {
-                        // #region agent log: delayed select exception (ipc)
-                        try {
-                            const msg = error instanceof Error ? error.message : String(error);
-                            typeof tmApi !== 'undefined'
-                                && tmApi.invokeMain({
-                                    type: 'r2mi:debug-log',
-                                    payload: {
-                                        sessionId: '327545',
-                                        runId: 'open-folder-pre',
-                                        hypothesisId: 'H7',
-                                        location: 'src/renderer/src/components/2-main/1-left/2-files-list/0-all/2-tree-action-atoms.tsx:doSelectFileUsTreeAtom:exception',
-                                        message: 'delayed tree select exception',
-                                        data: { seq, msg },
-                                        timestamp: Date.now(),
-                                    }
-                                }).catch(() => { });
-                        } catch { }
-                        // #endregion
-                        throw error;
-                    }
+                    doTreeItemSelect(treeItem, {
+                        data: treeFiles,
+                        treeState,
+                        onSelectChange: (item: DataItemWState | undefined) => set(doTriggerRightPanelSelectedAtom, { newAtom: fileUsAtom }),
+                        selectAsTrigger,
+                        selectEmptySpace,
+                    });
                 }, 500
             ); // It's OK if deley will be 0, but delay is good for UX (to show dynamic of changes)
         } else {

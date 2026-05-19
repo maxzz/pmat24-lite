@@ -23,17 +23,6 @@ export function setRootDir(folder: PmatFolder | undefined): void {
 
     const { fpath: rpath, handle, fromMain } = folder;
 
-    // #region agent log: setRootDir called
-    fetch('http://127.0.0.1:7743/ingest/6fd41623-7507-4d84-81c9-37300c23dd21', { method: 'POST', headers: { 'Content-Type': 'application/json', 'X-Debug-Session-Id': '327545' }, body: JSON.stringify({ sessionId: '327545', runId: 'open-folder-pre', hypothesisId: 'H2', location: 'src/renderer/src/store/5-1-open-files/2-root-dir.ts:setRootDir', message: 'setRootDir called', data: { fromMain, hasHandle: !!handle, fpathLen: rpath?.length || 0, fpathBase: filenameWithoutPath(rpath) }, timestamp: Date.now() }) }).catch(() => { });
-    // #endregion
-
-    // #region agent log: setRootDir called (ipc fallback)
-    try {
-        typeof tmApi !== 'undefined'
-            && tmApi.invokeMain({ type: 'r2mi:debug-log', payload: { sessionId: '327545', runId: 'open-folder-pre', hypothesisId: 'H2', location: 'src/renderer/src/store/5-1-open-files/2-root-dir.ts:setRootDir:ipc', message: 'setRootDir called', data: { fromMain, hasHandle: !!handle, fpathLen: rpath?.length || 0, fpathBase: filenameWithoutPath(rpath) }, timestamp: Date.now(), } }).catch(() => { });
-    } catch { }
-    // #endregion
-
     rootDir.fpath = normalizeFpath(rpath);
     rootDir.handle = handle ? ref(handle) : undefined;
     rootDir.fromMain = fromMain;

@@ -56,21 +56,6 @@ export namespace R2MInvoke { // Main from Renderer invoke and get result
         type: 'r2mi:get-process-env';
     };
 
-    // debug (temporary, for instrumentation)
-
-    export type DebugLog = {
-        type: 'r2mi:debug-log';
-        payload: {
-            sessionId: string;
-            runId?: string;
-            hypothesisId?: string;
-            location: string;
-            message: string;
-            data?: unknown;
-            timestamp: number;
-        };
-    };
-
     // napi
 
     export type GetSecondWindowHandle = {
@@ -165,7 +150,6 @@ export namespace R2MInvoke { // Main from Renderer invoke and get result
         | GetPathInfo                           // 'r2mi:get-path-info'
         | GetZoomLevel                          // 'r2mi:get-zoom-level'
         | GetProcessEnv                         // 'r2mi:get-process-env'
-        | DebugLog                              // 'r2mi:debug-log'
 
         | GetSecondWindowHandle                 // 'r2mi:get-target-hwnd'
         | GetSecondWindowContent                // 'r2mi:get-window-controls'
@@ -233,9 +217,6 @@ export namespace R2MInvoke { // Main from Renderer invoke and get result
         : T extends GetProcessEnv               //'r2mi:get-process-env'
         ? string
 
-        : T extends DebugLog                    //'r2mi:debug-log'
-        ? EmptyOkOrError
-
         // napi
 
         : T extends GetSecondWindowHandle       //'r2mi:get-target-hwnd'
@@ -298,7 +279,6 @@ export namespace R2MInvokeParams {
     export type GetPathInfo = Omit<R2MInvoke.GetPathInfo, 'type'>;
     export type GetZoomLevel = Omit<R2MInvoke.GetZoomLevel, 'type'>;
     export type GetProcessEnv = Omit<R2MInvoke.GetProcessEnv, 'type'>;
-    export type DebugLog = Omit<R2MInvoke.DebugLog, 'type'>;
     export type GetSecondWindowHandle = Omit<R2MInvoke.GetSecondWindowHandle, 'type'>;
     export type GetSecondWindowContent = Omit<R2MInvoke.GetSecondWindowContent, 'type'>;
     export type GetSecondWindowIcon = Omit<R2MInvoke.GetSecondWindowIcon, 'type'>;
