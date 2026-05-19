@@ -2,7 +2,7 @@ import { useAtomValue, useSetAtom } from "jotai";
 import { useSnapshot } from "valtio";
 import { classNames } from "@/utils";
 import { IconMicroscope } from "@/ui/icons";
-import { modeTextInTest } from "@/components/2-main/2-right/2-file-mani/2-form-options";
+import { modeTextInTest, modeTextInTestOff, modeTextInTestOn } from "@/components/2-main/2-right/2-file-mani/2-form-options";
 import { appSettings } from "@/store/9-ui-state";
 import { getTreeItemDisplayText } from "@/store/store-utils";
 import { type FileUs } from "@/store/store-types";
@@ -40,7 +40,7 @@ function TestInUseIcons({ fileUs }: { fileUs: FileUs; }) {
             <IconMicroscope className="absolute right-1 size-3 text-muted-foreground" title={modeTextInTest} />
         )} */}
 
-        <IconMicroscope className={classNames(iconClasses, isTest ? iconActiveClasses : iconInactiveClasses)} title={modeTextInTest} onClick={() => doSetManiInTest({ fileUs, inTest: !isTest })} />
+        <IconMicroscope className={classNames(iconClasses, isTest ? iconActiveClasses : iconInactiveClasses)} title={isTest ? modeTextInTestOn : modeTextInTestOff} onClick={() => doSetManiInTest({ fileUs, inTest: !isTest })} />
 
         {/* {!isInUse && (
             <IconNotInUse className="absolute right-1 size-3 text-muted-foreground" title={modeTextNotInUse} />
