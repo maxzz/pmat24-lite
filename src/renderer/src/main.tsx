@@ -11,6 +11,51 @@ try {
 } catch { }
 // #endregion
 
+// #region agent log: console.error intercept
+try {
+    const orig = console.error;
+    console.error = (...args: any[]) => {
+        try {
+            const first = args?.[0];
+            const msgRaw = first instanceof Error ? first.message : String(first);
+            const msg = msgRaw.length > 500 ? `${msgRaw.slice(0, 500)}…` : msgRaw;
+
+            fetch('http://127.0.0.1:7743/ingest/6fd41623-7507-4d84-81c9-37300c23dd21', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json', 'X-Debug-Session-Id': '327545' },
+                body: JSON.stringify({
+                    sessionId: '327545',
+                    runId: 'open-folder-pre',
+                    hypothesisId: 'H_CONSOLE',
+                    location: 'src/renderer/src/main.tsx:console.error',
+                    message: 'console.error',
+                    data: { msg, argsLen: Array.isArray(args) ? args.length : undefined },
+                    timestamp: Date.now(),
+                })
+            }).catch(() => { });
+
+            try {
+                typeof tmApi !== 'undefined'
+                    && tmApi.invokeMain({
+                        type: 'r2mi:debug-log',
+                        payload: {
+                            sessionId: '327545',
+                            runId: 'open-folder-pre',
+                            hypothesisId: 'H_CONSOLE',
+                            location: 'src/renderer/src/main.tsx:console.error:ipc',
+                            message: 'console.error',
+                            data: { msg, argsLen: Array.isArray(args) ? args.length : undefined },
+                            timestamp: Date.now(),
+                        }
+                    }).catch(() => { });
+            } catch { }
+        } catch { }
+
+        return orig.apply(console, args as any);
+    };
+} catch { }
+// #endregion
+
 // #region agent log: window.error
 window.addEventListener('error', (event) => {
     fetch('http://127.0.0.1:7743/ingest/6fd41623-7507-4d84-81c9-37300c23dd21', { method: 'POST', headers: { 'Content-Type': 'application/json', 'X-Debug-Session-Id': '327545' }, body: JSON.stringify({ sessionId: '327545', runId: 'open-folder-pre', hypothesisId: 'H_GLOBAL', location: 'src/renderer/src/main.tsx:window.error', message: 'window.error', data: { message: event.message, filename: event.filename, lineno: event.lineno, colno: event.colno, stack: event.error instanceof Error ? event.error.stack : undefined }, timestamp: Date.now() }) }).catch(() => { });
