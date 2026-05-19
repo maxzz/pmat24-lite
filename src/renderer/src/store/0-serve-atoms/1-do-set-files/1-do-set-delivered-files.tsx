@@ -164,14 +164,9 @@ export const doSetDeliveredFilesAtom = atom(
             // #region agent log: doSetDeliveredFilesAtom exception (ipc)
             try {
                 const msg = error instanceof Error ? error.message : String(error);
-                const rawStack = error instanceof Error ? error.stack : undefined;
-                const stack = typeof rawStack === 'string'
-                    ? rawStack
-                        .replace(/file:\\/\\/\\/([A-Za-z]):\\/Users\\/[^\\/]+/g, 'file:///$1:/Users/<user>')
-                        .replace(/([A-Za-z]):\\\\Users\\\\[^\\\\]+/g, '$1:\\\\Users\\\\<user>')
-                        .replace(/([A-Za-z]):\\/Users\\/[^\\/]+/g, '$1:/Users/<user>')
-                        .replace(/\\/Users\\/[^\\/]+/g, '/Users/<user>')
-                    : undefined;
+                // Avoid logging stack to prevent leaking local usernames/paths (PII) and to keep
+                // instrumentation parse-safe during dev builds.
+                const stack = undefined;
                 typeof tmApi !== 'undefined'
                     && tmApi.invokeMain({
                         type: 'r2mi:debug-log',

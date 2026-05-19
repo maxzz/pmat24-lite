@@ -69,6 +69,11 @@ window.addEventListener('unhandledrejection', (event) => {
     };
 
     fetch('http://127.0.0.1:7743/ingest/6fd41623-7507-4d84-81c9-37300c23dd21', { method: 'POST', headers: { 'Content-Type': 'application/json', 'X-Debug-Session-Id': '327545' }, body: JSON.stringify({ sessionId: '327545', runId: 'open-folder-pre', hypothesisId: 'H_AGG', location: 'src/renderer/src/main.tsx:window.unhandledrejection:aggregate', message: 'window.unhandledrejection aggregate details', data: payload, timestamp: Date.now() }) }).catch(() => { });
+
+    try {
+        typeof tmApi !== 'undefined'
+            && tmApi.invokeMain({ type: 'r2mi:debug-log', payload: { sessionId: '327545', runId: 'open-folder-pre', hypothesisId: 'H_AGG', location: 'src/renderer/src/main.tsx:window.unhandledrejection:aggregate:ipc', message: 'window.unhandledrejection aggregate details', data: payload, timestamp: Date.now(), } }).catch(() => { });
+    } catch { }
 });
 // #endregion
 
