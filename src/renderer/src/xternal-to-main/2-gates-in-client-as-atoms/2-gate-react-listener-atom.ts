@@ -19,6 +19,13 @@ export const doFromMainAtom = atom(
                 fetch('http://127.0.0.1:7743/ingest/6fd41623-7507-4d84-81c9-37300c23dd21', { method: 'POST', headers: { 'Content-Type': 'application/json', 'X-Debug-Session-Id': '327545' }, body: JSON.stringify({ sessionId: '327545', runId: 'open-folder-pre', hypothesisId: 'H1', location: 'src/renderer/src/xternal-to-main/2-gates-in-client-as-atoms/2-gate-react-listener-atom.ts:m2r:loaded-files', message: 'm2r:loaded-files received', data: { filesCntLen: data.filesCnt?.length || 0, emptyFolderLen: data.emptyFolder?.length || 0, firstExt: (data.filesCnt?.[0]?.fname || '').split('.').pop()?.toLowerCase() || '' }, timestamp: Date.now() }) }).catch(() => { });
                 // #endregion
 
+                // #region agent log: m2r:loaded-files received (ipc fallback)
+                try {
+                    typeof tmApi !== 'undefined'
+                        && tmApi.invokeMain({ type: 'r2mi:debug-log', payload: { sessionId: '327545', runId: 'open-folder-pre', hypothesisId: 'H1', location: 'src/renderer/src/xternal-to-main/2-gates-in-client-as-atoms/2-gate-react-listener-atom.ts:m2r:loaded-files:received:ipc', message: 'm2r:loaded-files received', data: { filesCntLen: data.filesCnt?.length || 0, emptyFolderLen: data.emptyFolder?.length || 0, firstExt: (data.filesCnt?.[0]?.fname || '').split('.').pop()?.toLowerCase() || '' }, timestamp: Date.now(), } }).catch(() => { });
+                } catch { }
+                // #endregion
+
                 try {
                     const deliveredFileContents = data.filesCnt.map(finalizeFileContent);
                     const emptyFolder = data.emptyFolder;
@@ -31,10 +38,24 @@ export const doFromMainAtom = atom(
                     fetch('http://127.0.0.1:7743/ingest/6fd41623-7507-4d84-81c9-37300c23dd21', { method: 'POST', headers: { 'Content-Type': 'application/json', 'X-Debug-Session-Id': '327545' }, body: JSON.stringify({ sessionId: '327545', runId: 'open-folder-pre', hypothesisId: 'H1', location: 'src/renderer/src/xternal-to-main/2-gates-in-client-as-atoms/2-gate-react-listener-atom.ts:m2r:loaded-files', message: 'm2r:loaded-files processed', data: { deliveredLen: deliveredFileContents.length, noItemsJustDir: !!emptyFolder, rootBase, rootFpathLen: root.fpath?.length || 0 }, timestamp: Date.now() }) }).catch(() => { });
                     // #endregion
 
+                    // #region agent log: m2r:loaded-files processed (ipc fallback)
+                    try {
+                        typeof tmApi !== 'undefined'
+                            && tmApi.invokeMain({ type: 'r2mi:debug-log', payload: { sessionId: '327545', runId: 'open-folder-pre', hypothesisId: 'H1', location: 'src/renderer/src/xternal-to-main/2-gates-in-client-as-atoms/2-gate-react-listener-atom.ts:m2r:loaded-files:processed:ipc', message: 'm2r:loaded-files processed', data: { deliveredLen: deliveredFileContents.length, noItemsJustDir: !!emptyFolder, rootBase, rootFpathLen: root.fpath?.length || 0 }, timestamp: Date.now(), } }).catch(() => { });
+                    } catch { }
+                    // #endregion
+
                     set(doSetDeliveredFilesAtom, { deliveredFileContents, root, noItemsJustDir: !!emptyFolder, error: undefined, });
                 } catch (error) {
                     // #region agent log: m2r:loaded-files exception
                     fetch('http://127.0.0.1:7743/ingest/6fd41623-7507-4d84-81c9-37300c23dd21', { method: 'POST', headers: { 'Content-Type': 'application/json', 'X-Debug-Session-Id': '327545' }, body: JSON.stringify({ sessionId: '327545', runId: 'open-folder-pre', hypothesisId: 'H1', location: 'src/renderer/src/xternal-to-main/2-gates-in-client-as-atoms/2-gate-react-listener-atom.ts:m2r:loaded-files', message: 'm2r:loaded-files exception', data: error instanceof Error ? { message: error.message, stack: error.stack } : { errorType: typeof error, error: String(error) }, timestamp: Date.now() }) }).catch(() => { });
+                    // #endregion
+
+                    // #region agent log: m2r:loaded-files exception (ipc fallback)
+                    try {
+                        typeof tmApi !== 'undefined'
+                            && tmApi.invokeMain({ type: 'r2mi:debug-log', payload: { sessionId: '327545', runId: 'open-folder-pre', hypothesisId: 'H1', location: 'src/renderer/src/xternal-to-main/2-gates-in-client-as-atoms/2-gate-react-listener-atom.ts:m2r:loaded-files:exception:ipc', message: 'm2r:loaded-files exception', data: error instanceof Error ? { message: error.message, stack: error.stack } : { errorType: typeof error, error: String(error) }, timestamp: Date.now(), } }).catch(() => { });
+                    } catch { }
                     // #endregion
                     throw error;
                 }
