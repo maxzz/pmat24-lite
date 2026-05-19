@@ -42,13 +42,13 @@ function Body({ confirmDialogOpen, onDlgClose }: { confirmDialogOpen: Confirmati
                 {message}
             </div>
 
-            <DialogFooter className={classNames("py-4 flex-row", buttonCancel ? "justify-end" : "justify-center!")}>
-                <Button variant={isDafaultOk ? 'default' : 'outline'} onClick={() => onDlgClose(true)}>
+            <DialogFooter className={classNames("py-4 flex-row space-x-0", buttonCancel ? "justify-end" : "justify-center!")}>
+                <Button variant={isDafaultOk ? 'default' : 'outline'} className="min-w-14" onClick={() => onDlgClose(true)}>
                     {buttonOk}
                 </Button>
 
                 {buttonCancel && (
-                    <Button variant={isDafaultOk ? 'outline' : 'default'} onClick={() => onDlgClose(false)}>
+                    <Button variant={isDafaultOk ? 'outline' : 'default'} className="min-w-14" onClick={() => onDlgClose(false)}>
                         {buttonCancel}
                     </Button>
                 )}
