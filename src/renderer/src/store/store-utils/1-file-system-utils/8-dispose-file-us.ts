@@ -62,7 +62,8 @@ function disposeFormCtx(formAtoms: AnyFormCtx | undefined) {
         formAtoms.normal = undefined;
         formAtoms.manual = undefined;
         (formAtoms.options as any) = undefined;
-        (formAtoms.fileUsCtx as any) = undefined; // Don't clean up file handles
+        // Keep `fileUsCtx` intact. Disposing it causes downstream code to crash with
+        // `Cannot read properties of undefined (reading 'formIdx')` during folder close/switch.
     }
 }
 
