@@ -3,6 +3,8 @@ import { sendToMainTyped } from "../3-to-main-apis";
 
 export namespace R2MCalls {
 
+    let agentOpenDlgSeq = 0;
+
     // menu, load files
 
     export function menuCommand(params: R2MParams.MenuCommand): void {
@@ -10,6 +12,39 @@ export namespace R2MCalls {
     }
 
     export function loadManifestsDialog(params: R2MParams.LoadManifestsDialog): void {
+        const seq = ++agentOpenDlgSeq;
+        // #region agent log: loadManifestsDialog called
+        try {
+            fetch('http://127.0.0.1:7743/ingest/6fd41623-7507-4d84-81c9-37300c23dd21', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json', 'X-Debug-Session-Id': '327545' },
+                body: JSON.stringify({
+                    sessionId: '327545',
+                    runId: 'open-folder-pre',
+                    hypothesisId: 'H_OPEN',
+                    location: 'src/renderer/src/xternal-to-main/2-gates-in-client-as-atoms/commands-to-main/1-renderer-to-main-calls.ts:loadManifestsDialog',
+                    message: 'loadManifestsDialog called',
+                    data: { seq, openDirs: !!params.openDirs },
+                    timestamp: Date.now(),
+                })
+            }).catch(() => { });
+
+            typeof tmApi !== 'undefined'
+                && tmApi.invokeMain({
+                    type: 'r2mi:debug-log',
+                    payload: {
+                        sessionId: '327545',
+                        runId: 'open-folder-pre',
+                        hypothesisId: 'H_OPEN',
+                        location: 'src/renderer/src/xternal-to-main/2-gates-in-client-as-atoms/commands-to-main/1-renderer-to-main-calls.ts:loadManifestsDialog:ipc',
+                        message: 'loadManifestsDialog called',
+                        data: { seq, openDirs: !!params.openDirs },
+                        timestamp: Date.now(),
+                    }
+                }).catch(() => { });
+        } catch { }
+        // #endregion
+
         sendToMainTyped({ type: 'r2m:file:load-manifests-dialog', ...params }); // will reply with 'm2r:loaded-files'
     }
 
