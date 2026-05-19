@@ -160,6 +160,33 @@ export const doSetDeliveredFilesAtom = atom(
             showUnsupportedFilesMsg(unsupported);
 
             busyIndicator.msg = '';
+
+            // #region agent log: doSetDeliveredFilesAtom done (ipc)
+            try {
+                const rootBase = filenameWithoutPath(root?.fpath);
+                typeof tmApi !== 'undefined'
+                    && tmApi.invokeMain({
+                        type: 'r2mi:debug-log',
+                        payload: {
+                            sessionId: '327545',
+                            runId: 'open-folder-pre',
+                            hypothesisId: 'H_DONE',
+                            location: 'src/renderer/src/store/0-serve-atoms/1-do-set-files/1-do-set-delivered-files.tsx:doSetDeliveredFilesAtom:done',
+                            message: 'doSetDeliveredFilesAtom done',
+                            data: {
+                                deliveredLen: deliveredFileContents.length,
+                                oursLen: fileUsItems.length,
+                                unsupportedLen: unsupported.length,
+                                runningClearFiles,
+                                rootFromMain: root?.fromMain,
+                                rootBase,
+                                rootFpathLen: root?.fpath?.length || 0,
+                            },
+                            timestamp: Date.now(),
+                        }
+                    }).catch(() => { });
+            } catch { }
+            // #endregion
         } catch (error) {
             // #region agent log: doSetDeliveredFilesAtom exception (ipc)
             try {
