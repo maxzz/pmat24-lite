@@ -1,6 +1,6 @@
 import { type GetterWithPeek, type SetterWithRecurse, useCallbackOne } from "@/utils";
 import { FieldTyp, FormIdx } from "@/store/8-manifest";
-import { type FieldRowCtx, type MFormProps, getAllFormsFieldsAtoms, safeByContext } from "@/store/2-file-mani-atoms";
+import { type FieldRowCtx, type MFormProps, getAllFormsFieldsAtoms } from "@/store/2-file-mani-atoms";
 
 export function loginChangesEffectFn({ mFormProps }: { mFormProps: MFormProps; }) { //TODO: give maniAtomsAtom instead of mFormProps (and .mFormCtx.fileUsCtx.fileUs.maniAtomsAtom)
     const rv = useCallbackOne(
@@ -12,13 +12,21 @@ export function loginChangesEffectFn({ mFormProps }: { mFormProps: MFormProps; }
                 return;
             }
 
-            const maniAtoms = safeByContext(get(maniAtomsAtom));
+            //const maniAtoms = safeByContext(get(maniAtomsAtom)); //tm: was causing error message?
+            // `mFormProps` can outlive the underlying atoms during folder close/switch.
+            // Avoid throwing (and crashing IPC dispatch) when atoms were already disposed.
+            //print_MFormProps(mFormProps);
+
+            const maniAtoms = get(maniAtomsAtom);
+            if (!maniAtoms) {
+                return;
+            }
             const { loginAtom, cpassAtom } = getAllFormsFieldsAtoms(maniAtoms);
 
             const loginPsws = new Set(get(loginAtom).filter((field) => get(field.typeAtom) === FieldTyp.psw).map((field) => field.metaField.uuid));
             const cpassPsws = get(cpassAtom).filter((field) => get(field.typeAtom) === FieldTyp.psw);
 
-            setTimeout(
+            const timeoutId = setTimeout(
                 () => {
                     cpassPsws.forEach(
                         (field) => {
@@ -32,13 +40,19 @@ export function loginChangesEffectFn({ mFormProps }: { mFormProps: MFormProps; }
                 }, 1000); // We have debounce for value changes and as result we have only the latest change triggered by our set and we are loosing original value from any input or select. debounce value is 100ms and this timeout should be longer than 100ms.
 
             print_Forms('loginChangesEffectFn after links update', mFormProps.mFormCtx.fileUsCtx.formIdx, get(loginAtom), get(cpassAtom), get);
+            return () => clearTimeout(timeoutId);
         },
         [mFormProps.mFormCtx?.fileUsCtx?.fileUs?.maniAtomsAtom]);
     return rv;
 }
 
 function print_MFormProps(mFormProps: MFormProps) {
-    console.log(`loginChangesEffectFn formIdx:${mFormProps.mFormCtx.fileUsCtx.formIdx} ${mFormProps.mFormCtx.fileUsCtx.fileUs.maniAtomsAtom.toString()}`);
+    //console.log(`loginChangesEffectFn formIdx:${mFormProps.mFormCtx.fileUsCtx.formIdx} ${mFormProps.mFormCtx.fileUsCtx.fileUs.maniAtomsAtom.toString()}`);
+    try {
+        const formIdx = mFormProps?.mFormCtx?.fileUsCtx?.formIdx;
+        const atomStr = mFormProps?.mFormCtx?.fileUsCtx?.fileUs?.maniAtomsAtom?.toString();
+        console.log(`loginChangesEffectFn formIdx:${formIdx} ${atomStr}`);
+    } catch { }
 }
 
 function print_Forms(label: string, formIdx: FormIdx, loginFields: FieldRowCtx[], cpassFields: FieldRowCtx[], get: Getter) {

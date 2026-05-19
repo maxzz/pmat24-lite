@@ -62,7 +62,10 @@ function disposeFormCtx(formAtoms: AnyFormCtx | undefined) {
         formAtoms.normal = undefined;
         formAtoms.manual = undefined;
         (formAtoms.options as any) = undefined;
-        (formAtoms.fileUsCtx as any) = undefined; // Don't clean up file handles
+
+        //(formAtoms.fileUsCtx as any) = undefined; // Don't clean up file handles
+        // Keep `fileUsCtx` intact. Disposing it causes downstream code to crash with
+        // `Cannot read properties of undefined (reading 'formIdx')` during folder close/switch.
     }
 }
 
@@ -75,7 +78,7 @@ function print_DisposeFileUsAtom(fileUsAtom: FileUsAtom | undefined, { get }: Ge
     const fileUsStr = fileUsAtom ? fileUsAtom.toString() : 'null';
     const maniStr = fileUs?.maniAtomsAtom ? fileUs.maniAtomsAtom.toString() : 'null';
 
-    console.groupCollapsed(`%c🏀🏀🏀 dispose fileUsAtom:%c${fileUsStr}, %cmaniAtomsAtom:%c${maniStr}`,
+    console.groupCollapsed(`%c������ dispose fileUsAtom:%c${fileUsStr}, %cmaniAtomsAtom:%c${maniStr}`,
         fileUsAtom ? 'font-weight: normal; color: gray' : 'font-weight: normal; color: red',
         'font-weight: normal; color: magenta',
         'font-weight: normal; color: gray',
@@ -89,7 +92,7 @@ function print_DisposeFileUsAtom(fileUsAtom: FileUsAtom | undefined, { get }: Ge
 export function print_DisposeManiAtomsAtom(maniAtomsAtom: ManiAtomsAtom | undefined) {
     const atomStr = maniAtomsAtom ? maniAtomsAtom.toString() : 'null';
     console.groupCollapsed(
-        `%c🏀 dispose maniAtomsAtom:%c ${atomStr}%c`,
+        `%c�� dispose maniAtomsAtom:%c ${atomStr}%c`,
         'font-weight: normal; color: gray',
         'font-weight: normal; color: darkmagenta',
         'font-weight: normal; color: gray',

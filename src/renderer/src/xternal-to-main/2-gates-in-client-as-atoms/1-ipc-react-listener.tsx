@@ -6,7 +6,13 @@ import { doFromMainAtom } from "./2-gate-react-listener-atom";
 export const worldStore = {
     listeners: new Set<(data: unknown) => void>(),
     update(data?: unknown) {
-        data && this.listeners.forEach((listener) => listener(data));
+        if (!data) {
+            return;
+        }
+
+        this.listeners.forEach((listener) => {
+            listener(data);
+        });
     }
 };
 
