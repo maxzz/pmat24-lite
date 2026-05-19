@@ -5,7 +5,7 @@ import { type FieldRowCtx, type MFormProps, getAllFormsFieldsAtoms } from "@/sto
 export function loginChangesEffectFn({ mFormProps }: { mFormProps: MFormProps; }) { //TODO: give maniAtomsAtom instead of mFormProps (and .mFormCtx.fileUsCtx.fileUs.maniAtomsAtom)
     const rv = useCallbackOne(
         (get: GetterWithPeek, set: SetterWithRecurse) => {
-            print_MFormProps(mFormProps);
+            //print_MFormProps(mFormProps);
 
             const maniAtomsAtom = mFormProps.mFormCtx?.fileUsCtx?.fileUs?.maniAtomsAtom;
             if (!maniAtomsAtom) { // This may happen when all files are closed and atoms are disposed, but we still get deps call since we get maniAtomsAtom
