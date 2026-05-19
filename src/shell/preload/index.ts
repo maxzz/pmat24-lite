@@ -18,7 +18,43 @@ const api: TmApi = {
     setCbCallFromMain: (callback: (event: IpcRendererEvent, data: any) => void) => {
         const channel: PreloadChannelNames = 'send-to-renderer';
         ipcRenderer.removeAllListeners(channel);
-        ipcRenderer.on(channel, callback);
+        ipcRenderer.on(channel, (event: IpcRendererEvent, data: any) => {
+            try {
+                // #region agent log: ipcRenderer -> renderer callback
+                try {
+                    const type = data && typeof data === 'object' ? (data as { type?: unknown }).type : undefined;
+                    agentPreloadLog({
+                        sessionId: agentPreloadSessionId,
+                        runId: 'open-folder-pre',
+                        hypothesisId: 'H_IPC_CB',
+                        location: 'src/shell/preload/index.ts:setCbCallFromMain:dispatch',
+                        message: 'ipc message to renderer',
+                        data: { type },
+                        timestamp: Date.now(),
+                    });
+                } catch { }
+                // #endregion
+
+                callback(event, data);
+            } catch (error) {
+                // #region agent log: ipcRenderer callback threw
+                try {
+                    const e = error instanceof Error ? error : new Error(String(error));
+                    const type = data && typeof data === 'object' ? (data as { type?: unknown }).type : undefined;
+                    agentPreloadLog({
+                        sessionId: agentPreloadSessionId,
+                        runId: 'open-folder-pre',
+                        hypothesisId: 'H_IPC_CB',
+                        location: 'src/shell/preload/index.ts:setCbCallFromMain:dispatch:exception',
+                        message: 'renderer callback threw during ipc dispatch',
+                        data: { type, name: e.name, msg: redactMessage(e.message), stack: redactStack(e.stack) },
+                        timestamp: Date.now(),
+                    });
+                } catch { }
+                // #endregion
+                throw error;
+            }
+        });
     },
 
     async getPathForFile(file: File): Promise<GetFilePathResult> {
