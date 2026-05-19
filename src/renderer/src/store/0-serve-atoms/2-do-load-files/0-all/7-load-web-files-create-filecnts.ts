@@ -5,12 +5,62 @@ import { textFileReaderPromisify } from "@/store/store-utils";
 import { type FileContent, pmAllowedToOpenExt } from "@shared/ipc-types";
 import { type OpenItem } from "./9-types";
 
+const ABC_SUBFOLDERS = new Set(['a', 'b', 'c']);
+
+function normFpath(fpath: string): string {
+    return (fpath || '')
+        .replace(/\\/g, '/')             // be tolerant to either slash style
+        .replace(/^\/+|\/+$/g, '');    // trim leading/trailing slashes
+}
+
+/**
+ * Returns true for allowed folder depths only:
+ * - root-level files: `fpath === ""` (no folder path) OR the detected root-prefix component
+ * - files directly under `a`/`b`/`c` (case-insensitive) one-level deep
+ *   - root included form: `RootFolder/a|b|c` (2 components)
+ *   - root omitted form: `a|b|c` (1 component)
+ */
+function isAllowedFolderDepth(fpath: string, allowedSingleComponents: Set<string>): boolean {
+    const nfpath = normFpath(fpath);
+    if (!nfpath) return true; // root-level file (no folder path)
+
+    const parts = nfpath.split('/');
+
+    // One component:
+    // - in "root omitted" form: it's the subfolder name => must be a/b/c
+    // - in "root included" form: it's the root folder name => allow only if we can detect it prefixes root/a|b|c
+    if (parts.length === 1) {
+        return allowedSingleComponents.has(parts[0].toLowerCase());
+    }
+
+    // Two components:
+    // "root included" form => RootFolder/a|b|c
+    if (parts.length === 2) {
+        return ABC_SUBFOLDERS.has(parts[1].toLowerCase()); // must be A, B, or C
+    }
+
+    return false; // deeper than one level: skip
+}
+
 export async function loadWebFilesAndCreateFileContents(openItems: OpenItem[]): Promise<FileContent[]> {
     const rv: FileContent[] = [];
 
-    openItems.forEach((openItem) => openItem.notOur = !isAllowedExt(openItem.fname, pmAllowedToOpenExt));
+    // When fpath is in "root included" form, root-level files will have a single component that prefixes the
+    // allowed subfolders. Detect those prefixes so we don't accidentally treat random single-component folder
+    // names (e.g. "other") as "root".
+    const rootPrefixes = new Set<string>();
+    for (const item of openItems) {
+        const parts = normFpath(item.fpath).split('/');
+        if (parts.length === 2 && ABC_SUBFOLDERS.has(parts[1].toLowerCase())) {
+            rootPrefixes.add(parts[0].toLowerCase());
+        }
+    }
+    const allowedSingleComponents = new Set<string>([...ABC_SUBFOLDERS, ...rootPrefixes]);
 
-    for (const [idx, openItem] of openItems.entries()) {
+    const allowedItems = openItems.filter((item) => isAllowedFolderDepth(item.fpath, allowedSingleComponents));
+    allowedItems.forEach((openItem) => openItem.notOur = !isAllowedExt(openItem.fname, pmAllowedToOpenExt));
+
+    for (const [idx, openItem] of allowedItems.entries()) {
         if (!openItem.fileWeb) {
             console.error('Empty entry or file', openItem);
             continue;

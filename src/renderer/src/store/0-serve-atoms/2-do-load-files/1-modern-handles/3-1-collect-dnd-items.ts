@@ -93,6 +93,10 @@ function getPmatFileHandles(tree: FolderTree<DndHandle>): DndHandle[] {
 
     const rv: DndHandle[] = [
         ...root.files,
+        ...(root.children?.['a']?.files || []),
+        ...(root.children?.['A']?.files || []),
+        ...(root.children?.['b']?.files || []),
+        ...(root.children?.['B']?.files || []),
         ...(root.children?.['c']?.files || []),
         ...(root.children?.['C']?.files || []),
     ];

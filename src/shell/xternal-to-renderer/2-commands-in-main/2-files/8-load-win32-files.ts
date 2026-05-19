@@ -75,7 +75,7 @@ async function collectNamesRecursively(filenames: string[], level: number, ctx: 
                 ctx.rv.push(newItem);
             }
             else if (st.isDirectory()) {
-                const handleThisDir = level === ctx.numberOfLevels - 1 || ctx.allowedSubfolders.includes(basename(filename));
+                const handleThisDir = level === 0 || (level === 1 && ctx.allowedSubfolders.includes(basename(filename).toLowerCase()));
                 if (handleThisDir) {
                     const entries = readdirSync(filename).map(
                         (entry) => join(filename, entry)
