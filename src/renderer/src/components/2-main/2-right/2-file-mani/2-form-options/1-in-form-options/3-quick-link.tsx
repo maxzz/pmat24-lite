@@ -6,6 +6,7 @@ import { FormIdx } from "@/store/8-manifest";
 import { InFormAccordionValue } from "@/store/2-file-mani-atoms/9-types";
 import { useAtomValue, useSetAtom } from "jotai";
 import { IconClose, IconPaste } from "@/ui/icons/normal";
+import { optionsTooltips } from "../8-tooltips";
 
 export function BlockQuickLink({ oFormProps }: { oFormProps: OFormProps; }) {
     const formIdx = oFormProps.oAllAtoms.options.formIdx;
@@ -46,6 +47,7 @@ function BlockQuickLinkContent_Guarded({ oFormProps }: { oFormProps: OFormProps;
                 asCheckbox
                 stateAtom={qUseAtom}
                 label="Show on mini-dashboard"
+                titleTooltip={optionsTooltips.optionsNeedQl}
                 labelClasses="font-normal"
                 containerClasses="py-0! col-span-full"
             />
@@ -53,6 +55,7 @@ function BlockQuickLinkContent_Guarded({ oFormProps }: { oFormProps: OFormProps;
             <InputWithTitle2Rows
                 stateAtom={qNameAtom}
                 label="Quick link name"
+                titleTooltip={optionsTooltips.quicklinkName}
                 labelClasses="font-normal"
                 containerClasses="py-0! col-span-full"
             />
@@ -63,6 +66,7 @@ function BlockQuickLinkContent_Guarded({ oFormProps }: { oFormProps: OFormProps;
                         asTextarea
                         stateAtom={qUrlAtom}
                         label="Quick link URL"
+                        titleTooltip={optionsTooltips.quicklink}
                         labelClasses="font-normal"
                         containerClasses="py-0! col-span-full"
                     />

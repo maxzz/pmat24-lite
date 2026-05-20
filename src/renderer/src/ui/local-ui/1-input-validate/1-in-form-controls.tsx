@@ -81,7 +81,7 @@ const variants: Variants = {
     collapsed: { height: 0, opacity: 0 },
 };
 
-function TitleTooltip({ content }: { content?: string }) {
+export function TitleTooltip({ content }: { content?: string }) {
     if (!content) {
         return null;
     }

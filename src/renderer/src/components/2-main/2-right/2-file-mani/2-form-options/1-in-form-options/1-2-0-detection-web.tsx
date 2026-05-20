@@ -4,7 +4,8 @@ import { classNames } from "@/utils";
 import { AnimatePresence, motion } from "motion/react";
 import { SymbolLockClosed, SymbolLockOpen } from "@/ui/icons";
 import { notice } from "@/ui/local-ui/7-toaster";
-import { InputWithTitle2Rows } from "@/ui/local-ui";
+import { FormRowChildren, InputWithTitle2Rows } from "@/ui/local-ui";
+import { optionsTooltips } from "../8-tooltips";
 import { Matching } from "@/store/8-manifest";
 import { type OFormProps } from "@/store/2-file-mani-atoms";
 import { MatchHow } from "./1-2-1-match-how";
@@ -47,10 +48,9 @@ export function DetectionContent_Web({ oFormProps }: { oFormProps: OFormProps; }
             <BtnCopyOurl ourlAtom={ourlAtom} />
         </div>
 
-        <div className="mt-2 flex items-center gap-2">
-            <div className="">How to match the website URL:</div>
+        <FormRowChildren label="How to match the website URL:" titleTooltip={optionsTooltips.matchUrl} className="mt-2 flex items-center gap-2">
             <MatchHow oFormProps={oFormProps} />
-        </div>
+        </FormRowChildren>
 
         <AnimatePresence initial={false}>
             {showRegex && (<>
