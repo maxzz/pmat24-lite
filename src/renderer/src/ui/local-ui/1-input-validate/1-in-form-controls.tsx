@@ -6,18 +6,20 @@ import { type OptionInputWTypeProps, OptionAsCheckbox, OptionAsString, OptionAsT
 import { Tooltip, TooltipContent, TooltipPortal, TooltipTrigger } from "@/ui/shadcn/tooltip";
 import { SymbolInfo } from "@/ui/icons";
 
-export function ChildrenWithLabel2Cols({ label, children, containerClasses }: { label: ReactNode; children: ReactNode; containerClasses?: string; }) {
+export function ChildrenWithLabel2Cols({ label, children, containerClasses, titleTooltip }: { label: ReactNode; children: ReactNode; containerClasses?: string; titleTooltip?: string; }) {
     return (
         <FormRowChildren label={label} className={classNames(children2ColsClasses, containerClasses)} labelClasses={label2ColsClasses}>
             {children}
+            <TitleTooltip content={titleTooltip} />
         </FormRowChildren>
     );
 }
 
-export function InputWithTitle2Cols({ label, containerClasses, labelClasses, ...rest }: { label: ReactNode; } & OptionInputWTypeProps) {
+export function InputWithTitle2Cols({ label, containerClasses, labelClasses, titleTooltip, ...rest }: { label: ReactNode; titleTooltip?: string; } & OptionInputWTypeProps) {
     return (
         <FormRowChildren label={label} className={classNames(children2ColsClasses, containerClasses)} labelClasses={classNames(label2ColsClasses, labelClasses)}>
             <InputOrCheckWithErrorMsg {...rest} />
+            <TitleTooltip content={titleTooltip} />
         </FormRowChildren>
     );
 }
@@ -26,19 +28,7 @@ export function InputWithTitle2Rows({ label, containerClasses, labelClasses, tit
     return (
         <FormRowChildren label={label} className={classNames(children2RowsClasses, containerClasses)} labelClasses={classNames(label2RowsClasses, labelClasses)}>
             <InputOrCheckWithErrorMsg twoRows {...rest} />
-
-            {titleTooltip && (<>
-                <Tooltip>
-                    <TooltipTrigger asChild>
-                        <SymbolInfo className="size-4" />
-                    </TooltipTrigger>
-                    <TooltipPortal>
-                        <TooltipContent className="mx-[18px] py-2 max-w-80 text-xs text-foreground/75 bg-background border-border border shadow-sm" sideOffset={10}>
-                            {titleTooltip}
-                        </TooltipContent>
-                    </TooltipPortal>
-                </Tooltip>
-            </>)}
+            <TitleTooltip content={titleTooltip} />
         </FormRowChildren>
     );
 }
@@ -93,6 +83,27 @@ const variants: Variants = {
     expanded: { height: 'auto', opacity: 1 },
     collapsed: { height: 0, opacity: 0 },
 };
+
+function TitleTooltip({ content }: { content?: string }) {
+    if (!content) {
+        return null;
+    }
+
+    return (
+        <Tooltip>
+            <TooltipTrigger asChild>
+                <SymbolInfo className="size-4" />
+            </TooltipTrigger>
+            <TooltipPortal>
+                <TooltipContent className={titleTooltipContentClasses} sideOffset={10}>
+                    {content}
+                </TooltipContent>
+            </TooltipPortal>
+        </Tooltip>
+    );
+}
+
+const titleTooltipContentClasses = "mx-[18px] py-2 max-w-80 text-xs text-foreground/75 bg-background border-border border shadow-sm";
 
 // Row with children simle DOM layout
 
