@@ -260,3 +260,25 @@
 //02.08.26
 //TODO: nested folders C:\x\bugs\[9]-tests-tanam5, DigitalPersona Templates Edge, 09.09.24\C\020626\c\c\c\c\c\c\c
 //TODO: in activated debug mode add open OTS appdata folder
+
+//05.19.26
+/*  from C:\y\c\dp\pm-native\src\PMAT\DpoTrain\Localization\xresource_options_en-US.rc:
+
+    IDS_TOOLTIP_BALOONCOUNT "Specifies the number of times the balloon help is shown when logon screen displays."
+	IDS_TOOLTIP_AUTOPROMPT  "Prompts to verify your identity immediately after logon screen displays."
+	IDS_TOOLTIP_AUTOPROMPT_RELOAD "Prompts to verify your identity upon browser reload."
+    IDS_TOOLTIP_LOCKOUT     "Prevents user from typing data in logon fields."
+    IDS_TOOLTIP_TEMPLATENAME "Specifies a managed logon name for a logon screen."
+    IDS_TOOLTIP_USERHINT    "Text shown to the user when a screen is being automatically specified."
+    IDS_TOOLTIP_DESCRIPTION "Text shown to the user to describe screen."
+    IDS_TOOLTIP_QUICKLINKNAME 
+                            "Specifies the name to be displayed in One Touch Menu."
+    IDS_TOOLTIP_QUICKLINK   "Specifies the URL of the page loaded by Quick Link"
+    IDS_TOOLTIP_CAPTION     "Specifies the caption of the logon screen window."
+    IDS_TOOLTIP_EXTMATCH    "Extended Match Fileds\n(not for a web applications)"
+    IDS_TOOLTIP_EMUMATCH    "Terminal Emulator Screen Match\n(for terminal emulator applications only)"
+    IDS_TOOLTIP_MATCHONOFF  "Enable URL matching\r\nIf window caption is the same for multiple Web sites, URL matching can be used to resolve any ambiguity."
+    IDS_TOOLTIP_MATCHURL    "Specifies rules for detecting matching URLs."
+    IDS_TOOLTIP_MONITOR     "Monitor for any changes to the screen, when the caption and/or URL may be insufficient to uniquely identify the screen."
+	IDS_TOOLTIP_OPTIONS_NEEDQL "Specifies whether this logon screen appears in the Quick Links list."
+*/
