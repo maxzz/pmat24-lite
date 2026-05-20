@@ -48,6 +48,6 @@ function TestInUseIcons({ fileUs }: { fileUs: FileUs; }) {
     </>);
 }
 
-const iconClasses = "absolute right-1 p-1 size-5 hover:bg-foreground hover:text-background! cursor-pointer rounded";
-const iconActiveClasses = "text-muted-foreground";
-const iconInactiveClasses = "text-foreground/10";
+const iconClasses = "absolute right-1 p-1 size-5 cursor-pointer rounded";
+const iconActiveClasses = "text-muted-foreground hover:text-foreground! hover:bg-foreground/20";
+const iconInactiveClasses = "text-foreground/10 hover:text-background! hover:bg-foreground/20";
