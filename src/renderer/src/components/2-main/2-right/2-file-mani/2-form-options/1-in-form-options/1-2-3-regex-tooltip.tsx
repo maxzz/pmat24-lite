@@ -1,7 +1,14 @@
+import { useSnapshot } from "valtio";
+import { appSettings } from "@/store/9-ui-state";
 import { SymbolInfo } from "@/ui/icons";
 import { Tooltip, TooltipContent, TooltipPortal, TooltipProvider, TooltipTrigger } from "@/ui/shadcn/tooltip";
 
 export function RegexTooltip() {
+    const { showTooltipIcons } = useSnapshot(appSettings.appUi.uiGeneral);
+    if (!showTooltipIcons) {
+        return null;
+    }
+
     return (
         <TooltipProvider>
             <Tooltip>

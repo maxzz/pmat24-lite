@@ -8,6 +8,7 @@ export type UiGeneralState = {      // General UI settings
     allowWelcome: boolean;          // Allow show welcome screen to be shown as option and checkbox showWelcomeCheck; set from debug options only
     notifyNewFile: boolean;         // Show popup notification on new file creation
     notifyAlienfiles: boolean;      // Show popup notification on non-manifest files open
+    showTooltipIcons: boolean;      // Show info icons for option field tooltips
     sawPosition: number;            // Position of saw monitor on screen. 0 center, 1 top-left, 2 top-right, 3 bottom-left, 4 bottom-right
 };
 
@@ -21,5 +22,6 @@ export const defaultUiGeneralState: UiGeneralState = {
     allowWelcome: false,
     notifyNewFile: true,
     notifyAlienfiles: false,
+    showTooltipIcons: true,
     sawPosition: 0,
 };

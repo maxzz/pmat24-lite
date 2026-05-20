@@ -7,7 +7,7 @@ import { ThemeSwitch } from "@/ui/shadcn/theme-toggle-switch";
 
 export function UiUxSettings() {
     const { debugAccess } = useSnapshot(debugSettings.debugOnly);
-    const { showStatusbar, showOptOnRight, showWelcome, showWelcomeCheck, allowWelcome, showQuickXml, notifyNewFile, notifyAlienfiles } = useSnapshot(appSettings.appUi.uiGeneral);
+    const { showStatusbar, showOptOnRight, showWelcome, showWelcomeCheck, allowWelcome, showQuickXml, notifyNewFile, notifyAlienfiles, showTooltipIcons } = useSnapshot(appSettings.appUi.uiGeneral);
     const liveUiGeneral = appSettings.appUi.uiGeneral;
     return (<>
         {allowWelcome && (<>
@@ -30,6 +30,13 @@ export function UiUxSettings() {
             <Label className={rowClasses}>
                 <Checkbox checked={showStatusbar} onCheckedChange={(v) => liveUiGeneral.showStatusbar = !!v} />
                 Show status bar
+            </Label>
+        </div>
+
+        <div className={subClasses}>
+            <Label className={rowClasses}>
+                <Checkbox checked={showTooltipIcons} onCheckedChange={(v) => liveUiGeneral.showTooltipIcons = !!v} />
+                Show tooltip icons on option labels
             </Label>
         </div>
 

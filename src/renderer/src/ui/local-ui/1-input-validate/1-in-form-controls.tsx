@@ -1,5 +1,7 @@
 import { type ReactNode } from "react";
 import { useAtomValue } from "jotai";
+import { useSnapshot } from "valtio";
+import { appSettings } from "@/store/9-ui-state";
 import { classNames } from "@/utils";
 import { type Variants, AnimatePresence, motion } from "motion/react";
 import { type OptionInputWTypeProps, OptionAsCheckbox, OptionAsString, OptionAsTextarea } from "@/ui/local-ui";
@@ -82,7 +84,8 @@ const variants: Variants = {
 };
 
 export function TitleTooltip({ content }: { content?: string }) {
-    if (!content) {
+    const { showTooltipIcons } = useSnapshot(appSettings.appUi.uiGeneral);
+    if (!content || !showTooltipIcons) {
         return null;
     }
 
@@ -105,9 +108,11 @@ const titleTooltipContentClasses = "mx-[18px] py-2 max-w-80 text-xs text-foregro
 // Row with children simle DOM layout
 
 export function FormRowChildren({ label, children, className, labelClasses, titleTooltip }: { label: ReactNode; children: ReactNode; className?: string; labelClasses?: string; titleTooltip?: string; }) {
+    const { showTooltipIcons } = useSnapshot(appSettings.appUi.uiGeneral);
+    const hasTitleTooltip = !!(titleTooltip && showTooltipIcons);
     return (
         <div className={className}>
-            <div className={classNames(labelClasses, titleTooltip && "inline-flex items-center gap-1")}>
+            <div className={classNames(labelClasses, hasTitleTooltip && "inline-flex items-center gap-1")}>
                 {label}
                 <TitleTooltip content={titleTooltip} />
             </div>
