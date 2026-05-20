@@ -5,6 +5,8 @@ import { type OFormProps } from "@/store/2-file-mani-atoms";
 import { ExtPolicySelect } from "../9-controls";
 import { PanelTestInUse } from "./1-panel-test-inuse-state";
 import { AuthImmSelect, BalloonCounterSelect } from "../9-controls/5-select-controls";
+import { optionsTooltips } from "../8-tooltips";
+import { TooltipProvider } from "@/ui/shadcn/tooltip";
 
 export function ManiEditorAllOptions({ fileUs }: { fileUs: FileUs; }) {
     const maniAtoms = useAtomValue(fileUs.maniAtomsAtom);
@@ -24,9 +26,11 @@ export function ManiEditorAllOptions({ fileUs }: { fileUs: FileUs; }) {
     const loginProps: OFormProps = { maniAtoms, oAllAtoms: { fileUsCtx: login.fileUsCtx, options: login.options } };
 
     return (
-        <div className="ml-1 mr-3 grid grid-cols-[auto_minmax(0,1fr)] gap-x-2 gap-y-0.5 select-none">
-            <GroupFormLogin oFormProps={loginProps} />
-        </div>
+        <TooltipProvider>
+            <div className="ml-1 mr-3 grid grid-cols-[auto_minmax(0,1fr)] gap-x-2 gap-y-0.5 select-none">
+                <GroupFormLogin oFormProps={loginProps} />
+            </div>
+        </TooltipProvider>
     );
 }
 
@@ -41,7 +45,7 @@ function GroupFormLogin({ oFormProps }: { oFormProps: OFormProps; }) {
             <ExtPolicySelect stateAtom={auth_plAtom} />
         </ChildrenWithLabel2Cols>
 
-        <ChildrenWithLabel2Cols label="Show first login notification">
+        <ChildrenWithLabel2Cols label="Show first login notification" titleTooltip={optionsTooltips.baloonCount}>
             <BalloonCounterSelect stateAtom={balloonAtom} className="w-max" />
         </ChildrenWithLabel2Cols>
 
