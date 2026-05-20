@@ -3,6 +3,8 @@ import { useAtomValue } from "jotai";
 import { classNames } from "@/utils";
 import { type Variants, AnimatePresence, motion } from "motion/react";
 import { type OptionInputWTypeProps, OptionAsCheckbox, OptionAsString, OptionAsTextarea } from "@/ui/local-ui";
+import { Tooltip, TooltipContent, TooltipPortal, TooltipTrigger } from "@/ui/shadcn/tooltip";
+import { SymbolInfo } from "@/ui/icons";
 
 export function ChildrenWithLabel2Cols({ label, children, containerClasses }: { label: ReactNode; children: ReactNode; containerClasses?: string; }) {
     return (
@@ -20,10 +22,23 @@ export function InputWithTitle2Cols({ label, containerClasses, labelClasses, ...
     );
 }
 
-export function InputWithTitle2Rows({ label, containerClasses, labelClasses, ...rest }: { label: ReactNode; } & OptionInputWTypeProps) {
+export function InputWithTitle2Rows({ label, containerClasses, labelClasses, titleTooltip, ...rest }: { label: ReactNode; titleTooltip?: string; } & OptionInputWTypeProps) {
     return (
         <FormRowChildren label={label} className={classNames(children2RowsClasses, containerClasses)} labelClasses={classNames(label2RowsClasses, labelClasses)}>
             <InputOrCheckWithErrorMsg twoRows {...rest} />
+
+            {titleTooltip && (<>
+                <Tooltip>
+                    <TooltipTrigger asChild>
+                        <SymbolInfo className="size-4" />
+                    </TooltipTrigger>
+                    <TooltipPortal>
+                        <TooltipContent className="mx-[18px] py-2 max-w-80 text-xs text-foreground/75 bg-background border-border border shadow-sm" sideOffset={10}>
+                            {titleTooltip}
+                        </TooltipContent>
+                    </TooltipPortal>
+                </Tooltip>
+            </>)}
         </FormRowChildren>
     );
 }

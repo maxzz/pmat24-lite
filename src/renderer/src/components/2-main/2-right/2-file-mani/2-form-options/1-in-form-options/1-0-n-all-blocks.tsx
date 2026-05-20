@@ -6,6 +6,7 @@ import { BlockQuickLink } from "./3-quick-link";
 import { FormIconPosition } from "./2-icon-position";
 import { AccordionWithTrigger } from "@/ui/motion-primitives";
 import { InFormAccordionValue } from "@/store/2-file-mani-atoms/9-types";
+import { Tooltip, TooltipProvider } from "@/ui/shadcn/tooltip";
 
 export function InFormBlockOptions({ anyFormProps }: { anyFormProps: NFormProps | MFormProps; }) {
     const anyFormCtx = (anyFormProps as NFormProps).nFormCtx || (anyFormProps as MFormProps).mFormCtx;
@@ -19,9 +20,11 @@ export function InFormBlockOptions({ anyFormProps }: { anyFormProps: NFormProps 
     const oFormProps: OFormProps = { maniAtoms: anyFormProps.maniAtoms, oAllAtoms };
 
     return (<>
-        <BlockDetection oFormProps={oFormProps} />
-        <FormIconPosition oFormProps={oFormProps} />
-        <BlockQuickLink oFormProps={oFormProps} />
+        <TooltipProvider>
+            <BlockDetection oFormProps={oFormProps} />
+            <FormIconPosition oFormProps={oFormProps} />
+            <BlockQuickLink oFormProps={oFormProps} />
+        </TooltipProvider>
     </>);
 }
 

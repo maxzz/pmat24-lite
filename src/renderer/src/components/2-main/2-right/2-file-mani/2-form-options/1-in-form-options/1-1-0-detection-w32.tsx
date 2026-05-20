@@ -1,5 +1,6 @@
 import { InputWithTitle2Rows } from "@/ui/local-ui";
 import { type OFormProps } from "@/store/2-file-mani-atoms";
+import { optionsTooltips } from "../8-tooltips";
 
 export function DetectionContent_W32({ oFormProps }: { oFormProps: OFormProps; }) {
     const { captionAtom, monitorAtom, dlg_classAtom } = oFormProps.oAllAtoms.options.p2Detect; // dlg_tabAtom, dlg_checkexeAtom, processnameAtom, commandlineAtom,
@@ -8,7 +9,7 @@ export function DetectionContent_W32({ oFormProps }: { oFormProps: OFormProps; }
         <InputWithTitle2Rows stateAtom={dlg_classAtom} label="Window class name" />
         {/* <InFormRowInputWTitle stateAtom={dlg_tabAtom} label="Window tab" /> */}
         {/* <InFormRowInputWTitle stateAtom={dlg_checkexeAtom} label="Tab executable" /> */}
-        <InputWithTitle2Rows stateAtom={monitorAtom} label="Monitor screen changes" asCheckbox />
+        <InputWithTitle2Rows stateAtom={monitorAtom} label="Monitor screen changes" asCheckbox titleTooltip={optionsTooltips.monitor} />
 
         {/* <InFormRowInputWTitle stateAtom={processnameAtom} label="Process name" /> */}
         {/* <InFormRowInputWTitle stateAtom={commandlineAtom} label="Command line" /> */}
