@@ -1,0 +1,1 @@
+export * as optionsTooltips from "./8-tooltips";
