@@ -8,27 +8,24 @@ import { SymbolInfo } from "@/ui/icons";
 
 export function ChildrenWithLabel2Cols({ label, children, containerClasses, titleTooltip }: { label: ReactNode; children: ReactNode; containerClasses?: string; titleTooltip?: string; }) {
     return (
-        <FormRowChildren label={label} className={classNames(children2ColsClasses, containerClasses)} labelClasses={label2ColsClasses}>
+        <FormRowChildren label={label} titleTooltip={titleTooltip} className={classNames(children2ColsClasses, containerClasses)} labelClasses={label2ColsClasses}>
             {children}
-            <TitleTooltip content={titleTooltip} />
         </FormRowChildren>
     );
 }
 
 export function InputWithTitle2Cols({ label, containerClasses, labelClasses, titleTooltip, ...rest }: { label: ReactNode; titleTooltip?: string; } & OptionInputWTypeProps) {
     return (
-        <FormRowChildren label={label} className={classNames(children2ColsClasses, containerClasses)} labelClasses={classNames(label2ColsClasses, labelClasses)}>
+        <FormRowChildren label={label} titleTooltip={titleTooltip} className={classNames(children2ColsClasses, containerClasses)} labelClasses={classNames(label2ColsClasses, labelClasses)}>
             <InputOrCheckWithErrorMsg {...rest} />
-            <TitleTooltip content={titleTooltip} />
         </FormRowChildren>
     );
 }
 
 export function InputWithTitle2Rows({ label, containerClasses, labelClasses, titleTooltip, ...rest }: { label: ReactNode; titleTooltip?: string; } & OptionInputWTypeProps) {
     return (
-        <FormRowChildren label={label} className={classNames(children2RowsClasses, containerClasses)} labelClasses={classNames(label2RowsClasses, labelClasses)}>
+        <FormRowChildren label={label} titleTooltip={titleTooltip} className={classNames(children2RowsClasses, containerClasses)} labelClasses={classNames(label2RowsClasses, labelClasses)}>
             <InputOrCheckWithErrorMsg twoRows {...rest} />
-            <TitleTooltip content={titleTooltip} />
         </FormRowChildren>
     );
 }
@@ -107,11 +104,12 @@ const titleTooltipContentClasses = "mx-[18px] py-2 max-w-80 text-xs text-foregro
 
 // Row with children simle DOM layout
 
-export function FormRowChildren({ label, children, className, labelClasses }: { label: ReactNode; children: ReactNode; className?: string; labelClasses?: string; }) {
+export function FormRowChildren({ label, children, className, labelClasses, titleTooltip }: { label: ReactNode; children: ReactNode; className?: string; labelClasses?: string; titleTooltip?: string; }) {
     return (
         <div className={className}>
-            <div className={labelClasses}>
+            <div className={classNames(labelClasses, titleTooltip && "inline-flex items-center gap-1")}>
                 {label}
+                <TitleTooltip content={titleTooltip} />
             </div>
 
             {children}
