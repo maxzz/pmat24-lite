@@ -39,9 +39,9 @@ function GroupFormLogin({ oFormProps }: { oFormProps: OFormProps; }) {
     const { nameAtom, balloonAtom } = options.p1General;
     const { aimAtom, auth_plAtom } = options.p3Auth;
     return (<>
-        <InputWithTitle2Cols stateAtom={nameAtom} label="Managed login name" titleTooltip={optionsTooltips.templateName} />
+        <InputWithTitle2Cols stateAtom={nameAtom} label="Managed login name" titleTooltip={optionsTooltips.manifestName} />
 
-        <ChildrenWithLabel2Cols label="Extended authentication policy">
+        <ChildrenWithLabel2Cols label="Extended authentication policy" titleTooltip={optionsTooltips.extendedAuthPolicy}>
             <ExtPolicySelect stateAtom={auth_plAtom} />
         </ChildrenWithLabel2Cols>
 
