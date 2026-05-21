@@ -92,7 +92,7 @@ export function TitleTooltip({ content }: { content?: string }) {
     return (
         <Tooltip>
             <TooltipTrigger asChild>
-                <SymbolInfo className="size-4" />
+                <SymbolInfo className="size-3 text-foreground/40" />
             </TooltipTrigger>
             <TooltipPortal>
                 <TooltipContent className={titleTooltipContentClasses} sideOffset={10}>
