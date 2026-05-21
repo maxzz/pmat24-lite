@@ -8,7 +8,7 @@ import { type OptionInputWTypeProps, OptionAsCheckbox, OptionAsString, OptionAsT
 import { Tooltip, TooltipContent, TooltipPortal, TooltipTrigger } from "@/ui/shadcn/tooltip";
 import { SymbolInfo } from "@/ui/icons";
 
-export function ChildrenWithLabel2Cols({ label, titleTooltip, labelClasses, children, containerClasses }: { label: ReactNode; titleTooltip?: string; labelClasses?: string; children: ReactNode; containerClasses?: string; }) {
+export function ChildrenWithLabel2Cols({ label, titleTooltip, labelClasses, children, containerClasses }: { label: ReactNode; titleTooltip?: ReactNode; labelClasses?: string; children: ReactNode; containerClasses?: string; }) {
     return (
         <FormRowChildren label={label} titleTooltip={titleTooltip} className={classNames(children2ColsClasses, containerClasses)} labelClasses={classNames(label2ColsClasses, labelClasses)}>
             {children}
@@ -16,7 +16,7 @@ export function ChildrenWithLabel2Cols({ label, titleTooltip, labelClasses, chil
     );
 }
 
-export function InputWithTitle2Cols({ label, labelClasses, titleTooltip, containerClasses, ...rest }: { label: ReactNode; titleTooltip?: string; labelClasses?: string; } & OptionInputWTypeProps) {
+export function InputWithTitle2Cols({ label, labelClasses, titleTooltip, containerClasses, ...rest }: { label: ReactNode; titleTooltip?: ReactNode; labelClasses?: string; } & OptionInputWTypeProps) {
     return (
         <FormRowChildren label={label} titleTooltip={titleTooltip} className={classNames(children2ColsClasses, containerClasses)} labelClasses={classNames(label2ColsClasses, labelClasses)}>
             <InputOrCheckWithErrorMsg {...rest} />
@@ -24,7 +24,7 @@ export function InputWithTitle2Cols({ label, labelClasses, titleTooltip, contain
     );
 }
 
-export function InputWithTitle2Rows({ label, labelClasses, titleTooltip, containerClasses, ...rest }: { label: ReactNode; titleTooltip?: string; labelClasses?: string; } & OptionInputWTypeProps) {
+export function InputWithTitle2Rows({ label, labelClasses, titleTooltip, containerClasses, ...rest }: { label: ReactNode; titleTooltip?: ReactNode; labelClasses?: string; } & OptionInputWTypeProps) {
     return (
         <FormRowChildren label={label} titleTooltip={titleTooltip} className={classNames(children2RowsClasses, containerClasses)} labelClasses={classNames(label2RowsClasses, labelClasses)}>
             <InputOrCheckWithErrorMsg twoRows {...rest} />
@@ -85,19 +85,16 @@ const popupMessageVariants: Variants = {
 
 // Row with children simple DOM layout
 
-export function FormRowChildren({ label, labelClasses, titleTooltip, children, className }: { label: ReactNode; labelClasses?: string; titleTooltip?: string; children: ReactNode; className?: string; }) {
+export function FormRowChildren({ label, labelClasses, titleTooltip, children, className }: { label: ReactNode; labelClasses?: string; titleTooltip?: ReactNode; children: ReactNode; className?: string; }) {
     const { showTooltipIcons } = useSnapshot(appSettings.appUi.uiGeneral);
     const hasTitleTooltip = !!(titleTooltip && showTooltipIcons);
     return (
         <div className={className}>
             {hasTitleTooltip
                 ? (
-                    <div className={classNames(labelClasses, hasTitleTooltip && "inline-flex items-center gap-1")}>
-                        {label}
-                        <TitleTooltip content={titleTooltip} />
-                    </div>
+                    <TitleTooltip label={label} labelClasses={labelClasses} content={titleTooltip} />
                 )
-                : label
+                : <div className={labelClasses}>{label}</div>
             }
 
             {children}
@@ -107,7 +104,7 @@ export function FormRowChildren({ label, labelClasses, titleTooltip, children, c
 
 // Title tooltip
 
-export function TitleTooltip({ content }: { content?: string; }) {
+export function TitleTooltip({ label, labelClasses, content }: { label?: ReactNode; labelClasses?: string; content?: ReactNode; }) {
     const { showTooltipIcons } = useSnapshot(appSettings.appUi.uiGeneral);
     if (!content || !showTooltipIcons) {
         return null;
@@ -116,7 +113,10 @@ export function TitleTooltip({ content }: { content?: string; }) {
     return (
         <Tooltip>
             <TooltipTrigger asChild>
-                <SymbolInfo className="mt-px pt-px size-3 text-foreground/40 hover:text-sky-500" />
+                <div className={classNames(labelClasses, "inline-flex items-center gap-1")}>
+                    {label}
+                    <SymbolInfo className="mt-px pt-px size-3 text-foreground/40 hover:text-sky-500" />
+                </div>
             </TooltipTrigger>
             <TooltipPortal>
                 <TooltipContent className={titleTooltipContentClasses} sideOffset={10}>

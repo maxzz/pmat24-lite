@@ -1,7 +1,9 @@
 import { useState } from "react";
 import { useAtomValue } from "jotai";
+import { useSnapshot } from "valtio";
 import { classNames } from "@/utils";
 import { AnimatePresence, motion } from "motion/react";
+import { appSettings } from "@/store/9-ui-state/0-local-storage-app/1-local-storage-app";
 import { SymbolLockClosed, SymbolLockOpen } from "@/ui/icons";
 import { notice } from "@/ui/local-ui/7-toaster";
 import { FormRowChildren, InputWithTitle2Rows } from "@/ui/local-ui";
@@ -14,6 +16,8 @@ import { BtnCopyOurl } from "./1-2-4-btn-copy-ourl";
 import { ShowExampleText, useIsShowExample } from "./1-2-5-use-is-show-example";
 
 export function DetectionContent_Web({ oFormProps }: { oFormProps: OFormProps; }) {
+    const { showTooltipIcons } = useSnapshot(appSettings.appUi.uiGeneral);
+    
     const { p2Detect: { ourlAtom }, murl_howAtom, murl_regexAtom } = oFormProps.oAllAtoms.options;
     const [isLocked, setIsLocked] = useState(true);
     const showExample = useIsShowExample(oFormProps.oAllAtoms.options);
@@ -48,7 +52,7 @@ export function DetectionContent_Web({ oFormProps }: { oFormProps: OFormProps; }
             <BtnCopyOurl ourlAtom={ourlAtom} />
         </div>
 
-        <FormRowChildren label="How to match the website URL:" titleTooltip={optionsTooltips.matchUrl} className="mt-2 flex items-center gap-2">
+        <FormRowChildren label={`Match the website URL${showTooltipIcons ? '' : ':'}`} titleTooltip={optionsTooltips.matchUrl} className="mt-2 flex items-center gap-2">
             <MatchHow oFormProps={oFormProps} />
         </FormRowChildren>
 
