@@ -90,10 +90,15 @@ export function FormRowChildren({ label, labelClasses, titleTooltip, children, c
     const hasTitleTooltip = !!(titleTooltip && showTooltipIcons);
     return (
         <div className={className}>
-            <div className={classNames(labelClasses, hasTitleTooltip && "inline-flex items-center gap-1")}>
-                {label}
-                <TitleTooltip content={titleTooltip} />
-            </div>
+            {hasTitleTooltip
+                ? (
+                    <div className={classNames(labelClasses, hasTitleTooltip && "inline-flex items-center gap-1")}>
+                        {label}
+                        <TitleTooltip content={titleTooltip} />
+                    </div>
+                )
+                : label
+            }
 
             {children}
         </div>
@@ -102,7 +107,7 @@ export function FormRowChildren({ label, labelClasses, titleTooltip, children, c
 
 // Title tooltip
 
-export function TitleTooltip({ content }: { content?: string }) {
+export function TitleTooltip({ content }: { content?: string; }) {
     const { showTooltipIcons } = useSnapshot(appSettings.appUi.uiGeneral);
     if (!content || !showTooltipIcons) {
         return null;
