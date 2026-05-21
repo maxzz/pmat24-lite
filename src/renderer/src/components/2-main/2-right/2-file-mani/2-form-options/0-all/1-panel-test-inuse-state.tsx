@@ -4,6 +4,7 @@ import { Switch } from "@/ui/shadcn";
 import { modeTextInTest } from "./8-test-in-use-names";
 import { type OFormProps, type FileUsCtx } from "@/store/2-file-mani-atoms";
 import { doSetManiInTestAtom } from "@/store/0-serve-atoms/6-do-in-use-test";
+import { optionsTooltips } from "../8-tooltips";
 
 export function PanelTestInUse({ oFormProps }: { oFormProps: OFormProps; }) {
     return (<>
@@ -17,7 +18,7 @@ function Input_InTestMode({ fileUsCtx }: { fileUsCtx: FileUsCtx; }) {
     const doSetManiInTest = useSetAtom(doSetManiInTestAtom);
     
     return (<>
-        <ChildrenWithLabel2Cols label={modeTextInTest}>
+        <ChildrenWithLabel2Cols label={modeTextInTest} titleTooltip={optionsTooltips.testMode}>
             <Switch className={toggleClasses} checked={isInTestMode} onCheckedChange={(checked) => doSetManiInTest({ fileUs: fileUsCtx.fileUs, inTest: checked })}></Switch>
         </ChildrenWithLabel2Cols>
     </>);

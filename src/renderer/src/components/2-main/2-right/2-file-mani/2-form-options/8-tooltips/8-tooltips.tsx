@@ -4,6 +4,7 @@ export const manifestName      /**/ = "Specifies a managed logon name for a logo
 export const extendedAuthPolicy/**/ = "Select an additional authentication credential for this application. This additional credential will be used in conjunction with existing session policy credential(s) when accessing this application.";
 export const baloonCount       /**/ = "Specifies the number of times the balloon help is shown when logon screen displays.";
 export const autoPrompt        /**/ = "Prompts to verify your identity immediately after logon screen displays.";
+export const testMode          /**/ = "Specifies whether the logon screen is in test mode.";
 // export const autoPromptReload  /**/ = "Prompts to verify your identity upon browser reload.";
 
 // Form fields submit options tooltips
