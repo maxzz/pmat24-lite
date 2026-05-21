@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { atom, useAtomValue, useSetAtom } from "jotai";
+import { AnimatePresence, motion } from "motion/react";
 import { SymbolWarning } from "@/ui/icons";
 import { Matching } from "@/store/8-manifest";
 import { type RowInputStateAtom } from "@/ui/local-ui/1-input-validate/9-types";
@@ -35,28 +36,42 @@ const isShowExampleAtom = atom(
 );
 
 /**/
-export function ShowWarningExplanation({ murl_regexAtom }: { murl_regexAtom: RowInputStateAtom; }) {
-    const isEmpty = useAtomValue(murl_regexAtom).data === '';
-    return (<>
-        <div className="ml-0.5 mt-1 flex items-center gap-1 text-orange-700 dark:text-orange-400">
-            <SymbolWarning className="shrink-0 size-4" />
-            {isEmpty
-                ? 'The regular expression is empty, so it is useless.'
-                : 'The regular expression and the original URL are an exact match, so the regular expression is useless.'
-            }
-        </div>
+export function ShowWarningExplanation({ murl_regexAtom, needWarning }: { murl_regexAtom: RowInputStateAtom; needWarning: boolean | undefined; }) {
+    const isValueEmpty = useAtomValue(murl_regexAtom).data === '';
+    return (
+        <AnimatePresence>
+            {needWarning && (
+                <motion.div
+                    initial={{ height: 0, opacity: 0, marginTop: 0 }}
+                    animate={{ height: "auto", opacity: 1, marginTop: "0.25rem" }}
+                    exit={{ height: 0, opacity: 0, marginTop: 0 }}
+                    transition={{ duration: .2, ease: "easeInOut" }}
+                    className="ml-0.5 flex items-center gap-1 text-orange-700 dark:text-orange-400 overflow-hidden"
+                >
+                    <SymbolWarning className="shrink-0 size-4" />
 
-        {/* <div className="mt-2">
-            You can define the regular expression as any part of the original URL, but the website domain will be taken from the original URL.
-            For example, if the original URL is <span className={exampleClasses}>https://login.example.com</span> and the regular expression is <span className={exampleClasses}>login</span>,
-            the domain in this case would be <span className={exampleClasses}>example.com</span>, and the login form would match <span className={exampleClasses}>login.example.com</span>, but not <span className={exampleClasses}>admin.example.com</span>.
-            This allows you to determine where the form will be used.
-        </div> */}
-    </>);
+                    <span>
+                        {isValueEmpty
+                            ? 'The regular expression is empty, so it is useless.'
+                            : 'The regular expression and the original URL are an exact match, so the regular expression is useless.'
+                        }
+                    </span>
+                </motion.div>
+            )}
+        </AnimatePresence>
+    );
 }
 /**/
+// some explanations from ShowWarningExplanation() div version 1:
+//        {/* <div className="mt-2">
+//            You can define the regular expression as any part of the original URL, but the website domain will be taken from the original URL.
+//            For example, if the original URL is <span className={exampleClasses}>https://login.example.com</span> and the regular expression is <span className={exampleClasses}>login</span>,
+//            the domain in this case would be <span className={exampleClasses}>example.com</span>, and the login form would match <span className={exampleClasses}>login.example.com</span>, but not <span className={exampleClasses}>admin.example.com</span>.
+//            This allows you to determine where the form will be used.
+//        </div> */}
 
 /** /
+// version 2:
 // sonet45: 'How to find all text for localization in this project. Show me small example on the open file in editor.'
 // Example localization approach - create a translations object/module:
 

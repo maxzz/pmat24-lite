@@ -71,7 +71,7 @@ export function DetectionContent_Web({ oFormProps }: { oFormProps: OFormProps; }
                         className={classNames(disabled && 'opacity-50 cursor-default')}
                     />
 
-                    {needWarning && <ShowWarningExplanation murl_regexAtom={murl_regexAtom} />}
+                    <ShowWarningExplanation murl_regexAtom={murl_regexAtom} needWarning={needWarning} />
                 </motion.div>
             </>)}
         </AnimatePresence>
