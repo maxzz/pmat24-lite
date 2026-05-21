@@ -8,7 +8,7 @@ import { type OptionInputWTypeProps, OptionAsCheckbox, OptionAsString, OptionAsT
 import { Tooltip, TooltipContent, TooltipPortal, TooltipTrigger } from "@/ui/shadcn/tooltip";
 import { SymbolInfo } from "@/ui/icons";
 
-export function ChildrenWithLabel2Cols({ label, children, containerClasses, titleTooltip }: { label: ReactNode; children: ReactNode; containerClasses?: string; titleTooltip?: string; }) {
+export function ChildrenWithLabel2Cols({ label, children, containerClasses, titleTooltip }: { label: ReactNode; titleTooltip?: string; children: ReactNode; containerClasses?: string; }) {
     return (
         <FormRowChildren label={label} titleTooltip={titleTooltip} className={classNames(children2ColsClasses, containerClasses)} labelClasses={label2ColsClasses}>
             {children}
@@ -83,6 +83,25 @@ const variants: Variants = {
     collapsed: { height: 0, opacity: 0 },
 };
 
+// Row with children simple DOM layout
+
+export function FormRowChildren({ label, children, className, labelClasses, titleTooltip }: { label: ReactNode; children: ReactNode; className?: string; labelClasses?: string; titleTooltip?: string; }) {
+    const { showTooltipIcons } = useSnapshot(appSettings.appUi.uiGeneral);
+    const hasTitleTooltip = !!(titleTooltip && showTooltipIcons);
+    return (
+        <div className={className}>
+            <div className={classNames(labelClasses, hasTitleTooltip && "inline-flex items-center gap-1")}>
+                {label}
+                <TitleTooltip content={titleTooltip} />
+            </div>
+
+            {children}
+        </div>
+    );
+}
+
+// Title tooltip
+
 export function TitleTooltip({ content }: { content?: string }) {
     const { showTooltipIcons } = useSnapshot(appSettings.appUi.uiGeneral);
     if (!content || !showTooltipIcons) {
@@ -105,22 +124,7 @@ export function TitleTooltip({ content }: { content?: string }) {
 
 const titleTooltipContentClasses = "mx-[18px] py-2 max-w-80 text-xs text-foreground/75 bg-background border-border border shadow-sm";
 
-// Row with children simle DOM layout
-
-export function FormRowChildren({ label, children, className, labelClasses, titleTooltip }: { label: ReactNode; children: ReactNode; className?: string; labelClasses?: string; titleTooltip?: string; }) {
-    const { showTooltipIcons } = useSnapshot(appSettings.appUi.uiGeneral);
-    const hasTitleTooltip = !!(titleTooltip && showTooltipIcons);
-    return (
-        <div className={className}>
-            <div className={classNames(labelClasses, hasTitleTooltip && "inline-flex items-center gap-1")}>
-                {label}
-                <TitleTooltip content={titleTooltip} />
-            </div>
-
-            {children}
-        </div>
-    );
-}
+// Classes for children and label
 
 const children2RowsClasses = "col-span-2 py-1 text-xs grid gap-0.5";
 const label2RowsClasses = "font-light";
