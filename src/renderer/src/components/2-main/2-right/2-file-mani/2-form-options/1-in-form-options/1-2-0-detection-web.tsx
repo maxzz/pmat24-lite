@@ -1,9 +1,7 @@
 import { useState } from "react";
 import { useAtomValue } from "jotai";
-import { useSnapshot } from "valtio";
 import { classNames } from "@/utils";
 import { AnimatePresence, motion } from "motion/react";
-import { appSettings } from "@/store/9-ui-state/0-local-storage-app/1-local-storage-app";
 import { SymbolLockClosed, SymbolLockOpen } from "@/ui/icons";
 import { notice } from "@/ui/local-ui/7-toaster";
 import { FormRowChildren, InputWithTitle2Rows } from "@/ui/local-ui";
@@ -11,16 +9,15 @@ import { optionsTooltips } from "../8-tooltips";
 import { Matching } from "@/store/8-manifest";
 import { type OFormProps } from "@/store/2-file-mani-atoms";
 import { MatchHow } from "./1-2-1-match-how";
-import { RegexTooltip } from "./1-2-3-regex-tooltip";
+import { InlineRegexHelp } from "./1-2-3-inline-regex-help";
 import { BtnCopyOurl } from "./1-2-4-btn-copy-ourl";
-import { ShowExampleText, useIsShowExample } from "./1-2-5-use-is-show-example";
+import { ShowWarningExplanation, useNeedWarning } from "./1-2-5-use-need-warning";
 
 export function DetectionContent_Web({ oFormProps }: { oFormProps: OFormProps; }) {
-    const { showTooltipIcons } = useSnapshot(appSettings.appUi.uiGeneral);
-    
+
     const { p2Detect: { ourlAtom }, murl_howAtom, murl_regexAtom } = oFormProps.oAllAtoms.options;
     const [isLocked, setIsLocked] = useState(true);
-    const showExample = useIsShowExample(oFormProps.oAllAtoms.options);
+    const needWarning = useNeedWarning(oFormProps.oAllAtoms.options);
 
     const murl_how = +useAtomValue(murl_howAtom).data;
     const disabled = murl_how === Matching.How.undef;
@@ -52,21 +49,19 @@ export function DetectionContent_Web({ oFormProps }: { oFormProps: OFormProps; }
             <BtnCopyOurl ourlAtom={ourlAtom} />
         </div>
 
-        <FormRowChildren label={`Match the website URL${showTooltipIcons ? '' : ':'}`} titleTooltip={optionsTooltips.matchUrl} className="mt-2 flex items-center gap-2">
+        <FormRowChildren label="Match the website URL" titleTooltip={optionsTooltips.matchUrl} className="mt-2 flex items-center gap-1">
             <MatchHow oFormProps={oFormProps} />
         </FormRowChildren>
 
         <AnimatePresence initial={false}>
             {showRegex && (<>
                 <motion.div
-                    initial={{ opacity: 0, x: 1000, height: 0 }}
-                    animate={{ opacity: 1, x: 0, height: 'auto' }}
-                    exit={{ opacity: 0, height: 0 }}
-                    transition={{ duration: .3 }}
                     className="relative"
+                    initial={{ opacity: 0, x: 300, height: 0 }}
+                    animate={{ opacity: 1, x: 0, height: 'auto', transition: { duration: .3, ease: "easeInOut", delay: .1 } }}
+                    exit={{ opacity: 0, height: 0, transition: { duration: .4, ease: "easeInOut" } }}
                 >
-                    {/* <SymbolInfo className="absolute right-2 top-7 size-4 text-foreground/75" /> */}
-                    <RegexTooltip />
+                    <InlineRegexHelp />
 
                     <InputWithTitle2Rows
                         asTextarea
@@ -76,7 +71,7 @@ export function DetectionContent_Web({ oFormProps }: { oFormProps: OFormProps; }
                         className={classNames(disabled && 'opacity-50 cursor-default')}
                     />
 
-                    {showExample && <ShowExampleText murl_regexAtom={murl_regexAtom} />}
+                    {needWarning && <ShowWarningExplanation murl_regexAtom={murl_regexAtom} />}
                 </motion.div>
             </>)}
         </AnimatePresence>

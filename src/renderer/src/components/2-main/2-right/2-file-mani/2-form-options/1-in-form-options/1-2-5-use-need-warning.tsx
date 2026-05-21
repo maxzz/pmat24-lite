@@ -5,7 +5,7 @@ import { Matching } from "@/store/8-manifest";
 import { type RowInputStateAtom } from "@/ui/local-ui/1-input-validate/9-types";
 import { type FormOptionsState } from "@/store/2-file-mani-atoms/3-options";
 
-export function useIsShowExample(options: FormOptionsState.AllAtoms): boolean | undefined {
+export function useNeedWarning(options: FormOptionsState.AllAtoms): boolean | undefined {
     const isShowExample = useSetAtom(isShowExampleAtom);
     const [showExample, setShowExample] = useState<boolean | undefined>(false);
 
@@ -34,11 +34,33 @@ const isShowExampleAtom = atom(
     }
 );
 
+/**/
+export function ShowWarningExplanation({ murl_regexAtom }: { murl_regexAtom: RowInputStateAtom; }) {
+    const isEmpty = useAtomValue(murl_regexAtom).data === '';
+    return (<>
+        <div className="ml-0.5 mt-1 flex items-center gap-1 text-orange-700 dark:text-orange-400">
+            <SymbolWarning className="shrink-0 size-4" />
+            {isEmpty
+                ? 'The regular expression is empty, so it is useless.'
+                : 'The regular expression and the original URL are an exact match, so the regular expression is useless.'
+            }
+        </div>
+
+        {/* <div className="mt-2">
+            You can define the regular expression as any part of the original URL, but the website domain will be taken from the original URL.
+            For example, if the original URL is <span className={exampleClasses}>https://login.example.com</span> and the regular expression is <span className={exampleClasses}>login</span>,
+            the domain in this case would be <span className={exampleClasses}>example.com</span>, and the login form would match <span className={exampleClasses}>login.example.com</span>, but not <span className={exampleClasses}>admin.example.com</span>.
+            This allows you to determine where the form will be used.
+        </div> */}
+    </>);
+}
+/**/
+
 /** /
 // sonet45: 'How to find all text for localization in this project. Show me small example on the open file in editor.'
 // Example localization approach - create a translations object/module:
 
-export function ShowExampleText({ murl_regexAtom }: { murl_regexAtom: RowInputStateAtom; }) {
+export function ShowWarningExplanation({ murl_regexAtom }: { murl_regexAtom: RowInputStateAtom; }) {
     const isEmpty = useAtomValue(murl_regexAtom).data === '';
     return (<>
         <div className="mt-1">
@@ -65,28 +87,6 @@ const t = {
     exampleNotMatch: 'but not',
     exampleSuffix: 'This allows you to determine where the form will be used.',
 };
-/**/
-
-/**/
-export function ShowExampleText({ murl_regexAtom }: { murl_regexAtom: RowInputStateAtom; }) {
-    const isEmpty = useAtomValue(murl_regexAtom).data === '';
-    return (<>
-        <div className="mt-1 flex items-center gap-2">
-            <SymbolWarning className="shrink-0 size-6 text-orange-600 dark:text-orange-400" />
-            {isEmpty
-                ? 'The regular expression is empty, so the regular expression is useless.'
-                : 'The regular expression and the original URL are an exact match, so the regular expression is useless.'
-            }
-        </div>
-
-        {/* <div className="mt-2">
-            You can define the regular expression as any part of the original URL, but the website domain will be taken from the original URL.
-            For example, if the original URL is <span className={exampleClasses}>https://login.example.com</span> and the regular expression is <span className={exampleClasses}>login</span>,
-            the domain in this case would be <span className={exampleClasses}>example.com</span>, and the login form would match <span className={exampleClasses}>login.example.com</span>, but not <span className={exampleClasses}>admin.example.com</span>.
-            This allows you to determine where the form will be used.
-        </div> */}
-    </>);
-}
 /**/
 
 const exampleClasses = "text-blue-500";

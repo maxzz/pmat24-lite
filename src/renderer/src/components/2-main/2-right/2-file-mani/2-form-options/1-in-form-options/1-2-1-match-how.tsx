@@ -27,8 +27,8 @@ function getNamesList(how: Matching.How) {
 }
 
 const shortHowNames: SelectTmTextValue[] = [
-    ["As original URL",                                         /*0*/ "0"],
-    ["Regular expression",                                      /*2*/ "2"],
+    ["with the original URL",                                   /*0*/ "0"],
+    ["using a regular expression",                              /*2*/ "2"],
 ];
 
 const allHowNames: SelectTmTextValue[] = [
