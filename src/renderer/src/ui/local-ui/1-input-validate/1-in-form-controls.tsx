@@ -8,7 +8,7 @@ import { type OptionInputWTypeProps, OptionAsCheckbox, OptionAsString, OptionAsT
 import { Tooltip, TooltipContent, TooltipPortal, TooltipTrigger } from "@/ui/shadcn/tooltip";
 import { SymbolInfo } from "@/ui/icons";
 
-export function ChildrenWithLabel2Cols({ label, children, containerClasses, titleTooltip, labelClasses }: { label: ReactNode; titleTooltip?: string; labelClasses?: string; children: ReactNode; containerClasses?: string; }) {
+export function ChildrenWithLabel2Cols({ label, titleTooltip, labelClasses, children, containerClasses }: { label: ReactNode; titleTooltip?: string; labelClasses?: string; children: ReactNode; containerClasses?: string; }) {
     return (
         <FormRowChildren label={label} titleTooltip={titleTooltip} className={classNames(children2ColsClasses, containerClasses)} labelClasses={classNames(label2ColsClasses, labelClasses)}>
             {children}
@@ -16,7 +16,7 @@ export function ChildrenWithLabel2Cols({ label, children, containerClasses, titl
     );
 }
 
-export function InputWithTitle2Cols({ label, containerClasses, labelClasses, titleTooltip, ...rest }: { label: ReactNode; titleTooltip?: string; labelClasses?: string; } & OptionInputWTypeProps) {
+export function InputWithTitle2Cols({ label, labelClasses, titleTooltip, containerClasses, ...rest }: { label: ReactNode; titleTooltip?: string; labelClasses?: string; } & OptionInputWTypeProps) {
     return (
         <FormRowChildren label={label} titleTooltip={titleTooltip} className={classNames(children2ColsClasses, containerClasses)} labelClasses={classNames(label2ColsClasses, labelClasses)}>
             <InputOrCheckWithErrorMsg {...rest} />
@@ -24,7 +24,7 @@ export function InputWithTitle2Cols({ label, containerClasses, labelClasses, tit
     );
 }
 
-export function InputWithTitle2Rows({ label, containerClasses, labelClasses, titleTooltip, ...rest }: { label: ReactNode; titleTooltip?: string; labelClasses?: string; } & OptionInputWTypeProps) {
+export function InputWithTitle2Rows({ label, labelClasses, titleTooltip, containerClasses, ...rest }: { label: ReactNode; titleTooltip?: string; labelClasses?: string; } & OptionInputWTypeProps) {
     return (
         <FormRowChildren label={label} titleTooltip={titleTooltip} className={classNames(children2RowsClasses, containerClasses)} labelClasses={classNames(label2RowsClasses, labelClasses)}>
             <InputOrCheckWithErrorMsg twoRows {...rest} />
@@ -70,7 +70,7 @@ export function InputPopupMessage({ show, message, messageClasses }: { show: boo
     return (
         <AnimatePresence initial={false}>
             {show && (
-                <motion.div className={messageClasses} variants={variants} initial='collapsed' animate='expanded' exit='collapsed'>
+                <motion.div className={messageClasses} variants={popupMessageVariants} initial='collapsed' animate='expanded' exit='collapsed'>
                     {message}
                 </motion.div>
             )}
@@ -78,14 +78,14 @@ export function InputPopupMessage({ show, message, messageClasses }: { show: boo
     );
 }
 
-const variants: Variants = {
+const popupMessageVariants: Variants = {
     expanded: { height: 'auto', opacity: 1 },
     collapsed: { height: 0, opacity: 0 },
 };
 
 // Row with children simple DOM layout
 
-export function FormRowChildren({ label, children, className, labelClasses, titleTooltip }: { label: ReactNode; children: ReactNode; className?: string; labelClasses?: string; titleTooltip?: string; }) {
+export function FormRowChildren({ label, labelClasses, titleTooltip, children, className }: { label: ReactNode; labelClasses?: string; titleTooltip?: string; children: ReactNode; className?: string; }) {
     const { showTooltipIcons } = useSnapshot(appSettings.appUi.uiGeneral);
     const hasTitleTooltip = !!(titleTooltip && showTooltipIcons);
     return (
@@ -111,7 +111,7 @@ export function TitleTooltip({ content }: { content?: string }) {
     return (
         <Tooltip>
             <TooltipTrigger asChild>
-                <SymbolInfo className="size-3 text-foreground/40" />
+                <SymbolInfo className="mt-px pt-px size-3 text-foreground/40 hover:text-sky-500" />
             </TooltipTrigger>
             <TooltipPortal>
                 <TooltipContent className={titleTooltipContentClasses} sideOffset={10}>
