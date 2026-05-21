@@ -8,15 +8,15 @@ import { type OptionInputWTypeProps, OptionAsCheckbox, OptionAsString, OptionAsT
 import { Tooltip, TooltipContent, TooltipPortal, TooltipTrigger } from "@/ui/shadcn/tooltip";
 import { SymbolInfo } from "@/ui/icons";
 
-export function ChildrenWithLabel2Cols({ label, children, containerClasses, titleTooltip }: { label: ReactNode; titleTooltip?: string; children: ReactNode; containerClasses?: string; }) {
+export function ChildrenWithLabel2Cols({ label, children, containerClasses, titleTooltip, labelClasses }: { label: ReactNode; titleTooltip?: string; labelClasses?: string; children: ReactNode; containerClasses?: string; }) {
     return (
-        <FormRowChildren label={label} titleTooltip={titleTooltip} className={classNames(children2ColsClasses, containerClasses)} labelClasses={label2ColsClasses}>
+        <FormRowChildren label={label} titleTooltip={titleTooltip} className={classNames(children2ColsClasses, containerClasses)} labelClasses={classNames(label2ColsClasses, labelClasses)}>
             {children}
         </FormRowChildren>
     );
 }
 
-export function InputWithTitle2Cols({ label, containerClasses, labelClasses, titleTooltip, ...rest }: { label: ReactNode; titleTooltip?: string; } & OptionInputWTypeProps) {
+export function InputWithTitle2Cols({ label, containerClasses, labelClasses, titleTooltip, ...rest }: { label: ReactNode; titleTooltip?: string; labelClasses?: string; } & OptionInputWTypeProps) {
     return (
         <FormRowChildren label={label} titleTooltip={titleTooltip} className={classNames(children2ColsClasses, containerClasses)} labelClasses={classNames(label2ColsClasses, labelClasses)}>
             <InputOrCheckWithErrorMsg {...rest} />
@@ -24,7 +24,7 @@ export function InputWithTitle2Cols({ label, containerClasses, labelClasses, tit
     );
 }
 
-export function InputWithTitle2Rows({ label, containerClasses, labelClasses, titleTooltip, ...rest }: { label: ReactNode; titleTooltip?: string; } & OptionInputWTypeProps) {
+export function InputWithTitle2Rows({ label, containerClasses, labelClasses, titleTooltip, ...rest }: { label: ReactNode; titleTooltip?: string; labelClasses?: string; } & OptionInputWTypeProps) {
     return (
         <FormRowChildren label={label} titleTooltip={titleTooltip} className={classNames(children2RowsClasses, containerClasses)} labelClasses={classNames(label2RowsClasses, labelClasses)}>
             <InputOrCheckWithErrorMsg twoRows {...rest} />

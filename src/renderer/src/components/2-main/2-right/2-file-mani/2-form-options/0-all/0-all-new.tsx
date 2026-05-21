@@ -39,17 +39,17 @@ function GroupFormLogin({ oFormProps }: { oFormProps: OFormProps; }) {
     const { nameAtom, balloonAtom } = options.p1General;
     const { aimAtom, auth_plAtom } = options.p3Auth;
     return (<>
-        <InputWithTitle2Cols stateAtom={nameAtom} label="Managed login name" titleTooltip={optionsTooltips.manifestName} />
+        <InputWithTitle2Cols stateAtom={nameAtom} label="Managed login name" titleTooltip={optionsTooltips.manifestName} labelClasses="justify-end" />
 
-        <ChildrenWithLabel2Cols label="Extended authentication policy" titleTooltip={optionsTooltips.extendedAuthPolicy}>
+        <ChildrenWithLabel2Cols label="Extended authentication policy" titleTooltip={optionsTooltips.extendedAuthPolicy} labelClasses="justify-end">
             <ExtPolicySelect stateAtom={auth_plAtom} />
         </ChildrenWithLabel2Cols>
 
-        <ChildrenWithLabel2Cols label="Show first login notification" titleTooltip={optionsTooltips.baloonCount}>
+        <ChildrenWithLabel2Cols label="Show first login notification" titleTooltip={optionsTooltips.baloonCount} labelClasses="justify-end">
             <BalloonCounterSelect stateAtom={balloonAtom} className="w-max" />
         </ChildrenWithLabel2Cols>
 
-        <ChildrenWithLabel2Cols label="Authenticate immediately" titleTooltip={optionsTooltips.autoPrompt}>
+        <ChildrenWithLabel2Cols label="Authenticate immediately" titleTooltip={optionsTooltips.autoPrompt} labelClasses="justify-end">
             <AuthImmSelect stateAtom={aimAtom} className="w-max" />
         </ChildrenWithLabel2Cols>
 
