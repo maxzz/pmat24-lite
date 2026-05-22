@@ -24,8 +24,8 @@ export const iconPosition      /**/ = "Specifies the corner of the login screen 
 
 // Quick link tooltips
 
-export const optionsNeedQl     /**/ = "Determines whether this login screen appears in the Quick Links list within the One Touch menu.";
-export const quicklinkName     /**/ = "Specifies the name displayed in the One Touch menu.";
+export const optionsNeedQl     /**/ = "Determines whether this login screen appears in the Quick Links list within the One Touch menu (mini-dashboard).";
+export const quicklinkName     /**/ = "Specifies the name displayed in the One Touch menu (mini-dashboard).";
 export const quicklink         /**/ = "Specifies the URL of the page that will be loaded using this quick link. By default, if the field is empty, the URL of the source website is used.";
 
 

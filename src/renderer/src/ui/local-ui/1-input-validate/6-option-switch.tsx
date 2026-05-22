@@ -4,8 +4,6 @@ import { classNames } from "@/utils";
 import { type OptionInputProps } from "./9-types";
 import { Switch } from "@/ui/shadcn";
 
-const defaultSwitchClasses = "data-[state=checked]:bg-primary/20 dark:data-[state=checked]:bg-primary/40";
-
 export function OptionAsSwitch({ stateAtom, className, onValueStateChange, onBlur, ...rest }: OptionInputProps) {
     const [state, setState] = useAtom(stateAtom);
 
@@ -43,7 +41,7 @@ export function OptionAsSwitch({ stateAtom, className, onValueStateChange, onBlu
 
     return (
         <Switch
-            className={classNames(defaultSwitchClasses, className)}
+            className={classNames(switchClasses, className)}
             checked={state.data === '1'}
             onCheckedChange={onCheckedChange}
             onBlur={onLocalBlur}
@@ -54,3 +52,5 @@ export function OptionAsSwitch({ stateAtom, className, onValueStateChange, onBlu
         />
     );
 }
+
+const switchClasses = "mt-0.75 data-[state=checked]:bg-primary/20 dark:data-[state=checked]:bg-primary/40 scale-90";
