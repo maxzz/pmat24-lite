@@ -4,6 +4,13 @@
         ["Classes \\=([^;]*);", "\"([^\"]*)\""],
         ["Classes \\=([^;]*);", "\\`([^\\`]*)\\`"], // semicolon should be used to make it work with tailwindcss as stopper for the classname
 
+        // Matches React props ending with "Classes" (e.g., labelClasses="..." or labelClasses={...}) and extracts Tailwind classes.
+        // Three rules are needed to handle different string quote types (single, double, and backticks) within the prop assignment.
+        //
+        ["\\b\\w*Classes\\s*=\\s*({[^}]+}|\\\"[^\\\"]*\\\"|'[^']*'|\\`[^\\`]*\\`)", "'([^']*)'"],
+        ["\\b\\w*Classes\\s*=\\s*({[^}]+}|\\\"[^\\\"]*\\\"|'[^']*'|\\`[^\\`]*\\`)", "\"([^\"]*)\""],
+        ["\\b\\w*Classes\\s*=\\s*({[^}]+}|\\\"[^\\\"]*\\\"|'[^']*'|\\`[^\\`]*\\`)", "\\`([^\\`]*)\\`"],
+
         ["classNames\\(([^)]*)\\)", "[\"'`]([^\"'`]*).*?[\"'`]"]
     ],
     "files.associations": {
