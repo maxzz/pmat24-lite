@@ -71,13 +71,15 @@ function BlockQuickLinkContent_Guarded({ oFormProps }: { oFormProps: OFormProps;
                         containerClasses="py-0! col-span-full"
                     />
 
-                    <Button className="absolute bottom-1 right-6 size-5" size="icon" variant="ghost" onClick={clearQuickLinkUrl} title="Clear quick link URL">
-                        <IconClose className="pt-0.5 size-4" />
-                    </Button>
+                    <div className="absolute bottom-1 right-1.5 flex items-center 1gap-px">
+                        <Button className="size-5" size="icon" variant="ghost" onClick={clearQuickLinkUrl} title="Clear quick link URL">
+                            <IconClose className="pt-0.5 size-4" />
+                        </Button>
 
-                    <Button className="absolute bottom-1 right-1.5 size-5" size="icon" variant="ghost" onClick={pasteOriginalUrl} title="Paste original URL">
-                        <IconPaste className="pt-0.5 size-4" />
-                    </Button>
+                        <Button className="size-5" size="icon" variant="ghost" onClick={pasteOriginalUrl} title="Paste original URL">
+                            <IconPaste className="pt-0.5 size-4" />
+                        </Button>
+                    </div>
                 </div>
             )}
         </div>

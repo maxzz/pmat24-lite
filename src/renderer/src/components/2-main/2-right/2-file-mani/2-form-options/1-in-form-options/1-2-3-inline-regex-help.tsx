@@ -9,10 +9,9 @@ export function InlineRegexHelp() {
         <TooltipProvider>
             <Tooltip>
                 <TooltipTrigger asChild>
-                    <div className="absolute right-2 top-7 text-foreground/75">
-                        <SymbolInfo className="size-4" />
-                    </div>
+                    <SymbolInfo className="p-px size-4" />
                 </TooltipTrigger>
+
                 <TooltipPortal>
                     <TooltipContent className="mx-[18px] py-2 max-w-80 text-xs text-foreground/75 bg-background border-border border shadow-sm" sideOffset={10}>
                         <div>

@@ -26,7 +26,7 @@ export function BtnCopyOurl({ ourlAtom }: { ourlAtom: PA<RowInputState>; }) {
                             exit={{ scale: 0, opacity: 0 }}
                             transition={{ duration: 0.2 }}
                         >
-                            <IconL_Check className="size-4 text-green-500" />
+                            <IconL_Check className="p-px size-4 text-green-500" />
                         </motion.div>
                     ) : (
                         <motion.div
@@ -36,7 +36,7 @@ export function BtnCopyOurl({ ourlAtom }: { ourlAtom: PA<RowInputState>; }) {
                             exit={{ scale: 0, opacity: 0 }}
                             transition={{ duration: 0.2 }}
                         >
-                            <IconCopy className="size-4" title="Copy original URL" />
+                            <IconCopy className="p-px size-4" title="Copy original URL" />
                         </motion.div>
                     )}
                 </AnimatePresence>

@@ -10,8 +10,8 @@ import { Matching } from "@/store/8-manifest";
 import { type OFormProps } from "@/store/2-file-mani-atoms";
 import { MatchHow } from "./1-2-1-match-how";
 import { InlineRegexHelp } from "./1-2-3-inline-regex-help";
-import { BtnCopyOurl } from "./1-2-4-btn-copy-ourl";
-import { ShowWarningExplanation, useNeedWarning } from "./1-2-5-use-need-warning";
+import { BtnCopyOurl } from "./1-2-8-btn-copy-ourl";
+import { ShowWarningExplanation, useNeedWarning } from "./1-2-4-use-need-warning";
 
 export function DetectionContent_Web({ oFormProps }: { oFormProps: OFormProps; }) {
 
@@ -54,14 +54,16 @@ export function DetectionContent_Web({ oFormProps }: { oFormProps: OFormProps; }
         </FormRowChildren>
 
         <AnimatePresence initial={false}>
-            {showRegex && (<>
+            {showRegex && (
                 <motion.div
                     className="relative"
                     initial={{ opacity: 0, x: 300, height: 0 }}
                     animate={{ opacity: 1, x: 0, height: 'auto', transition: { duration: .3, ease: "easeInOut", delay: .1 } }}
                     exit={{ opacity: 0, height: 0, transition: { duration: .4, ease: "easeInOut" } }}
                 >
-                    <InlineRegexHelp />
+                    <div className="absolute right-2 top-7 text-foreground/75">
+                        <InlineRegexHelp />
+                    </div>
 
                     <InputWithTitle2Rows
                         asTextarea
@@ -73,7 +75,7 @@ export function DetectionContent_Web({ oFormProps }: { oFormProps: OFormProps; }
 
                     <ShowWarningExplanation murl_regexAtom={murl_regexAtom} needWarning={needWarning} />
                 </motion.div>
-            </>)}
+            )}
         </AnimatePresence>
     </>);
 }
