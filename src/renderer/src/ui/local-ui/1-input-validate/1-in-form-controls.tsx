@@ -129,7 +129,7 @@ const titleTooltipContentClasses = "mx-[18px] py-2 max-w-80 text-xs text-foregro
 const children2RowsClasses = "col-span-2 py-1 text-xs grid gap-0.5";
 const label2RowsClasses = "font-light";
 
-const children2ColsClasses = "col-span-2 py-1 pr-0.5 text-xs grid grid-cols-subgrid items-center";
+export const children2ColsClasses = "col-span-2 py-1 pr-0.5 text-xs grid grid-cols-subgrid items-center";
 const label2ColsClasses = "font-light text-end";
 
 export const SubSubGridClasses = "col-span-2 grid grid-cols-subgrid";

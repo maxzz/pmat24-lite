@@ -1,9 +1,11 @@
 import { useAtom, useAtomValue } from "jotai";
 import { AccordionWithTrigger } from "@/ui/motion-primitives";
-import { FormRowChildren, SelectTm } from "@/ui/local-ui";
+import { children2ColsClasses, FormRowChildren, SelectTm } from "@/ui/local-ui";
 import { type OFormProps } from "@/store/2-file-mani-atoms";
 import { type OptionTextValue } from "@/store/8-manifest";
 import { InFormAccordionValue } from "@/store/2-file-mani-atoms/9-types";
+import { optionsTooltips } from "../8-tooltips";
+import { classNames } from "@/utils/classnames";
 
 export function FormIconPosition({ oFormProps }: { oFormProps: OFormProps; }) {
     const formIdx = oFormProps.oAllAtoms.options.formIdx;
@@ -37,12 +39,10 @@ function LocationSelector({ oFormProps }: { oFormProps: OFormProps; }) {
     }
 
     return (
-        <div className={textClasses}>
-            <FormRowChildren label="Icon position">
+        <div className={classNames(textClasses, "ml-1 mr-3 grid grid-cols-[auto_minmax(0,1fr)] gap-x-1.5 gap-y-0.5 select-none")}>
+            <FormRowChildren label="Icon position" titleTooltip={optionsTooltips.iconPosition} labelClasses="pb-1" className={children2ColsClasses}>
                 <SelectTm items={balloonCounterItems} value={state.data || '0'} onValueChange={onChange} />
             </FormRowChildren>
-
-            {/* <InputWithTitle2Rows stateAtom={idAtom} label="Location ID (optional)" /> */}
         </div>
     );
 }
@@ -55,4 +55,4 @@ const balloonCounterItems: OptionTextValue[] = [
     ['Bottom right', '4'],
 ];
 
-const textClasses = "pl-6 pr-0.5 py-3 text-balance";
+const textClasses = "pl-6 pr-0.5 py-2 text-balance";
