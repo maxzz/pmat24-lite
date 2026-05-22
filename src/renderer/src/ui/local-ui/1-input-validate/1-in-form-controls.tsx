@@ -112,14 +112,16 @@ export function TitleTooltip({ label, labelClasses, content }: { label?: ReactNo
 
     return (
         <Tooltip>
-            <TooltipTrigger asChild>
-                <div className={classNames(labelClasses, "inline-flex items-center gap-1")}>
-                    {label}
-                    <SymbolInfo className="mt-px pt-px size-3 text-foreground/40 hover:text-sky-500" />
-                </div>
-            </TooltipTrigger>
+            {/* <div> */}
+                <TooltipTrigger asChild>
+                    <div className={classNames(labelClasses, "justify-self-start inline-flex items-center gap-1")}> {/* withot justify-self-start inline-flex will not work  */}
+                        {label}
+                        <SymbolInfo className="mt-px pt-px size-3 text-foreground/40 hover:text-sky-500" />
+                    </div>
+                </TooltipTrigger>
+            {/* </div> */}
             <TooltipPortal>
-                <TooltipContent className={titleTooltipContentClasses} sideOffset={10}>
+                <TooltipContent className={titleTooltipContentClasses} sideOffset={10} side="bottom">
                     {content}
                 </TooltipContent>
             </TooltipPortal>
