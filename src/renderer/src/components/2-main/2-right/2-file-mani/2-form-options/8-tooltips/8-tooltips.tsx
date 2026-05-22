@@ -9,7 +9,7 @@ export const testMode          /**/ = "Specifies whether the logon screen is in 
 
 // Form fields submit options tooltips
 
-export const lockoutFields     /**/ = "Prevents user from typing data in logon fields.";
+export const lockoutFields     /**/ = "Disable the login form fields to prevent the user from entering data.";
 
 // Form detection tooltips
 
