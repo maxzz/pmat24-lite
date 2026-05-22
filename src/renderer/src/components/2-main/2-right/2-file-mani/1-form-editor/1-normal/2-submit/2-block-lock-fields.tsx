@@ -29,16 +29,16 @@ function LoginLock_Guarded({ options }: { options: FormOptionsState.AllAtoms; })
     }
 
     return (
-        <label className="flex items-center gap-2" onClick={onLockFieldsClick}>
-            <span className={classNames("cursor-pointer inline-flex items-center gap-1", lockEnabled ? "" : "opacity-30 cursor-default")}>
+        <label className="h-6 flex items-center gap-1.5" onClick={onLockFieldsClick}>
+            <span className={classNames("cursor-pointer inline-flex items-center gap-1", lockEnabled ? "" : "opacity-50 cursor-default")}>
                 Lock form input fields
                 <TitleTooltip content={optionsTooltips.lockoutFields} />
             </span>
 
             {lockEnabled
                 ? <OptionAsSwitch stateAtom={lockAtom} />
-                : <div onClick={(event) => {event.stopPropagation(); event.preventDefault()}}>
-                    <OptionAsSwitch stateAtom={lockAtom} />
+                : <div className="opacity-50">
+                    can't be applied as "Submit Form Data" is not selected.
                 </div>
             }
         </label>
