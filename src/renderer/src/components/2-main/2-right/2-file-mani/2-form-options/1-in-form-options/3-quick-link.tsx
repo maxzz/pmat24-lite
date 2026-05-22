@@ -56,48 +56,49 @@ function BlockQuickLinkContent_Guarded({ oFormProps }: { oFormProps: OFormProps;
                 containerClasses="py-0! col-span-full"
             />
 
-            <AnimatePresence initial={false}>
-                {showQuickLinkDetails && (
-                    <motion.div
-                        className="grid gap-2.5 col-span-full"
-                        initial={{ height: 0, opacity: 0 }}
-                        animate={{ height: "auto", opacity: 1 }}
-                        exit={{ height: 0, opacity: 0 }}
-                        transition={{ duration: 0.3, ease: "easeInOut" }}
-                    >
-                        <InputWithTitle2Rows
-                            stateAtom={qNameAtom}
-                            label="Quick link name"
-                            titleTooltip={optionsTooltips.quicklinkName}
-                            labelClasses="font-normal"
-                            containerClasses="py-0! col-span-full"
-                        />
+            <div className="overflow-hidden">
+                <AnimatePresence initial={false}>
+                    {showQuickLinkDetails && (
+                        <motion.div
+                            className="grid gap-2.5 col-span-full"
+                            initial={{ opacity: 0, y: -50, height: 0 }}
+                            animate={{ opacity: 1, y: 0, height: 'auto', transition: { duration: .3, ease: "easeInOut" } }}
+                            exit={{ opacity: 0, y: -50, height: 0, transition: { duration: .4, ease: "easeInOut" } }}
+                        >
+                            <InputWithTitle2Rows
+                                stateAtom={qNameAtom}
+                                label="Quick link name"
+                                titleTooltip={optionsTooltips.quicklinkName}
+                                labelClasses="font-normal"
+                                containerClasses="py-0! col-span-full"
+                            />
 
-                        {isFormWeb && (
-                            <div className="relative">
-                                <InputWithTitle2Rows
-                                    asTextarea
-                                    stateAtom={qUrlAtom}
-                                    label="Quick link URL"
-                                    titleTooltip={optionsTooltips.quicklink}
-                                    labelClasses="font-normal"
-                                    containerClasses="py-0! col-span-full"
-                                />
+                            {isFormWeb && (
+                                <div className="relative">
+                                    <InputWithTitle2Rows
+                                        asTextarea
+                                        stateAtom={qUrlAtom}
+                                        label="Quick link URL"
+                                        titleTooltip={optionsTooltips.quicklink}
+                                        labelClasses="font-normal"
+                                        containerClasses="py-0! col-span-full"
+                                    />
 
-                                <div className="absolute bottom-1 right-1.5 flex items-center 1gap-px">
-                                    <Button className="size-5" size="icon" variant="ghost" onClick={clearQuickLinkUrl} title="Clear quick link URL">
-                                        <IconClose className="pt-0.5 size-4" />
-                                    </Button>
+                                    <div className="absolute bottom-1 right-1.5 flex items-center 1gap-px">
+                                        <Button className="size-5" size="icon" variant="ghost" onClick={clearQuickLinkUrl} title="Clear quick link URL">
+                                            <IconClose className="pt-0.5 size-4" />
+                                        </Button>
 
-                                    <Button className="size-5" size="icon" variant="ghost" onClick={pasteOriginalUrl} title="Paste original URL">
-                                        <IconPaste className="pt-0.5 size-4" />
-                                    </Button>
+                                        <Button className="size-5" size="icon" variant="ghost" onClick={pasteOriginalUrl} title="Paste original URL">
+                                            <IconPaste className="pt-0.5 size-4" />
+                                        </Button>
+                                    </div>
                                 </div>
-                            </div>
-                        )}
-                    </motion.div>
-                )}
-            </AnimatePresence>
+                            )}
+                        </motion.div>
+                    )}
+                </AnimatePresence>
+            </div>
         </div>
     );
 }
