@@ -1,6 +1,7 @@
 import { useAtomValue } from "jotai";
 import { classNames } from "@/utils";
 import { notice } from "@/ui/local-ui/7-toaster";
+import { AnimatePresence, motion } from "motion/react";
 import { OptionAsCheckbox, OptionAsSwitch, TitleTooltip } from "@/ui/local-ui";
 import { optionsTooltips } from "../../../2-form-options/8-tooltips";
 import { type NFormProps, type FormOptionsState } from "@/store/2-file-mani-atoms";
@@ -35,12 +36,31 @@ function LoginLock_Guarded({ options }: { options: FormOptionsState.AllAtoms; })
                 <TitleTooltip content={optionsTooltips.lockoutFields} />
             </span>
 
-            {lockEnabled
-                ? <OptionAsSwitch stateAtom={lockAtom} />
-                : <div className="opacity-50">
-                    can't be applied as "Submit Form Data" is not selected.
-                </div>
-            }
+            <AnimatePresence mode="wait" initial={false}>
+                {lockEnabled ? (
+                    <motion.div
+                        key="switch"
+                        initial={{ opacity: 0, scale: 0.9 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        exit={{ opacity: 0, scale: 0.9 }}
+                        transition={{ duration: 0.15 }}
+                        className="flex items-center"
+                    >
+                        <OptionAsSwitch stateAtom={lockAtom} />
+                    </motion.div>
+                ) : (
+                    <motion.div
+                        key="warning"
+                        initial={{ opacity: 0, x: -10 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        exit={{ opacity: 0, x: -10 }}
+                        transition={{ duration: 0.15 }}
+                        className="opacity-50"
+                    >
+                        can't be applied as "Submit Form Data" is not selected.
+                    </motion.div>
+                )}
+            </AnimatePresence>
         </label>
     );
 }
