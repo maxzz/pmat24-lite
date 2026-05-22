@@ -27,7 +27,7 @@ function setChangeFlag({ fileUs }: { fileUs: FileUs; }, changed: boolean, change
     changes[changed ? 'add' : 'delete'](changeName);
 
     allFileUsChanges[changes.size ? 'add' : 'delete'](`${fileUs.fileCnt.unid}`);
-    print_Changes(fileUs);
+    //print_Changes(fileUs);
 
     return changes;
 }

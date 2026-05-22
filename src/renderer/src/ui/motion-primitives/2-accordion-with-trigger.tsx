@@ -27,7 +27,7 @@ export function AccordionWithTrigger({ triggerText, formIdx, name, children, tri
             onValueChange={toggleOpen}
         >
             <AccordionItem value={name}>
-                <AccordionTrigger className={triggerClasses}>
+                <AccordionTrigger className={classNames("font-semibold", triggerClasses)}>
                     {triggerText}
                 </AccordionTrigger>
 
