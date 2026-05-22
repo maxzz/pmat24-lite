@@ -86,17 +86,12 @@ const popupMessageVariants: Variants = {
 // Row with children simple DOM layout
 
 export function FormRowChildren({ label, labelClasses, titleTooltip, children, className }: { label: ReactNode; labelClasses?: string; titleTooltip?: ReactNode; children: ReactNode; className?: string; }) {
-    const { showTooltipIcons } = useSnapshot(appSettings.appUi.uiGeneral);
-    const hasTitleTooltip = !!(titleTooltip && showTooltipIcons);
     return (
         <div className={className}>
-            {hasTitleTooltip
-                ? (
-                    <TitleTooltip label={label} labelClasses={labelClasses} content={titleTooltip} />
-                )
+            {!!titleTooltip
+                ? <TitleTooltip label={label} labelClasses={labelClasses} content={titleTooltip} />
                 : <div className={labelClasses}>{label}</div>
             }
-
             {children}
         </div>
     );
@@ -104,24 +99,22 @@ export function FormRowChildren({ label, labelClasses, titleTooltip, children, c
 
 // Title tooltip
 
-export function TitleTooltip({ label, labelClasses, content }: { label?: ReactNode; labelClasses?: string; content?: ReactNode; }) {
+export function TitleTooltip({ label, labelClasses, content }: { label?: ReactNode; labelClasses?: string; content: ReactNode; }) {
     const { showTooltipIcons } = useSnapshot(appSettings.appUi.uiGeneral);
-    if (!content || !showTooltipIcons) {
+    if (!content) {
         return null;
     }
 
     return (
         <Tooltip>
-            {/* <div> */}
-                <TooltipTrigger asChild>
-                    <div className={classNames(labelClasses, "justify-self-start inline-flex items-center gap-1")}> {/* withot justify-self-start inline-flex will not work  */}
-                        {label}
-                        <SymbolInfo className="mt-px pt-px size-3 text-foreground/40 hover:text-sky-500" />
-                    </div>
-                </TooltipTrigger>
-            {/* </div> */}
+            <TooltipTrigger asChild>
+                <div className={classNames("justify-self-start inline-flex items-center gap-1", labelClasses)}>
+                    {label}
+                    {showTooltipIcons && <SymbolInfo className="mt-px pt-px size-3 text-foreground/40 hover:text-sky-500" />}
+                </div>
+            </TooltipTrigger>
             <TooltipPortal>
-                <TooltipContent className={titleTooltipContentClasses} sideOffset={10} side="bottom">
+                <TooltipContent className={titleTooltipContentClasses} sideOffset={10}>
                     {content}
                 </TooltipContent>
             </TooltipPortal>

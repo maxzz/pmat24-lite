@@ -86,7 +86,7 @@ function BlockQuickLinkContent_Guarded({ oFormProps }: { oFormProps: OFormProps;
     );
 }
 
-const textClasses = "pl-6 pr-0.5 py-3 text-balance grid gap-1.5";
+const textClasses = "pl-6 pr-0.5 py-3 text-balance grid gap-2.5";
 
 //TODO: original url with % is that OK?
 //TODO: add validation:

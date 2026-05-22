@@ -18,7 +18,7 @@ function Input_InTestMode({ fileUsCtx }: { fileUsCtx: FileUsCtx; }) {
     const doSetManiInTest = useSetAtom(doSetManiInTestAtom);
     
     return (<>
-        <ChildrenWithLabel2Cols label={modeTextInTest} titleTooltip={optionsTooltips.testMode} labelClasses="justify-end">
+        <ChildrenWithLabel2Cols label={modeTextInTest} titleTooltip={optionsTooltips.testMode} labelClasses="justify-end justify-self-end!">
             <Switch className={toggleClasses} checked={isInTestMode} onCheckedChange={(checked) => doSetManiInTest({ fileUs: fileUsCtx.fileUs, inTest: checked })}></Switch>
         </ChildrenWithLabel2Cols>
     </>);
