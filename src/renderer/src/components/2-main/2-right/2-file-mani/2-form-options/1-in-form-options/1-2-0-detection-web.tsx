@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useAtomValue } from "jotai";
 import { classNames } from "@/utils";
 import { AnimatePresence, motion } from "motion/react";
-import { SymbolLockClosed, SymbolLockOpen } from "@/ui/icons";
+import { IconClose, IconPaste, SymbolLockClosed, SymbolLockOpen } from "@/ui/icons";
 import { notice } from "@/ui/local-ui/7-toaster";
 import { FormRowChildren, InputWithTitle2Rows } from "@/ui/local-ui";
 import { optionsTooltips } from "../8-tooltips";
@@ -12,6 +12,7 @@ import { MatchHow } from "./1-2-1-match-how";
 import { InlineRegexHelp } from "./1-2-3-inline-regex-help";
 import { BtnCopyOurl } from "./1-2-8-btn-copy-ourl";
 import { ShowWarningExplanation, useNeedWarning } from "./1-2-4-use-need-warning";
+import { Button } from "@/ui/shadcn/button";
 
 export function DetectionContent_Web({ oFormProps }: { oFormProps: OFormProps; }) {
 
@@ -22,6 +23,14 @@ export function DetectionContent_Web({ oFormProps }: { oFormProps: OFormProps; }
     const murl_how = +useAtomValue(murl_howAtom).data;
     const disabled = murl_how === Matching.How.undef;
     const showRegex = murl_how === Matching.How.regex;
+
+    function clearQuickLinkUrl() {
+        // setQUrl((v) => ({ ...v, data: '' }));
+    }
+
+    function pasteOriginalUrl() {
+        // setQUrl((v) => ({ ...v, data: ourl.data }));
+    }
 
     return (<>
         <div className="relative">
@@ -63,6 +72,17 @@ export function DetectionContent_Web({ oFormProps }: { oFormProps: OFormProps; }
                 >
                     <div className="absolute right-2 top-7 text-foreground/75">
                         <InlineRegexHelp />
+
+                        {/* <div className="absolute bottom-1 right-1.5 flex items-center 1gap-px">
+                            <Button className="size-5" size="icon" variant="ghost" onClick={clearQuickLinkUrl} title="Clear quick link URL">
+                                <IconClose className="pt-0.5 size-4" />
+                            </Button>
+
+                            <Button className="size-5" size="icon" variant="ghost" onClick={pasteOriginalUrl} title="Paste original URL">
+                                <IconPaste className="pt-0.5 size-4" />
+                            </Button>
+                        </div> */}
+
                     </div>
 
                     <InputWithTitle2Rows
