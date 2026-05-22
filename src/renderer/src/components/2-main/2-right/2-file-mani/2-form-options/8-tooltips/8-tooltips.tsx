@@ -16,13 +16,16 @@ export const lockoutFields     /**/ = "Prevents user from typing data in logon f
 export const windowCaption     /**/ = "Specifies the caption of the logon screen window.";
 export const monitor           /**/ = "Monitor for any changes to the screen, when the caption and/or URL may be insufficient to uniquely identify the screen.";
 
-export const matchUrl          /**/ = "Specifies rules for detecting matching URLs.";
+// export const matchUrl          /**/ = "Defines the URL matching method. This can be either the source URL or a regular expression. If you use a regular expression, you can remove parameters from the URL or restrict the match to a specific part of the URL. However, the domain corresponding to the original URL will always be used. For additional examples, see the tooltip for the regular expression input field.";
+export const matchUrl          /**/ = <div>
+    Defines the URL matching method. <br/>This can be either the source URL or a regular expression. If you use a regular expression, you can remove parameters from the URL or restrict the match to a specific part of the URL. <br/>However, the domain corresponding to the original URL will always be used. For additional examples, see the tooltip for the regular expression input field.
+    </div>;
 
 // Quick link tooltips
 
-export const optionsNeedQl     /**/ = "Specifies whether this logon screen appears in the Quick Links list.";
-export const quicklinkName     /**/ = "Specifies the name to be displayed in One Touch Menu.";
-export const quicklink         /**/ = "Specifies the URL of the page loaded by Quick Link";
+export const optionsNeedQl     /**/ = "Determines whether this login screen appears in the Quick Links list within the One Touch menu.";
+export const quicklinkName     /**/ = "Specifies the name displayed in the One Touch menu.";
+export const quicklink         /**/ = "Specifies the URL of the page that will be loaded using this quick link. By default, if the field is empty, the URL of the source website is used.";
 
 
 // Not used anymore
