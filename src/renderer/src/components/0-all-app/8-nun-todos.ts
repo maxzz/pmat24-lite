@@ -282,3 +282,7 @@
     IDS_TOOLTIP_MONITOR     "Monitor for any changes to the screen, when the caption and/or URL may be insufficient to uniquely identify the screen."
 	IDS_TOOLTIP_OPTIONS_NEEDQL "Specifies whether this logon screen appears in the Quick Links list."
 */
+
+//05.21.26
+//TODO: tooltip over label regardles show icons option - done
+//TODO: tooltip for icon position - done
