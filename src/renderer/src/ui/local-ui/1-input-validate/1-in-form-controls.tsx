@@ -4,7 +4,7 @@ import { useSnapshot } from "valtio";
 import { appSettings } from "@/store/9-ui-state";
 import { classNames } from "@/utils";
 import { type Variants, AnimatePresence, motion } from "motion/react";
-import { type OptionInputWTypeProps, OptionAsCheckbox, OptionAsString, OptionAsTextarea } from "@/ui/local-ui";
+import { type OptionInputWTypeProps, OptionAsCheckbox, OptionAsSwitch, OptionAsString, OptionAsTextarea } from "@/ui/local-ui";
 import { Tooltip, TooltipContent, TooltipPortal, TooltipTrigger } from "@/ui/shadcn/tooltip";
 import { SymbolInfo } from "@/ui/icons";
 
@@ -34,26 +34,28 @@ export function InputWithTitle2Rows({ label, labelClasses, titleTooltip, contain
 
 // Row input with error message
 
-export function InputOrCheckWithErrorMsg({ stateAtom, asCheckbox, asTextarea, className, twoRows, checkboxTrail, ...rest }: OptionInputWTypeProps) {
+export function InputOrCheckWithErrorMsg({ stateAtom, asCheckbox, asSwitch, asTextarea, className, twoRows, checkboxTrail, ...rest }: OptionInputWTypeProps) {
     const state = useAtomValue(stateAtom);
     const hasError = state.error && state.touched;
     const errorInputClasses = classNames(hasError && 'outline-offset-0 outline-red-500', className);
     return (<>
-        {asCheckbox
-            ? (<>
-                {checkboxTrail
-                    ? (
-                        <div className="flex items-center">
-                            <OptionAsCheckbox stateAtom={stateAtom} className={errorInputClasses} {...rest} />
-                            {checkboxTrail}
+        {asSwitch
+            ? <OptionAsSwitch stateAtom={stateAtom} className={errorInputClasses} {...rest} />
+            : asCheckbox
+                ? (<>
+                    {checkboxTrail
+                        ? (
+                            <div className="flex items-center">
+                                <OptionAsCheckbox stateAtom={stateAtom} className={errorInputClasses} {...rest} />
+                                {checkboxTrail}
 
-                        </div>
-                    )
-                    : <OptionAsCheckbox stateAtom={stateAtom} className={errorInputClasses} {...rest} />}
-            </>)
-            : asTextarea
-                ? <OptionAsTextarea stateAtom={stateAtom} className={errorInputClasses} {...rest} />
-                : <OptionAsString stateAtom={stateAtom} className={errorInputClasses} {...rest} />
+                            </div>
+                        )
+                        : <OptionAsCheckbox stateAtom={stateAtom} className={errorInputClasses} {...rest} />}
+                </>)
+                : asTextarea
+                    ? <OptionAsTextarea stateAtom={stateAtom} className={errorInputClasses} {...rest} />
+                    : <OptionAsString stateAtom={stateAtom} className={errorInputClasses} {...rest} />
         }
 
         <InputErrorPopupMessage hasError={!!hasError} error={state.error} errorClasses={twoRows ? '' : "col-start-2"} />

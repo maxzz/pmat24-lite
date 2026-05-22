@@ -33,6 +33,7 @@ export type OptionInputWTypeProps =
     & OptionInputProps
     & {
         asCheckbox?: boolean;
+        asSwitch?: boolean;
         asTextarea?: boolean;
         containerClasses?: string;
         labelClasses?: string;

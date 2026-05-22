@@ -1,5 +1,5 @@
 import { AccordionWithTrigger } from "@/ui/motion-primitives";
-import { InputWithTitle2Rows } from "@/ui/local-ui";
+import { InputWithTitle2Cols, InputWithTitle2Rows } from "@/ui/local-ui";
 import { Button } from "@/ui/shadcn/button";
 import { type OFormProps } from "@/store/2-file-mani-atoms";
 import { FormIdx } from "@/store/8-manifest";
@@ -46,17 +46,17 @@ function BlockQuickLinkContent_Guarded({ oFormProps }: { oFormProps: OFormProps;
     }
 
     return (
-        <div className={textClasses}>
-            <InputWithTitle2Rows
-                asCheckbox
+        <div className={`${textClasses} grid grid-cols-[auto_minmax(0,1fr)] gap-x-1.5`}>
+            <InputWithTitle2Cols
+                asSwitch
                 stateAtom={qUseAtom}
                 label="Show on mini-dashboard"
                 titleTooltip={optionsTooltips.optionsNeedQl}
-                labelClasses="font-normal"
-                containerClasses="py-0! col-span-full"
+                labelClasses="font-normal justify-end justify-self-end!"
+                containerClasses="py-0!"
             />
 
-            <div className="overflow-hidden">
+            <div className="overflow-hidden col-span-full">
                 <AnimatePresence initial={false}>
                     {showQuickLinkDetails && (
                         <motion.div
