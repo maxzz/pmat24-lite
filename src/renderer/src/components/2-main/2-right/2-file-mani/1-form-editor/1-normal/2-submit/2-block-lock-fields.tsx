@@ -1,7 +1,7 @@
 import { useAtomValue } from "jotai";
 import { classNames } from "@/utils";
 import { notice } from "@/ui/local-ui/7-toaster";
-import { OptionAsCheckbox, TitleTooltip } from "@/ui/local-ui";
+import { OptionAsCheckbox, OptionAsSwitch, TitleTooltip } from "@/ui/local-ui";
 import { optionsTooltips } from "../../../2-form-options/8-tooltips";
 import { type NFormProps, type FormOptionsState } from "@/store/2-file-mani-atoms";
 
@@ -30,15 +30,17 @@ function LoginLock_Guarded({ options }: { options: FormOptionsState.AllAtoms; })
 
     return (
         <label className="flex items-center gap-2" onClick={onLockFieldsClick}>
-            {lockEnabled
-                ? <OptionAsCheckbox stateAtom={lockAtom} />
-                : <div className="size-4 dark-checkbox"></div>
-            }
-
             <span className={classNames("cursor-pointer inline-flex items-center gap-1", lockEnabled ? "" : "opacity-30 cursor-default")}>
                 Lock form input fields
                 <TitleTooltip content={optionsTooltips.lockoutFields} />
             </span>
+
+            {lockEnabled
+                ? <OptionAsSwitch stateAtom={lockAtom} />
+                : <div onClick={(event) => {event.stopPropagation(); event.preventDefault()}}>
+                    <OptionAsSwitch stateAtom={lockAtom} />
+                </div>
+            }
         </label>
     );
 }
