@@ -8,6 +8,7 @@ export function fromAtoms(rowCtx: NormalField.RowCtx, { get }: GetOnly): EditorF
         label: get(rowCtx.labelAtom),
         type: get(rowCtx.typeAtom),
         valueLife: get(rowCtx.valueLifeAtom),
+        choosevalue: get(rowCtx.choosevalueAtom),
         dbname: get(rowCtx.dbnameAtom),
         policies: get(rowCtx.policiesAtom),
 
