@@ -18,18 +18,17 @@ export function Case_ValueMatchedText({ rowCtx }: { rowCtx: FieldRowCtx; }) {
     };
 
     const rawValue = valueLife.value || '';
-    const isRegex = rawValue.startsWith("[m0]:1:");
-    const displayValue = isRegex ? rawValue.substring(7) : rawValue;
+    const isRegex = rawValue.startsWith(regexPrefix);
+    const displayValue = isRegex ? rawValue.substring(9) : rawValue;
 
     const handleTextChange = (e: ChangeEvent<HTMLInputElement>) => {
         const newValue = e.target.value;
-        const value = isRegex ? `[m0]:1:${newValue}` : newValue;
+        const value = isRegex ? `${regexPrefix}${newValue}` : newValue;
         setValueLife((v) => ({ ...v, value, isRef: false, isNon: false, }));
     };
 
     const handleModeSelect = (mode: "string" | "regex") => {
-        enableRow();
-        const value = mode === "regex" ? `[m0]:1:${displayValue}` : displayValue;
+        const value = mode === "regex" ? `${regexPrefix}${displayValue}` : displayValue;
         setValueLife((v) => ({ ...v, value, isRef: false, isNon: false, }));
     };
 
@@ -81,6 +80,8 @@ function MenuItemMode({ label, selected, onSelect }: { label: string; selected: 
         </M.Item>
     );
 }
+
+const regexPrefix = "[m0]:2:2:";
 
 const containerClasses = "\
 h-7 grid grid-cols-[auto_minmax(0,1fr)_auto] \
