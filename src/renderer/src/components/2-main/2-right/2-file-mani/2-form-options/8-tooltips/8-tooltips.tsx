@@ -16,6 +16,7 @@ export const lockoutFields     /**/ = "Disable the form fields to prevent the us
 export const windowCaption     /**/ = "Specifies the caption of the logon screen window.";
 export const monitor           /**/ = "Monitor for any changes to the screen, when the caption and/or URL may be insufficient to uniquely identify the screen.";
 
+export const originalUrl       /**/ = "The original URL of the website. This is the URL that will be used to match the login form.";
 export const matchUrl          /**/ = "Defines the URL matching method. This can be either the source URL or a regular expression. If you use a regular expression, you can remove parameters from the URL or restrict the match to a specific part of the URL. However, the domain corresponding to the original URL will always be used. For additional examples, see the tooltip for the regular expression input field.";
 
 // Icon position

@@ -37,11 +37,12 @@ export function DetectionContent_Web({ oFormProps }: { oFormProps: OFormProps; }
             <InputWithTitle2Rows
                 asTextarea
                 stateAtom={ourlAtom}
+                titleTooltip={optionsTooltips.originalUrl}
                 className={classNames(isLocked ? 'opacity-75 cursor-default' : '')}
                 label={
                     <div className="flex items-center gap-0.5">
                         Original URL of the website
-                        <div className="ml-0.5 size-2.5 cursor-pointer" onClick={() => setIsLocked(!isLocked)}>
+                        <div className="ml-0.5 mt-0.5 size-2.5 cursor-pointer" onClick={() => setIsLocked(!isLocked)}>
                             {isLocked
                                 ? <SymbolLockClosed className="size-full" title="This setting is read-only. Only change it if you understand what you're doing." />
                                 : <SymbolLockOpen className="size-full" title="This input can be edited. Please proceed with caution." />
