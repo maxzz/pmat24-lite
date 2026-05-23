@@ -23,24 +23,19 @@ export function Case_ValueMatchedText({ rowCtx }: { rowCtx: FieldRowCtx; }) {
 
     const handleTextChange = (e: ChangeEvent<HTMLInputElement>) => {
         const newValue = e.target.value;
-        setValueLife((v) => ({
-            ...v,
-            value: isRegex ? `[m0]:1:${newValue}` : newValue,
-            isRef: false,
-            isNon: false,
-        }));
+        const value = isRegex ? `[m0]:1:${newValue}` : newValue;
+        setValueLife((v) => ({ ...v, value, isRef: false, isNon: false, }));
     };
 
     const handleModeSelect = (mode: "string" | "regex") => {
         enableRow();
         const value = mode === "regex" ? `[m0]:1:${displayValue}` : displayValue;
-        setValueLife((v) => ({
-            ...v,
-            value,
-            isRef: false,
-            isNon: false,
-        }));
+        setValueLife((v) => ({ ...v, value, isRef: false, isNon: false, }));
     };
+
+    if (!useIt) {
+        return <div></div>;
+    }
 
     return (
         <div className={classNames(containerClasses, inputRingClasses, !useIt && "opacity-30 cursor-pointer")}>
