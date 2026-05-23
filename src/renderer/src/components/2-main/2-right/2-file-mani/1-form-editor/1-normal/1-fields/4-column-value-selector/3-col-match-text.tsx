@@ -1,8 +1,8 @@
 import { type ChangeEvent } from "react";
 import { useAtom } from "jotai";
-import * as M from "@radix-ui/react-dropdown-menu";
-import { SymbolChevronDown, SymbolDot } from "@ui/icons";
 import { classNames, turnOffAutoComplete } from "@/utils";
+import { SymbolChevronDown, SymbolDot, SymbolMatchString, SymbolMatchRegex } from "@ui/icons";
+import * as M from "@radix-ui/react-dropdown-menu";
 import { inputRingClasses } from "@/ui/local-ui";
 import { type FieldRowCtx } from "@/store/2-file-mani-atoms";
 
@@ -33,25 +33,21 @@ export function Case_ValueMatchedText({ rowCtx }: { rowCtx: FieldRowCtx; }) {
 
     const handleModeSelect = (mode: "string" | "regex") => {
         enableRow();
-        if (mode === "regex" && !isRegex) {
-            setValueLife((v) => ({
-                ...v,
-                value: `[m0]:1:${displayValue}`,
-                isRef: false,
-                isNon: false,
-            }));
-        } else if (mode === "string" && isRegex) {
-            setValueLife((v) => ({
-                ...v,
-                value: displayValue,
-                isRef: false,
-                isNon: false,
-            }));
-        }
+        const value = mode === "regex" ? `[m0]:1:${displayValue}` : displayValue;
+        setValueLife((v) => ({
+            ...v,
+            value,
+            isRef: false,
+            isNon: false,
+        }));
     };
 
     return (
         <div className={classNames(inputParentClasses, inputRingClasses, !useIt && "opacity-30 cursor-pointer")}>
+            <div className="pl-1 pr-1.5 text-muted-foreground bg-muted border-r select-none flex items-center justify-center" title={isRegex ? "Matching as regex" : "Matching as string"}>
+                {isRegex ? <SymbolMatchRegex className="size-4" /> : <SymbolMatchString className="size-4" />}
+            </div>
+
             <input
                 className={inputClasses}
                 value={displayValue}
@@ -75,26 +71,17 @@ export function Case_ValueMatchedText({ rowCtx }: { rowCtx: FieldRowCtx; }) {
 
                 <M.Portal>
                     <M.Content className={menuContentClasses} sideOffset={4} align="end" >
-                        <M.Item
-                            className={classNames(menuItemClasses, !isRegex && "bg-accent")}
-                            onSelect={() => handleModeSelect("string")}
-                        >
-                            {!isRegex && (
-                                <SymbolDot className="absolute left-1.5 size-5 fill-foreground" />
-                            )}
+                        <M.Item className={classNames(menuItemClasses, !isRegex && "bg-accent")} onSelect={() => handleModeSelect("string")}>
+                            {!isRegex && <SymbolDot className="absolute left-1.5 size-5 fill-foreground" />}
                             <span className="grow">
-                                match as string
+                                Match as string
                             </span>
                         </M.Item>
-                        <M.Item
-                            className={classNames(menuItemClasses, isRegex && "bg-accent")}
-                            onSelect={() => handleModeSelect("regex")}
-                        >
-                            {isRegex && (
-                                <SymbolDot className="absolute left-1.5 size-5 fill-foreground" />
-                            )}
+
+                        <M.Item className={classNames(menuItemClasses, isRegex && "bg-accent")} onSelect={() => handleModeSelect("regex")}>
+                            {isRegex && <SymbolDot className="absolute left-1.5 size-5 fill-foreground" />}
                             <span className="grow">
-                                match as regex
+                                Match as regex
                             </span>
                         </M.Item>
                     </M.Content>
@@ -105,16 +92,15 @@ export function Case_ValueMatchedText({ rowCtx }: { rowCtx: FieldRowCtx; }) {
 }
 
 const inputParentClasses = "\
-h-7 grid grid-cols-[minmax(0,1fr)_auto] \
+h-7 grid grid-cols-[auto_minmax(0,1fr)_auto] \
 \
 bg-mani-background \
-\
 border-mani-border-muted border \
 \
 rounded overflow-hidden";
 
 const inputClasses = "\
-px-2 py-3 h-7 \
+pl-1 pr-2 py-3 h-7 \
 bg-mani-background text-mani-foreground \
 truncate outline-hidden";
 
