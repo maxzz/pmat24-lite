@@ -31,15 +31,13 @@ export function mergeToManiField({ from, maniField, ftyp, isSubmit }: MergeManiF
 }
 
 function getFieldStringValue(fromValue: string | undefined, ftyp: FieldTyp): string | undefined {
-
+    const newValue = (fromValue || '').trim();
+    
     const isCheckbox = ftyp === FieldTyp.check || ftyp === FieldTyp.radio;
-
-    const v = (fromValue || '').trim().toLowerCase();
-
-    const rv =
-        isCheckbox
-            ? (!!v && v !== '0' && v !== 'false' && v !== 'no' && v !== 'off') ? '1' : undefined
-            : v;
-
-    return rv;
+    if (!isCheckbox) {
+        return newValue;
+    }
+    
+    const v = newValue.toLowerCase();
+    return (!!v && v !== '0' && v !== 'false' && v !== 'no' && v !== 'off') ? '1' : v;
 }
