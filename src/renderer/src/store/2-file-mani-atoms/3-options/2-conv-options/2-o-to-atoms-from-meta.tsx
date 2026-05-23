@@ -59,7 +59,7 @@ export function forAtoms(fileUsCtx: FileUsCtx): FormOptionsState.ForAtoms {
         p4QL: {
             qName: options.quicklink || '',
             qUrl: detection.web_qurl || '',
-            qUse: !options.usequicklink || options.usequicklink === '1', // to exclude '2' as unuse quicklink value
+            qUse: !options.usequicklink ? false : options.usequicklink === '1', // to exclude '2' as unuse quicklink value
         },
         p5Icon: {
             id: options.iconkey || '',
