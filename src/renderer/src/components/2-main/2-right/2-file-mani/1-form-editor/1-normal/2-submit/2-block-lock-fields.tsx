@@ -32,30 +32,29 @@ function LoginLock_Guarded({ options }: { options: FormOptionsState.AllAtoms; })
     return (
         <label className="h-6 flex items-center gap-1.5" onClick={onLockFieldsClick}>
             <span className={classNames("cursor-pointer inline-flex items-center gap-1", lockEnabled ? "" : "opacity-50 cursor-default")}>
-                Lock form input fields
-                <TitleTooltip content={optionsTooltips.lockoutFields} />
+                <TitleTooltip label="Lock form input fields" content={optionsTooltips.lockoutFields} />
             </span>
 
-            <AnimatePresence mode="wait" initial={false}>
+            <AnimatePresence mode="popLayout" initial={false}>
                 {lockEnabled ? (
                     <motion.div
                         key="switch"
-                        initial={{ opacity: 0, scale: 0.9 }}
-                        animate={{ opacity: 1, scale: 1 }}
-                        exit={{ opacity: 0, scale: 0.9 }}
-                        transition={{ duration: 0.15 }}
-                        className="flex items-center"
+                        initial={{ opacity: 0, scaleX: .5 }}
+                        animate={{ opacity: 1, scaleX: 1 }}
+                        exit={{ opacity: 0, scaleX: .5 }}
+                        transition={{ duration: .3, ease: "easeInOut" }}
+                        className="origin-left flex items-center"
                     >
                         <OptionAsSwitch stateAtom={lockAtom} />
                     </motion.div>
                 ) : (
                     <motion.div
                         key="warning"
-                        initial={{ opacity: 0, x: -10 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        exit={{ opacity: 0, x: -10 }}
-                        transition={{ duration: 0.15 }}
-                        className="opacity-50"
+                        initial={{ opacity: 0, scale: .5 }}
+                        animate={{ opacity: .5, scale: 1 }}
+                        exit={{ opacity: 0, scale: .5 }}
+                        transition={{ duration: .3, ease: "easeInOut" }}
+                        className="origin-left"
                     >
                         can't be applied as "Submit Form Data" is not selected.
                     </motion.div>
