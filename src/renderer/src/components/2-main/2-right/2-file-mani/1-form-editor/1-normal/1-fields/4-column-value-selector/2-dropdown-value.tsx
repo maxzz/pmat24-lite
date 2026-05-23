@@ -14,7 +14,7 @@ export function DropdownValue({ useItAtom, items, selectedIndex, onSetIndex }: D
     return (
         <M.Root>
             <M.Trigger asChild>
-                <button className="px-1.5 border-mani-border-separator border-l focus:rounded focus:outline-1 focus:-outline-offset-2 outline-muted-foreground"> {/* group/btn */}
+                <button className="px-1.5 border-mani-border-separator border-l focus:rounded focus:outline-1 focus:-outline-offset-3 focus:outline-dashed outline-muted-foreground"> {/* group/btn */}
                     <SymbolChevronDown className="size-4 border-muted-foreground rounded" /> {/* group-focus-within/btn:border */}
                 </button>
             </M.Trigger>
