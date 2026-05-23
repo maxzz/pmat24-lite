@@ -29,7 +29,7 @@ export async function createFileUsByQueryXml({ params: { hwnd, manual }, showPro
     try {
         showProgressAtom && set(showProgressAtom, true); // show controls scan progress atom
 
-        await set(doGetWindowManiAtom, { hwnd, manual, passwordChange: !!newManiContent.maniForCpassAtom, wantXml: true, });
+        await set(doGetWindowManiAtom, { hwnd, manual, passwordChange: !!newManiContent.maniForCpassAtom, wantXml: true, }); // call napi to get maniXml and set it to maniXmlStrAtom
 
         if (stateNapiAccess.buildError) {
             showNotice_BuildErrorReason(set);
@@ -39,7 +39,7 @@ export async function createFileUsByQueryXml({ params: { hwnd, manual }, showPro
         showProgressAtom && set(showProgressAtom, false);
     }
 
-    // 2. Save maniXml to the context
+    // 2. Save maniXml to the context from maniXmlStrAtom
     const sawManiXmlStr = get(maniXmlStrAtom);
     if (!sawManiXmlStr) {
         showNotice_BuildErrorReason(set);
@@ -47,7 +47,7 @@ export async function createFileUsByQueryXml({ params: { hwnd, manual }, showPro
     }
 
     set(newManiContent.maniXmlStrAtom, sawManiXmlStr);
-    print_XmlManiFile(sawManiXmlStr, { label: 'XML from NAPI:', labelCss: 'color: mediumvioletred; font-size: 0.65rem;', bodyCss: 'color: firebrick; font-size: 0.5rem;', expandBody: false });
+    //print_XmlManiFile(sawManiXmlStr, { label: 'XML from NAPI:', labelCss: 'color: mediumvioletred; font-size: 0.65rem;', bodyCss: 'color: firebrick; font-size: 0.5rem;', expandBody: false });
 
     // 3. Parse maniXml to fileUs
     try {

@@ -14,10 +14,12 @@ class NewManiContent implements NewManiContentType {
         const { get, set } = getset;
 
         this.maniXmlStrAtom = atom<string | undefined>(undefined);
-        //printNewManiCtxInit(getset);
-        if (get(this.newFileUsAtomAtom)) {
+        //print_NewManiCtxInit(getset);
+
+        if (get(this.newFileUsAtomAtom)) { // it's expected to be undefined
             throw new Error('newFileUsAtomAtom should be undefined'); // The previuos operation should clean up the newFileUsAtomAtom. If atom is taken then it's not disposed from there.
         }
+
         set(this.newFileUsAtomAtom, undefined);
     }
 
@@ -47,14 +49,14 @@ export const newManiFileUsAtom = atom<FileUs | undefined>(
  */
 export const newManiDispNameAtom = atom<RowInputStateAtom | undefined>(
     (get) => {
-        //printNewManiCtx(get);
+        //print_NewManiCtx(get);
         const fileUs = get(newManiFileUsAtom);
         const rv = fileUs?.maniAtomsAtom && pathToManiNameAtom(get(fileUs.maniAtomsAtom));
         return rv;
     },
 );
 
-function printNewManiCtxInit({ get }: GetSet) {
+function print_NewManiCtxInit({ get }: GetSet) {
     const newAtom = get(newManiContent.newFileUsAtomAtom);
     const atomStr = newAtom ? newAtom.toString() : null;
     console.groupCollapsed(
@@ -67,7 +69,7 @@ function printNewManiCtxInit({ get }: GetSet) {
     console.groupEnd();
 }
 
-function printNewManiCtx({ get }: GetSet) {
+function print_NewManiCtx({ get }: GetSet) {
     const newAtom = get(newManiContent.newFileUsAtomAtom);
     const atomStr = newAtom ? newAtom.toString() : null;
     console.groupCollapsed(
