@@ -2,7 +2,7 @@ import { atom, useAtomValue, useSetAtom } from "jotai";
 import { FieldTyp, FormIdx } from "@/store/8-manifest";
 import { type FieldRowCtx, type FileUsCtx, getAllFormsFields_byFileUsCtx } from "../9-types";
 
-export function useIsLinkedToLogin(rowCtx: FieldRowCtx, fileUsCtx: FileUsCtx) {
+export function useIsLinkedToLogin(rowCtx: FieldRowCtx, fileUsCtx: FileUsCtx): boolean {
     const { typeAtom, rfieldUuidAtom } = rowCtx;
     const thisIsPsw = useAtomValue(typeAtom) === FieldTyp.psw;
     const thisUuid = useAtomValue(rfieldUuidAtom);
