@@ -42,10 +42,10 @@ export function ShowWarningExplanation({ murl_regexAtom, needWarning }: { murl_r
         <AnimatePresence>
             {needWarning && (
                 <motion.div
-                    className="ml-0.5 mb-2 flex items-center gap-1 text-orange-700 dark:text-orange-400 overflow-hidden"
-                    initial={{ height: 0, opacity: 0, marginTop: 0 }}
-                    animate={{ height: "auto", opacity: 1, marginTop: "0.25rem" }}
-                    exit={{ height: 0, opacity: 0, marginTop: 0 }}
+                    className="ml-0.5 mt-0.5 mb-2 flex items-center gap-1 text-orange-700 dark:text-orange-400 overflow-hidden"
+                    initial={{ height: 0, opacity: 0 }}
+                    animate={{ height: "auto", opacity: 1 }}
+                    exit={{ height: 0, opacity: 0 }}
                     transition={{ duration: .2, ease: "easeInOut" }}
                 >
                     <SymbolWarning className="shrink-0 size-4" />
