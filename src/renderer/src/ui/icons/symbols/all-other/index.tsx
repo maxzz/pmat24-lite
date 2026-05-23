@@ -22,6 +22,8 @@ import { SvgSymbolForms } from "./25-forms";
 import { SvgSymbolEllipsis } from "./26-ellipsis";
 import { SvgSymbolLockOpen } from "./30-lock-open";
 import { SvgSymbolLockClosed } from "./31-lock-closed";
+import { SvgSymbolMatchString } from "./32-1-match-string";
+import { SvgSymbolMatchRegex } from "./32-2-match-regex";
 
 export * from "./06-folder";
 export * from "./08-dot";
@@ -47,6 +49,8 @@ export * from "./25-forms";
 export * from "./26-ellipsis";
 export * from "./30-lock-open";
 export * from "./31-lock-closed";
+export * from "./32-1-match-string";
+export * from "./32-2-match-regex";
 
 export function DefAllOtherTypes() {
     return (<>
@@ -74,5 +78,7 @@ export function DefAllOtherTypes() {
         {SvgSymbolEllipsis()}
         {SvgSymbolLockOpen()}
         {SvgSymbolLockClosed()}
+        {SvgSymbolMatchString()}
+        {SvgSymbolMatchRegex()}
     </>);
 }
