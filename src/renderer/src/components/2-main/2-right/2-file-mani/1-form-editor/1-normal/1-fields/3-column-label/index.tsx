@@ -1,1 +1,1 @@
-export * from "./1-column3-label";
+export * from "./1-col3-label";

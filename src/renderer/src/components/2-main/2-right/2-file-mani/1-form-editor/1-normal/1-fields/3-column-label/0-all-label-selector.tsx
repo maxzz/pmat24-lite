@@ -1,7 +1,7 @@
 import { useAtomValue, useSetAtom } from "jotai";
 import { FieldTyp } from "@/store/8-manifest";
 import { type FieldRowCtx, type FileUsCtx } from "@/store/2-file-mani-atoms";
-import { Case_ValueMatchedText } from "./2-column3-text";
+import { Case_ValueMatchedText } from "./2-col3-text";
 import { Column3_Label } from "../..";
 
 export function Column3_LabelSelector({ rowCtx, fileUsCtx }: { rowCtx: FieldRowCtx; fileUsCtx: FileUsCtx; }) {
