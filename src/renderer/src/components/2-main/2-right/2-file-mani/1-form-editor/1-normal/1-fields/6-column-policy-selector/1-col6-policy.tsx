@@ -41,7 +41,7 @@ export function Column6_Policy({ rowCtx, className, onClick: enableRowClick, ...
 }
 
 const Column6_PolicyClasses = "\
-px-2 py-3 w-24 h-7 text-[.65rem] \
+px-2 py-3 min-w-12 h-7 text-[.65rem] \
 \
 text-mani-foreground bg-mani-background \
 \
