@@ -8,7 +8,7 @@ import { Case_ValueMatchedText } from "./3-col-match-text";
 export function Column4_ValueSelector({ rowCtx, fileUsCtx }: { rowCtx: FieldRowCtx; fileUsCtx: FileUsCtx; }) {
     const { useItAtom, typeAtom, labelAtom, valueLifeAtom, policiesAtom, metaField } = rowCtx;
 
-    const thisIsTxt = useAtomValue(typeAtom) === FieldTyp.text;
+    const isTypeTxt = useAtomValue(typeAtom) === FieldTyp.text;
 
     const setUseIt = useSetAtom(useItAtom);
     const enableRow = () => setUseIt(true);
@@ -17,7 +17,7 @@ export function Column4_ValueSelector({ rowCtx, fileUsCtx }: { rowCtx: FieldRowC
 
     const maniField = metaField.mani;
 
-    if (thisIsTxt) {
+    if (isTypeTxt) {
         return <Case_ValueMatchedText rowCtx={rowCtx} />;
     }
 

@@ -45,6 +45,7 @@ export function FieldRow({ rowCtx, fileUsCtx }: { rowCtx: FieldRowCtx; fileUsCtx
         <Column3_Label
             useItAtom={useItAtom}
             valueAtom={labelAtom}
+            typeAtom={typeAtom}
             highlightCtx={{ nFieldCtx: rowCtx, fileUs: fileUsCtx.fileUs, formIdx: fileUsCtx.formIdx }}
             onClick={enableRow}
         />

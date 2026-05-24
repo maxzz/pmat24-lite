@@ -6,7 +6,7 @@ import { InputLabel } from "../8-props-ui";
 import { Column3_Label } from "../../../../1-normal/1-fields";
 
 export function FirstRow({ item, fileUsCtx }: { item: ManualFieldState.CtxFld; fileUsCtx: FileUsCtx; }) {
-    const { useItAtom, labelAtom } = item.rowCtx;
+    const { useItAtom, labelAtom, typeAtom } = item.rowCtx;
     return (
         <div className="grid grid-cols-[auto_1fr] gap-2">
             <InputLabel label="Type">
@@ -17,6 +17,7 @@ export function FirstRow({ item, fileUsCtx }: { item: ManualFieldState.CtxFld; f
                 <Column3_Label
                     useItAtom={useItAtom}
                     valueAtom={labelAtom}
+                    typeAtom={typeAtom}
                     highlightCtx={{ mFieldCtx: item, fileUs: fileUsCtx.fileUs, formIdx: fileUsCtx.formIdx }}
                 />
             </InputLabel>
