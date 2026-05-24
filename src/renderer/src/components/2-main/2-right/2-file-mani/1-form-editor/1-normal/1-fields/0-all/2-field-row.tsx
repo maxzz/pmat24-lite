@@ -1,4 +1,4 @@
-import { useSetAtom } from "jotai";
+import { useAtom, useAtomValue, useSetAtom } from "jotai";
 import { useSnapshot } from "valtio";
 import { appSettings } from "@/store/9-ui-state";
 import { type FileUsCtx, type FieldRowCtx } from "@/store/2-file-mani-atoms";
@@ -9,14 +9,16 @@ import { Column3_Label } from "../3-column-label";
 import { Column4_ValueSelector } from "../4-column-value-selector";
 import { Column5_Catalog } from "../5-column-catalog";
 import { Column6_PolicySelector } from "../6-column-policy-selector/0-all-policy-link-selector";
+import { Case_ValueMatchedText } from "../4-column-value-selector/3-col-match-text";
 //import { usePrintFileUsHwnds } from "./8-use-print-form-fields";
 
-export function FieldRow({ rowCtx, fileUsCtx }: { rowCtx: FieldRowCtx; fileUsCtx: FileUsCtx; }) {
+export function FieldRow_normal({ rowCtx, fileUsCtx }: { rowCtx: FieldRowCtx; fileUsCtx: FileUsCtx; }) {
     const { useItAtom, typeAtom, labelAtom, valueLifeAtom, policiesAtom, metaField } = rowCtx;
     const maniField = metaField.mani;
     const isTextField = maniField.type === 'text';
 
-    const setUseIt = useSetAtom(useItAtom);
+    const label = useAtomValue(labelAtom);
+    const [useIt, setUseIt] = useAtom(useItAtom);
     const enableRow = () => setUseIt(true);
 
     const { fcAllowed } = useSnapshot(appSettings.files.shownManis);
@@ -42,13 +44,21 @@ export function FieldRow({ rowCtx, fileUsCtx }: { rowCtx: FieldRowCtx; fileUsCtx
             useItAtom={useItAtom}
         />
 
-        <Column3_Label
-            useItAtom={useItAtom}
-            valueAtom={labelAtom}
-            typeAtom={typeAtom}
-            highlightCtx={{ nFieldCtx: rowCtx, fileUs: fileUsCtx.fileUs, formIdx: fileUsCtx.formIdx }}
-            onClick={enableRow}
-        />
+        {isTextField ? (
+            useIt ? (
+                <Case_ValueMatchedText rowCtx={rowCtx} />
+            ) : (
+                <div className="h-7">{label}</div>
+            )
+        ) : (
+            <Column3_Label
+                useItAtom={useItAtom}
+                valueAtom={labelAtom}
+                typeAtom={typeAtom}
+                highlightCtx={{ nFieldCtx: rowCtx, fileUs: fileUsCtx.fileUs, formIdx: fileUsCtx.formIdx }}
+                onClick={enableRow}
+            />
+        )}
 
         <Column4_ValueSelector
             rowCtx={rowCtx}
