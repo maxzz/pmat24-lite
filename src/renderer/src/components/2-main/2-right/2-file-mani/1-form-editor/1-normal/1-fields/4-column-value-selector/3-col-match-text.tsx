@@ -1,6 +1,6 @@
 import { type ChangeEvent } from "react";
 import { useAtom } from "jotai";
-import { motion } from "motion/react";
+import { AnimatePresence, motion } from "motion/react";
 import { classNames, turnOffAutoComplete } from "@/utils";
 import { SymbolChevronDown, SymbolDot, SymbolMatchString, SymbolMatchRegex } from "@ui/icons";
 import * as M from "@radix-ui/react-dropdown-menu";
@@ -33,46 +33,58 @@ export function Case_ValueMatchedText({ rowCtx }: { rowCtx: FieldRowCtx; }) {
         setChoosevalue(value);
     };
 
-    if (!useIt) {
-        return <div></div>;
-    }
-
     return (
-        <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.15 }}
-            className={classNames(containerClasses, inputRingClasses, !useIt && "opacity-30 cursor-pointer")}
-        >
-            <div className="pl-1 pr-1.5 text-muted-foreground bg-muted border-r select-none flex items-center justify-center" title={isRegex ? "Matching as regex" : "Matching as string"}>
-                {isRegex ? <SymbolMatchRegex className="size-4" /> : <SymbolMatchString className="size-4" />}
-            </div>
+        <AnimatePresence initial={false} mode="wait">
+            {!useIt ? (
+                <motion.div
+                    key="empty"
+                    className="h-7"
+                    // initial={{ opacity: 0, scaleX: 0.1, }}
+                    // animate={{ opacity: 1, scaleX: 1 }}
+                    // exit={{ opacity: 0, scaleX: 0.1 }}
+                    transition={{ duration: 0.001 }}
+                />
+            ) : (
+                <motion.div
+                    key="content"
+                    className={classNames(containerClasses, inputRingClasses, !useIt && "opacity-30 cursor-pointer")}
+                    initial={{ opacity: 0, scaleX: 0.1, transformOrigin: "left center" }}
+                    animate={{ opacity: 1, scaleX: 1, transformOrigin: "left center" }}
+                    exit={{ opacity: 0, scaleX: 0.1, transformOrigin: "left center" }}
+                    transition={{ duration: .1, ease: "easeOut" }}
+                    // layout="size"
+                >
+                    <div className="pl-1 pr-1.5 text-muted-foreground bg-muted border-r select-none flex items-center justify-center" title={isRegex ? "Matching as regex" : "Matching as string"}>
+                        {isRegex ? <SymbolMatchRegex className="size-4" /> : <SymbolMatchString className="size-4" />}
+                    </div>
 
-            <input
-                className={inputClasses}
-                value={displayValue}
-                onChange={handleTextChange}
-                onClick={enableRow}
-                onFocus={enableRow}
-                placeholder={isRegex ? "Enter match regex..." : "Enter match text..."}
-                {...turnOffAutoComplete}
-            />
+                    <input
+                        className={inputClasses}
+                        value={displayValue}
+                        onChange={handleTextChange}
+                        onClick={enableRow}
+                        onFocus={enableRow}
+                        placeholder={isRegex ? "Enter match regex..." : "Enter match text..."}
+                        {...turnOffAutoComplete}
+                    />
 
-            <M.Root>
-                <M.Trigger asChild>
-                    <button onClick={enableRow} className={buttonClasses} title={isRegex ? "Matching as regex" : "Matching as string"}>
-                        <SymbolChevronDown className="size-4 border-muted-foreground rounded" />
-                    </button>
-                </M.Trigger>
+                    <M.Root>
+                        <M.Trigger asChild>
+                            <button onClick={enableRow} className={buttonClasses} title={isRegex ? "Matching as regex" : "Matching as string"}>
+                                <SymbolChevronDown className="size-4 border-muted-foreground rounded" />
+                            </button>
+                        </M.Trigger>
 
-                <M.Portal>
-                    <M.Content className={menuContentClasses} sideOffset={4} align="end" >
-                        <MenuItemMode label="Match as string" selected={!isRegex} onSelect={() => handleModeSelect("string")} />
-                        <MenuItemMode label="Match as regex" selected={isRegex} onSelect={() => handleModeSelect("regex")} />
-                    </M.Content>
-                </M.Portal>
-            </M.Root>
-        </motion.div>
+                        <M.Portal>
+                            <M.Content className={menuContentClasses} sideOffset={4} align="end" >
+                                <MenuItemMode label="Match as string" selected={!isRegex} onSelect={() => handleModeSelect("string")} />
+                                <MenuItemMode label="Match as regex" selected={isRegex} onSelect={() => handleModeSelect("regex")} />
+                            </M.Content>
+                        </M.Portal>
+                    </M.Root>
+                </motion.div>
+            )}
+        </AnimatePresence>
     );
 }
 
@@ -90,7 +102,7 @@ function MenuItemMode({ label, selected, onSelect }: { label: string; selected: 
 const regexPrefix = "[m0]:2:2:";
 
 const containerClasses = "\
-h-7 grid grid-cols-[auto_minmax(0,1fr)_auto] \
+h-7 grid grid-cols-[auto_minmax(0,1fr)_auto] 1origin-left \
 bg-mani-background border-mani-border-muted border \
 rounded overflow-hidden";
 
