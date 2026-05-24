@@ -49,7 +49,10 @@ export function Column3_Label({ useItAtom, valueAtom, typeAtom, highlightCtx, cl
     );
 }
 
-const textFieldTitle = "This is a text field used to specify additional content for the matching window. \nIf the field is used but left empty, the original label value will be used. \nThe field value can be specified either as an exact string match or using a regular expression.";
+const textFieldTitle = `This is a text field used to specify additional content for the matching window.
+If the field is used but left empty, the original label value will be used.
+The field value can be specified either as an exact string match or using a regular expression.
+For example, "User John Doe" will match the following regular expression: "[U|u]ser.*".`;
 const labelTitle = "This is a label that appears next to an input field.";
 
 const Column3_LabelClasses = "\
