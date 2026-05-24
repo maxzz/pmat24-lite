@@ -1,5 +1,5 @@
 import { type ChangeEvent } from "react";
-import { useAtom } from "jotai";
+import { useAtom, useAtomValue } from "jotai";
 import { AnimatePresence, motion } from "motion/react";
 import { classNames, turnOffAutoComplete } from "@/utils";
 import { SymbolChevronDown, SymbolDot, SymbolMatchString, SymbolMatchRegex } from "@ui/icons";
@@ -56,7 +56,8 @@ export function FieldRow({ rowCtx, fileUsCtx }: { rowCtx: FieldRowCtx; fileUsCtx
 */
 
 export function Case_ValueMatchedText({ rowCtx }: { rowCtx: FieldRowCtx; }) {
-    const { useItAtom, choosevalueAtom } = rowCtx;
+    const { useItAtom, choosevalueAtom, labelAtom } = rowCtx;
+    const label = useAtomValue(labelAtom);
     const [useIt, setUseIt] = useAtom(useItAtom);
     const [choosevalue, setChoosevalue] = useAtom(choosevalueAtom);
 
@@ -84,7 +85,9 @@ export function Case_ValueMatchedText({ rowCtx }: { rowCtx: FieldRowCtx; }) {
     return (
         <AnimatePresence initial={false} mode="wait">
             {!useIt ? (
-                <motion.div key="empty" className="h-7" transition={{ duration: 0.001 }} />
+                <motion.div key="empty" className={classNames(containerClasses, "h-7 flex items-center")} transition={{ duration: 0.001 }}>
+                    <div>{label}</div>
+                </motion.div>
             ) : (
                 <motion.div
                     key="content"
