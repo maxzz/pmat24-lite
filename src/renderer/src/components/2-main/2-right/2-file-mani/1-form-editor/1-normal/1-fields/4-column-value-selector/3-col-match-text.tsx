@@ -5,7 +5,6 @@ import { SymbolChevronDown, SymbolDot, SymbolMatchString, SymbolMatchRegex } fro
 import * as M from "@radix-ui/react-dropdown-menu";
 import { inputRingClasses } from "@/ui/local-ui";
 import { type FieldRowCtx } from "@/store/2-file-mani-atoms";
-import { motion } from "motion/react";
 
 export function Case_ValueMatchedText({ rowCtx }: { rowCtx: FieldRowCtx; }) {
     const { useItAtom, choosevalueAtom } = rowCtx;
@@ -34,12 +33,7 @@ export function Case_ValueMatchedText({ rowCtx }: { rowCtx: FieldRowCtx; }) {
     };
 
     if (!useIt) {
-        return <motion.div
-            initial={{ opacity: 0, width: 0 }}
-            animate={{ opacity: 1, width: "auto" }}
-            exit={{ opacity: 0, width: 0 }}
-            className={containerClasses}
-        ></motion.div>;
+        return <div></div>;
     }
 
     return (
