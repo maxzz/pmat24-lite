@@ -1,16 +1,14 @@
-import { useAtom, useAtomValue, useSetAtom } from "jotai";
+import { useAtomValue, useSetAtom } from "jotai";
 import { useSnapshot } from "valtio";
 import { appSettings } from "@/store/9-ui-state";
 import { type FileUsCtx, type FieldRowCtx } from "@/store/2-file-mani-atoms";
 import { type FceItem } from "@/store/3-field-catalog-atoms";
 import { Column1_UseIt } from "../1-column-useIt";
 import { Column2_Type } from "../2-column-type";
-import { Column3_Label } from "../3-column-label";
+import { Column3_LabelSelector } from "../3-column-label/0-all-label-selector";
 import { Column4_ValueSelector } from "../4-column-value-selector";
 import { Column5_Catalog } from "../5-column-catalog";
 import { Column6_PolicySelector } from "../6-column-policy-selector/0-all-policy-link-selector";
-import { Case_ValueMatchedText } from "../4-column-value-selector/3-col-match-text";
-import { Column3_LabelSelector } from "../3-column-label/0-all-label-selector";
 import { FieldTyp } from "@/store/8-manifest";
 //import { usePrintFileUsHwnds } from "./8-use-print-form-fields";
 
