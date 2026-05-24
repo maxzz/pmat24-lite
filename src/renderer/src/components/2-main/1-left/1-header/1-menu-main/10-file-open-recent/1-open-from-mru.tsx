@@ -9,7 +9,7 @@ import { IconFolderClosed } from "@/ui/icons/normal/temp2";
 import { IconTrash } from "@/ui/icons";
 import { type PmatFolder } from "@/store/5-1-open-files";
 import { doSetFilesFrom_MruFolder_Atom } from "@/store/0-serve-atoms/2-do-load-files";
-import { asyncClearMruListDialogAtom, asyncRemoveMruItemDialogAtom } from "@/store/4-dialogs-atoms";
+import { asyncClearMruListDialogAtom, asyncRemoveMruItemDialogAtom } from "@/components/4-dialogs/5-confirm/a-confirm-atoms/8-confirmation-ui-messages";
 
 export function MenuItem_OpenRecent() {
     const { folders } = useSnapshot(appSettings.appUi.mru);
