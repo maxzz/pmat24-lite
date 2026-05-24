@@ -7,6 +7,54 @@ import * as M from "@radix-ui/react-dropdown-menu";
 import { inputRingClasses } from "@/ui/local-ui";
 import { type FieldRowCtx } from "@/store/2-file-mani-atoms";
 
+/*
+export function FieldRow({ rowCtx, fileUsCtx }: { rowCtx: FieldRowCtx; fileUsCtx: FileUsCtx; }) {
+    const { useItAtom, typeAtom, labelAtom, valueLifeAtom, policiesAtom, metaField } = rowCtx;
+    const maniField = metaField.mani;
+    const isTextField = maniField.type === 'text';
+
+    const label = useAtomValue(labelAtom);
+    const [useIt, setUseIt] = useAtom(useItAtom);
+
+    const { showFormTextFields } = useSnapshot(appSettings.appUi.uiGeneral);
+
+    if (!showFormTextFields && isTextField) {
+        return null;
+    }
+
+    if (!isTextField) {
+        return <FieldRow_normal rowCtx={rowCtx} fileUsCtx={fileUsCtx} />;
+    }
+
+    return (<>
+        {useIt ? (
+            <Case_ValueMatchedText rowCtx={rowCtx} />
+        ) : (
+            <div className="h-7">{label}</div>
+        )}
+    </>);
+}
+*/
+
+/*
+        {isTextField ? (
+            useIt ? (
+                <Case_ValueMatchedText rowCtx={rowCtx} />
+            ) : (
+                <div className="h-7">{label}</div>
+            )
+        ) : (
+            <Column3_Label
+                useItAtom={useItAtom}
+                valueAtom={labelAtom}
+                typeAtom={typeAtom}
+                highlightCtx={{ nFieldCtx: rowCtx, fileUs: fileUsCtx.fileUs, formIdx: fileUsCtx.formIdx }}
+                onClick={enableRow}
+            />
+        )}
+
+*/
+
 export function Case_ValueMatchedText({ rowCtx }: { rowCtx: FieldRowCtx; }) {
     const { useItAtom, choosevalueAtom } = rowCtx;
     const [useIt, setUseIt] = useAtom(useItAtom);

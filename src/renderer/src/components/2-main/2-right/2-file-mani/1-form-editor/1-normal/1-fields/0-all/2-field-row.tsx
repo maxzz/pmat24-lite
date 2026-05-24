@@ -10,15 +10,16 @@ import { Column4_ValueSelector } from "../4-column-value-selector";
 import { Column5_Catalog } from "../5-column-catalog";
 import { Column6_PolicySelector } from "../6-column-policy-selector/0-all-policy-link-selector";
 import { Case_ValueMatchedText } from "../4-column-value-selector/3-col-match-text";
+import { Column3_LabelSelector } from "../3-column-label/0-all-label-selector";
+import { FieldTyp } from "@/store/8-manifest";
 //import { usePrintFileUsHwnds } from "./8-use-print-form-fields";
 
-export function FieldRow_normal({ rowCtx, fileUsCtx }: { rowCtx: FieldRowCtx; fileUsCtx: FileUsCtx; }) {
-    const { useItAtom, typeAtom, labelAtom, valueLifeAtom, policiesAtom, metaField } = rowCtx;
+export function FieldRow({ rowCtx, fileUsCtx }: { rowCtx: FieldRowCtx; fileUsCtx: FileUsCtx; }) {
+    const { useItAtom, typeAtom, metaField } = rowCtx;
     const maniField = metaField.mani;
-    const isTextField = maniField.type === 'text';
+    const isTypeTxt = useAtomValue(typeAtom) === FieldTyp.text;
 
-    const label = useAtomValue(labelAtom);
-    const [useIt, setUseIt] = useAtom(useItAtom);
+    const setUseIt = useSetAtom(useItAtom);
     const enableRow = () => setUseIt(true);
 
     const { fcAllowed } = useSnapshot(appSettings.files.shownManis);
@@ -29,7 +30,7 @@ export function FieldRow_normal({ rowCtx, fileUsCtx }: { rowCtx: FieldRowCtx; fi
 
     //usePrintFileUsHwnds({ ctx: fileUsCtx });
 
-    if (!showFormTextFields && isTextField) {
+    if (!showFormTextFields && isTypeTxt) {
         return null;
     }
 
@@ -44,21 +45,10 @@ export function FieldRow_normal({ rowCtx, fileUsCtx }: { rowCtx: FieldRowCtx; fi
             useItAtom={useItAtom}
         />
 
-        {isTextField ? (
-            useIt ? (
-                <Case_ValueMatchedText rowCtx={rowCtx} />
-            ) : (
-                <div className="h-7">{label}</div>
-            )
-        ) : (
-            <Column3_Label
-                useItAtom={useItAtom}
-                valueAtom={labelAtom}
-                typeAtom={typeAtom}
-                highlightCtx={{ nFieldCtx: rowCtx, fileUs: fileUsCtx.fileUs, formIdx: fileUsCtx.formIdx }}
-                onClick={enableRow}
-            />
-        )}
+        <Column3_LabelSelector
+            rowCtx={rowCtx}
+            fileUsCtx={fileUsCtx}
+        />
 
         <Column4_ValueSelector
             rowCtx={rowCtx}
