@@ -1,12 +1,12 @@
 import { useSetAtom } from "jotai";
 import { useSnapshot } from "valtio";
-import { rootDir } from "@/store/5-1-open-files/2-root-dir";
-import { appShortcuts } from "@/components/4-dialogs/0-global";
-import { doOpenOptionsDialogAtom } from "@/store/4-dialogs-atoms";
-import { DropdownMenuItem, DropdownMenuShortcut, DropdownMenuSub, DropdownMenuSubTrigger, DropdownMenuSubContent, DropdownMenuSeparator } from "@/ui/shadcn/dropdown-menu";
-import { menuShortcutClasses } from "@/ui/local-ui";
 import { appSettings } from "@/store/9-ui-state";
 import { Check } from "lucide-react";
+import { DropdownMenuItem, DropdownMenuShortcut, DropdownMenuSub, DropdownMenuSubTrigger, DropdownMenuSubContent, DropdownMenuSeparator } from "@/ui/shadcn/dropdown-menu";
+import { menuShortcutClasses } from "@/ui/local-ui";
+import { rootDir } from "@/store/5-1-open-files/2-root-dir";
+import { appShortcuts } from "@/components/4-dialogs/0-global";
+import { doOpenOptionsDialogAtom } from "@/components/4-dialogs/8-dlg-settings/a-options-local-atoms";
 import { ZoomControl } from "./2-zoom-control";
 
 export function MenuItem_Options() {
