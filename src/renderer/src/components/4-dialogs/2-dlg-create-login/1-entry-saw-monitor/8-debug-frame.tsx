@@ -4,7 +4,7 @@ import { classNames } from "@/utils";
 import { Button } from "@/ui";
 import { IconRadix_Cross2 } from "@/ui/icons/normal";
 import { hasMain } from "@/xternal-to-main";
-import { doCancelMoveToSecondDlgAtom } from "@/store/4-dialogs-atoms";
+import { doCancelMoveToSecondDlgAtom } from "../a-create-dialog-atoms/1-1-do-move-to-second-dlg";
 import { DebugButtonsForSaw } from "../8-test-buttons";
 
 export function DebugFrame({ className, children, ...rest }: ComponentPropsWithoutRef<'div'>) {

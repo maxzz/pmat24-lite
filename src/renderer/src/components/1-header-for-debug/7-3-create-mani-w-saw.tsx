@@ -2,7 +2,7 @@ import { useAtomValue, useSetAtom } from "jotai";
 import { useSnapshot } from "valtio";
 import { Button } from "@/ui/shadcn/button";
 import { rootDir } from "@/store/5-1-open-files/2-root-dir";
-import { allowedToCreateCpassAtom, sawMonitor_doSawOpenAtom, sawMonitor_doSawOpenForCpassAtom } from "@/store/4-dialogs-atoms";
+import { allowedToCreateCpassAtom, sawMonitor_doSawOpenAtom, sawMonitor_doSawOpenForCpassAtom } from "@/components/4-dialogs/2-dlg-create-login/a-create-dialog-atoms/7-0-open-saw-monitor";
 
 export function TestCreateWithSaw() {
     const openDlg = useSetAtom(sawMonitor_doSawOpenAtom);
