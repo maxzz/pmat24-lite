@@ -7,9 +7,9 @@ import { inputRingClasses } from "@/ui/local-ui";
 import { type FieldRowCtx } from "@/store/2-file-mani-atoms";
 
 export function Case_ValueMatchedText({ rowCtx }: { rowCtx: FieldRowCtx; }) {
-    const { useItAtom, valueLifeAtom } = rowCtx;
+    const { useItAtom, choosevalueAtom } = rowCtx;
     const [useIt, setUseIt] = useAtom(useItAtom);
-    const [valueLife, setValueLife] = useAtom(valueLifeAtom);
+    const [choosevalue, setChoosevalue] = useAtom(choosevalueAtom);
 
     const enableRow = () => {
         if (!useIt) {
@@ -17,19 +17,19 @@ export function Case_ValueMatchedText({ rowCtx }: { rowCtx: FieldRowCtx; }) {
         }
     };
 
-    const rawValue = valueLife.value || '';
+    const rawValue = choosevalue || '';
     const isRegex = rawValue.startsWith(regexPrefix);
     const displayValue = isRegex ? rawValue.substring(9) : rawValue;
 
     const handleTextChange = (e: ChangeEvent<HTMLInputElement>) => {
         const newValue = e.target.value;
         const value = isRegex ? `${regexPrefix}${newValue}` : newValue;
-        setValueLife((v) => ({ ...v, value, isRef: false, isNon: false, }));
+        setChoosevalue(value);
     };
 
     const handleModeSelect = (mode: "string" | "regex") => {
         const value = mode === "regex" ? `${regexPrefix}${displayValue}` : displayValue;
-        setValueLife((v) => ({ ...v, value, isRef: false, isNon: false, }));
+        setChoosevalue(value);
     };
 
     if (!useIt) {

@@ -8,6 +8,7 @@ export function forMani(from: EditorField.ForAtoms): EditorField.Members {
         displayname: from.label,
         dbname: from.dbname,
         ...fieldTyp2Obj(from.type),
+        choosevalue: from.choosevalue,
         policy: from.policies.policy,
         policy2: from.policies.policy2,
         options: from.policies.options,
