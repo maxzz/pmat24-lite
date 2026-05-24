@@ -1,7 +1,7 @@
 import { atom } from "jotai";
 import { Matching } from "@/store/8-manifest";
 import { setRowInputStateAtomValue as setValue } from "@/ui/local-ui/1-input-validate";
-import { type FormOptionsState } from "@/store/2-file-mani-atoms/3-options";
+import { type FormOptionsState } from "@/store/1-file-mani-atoms/3-options";
 
 export const setHowChangedAtom = atom(
     null,

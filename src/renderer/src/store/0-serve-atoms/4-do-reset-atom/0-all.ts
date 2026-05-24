@@ -1,7 +1,7 @@
 import { atom } from "jotai";
 import { notice } from "@/ui/local-ui/7-toaster";
 import { type FileUs, type FileUsAtom } from "@/store/store-types";
-import { fileUsChanges } from "@/store/2-file-mani-atoms/9-types";
+import { fileUsChanges } from "@/store/1-file-mani-atoms/9-types";
 import { updateManiAtomsAfterSaveOrResetAtom } from "../3-do-save-mani-atom/0-save-atom";
 import { doDeleteFileUsAtom } from "../5-do-delete-rename-reveal-quit";
 import { resetManifest } from "./nun/1-reset-manifest";

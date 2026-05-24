@@ -1,12 +1,12 @@
 import { type Mani, FormIdx, SUBMIT } from "@/store/8-manifest";
 import { type PackManifestDataParams } from "../9-types";
-import { type SubmitFieldTypes, type NFormCnt } from "@/store/2-file-mani-atoms";
+import { type SubmitFieldTypes, type NFormCnt } from "@/store/1-file-mani-atoms";
 import { type RecordOldNewFieldByUuid } from "./9-types";
 import { getNormalSubmitValues } from "./2-get-normal-submit-values";
 import { getNormalFieldValues } from "./1-get-normal-field-values";
 import { duplicateManiField } from "./7-duplicate-mani-field";
 import { mergeToManiField } from "./7-merge-to-mani-field";
-//import { print_FinalFields, print_ManiMetaFields } from "@/store/2-file-mani-atoms/8-print-fields";
+//import { print_FinalFields, print_ManiMetaFields } from "@/store/1-file-mani-atoms/8-print-fields";
 
 type PackResult = {
     newFields: Mani.Field[];

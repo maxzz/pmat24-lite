@@ -1,5 +1,5 @@
 import { type FileUs } from "@/store/store-types";
-import { type ManiAtoms } from "@/store/2-file-mani-atoms/9-types";
+import { type ManiAtoms } from "@/store/1-file-mani-atoms/9-types";
 import { DropdownMenuSeparator } from "@/ui/shadcn/dropdown-menu";
 import { MenuItem_More } from "../8-more";
 import { MenuItem_ShowXML } from "../7-show-xml";

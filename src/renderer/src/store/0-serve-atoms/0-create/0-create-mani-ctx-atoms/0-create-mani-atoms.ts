@@ -1,11 +1,11 @@
 import { type Atom, atom, getDefaultStore } from "jotai";
 import { FormIdx } from "@/store/8-manifest";
 import { type FileUs, type FileUsAtom } from "@/store/store-types";
-import { type MFormCnt, type NFormCnt, type FileUsCtx, type AnyFormCtx, type ManiAtoms, safeByContext, lFieldsIdx, cFieldsIdx } from "@/store/2-file-mani-atoms/9-types";
-import { createFormFieldsAtom, launchDataIdx, ManualFieldsState, NormalModeState, OptionsState } from "@/store/2-file-mani-atoms";
+import { type MFormCnt, type NFormCnt, type FileUsCtx, type AnyFormCtx, type ManiAtoms, safeByContext, lFieldsIdx, cFieldsIdx } from "@/store/1-file-mani-atoms/9-types";
+import { createFormFieldsAtom, launchDataIdx, ManualFieldsState, NormalModeState, OptionsState } from "@/store/1-file-mani-atoms";
 import { type LaunchDataAll } from "../../8-launch-data/9-launch-types";
 import { getLaunchData } from "../../8-launch-data/1-get-launch-data";
-import { print_FormCtxs, print_ManiAtomsForms } from "@/store/2-file-mani-atoms/8-print/8-print-fields";
+import { print_FormCtxs, print_ManiAtomsForms } from "@/store/1-file-mani-atoms/8-print/8-print-fields";
 
 /**
  * @param embeddTo - If defined then new atoms will be added to existing ManiAtoms. This is used when we create new manifest and use it for cpass.

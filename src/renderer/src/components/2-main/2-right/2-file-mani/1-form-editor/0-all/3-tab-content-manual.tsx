@@ -1,5 +1,5 @@
 import { type ComponentPropsWithoutRef } from "react";
-import { type MFormProps } from "@/store/2-file-mani-atoms";
+import { type MFormProps } from "@/store/1-file-mani-atoms";
 import { ManualModeView } from "../2-manual";
 import { TooltipProvider } from "@/ui/shadcn/tooltip";
 

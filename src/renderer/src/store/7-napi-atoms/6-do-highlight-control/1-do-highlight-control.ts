@@ -4,7 +4,7 @@ import { FormIdx } from "@/store/8-manifest";
 import { hasMain, R2MInvokes } from "@/xternal-to-main";
 import { napiLock } from "../9-napi-build-state";
 import { type R2MInvokeParams } from "@shared/ipc-types";
-import { type FieldHighlightCtx } from "@/store/2-file-mani-atoms/9-types";
+import { type FieldHighlightCtx } from "@/store/1-file-mani-atoms/9-types";
 import { getHighlightFieldParams } from "./2-get-highlight-params";
 
 export const doHighlightControlAtom = atom(

@@ -5,7 +5,7 @@ import { classNames, turnOffAutoComplete } from "@/utils";
 import { SymbolChevronDown, SymbolDot, SymbolMatchString, SymbolMatchRegex } from "@ui/icons";
 import * as M from "@radix-ui/react-dropdown-menu";
 import { inputRingClasses } from "@/ui/local-ui";
-import { type FieldRowCtx } from "@/store/2-file-mani-atoms";
+import { type FieldRowCtx } from "@/store/1-file-mani-atoms";
 
 /*
 export function FieldRow({ rowCtx, fileUsCtx }: { rowCtx: FieldRowCtx; fileUsCtx: FileUsCtx; }) {

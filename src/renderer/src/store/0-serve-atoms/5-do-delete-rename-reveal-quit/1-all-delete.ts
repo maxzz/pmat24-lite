@@ -3,7 +3,7 @@ import { notice } from "@/ui/local-ui/7-toaster";
 import { FormIdx, rebuildMetaFormsWithoutCpassForm } from "@/store/8-manifest";
 import { type FileUsAtom } from "@/store/store-types";
 import { removeFromTotalManis } from "@/store/9-ui-state";
-import { fileUsChanges, launchDataIdx, type ManiAtoms } from "@/store/2-file-mani-atoms/9-types";
+import { fileUsChanges, launchDataIdx, type ManiAtoms } from "@/store/1-file-mani-atoms/9-types";
 import { filesAtom } from "@/store/5-1-open-files";
 import { doDisposeFileUsAtomAtom } from "@/store/store-utils";
 import { confirmDeleteCpassMessages, confirmDeleteMessages } from "@/components/4-dialogs/5-confirm/a-confirm-atoms/8-confirmation-ui-messages";

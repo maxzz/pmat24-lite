@@ -1,7 +1,7 @@
 import { atom } from "jotai";
 import { errorToString } from "@/utils";
 import { notice } from "@/ui/local-ui/7-toaster";
-import { fileUsChanges } from "@/store/2-file-mani-atoms/9-types";
+import { fileUsChanges } from "@/store/1-file-mani-atoms/9-types";
 import { type FileUs } from "@/store/store-types";
 import { inTest_Set } from "./8-in-test-commands";
 import { moveByInTestFileSystem } from "../7-file-system-manipulation";

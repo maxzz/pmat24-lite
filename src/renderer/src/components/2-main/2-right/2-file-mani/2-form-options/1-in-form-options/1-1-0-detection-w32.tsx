@@ -1,5 +1,5 @@
 import { InputWithTitle2Cols, InputWithTitle2Rows } from "@/ui/local-ui";
-import { type OFormProps } from "@/store/2-file-mani-atoms";
+import { type OFormProps } from "@/store/1-file-mani-atoms";
 import { optionsTooltips } from "../8-tooltips";
 
 export function DetectionContent_W32({ oFormProps }: { oFormProps: OFormProps; }) {

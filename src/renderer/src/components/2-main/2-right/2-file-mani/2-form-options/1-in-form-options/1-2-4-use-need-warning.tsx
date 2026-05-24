@@ -4,7 +4,7 @@ import { AnimatePresence, motion } from "motion/react";
 import { SymbolWarning } from "@/ui/icons";
 import { Matching } from "@/store/8-manifest";
 import { type RowInputStateAtom } from "@/ui/local-ui/1-input-validate/9-types";
-import { type FormOptionsState } from "@/store/2-file-mani-atoms/3-options";
+import { type FormOptionsState } from "@/store/1-file-mani-atoms/3-options";
 
 export function useNeedWarning(options: FormOptionsState.AllAtoms): boolean | undefined {
     const isShowExample = useSetAtom(isShowExampleAtom);

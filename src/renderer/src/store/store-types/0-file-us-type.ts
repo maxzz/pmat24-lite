@@ -1,6 +1,6 @@
 import { type Mani, type Meta, type CatalogFile } from "../8-manifest";
 import { type FileContent, type TlwInfo } from "@shared/ipc-types";
-import { type ManiAtoms } from "@/store/2-file-mani-atoms";
+import { type ManiAtoms } from "@/store/1-file-mani-atoms";
 import { type FceAtoms } from "@/components/4-dialogs/4-dlg-field-catalog/a-field-catalog-atoms";
 
 export type FileUsStats = {

@@ -1,6 +1,6 @@
 import { useAtomValue } from "jotai";
 import { classNames } from "@/utils";
-import type { ManualFieldState } from "@/store/2-file-mani-atoms";
+import type { ManualFieldState } from "@/store/1-file-mani-atoms";
 import { hideBreakpointClasses } from "./8-classes";
 
 export function DetailsPos({ item }: { item: ManualFieldState.CtxPos; }) {

@@ -2,8 +2,8 @@ import { atom, useAtomValue, useSetAtom } from "jotai";
 import { classNames } from "@/utils";
 import { FieldTyp } from "@/store/8-manifest";
 import { SelectTm } from "@/ui/local-ui";
-import { type FieldRowCtx, type FileUsCtx, getAllFormsFields_byFileUsCtx } from "@/store/2-file-mani-atoms";
-import { getDropdownNamesAtom } from "@/store/2-file-mani-atoms/4-cpass-to-login-links/8-reactive-login-names";
+import { type FieldRowCtx, type FileUsCtx, getAllFormsFields_byFileUsCtx } from "@/store/1-file-mani-atoms";
+import { getDropdownNamesAtom } from "@/store/1-file-mani-atoms/4-cpass-to-login-links/8-reactive-login-names";
 
 export function Column6_LinkToLoginForm({ rowCtx, fileUsCtx }: { rowCtx: FieldRowCtx; fileUsCtx: FileUsCtx; }) {
     const { rfieldUuidAtom } = rowCtx;

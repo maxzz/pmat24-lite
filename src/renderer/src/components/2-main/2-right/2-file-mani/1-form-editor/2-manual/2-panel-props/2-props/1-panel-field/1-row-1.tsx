@@ -1,6 +1,6 @@
 import { useAtom } from "jotai";
 import { FieldTyp } from "@/store/8-manifest";
-import { type FileUsCtx, type ManualFieldState } from "@/store/2-file-mani-atoms";
+import { type FileUsCtx, type ManualFieldState } from "@/store/1-file-mani-atoms";
 import { type SelectTmTextValue, SelectTm } from "@/ui/local-ui";
 import { InputLabel } from "../8-props-ui";
 import { Column3_Label } from "../../../../1-normal/1-fields";

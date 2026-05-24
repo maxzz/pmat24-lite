@@ -1,7 +1,7 @@
 import { FormIdx, Matching } from "@/store/8-manifest";
-import { InFormAccordionValue, type ManiAtoms, type VerifyError } from "@/store/2-file-mani-atoms/9-types";
+import { InFormAccordionValue, type ManiAtoms, type VerifyError } from "@/store/1-file-mani-atoms/9-types";
 import { type RowInputStateAtoms, validateRowInputStateAtoms } from "@/ui/local-ui";
-import { type FormOptionsState } from "@/store/2-file-mani-atoms/3-options/2-conv-options/9-types";
+import { type FormOptionsState } from "@/store/1-file-mani-atoms/3-options/2-conv-options/9-types";
 
 // Main options tab
 

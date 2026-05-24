@@ -2,7 +2,7 @@ import { type InputHTMLAttributes, useRef } from "react";
 import { useAtom, useAtomValue, useSetAtom } from "jotai";
 import { classNames, turnOffAutoComplete, useClickAway } from "@/utils";
 import { doHighlightControlAtom } from "@/store/7-napi-atoms";
-import { type FieldHighlightCtx } from "@/store/2-file-mani-atoms";
+import { type FieldHighlightCtx } from "@/store/1-file-mani-atoms";
 import { FieldTyp } from "@/store/8-manifest";
 
 type Column3_LabelProps = InputHTMLAttributes<HTMLInputElement> & {

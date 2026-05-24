@@ -5,7 +5,7 @@ import { Accordion, AccordionItem, AccordionContent, useAccordion, AccordionItem
 import { Button } from "../shadcn";
 import { SymbolChevronDown } from "../icons";
 import { appSettings, openedName } from "@/store/9-ui-state";
-import { type InFormAccordion } from "@/store/2-file-mani-atoms/9-types";
+import { type InFormAccordion } from "@/store/1-file-mani-atoms/9-types";
 
 type AccordionWithTriggerProps = {
     triggerText: ReactNode;

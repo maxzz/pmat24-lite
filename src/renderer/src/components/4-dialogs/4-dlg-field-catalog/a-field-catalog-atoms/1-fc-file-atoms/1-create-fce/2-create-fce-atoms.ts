@@ -3,7 +3,7 @@ import { proxy } from "valtio";
 import { type FileContent } from "@shared/ipc-types";
 import { type FileUs, type HighlightHwnd } from "@/store/store-types";
 import { type CatalogFile, createFceItemMeta } from "@/store/8-manifest";
-import { type ManiAtoms } from "@/store/2-file-mani-atoms/9-types";
+import { type ManiAtoms } from "@/store/1-file-mani-atoms/9-types";
 import { type FceItem, type FceAtoms, type FceItemEditor, defaultFcName, type FceItemValue, type FceDlgIn } from "../../9-types";
 import { rootDir } from "@/store/5-1-open-files";
 import { catalogItemInFileToFceItemValue } from "@/store/0-serve-atoms/3-do-save-mani-atom";

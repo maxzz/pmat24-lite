@@ -1,6 +1,6 @@
 import { useAtomValue, useSetAtom } from "jotai";
 import { FieldTyp } from "@/store/8-manifest";
-import { type FieldRowCtx, type FileUsCtx } from "@/store/2-file-mani-atoms";
+import { type FieldRowCtx, type FileUsCtx } from "@/store/1-file-mani-atoms";
 import { Column3_Label } from "./1-col3-label";
 import { Case_ValueMatchedText } from "./2-col3-text";
 

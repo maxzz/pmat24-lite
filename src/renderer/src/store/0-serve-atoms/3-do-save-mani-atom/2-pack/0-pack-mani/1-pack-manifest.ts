@@ -1,10 +1,10 @@
 import { type Mani, createGuid, FormIdx, TimeUtils } from "@/store/8-manifest";
-import { type AnyFormCtx } from "@/store/2-file-mani-atoms/9-types";
+import { type AnyFormCtx } from "@/store/1-file-mani-atoms/9-types";
 import { PackManifestDataParams } from "../9-types";
 import { packFormOptions } from "../3-options";
 import { packNormalFieldsAndSubmit } from "../1-normal";
 import { packManualFields } from "../2-manual";
-//import { print_PackedFormFields } from "@/store/2-file-mani-atoms/8-print/8-print-fields";
+//import { print_PackedFormFields } from "@/store/1-file-mani-atoms/8-print/8-print-fields";
 
 export function packManifest(packParams: PackManifestDataParams): void {
     const { maniAtoms } = packParams;

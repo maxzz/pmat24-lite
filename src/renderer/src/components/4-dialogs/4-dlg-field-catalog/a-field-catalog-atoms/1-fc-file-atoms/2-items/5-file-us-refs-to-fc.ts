@@ -3,7 +3,7 @@ import { FieldTyp, FormIdx, Mani } from "@/store/8-manifest";
 import { appSettings } from "@/store/9-ui-state";
 import { filesAtom } from "@/store/5-1-open-files";
 import { type FileUsAtom, type FileUs } from "@/store/store-types";
-import { type FieldRowCtx, type ManualFieldState } from "@/store/2-file-mani-atoms";
+import { type FieldRowCtx, type ManualFieldState } from "@/store/1-file-mani-atoms";
 import { type FceItem } from "../../9-types";
 import { doPreloadManiAtomsAtom } from "@/store/5-3-right-panel";
 import { getRootFceAtoms } from "../1-create-fce";

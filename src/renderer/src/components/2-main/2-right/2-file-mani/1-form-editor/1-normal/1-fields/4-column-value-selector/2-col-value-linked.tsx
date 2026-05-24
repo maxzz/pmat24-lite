@@ -1,5 +1,5 @@
 import { useAtom } from "jotai";
-import { type FieldRowCtx } from "@/store/2-file-mani-atoms";
+import { type FieldRowCtx } from "@/store/1-file-mani-atoms";
 import { type SelectTmTextValue, SelectTm } from "@/ui/local-ui";
 
 export function Case_ValueForLinked({ rowCtx }: { rowCtx: FieldRowCtx; }) {

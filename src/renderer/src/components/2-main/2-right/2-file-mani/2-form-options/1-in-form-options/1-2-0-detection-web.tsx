@@ -7,7 +7,7 @@ import { notice } from "@/ui/local-ui/7-toaster";
 import { FormRowChildren, InputWithTitle2Rows } from "@/ui/local-ui";
 import { optionsTooltips } from "../8-tooltips";
 import { Matching } from "@/store/8-manifest";
-import { type OFormProps } from "@/store/2-file-mani-atoms";
+import { type OFormProps } from "@/store/1-file-mani-atoms";
 import { MatchHow } from "./1-2-1-match-how";
 import { InlineRegexHelp } from "./1-2-3-inline-regex-help";
 import { BtnCopyOurl } from "./1-2-8-btn-copy-ourl";

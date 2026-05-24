@@ -1,9 +1,9 @@
 import { atom } from "jotai";
 import { errorToString } from "@/utils";
 import { FieldTyp, FormIdx } from "@/store/8-manifest";
-import { fileUsChanges } from "@/store/2-file-mani-atoms/9-types";
+import { fileUsChanges } from "@/store/1-file-mani-atoms/9-types";
 import { type FileUs, type FileUsAtom } from "@/store/store-types";
-import { type ManiAtoms, cFieldsIdx, lFieldsIdx, doSetInitialRelationsAtom } from "@/store/2-file-mani-atoms";
+import { type ManiAtoms, cFieldsIdx, lFieldsIdx, doSetInitialRelationsAtom } from "@/store/1-file-mani-atoms";
 import { type ManifestForWindowCreatorParams, type FileContent } from "@shared/ipc-types";
 import { doGetWindowManiAtom, maniXmlStrAtom, stateNapiAccess } from "@/store/7-napi-atoms";
 import { createEmptyFileContent } from "@/store/store-utils";
@@ -12,8 +12,8 @@ import { doInitNewManiContentAtom, newManiContent } from "./0-ctx-content";
 import { createManiAtoms } from "../0-create-mani-ctx-atoms";
 import { createParsedFileUsFromFileContent } from "@/store/0-serve-atoms/1-do-set-files";
 import { fileUsToXmlString } from "../../3-do-save-mani-atom/0-save-atom/2-fileus-to-xml-string";
-import { print_ManiAtomsForms } from "@/store/2-file-mani-atoms/8-print/8-print-fields";
-import { print_XmlManiFile } from "@/store/2-file-mani-atoms/8-print/8-print-mani";
+import { print_ManiAtomsForms } from "@/store/1-file-mani-atoms/8-print/8-print-fields";
+import { print_XmlManiFile } from "@/store/1-file-mani-atoms/8-print/8-print-mani";
 
 /**
  * Create new manifest inside newManiContent atoms and allow to move to the next page.

@@ -1,7 +1,7 @@
 import { useSetAtom } from "jotai";
 import { DropdownMenuItem } from "@/ui/shadcn";
 import { FormIdx } from "@/store/8-manifest";
-import { type ManiAtoms, type FileUsCtx } from "@/store/2-file-mani-atoms/9-types";
+import { type ManiAtoms, type FileUsCtx } from "@/store/1-file-mani-atoms/9-types";
 import { doDeleteCpassFromFileUsAtom } from "@/store/0-serve-atoms";
 import { sawMonitor_doSawOpenForCpassAtom } from "@/components/4-dialogs/2-dlg-create-login/a-create-dialog-atoms/7-0-open-saw-monitor";
 

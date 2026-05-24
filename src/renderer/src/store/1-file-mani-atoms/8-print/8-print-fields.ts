@@ -1,6 +1,6 @@
 import { getDefaultStore } from "jotai";
 import { type Mani, filterOneLevelEmptyValues, FormIdx, SUBMIT } from "@/store/8-manifest";
-import { type ManiAtoms, type AnyFormCtx, type FieldRowCtx } from "@/store/2-file-mani-atoms";
+import { type ManiAtoms, type AnyFormCtx, type FieldRowCtx } from "@/store/1-file-mani-atoms";
 import { type OldNewField, type RecordOldNewFieldByUuid } from "../../0-serve-atoms/3-do-save-mani-atom/2-pack/1-normal/9-types";
 import { type PackManifestDataParams } from "../../0-serve-atoms/3-do-save-mani-atom/2-pack/9-types";
 import { type PrintCollapsedText, eatFieldsJsonNewLines, print_CollapsedText } from "./8-print-utils";

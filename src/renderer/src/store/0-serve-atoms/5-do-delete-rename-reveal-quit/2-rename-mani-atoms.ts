@@ -2,8 +2,8 @@ import { atom } from "jotai";
 import { urlDomain } from "@/store/8-manifest";
 import { type RowInputStateAtom } from "@/ui/local-ui";
 import { type FileUsAtom } from "@/store/store-types";
-import { getOptionsFromFileUs } from "@/store/2-file-mani-atoms/9-types/1-mani-atoms-type";
-import { getManiDispNameAtomAtom } from "@/store/2-file-mani-atoms/3-options/2-conv-options";
+import { getOptionsFromFileUs } from "@/store/1-file-mani-atoms/9-types/1-mani-atoms-type";
+import { getManiDispNameAtomAtom } from "@/store/1-file-mani-atoms/3-options/2-conv-options";
 
 export type ManiNameDlgData = {
     fileUsAtom: FileUsAtom;             // fileUs to rename

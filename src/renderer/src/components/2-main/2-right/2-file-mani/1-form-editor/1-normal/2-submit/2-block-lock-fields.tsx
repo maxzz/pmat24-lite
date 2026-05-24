@@ -4,7 +4,7 @@ import { notice } from "@/ui/local-ui/7-toaster";
 import { AnimatePresence, motion } from "motion/react";
 import { OptionAsCheckbox, OptionAsSwitch, TitleTooltip } from "@/ui/local-ui";
 import { optionsTooltips } from "../../../2-form-options/8-tooltips";
-import { type NFormProps, type FormOptionsState } from "@/store/2-file-mani-atoms";
+import { type NFormProps, type FormOptionsState } from "@/store/1-file-mani-atoms";
 
 export function LoginLockFieldsFlag({ nFormProps }: { nFormProps: NFormProps; }) {
     const formIdx = nFormProps.nFormCtx.fileUsCtx.formIdx; // The old PMAT allows to lock fields for any normal form

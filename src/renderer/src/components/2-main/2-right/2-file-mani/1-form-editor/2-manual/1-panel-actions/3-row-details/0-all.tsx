@@ -1,6 +1,6 @@
 import { type SVGProps } from "react";
 import { classNames } from "@/utils";
-import { type MFormProps, type ManualFieldState } from "@/store/2-file-mani-atoms";
+import { type MFormProps, type ManualFieldState } from "@/store/1-file-mani-atoms";
 import { type ChunkKey } from "@/store/8-manifest";
 import { IconField as IconFld, IconKey, IconPos, IconDelay as IconDly } from "@/ui/icons";
 import { DetailsKbd } from "./1-details-key";

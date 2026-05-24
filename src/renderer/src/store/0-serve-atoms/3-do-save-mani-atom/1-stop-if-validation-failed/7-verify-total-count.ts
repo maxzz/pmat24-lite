@@ -1,5 +1,5 @@
 import { FormIdx, FieldTyp } from "@/store/8-manifest";
-import { type VerifyError, type ManiTabValue, type FieldRowCtx } from "@/store/2-file-mani-atoms";
+import { type VerifyError, type ManiTabValue, type FieldRowCtx } from "@/store/1-file-mani-atoms";
 
 export function getTotalCountError(fieldRowCtxs: FieldRowCtx[], formIdx: FormIdx, get: Getter): VerifyError[] | undefined {
     const totalCount: TotalCount = {

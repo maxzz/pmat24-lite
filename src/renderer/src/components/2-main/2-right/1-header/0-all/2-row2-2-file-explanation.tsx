@@ -3,7 +3,7 @@ import { hasMain } from "@/xternal-to-main";
 import { isAnyManual } from "@/store/8-manifest";
 import { type FileUs } from "@/store/store-types";
 import { type LaunchData } from "@/store/0-serve-atoms/8-launch-data/9-launch-types";
-import { launchDataIdx, safeManiAtoms } from "@/store/2-file-mani-atoms";
+import { launchDataIdx, safeManiAtoms } from "@/store/1-file-mani-atoms";
 import { asyncLaunchExe, labelLaunchLoginApp, labelLaunchPasswordChangeApp, labelOpenLoginScreen, labelOpenPasswordChangeScreen } from "@/store/0-serve-atoms/7-file-system-manipulation";
 import { SymbolOpenLink, SymbolOpenLinkRun2 } from "@/ui/icons";
 import { classNames } from "@/utils";

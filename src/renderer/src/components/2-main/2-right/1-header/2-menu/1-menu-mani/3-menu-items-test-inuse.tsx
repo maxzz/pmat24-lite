@@ -1,6 +1,6 @@
 import { useAtomValue, useSetAtom } from "jotai";
 import { DropdownMenuCheckboxItem } from "@/ui/shadcn";
-import { type FileUsCtx } from "@/store/2-file-mani-atoms";
+import { type FileUsCtx } from "@/store/1-file-mani-atoms";
 import { type FileUs } from "@/store/store-types/0-file-us-type";
 import { doSetManiInTestAtom } from "@/store/0-serve-atoms/6-do-in-use-test";
 import { modeTextInTest } from "../../../2-file-mani/2-form-options";

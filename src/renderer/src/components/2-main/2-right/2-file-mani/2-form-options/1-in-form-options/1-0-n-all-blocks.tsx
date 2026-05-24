@@ -1,11 +1,11 @@
 import { useAtomValue } from "jotai";
-import { type OFormProps, type MFormProps, type NFormProps } from "@/store/2-file-mani-atoms";
+import { type OFormProps, type MFormProps, type NFormProps } from "@/store/1-file-mani-atoms";
 import { DetectionContent_W32 } from "./1-1-0-detection-w32";
 import { DetectionContent_Web } from "./1-2-0-detection-web";
 import { BlockQuickLink } from "./3-quick-link";
 import { FormIconPosition } from "./2-icon-position";
 import { AccordionWithTrigger } from "@/ui/motion-primitives";
-import { InFormAccordionValue } from "@/store/2-file-mani-atoms/9-types";
+import { InFormAccordionValue } from "@/store/1-file-mani-atoms/9-types";
 
 export function InFormBlockOptions({ anyFormProps }: { anyFormProps: NFormProps | MFormProps; }) {
     const anyFormCtx = (anyFormProps as NFormProps).nFormCtx || (anyFormProps as MFormProps).mFormCtx;

@@ -1,7 +1,7 @@
 import { notice } from "@/ui/local-ui/7-toaster";
 import { appSettings } from "@/store/9-ui-state";
 import { FormIdx } from "@/store/8-manifest";
-import { type ManiAtoms, type ManiTabValue, type VerifyError } from "@/store/2-file-mani-atoms/9-types";
+import { type ManiAtoms, type ManiTabValue, type VerifyError } from "@/store/1-file-mani-atoms/9-types";
 import { getVerifyErrors_OptionsFormTab, getVerifyErrors_OptionsMainTab } from "./1-verify-options";
 import { getVerifyErrors_ManualForm, getVerifyErrors_NormalForm } from "./2-verify-form-any";
 import { setAccordionOpen } from "@/ui/motion-primitives";

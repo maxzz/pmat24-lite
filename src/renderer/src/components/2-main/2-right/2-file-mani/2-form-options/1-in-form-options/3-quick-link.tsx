@@ -1,9 +1,9 @@
 import { AccordionWithTrigger } from "@/ui/motion-primitives";
 import { InputWithTitle2Cols, InputWithTitle2Rows } from "@/ui/local-ui";
 import { Button } from "@/ui/shadcn/button";
-import { type OFormProps } from "@/store/2-file-mani-atoms";
+import { type OFormProps } from "@/store/1-file-mani-atoms";
 import { FormIdx } from "@/store/8-manifest";
-import { InFormAccordionValue } from "@/store/2-file-mani-atoms/9-types";
+import { InFormAccordionValue } from "@/store/1-file-mani-atoms/9-types";
 import { useAtomValue, useSetAtom } from "jotai";
 import { IconClose, IconPaste } from "@/ui/icons/normal";
 import { optionsTooltips } from "../8-tooltips";

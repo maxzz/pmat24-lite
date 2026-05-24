@@ -1,5 +1,5 @@
 import { FormIdx, tmurl, urlDomain } from "@/store/8-manifest";
-import { type ManiAtoms } from "@/store/2-file-mani-atoms";
+import { type ManiAtoms } from "@/store/1-file-mani-atoms";
 import { type LaunchData, type LaunchDataAll } from "./9-launch-types";
 import { expandEnvVariablesWindows } from "./2-process-env-atom";
 

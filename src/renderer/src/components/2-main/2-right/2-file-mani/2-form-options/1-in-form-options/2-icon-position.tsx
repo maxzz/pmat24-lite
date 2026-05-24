@@ -1,9 +1,9 @@
 import { useAtom, useAtomValue } from "jotai";
 import { AccordionWithTrigger } from "@/ui/motion-primitives";
 import { children2ColsClasses, FormRowChildren, SelectTm } from "@/ui/local-ui";
-import { type OFormProps } from "@/store/2-file-mani-atoms";
+import { type OFormProps } from "@/store/1-file-mani-atoms";
 import { type OptionTextValue } from "@/store/8-manifest";
-import { InFormAccordionValue } from "@/store/2-file-mani-atoms/9-types";
+import { InFormAccordionValue } from "@/store/1-file-mani-atoms/9-types";
 import { optionsTooltips } from "../8-tooltips";
 import { classNames } from "@/utils/classnames";
 
