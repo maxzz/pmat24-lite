@@ -12,38 +12,31 @@ export function Case_ValueMatchedText({ rowCtx }: { rowCtx: FieldRowCtx; }) {
     const [useIt, setUseIt] = useAtom(useItAtom);
     const [choosevalue, setChoosevalue] = useAtom(choosevalueAtom);
 
-    const enableRow = () => {
-        if (!useIt) {
-            setUseIt(true);
-        }
-    };
-
     const rawValue = choosevalue || '';
     const isRegex = rawValue.startsWith(regexPrefix);
     const displayValue = isRegex ? rawValue.substring(9) : rawValue;
 
-    const handleTextChange = (e: ChangeEvent<HTMLInputElement>) => {
+    function enableRow() {
+        if (!useIt) {
+            setUseIt(true);
+        }
+    }
+
+    function handleTextChange(e: ChangeEvent<HTMLInputElement>) {
         const newValue = e.target.value;
         const value = isRegex ? `${regexPrefix}${newValue}` : newValue;
         setChoosevalue(value);
-    };
+    }
 
-    const handleModeSelect = (mode: "string" | "regex") => {
+    function handleModeSelect(mode: "string" | "regex") {
         const value = mode === "regex" ? `${regexPrefix}${displayValue}` : displayValue;
         setChoosevalue(value);
-    };
+    }
 
     return (
         <AnimatePresence initial={false} mode="wait">
             {!useIt ? (
-                <motion.div
-                    key="empty"
-                    className="h-7"
-                    // initial={{ opacity: 0, scaleX: 0.1, }}
-                    // animate={{ opacity: 1, scaleX: 1 }}
-                    // exit={{ opacity: 0, scaleX: 0.1 }}
-                    transition={{ duration: 0.001 }}
-                />
+                <motion.div key="empty" className="h-7" transition={{ duration: 0.001 }} />
             ) : (
                 <motion.div
                     key="content"
@@ -52,7 +45,6 @@ export function Case_ValueMatchedText({ rowCtx }: { rowCtx: FieldRowCtx; }) {
                     animate={{ opacity: 1, scaleX: 1, transformOrigin: "left center" }}
                     exit={{ opacity: 0, scaleX: 0.1, transformOrigin: "left center" }}
                     transition={{ duration: .1, ease: "easeOut" }}
-                    // layout="size"
                 >
                     <div className="pl-1 pr-1.5 text-muted-foreground bg-muted border-r select-none flex items-center justify-center" title={isRegex ? "Matching as regex" : "Matching as string"}>
                         {isRegex ? <SymbolMatchRegex className="size-4" /> : <SymbolMatchString className="size-4" />}
