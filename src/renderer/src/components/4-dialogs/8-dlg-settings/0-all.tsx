@@ -3,12 +3,12 @@ import { useSnapshot } from "valtio";
 import * as D from "@/ui/shadcn/dialog";
 import { Button, ScrollArea } from "@/ui";
 import { overlayClasses } from "@/ui/local-ui/8-classes";
-import { doOpenOptionsDialogAtom } from "@/store/4-dialogs-atoms";
 import { FileListSettings } from "./2-settings-file-list";
 import { UiUxSettings } from "./3-settings-ux-ui";
 import { DialogPasswordPolicy } from "./4-settings-psw-policy";
 import { AdvancedSettings } from "./5-settings-advanced";
 import { SectionTitle } from "./8-shared-classes";
+import { doOpenOptionsDialogAtom } from "./a-options-local-atoms";
 import { debugSettings } from "@/store/9-ui-state";
 
 export function AppSettingsDialog() {
