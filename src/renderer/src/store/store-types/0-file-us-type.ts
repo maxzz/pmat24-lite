@@ -1,7 +1,7 @@
 import { type Mani, type Meta, type CatalogFile } from "../8-manifest";
 import { type FileContent, type TlwInfo } from "@shared/ipc-types";
 import { type ManiAtoms } from "@/store/2-file-mani-atoms";
-import { type FceAtoms } from "../3-field-catalog-atoms";
+import { type FceAtoms } from "@/components/4-dialogs/4-dlg-field-catalog/a-field-catalog-atoms";
 
 export type FileUsStats = {
     loginFormDomain?: string;                           // fileUs.meta?.[0]?.disp.domain

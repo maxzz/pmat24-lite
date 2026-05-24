@@ -1,5 +1,5 @@
 import { DropdownMenuSeparator } from "@/ui/shadcn/dropdown-menu";
-import { type FceCtx } from "@/store/3-field-catalog-atoms";
+import { type FceCtx } from "@/components/4-dialogs/4-dlg-field-catalog/a-field-catalog-atoms";
 import { MenuItem_ShowXML } from "../7-show-xml";
 import { MenuItem_More } from "../8-more";
 import { MenuItem_AddFcItem, MenuItem_DelFcItem } from "./1-menu-items-add-del";

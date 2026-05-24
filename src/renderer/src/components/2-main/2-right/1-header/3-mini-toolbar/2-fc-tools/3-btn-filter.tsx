@@ -4,7 +4,7 @@ import { classNames } from "@/utils";
 import { AnimatePresence, motion } from "motion/react";
 import { Button } from "@/ui";
 import { IconClose, IconFilter } from "@/ui/icons";
-import { type FceCtx } from "@/store/3-field-catalog-atoms";
+import { type FceCtx } from "@/components/4-dialogs/4-dlg-field-catalog/a-field-catalog-atoms";
 
 const inputClasses = "w-full px-2 h-7 text-xs bg-mani-background border-border border rounded-md";
 

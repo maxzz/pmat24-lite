@@ -1,7 +1,7 @@
 import { useEffect, useRef, type HTMLAttributes } from "react";
 import { useAtom, useAtomValue, useSetAtom } from "jotai";
 import { classNames } from "@/utils";
-import { type FceCtx, doSelectIdxFcAtom } from "@/store/3-field-catalog-atoms";
+import { type FceCtx, doSelectIdxFcAtom } from "@/components/4-dialogs/4-dlg-field-catalog/a-field-catalog-atoms";
 import { FldCatItemRow, rowParentActiveClasses } from "./2-fld-cat-item-row";
 
 type FldCatItemsGridProps = HTMLAttributes<HTMLDivElement> & {

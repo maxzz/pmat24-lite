@@ -3,7 +3,7 @@ import { useAtom, useSetAtom } from "jotai";
 import { classNames } from "@/utils";
 import { useResizeObserver } from "@/utils";
 import { ScrollArea } from "@/ui/shadcn";
-import { type FceCtx, doScrollToItemAtom } from "@/store/3-field-catalog-atoms";
+import { type FceCtx, doScrollToItemAtom } from "@/components/4-dialogs/4-dlg-field-catalog/a-field-catalog-atoms";
 import { FldCatItemsBody } from "./1-body";
 
 export function FldCatItemsGrid(props: { fceCtx: FceCtx; } & HTMLAttributes<HTMLDivElement>) {

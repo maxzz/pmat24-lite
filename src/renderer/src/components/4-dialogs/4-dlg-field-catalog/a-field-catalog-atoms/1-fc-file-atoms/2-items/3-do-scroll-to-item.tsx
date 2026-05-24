@@ -1,5 +1,5 @@
 import { atom } from "jotai";
-import { type FceCtx, type FceItem } from "@/store/3-field-catalog-atoms";
+import { type FceCtx, type FceItem } from "@/components/4-dialogs/4-dlg-field-catalog/a-field-catalog-atoms";
 
 type doScrollToItemAtomProps = {
     container: HTMLElement | null;

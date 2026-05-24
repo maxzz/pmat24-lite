@@ -1,5 +1,5 @@
 import { type CatalogFile, fieldTyp2FcObj, TransformValue } from "@/store/8-manifest";
-import { type FceItemValue } from "@/store/3-field-catalog-atoms/9-types";
+import { type FceItemValue } from "@/components/4-dialogs/4-dlg-field-catalog/a-field-catalog-atoms/9-types";
 
 export function catalogItemInFileToFceItemValue(catalogName: CatalogFile.ItemInFile): FceItemValue {
     const rv: FceItemValue = {

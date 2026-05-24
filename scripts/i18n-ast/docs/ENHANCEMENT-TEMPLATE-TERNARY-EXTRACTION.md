@@ -26,7 +26,7 @@ However, the extraction tool was only processing the template literal as a whole
 
 ### Example Case
 
-**File**: `src/renderer/src/store/3-field-catalog-atoms/1-fc-file-atoms/2-items/2-add-del-item.tsx`  
+**File**: `src/renderer/src/components/4-dialogs/4-dlg-field-catalog/a-field-catalog-atoms/1-fc-file-atoms/2-items/2-add-del-item.tsx`  
 **Line 18**:
 ```tsx
 const newName = `${fType === FieldTyp.edit ? 'New text' : 'New password'} ${newIdx + 1}`;

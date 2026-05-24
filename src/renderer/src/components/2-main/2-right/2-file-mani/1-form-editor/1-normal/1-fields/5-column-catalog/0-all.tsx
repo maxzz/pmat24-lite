@@ -4,7 +4,7 @@ import { classNames } from "@/utils";
 import { Mani, FieldTyp, type ValueLife } from "@/store/8-manifest";
 import { inputRingClasses } from "@/ui/local-ui";
 import { type FieldRowCtx, type FileUsCtx } from "@/store/2-file-mani-atoms";
-import { type FceItem, type FceDlgIn, type FceDlgOut, doOpenFceDlgAtom, creteOutBoxAtom, useFcItemsWithMru } from "@/store/3-field-catalog-atoms";
+import { type FceItem, type FceDlgIn, type FceDlgOut, doOpenFceDlgAtom, creteOutBoxAtom, useFcItemsWithMru } from "@/components/4-dialogs/4-dlg-field-catalog/a-field-catalog-atoms";
 import { InputSelectUi } from "./1-dropdown";
 
 const selectClasses = "\

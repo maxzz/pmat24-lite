@@ -3,7 +3,7 @@ import { useSnapshot } from "valtio";
 import { classNames } from "@/utils";
 import { FieldTyp } from "@/store/8-manifest";
 import { fieldIcons } from "@/store/8-manifest/manifest-field-icons";
-import { type FceCtx, type FceItem } from "@/store/3-field-catalog-atoms";
+import { type FceCtx, type FceItem } from "@/components/4-dialogs/4-dlg-field-catalog/a-field-catalog-atoms";
 
 type FldCatItemProps = HTMLAttributes<HTMLDivElement> & {
     idx: number;

@@ -16,7 +16,7 @@
         "src/renderer/src/xternal-to-main/2-gates-in-client-as-atoms/2-gate-react-listener-atom.ts",
         "src/renderer/src/store/2-file-mani-atoms/2-manual-fields/2-conv-manual/1-m-create-atoms.tsx",
         "src/renderer/src/components/2-main/1-left/1-header/1-menu-main/22-more/c-command-test-ping-pong.tsx",
-        //"src/renderer/src/store/3-field-catalog-atoms/1-fc-file-atoms/2-items/2-add-del-item.tsx", // most but not all
+        //"src/renderer/src/components/4-dialogs/4-dlg-field-catalog/a-field-catalog-atoms/1-fc-file-atoms/2-items/2-add-del-item.tsx", // most but not all
     ],
     "excludePaths": [
         "src/renderer/src/ui/icons",
@@ -25,7 +25,7 @@
         "src/components/2-main/2-right/2-file-mani/2-form-options/9-controls/nun-controls",
         "src/renderer/src/components/2-main/2-right/2-file-mani/2-form-options/nun-form-options",
         "src/renderer/src/ui/shadcn",
-        "src/renderer/src/store/3-field-catalog-atoms",
+        "src/renderer/src/components/4-dialogs/4-dlg-field-catalog/a-field-catalog-atoms",
         "src/renderer/src/components/4-dialogs/2-dlg-create-login/x-1-nun-dlg-w-screenshots",
         "src/renderer/src/components/4-dialogs/2-dlg-create-login/x-2-nun-dlg-w-apps-list",
         "src/renderer/src/assets/tests",

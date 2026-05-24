@@ -4,7 +4,7 @@ import { Button } from "@/ui/shadcn";
 import { FieldTyp } from "@/store/8-manifest";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/ui/shadcn/dropdown-menu";
 import { IconAdd } from "@/ui/icons";
-import { type FceCtx, doAddItemAtom } from "@/store/3-field-catalog-atoms";
+import { type FceCtx, doAddItemAtom } from "@/components/4-dialogs/4-dlg-field-catalog/a-field-catalog-atoms";
 
 export function Button_AddItem({ fceCtx }: { fceCtx: FceCtx; }) {
     const [menuOpen, setMenuOpen] = useState<boolean>(false);

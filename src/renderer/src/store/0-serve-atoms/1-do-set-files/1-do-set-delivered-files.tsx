@@ -10,7 +10,7 @@ import { type PmatFolder, filesAtom, isRootDirEmpty, setRootDir, undefinedPmatFo
 import { sortFileUsItemsInPlaceAndSetIndices } from "@/store/5-2-tree-files";
 import { rightPanelAtomAtom } from "@/store/5-3-right-panel";
 import { isPmatFileToLoad, inTest_Start } from "@/store/0-serve-atoms/6-do-in-use-test";
-import { doAddFcToLoadedAtom, doClearFcRootAtom, doInitFileUsLinksToFcAtom } from "@/store/3-field-catalog-atoms";
+import { doAddFcToLoadedAtom, doClearFcRootAtom, doInitFileUsLinksToFcAtom } from "@/components/4-dialogs/4-dlg-field-catalog/a-field-catalog-atoms";
 import { createParsedFileUsFromFileContent } from "./3-create-fileus";
 
 export type SetDeliveredFiles = {

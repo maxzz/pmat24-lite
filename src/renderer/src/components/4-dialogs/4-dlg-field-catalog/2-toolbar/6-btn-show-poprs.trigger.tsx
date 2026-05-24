@@ -1,7 +1,7 @@
 import { useAtom } from "jotai";
 import { Button } from "@/ui/shadcn";
 import { SymbolDoubleDown } from "@/ui/icons";
-import { showPropsAtom } from "@/store/3-field-catalog-atoms";
+import { showPropsAtom } from "@/components/4-dialogs/4-dlg-field-catalog/a-field-catalog-atoms";
 
 export function ShowPropsTrigger({ showPropsExpand }: { showPropsExpand?: boolean; }) {
     const [showProps, doShowProps] = useAtom(showPropsAtom);

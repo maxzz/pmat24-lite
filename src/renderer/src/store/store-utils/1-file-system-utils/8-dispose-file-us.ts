@@ -2,7 +2,7 @@ import { atom } from "jotai";
 import { discardValues, discardValuesDeep } from "@/utils";
 import { type FileUsAtom, type ManiAtomsAtom } from "@/store/store-types";
 import { type ManiAtoms, type AnyFormCtx } from "@/store/2-file-mani-atoms";
-import { type FceCtx } from "@/store/3-field-catalog-atoms";
+import { type FceCtx } from "@/components/4-dialogs/4-dlg-field-catalog/a-field-catalog-atoms";
 import { filesAtom } from "@/store/5-1-open-files";
 
 /**

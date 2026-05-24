@@ -1,7 +1,7 @@
 import { useAtomValue, useSetAtom } from "jotai";
 import { Button } from "@/ui";
 import { IconTrash } from "@/ui/icons";
-import { type FceCtx, doDeleteSelectedItemAtom } from "@/store/3-field-catalog-atoms";
+import { type FceCtx, doDeleteSelectedItemAtom } from "@/components/4-dialogs/4-dlg-field-catalog/a-field-catalog-atoms";
 
 export function Button_DeleteItem({ fceCtx }: { fceCtx: FceCtx; }) {
     const hasSelectedItem = useAtomValue(fceCtx.hasSelectedItemAtom);

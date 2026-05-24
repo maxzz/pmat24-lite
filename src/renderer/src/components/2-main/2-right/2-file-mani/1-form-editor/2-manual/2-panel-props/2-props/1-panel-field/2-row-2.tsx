@@ -5,7 +5,7 @@ import { FieldTyp, FormIdx } from "@/store/8-manifest";
 import { appSettings } from "@/store/9-ui-state";
 import { type FileUsCtx, type ManualFieldState } from "@/store/2-file-mani-atoms";
 import { type FieldRowCtx, useIsLinkedToLogin } from "@/store/2-file-mani-atoms";
-import { type FceItem } from "@/store/3-field-catalog-atoms";
+import { type FceItem } from "@/components/4-dialogs/4-dlg-field-catalog/a-field-catalog-atoms";
 import { InputLabel } from "../8-props-ui";
 import { Column6_LinkToLoginForm, Column6_Policy, Case_ValueForLinked, Column4_Value, Column5_Catalog } from "../../../../1-normal/1-fields";
 

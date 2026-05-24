@@ -2,7 +2,7 @@ import { type ComponentPropsWithoutRef, forwardRef, type ElementRef, type ReactN
 import { useAtomValue, useSetAtom } from "jotai";
 import { classNames, cn } from "@/utils";
 import * as D from "@/ui/shadcn/dialog";
-import { doCancelFceDlgAtom, fceDlgTriggerAtom } from "@/store/3-field-catalog-atoms";
+import { doCancelFceDlgAtom, fceDlgTriggerAtom } from "@/components/4-dialogs/4-dlg-field-catalog/a-field-catalog-atoms";
 import { FceDialogBodySelector } from "./1-dialog-body";
 import { overlayClasses } from "@/ui/local-ui/8-classes";
 import { AnimatePresence, motion, MotionConfig } from "motion/react";

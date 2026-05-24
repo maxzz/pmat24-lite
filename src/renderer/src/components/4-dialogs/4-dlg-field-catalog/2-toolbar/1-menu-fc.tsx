@@ -4,7 +4,7 @@ import { appSettings, RightPanelViewAs } from "@/store/9-ui-state";
 import { DropdownMenu, DropdownMenuCheckboxItem, DropdownMenuContent, DropdownMenuSeparator, DropdownMenuTrigger } from "@/ui/shadcn/dropdown-menu";
 import { Button } from "@/ui/shadcn";
 import { IconMenuHamburger5 } from "@/ui/icons";
-import { type FceCtx } from "@/store/3-field-catalog-atoms";
+import { type FceCtx } from "@/components/4-dialogs/4-dlg-field-catalog/a-field-catalog-atoms";
 
 export function PanelMenu_Fc({ fceCtx }: { fceCtx: FceCtx; }) {
     const [menuOpen, setMenuOpen] = useState<boolean>(false);

@@ -1,7 +1,7 @@
 import { useSetAtom } from "jotai";
 import { DialogCloseButton } from "@/ui/shadcn/dialog";
 import { SymbolFolder } from "@/ui/icons";
-import { type FceCtx, doCancelFceDlgAtom } from "@/store/3-field-catalog-atoms";
+import { type FceCtx, doCancelFceDlgAtom } from "@/components/4-dialogs/4-dlg-field-catalog/a-field-catalog-atoms";
 
 export function Header({ fceCtx }: { fceCtx: FceCtx; }) {
     const doCancelFldCatDialog = useSetAtom(doCancelFceDlgAtom);
