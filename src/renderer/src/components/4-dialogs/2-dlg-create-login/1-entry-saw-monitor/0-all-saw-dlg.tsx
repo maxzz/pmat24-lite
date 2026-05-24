@@ -5,8 +5,9 @@ import { type MotionNodeOptions, AnimatePresence, motion, useReducedMotion } fro
 import { useDissmissNextToasts } from "@/utils";
 import { Button, Checkbox, Label } from "@/ui";
 import { stateNapiAccess, useSawRectMonitor } from "@/store/7-napi-atoms";
-import { doCancelMoveToSecondDlgAtom, doMoveToSecondDlgAtom, sawMonitor_onFinishAnimation_AllCloseAtom, sawMonitor_onFinishAnimation_CoverOpenAtom, sawMonitor_isOpenBodyAtom, sawMonitor_isOpenCoverAtom, sawMonitor_isSawOpenAtom } from "@/store/4-dialogs-atoms";
-import { checkboxCreateManualModeAtom } from "@/store/4-dialogs-atoms/2-create-dialog-atoms/7-3-ui-atoms";
+import { doCancelMoveToSecondDlgAtom, doMoveToSecondDlgAtom } from "../a-create-dialog-atoms/1-1-do-move-to-second-dlg";
+import { sawMonitor_onFinishAnimation_AllCloseAtom, sawMonitor_onFinishAnimation_CoverOpenAtom, sawMonitor_isOpenBodyAtom, sawMonitor_isOpenCoverAtom, sawMonitor_isSawOpenAtom } from "../a-create-dialog-atoms/7-0-open-saw-monitor";
+import { checkboxCreateManualModeAtom } from "../a-create-dialog-atoms/7-3-ui-atoms";
 import { newManiContent } from "@/store/0-serve-atoms/0-create/1-create-new-mani-ctx";
 import { CurrentApp } from "./1-current-app";
 import { RuntimeCounter } from "./2-runtime-counter";

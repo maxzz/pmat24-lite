@@ -7,7 +7,7 @@ import { Button } from "@/ui/shadcn/button";
 import { appSettings } from "@/store/9-ui-state";
 import { type PmatFolder } from "@/store/5-1-open-files";
 import { doSetFilesFrom_MruFolder_Atom } from "@/store/0-serve-atoms/2-do-load-files";
-import { asyncRemoveMruItemDialogAtom } from "@/store/4-dialogs-atoms/5-confirm-atoms";
+import { asyncRemoveMruItemDialogAtom } from "@/components/4-dialogs/5-confirm/a-confirm-atoms/8-confirmation-ui-messages";
 import { IconCrossOnHover } from "./5-ui-icon-delete-recent-item";
 import { IconFolderClosed } from "@/ui/icons/normal/temp2";
 

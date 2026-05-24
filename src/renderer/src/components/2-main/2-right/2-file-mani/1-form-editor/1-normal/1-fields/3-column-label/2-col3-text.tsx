@@ -1,5 +1,5 @@
 import { type ChangeEvent } from "react";
-import { useAtom } from "jotai";
+import { useAtom, useAtomValue } from "jotai";
 import { AnimatePresence, motion } from "motion/react";
 import { classNames, turnOffAutoComplete } from "@/utils";
 import { SymbolChevronDown, SymbolDot, SymbolMatchString, SymbolMatchRegex } from "@ui/icons";
@@ -7,8 +7,57 @@ import * as M from "@radix-ui/react-dropdown-menu";
 import { inputRingClasses } from "@/ui/local-ui";
 import { type FieldRowCtx } from "@/store/2-file-mani-atoms";
 
+/*
+export function FieldRow({ rowCtx, fileUsCtx }: { rowCtx: FieldRowCtx; fileUsCtx: FileUsCtx; }) {
+    const { useItAtom, typeAtom, labelAtom, valueLifeAtom, policiesAtom, metaField } = rowCtx;
+    const maniField = metaField.mani;
+    const isTextField = maniField.type === 'text';
+
+    const label = useAtomValue(labelAtom);
+    const [useIt, setUseIt] = useAtom(useItAtom);
+
+    const { showFormTextFields } = useSnapshot(appSettings.appUi.uiGeneral);
+
+    if (!showFormTextFields && isTextField) {
+        return null;
+    }
+
+    if (!isTextField) {
+        return <FieldRow_normal rowCtx={rowCtx} fileUsCtx={fileUsCtx} />;
+    }
+
+    return (<>
+        {useIt ? (
+            <Case_ValueMatchedText rowCtx={rowCtx} />
+        ) : (
+            <div className="h-7">{label}</div>
+        )}
+    </>);
+}
+*/
+
+/*
+        {isTextField ? (
+            useIt ? (
+                <Case_ValueMatchedText rowCtx={rowCtx} />
+            ) : (
+                <div className="h-7">{label}</div>
+            )
+        ) : (
+            <Column3_Label
+                useItAtom={useItAtom}
+                valueAtom={labelAtom}
+                typeAtom={typeAtom}
+                highlightCtx={{ nFieldCtx: rowCtx, fileUs: fileUsCtx.fileUs, formIdx: fileUsCtx.formIdx }}
+                onClick={enableRow}
+            />
+        )}
+
+*/
+
 export function Case_ValueMatchedText({ rowCtx }: { rowCtx: FieldRowCtx; }) {
-    const { useItAtom, choosevalueAtom } = rowCtx;
+    const { useItAtom, choosevalueAtom, labelAtom } = rowCtx;
+    const label = useAtomValue(labelAtom);
     const [useIt, setUseIt] = useAtom(useItAtom);
     const [choosevalue, setChoosevalue] = useAtom(choosevalueAtom);
 
@@ -36,7 +85,9 @@ export function Case_ValueMatchedText({ rowCtx }: { rowCtx: FieldRowCtx; }) {
     return (
         <AnimatePresence initial={false} mode="wait">
             {!useIt ? (
-                <motion.div key="empty" className="h-7" transition={{ duration: 0.001 }} />
+                <motion.div key="empty" className={classNames(containerClasses, "h-7 flex items-center")} transition={{ duration: 0.001 }}>
+                    <div>{label}</div>
+                </motion.div>
             ) : (
                 <motion.div
                     key="content"

@@ -1,7 +1,7 @@
 import { useAtom } from "jotai";
 import { classNames } from "@/utils";
 import { Button, Dialog, DialogFooter } from "@/ui/shadcn";
-import { type ConfirmationData, isOpenConfirmDialogAtom } from "@/store/4-dialogs-atoms";
+import { type ConfirmationData, isOpenConfirmDialogAtom } from "./a-confirm-atoms/9-types-confirm";
 import { DialogContentWithHeader } from "./8-dialog-content-w-header";
 
 export function ConfirmationDialog() {

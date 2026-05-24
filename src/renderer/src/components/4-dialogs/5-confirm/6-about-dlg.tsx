@@ -3,7 +3,8 @@ import { classNames, envBuildVersion, envModifiedDate } from "@/utils";
 import { Textarea } from "@/ui/shadcn";
 import { inputRingClasses, optionInputClasses } from "@/ui/local-ui";
 import { IconL_AlertOctagon } from "@/ui/icons";
-import { aboutMessages, doAsyncExecuteConfirmDialogAtom } from "@/store/4-dialogs-atoms";
+import { aboutMessages } from "./a-confirm-atoms/8-confirmation-ui-messages";
+import { doAsyncExecuteConfirmDialogAtom } from "./a-confirm-atoms/9-types-confirm";
 import { asyncGetAboutInfo } from "@/store/7-napi-atoms";
 import { type ProductInfo, type GeneralInfoResult } from "@shared/ipc-types";
 

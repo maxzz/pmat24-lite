@@ -4,7 +4,7 @@ import { AnimatePresence, motion } from "motion/react";
 import * as DialogPrimitive from "@radix-ui/react-dialog";
 import * as D from "@/ui/shadcn/dialog";
 
-import { filterDialogOpenAtom } from "@/store/4-dialogs-atoms";
+import { filterDialogOpenAtom } from "../a-filter-dialog-atoms";
 import { DialogFilterBody } from "./3-body";
 
 export function DialogFilterFilesRenderer() {

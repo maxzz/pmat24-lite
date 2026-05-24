@@ -1,7 +1,8 @@
 import { atom } from "jotai";
 import { appSettings } from "../9-ui-state/0-local-storage-app";
 import { allFileUsChanges } from "../2-file-mani-atoms/9-types";
-import { confirmCloseFolderMessages, doAsyncExecuteConfirmDialogAtom } from "../4-dialogs-atoms/5-confirm-atoms";
+import { confirmCloseFolderMessages } from "@/components/4-dialogs/5-confirm/a-confirm-atoms/8-confirmation-ui-messages";
+import { doAsyncExecuteConfirmDialogAtom } from "@/components/4-dialogs/5-confirm/a-confirm-atoms/9-types-confirm";
 import { doSetDeliveredFilesAtom } from "@/store/0-serve-atoms/1-do-set-files";
 import { inTest_DeleteDir } from "@/store/0-serve-atoms/6-do-in-use-test";
 import { undefinedPmatFolder } from "@/store/5-1-open-files";

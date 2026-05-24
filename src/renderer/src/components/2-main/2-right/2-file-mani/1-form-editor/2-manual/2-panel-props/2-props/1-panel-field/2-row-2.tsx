@@ -7,7 +7,7 @@ import { type FileUsCtx, type ManualFieldState } from "@/store/2-file-mani-atoms
 import { type FieldRowCtx, useIsLinkedToLogin } from "@/store/2-file-mani-atoms";
 import { type FceItem } from "@/store/3-field-catalog-atoms";
 import { InputLabel } from "../8-props-ui";
-import { Case_LinkToLoginForm, Column6_Policy, Case_ValueForLinked, Column4_Value, Column5_Catalog } from "../../../../1-normal/1-fields";
+import { Column6_LinkToLoginForm, Column6_Policy, Case_ValueForLinked, Column4_Value, Column5_Catalog } from "../../../../1-normal/1-fields";
 
 export function SecondRow({ item, fileUsCtx }: { item: ManualFieldState.CtxFld; fileUsCtx: FileUsCtx; }) {
     const { rowCtx } = item;
@@ -48,7 +48,7 @@ export function SecondRow({ item, fileUsCtx }: { item: ManualFieldState.CtxFld; 
                     )
                     : (
                         <InputLabel label="Link to login" className="ml-2 min-w-32">
-                            <Case_LinkToLoginForm rowCtx={rowCtx} fileUsCtx={fileUsCtx} />
+                            <Column6_LinkToLoginForm rowCtx={rowCtx} fileUsCtx={fileUsCtx} />
                         </InputLabel>
                     )
             )}

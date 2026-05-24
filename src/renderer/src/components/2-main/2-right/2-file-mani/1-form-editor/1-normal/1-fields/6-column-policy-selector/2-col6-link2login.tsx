@@ -5,7 +5,7 @@ import { SelectTm } from "@/ui/local-ui";
 import { type FieldRowCtx, type FileUsCtx, getAllFormsFields_byFileUsCtx } from "@/store/2-file-mani-atoms";
 import { getDropdownNamesAtom } from "@/store/2-file-mani-atoms/4-cpass-to-login-links/8-reactive-login-names";
 
-export function Case_LinkToLoginForm({ rowCtx, fileUsCtx }: { rowCtx: FieldRowCtx; fileUsCtx: FileUsCtx; }) {
+export function Column6_LinkToLoginForm({ rowCtx, fileUsCtx }: { rowCtx: FieldRowCtx; fileUsCtx: FileUsCtx; }) {
     const { rfieldUuidAtom } = rowCtx;
     const dropdownNames = useAtomValue(getDropdownNamesAtom(fileUsCtx));
     const rindexUuid = useAtomValue(rfieldUuidAtom);

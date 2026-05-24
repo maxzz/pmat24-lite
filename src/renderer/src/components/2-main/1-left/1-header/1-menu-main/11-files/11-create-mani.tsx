@@ -3,7 +3,7 @@ import { useSnapshot } from "valtio";
 import { rootDir } from "@/store/5-1-open-files";
 import { DropdownMenuItem, DropdownMenuShortcut } from "@/ui/shadcn/dropdown-menu";
 import { menuShortcutClasses } from "@/ui/local-ui";
-import { sawMonitor_doSawOpenAtom } from "@/store/4-dialogs-atoms";
+import { sawMonitor_doSawOpenAtom } from "@/components/4-dialogs/2-dlg-create-login/a-create-dialog-atoms/7-0-open-saw-monitor";
 import { appShortcuts } from "@/components/4-dialogs/0-global";
 
 export function MenuItem_CreateMani() {

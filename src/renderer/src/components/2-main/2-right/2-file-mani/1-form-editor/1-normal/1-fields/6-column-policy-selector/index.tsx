@@ -1,2 +1,2 @@
-export * from "./1-col-policy";
-export * from "./7-col-link-to-cpass";
+export * from "./1-col6-policy";
+export * from "./2-col6-link2login";
