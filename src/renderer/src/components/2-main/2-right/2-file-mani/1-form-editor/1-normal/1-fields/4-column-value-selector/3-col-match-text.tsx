@@ -1,5 +1,6 @@
 import { type ChangeEvent } from "react";
 import { useAtom } from "jotai";
+import { motion } from "motion/react";
 import { classNames, turnOffAutoComplete } from "@/utils";
 import { SymbolChevronDown, SymbolDot, SymbolMatchString, SymbolMatchRegex } from "@ui/icons";
 import * as M from "@radix-ui/react-dropdown-menu";
@@ -37,7 +38,12 @@ export function Case_ValueMatchedText({ rowCtx }: { rowCtx: FieldRowCtx; }) {
     }
 
     return (
-        <div className={classNames(containerClasses, inputRingClasses, !useIt && "opacity-30 cursor-pointer")}>
+        <motion.div
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.15 }}
+            className={classNames(containerClasses, inputRingClasses, !useIt && "opacity-30 cursor-pointer")}
+        >
             <div className="pl-1 pr-1.5 text-muted-foreground bg-muted border-r select-none flex items-center justify-center" title={isRegex ? "Matching as regex" : "Matching as string"}>
                 {isRegex ? <SymbolMatchRegex className="size-4" /> : <SymbolMatchString className="size-4" />}
             </div>
@@ -66,7 +72,7 @@ export function Case_ValueMatchedText({ rowCtx }: { rowCtx: FieldRowCtx; }) {
                     </M.Content>
                 </M.Portal>
             </M.Root>
-        </div>
+        </motion.div>
     );
 }
 
