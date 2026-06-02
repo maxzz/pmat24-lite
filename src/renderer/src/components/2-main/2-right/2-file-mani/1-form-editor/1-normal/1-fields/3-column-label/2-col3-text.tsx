@@ -3,7 +3,7 @@ import { useAtom, useAtomValue } from "jotai";
 import { AnimatePresence, motion } from "motion/react";
 import { classNames, turnOffAutoComplete } from "@/utils";
 import { IconClose, IconPaste, SymbolChevronDown, SymbolDot, SymbolMatchString, SymbolMatchRegex } from "@ui/icons";
-import * as M from "@radix-ui/react-dropdown-menu";
+import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
 import { inputRingClasses } from "@/ui/local-ui";
 import { Button } from "@/ui/shadcn/button";
 import { Tooltip, TooltipContent, TooltipPortal, TooltipTrigger } from "@/ui/shadcn/tooltip";
@@ -47,14 +47,7 @@ export function Case_ValueMatchedText({ rowCtx }: { rowCtx: FieldRowCtx; }) {
     }
 
     return (
-        <div
-            className={classNames(
-                containerClasses,
-                inputRingClasses,
-                !useIt && "opacity-30 cursor-pointer"
-            )}
-            onClick={!useIt ? enableRow : undefined}
-        >
+        <div className={classNames(containerClasses, inputRingClasses, !useIt && "opacity-30 cursor-pointer")} onClick={!useIt ? enableRow : undefined}>
             <AnimatePresence initial={false}>
                 {useIt && (
                     <motion.div
@@ -83,77 +76,79 @@ export function Case_ValueMatchedText({ rowCtx }: { rowCtx: FieldRowCtx; }) {
 
             <div className="col-start-2 h-7 flex items-center min-w-0">
                 <AnimatePresence mode="wait" initial={false}>
-                    {!useIt ? (
-                        <motion.div
-                            key="label"
-                            initial={{ opacity: 0 }}
-                            animate={{ opacity: 1 }}
-                            exit={{ opacity: 0 }}
-                            transition={{ duration: 0.15 }}
-                            className="px-2 truncate w-full"
-                        >
-                            {label}
-                        </motion.div>
-                    ) : (
-                        <motion.div
-                            key="input"
-                            initial={{ opacity: 0 }}
-                            animate={{ opacity: 1 }}
-                            exit={{ opacity: 0 }}
-                            transition={{ duration: 0.15 }}
-                            className="relative w-full h-full flex items-center"
-                        >
-                            <input
-                                className={classNames(inputClasses, "w-full pr-14")}
-                                value={displayValue}
-                                onChange={handleTextChange}
-                                onClick={enableRow}
-                                onFocus={enableRow}
-                                placeholder={isRegex ? "Enter match regex..." : "Enter match text..."}
-                                {...turnOffAutoComplete}
-                            />
+                    {!useIt
+                        ? (
+                            <motion.div
+                                key="label"
+                                initial={{ opacity: 0 }}
+                                animate={{ opacity: 1 }}
+                                exit={{ opacity: 0 }}
+                                transition={{ duration: 0.15 }}
+                                className="px-2 truncate w-full"
+                            >
+                                {label}
+                            </motion.div>
+                        )
+                        : (
+                            <motion.div
+                                key="input"
+                                initial={{ opacity: 0 }}
+                                animate={{ opacity: 1 }}
+                                exit={{ opacity: 0 }}
+                                transition={{ duration: 0.15 }}
+                                className="relative w-full h-full flex items-center"
+                            >
+                                <input
+                                    className={classNames(inputClasses, "w-full pr-14")}
+                                    value={displayValue}
+                                    onChange={handleTextChange}
+                                    onClick={enableRow}
+                                    onFocus={enableRow}
+                                    placeholder={isRegex ? "Enter match regex..." : "Enter match text..."}
+                                    {...turnOffAutoComplete}
+                                />
 
-                            <div className="absolute right-1.5 top-1/2 -translate-y-1/2 flex items-center">
-                                <Tooltip>
-                                    <TooltipTrigger asChild>
-                                        <Button
-                                            className="size-5 opacity-75 hover:opacity-100"
-                                            size="icon"
-                                            variant="ghost"
-                                            onClick={clearMatchText}
-                                            aria-label="Clear match text"
-                                        >
-                                            <IconClose className="pt-0.5 size-4" />
-                                        </Button>
-                                    </TooltipTrigger>
-                                    <TooltipPortal>
-                                        <TooltipContent className={matchModeTooltipContentClasses} sideOffset={10}>
-                                            Clear match text
-                                        </TooltipContent>
-                                    </TooltipPortal>
-                                </Tooltip>
+                                <div className="absolute right-1.5 top-1/2 -translate-y-1/2 flex items-center">
+                                    <Tooltip>
+                                        <TooltipTrigger asChild>
+                                            <Button
+                                                className="size-5 opacity-75 hover:opacity-100"
+                                                size="icon"
+                                                variant="ghost"
+                                                onClick={clearMatchText}
+                                                aria-label="Clear match text"
+                                            >
+                                                <IconClose className="pt-0.5 size-4" />
+                                            </Button>
+                                        </TooltipTrigger>
+                                        <TooltipPortal>
+                                            <TooltipContent className={matchModeTooltipContentClasses} sideOffset={10}>
+                                                Clear match text
+                                            </TooltipContent>
+                                        </TooltipPortal>
+                                    </Tooltip>
 
-                                <Tooltip>
-                                    <TooltipTrigger asChild>
-                                        <Button
-                                            className="size-5 opacity-75 hover:opacity-100"
-                                            size="icon"
-                                            variant="ghost"
-                                            onClick={pasteMatchText}
-                                            aria-label="Use original label"
-                                        >
-                                            <IconPaste className="pt-0.5 size-4" />
-                                        </Button>
-                                    </TooltipTrigger>
-                                    <TooltipPortal>
-                                        <TooltipContent className={matchModeTooltipContentClasses} sideOffset={10}>
-                                            Use original label
-                                        </TooltipContent>
-                                    </TooltipPortal>
-                                </Tooltip>
-                            </div>
-                        </motion.div>
-                    )}
+                                    <Tooltip>
+                                        <TooltipTrigger asChild>
+                                            <Button
+                                                className="size-5 opacity-75 hover:opacity-100"
+                                                size="icon"
+                                                variant="ghost"
+                                                onClick={pasteMatchText}
+                                                aria-label="Use original label"
+                                            >
+                                                <IconPaste className="pt-0.5 size-4" />
+                                            </Button>
+                                        </TooltipTrigger>
+                                        <TooltipPortal>
+                                            <TooltipContent className={matchModeTooltipContentClasses} sideOffset={10}>
+                                                Use original label
+                                            </TooltipContent>
+                                        </TooltipPortal>
+                                    </Tooltip>
+                                </div>
+                            </motion.div>
+                        )}
                 </AnimatePresence>
             </div>
 
@@ -179,8 +174,8 @@ export function Case_ValueMatchedText({ rowCtx }: { rowCtx: FieldRowCtx; }) {
 
 function MatchModeDropdown({ isRegex, onEnableRow, onModeSelect, }: { isRegex: boolean; onEnableRow: () => void; onModeSelect: (mode: "string" | "regex") => void; }) {
     return (
-        <M.Root>
-            <M.Trigger asChild>
+        <DropdownMenu.Root>
+            <DropdownMenu.Trigger asChild>
                 <button
                     onClick={onEnableRow}
                     className={classNames(buttonClasses, "h-full w-full flex items-center justify-center")}
@@ -188,26 +183,26 @@ function MatchModeDropdown({ isRegex, onEnableRow, onModeSelect, }: { isRegex: b
                 >
                     <SymbolChevronDown className="size-4 border-muted-foreground rounded" />
                 </button>
-            </M.Trigger>
+            </DropdownMenu.Trigger>
 
-            <M.Portal>
-                <M.Content className={menuContentClasses} sideOffset={4} align="end">
+            <DropdownMenu.Portal>
+                <DropdownMenu.Content className={menuContentClasses} sideOffset={4} align="end">
                     <MenuItemMode label="Match as string" selected={!isRegex} onSelect={() => onModeSelect("string")} />
                     <MenuItemMode label="Match as regex" selected={isRegex} onSelect={() => onModeSelect("regex")} />
-                </M.Content>
-            </M.Portal>
-        </M.Root>
+                </DropdownMenu.Content>
+            </DropdownMenu.Portal>
+        </DropdownMenu.Root>
     );
 }
 
 function MenuItemMode({ label, selected, onSelect }: { label: string; selected: boolean; onSelect: () => void; }) {
     return (
-        <M.Item className={classNames(menuItemClasses, selected && "bg-accent")} onSelect={onSelect}>
+        <DropdownMenu.Item className={classNames(menuItemClasses, selected && "bg-accent")} onSelect={onSelect}>
             {selected && <SymbolDot className="absolute left-1.5 size-5 fill-foreground" />}
             <span className="grow">
                 {label}
             </span>
-        </M.Item>
+        </DropdownMenu.Item>
     );
 }
 
