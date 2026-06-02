@@ -2,9 +2,9 @@ import { type ChangeEvent } from "react";
 import { useAtom, useAtomValue } from "jotai";
 import { AnimatePresence, motion } from "motion/react";
 import { classNames, turnOffAutoComplete } from "@/utils";
-import { SymbolMatchString, SymbolMatchRegex } from "@ui/icons";
+import { SymbolChevronDown, SymbolDot, SymbolMatchString, SymbolMatchRegex } from "@ui/icons";
+import * as M from "@radix-ui/react-dropdown-menu";
 import { inputRingClasses } from "@/ui/local-ui";
-import { SelectTm } from "@/ui/local-ui/4-select-tm";
 import { type FieldRowCtx } from "@/store/1-file-mani-atoms";
 
 export function Case_ValueMatchedText({ rowCtx }: { rowCtx: FieldRowCtx; }) {
@@ -117,34 +117,38 @@ export function Case_ValueMatchedText({ rowCtx }: { rowCtx: FieldRowCtx; }) {
 }
 
 function MatchModeDropdown({ isRegex, onEnableRow, onModeSelect, }: { isRegex: boolean; onEnableRow: () => void; onModeSelect: (mode: "string" | "regex") => void; }) {
-    const selectValue = isRegex ? "regex" : "string";
-
     return (
-        <div title={isRegex ? "Matching as regex" : "Matching as string"} onClick={onEnableRow} className="1h-full 1w-full">
-            <SelectTm
-                items={matchModeItems}
-                value={selectValue}
-                onValueChange={(value) => {
-                    if (value === "string" || value === "regex") {
-                        onModeSelect(value);
-                    }
-                }}
-                triggerClasses={classNames(
-                    "1h-full 1w-full",
-                    "border-0 rounded-none shadow-none",
-                    "justify-center",
-                    "[&>span]:hidden",
-                    buttonClasses,
-                )}
-            />
-        </div>
+        <M.Root>
+            <M.Trigger asChild>
+                <button
+                    onClick={onEnableRow}
+                    className={classNames(buttonClasses, "h-full w-full flex items-center justify-center")}
+                    title={isRegex ? "Matching as regex" : "Matching as string"}
+                >
+                    <SymbolChevronDown className="size-4 border-muted-foreground rounded" />
+                </button>
+            </M.Trigger>
+
+            <M.Portal>
+                <M.Content className={menuContentClasses} sideOffset={4} align="end">
+                    <MenuItemMode label="Match as string" selected={!isRegex} onSelect={() => onModeSelect("string")} />
+                    <MenuItemMode label="Match as regex" selected={isRegex} onSelect={() => onModeSelect("regex")} />
+                </M.Content>
+            </M.Portal>
+        </M.Root>
     );
 }
 
-const matchModeItems = [
-    ["Match as string", "string"],
-    ["Match as regex", "regex"],
-] as const;
+function MenuItemMode({ label, selected, onSelect }: { label: string; selected: boolean; onSelect: () => void; }) {
+    return (
+        <M.Item className={classNames(menuItemClasses, selected && "bg-accent")} onSelect={onSelect}>
+            {selected && <SymbolDot className="absolute left-1.5 size-5 fill-foreground" />}
+            <span className="grow">
+                {label}
+            </span>
+        </M.Item>
+    );
+}
 
 const regexPrefix = "[m0]:2:2:";
 
@@ -163,3 +167,28 @@ px-1.5 \
 border-mani-border-separator border-l \
 focus:rounded focus:outline-1 focus:-outline-offset-3 focus:outline-dashed \
 outline-muted-foreground cursor-pointer";
+
+const menuContentClasses = "\
+py-1 max-h-[50vh] \
+\
+text-popover-foreground bg-popover border-mani-border border \
+\
+radix-side-top:animate-slide-up \
+radix-side-bottom:animate-slide-down \
+\
+rounded-lg shadow-md \
+overflow-auto smallscroll smallscroll-light \
+\
+grid grid-cols-1 z-51"; // dialog has z-index 50, so we need to be higher
+
+const menuItemClasses = "\
+relative mx-1 px-7 py-1.5 text-xs \
+\
+text-accent-foreground \
+\
+focus:text-accent-foreground \
+focus:bg-accent \
+\
+rounded-md outline-hidden select-none cursor-default \
+\
+flex items-center";
