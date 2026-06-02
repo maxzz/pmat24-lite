@@ -53,7 +53,7 @@ export function Case_ValueMatchedText({ rowCtx }: { rowCtx: FieldRowCtx; }) {
                         transition={{ duration: 0.15, ease: "easeInOut" }}
                         className="col-start-1 overflow-hidden h-full border-r border-mani-border-muted bg-muted flex items-center justify-center select-none text-muted-foreground"
                     >
-                        <div className="flex items-center justify-center w-[26px] shrink-0" title={isRegex ? "Matching as regex" : "Matching as string"}>
+                        <div className="flex items-center justify-center w-6.5 shrink-0" title={isRegex ? "Matching as regex" : "Matching as string"}>
                             {isRegex ? <SymbolMatchRegex className="size-4" /> : <SymbolMatchString className="size-4" />}
                         </div>
                     </motion.div>
@@ -106,30 +106,36 @@ export function Case_ValueMatchedText({ rowCtx }: { rowCtx: FieldRowCtx; }) {
                         transition={{ duration: 0.15, ease: "easeInOut" }}
                         className="col-start-3 overflow-hidden h-full flex items-stretch"
                     >
-                        <div className="w-[28px] shrink-0 flex items-stretch">
-                            <M.Root>
-                                <M.Trigger asChild>
-                                    <button
-                                        onClick={enableRow}
-                                        className={classNames(buttonClasses, "h-full w-full flex items-center justify-center")}
-                                        title={isRegex ? "Matching as regex" : "Matching as string"}
-                                    >
-                                        <SymbolChevronDown className="size-4 border-muted-foreground rounded" />
-                                    </button>
-                                </M.Trigger>
-
-                                <M.Portal>
-                                    <M.Content className={menuContentClasses} sideOffset={4} align="end">
-                                        <MenuItemMode label="Match as string" selected={!isRegex} onSelect={() => handleModeSelect("string")} />
-                                        <MenuItemMode label="Match as regex" selected={isRegex} onSelect={() => handleModeSelect("regex")} />
-                                    </M.Content>
-                                </M.Portal>
-                            </M.Root>
+                        <div className="w-7 shrink-0 flex items-stretch">
+                            <MatchModeDropdown isRegex={isRegex} onEnableRow={enableRow} onModeSelect={handleModeSelect} />
                         </div>
                     </motion.div>
                 )}
             </AnimatePresence>
         </div>
+    );
+}
+
+function MatchModeDropdown({ isRegex, onEnableRow, onModeSelect, }: { isRegex: boolean; onEnableRow: () => void; onModeSelect: (mode: "string" | "regex") => void; }) {
+    return (
+        <M.Root>
+            <M.Trigger asChild>
+                <button
+                    onClick={onEnableRow}
+                    className={classNames(buttonClasses, "h-full w-full flex items-center justify-center")}
+                    title={isRegex ? "Matching as regex" : "Matching as string"}
+                >
+                    <SymbolChevronDown className="size-4 border-muted-foreground rounded" />
+                </button>
+            </M.Trigger>
+
+            <M.Portal>
+                <M.Content className={menuContentClasses} sideOffset={4} align="end">
+                    <MenuItemMode label="Match as string" selected={!isRegex} onSelect={() => onModeSelect("string")} />
+                    <MenuItemMode label="Match as regex" selected={isRegex} onSelect={() => onModeSelect("regex")} />
+                </M.Content>
+            </M.Portal>
+        </M.Root>
     );
 }
 
