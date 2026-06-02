@@ -1,4 +1,4 @@
-import { type ChangeEvent } from "react";
+import { type ChangeEvent, type ReactNode } from "react";
 import { useAtom, useAtomValue } from "jotai";
 import { AnimatePresence, motion } from "motion/react";
 import { classNames, turnOffAutoComplete } from "@/utils";
@@ -109,43 +109,13 @@ export function Case_ValueMatchedText({ rowCtx }: { rowCtx: FieldRowCtx; }) {
                                 />
 
                                 <div className="absolute right-1.5 top-1/2 -translate-y-1/2 flex items-center">
-                                    <Tooltip>
-                                        <TooltipTrigger asChild>
-                                            <Button
-                                                className="size-5 opacity-75 hover:opacity-100"
-                                                size="icon"
-                                                variant="ghost"
-                                                onClick={clearMatchText}
-                                                aria-label="Clear match text"
-                                            >
-                                                <IconClose className="pt-0.5 size-4" />
-                                            </Button>
-                                        </TooltipTrigger>
-                                        <TooltipPortal>
-                                            <TooltipContent className={matchModeTooltipContentClasses} sideOffset={10}>
-                                                Clear match text
-                                            </TooltipContent>
-                                        </TooltipPortal>
-                                    </Tooltip>
+                                    <IconButtonWithTooltip label="Clear match text" onClick={clearMatchText}>
+                                        <IconClose className="pt-0.5 size-4" />
+                                    </IconButtonWithTooltip>
 
-                                    <Tooltip>
-                                        <TooltipTrigger asChild>
-                                            <Button
-                                                className="size-5 opacity-75 hover:opacity-100"
-                                                size="icon"
-                                                variant="ghost"
-                                                onClick={pasteMatchText}
-                                                aria-label="Use original label"
-                                            >
-                                                <IconPaste className="pt-0.5 size-4" />
-                                            </Button>
-                                        </TooltipTrigger>
-                                        <TooltipPortal>
-                                            <TooltipContent className={matchModeTooltipContentClasses} sideOffset={10}>
-                                                Use original label
-                                            </TooltipContent>
-                                        </TooltipPortal>
-                                    </Tooltip>
+                                    <IconButtonWithTooltip label="Use original label" onClick={pasteMatchText}>
+                                        <IconPaste className="pt-0.5 size-4" />
+                                    </IconButtonWithTooltip>
                                 </div>
                             </motion.div>
                         )}
@@ -169,6 +139,30 @@ export function Case_ValueMatchedText({ rowCtx }: { rowCtx: FieldRowCtx; }) {
                 )}
             </AnimatePresence>
         </div>
+    );
+}
+
+function IconButtonWithTooltip({ label, onClick, children }: { label: string; onClick: () => void; children: ReactNode; }) {
+    return (
+        <Tooltip>
+            <TooltipTrigger asChild>
+                <Button
+                    type="button"
+                    className="size-5 opacity-75 hover:opacity-100"
+                    size="icon"
+                    variant="ghost"
+                    onClick={onClick}
+                    aria-label={label}
+                >
+                    {children}
+                </Button>
+            </TooltipTrigger>
+            <TooltipPortal>
+                <TooltipContent className={matchModeTooltipContentClasses} sideOffset={10}>
+                    {label}
+                </TooltipContent>
+            </TooltipPortal>
+        </Tooltip>
     );
 }
 
