@@ -41,14 +41,9 @@ export function Case_ValueMatchedText({ rowCtx }: { rowCtx: FieldRowCtx; }) {
         setChoosevalue(isRegex ? regexPrefix : "");
     }
 
-    async function pasteMatchText() {
+    function pasteMatchText() {
         enableRow();
-        try {
-            const text = await navigator.clipboard.readText();
-            setChoosevalue(isRegex ? `${regexPrefix}${text}` : text);
-        } catch {
-            // ignore clipboard read errors (e.g. permissions)
-        }
+        setChoosevalue(isRegex ? `${regexPrefix}${label}` : label);
     }
 
     return (
@@ -144,15 +139,15 @@ export function Case_ValueMatchedText({ rowCtx }: { rowCtx: FieldRowCtx; }) {
                                             className="size-5 opacity-75 hover:opacity-100"
                                             size="icon"
                                             variant="ghost"
-                                            onClick={() => void pasteMatchText()}
-                                            aria-label="Paste from clipboard"
+                                            onClick={pasteMatchText}
+                                            aria-label="Use original label"
                                         >
                                             <IconPaste className="pt-0.5 size-4" />
                                         </Button>
                                     </TooltipTrigger>
                                     <TooltipPortal>
                                         <TooltipContent className={matchModeTooltipContentClasses} sideOffset={10}>
-                                            Paste from clipboard
+                                            Use original label
                                         </TooltipContent>
                                     </TooltipPortal>
                                 </Tooltip>
