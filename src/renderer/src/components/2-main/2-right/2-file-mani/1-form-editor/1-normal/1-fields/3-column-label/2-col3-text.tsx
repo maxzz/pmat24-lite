@@ -119,13 +119,43 @@ export function Case_ValueMatchedText({ rowCtx }: { rowCtx: FieldRowCtx; }) {
                             />
 
                             <div className="absolute right-1.5 top-1/2 -translate-y-1/2 flex items-center">
-                                <Button className="size-5 opacity-75 hover:opacity-100" size="icon" variant="ghost" onClick={clearMatchText} title="Clear match text">
-                                    <IconClose className="pt-0.5 size-4" />
-                                </Button>
+                                <Tooltip>
+                                    <TooltipTrigger asChild>
+                                        <Button
+                                            className="size-5 opacity-75 hover:opacity-100"
+                                            size="icon"
+                                            variant="ghost"
+                                            onClick={clearMatchText}
+                                            aria-label="Clear match text"
+                                        >
+                                            <IconClose className="pt-0.5 size-4" />
+                                        </Button>
+                                    </TooltipTrigger>
+                                    <TooltipPortal>
+                                        <TooltipContent className={matchModeTooltipContentClasses} sideOffset={10}>
+                                            Clear match text
+                                        </TooltipContent>
+                                    </TooltipPortal>
+                                </Tooltip>
 
-                                <Button className="size-5 opacity-75 hover:opacity-100" size="icon" variant="ghost" onClick={() => void pasteMatchText()} title="Paste from clipboard">
-                                    <IconPaste className="pt-0.5 size-4" />
-                                </Button>
+                                <Tooltip>
+                                    <TooltipTrigger asChild>
+                                        <Button
+                                            className="size-5 opacity-75 hover:opacity-100"
+                                            size="icon"
+                                            variant="ghost"
+                                            onClick={() => void pasteMatchText()}
+                                            aria-label="Paste from clipboard"
+                                        >
+                                            <IconPaste className="pt-0.5 size-4" />
+                                        </Button>
+                                    </TooltipTrigger>
+                                    <TooltipPortal>
+                                        <TooltipContent className={matchModeTooltipContentClasses} sideOffset={10}>
+                                            Paste from clipboard
+                                        </TooltipContent>
+                                    </TooltipPortal>
+                                </Tooltip>
                             </div>
                         </motion.div>
                     )}
