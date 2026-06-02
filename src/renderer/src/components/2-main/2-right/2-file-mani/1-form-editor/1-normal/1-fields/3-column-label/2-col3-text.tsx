@@ -7,54 +7,6 @@ import * as M from "@radix-ui/react-dropdown-menu";
 import { inputRingClasses } from "@/ui/local-ui";
 import { type FieldRowCtx } from "@/store/1-file-mani-atoms";
 
-/*
-export function FieldRow({ rowCtx, fileUsCtx }: { rowCtx: FieldRowCtx; fileUsCtx: FileUsCtx; }) {
-    const { useItAtom, typeAtom, labelAtom, valueLifeAtom, policiesAtom, metaField } = rowCtx;
-    const maniField = metaField.mani;
-    const isTextField = maniField.type === 'text';
-
-    const label = useAtomValue(labelAtom);
-    const [useIt, setUseIt] = useAtom(useItAtom);
-
-    const { showFormTextFields } = useSnapshot(appSettings.appUi.uiGeneral);
-
-    if (!showFormTextFields && isTextField) {
-        return null;
-    }
-
-    if (!isTextField) {
-        return <FieldRow_normal rowCtx={rowCtx} fileUsCtx={fileUsCtx} />;
-    }
-
-    return (<>
-        {useIt ? (
-            <Case_ValueMatchedText rowCtx={rowCtx} />
-        ) : (
-            <div className="h-7">{label}</div>
-        )}
-    </>);
-}
-*/
-
-/*
-        {isTextField ? (
-            useIt ? (
-                <Case_ValueMatchedText rowCtx={rowCtx} />
-            ) : (
-                <div className="h-7">{label}</div>
-            )
-        ) : (
-            <Column3_Label
-                useItAtom={useItAtom}
-                valueAtom={labelAtom}
-                typeAtom={typeAtom}
-                highlightCtx={{ nFieldCtx: rowCtx, fileUs: fileUsCtx.fileUs, formIdx: fileUsCtx.formIdx }}
-                onClick={enableRow}
-            />
-        )}
-
-*/
-
 export function Case_ValueMatchedText({ rowCtx }: { rowCtx: FieldRowCtx; }) {
     const { useItAtom, choosevalueAtom, labelAtom } = rowCtx;
     const label = useAtomValue(labelAtom);
@@ -83,51 +35,101 @@ export function Case_ValueMatchedText({ rowCtx }: { rowCtx: FieldRowCtx; }) {
     }
 
     return (
-        <AnimatePresence initial={false} mode="wait">
-            {!useIt ? (
-                <motion.div key="empty" className={classNames(containerClasses, "h-7 flex items-center")} transition={{ duration: 0.001 }}>
-                    <div>{label}</div>
-                </motion.div>
-            ) : (
-                <motion.div
-                    key="content"
-                    className={classNames(containerClasses, inputRingClasses, !useIt && "opacity-30 cursor-pointer")}
-                    initial={{ opacity: 0, scaleX: 0.1, transformOrigin: "left center" }}
-                    animate={{ opacity: 1, scaleX: 1, transformOrigin: "left center" }}
-                    exit={{ opacity: 0, scaleX: 0.1, transformOrigin: "left center" }}
-                    transition={{ duration: .1, ease: "easeOut" }}
-                >
-                    <div className="pl-1 pr-1.5 text-muted-foreground bg-muted border-r select-none flex items-center justify-center" title={isRegex ? "Matching as regex" : "Matching as string"}>
-                        {isRegex ? <SymbolMatchRegex className="size-4" /> : <SymbolMatchString className="size-4" />}
-                    </div>
-
-                    <input
-                        className={inputClasses}
-                        value={displayValue}
-                        onChange={handleTextChange}
-                        onClick={enableRow}
-                        onFocus={enableRow}
-                        placeholder={isRegex ? "Enter match regex..." : "Enter match text..."}
-                        {...turnOffAutoComplete}
-                    />
-
-                    <M.Root>
-                        <M.Trigger asChild>
-                            <button onClick={enableRow} className={buttonClasses} title={isRegex ? "Matching as regex" : "Matching as string"}>
-                                <SymbolChevronDown className="size-4 border-muted-foreground rounded" />
-                            </button>
-                        </M.Trigger>
-
-                        <M.Portal>
-                            <M.Content className={menuContentClasses} sideOffset={4} align="end" >
-                                <MenuItemMode label="Match as string" selected={!isRegex} onSelect={() => handleModeSelect("string")} />
-                                <MenuItemMode label="Match as regex" selected={isRegex} onSelect={() => handleModeSelect("regex")} />
-                            </M.Content>
-                        </M.Portal>
-                    </M.Root>
-                </motion.div>
+        <div
+            className={classNames(
+                containerClasses,
+                inputRingClasses,
+                !useIt && "opacity-30 cursor-pointer"
             )}
-        </AnimatePresence>
+            onClick={!useIt ? enableRow : undefined}
+        >
+            <AnimatePresence initial={false}>
+                {useIt && (
+                    <motion.div
+                        key="left-icon"
+                        initial={{ width: 0, opacity: 0 }}
+                        animate={{ width: 26, opacity: 1 }}
+                        exit={{ width: 0, opacity: 0 }}
+                        transition={{ duration: 0.15, ease: "easeInOut" }}
+                        className="col-start-1 overflow-hidden h-full border-r border-mani-border-muted bg-muted flex items-center justify-center select-none text-muted-foreground"
+                    >
+                        <div className="flex items-center justify-center w-[26px] shrink-0" title={isRegex ? "Matching as regex" : "Matching as string"}>
+                            {isRegex ? <SymbolMatchRegex className="size-4" /> : <SymbolMatchString className="size-4" />}
+                        </div>
+                    </motion.div>
+                )}
+            </AnimatePresence>
+
+            <div className="col-start-2 h-7 flex items-center min-w-0">
+                <AnimatePresence mode="wait" initial={false}>
+                    {!useIt ? (
+                        <motion.div
+                            key="label"
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            exit={{ opacity: 0 }}
+                            transition={{ duration: 0.15 }}
+                            className="px-2 truncate w-full"
+                        >
+                            {label}
+                        </motion.div>
+                    ) : (
+                        <motion.div
+                            key="input"
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            exit={{ opacity: 0 }}
+                            transition={{ duration: 0.15 }}
+                            className="w-full h-full flex items-center"
+                        >
+                            <input
+                                className={classNames(inputClasses, "w-full")}
+                                value={displayValue}
+                                onChange={handleTextChange}
+                                onClick={enableRow}
+                                onFocus={enableRow}
+                                placeholder={isRegex ? "Enter match regex..." : "Enter match text..."}
+                                {...turnOffAutoComplete}
+                            />
+                        </motion.div>
+                    )}
+                </AnimatePresence>
+            </div>
+
+            <AnimatePresence initial={false}>
+                {useIt && (
+                    <motion.div
+                        key="right-btn"
+                        initial={{ width: 0, opacity: 0 }}
+                        animate={{ width: 28, opacity: 1 }}
+                        exit={{ width: 0, opacity: 0 }}
+                        transition={{ duration: 0.15, ease: "easeInOut" }}
+                        className="col-start-3 overflow-hidden h-full flex items-stretch"
+                    >
+                        <div className="w-[28px] shrink-0 flex items-stretch">
+                            <M.Root>
+                                <M.Trigger asChild>
+                                    <button
+                                        onClick={enableRow}
+                                        className={classNames(buttonClasses, "h-full w-full flex items-center justify-center")}
+                                        title={isRegex ? "Matching as regex" : "Matching as string"}
+                                    >
+                                        <SymbolChevronDown className="size-4 border-muted-foreground rounded" />
+                                    </button>
+                                </M.Trigger>
+
+                                <M.Portal>
+                                    <M.Content className={menuContentClasses} sideOffset={4} align="end">
+                                        <MenuItemMode label="Match as string" selected={!isRegex} onSelect={() => handleModeSelect("string")} />
+                                        <MenuItemMode label="Match as regex" selected={isRegex} onSelect={() => handleModeSelect("regex")} />
+                                    </M.Content>
+                                </M.Portal>
+                            </M.Root>
+                        </div>
+                    </motion.div>
+                )}
+            </AnimatePresence>
+        </div>
     );
 }
 
