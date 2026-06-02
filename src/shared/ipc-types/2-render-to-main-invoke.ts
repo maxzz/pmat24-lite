@@ -177,6 +177,7 @@ export namespace R2MInvoke { // Main from Renderer invoke and get result
         ? {
             filesCnt: MainFileContent[];
             emptyFolder: string;
+            rootFolder: string;                 // The selected folder (when a single directory is opened/dropped). Always the root, regardless of its name.
             error: string | undefined;
         }
 

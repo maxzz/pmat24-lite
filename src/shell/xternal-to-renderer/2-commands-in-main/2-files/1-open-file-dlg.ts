@@ -18,9 +18,9 @@ export async function openFileDialogAndReply(appWin: BrowserWindow | null | unde
             return;
         }
 
-        const { filesCnt, emptyFolder } = await asyncLoadWin32FilesContent(filePaths, pmAllowedToOpenExt);
+        const { filesCnt, emptyFolder, rootFolder } = await asyncLoadWin32FilesContent(filePaths, pmAllowedToOpenExt);
 
-        mainToRenderer({ type: 'm2r:loaded-files', filesCnt, emptyFolder });
+        mainToRenderer({ type: 'm2r:loaded-files', filesCnt, emptyFolder, rootFolder });
 
     } catch (error) {
         console.error(error);

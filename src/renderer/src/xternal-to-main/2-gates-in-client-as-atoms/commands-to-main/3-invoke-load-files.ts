@@ -7,15 +7,17 @@ import { invokeMainTyped } from "../3-to-main-apis";
 export type InvokeLoadFilesResult = {
     filesCnt: FileContent[];
     emptyFolder: string;
+    rootFolder: string;     // The selected folder (when a single directory is opened/dropped). Always the root, regardless of its name.
     error: string | undefined;
 };
 
 export async function invokeLoadFiles(filenames: string[], allowedExt?: string[]): Promise<InvokeLoadFilesResult> {
-    const { filesCnt, emptyFolder, error } = await invokeMainTyped({ type: 'r2mi:load-files', filenames, ...(allowedExt && { allowedExt }), });
+    const { filesCnt, emptyFolder, rootFolder, error } = await invokeMainTyped({ type: 'r2mi:load-files', filenames, ...(allowedExt && { allowedExt }), });
     
     const rv: InvokeLoadFilesResult = { 
         filesCnt: (filesCnt || []).map(finalizeFileContent), 
         emptyFolder,
+        rootFolder,
         error,
      };
     return rv;

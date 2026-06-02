@@ -9,6 +9,7 @@ export namespace M2R { // Main to Renderer
         type: 'm2r:loaded-files';
         filesCnt: MainFileContent[];
         emptyFolder: string; // If call open folder and no files found then we return empty folder path
+        rootFolder: string;  // The selected folder (when a single directory is opened). Always the root, regardless of its name.
     };
 
     //

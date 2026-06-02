@@ -17,7 +17,7 @@ export async function createFileContents_From_Main(files: File[]): Promise<SetDe
     const fnames = filePathAndDirs.map((item) => item[1]);
     //printElectronFnameFiles(fnames, files);
 
-    const { filesCnt: deliveredFileContents, emptyFolder, error } = await invokeLoadFiles(fnames, pmAllowedToOpenExt);
+    const { filesCnt: deliveredFileContents, emptyFolder, rootFolder, error } = await invokeLoadFiles(fnames, pmAllowedToOpenExt);
 
     const droppedEmptyFolder = !deliveredFileContents.length
         && (filePathAndDirs.length === 1 && filePathAndDirs[0][2] // filePathAndDirs[0][2] is true file is a directory
@@ -27,7 +27,7 @@ export async function createFileContents_From_Main(files: File[]): Promise<SetDe
     const rv: SetDeliveredFiles = {
         root:
             !droppedEmptyFolder
-                ? getRootFromFpath({ files: deliveredFileContents, fromMain: true })
+                ? getRootFromFpath({ files: deliveredFileContents, fromMain: true, rootFolder })
                 : {
                     fpath: emptyFolder, //was filePathAndDirs[0][1],
                     handle: undefined,

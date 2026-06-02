@@ -6,12 +6,15 @@ import { getLinkTargetPath } from "@shell/3-utils-main";
 /**
  * @param filenames - filename(s), folders, folder, or Windows shortcut. (BTW it can be two .lnk files dropped, but that one is not supported)
  * @param allowedExt - allowed extensions
- * @returns { filesCnt: MainFileContent[]; emptyFolder: string; error: string | undefined; }
+ * @returns { filesCnt: MainFileContent[]; emptyFolder: string; rootFolder: string; error: string | undefined; }
  *  - filesCnt - MainFileContent casted to FileContent. They should be filled from renderer.
  *  - emptyFolder - if call open folder and no files found then we return empty folder path
+ *  - rootFolder - the actually selected folder (when a single directory is opened/dropped). It is ALWAYS
+ *    the root, regardless of its name (even if it is literally named "a"/"b"/"c"). Empty when the selection
+ *    is not a single directory (e.g. open files / multiple items), so the renderer derives root from fpaths.
  *  - error - error message if link target not found or other error happened
  */
-export async function asyncLoadWin32FilesContent(filenames: string[], allowedExt?: string[]): Promise<{ filesCnt: MainFileContent[]; emptyFolder: string; error: string | undefined; }> { // call 'r2mi:load-files' in main
+export async function asyncLoadWin32FilesContent(filenames: string[], allowedExt?: string[]): Promise<{ filesCnt: MainFileContent[]; emptyFolder: string; rootFolder: string; error: string | undefined; }> { // call 'r2mi:load-files' in main
     let isLink = false;
 
     if (filenames.length === 1) { // resolve shortcut link to target only if it's a single item from drag and drop: can be a link to valid/invalid file or directory.
@@ -20,29 +23,37 @@ export async function asyncLoadWin32FilesContent(filenames: string[], allowedExt
         filenames[0] = linkTarget;
     }
 
+    const rootFolder = getSelectedRootFolder(filenames); // The selected folder is the root, regardless of its name.
+
     const loaded: MainFileContent[] = await collectNames(filenames, allowedExt);
     readFilesCnt(loaded);
 
     if (isLink && loaded.length === 1) { // If link target not found then return error message stared with "ENOENT: no such file or directory, stat '\\\\Tanam11\\c\\Y\\w\\112'"
         const {failed, rawLoaded} = loaded[0];
         if (failed) {
-            return { filesCnt: [], emptyFolder: '', error: rawLoaded.replace(', stat ', ':') }; // No nned to localize error message
+            return { filesCnt: [], emptyFolder: '', rootFolder: '', error: rawLoaded.replace(', stat ', ':') }; // No nned to localize error message
         } // else if (notOur) { return { filesCnt: [], emptyFolder: '', error: 'The file type is not supported' }; } // In that case we open contained folder normally
     }
 
-    let emptyFolder = '';
+    const emptyFolder = !loaded.length ? rootFolder : ''; // If we opened a single folder but found no files, return it as an empty folder.
 
-    if (!loaded.length && filenames.length === 1) { // Check if the user dropped an empty folder
-        try {
-            if (statSync(filenames[0]).isDirectory()) {
-                emptyFolder = filenames[0];
-            }
-        } catch (error) {
-            console.error(error); // this should be folder and will not happen
-        }
+    return { filesCnt: loaded, emptyFolder, rootFolder, error: undefined };
+}
+
+/**
+ * Returns the selected folder path when exactly one directory is opened/dropped, else ''.
+ * The selected folder is always treated as the root, regardless of its name.
+ */
+function getSelectedRootFolder(filenames: string[]): string {
+    if (filenames.length !== 1) {
+        return '';
     }
-
-    return { filesCnt: loaded, emptyFolder, error: undefined };
+    try {
+        const filename = normalize(filenames[0]);
+        return statSync(filename).isDirectory() ? filename : '';
+    } catch {
+        return '';
+    }
 }
 
 // Collect files and folders recursively
