@@ -6,6 +6,7 @@ import { IconClose, IconPaste, SymbolChevronDown, SymbolDot, SymbolMatchString, 
 import * as M from "@radix-ui/react-dropdown-menu";
 import { inputRingClasses } from "@/ui/local-ui";
 import { Button } from "@/ui/shadcn/button";
+import { Tooltip, TooltipContent, TooltipPortal, TooltipTrigger } from "@/ui/shadcn/tooltip";
 import { type FieldRowCtx } from "@/store/1-file-mani-atoms";
 
 export function Case_ValueMatchedText({ rowCtx }: { rowCtx: FieldRowCtx; }) {
@@ -69,9 +70,18 @@ export function Case_ValueMatchedText({ rowCtx }: { rowCtx: FieldRowCtx; }) {
                         transition={{ duration: 0.15, ease: "easeInOut" }}
                         className="col-start-1 overflow-hidden h-full border-r border-mani-border-muted bg-muted flex items-center justify-center select-none text-muted-foreground"
                     >
-                        <div className="flex items-center justify-center w-6.5 shrink-0" title={isRegex ? "Matching as regex" : "Matching as string"}>
-                            {isRegex ? <SymbolMatchRegex className="size-4" /> : <SymbolMatchString className="size-4" />}
-                        </div>
+                        <Tooltip>
+                            <TooltipTrigger asChild>
+                                <div className="flex items-center justify-center w-6.5 shrink-0">
+                                    {isRegex ? <SymbolMatchRegex className="size-4" /> : <SymbolMatchString className="size-4" />}
+                                </div>
+                            </TooltipTrigger>
+                            <TooltipPortal>
+                                <TooltipContent className={matchModeTooltipContentClasses} sideOffset={10}>
+                                    <MatchModeTooltipBody isRegex={isRegex} />
+                                </TooltipContent>
+                            </TooltipPortal>
+                        </Tooltip>
                     </motion.div>
                 )}
             </AnimatePresence>
@@ -193,6 +203,31 @@ px-1.5 \
 border-mani-border-separator border-l \
 focus:rounded focus:outline-1 focus:-outline-offset-3 focus:outline-dashed \
 outline-muted-foreground cursor-pointer";
+
+const matchModeTooltipContentClasses = "mx-4.5 py-2 max-w-80 text-xs text-foreground/75 bg-background border-border border shadow-sm";
+
+function MatchModeTooltipBody({ isRegex }: { isRegex: boolean; }) {
+    return isRegex
+        ? (
+            <div className="grid gap-1">
+                <div>
+                    This is regex matching. The following rules can be used:
+                </div>
+
+                <ul className="list-disc pl-4 grid gap-0.5">
+                    <li><span className="font-medium">.</span> any character</li>
+                    <li><span className="font-medium">*</span>, <span className="font-medium">+</span>, <span className="font-medium">?</span> repetitions</li>
+                    <li><span className="font-medium">[]</span> character sets, <span className="font-medium">()</span> groups, <span className="font-medium">|</span> OR</li>
+                    <li><span className="font-medium">^</span> start, <span className="font-medium">$</span> end</li>
+                </ul>
+            </div>
+        )
+        : (
+            <div className="grid gap-1">
+                This is string match to match the contents exactly (literal match).
+            </div>
+        );
+}
 
 const menuContentClasses = "\
 py-1 max-h-[50vh] \
