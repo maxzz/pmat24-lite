@@ -108,12 +108,12 @@ export function Case_ValueMatchedText({ rowCtx }: { rowCtx: FieldRowCtx; }) {
                                 {...turnOffAutoComplete}
                             />
 
-                            <div className="absolute right-1.5 top-1/2 -translate-y-1/2 flex items-center 1gap-px">
-                                <Button className="size-5" size="icon" variant="ghost" onClick={clearMatchText} title="Clear match text">
+                            <div className="absolute right-1.5 top-1/2 -translate-y-1/2 flex items-center">
+                                <Button className="size-5 opacity-75 hover:opacity-100" size="icon" variant="ghost" onClick={clearMatchText} title="Clear match text">
                                     <IconClose className="pt-0.5 size-4" />
                                 </Button>
 
-                                <Button className="size-5" size="icon" variant="ghost" onClick={() => void pasteMatchText()} title="Paste from clipboard">
+                                <Button className="size-5 opacity-75 hover:opacity-100" size="icon" variant="ghost" onClick={() => void pasteMatchText()} title="Paste from clipboard">
                                     <IconPaste className="pt-0.5 size-4" />
                                 </Button>
                             </div>
