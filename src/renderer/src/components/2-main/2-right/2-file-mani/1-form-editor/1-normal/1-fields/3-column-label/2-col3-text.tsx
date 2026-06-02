@@ -61,7 +61,18 @@ export function Case_ValueMatchedText({ rowCtx }: { rowCtx: FieldRowCtx; }) {
                         <Tooltip>
                             <TooltipTrigger asChild>
                                 <div className="flex items-center justify-center w-6.5 shrink-0">
-                                    {isRegex ? <SymbolMatchRegex className="size-4" /> : <SymbolMatchString className="size-4" />}
+                                    <AnimatePresence mode="wait" initial={false}>
+                                        <motion.div
+                                            key={isRegex ? "regex" : "string"}
+                                            initial={{ opacity: 0, y: 2, scale: 0.95 }}
+                                            animate={{ opacity: 1, y: 0, scale: 1 }}
+                                            exit={{ opacity: 0, y: -2, scale: 0.95 }}
+                                            transition={{ duration: 0.12, ease: "easeInOut" }}
+                                            className="flex items-center justify-center"
+                                        >
+                                            {isRegex ? <SymbolMatchRegex className="size-4" /> : <SymbolMatchString className="size-4" />}
+                                        </motion.div>
+                                    </AnimatePresence>
                                 </div>
                             </TooltipTrigger>
                             <TooltipPortal>
