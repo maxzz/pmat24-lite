@@ -99,7 +99,7 @@ export function Case_ValueMatchedText({ rowCtx }: { rowCtx: FieldRowCtx; }) {
                                 className="relative w-full h-full flex items-center"
                             >
                                 <input
-                                    className={classNames(inputClasses, "w-full pr-14")}
+                                    className={classNames(inputClasses, "w-full", isRegex && "pr-14")}
                                     value={displayValue}
                                     onChange={handleTextChange}
                                     onClick={enableRow}
@@ -108,15 +108,26 @@ export function Case_ValueMatchedText({ rowCtx }: { rowCtx: FieldRowCtx; }) {
                                     {...turnOffAutoComplete}
                                 />
 
-                                <div className="absolute right-1.5 top-1/2 -translate-y-1/2 flex items-center">
-                                    <IconButtonWithTooltip label="Clear match text" onClick={clearMatchText}>
-                                        <IconClose className="pt-0.5 size-4" />
-                                    </IconButtonWithTooltip>
+                                <AnimatePresence initial={false}>
+                                    {isRegex && (
+                                        <motion.div
+                                            key="regex-actions"
+                                            initial={{ opacity: 0, x: 4 }}
+                                            animate={{ opacity: 1, x: 0 }}
+                                            exit={{ opacity: 0, x: 4 }}
+                                            transition={{ duration: 0.15, ease: "easeInOut" }}
+                                            className="absolute right-1.5 top-1/2 -translate-y-1/2 flex items-center"
+                                        >
+                                            <IconButtonWithTooltip label="Clear match text" onClick={clearMatchText}>
+                                                <IconClose className="pt-0.5 size-4" />
+                                            </IconButtonWithTooltip>
 
-                                    <IconButtonWithTooltip label="Use original label" onClick={pasteMatchText}>
-                                        <IconPaste className="pt-0.5 size-4" />
-                                    </IconButtonWithTooltip>
-                                </div>
+                                            <IconButtonWithTooltip label="Use original label" onClick={pasteMatchText}>
+                                                <IconPaste className="pt-0.5 size-4" />
+                                            </IconButtonWithTooltip>
+                                        </motion.div>
+                                    )}
+                                </AnimatePresence>
                             </motion.div>
                         )}
                 </AnimatePresence>
