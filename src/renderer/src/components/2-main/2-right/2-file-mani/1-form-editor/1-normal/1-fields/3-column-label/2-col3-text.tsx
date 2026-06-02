@@ -2,9 +2,10 @@ import { type ChangeEvent } from "react";
 import { useAtom, useAtomValue } from "jotai";
 import { AnimatePresence, motion } from "motion/react";
 import { classNames, turnOffAutoComplete } from "@/utils";
-import { SymbolChevronDown, SymbolDot, SymbolMatchString, SymbolMatchRegex } from "@ui/icons";
+import { IconClose, IconPaste, SymbolChevronDown, SymbolDot, SymbolMatchString, SymbolMatchRegex } from "@ui/icons";
 import * as M from "@radix-ui/react-dropdown-menu";
 import { inputRingClasses } from "@/ui/local-ui";
+import { Button } from "@/ui/shadcn/button";
 import { type FieldRowCtx } from "@/store/1-file-mani-atoms";
 
 export function Case_ValueMatchedText({ rowCtx }: { rowCtx: FieldRowCtx; }) {
@@ -32,6 +33,21 @@ export function Case_ValueMatchedText({ rowCtx }: { rowCtx: FieldRowCtx; }) {
     function handleModeSelect(mode: "string" | "regex") {
         const value = mode === "regex" ? `${regexPrefix}${displayValue}` : displayValue;
         setChoosevalue(value);
+    }
+
+    function clearMatchText() {
+        enableRow();
+        setChoosevalue(isRegex ? regexPrefix : "");
+    }
+
+    async function pasteMatchText() {
+        enableRow();
+        try {
+            const text = await navigator.clipboard.readText();
+            setChoosevalue(isRegex ? `${regexPrefix}${text}` : text);
+        } catch {
+            // ignore clipboard read errors (e.g. permissions)
+        }
     }
 
     return (
@@ -80,10 +96,10 @@ export function Case_ValueMatchedText({ rowCtx }: { rowCtx: FieldRowCtx; }) {
                             animate={{ opacity: 1 }}
                             exit={{ opacity: 0 }}
                             transition={{ duration: 0.15 }}
-                            className="w-full h-full flex items-center"
+                            className="relative w-full h-full flex items-center"
                         >
                             <input
-                                className={classNames(inputClasses, "w-full")}
+                                className={classNames(inputClasses, "w-full pr-14")}
                                 value={displayValue}
                                 onChange={handleTextChange}
                                 onClick={enableRow}
@@ -91,6 +107,16 @@ export function Case_ValueMatchedText({ rowCtx }: { rowCtx: FieldRowCtx; }) {
                                 placeholder={isRegex ? "Enter match regex..." : "Enter match text..."}
                                 {...turnOffAutoComplete}
                             />
+
+                            <div className="absolute right-1.5 top-1/2 -translate-y-1/2 flex items-center 1gap-px">
+                                <Button className="size-5" size="icon" variant="ghost" onClick={clearMatchText} title="Clear match text">
+                                    <IconClose className="pt-0.5 size-4" />
+                                </Button>
+
+                                <Button className="size-5" size="icon" variant="ghost" onClick={() => void pasteMatchText()} title="Paste from clipboard">
+                                    <IconPaste className="pt-0.5 size-4" />
+                                </Button>
+                            </div>
                         </motion.div>
                     )}
                 </AnimatePresence>
