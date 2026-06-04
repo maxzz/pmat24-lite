@@ -2,6 +2,47 @@
 
 A TypeScript utility that extracts localizable strings from TypeScript, JavaScript, and React/JSX files using **Abstract Syntax Tree (AST)** parsing for accurate and reliable extraction.
 
+## Table of Contents
+
+- [Features](#features)
+- [Operation Modes](#operation-modes)
+  - [Scan Mode (Default)](#scan-mode-default)
+  - [Translated Mode](#translated-mode)
+- [Documentation](#documentation)
+- [Installation](#installation)
+- [Usage](#usage)
+  - [Basic Usage](#basic-usage)
+  - [CLI Options](#cli-options)
+  - [Examples](#examples)
+- [Output Format](#output-format)
+  - [Clickable URLs](#clickable-urls)
+- [How It Works](#how-it-works)
+  - [1. AST Parsing](#1-ast-parsing)
+  - [2. String Extraction](#2-string-extraction)
+  - [3. Context-Aware Filtering](#3-context-aware-filtering)
+  - [4. Key Generation](#4-key-generation)
+- [Architecture](#architecture)
+  - [File Descriptions](#file-descriptions)
+- [Comparison with Regex-Based Tool](#comparison-with-regex-based-tool)
+- [Advantages of AST Approach](#advantages-of-ast-approach)
+- [Extracted String Examples](#extracted-string-examples)
+  - [String Literals](#string-literals)
+  - [JSX Text](#jsx-text)
+  - [Technical Strings (Filtered)](#technical-strings-filtered)
+  - [className Function Calls (Filtered)](#classname-function-calls-filtered)
+  - [Functions with Excluded Prefixes (Filtered)](#functions-with-excluded-prefixes-filtered)
+- [Troubleshooting](#troubleshooting)
+  - [No strings extracted](#no-strings-extracted)
+  - [Too many technical strings](#too-many-technical-strings)
+  - [Missing JSX placeholders](#missing-jsx-placeholders)
+- [Debugging](#debugging)
+  - [Available Debug Configurations](#available-debug-configurations)
+  - [How to Debug](#how-to-debug)
+  - [Debug Tips](#debug-tips)
+- [Contributing](#contributing)
+- [License](#license)
+- [See Also](#see-also)
+
 ## Features
 
 ✅ **AST-Based Parsing** - Uses TypeScript's compiler API for accurate code analysis  
@@ -280,6 +321,46 @@ The tool generates a JSON file with clickable file URLs as keys:
 In VS Code, you can **Ctrl+Click** (or **Cmd+Click** on Mac) on any `file://` URL to open that file directly.
 
 ## How It Works
+
+```mermaid
+graph TD
+    Start([Start Execution]) --> GetArgs[Parse CLI Arguments & JSON5 Config]
+    GetArgs --> SelectMode{Select Mode}
+    
+    SelectMode -- scan --> ScanDir[Recursively Scan Source Directory]
+    SelectMode -- translated --> TraceTrans[Scan AST for translation calls: t/dt]
+    
+    ScanDir --> CheckExcl{File Excluded?}
+    CheckExcl -- Yes --> SkipFile[Skip File]
+    CheckExcl -- No --> LoadTS[Read File & Initialize TS Compiler API]
+    
+    LoadTS --> ParseAST[Create Abstract Syntax Tree AST]
+    TraceTrans --> LoadTS
+    
+    ParseAST --> VisitNodes[Recursively Visit AST Nodes]
+    
+    VisitNodes --> NodeMatch{Node Type?}
+    NodeMatch -- StringLiteral / JsxText --> NodeFilters{Context Validation}
+    NodeMatch -- TemplateExpression --> NodeFilters
+    NodeMatch -- Other --> VisitNodes
+    
+    NodeFilters --> ExcludeFilters{Is Context Excluded?}
+    ExcludeFilters -- Yes / Skip --> VisitNodes
+    ExcludeFilters -- No --> CamelKey[Generate camelCase Key]
+    
+    CamelKey --> GroupResult[Group Key-Value under clickable file:// URL]
+    
+    GroupResult --> EndFile{All Nodes Processed?}
+    EndFile -- No --> VisitNodes
+    EndFile -- Yes --> NextFile{All Files Processed?}
+    
+    SkipFile --> NextFile
+    
+    NextFile -- No --> ScanDir
+    NextFile -- Yes --> WriteOutput[Write aggregated translations to output JSON]
+    
+    WriteOutput --> End([Success])
+```
 
 ### 1. AST Parsing
 

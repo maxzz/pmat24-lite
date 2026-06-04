@@ -2,6 +2,45 @@
 
 A tool for automatically extracting user-facing strings from TypeScript/JavaScript source files for localization purposes.
 
+## Table of Contents
+
+- [Features](#features)
+- [Overview](#overview)
+- [Configuration](#configuration)
+  - [1. Configuration File (Recommended)](#1-configuration-file-recommended)
+  - [2. Command Line Arguments](#2-command-line-arguments)
+- [Installation](#installation)
+- [Usage](#usage)
+  - [Basic Usage](#basic-usage)
+  - [Command Line Options](#command-line-options)
+  - [Configuration File Schema](#configuration-file-schema)
+  - [Override Config File with CLI Arguments](#override-config-file-with-cli-arguments)
+  - [Custom source directory and output](#custom-source-directory-and-output)
+  - [Extract shorter strings](#extract-shorter-strings)
+  - [Exclude specific files](#exclude-specific-files)
+  - [Exclude files by regex pattern](#exclude-files-by-regex-pattern)
+  - [Exclude specific paths (files or folders)](#exclude-specific-paths-files-or-folders)
+  - [Customize CSS class variable suffix](#customize-css-class-variable-suffix)
+  - [Combined exclusions](#combined-exclusions)
+- [Combining Methods](#combining-methods)
+- [Combined options](#combined-options)
+- [Output Format](#output-format)
+  - [Key Generation](#key-generation)
+- [What Gets Extracted](#what-gets-extracted)
+- [Default Configuration](#default-configuration)
+- [Adding to package.json](#adding-to-packagejson)
+- [Integration with i18n Libraries](#integration-with-i18n-libraries)
+  - [react-i18next](#react-i18next)
+  - [Usage in components](#usage-in-components)
+- [Workflow](#workflow)
+- [File Structure](#file-structure)
+- [Troubleshooting](#troubleshooting)
+  - [Too many strings extracted](#too-many-strings-extracted)
+  - [Missing expected strings](#missing-expected-strings)
+  - [Unwanted files included](#unwanted-files-included)
+- [Contributing](#contributing)
+- [License](#license)
+
 ## Features
 
 - 🔍 **Smart Extraction**: Automatically identifies user-facing strings while filtering out technical strings
@@ -413,6 +452,33 @@ function MyComponent() {
 4. **Add translations** for other languages
 5. **Integrate** with your i18n solution
 6. **Replace** hardcoded strings with translation calls
+
+```mermaid
+graph TD
+    Start([Start Extraction]) --> LoadConfig[Load Config & Parse CLI Args]
+    LoadConfig --> ScanFiles[Scan Source Directory recursively]
+    
+    ScanFiles --> FilterFiles{Is file excluded?}
+    FilterFiles -- Yes --> NextFile[Skip file]
+    FilterFiles -- No --> ParseAST[Parse File AST / Tokens]
+    
+    ParseAST --> ExtractStrings[Identify string literals & templates]
+    ExtractStrings --> FilterTechnical{Is string technical / system?}
+    
+    FilterTechnical -- Yes / Skip --> FilterTechnical
+    FilterTechnical -- No / User-facing --> GenKey[Generate camelCase Key]
+    
+    GenKey --> GroupByFile[Map string and key to file entry]
+    
+    GroupByFile --> AllFilesDone{Are all files scanned?}
+    NextFile --> AllFilesDone
+    
+    AllFilesDone -- No --> ScanFiles
+    AllFilesDone -- Yes --> SaveJSON[Write results to output JSON file]
+    
+    SaveJSON --> ReviewJSON[Review & translate strings]
+    ReviewJSON --> IntegrateApp([Integrate translation keys in App])
+```
 
 ## File Structure
 

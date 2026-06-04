@@ -2,11 +2,24 @@
 
 An Electron application with React and TypeScript
 
-![](./src/renderer/src/assets/previews/2024-04-26_15-06-09.png)
+<div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px;">
+  <img src="./src/renderer/src/assets/previews/2024-04-26_15-06-09.png" alt="Preview 1" style="width: 100%; border-radius: 6px;" />
+  <img src="./src/renderer/src/assets/previews/2024-04-26_15-08-18.png" alt="Preview 2" style="width: 100%; border-radius: 6px;" />
+  <img src="./src/renderer/src/assets/previews/2024-05-10_17-32-32-submit.png" alt="Submit Preview" style="width: 100%; border-radius: 6px;" />
+</div>
 
-![](./src/renderer/src/assets/previews/2024-04-26_15-08-18.png)
+## Table of Contents
 
-![](./src/renderer/src/assets/previews/2024-05-10_17-32-32-submit.png)
+- [Notes](#notes)
+  - [From pmac project](#from-pmac-project)
+  - [PMAT build version](#pmat-build-version)
+- [Resources](#resources)
+- [Commands](#commands)
+- [Refs](#refs)
+- [Packages Installation](#packages-installation)
+- [Asar Archive](#asar-archive)
+- [Build](#build)
+- [Build Electron](#build-electron)
 
 ## notes
 
