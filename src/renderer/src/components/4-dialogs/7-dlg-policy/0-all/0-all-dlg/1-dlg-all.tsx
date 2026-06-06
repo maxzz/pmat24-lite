@@ -6,7 +6,7 @@ import { createUiAtoms, debouncedOnChangeWithScope } from "./3-create-ui-atoms";
 import { doClosePolicyDlgAtom } from "./4-do-close-dlg-atom";
 import { doUpdateExplanationAtom } from "../1-util-atoms";
 import { PolicyEditorBody } from "./2-dlg-body";
-import { DialogContentWithHeader } from "@/components/4-dialogs/5-confirm/8-dialog-content-w-header";
+import { DialogContentWithHeader } from "@/ui/local-ui";
 
 export function PolicyEditorDlg({ openAtom, toastIdAtom, policiesAtom }: PolicyEditorNewDlgProps) {
     const isOpen = useAtomValue(openAtom);

@@ -3,7 +3,7 @@ import { useSetAtom } from "jotai";
 import { isRootDirEmpty } from "@/store/5-1-open-files";
 import { debugSettings } from "@/store/9-ui-state";
 import { zoomActionAtom } from "@/store/9-ui-state/8-app-ui";
-import { sawMonitor_doSawOpenAtom } from "@/components/4-dialogs/2-dlg-create-login/a-create-dialog-atoms/7-0-open-saw-monitor";
+import { sawMonitor_doSawOpenAtom } from "@/components/4-dialogs/2-dlg-create-login/a-create-dialog-atoms/7-0-open-anim-saw-monitor";
 import { doSaveRightPanelFileAtom, doSaveAllAtom } from "@/store/0-serve-atoms";
 import { filterDialogOpenAtom } from "../1-dlg-filter-files/a-filter-dialog-atoms";
 import { doOpenOptionsDialogAtom } from "../8-dlg-settings/a-options-local-atoms";

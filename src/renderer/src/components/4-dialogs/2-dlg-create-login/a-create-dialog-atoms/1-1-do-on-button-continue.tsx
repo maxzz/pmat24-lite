@@ -2,7 +2,6 @@ import { atom } from "jotai";
 import { delay, doAddNextToastIdAtom } from "@/utils";
 import { createGuid } from "@/store/8-manifest";
 import { notice } from "@/ui/local-ui/7-toaster";
-import { R2MCalls } from "@/xternal-to-main";
 import { addToTotalManis, appSettings } from "@/store/9-ui-state";
 import { pmExtensionMani, WebFsItem } from "@shared/ipc-types";
 import { type FileUs, type FileUsAtom } from "@/store/store-types";
@@ -11,25 +10,14 @@ import { createFileUsByQueryXml, newManiContent } from "@/store/0-serve-atoms/0-
 import { filesAtom, rootDir } from "@/store/5-1-open-files";
 import { fileUsChanges } from "@/store/1-file-mani-atoms/9-types";
 import { setManiActiveTab } from "@/store/5-3-right-panel";
-import { doClearSawHandleAtom, sawHandleAtom, setBuildState } from "@/store/7-napi-atoms";
+import { doClearSawHandleAtom, sawHandleAtom } from "@/store/7-napi-atoms";
 import { doSelectFileUsTreeAtom } from "@/components/2-main/1-left/2-files-list";
-import { sawMonitor_doSawCloseAtom, sawMonitor_doHideBodyAtom } from "./7-0-open-saw-monitor";
-import { asyncExecuteNewManiDlg, close_NewManiDlgAtom } from "./1-2-open-new-mani-dlg";
-import { startMonitorTimerAtom, stopMonitorTimerAtom } from "./7-1-do-monitoring";
+import { sawMonitor_doSawCloseAtom, sawMonitor_doHideBodyAtom } from "./7-0-open-anim-saw-monitor";
+import { asyncExecuteNewManiDlg, close_NewManiDlgAtom } from "./1-0-exec-new-mani-dlg";
+import { startMonitorTimerAtom, stopMonitorTimerAtom } from "./7-1-do-monitoring-w-napi";
 import { checkboxCreateManualModeAtom, showProgressAtom } from "./7-3-ui-atoms";
 
-export const doCancelMoveToSecondDlgAtom = atom(
-    null,
-    (get, set) => {
-        R2MCalls.showHideWindow(false); //TODO: do we need to hide and show? we don't use it below.
-        set(sawMonitor_doSawCloseAtom);
-        setBuildState({ error: '' });
-        //setTimeout(() => R2MCalls.showHideWindow(true), 500); // This timeout causing undesired delay when closing the dialog with ESC key. see SawMonitorDlgBody()
-        R2MCalls.showHideWindow(true);
-    }
-);
-
-export const doMoveToSecondDlgAtom = atom(
+export const doOnButtonContinueAtom = atom(
     null,
     async (get, set): Promise<void> => {
         const getset = { get, set };

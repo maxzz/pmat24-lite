@@ -7,6 +7,7 @@ export * from "./4-select-tm";
 export * from "./8-image-holder";
 export * from "./8-not-impl-yet";
 export * from "./8-shared-styles";
+export * from "./8-dialog-content-w-header";
 
 export * from "./srcoll-area-pos";
 

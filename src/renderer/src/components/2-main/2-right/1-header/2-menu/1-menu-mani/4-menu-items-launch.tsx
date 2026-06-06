@@ -1,7 +1,7 @@
 import { useAtomValue } from "jotai";
 import { DropdownMenuItem } from "@/ui/shadcn";
 import { launchDataIdx, type ManiAtoms } from "@/store/1-file-mani-atoms";
-import { type LaunchData } from "@/store/0-serve-atoms/8-launch-data/9-launch-types";
+import { type LaunchData } from "@/store/0-serve-atoms/8-launch-app-data/9-launch-types";
 import { asyncLaunchExe, errorWebVersionCannotRunApps, labelLaunchLoginApp, labelLaunchPasswordChangeApp, labelOpenLoginScreen, labelOpenPasswordChangeScreen } from "@/store/0-serve-atoms/7-file-system-manipulation";
 import { hasMain } from "@/xternal-to-main";
 import { classNames } from "@/utils";

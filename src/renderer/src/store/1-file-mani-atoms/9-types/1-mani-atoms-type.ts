@@ -4,7 +4,7 @@ import { type FileUs, type FileUsAtom } from "@/store/store-types";
 import { type SubmitFieldTypes, type NormalField } from "../1-normal-fields";
 import { type ManualFieldState, type ManualEditorTypes } from "../2-manual-fields";
 import { type FormOptionsState, type OptionsState } from "../3-options";
-import { type LaunchDataAll } from "@/store/0-serve-atoms/8-launch-data/9-launch-types";
+import { type LaunchDataAll } from "@/store/0-serve-atoms/8-launch-app-data/9-launch-types";
 
 export type FileUsCtx = {
     fileUs: FileUs;

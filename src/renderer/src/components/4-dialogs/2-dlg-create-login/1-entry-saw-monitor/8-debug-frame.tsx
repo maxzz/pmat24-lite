@@ -4,11 +4,11 @@ import { classNames } from "@/utils";
 import { Button } from "@/ui";
 import { IconRadix_Cross2 } from "@/ui/icons/normal";
 import { hasMain } from "@/xternal-to-main";
-import { doCancelMoveToSecondDlgAtom } from "../a-create-dialog-atoms/1-1-do-move-to-second-dlg";
-import { DebugButtonsForSaw } from "../8-test-buttons";
+import { doOnButtonCancelAtom } from "../a-create-dialog-atoms/1-2-do-on-button-cancel";
+import { DebugButtonsForSaw } from "../8-debug-frame-buttons";
 
 export function DebugFrame({ className, children, ...rest }: ComponentPropsWithoutRef<'div'>) {
-    const doCancelMoveToSecondDlg = useSetAtom(doCancelMoveToSecondDlgAtom);
+    const doCancelMoveToSecondDlg = useSetAtom(doOnButtonCancelAtom);
 
     if (hasMain()) {
         return (

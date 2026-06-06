@@ -1,6 +1,6 @@
 import { useSetAtom } from "jotai";
 import { Button } from "@/ui";
-import { doAboutDialogAtom } from "../4-dialogs/5-confirm";
+import { doAboutDialogAtom } from "@/components/4-dialogs/5-confirm/6-dlg-about/a-dlg-about-atoms";
 
 export function TestAboutDialog() {
     const doGetGeneralInfo = useSetAtom(doAboutDialogAtom);

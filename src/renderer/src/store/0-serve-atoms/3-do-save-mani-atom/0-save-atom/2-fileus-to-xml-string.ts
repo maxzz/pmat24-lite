@@ -3,7 +3,7 @@ import { type FileUs, type FileUsAtom } from "@/store/store-types";
 import { type FceAtoms } from "@/components/4-dialogs/4-dlg-field-catalog/a-field-catalog-atoms";
 import { type ManiAtoms } from "@/store/1-file-mani-atoms/9-types";
 import { getManiDispNameAtomAtom } from "@/store/1-file-mani-atoms/3-options";
-import { doManiNameDlgAtom } from "../../5-do-delete-rename-reveal-quit";
+import { doManiNameDlgAtom } from "@/components/4-dialogs/5-confirm/5-dlg-mani-name/7-exec-rename-mani-dlg";
 import { stopIfInvalidAny } from "../1-stop-if-validation-failed";
 import { fceItemValueToCatalogItemInFile, packManifest } from "../2-pack";
 import { print_JsonManifest } from "../../../1-file-mani-atoms/8-print/8-print-mani";

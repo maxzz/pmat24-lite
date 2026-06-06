@@ -4,7 +4,7 @@ import { Tree, DataItemWState } from "@ui/shadcn/tree";
 import { IconL_AppWindow as IconFile, IconL_Folder as IconFolder } from "@/ui/icons"; // Workflow as IconFile, File as IconFile
 import { appSettings } from "@/store/9-ui-state";
 import { doTriggerRightPanelSelectedAtom } from "@/store/5-3-right-panel";
-import { doManiNameDlgAtom } from "@/store/0-serve-atoms";
+import { doManiNameDlgAtom } from "@/components/4-dialogs/5-confirm/5-dlg-mani-name/7-exec-rename-mani-dlg";
 import { TreeItemRowRender } from "../2-tree-item";
 import { dataWithStateAtom, castTreeItemToFileUs, treeStateAtom, getFileUsAtomByIdAtom } from "./2-tree-action-atoms";
 import { ListViewWithDynamicTooltipTest } from "../2-tree-item/3-tree-item-tooltip-wrap";

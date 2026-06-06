@@ -3,7 +3,7 @@ import { useSnapshot } from "valtio";
 import { doDissmissNextToastsAtom } from "@/utils";
 import { Label, RadioGroup, RadioGroupItem } from "@/ui";
 import { testHwnd, TestHwndEnum } from "@/store/7-napi-atoms";
-import { doUpdateHwndAndIconAtom } from "../a-create-dialog-atoms/7-1-do-monitoring";
+import { doUpdateHwndAndIconAtom } from "../a-create-dialog-atoms/7-1-do-monitoring-w-napi";
 import { debugSettings } from "@/store/9-ui-state";
 import { labelClasses, DelayInput } from "./8-utils";
 
@@ -11,6 +11,7 @@ export function RowHwns() {
     const { hwnd } = useSnapshot(debugSettings.testCreate);
     const doDissmissNextToasts = useSetAtom(doDissmissNextToastsAtom);
     const doUpdateHwndAndIcon = useSetAtom(doUpdateHwndAndIconAtom); // We need to call this otherwise the chached value will be used
+    
     return (<>
         hwnd:
         <RadioGroup

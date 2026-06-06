@@ -5,8 +5,9 @@ import { type MotionNodeOptions, AnimatePresence, motion, useReducedMotion } fro
 import { useDissmissNextToasts } from "@/utils";
 import { Button, Checkbox, Label } from "@/ui";
 import { stateNapiAccess, useSawRectMonitor } from "@/store/7-napi-atoms";
-import { doCancelMoveToSecondDlgAtom, doMoveToSecondDlgAtom } from "../a-create-dialog-atoms/1-1-do-move-to-second-dlg";
-import { sawMonitor_onFinishAnimation_AllCloseAtom, sawMonitor_onFinishAnimation_CoverOpenAtom, sawMonitor_isOpenBodyAtom, sawMonitor_isOpenCoverAtom, sawMonitor_isSawOpenAtom } from "../a-create-dialog-atoms/7-0-open-saw-monitor";
+import { doOnButtonCancelAtom } from "../a-create-dialog-atoms/1-2-do-on-button-cancel";
+import { doOnButtonContinueAtom } from "../a-create-dialog-atoms/1-1-do-on-button-continue";
+import { sawMonitor_onFinishAnimation_AllCloseAtom, sawMonitor_onFinishAnimation_CoverOpenAtom, sawMonitor_isOpenBodyAtom, sawMonitor_isOpenCoverAtom, sawMonitor_isSawOpenAtom } from "../a-create-dialog-atoms/7-0-open-anim-saw-monitor";
 import { checkboxCreateManualModeAtom } from "../a-create-dialog-atoms/7-3-ui-atoms";
 import { newManiContent } from "@/store/0-serve-atoms/0-create/1-create-new-mani-ctx";
 import { CurrentApp } from "./1-current-app";
@@ -53,18 +54,19 @@ export function DialogSawMonitor() {
 function SawBody() {
     const [checkboxCreateManualMode, setCheckboxCreateManualMode] = useAtom(checkboxCreateManualModeAtom);
     const isCpassMode = !!newManiContent.maniForCpassAtom;
+    const mode = isCpassMode ? "cpass" : "login";
     
-    const doCancelMoveToSecondDlg = useSetAtom(doCancelMoveToSecondDlgAtom);
+    const doOnButtonCancel = useSetAtom(doOnButtonCancelAtom);
 
     useDissmissNextToasts();
     useSawRectMonitor();
 
     useEffect(
         () => {
-            function onKeyDown(e: KeyboardEvent) {
+            function onKeyDown(e: KeyboardEvent) { //TODO: handle button Enter as well if "continue" button is enabled
                 if (e.key === "Escape" && !e.repeat) {
                     e.preventDefault();
-                    doCancelMoveToSecondDlg();
+                    doOnButtonCancel();
                 }
             }
 
@@ -72,27 +74,21 @@ function SawBody() {
             window.addEventListener("keydown", onKeyDown, { signal: controller.signal });
             return () => controller.abort();
         },
-        [doCancelMoveToSecondDlg]);
+        [doOnButtonCancel]);
 
     return (
         <div className="mx-auto h-full text-xs grid place-items-center">
             <DebugFrame>
-                <div className="relative px-3 pt-3 pb-4 grid gap-y-4 place-items-center">
-                    <div className="1text-center 1text-balance select-none">
-                        {isCpassMode
-                            ? "Launch the program or browse to the Web site that contains the change password screen you want to set up."
-                            : "Launch the program or browse to the Web site that contains the login screen for which you want to create a managed logon."
-                        }
+                <div className="relative px-3 pt-3 pb-4 grid gap-y-4 place-items-center select-none">
+                    <div>
+                        {uiStrings.description[mode]}
                     </div>
 
                     <CurrentApp />
 
-                    <Label className="place-self-start text-xs flex items-center gap-2 select-none cursor-pointer">
+                    <Label className="place-self-start text-xs flex items-center gap-2 cursor-pointer">
                         <Checkbox className="size-4" checked={checkboxCreateManualMode} onCheckedChange={(v) => setCheckboxCreateManualMode(!!v)} />
-                        {isCpassMode
-                            ? "Set up a change password screen manually"
-                            : "Set up a managed logon manually"
-                        }
+                        {uiStrings.manualLabel[mode]}
                     </Label>
 
                     <ButtonContinue />
@@ -104,25 +100,27 @@ function SawBody() {
     );
 }
 
+const uiStrings = {
+    description: {
+        cpass: "Launch the program or browse to the Web site that contains the change password screen you want to set up.",
+        login: "Launch the program or browse to the Web site that contains the login screen for which you want to create a managed logon.",
+    },
+    manualLabel: {
+        cpass: "Set up a change password screen manually",
+        login: "Set up a managed logon manually",
+    },
+};
+
 function ButtonContinue() {
-    const isRunning = useSnapshot(stateNapiAccess).buildRunning;
-    const doMoveToSecondDlg = useSetAtom(doMoveToSecondDlgAtom);
+    const buildRunning = useSnapshot(stateNapiAccess).buildRunning;
+    const doOnButtonContinue = useSetAtom(doOnButtonContinueAtom);
     return (
-        <Button className="place-self-center active:scale-[.97]" variant="default" size="xs" disabled={isRunning} onClick={doMoveToSecondDlg}>
+        <Button className="place-self-center active:scale-[.97]" variant="default" size="xs" disabled={buildRunning} onClick={doOnButtonContinue}>
             Continue
         </Button>
     );
 }
 
-// function getCoverAnimationProps(reducedMotion: boolean): MotionNodeOptions {
-//     const duration = reducedMotion ? 0.01 : 0.2;
-//     //const duration = 2; // for debugging
-//     return {
-//         initial: { opacity: 0, scale: 0.15 },
-//         animate: { opacity: 1, scale: 1, transition: { duration } },
-//         exit: { opacity: 0, scale: 0.15, transition: { duration } },
-//     };
-// }
 function getCoverAnimationProps(reducedMotion: boolean): MotionNodeOptions {
     const duration = reducedMotion ? 0.01 : 0.2;
     return {
@@ -132,14 +130,6 @@ function getCoverAnimationProps(reducedMotion: boolean): MotionNodeOptions {
     };
 }
 
-// function getBodyAnimationProps(reducedMotion: boolean): MotionNodeOptions {
-//     const duration = reducedMotion ? 0.01 : 0.18;
-//     //const duration = 5; // for debugging
-//     return {
-//         initial: { opacity: 0, scaleX: 0.85 },
-//         animate: { opacity: 1, scaleX: 1, transition: { duration } },
-//     };
-// }
 function getBodyAnimationProps(reducedMotion: boolean): MotionNodeOptions {
     const duration = reducedMotion ? 0.01 : 0.18;
     return {

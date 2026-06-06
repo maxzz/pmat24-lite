@@ -1,7 +1,6 @@
 import { atom } from "jotai";
 import { type MFormCnt } from "@/store/1-file-mani-atoms/9-types";
-import { confirmDeleteScriptActionsMessages } from "@/components/4-dialogs/5-confirm/a-confirm-atoms/8-confirmation-ui-messages";
-import { doAsyncExecuteConfirmDialogAtom } from "@/components/4-dialogs/5-confirm/a-confirm-atoms/9-types-confirm";
+import { confirmDeleteScriptActionsMessages, doAsyncExecuteConfirmDialogAtom } from "@/components/4-dialogs/5-confirm/1-confirmation";
 import { doSelectIdxAtom } from "./1-select-atoms";
 
 export const doDeleteChunkAtom = atom(

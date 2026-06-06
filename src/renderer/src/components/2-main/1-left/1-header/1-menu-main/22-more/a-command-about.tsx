@@ -1,6 +1,6 @@
 import { useSetAtom } from "jotai";
 import { DropdownMenuItem, DropdownMenuPortal, DropdownMenuSeparator, DropdownMenuSub, DropdownMenuSubContent, DropdownMenuSubTrigger } from "@/ui/shadcn/dropdown-menu";
-import { doAboutDialogAtom } from "@/components/4-dialogs/5-confirm";
+import { doAboutDialogAtom } from "@/components/4-dialogs/5-confirm/6-dlg-about/a-dlg-about-atoms";
 
 export function MenuItem_Help() {
     return (

@@ -201,7 +201,7 @@
 			]
 		},
 		{
-			"path": "src/renderer/src/store/0-serve-atoms/5-do-delete-rename-reveal-quit/2-rename-mani-atoms.ts",
+			"path": "src/renderer/src/store/0-serve-atoms/5-do-delete-reveal-quit/2-rename-mani-atoms.ts",
 			"bookmarks": [
 				{
 					"line": 31,
@@ -211,7 +211,7 @@
 			]
 		},
 		{
-			"path": "src/renderer/src/components/4-dialogs/5-confirm/5-mani-name-dlg.tsx",
+			"path": "src/renderer/src/components/4-dialogs/5-confirm/5-dlg-mani-name.tsx",
 			"bookmarks": [
 				{
 					"line": 7,

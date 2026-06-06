@@ -5,20 +5,20 @@ import { newManiContent } from "@/store/0-serve-atoms/0-create/1-create-new-mani
 import { sureRootDir } from "@/store/5-1-open-files";
 import { rightPanelAtomAtom } from "@/store/5-3-right-panel";
 import { checkboxCreateManualModeAtom } from "./7-3-ui-atoms";
-import { startMonitorTimerAtom, stopMonitorTimerAtom } from "./7-1-do-monitoring";
+import { startMonitorTimerAtom, stopMonitorTimerAtom } from "./7-1-do-monitoring-w-napi";
 import { setSizeNormal_SawMonitorAtom, setSizeSmall_SawMonitorAtom } from "./7-2-do-window-size";
 
-export const sawMonitor_isSawOpenAtom         /**/ = atom((get) => get(_sawMonitor_SawOpenAtom));   // i.e is the monitor dialog open
-export const sawMonitor_isOpenCoverAtom       /**/ = atom((get) => get(_sawMonitor_OpenCoverAtom)); // i.e is the cover visible in the dialog
-export const sawMonitor_isOpenBodyAtom        /**/ = atom((get) => get(_sawMonitor_OpenBodyAtom));  // i.e is the body visible in the dialog
+export const sawMonitor_isSawOpenAtom                    /**/ = atom((get) => get(_sawMonitor_SawOpenAtom));   // i.e is the monitor dialog open
+export const sawMonitor_isOpenCoverAtom                  /**/ = atom((get) => get(_sawMonitor_OpenCoverAtom)); // i.e is the cover visible in the dialog
+export const sawMonitor_isOpenBodyAtom                   /**/ = atom((get) => get(_sawMonitor_OpenBodyAtom));  // i.e is the body visible in the dialog
 
-export const sawMonitor_doSawOpenAtom         /**/ = atom(() => null, (get, set) => set(doOpenCloseAtom, { doOpen: true, asCpass: false }));
-export const sawMonitor_doSawOpenForCpassAtom /**/ = atom(() => null, (get, set) => set(doOpenCloseAtom, { doOpen: true, asCpass: true }));
-export const sawMonitor_doSawCloseAtom        /**/ = atom(() => null, (get, set) => set(doOpenCloseAtom, { doOpen: false, asCpass: false }));
+export const sawMonitor_doSawOpenAtom                    /**/ = atom(() => null, (get, set) => set(doOpenCloseAtom, { doOpen: true, asCpass: false }));
+export const sawMonitor_doSawOpenForCpassAtom            /**/ = atom(() => null, (get, set) => set(doOpenCloseAtom, { doOpen: true, asCpass: true }));
+export const sawMonitor_doSawCloseAtom                   /**/ = atom(() => null, (get, set) => set(doOpenCloseAtom, { doOpen: false, asCpass: false }));
 
 export const sawMonitor_onFinishAnimation_AllCloseAtom   /**/ = atom(null, (get, set) => finish_SawCloseAnimation(get, set)); // i.e. finish the close animation
 export const sawMonitor_onFinishAnimation_CoverOpenAtom  /**/ = atom(null, (get, set) => onFinishAnimation_CoverOpen(get, set)); // i.e. finish the open animation
-export const sawMonitor_doHideBodyAtom        /**/ = atom(null, (get, set) => hideBody(get, set));
+export const sawMonitor_doHideBodyAtom                   /**/ = atom(null, (get, set) => hide_Body(get, set));
 
 const doOpenCloseAtom = atom(
     null,
@@ -105,7 +105,7 @@ function finish_SawCloseAnimation(get: Getter, set: Setter) {
     set(_sawMonitor_TransitionAtom, "idle");
 }
 
-function hideBody(get: Getter, set: Setter) {
+function hide_Body(get: Getter, set: Setter) {
     if (!get(_sawMonitor_SawOpenAtom)) {
         return;
     }
@@ -117,7 +117,7 @@ function hideBody(get: Getter, set: Setter) {
     set(_sawMonitor_OpenBodyAtom, false);
 }
 
-// Cover release
+// Cover release animation
 
 let token_coverRelease = 0;
 function schedule_CoverRelease(set: Setter) {
@@ -137,7 +137,7 @@ function cancel_CoverRelease() {
     token_coverRelease += 1;
 }
 
-// Body reveal
+// Body reveal animation
 
 let token_bodyReveal = 0;
 function schedule_BodyReveal(set: Setter) {
@@ -157,7 +157,7 @@ function cancel_BodyReveal() {
     token_bodyReveal += 1;
 }
 
-// Size normal
+// Size normal animation
 
 /**
  * It’s a small “latest-wins” scheduler to resize on the next paint. The module‑level token_normalResize is incremented each time schedule_SizeNormal runs, 
@@ -177,8 +177,9 @@ function schedule_SizeNormal(set: Setter) {
     });
 }
 
-// Get atom to check if the current main can be used for cpass.
-
+/**
+ * Get atom to check if the current main can be used for cpass.
+ */
 export const allowedToCreateCpassAtom = atom(
     (get) => {
         const mainForCpassAtom = get(rightPanelAtomAtom);

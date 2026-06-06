@@ -11,6 +11,7 @@ export function RowManiContent() {
     const { mani } = useSnapshot(debugSettings.testCreate);
     const doDissmissNextToasts = useSetAtom(doDissmissNextToastsAtom);
     // const doLoadFakeMani = useSetAtom(doLoadFakeManiAtom);
+    
     return (<>
         content:
         <RadioGroup

@@ -3,7 +3,7 @@ import { type FormOptionsState, FormOptionsConv } from "@/store/1-file-mani-atom
 import { type PackManifestDataParams } from "../9-types";
 import { packCaptionToMani } from "@/store/8-manifest/4-o-caption-pack";
 import { iconLocationToStr } from "@/store/8-manifest/4-icon-location/8-icon-location-io";
-import { replacePathWithEnvVars } from "@/store/0-serve-atoms/8-launch-data/2-process-env-atom";
+import { replacePathWithEnvVars } from "@/store/0-serve-atoms/8-launch-app-data/2-process-env-atom";
 
 export function packFormOptions(optionsAtoms: FormOptionsState.AllAtoms, formIdx: FormIdx, packParams: PackManifestDataParams) {
     const detectionAndOptionsRow = FormOptionsConv.fromAtoms(optionsAtoms, packParams.getset);

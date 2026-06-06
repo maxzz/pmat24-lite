@@ -1,6 +1,6 @@
 import { atom } from "jotai";
 import { IconStopCircle } from "@/ui/icons";
-import { type ConfirmationUi, doAsyncExecuteConfirmDialogAtom } from "./9-types-confirm";
+import { type ConfirmationUi, doAsyncExecuteConfirmDialogAtom } from "./a-dlg-confirm-atoms";
 import { type PmatFolder, clearMruList, removeFromDirsMru } from "@/store/5-1-open-files";
 
 export const confirmDeleteMessages: ConfirmationUi = {

@@ -5,7 +5,7 @@ export const startMonitorTimerAtom = atom(null, async (get, set) => set(doMonito
 export const stopMonitorTimerAtom = atom(null, async (get, set) => set(doMonitoringTimerAtom, { willStart: false }));
 
 const doMonitoringTimerAtom = atom(
-    (get) => null,
+    null,
     (get, set, { willStart }: { willStart: boolean; }) => {
         const nowMonitoring = get(_nowMonitoringAtom);
 

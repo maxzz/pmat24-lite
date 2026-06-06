@@ -1,11 +1,9 @@
 import { atom } from "jotai";
 
-export const dataToOpen_NewManiDlgAtom = atom(
-    (get) => get(_isDlgOpenAtom)
-);
+const _isDlgOpenAtom = atom<NewManiDlgData | undefined>(undefined);
 
 export const close_NewManiDlgAtom = atom(
-    () => null,
+    null,
     (get, set) => {
         set(_isDlgOpenAtom, undefined);
     }
@@ -16,8 +14,6 @@ export const close_NewManiDlgAtom = atom(
 export type NewManiDlgData = {
     resolve: (ok: boolean) => void; // ok or cancel
 };
-
-const _isDlgOpenAtom = atom<NewManiDlgData | undefined>(undefined);
 
 export async function asyncExecuteNewManiDlg(set: Setter): Promise<boolean> {
     const ok = await (new Promise<boolean>(
