@@ -1,6 +1,6 @@
 {
     "name": "electron-react24",
-    "version": "1.26.27",
+    "version": "1.26.29",
     "description": "An Electron application with React and TypeScript",
     "main": "./out/main/index.js",
     "author": "example.com",

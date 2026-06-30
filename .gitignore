@@ -18,3 +18,4 @@ out/*
 #src/renderer/src/components/4-dialogs/7-policy/8-utils/cpp
 
 i18n-ast-strings.json
+out/plugins/desktop.ini
