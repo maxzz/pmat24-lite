@@ -4,6 +4,7 @@ import { type FileUsAtom, type ManiAtomsAtom } from "@/store/store-types";
 import { type ManiAtoms, type AnyFormCtx } from "@/store/1-file-mani-atoms";
 import { type FceCtx } from "@/components/4-dialogs/4-dlg-field-catalog/a-field-catalog-atoms";
 import { filesAtom } from "@/store/5-1-open-files";
+import { getDropdownNamesAtom } from "@/store/1-file-mani-atoms/4-cpass-to-login-links/8-reactive-login-names";
 
 /**
  * Discard all array of FileUs atom
@@ -62,6 +63,11 @@ function disposeFormCtx(formAtoms: AnyFormCtx | undefined) {
         formAtoms.normal = undefined;
         formAtoms.manual = undefined;
         (formAtoms.options as any) = undefined;
+
+        // Drop the cached derived atom keyed by this `fileUsCtx` so the family map
+        // does not retain disposed `fileUsCtx`/`fileUs` graphs across open/close/save churn.
+        // This only evicts the cache entry; the `fileUsCtx` object itself stays intact.
+        getDropdownNamesAtom.remove(formAtoms.fileUsCtx);
 
         //(formAtoms.fileUsCtx as any) = undefined; // Don't clean up file handles
         // Keep `fileUsCtx` intact. Disposing it causes downstream code to crash with
