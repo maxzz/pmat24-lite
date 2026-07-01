@@ -1,7 +1,7 @@
 import { atom } from "jotai";
 import { type FileUsAtom, type FileUs } from "@/store/store-types";
 import { createParsedSrc } from "../../1-do-set-files/2-create-parsed-src";
-import { disposeFileUsManiAtoms, print_DisposeManiAtomsAtom } from "@/store/store-utils/1-file-system-utils";
+import { removeManiAtomsFamilyEntries, print_DisposeManiAtomsAtom } from "@/store/store-utils/1-file-system-utils";
 import { fileUsChanges } from "@/store/1-file-mani-atoms/9-types";
 import { createManiAtoms } from "../../0-create/0-create-mani-ctx-atoms";
 
@@ -44,6 +44,11 @@ function updateManiAtomsAfterSaveOrReset(fileUsAtom: FileUsAtom, fileUs: FileUs,
     set(fileUs.maniAtomsAtom, newManiAtoms);
 
     print_DisposeManiAtomsAtom(fileUs.maniAtomsAtom);
-    console.log('%cdisposeFileUsManiAtoms temp not disposing', 'color: magenta');
-    //disposeFileUsManiAtoms(savedManiAtoms); // after new atom set dispose old one
+
+    // Evict the stale atom-family entries keyed by the previous `fileUsCtx` so the family map does
+    // not retain the old `fileUsCtx`/`fileUs` graph after every save/reset. We intentionally do NOT
+    // call the full `disposeFileUsManiAtoms(savedManiAtoms)` here: its `discardValues` nulling races
+    // with components still rendering the just-replaced atoms and used to crash. The replaced form
+    // atoms are unreferenced after this and get collected once their components unmount.
+    removeManiAtomsFamilyEntries(savedManiAtoms);
 }

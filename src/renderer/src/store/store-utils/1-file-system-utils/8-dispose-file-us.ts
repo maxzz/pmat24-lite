@@ -4,6 +4,7 @@ import { type FileUsAtom, type ManiAtomsAtom } from "@/store/store-types";
 import { type ManiAtoms, type AnyFormCtx } from "@/store/1-file-mani-atoms";
 import { type FceCtx } from "@/components/4-dialogs/4-dlg-field-catalog/a-field-catalog-atoms";
 import { filesAtom } from "@/store/5-1-open-files";
+import { getDropdownNamesAtom } from "@/store/1-file-mani-atoms/4-cpass-to-login-links/8-reactive-login-names";
 
 /**
  * Discard all array of FileUs atom
@@ -63,9 +64,38 @@ function disposeFormCtx(formAtoms: AnyFormCtx | undefined) {
         formAtoms.manual = undefined;
         (formAtoms.options as any) = undefined;
 
+        removeFormCtxFamilyEntry(formAtoms);
+
         //(formAtoms.fileUsCtx as any) = undefined; // Don't clean up file handles
         // Keep `fileUsCtx` intact. Disposing it causes downstream code to crash with
         // `Cannot read properties of undefined (reading 'formIdx')` during folder close/switch.
+    }
+}
+
+/**
+ * Evict the `getDropdownNamesAtom` family entries keyed by the (now stale) per-form `fileUsCtx`,
+ * without otherwise disposing the form contexts.
+ *
+ * Used by the save/reset path, which replaces `maniAtoms` with freshly created ones but must NOT
+ * run the full `disposeFileUsManiAtoms` (its `discardValues` nulling historically crashed
+ * components still rendering the previous atoms). `atomFamily.remove` is safe to call at any time:
+ * it only drops the cache entry, it does not unmount or destroy the live atom, so any component
+ * still subscribed keeps working and simply re-creates a fresh entry on its next render.
+ */
+export function removeManiAtomsFamilyEntries(maniAtoms: ManiAtoms | null) {
+    if (!maniAtoms) {
+        return;
+    }
+    removeFormCtxFamilyEntry(maniAtoms[0]);
+    removeFormCtxFamilyEntry(maniAtoms[1]);
+}
+
+function removeFormCtxFamilyEntry(formAtoms: AnyFormCtx | undefined) {
+    // Drop the cached derived atom keyed by this `fileUsCtx` so the family map does not retain
+    // stale `fileUsCtx`/`fileUs` graphs across open/close/save churn. The `fileUsCtx` object
+    // itself is left intact.
+    if (formAtoms?.fileUsCtx) {
+        getDropdownNamesAtom.remove(formAtoms.fileUsCtx);
     }
 }
 
